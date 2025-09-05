@@ -69,9 +69,12 @@
             background-color: #fdd017;
             transition: width 0.3s ease;
         }
-        
+
         .nav-link:hover:after {
             width: 100%;
+        }
+        .rotate-180 {
+         transform: rotate(180deg);
         }
     </style>
 </head>
@@ -726,8 +729,7 @@
                 }
             });
         });
-        
-        // Animation for hero section elements
+         // Animation for hero section elements
         anime({
             targets: '.bg-hero',
             opacity: [0, 1],
