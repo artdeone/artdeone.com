@@ -118,26 +118,39 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="bg-hero min-h-screen flex items-center justify-center pt-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
-            <div class="w-full mx-auto" data-aos="fade-right">
-                <h1 class="text-4xl md:text-6xl font-bold text-white mb-4 leading-tight mx-auto">
-                    Draw Your Future with<br><span class="accent-text">ART de ONE</span>
-                </h1>
-                <p class="text-xl text-gray-300 mb-6 mx-auto max-w-2xl">
-                    Adobe Illustrator Classes & Freelance Creative Studio in Myanmar
-                </p>
-                <div class="flex flex-wrap gap-4 justify-center">
-                    <a href="#classes" class="px-8 py-3 bg-white/20 backdrop-blur-sm text-white font-medium rounded-md border border-white/30 hover:bg-white/30 transition duration-300 shadow-lg glass-effect">
-                        View Class Schedule
-                    </a>
-                    <a href="#freelance" class="px-8 py-3 bg-white/20 backdrop-blur-sm text-white font-medium rounded-md border border-white/30 hover:bg-white/30 transition duration-300 shadow-lg glass-effect">
-                        Hire Us
-                    </a>
-                </div>
+    <!-- Hero Section with Video Background -->
+<section id="home" class="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden">
+    <!-- Video Background -->
+    <video autoplay muted loop playsinline preload="metadata" class="absolute w-full h-full object-cover z-0">
+        <source src="/hero-animation.webm" type="video/webm">
+        <source src="/hero-animation.mp4" type="video/mp4">
+        <!-- Fallback background if video doesn't load -->
+        <div class="absolute w-full h-full bg-gradient(135deg, #000000 0%, #11001c 100)"></div>
+    </video>
+    
+    <!-- Dark overlay for better text readability -->
+    <div class="absolute inset-0 bg-black bg-opacity-50 z-1"></div>
+    
+    <!-- Content (keep your existing text) -->
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
+        <div class="w-full mx-auto" data-aos="fade-right">
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-4 leading-tight mx-auto">
+                Draw Your Future with<br><span class="accent-text">ART de ONE</span>
+            </h1>
+            <p class="text-xl text-gray-300 mb-6 mx-auto max-w-2xl">
+                Adobe Illustrator Classes & Freelance Creative Studio in Myanmar
+            </p>
+            <div class="flex flex-wrap gap-4 justify-center">
+                <a href="#classes" class="px-8 py-3 bg-white/20 backdrop-blur-sm text-white font-medium rounded-md border border-white/30 hover:bg-white/30 transition duration-300 shadow-lg glass-effect">
+                    View Class Schedule
+                </a>
+                <a href="#freelance" class="px-8 py-3 bg-white/20 backdrop-blur-sm text-white font-medium rounded-md border border-white/30 hover:bg-white/30 transition duration-300 shadow-lg glass-effect">
+                    Hire Us
+                </a>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
 
     <!-- About Section -->
