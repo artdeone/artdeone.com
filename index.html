@@ -69,24 +69,15 @@
             background-color: #fdd017;
             transition: width 0.3s ease;
         }
+        .nav-link:hover:after {
+            width: 100%;
+        }
         
         .nav-link:hover:after {
             width: 100%;
         }
-        .rotate-180 {
-    transform: rotate(180deg);
-}
     </style>
 </head>
-<script>
-    function toggleOutline(outlineId) {
-        const outline = document.getElementById(outlineId);
-        const chevron = document.getElementById(outlineId.replace('-outline', '-chevron'));
-        
-        outline.classList.toggle('hidden');
-        chevron.classList.toggle('rotate-180');
-    }
-</script>
 <body class="bg-white text-gray-900">
     <!-- Navigation -->
     <nav class="fixed w-full bg-white shadow-sm z-50">
@@ -738,6 +729,14 @@
                 }
             });
         });
+        // Dropdown function for course outlines
+        function toggleOutline(outlineId) {
+            const outline = document.getElementById(outlineId);
+            const chevron = document.getElementById(outlineId.replace('-outline', '-chevron'));
+            
+            outline.classList.toggle('hidden');
+            chevron.classList.toggle('rotate-180');
+        }
         
         // Animation for hero section elements
         anime({
