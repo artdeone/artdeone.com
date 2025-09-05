@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ART de ONE - Adobe Illustrator Classes & Creative Studio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.iife.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .bg-hero {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #000000 0%, #11001c 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+        
+        .hover-scale:hover {
+            transform: scale(1.03);
+        }
+        
+        .accent-text {
+            color: #fdd017;
+        }
+        
+        .accent-bg {
+            background-color: #fdd017;
+        }
+        
+        .accent-border {
+            border-color: #fdd017;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #fdd017;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900">
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <span class="text-xl font-bold">ART de ONE</span>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="nav-link text-gray-900 hover:text-gray-700 px-3 py-2 text-sm font-medium">Home</a>
+                        <a href="#about" class="nav-link text-gray-900 hover:text-gray-700 px-3 py-2 text-sm font-medium">About</a>
+                        <a href="#classes" class="nav-link text-gray-900 hover:text-gray-700 px-3 py-2 text-sm font-medium">Class Schedule</a>
+                        <a href="#freelance" class="nav-link text-gray-900 hover:text-gray-700 px-3 py-2 text-sm font-medium">Freelance</a>
+                        <a href="#contact" class="nav-link text-gray-900 hover:text-gray-700 px-3 py-2 text-sm font-medium">Contact</a>
+                    </div>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 focus:outline-none" aria-controls="mobile-menu" aria-expanded="false" id="mobile-menu-button">
+                        <i data-feather="menu"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div class="hidden md:hidden bg-white shadow-lg" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Home</a>
+                <a href="#about" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">About</a>
+                <a href="#classes" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Class Schedule</a>
+                <a href="#freelance" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Freelance</a>
+                <a href="#portfolio" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Portfolio</a>
+                <a href="#contact" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="bg-hero min-h-screen flex items-center justify-center pt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
+            <div class="w-full mx-auto" data-aos="fade-right">
+                <h1 class="text-4xl md:text-6xl font-bold text-white mb-4 leading-tight mx-auto">
+                    Draw Your Future with<br><span class="accent-text">ART de ONE</span>
+                </h1>
+                <p class="text-xl text-gray-300 mb-6 mx-auto max-w-2xl">
+                    Adobe Illustrator Classes & Freelance Creative Studio in Myanmar
+                </p>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <a href="#classes" class="px-8 py-3 bg-white/20 backdrop-blur-sm text-white font-medium rounded-md border border-white/30 hover:bg-white/30 transition duration-300 shadow-lg glass-effect">
+                        View Class Schedule
+                    </a>
+                    <a href="#freelance" class="px-8 py-3 bg-white/20 backdrop-blur-sm text-white font-medium rounded-md border border-white/30 hover:bg-white/30 transition duration-300 shadow-lg glass-effect">
+                        Hire Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">About <span class="accent-text">ART de ONE</span></h2>
+                <div class="w-20 h-1 bg-gray-300 mx-auto mb-6"></div>
+            </div>
+            <div class="text-center max-w-3xl mx-auto" data-aos="fade-up">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-4">Transforming Creativity into Career</h3>
+                <p class="text-gray-600 mb-6">
+                    ART de One is a premier creative studio and Adobe Illustrator training center based in Myanmar. 
+                    We specialize in nurturing artistic talent and providing professional design services to businesses.
+                </p>
+                <p class="text-gray-600 mb-6">
+                    Our mission is to empower individuals with practical design skills while delivering exceptional creative solutions to our clients. Whether you're looking to learn Illustrator or need professional design work, we've got you covered.
+                </p>
+                <div class="flex flex-wrap gap-4 justify-center">
+                        <div class="flex items-center">
+                            <i data-feather="check-circle" class="accent-text mr-2"></i>
+                            <span class="text-gray-700">Professional Training</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i data-feather="check-circle" class="accent-text mr-2"></i>
+                            <span class="text-gray-700">Creative Solutions</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i data-feather="check-circle" class="accent-text mr-2"></i>
+                            <span class="text-gray-700">Personalized Approach</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Class Schedule Section -->
+    <section id="classes" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Our <span class="accent-text">Class Schedule</span></h2>
+                <div class="w-20 h-1 bg-gray-300 mx-auto mb-6"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Comprehensive Adobe Illustrator courses designed for all skill levels. 
+                    Choose the program that fits your needs and schedule.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Beginner Class -->
+                <div class="bg-gray-50 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300" data-aos="fade-up" data-aos-delay="100">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Beginner Class</h3>
+                        <div class="flex items-center mb-4">
+                            <i data-feather="clock" class="text-gray-500 mr-2"></i>
+                            <span class="text-gray-600">1 month 2 weeks</span>
+                        </div>
+                        <div class="flex items-center mb-4">
+                            <i data-feather="calendar" class="text-gray-500 mr-2"></i>
+                            <span class="text-gray-600">Wednesday & Thursday</span>
+                        </div>
+                        <div class="flex items-center mb-4">
+                            <i data-feather="watch" class="text-gray-500 mr-2"></i>
+                            <span class="text-gray-600">7:15 PM - 9:15 PM</span>
+                        </div>
+                        <div class="border-t border-gray-200 my-4"></div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-2xl font-bold text-gray-900">45,000 MMK</span>
+                        </div>
+                        <a href="#contact" class="block w-full py-2 px-4 bg-gray-800 text-white text-center rounded-md hover:bg-gray-700 transition duration-300">
+                            Enroll Now
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Intermediate to Advanced Class -->
+                <div class="bg-gray-50 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Intermediate to Advanced</h3>
+                        <div class="flex items-center mb-4">
+                            <i data-feather="clock" class="text-gray-500 mr-2"></i>
+                            <span class="text-gray-600">2 months 2 weeks</span>
+                        </div>
+                        <div class="flex items-center mb-4">
+                            <i data-feather="calendar" class="text-gray-500 mr-2"></i>
+                            <span class="text-gray-600">Wednesday & Thursday</span>
+                        </div>
+                        <div class="flex items-center mb-4">
+                            <i data-feather="watch" class="text-gray-500 mr-2"></i>
+                            <span class="text-gray-600">7:15 PM - 9:15 PM</span>
+                        </div>
+                        <div class="border-t border-gray-200 my-4"></div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-2xl font-bold text-gray-900">95,000 MMK</span>
+                        </div>
+                        <a href="#contact" class="block w-full py-2 px-4 bg-gray-800 text-white text-center rounded-md hover:bg-gray-700 transition duration-300">
+                            Enroll Now
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- By One Class -->
+                <div class="bg-gray-50 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300" data-aos="fade-up" data-aos-delay="300">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">By One Class</h3>
+                        <div class="flex items-center mb-4">
+                            <i data-feather="clock" class="text-gray-500 mr-2"></i>
+                            <span class="text-gray-600">3 months</span>
+                        </div>
+                        <div class="flex items-center mb-4">
+                            <i data-feather="calendar" class="text-gray-500 mr-2"></i>
+                            <span class="text-gray-600">Flexible Schedule</span>
+                        </div>
+                        <div class="flex items-center mb-4">
+                            <i data-feather="watch" class="text-gray-500 mr-2"></i>
+                            <span class="text-gray-600">Flexible Time</span>
+                        </div>
+                        <div class="border-t border-gray-200 my-4"></div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-2xl font-bold text-gray-900">300,000 MMK</span>
+                        </div>
+                        <a href="#contact" class="block w-full py-2 px-4 bg-gray-800 text-white text-center rounded-md hover:bg-gray-700 transition duration-300">
+                            Enroll Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="freelance" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Our <span class="accent-text">Freelance Services</span></h2>
+                <div class="w-20 h-1 bg-gray-300 mx-auto mb-6"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Professional design services tailored to your business needs. 
+                    We create visual solutions that make an impact.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Logo Design -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300" data-aos="fade-up" data-aos-delay="100">
+                    <div class="p-6">
+                        <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                            <i data-feather="pen-tool" class="accent-text"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Logo Design</h3>
+                        <p class="text-gray-600 mb-4">
+                            Unique and memorable logo designs that represent your brand identity and values.
+                        </p>
+                        <p class="text-gray-800 font-medium mb-4">
+                            Starting from 50,000 MMK / $10
+                        </p>
+                        <a href="#contact" class="inline-flex items-center text-gray-800 font-medium hover:text-gray-600">
+                            Learn more <i data-feather="arrow-right" class="ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Social Media Design -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <div class="p-6">
+                        <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                            <i data-feather="instagram" class="accent-text"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Social Media Design</h3>
+                        <p class="text-gray-600 mb-4">
+                            Engaging visuals for your social media platforms that attract and retain your audience.
+                        </p>
+                        <p class="text-gray-800 font-medium mb-4">
+                            Starting from 20,000 MMK / $5
+                        </p>
+                        <a href="#contact" class="inline-flex items-center text-gray-800 font-medium hover:text-gray-600">
+                            Learn more <i data-feather="arrow-right" class="ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Printing Design -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300" data-aos="fade-up" data-aos-delay="300">
+                    <div class="p-6">
+                        <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                            <i data-feather="printer" class="accent-text"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Printing Design</h3>
+                        <p class="text-gray-600 mb-4">
+                            High-quality designs for business cards, brochures, banners, and other printed materials.
+                        </p>
+                        <p class="text-gray-800 font-medium mb-4">
+                            Starting from 70,000 MMK / $15
+                        </p>
+                        <a href="#contact" class="inline-flex items-center text-gray-800 font-medium hover:text-gray-600">
+                            Learn more <i data-feather="arrow-right" class="ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12" data-aos="fade-up">
+                <a href="#contact" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white accent-bg hover:bg-yellow-600 transition duration-300">
+                    Request a Quote
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Freelance Services Section -->
+    <section id="testimonials" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">What Our <span class="accent-text">Community Says</span></h2>
+                <div class="w-20 h-1 bg-gray-300 mx-auto mb-6"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Hear from our students and clients about their experiences with ART de ONE.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-md" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center mr-4">
+                            <i data-feather="user" class="text-gray-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800">Lwin Oo Maung</h4>
+                            <p class="text-gray-600 text-sm">Batch 1 Student</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">
+                        "Batch 1 ဆိုပေမဲ့ စိတ်ရှည်ရှည်နဲ့ သင်ပြတဲ့အတွက် Illustrator အခြေခံတဲ့မသိတဲ့သူတောင် ၄ ပတ်လောက်နဲ့ေ တာ်တော် ဆွဲနိုင်နေတယ် tools တခုချင်းစီ စိတ်ရှည်ရှည်နဲ့ အလိုလိုက်တဲ့အတွက် basic သင်ချင်တဲ့သူတွေအတွက် တကယ်ထိရောက်တဲ့ သင်တန်းပါ"
+                    </p>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-md" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center mr-4">
+                            <i data-feather="user" class="text-gray-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800">Thar Htet Aung</h4>
+                            <p class="text-gray-600 text-sm">Batch 2 Student</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">
+                        "illustratorကိုအခုမှစလေ့လာမယ်ဆိုတဲ့ ညီကိုမောင်နှမတွေလည်း batch2မှာ လာတက်စေချင်တယ် စေသနာပါပါနဲ့ သေချာသင်ပေးတဲ့ဆရာမို့ recommendပေးတာပါ အခြေခံကစပြီးသေချာသင်ပေးတာမလို့ တကယ်တက်ကြည့်စေချင်တယ် မသိတာရှိရင်လည်းအချိန်မရွေးမေးလို့ရတယ် ဆရာကတော်တော်သဘောကောင်းတယ်"
+                    </p>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-md" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center mr-4">
+                            <i data-feather="user" class="text-gray-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800">May Phyu Thaw</h4>
+                            <p class="text-gray-600 text-sm">Student</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">
+                        "illustratorကိုအခုမှစလေ့လာမယ်ဆိုတဲ့ ညီကိုမောင်နှမတွေလည်း 24ARTမှာ လာတက်စေချင်တယ် စေသနာပါပါနဲ့ သေချာသင်ပေးတဲ့ဆရာမို့ recommendပေးတာပါ အခြေခံကစပြီးသေချာသင်ပေးတာမလို့ တကယ်တက်ကြည့်စေချင်တယ် မသိတာရှိရင်လည်းအချိန်မရွေးမေးလို့ရတယ် ဆရာကတော်တော်သဘောကောင်းပါတယ်ရှင့်။"
+                    </p>
+                </div>
+                
+                <!-- Testimonial 4 -->
+                <div class="bg-white p-6 rounded-lg shadow-md" data-aos="fade-up" data-aos-delay="400">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center mr-4">
+                            <i data-feather="user" class="text-gray-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800">Su Myat Mon</h4>
+                            <p class="text-gray-600 text-sm">By One Student</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">
+                        "Illustrator ကိုအခုမှစလေ့လာမယ့်သူတွေအတွက်တကယ်အဆင်ပြေတဲ့ သင်တန်းပါ။ By one ဆရာနဲ့သင်တာပါ။ ဆရာကစိတ်ရှည်ပြီးသေသေချာချာလေးရှင်းပြပေးတယ်။ စေတနာပါပါနဲ့သင်ပေးတဲ့ဆရာမို့ လုံး၀ Highly recommend ပေးပါတယ်။ 👏👏"
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Get In <span class="accent-text">Touch</span></h2>
+                <div class="w-20 h-1 bg-gray-300 mx-auto mb-6"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Have questions about our classes or services? Reach out to us and we'll get back to you as soon as possible.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <div data-aos="fade-right">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-6">Contact Information</h3>
+                    
+                    <div class="flex items-start mb-6">
+                        <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-4">
+                            <i data-feather="phone" class="accent-text"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800">Phone</h4>
+                            <p class="text-gray-600">09953681497</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start mb-6">
+                        <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-4">
+                            <i data-feather="mail" class="accent-text"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800">Email</h4>
+                            <p class="text-gray-600">artdeone.educators@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-4">
+                            <i data-feather="map-pin" class="accent-text"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800">Location</h4>
+                            <p class="text-gray-600">Yangon, Myanmar</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <h4 class="font-medium text-gray-800 mb-4">Follow Us</h4>
+                        <div class="flex space-x-4">
+                            <a href="https://www.facebook.com/artdeone/" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition duration-300">
+                                <i data-feather="facebook" class="text-gray-700"></i>
+                            </a>
+                            <a href="https://www.instagram.com/phyo.min757/" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition duration-300">
+                                <i data-feather="instagram" class="text-gray-700"></i>
+                            </a>
+                            <a href="https://x.com/kophyoe295" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition duration-300">
+                                <i data-feather="twitter" class="text-gray-700"></i>
+                            </a>
+                            <a href="https://www.tiktok.com/@artdeone" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition duration-300">
+                                <i data-feather="video" class="text-gray-700"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div data-aos="fade-left">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-6">Send Us a Message</h3>
+                    <form class="space-y-4">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                            <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                            <select id="subject" name="subject" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+                                <option value="">Select a subject</option>
+                                <option value="classes">Class Inquiry</option>
+                                <option value="freelance">Freelance Project</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                            <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent"></textarea>
+                        </div>
+                        <div>
+                            <button type="submit" class="w-full py-2 px-4 border border-transparent text-base font-medium rounded-md text-white accent-bg hover:bg-yellow-600 transition duration-300">
+                                Send Message
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <span class="text-xl font-bold mb-4">ART de ONE</span>
+                    <p class="text-gray-400">
+                        Adobe Illustrator Classes & Freelance Creative Studio in Myanmar
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition duration-300">About</a></li>
+                        <li><a href="#classes" class="text-gray-400 hover:text-white transition duration-300">Class Schedule</a></li>
+                        <li><a href="#freelance" class="text-gray-400 hover:text-white transition duration-300">Freelance</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Classes</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#classes" class="text-gray-400 hover:text-white transition duration-300">Beginner Class</a></li>
+                        <li><a href="#classes" class="text-gray-400 hover:text-white transition duration-300">Intermediate to Advanced</a></li>
+                        <li><a href="#classes" class="text-gray-400 hover:text-white transition duration-300">By One Class</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#freelance" class="text-gray-400 hover:text-white transition duration-300">Logo Design</a></li>
+                        <li><a href="#freelance" class="text-gray-400 hover:text-white transition duration-300">Social Media Design</a></li>
+                        <li><a href="#freelance" class="text-gray-400 hover:text-white transition duration-300">Printing Design</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">
+                    &copy; 2023 ART de ONE. All rights reserved.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-white transition duration-300">
+                        <i data-feather="facebook"></i>
+                    </a>
+                    <a href="https://www.instagram.com/phyo.min757/" target="_blank" class="text-gray-400 hover:text-white transition duration-300">
+                        <i data-feather="instagram"></i>
+                    </a>
+                    <a href="https://x.com/kophyoe295" target="_blank" class="text-gray-400 hover:text-white transition duration-300">
+                        <i data-feather="twitter"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-white transition duration-300">
+                        <i data-feather="video"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+        
+        feather.replace();
+        
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                feather.replace();
+            } else {
+                menu.classList.add('hidden');
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+        
+        // Animation for hero section elements
+        anime({
+            targets: '.bg-hero',
+            opacity: [0, 1],
+            duration: 1000,
+            easing: 'easeInOutQuad'
+        });
+    </script>
+</body>
+</html>
