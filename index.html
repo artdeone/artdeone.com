@@ -86,6 +86,23 @@
          .custom-hover:hover {
          background-color: #808f0e !important;
         }
+        /* Portfolio Filter Active State */
+.portfolio-filter.active {
+    background-color: #9dae11 !important;
+    color: white !important;
+    border-color: #9dae11 !important;
+}
+/* Portfolio Text Consistency */
+.portfolio-category {
+    font-weight: 600;
+
+}
+
+/* Or if you want to use your olive green accent color: */
+.portfolio-category {
+    font-weight: 600;
+    color: #000000; /* Your olive green color */
+}
     </style>
 </head>
 <body class="bg-white text-gray-900">
@@ -105,6 +122,7 @@
                         <a href="#home" class="nav-link text-gray-900 hover:text-gray-700 px-3 py-2 text-sm font-medium">Home</a>
                         <a href="#about" class="nav-link text-gray-900 hover:text-gray-700 px-3 py-2 text-sm font-medium">About</a>
                         <a href="#classes" class="nav-link text-gray-900 hover:text-gray-700 px-3 py-2 text-sm font-medium">Class Schedule</a>
+                        <a href="#portfolio" class="nav-link text-gray-900 hover:text-gray-700 px-3 py-2 text-sm font-medium">Portfolio</a>
                         <a href="#freelance" class="nav-link text-gray-900 hover:text-gray-700 px-3 py-2 text-sm font-medium">Freelance</a>
                         <a href="#contact" class="nav-link text-gray-900 hover:text-gray-700 px-3 py-2 text-sm font-medium">Contact</a>
                     </div>
@@ -123,8 +141,8 @@
                 <a href="#home" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Home</a>
                 <a href="#about" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">About</a>
                 <a href="#classes" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Class Schedule</a>
+                <a href="#portfolio" class="nav-link text-gray-900 hover:text-gray-700 px-3 py-2 text-sm font-medium">Portfolio</a>
                 <a href="#freelance" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Freelance</a>
-                <a href="#portfolio" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Portfolio</a>
                 <a href="#contact" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Contact</a>
             </div>
         </div>
@@ -408,6 +426,101 @@
         </a>
     </div>
 </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Our <span class="accent-text">Portfolio</span></h2>
+                <div class="w-20 h-1 bg-gray-300 mx-auto mb-6"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Showcasing creative excellence through diverse design projects
+                </p>
+            </div>
+
+            <!-- Portfolio Filter Navbar -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12" data-aos="fade-up">
+                <button class="portfolio-filter px-6 py-2 rounded-full border transition duration-300" data-filter="student" style="background-color: #9dae11; color: white; border-color: #9dae11;">
+                    All Work
+                </button>
+            </div>
+
+            <!-- Bento Box Grid --> 
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" data-aos="fade-up">
+                <!-- Portfolio Item 1 - Student --> 
+                <div class="portfolio-item student group" data-category="student">
+                    <div class="aspect-square bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl overflow-hidden hover-scale">
+                        <div class="w-full h-full flex items-center justify-center">
+                            <span class="portfolio-category">Student Artwork<br>Illustration</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 2 - Client -->
+                <div class="portfolio-item client group" data-category="client">
+                    <div class="aspect-square bg-gradient-to-br from-green-100 to-green-200 rounded-2xl overflow-hidden hover-scale">
+                        <div class="w-full h-full flex items-center justify-center">
+                            <span class="portfolio-category">Client Project<br>Brand Design</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 3 - Character -->
+                <div class="portfolio-item character group" data-category="character">
+                    <div class="aspect-square bg-gradient-to-br from-purple-100 to-purple-200 rounded-2xl overflow-hidden hover-scale">
+                        <div class="w-full h-full flex items-center justify-center">
+                            <span class="portfolio-category">Character Design<br>Digital Art</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 4 - Social -->
+                <div class="portfolio-item social group" data-category="social">
+                    <div class="aspect-square bg-gradient-to-br from-pink-100 to-pink-200 rounded-2xl overflow-hidden hover-scale">
+                        <div class="w-full h-full flex items-center justify-center">
+                            <span class="portfolio-category">Social Media<br>Campaign Design</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 5 - Logo -->
+                <div class="portfolio-item logo group" data-category="logo">
+                    <div class="aspect-square bg-gradient-to-br from-orange-100 to-orange-200 rounded-2xl overflow-hidden hover-scale">
+                        <div class="w-full h-full flex items-center justify-center">
+                            <span class="portfolio-category">Logo Design<br>Brand Identity</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 6 - Student -->
+                <div class="portfolio-item student group" data-category="student">
+                    <div class="aspect-square bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl overflow-hidden hover-scale">
+                        <div class="w-full h-full flex items-center justify-center">
+                            <span class="portfolio-category">Student Project<br>Vector Art</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 7 - Client -->
+                <div class="portfolio-item client group" data-category="client">
+                    <div class="aspect-square bg-gradient-to-br from-green-100 to-green-200 rounded-2xl overflow-hidden hover-scale">
+                        <div class="w-full h-full flex items-center justify-center">
+                            <span class="portfolio-category">Client Work<br>Packaging Design</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 8 - Character -->
+                <div class="portfolio-item character group" data-category="character">
+                    <div class="aspect-square bg-gradient-to-br from-purple-100 to-purple-200 rounded-2xl overflow-hidden hover-scale">
+                        <div class="w-full h-full flex items-center justify-center">
+                            <span class="portfolio-category">Character Series<br>Illustration</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Testimonials Section -->
@@ -783,5 +896,17 @@
             easing: 'easeInOutQuad'
         });
     </script>
+    <script>
+    // Portfolio Filter Functionality - Only "All Work" remains
+    document.addEventListener('DOMContentLoaded', function() {
+        const filterButton = document.querySelector('.portfolio-filter');
+        
+        // Keep only All Work button active
+        filterButton.classList.add('active');
+        filterButton.style.backgroundColor = '#9dae11';
+        filterButton.style.color = 'white';
+        filterButton.style.borderColor = '#9dae11';
+    });
+</script>
 </body>
 </html>
