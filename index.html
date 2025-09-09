@@ -173,8 +173,8 @@
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
         <div class="w-full mx-auto" data-aos="fade-right">
             <h1 class="text-4xl md:text-6xl font-bold text-white mb-4 leading-tight mx-auto">
-    <span id="hero-text-1">Draw Your Future with</span><br>
-    <span id="hero-text-2" class="accent-text">ART de ONE</span>
+    <span id="hero-line-1" class="opacity-0">Draw Your Future with</span><br>
+    <span id="hero-line-2" class="accent-text opacity-0">ART de ONE</span>
 </h1>
             <p class="text-xl text-gray-300 mb-6 mx-auto max-w-2xl">
                 Adobe Illustrator Classes & Freelance Creative Studio in Myanmar
@@ -1271,32 +1271,44 @@
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Check if GSAP is loaded
-        if (typeof gsap !== 'undefined') {
-            // Animate when hero section is in view
-            gsap.to("#hero-text-1", {
-                scrollTrigger: {
-                    trigger: "#hero-text-1",
-                    start: "top 80%"
-                },
-                y: 0,
-                opacity: 1,
-                duration: 1.2,
-                ease: "power2.out"
-            });
-            
-            gsap.to("#hero-text-2", {
-                scrollTrigger: {
-                    trigger: "#hero-text-2", 
-                    start: "top 80%"
-                },
-                y: 0,
-                opacity: 1,
-                duration: 1.2,
-                ease: "power2.out",
-                delay: 0.4
-            });
-        }
+        // Timeline for sequenced animation
+        let tl = gsap.timeline();
+        
+        // First line: Draw Your Future with
+        tl.to("#hero-line-1", {
+            duration: 1.2,
+            opacity: 1,
+            y: 0,
+            ease: "power3.out",
+            stagger: {
+                each: 0.1,
+                from: "random"
+            }
+        })
+        // Second line: ART de ONE (more dramatic)
+        .to("#hero-line-2", {
+            duration: 1.5,
+            opacity: 1,
+            scale: 1.1,
+            color: "#fdd017", // Your accent color
+            ease: "elastic.out(1, 0.3)",
+            onStart: function() {
+                // Add a shine effect
+                gsap.to("#hero-line-2", {
+                    duration: 0.8,
+                    textShadow: "0 0 20px rgba(253, 208, 23, 0.8)",
+                    repeat: 1,
+                    yoyo: true,
+                    ease: "power2.inOut"
+                });
+            }
+        }, "-=0.5") // Overlap with previous animation
+        // Final touch
+        .to(["#hero-line-1", "#hero-line-2"], {
+            duration: 0.5,
+            y: -10,
+            ease: "power1.out"
+        });
     });
 </script>
 </body>
