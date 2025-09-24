@@ -231,34 +231,34 @@
             });
 
             // MODIFIED Modal and Form Submission Logic
-const enrollmentForm = document.getElementById('enrollment-form');
-const thankYouModal = document.getElementById('thank-you-modal');
-const closeModalButton = document.getElementById('close-modal-button');
+            const enrollmentForm = document.getElementById('enrollment-form');
+            const thankYouModal = document.getElementById('thank-you-modal');
+            const closeModalButton = document.getElementById('close-modal-button');
 
-const handleFormSubmit = (event) => {
-    event.preventDefault(); // Stop the default browser submission
+            const handleFormSubmit = (event) => {
+                event.preventDefault(); // Stop the default browser submission
 
-    const myForm = event.target;
-    const formData = new FormData(myForm);
+                const myForm = event.target;
+                const formData = new FormData(myForm);
 
-    fetch("/", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(formData).toString(),
-    })
-    .then(() => {
-        // This code runs after the form is successfully submitted to Netlify
-        thankYouModal.classList.remove('hidden'); // Show your modal
-    })
-    .catch((error) => alert(error));
-};
+                fetch("/", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams(formData).toString(),
+                })
+                .then(() => {
+                    // This code runs after the form is successfully submitted to Netlify
+                    thankYouModal.classList.remove('hidden'); // Show your modal
+                })
+                .catch((error) => alert(error));
+            };
 
-enrollmentForm.addEventListener("submit", handleFormSubmit);
+            enrollmentForm.addEventListener("submit", handleFormSubmit);
 
-closeModalButton.addEventListener('click', function() {
-    thankYouModal.classList.add('hidden');
-    enrollmentForm.reset(); // Clear the form fields
-});
+            closeModalButton.addEventListener('click', function() {
+                thankYouModal.classList.add('hidden');
+                enrollmentForm.reset(); // Clear the form fields
+            });
     </script>
 </body>
 </html>
