@@ -231,34 +231,38 @@
             });
 
             // MODIFIED Modal and Form Submission Logic
-            const enrollmentForm = document.getElementById('enrollment-form');
-            const thankYouModal = document.getElementById('thank-you-modal');
-            const closeModalButton = document.getElementById('close-modal-button');
+const enrollmentForm = document.getElementById('enrollment-form');
+const thankYouModal = document.getElementById('thank-you-modal');
+const closeModalButton = document.getElementById('close-modal-button');
 
-            const handleFormSubmit = (event) => {
-                event.preventDefault(); // Stop the default browser submission
+const handleFormSubmit = (event) => {
+    event.preventDefault(); // Stop the browser from navigating away
 
-                const myForm = event.target;
-                const formData = new FormData(myForm);
+    const myForm = event.target;
+    const formData = new FormData(myForm);
 
-                fetch("/", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    body: new URLSearchParams(formData).toString(),
-                })
-                .then(() => {
-                    // This code runs after the form is successfully submitted to Netlify
-                    thankYouModal.classList.remove('hidden'); // Show your modal
-                })
-                .catch((error) => alert(error));
-            };
+    // This 'fetch' command sends the form data to Netlify in the background
+    fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData).toString(),
+    })
+    .then(() => {
+        // This code only runs AFTER the form is successfully sent to Netlify
+        thankYouModal.classList.remove('hidden'); // Now, show your "Thank You" modal
+    })
+    .catch((error) => alert(error)); // Show an error if something goes wrong
+};
 
-            enrollmentForm.addEventListener("submit", handleFormSubmit);
+// This line tells the browser to run our 'handleFormSubmit' function when the form is submitted
+enrollmentForm.addEventListener("submit", handleFormSubmit);
 
-            closeModalButton.addEventListener('click', function() {
-                thankYouModal.classList.add('hidden');
-                enrollmentForm.reset(); // Clear the form fields
-            });
+// This part is for closing the modal
+closeModalButton.addEventListener('click', function() {
+    thankYouModal.classList.add('hidden');
+    enrollmentForm.reset(); // Clear the form fields
+});
+        });
     </script>
 </body>
 </html>
