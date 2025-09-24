@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Courses - ART de ONE</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .accent-text { color: #9dae11; }
+        .accent-bg { background-color: #9dae11; }
+        .accent-border { border-color: #9dae11; }
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover {
+            transform: translateY(-2px);
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: #808f0e;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        .nav-link:hover::after { width: 70%; }
+        .course-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .course-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        .filter-btn.active {
+            background-color: #9dae11;
+            color: white;
+            border-color: #9dae11;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <a href="index.html" class="flex items-center">
+                            <img src="https://raw.githubusercontent.com/pyaephyohan/artdeone/main/logo.png" alt="ART de ONE" class="h-10 w-auto">
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html#home" class="nav-link text-gray-900 hover:text-gray-700 px-3 py-2 text-sm font-medium">Home</a>
+                        <a href="index.html#about" class="nav-link text-gray-900 hover:text-gray-700 px-3 py-2 text-sm font-medium">About</a>
+                        <a href="courses.html" class="nav-link text-gray-900 hover:text-gray-700 px-3 py-2 text-sm font-medium">Courses</a>
+                        <a href="index.html#portfolio" class="nav-link text-gray-900 hover:text-gray-700 px-3 py-2 text-sm font-medium">Portfolio</a>
+                        <a href="index.html#freelance" class="nav-link text-gray-900 hover:text-gray-700 px-3 py-2 text-sm font-medium">Freelance</a>
+                        <a href="index.html#contact" class="nav-link text-gray-900 hover:text-gray-700 px-3 py-2 text-sm font-medium">Contact</a>
+                    </div>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 focus:outline-none" aria-controls="mobile-menu" aria-expanded="false" id="mobile-menu-button">
+                        <i data-feather="menu"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div class="hidden md:hidden bg-white shadow-lg" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="index.html#home" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Home</a>
+                <a href="index.html#about" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">About</a>
+                <a href="courses.html" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Courses</a>
+                <a href="index.html#portfolio" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Portfolio</a>
+                <a href="index.html#freelance" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Freelance</a>
+                <a href="index.html#contact" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-24">
+        <!-- Courses Header -->
+        <section class="text-center py-16 px-4">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4" data-aos="fade-up">Our <span class="accent-text">Courses</span></h1>
+            <div class="w-24 h-1 bg-gray-300 mx-auto mb-6" data-aos="fade-up" data-aos-delay="100"></div>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                Unlock your creative potential with our expert-led Adobe Illustrator courses. Find the perfect class for your skill level and goals.
+            </p>
+        </section>
+
+        <!-- Course Filter and Grid -->
+        <section class="py-16 bg-white px-4">
+            <div class="max-w-7xl mx-auto">
+                <!-- Filter Buttons -->
+                <div class="flex flex-wrap justify-center gap-4 mb-12" data-aos="fade-up">
+                    <button class="filter-btn active px-6 py-2 rounded-full border-2 border-gray-300 font-semibold transition duration-300" data-filter="all">All Courses</button>
+                    <button class="filter-btn px-6 py-2 rounded-full border-2 border-gray-300 font-semibold transition duration-300 hover:border-gray-400" data-filter="paid">Paid Courses</button>
+                    <button class="filter-btn px-6 py-2 rounded-full border-2 border-gray-300 font-semibold transition duration-300 hover:border-gray-400" data-filter="free">Free Courses</button>
+                </div>
+
+                <!-- Courses Grid -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="course-grid">
+                    <!-- Course Card 1: Basic Adobe Illustrator Course -->
+                    <div class="course-item paid" data-aos="fade-up">
+                        <a href="course-detail-basic.html" class="block bg-white rounded-lg shadow-md overflow-hidden course-card">
+                            <img src="https://placehold.co/600x400/9dae11/white?text=Basic+Course" alt="Basic Adobe Illustrator Course Thumbnail" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold text-gray-800 mb-2">Basic Adobe Illustrator Course</h3>
+                                <p class="text-gray-600 mb-4">Learn at your own pace with lifetime access to all materials.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-2xl font-bold text-gray-900">19,500 MMK</span>
+                                    <span class="text-sm font-semibold accent-text">View Details &rarr;</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Course Card 2: Intermediate -->
+                    <div class="course-item paid relative" data-aos="fade-up" data-aos-delay="100">
+                         <div class="absolute top-4 right-4 z-10">
+                            <span class="bg-black text-[#9dad10] text-xs font-bold px-3 py-1 rounded-full shadow-md">Top Rated</span>
+                        </div>
+                        <a href="course-detail-intermediate.html" class="block bg-white rounded-lg shadow-md overflow-hidden course-card">
+                            <img src="https://placehold.co/600x400/1a1a1a/white?text=Intermediate" alt="Intermediate Course Thumbnail" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold text-gray-800 mb-2">Intermediate</h3>
+                                <p class="text-gray-600 mb-4">Live online classes to build a strong foundation in Illustrator.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-2xl font-bold text-gray-900">39,500 MMK</span>
+                                    <span class="text-sm font-semibold accent-text">View Details &rarr;</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Course Card 3: Advanced Abstract Drawing -->
+                    <div class="course-item paid" data-aos="fade-up" data-aos-delay="200">
+                        <a href="course-detail-advanced.html" class="block bg-white rounded-lg shadow-md overflow-hidden course-card">
+                            <img src="https://placehold.co/600x400/5a5a5a/white?text=Advanced" alt="Advanced Abstract Drawing Thumbnail" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold text-gray-800 mb-2">Advanced Abstract Drawing</h3>
+                                <p class="text-gray-600 mb-4">Personalized one-on-one training tailored to your specific needs.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-2xl font-bold text-gray-900">59,500 MMK</span>
+                                    <span class="text-sm font-semibold accent-text">View Details &rarr;</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                     <!-- Course Card 4: A mini Course on Generative AI Tool -->
+                    <div class="course-item paid" data-aos="fade-up" data-aos-delay="300">
+                        <a href="course-detail-gen-ai.html" class="block bg-white rounded-lg shadow-md overflow-hidden course-card">
+                            <img src="https://placehold.co/600x400/9dae11/white?text=Generative+AI" alt="Generative AI Course Thumbnail" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold text-gray-800 mb-2">A mini Course on Generative AI Tool</h3>
+                                <p class="text-gray-600 mb-4">A mini-course to get you started with the basics of generative AI.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-2xl font-bold text-gray-900">19,800 MMK</span>
+                                    <span class="text-sm font-semibold accent-text">View Details &rarr;</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Course Card 5: Explain an Ai Intermediate Course -->
+                    <div class="course-item paid" data-aos="fade-up" data-aos-delay="400">
+                        <a href="course-detail-ai-intermediate.html" class="block bg-white rounded-lg shadow-md overflow-hidden course-card">
+                            <img src="https://placehold.co/600x400/1a1a1a/white?text=AI+Intermediate" alt="AI Intermediate Course Thumbnail" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold text-gray-800 mb-2">Explain an Ai Intermediate Course</h3>
+                                <p class="text-gray-600 mb-4">Deepen your understanding of AI tools in creative workflows.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-2xl font-bold text-gray-900">39,500 MMK</span>
+                                    <span class="text-sm font-semibold accent-text">View Details &rarr;</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                     <!-- Course Card 6: Graphic Design Course -->
+                    <div class="course-item paid" data-aos="fade-up" data-aos-delay="500">
+                        <a href="course-detail-graphic-design.html" class="block bg-white rounded-lg shadow-md overflow-hidden course-card">
+                            <img src="https://placehold.co/600x400/9dae11/white?text=Graphic+Design" alt="Graphic Design Course Thumbnail" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold text-gray-800 mb-2">Graphic Design Course</h3>
+                                <p class="text-gray-600 mb-4">Master the principles of visual communication and design theory.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-2xl font-bold text-gray-900">49,500 MMK</span>
+                                    <span class="text-sm font-semibold accent-text">View Details &rarr;</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                     <!-- Course Card 7: Social Media Design Course -->
+                    <div class="course-item paid" data-aos="fade-up" data-aos-delay="600">
+                        <a href="course-detail-social-media.html" class="block bg-white rounded-lg shadow-md overflow-hidden course-card">
+                            <img src="https://placehold.co/600x400/1a1a1a/white?text=Social+Media" alt="Social Media Design Course Thumbnail" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold text-gray-800 mb-2">Social Media Design Course</h3>
+                                <p class="text-gray-600 mb-4">Create compelling visuals for various social media platforms.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-2xl font-bold text-gray-900">25,500 MMK</span>
+                                    <span class="text-sm font-semibold accent-text">View Details &rarr;</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                     <!-- Course Card 8: Adobe After Effects -->
+                    <div class="course-item paid" data-aos="fade-up" data-aos-delay="700">
+                        <a href="course-detail-after-effects.html" class="block bg-white rounded-lg shadow-md overflow-hidden course-card">
+                            <img src="https://placehold.co/600x400/5a5a5a/white?text=After+Effects" alt="Adobe After Effects Course Thumbnail" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold text-gray-800 mb-2">Adobe After Effects</h3>
+                                <p class="text-gray-600 mb-4">Bring your graphics to life with motion and visual effects.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-2xl font-bold text-gray-900">39,500 MMK</span>
+                                    <span class="text-sm font-semibold accent-text">View Details &rarr;</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                 <div id="no-courses-message" class="text-center text-gray-500 py-12 hidden" data-aos="fade-up">
+                    <p class="text-xl">No free courses available at the moment. Please check back later!</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-black text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <span class="text-xl font-bold mb-4">ART de ONE</span>
+                    <p class="text-gray-400">
+                        Adobe Illustrator Classes & Freelance Creative Studio in Myanmar
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html#home" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
+                        <li><a href="index.html#about" class="text-gray-400 hover:text-white transition duration-300">About</a></li>
+                        <li><a href="courses.html" class="text-gray-400 hover:text-white transition duration-300">Courses</a></li>
+                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Freelance</a></li>
+                        <li><a href="index.html#contact" class="text-gray-400 hover:text-white transition duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Classes</h3>
+                    <ul class="space-y-2">
+                         <li><a href="course-detail-basic.html" class="text-gray-400 hover:text-white transition duration-300">Basic Adobe Illustrator Course</a></li>
+                        <li><a href="course-detail-intermediate.html" class="text-gray-400 hover:text-white transition duration-300">Intermediate</a></li>
+                        <li><a href="course-detail-advanced.html" class="text-gray-400 hover:text-white transition duration-300">Advanced Abstract Drawing</a></li>
+                        <li><a href="course-detail-graphic-design.html" class="text-gray-400 hover:text-white transition duration-300">Graphic Design Course</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Logo Design</a></li>
+                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Social Media Design</a></li>
+                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Printing Design</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">
+                    &copy; 2025 ART de ONE. All rights reserved.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-behance"></i></a>
+                    <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script>
+        AOS.init({ duration: 800, easing: 'ease-in-out', once: true });
+        feather.replace();
+
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Course filter logic
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const courseItems = document.querySelectorAll('.course-item');
+        const noCoursesMessage = document.getElementById('no-courses-message');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                const filter = button.getAttribute('data-filter');
+                let hasVisibleCourses = false;
+
+                courseItems.forEach(item => {
+                    if (filter === 'all' || item.classList.contains(filter)) {
+                        item.style.display = 'block';
+                        hasVisibleCourses = true;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+
+                if (hasVisibleCourses) {
+                    noCoursesMessage.classList.add('hidden');
+                } else {
+                    noCoursesMessage.classList.remove('hidden');
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
+
+

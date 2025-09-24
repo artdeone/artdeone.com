@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Details - ART de ONE</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .accent-text { color: #9dae11; }
+        .accent-bg { background-color: #9dae11; }
+        .accent-border { border-color: #9dae11; }
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover {
+            transform: translateY(-2px);
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: #808f0e;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        .nav-link:hover::after { width: 70%; }
+        .custom-hover:hover { background-color: #808f0e !important; }
+        .rotate-180 { transform: rotate(180deg); }
+    </style>
+</head>
+
+<body class="bg-white text-gray-900">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                         <a href="index.html" class="flex items-center">
+                            <img src="https://raw.githubusercontent.com/pyaephyohan/artdeone/main/logo.png" alt="ART de ONE" class="h-10 w-auto">
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html#home" class="nav-link text-gray-900 hover:text-gray-700 px-3 py-2 text-sm font-medium">Home</a>
+                        <a href="index.html#about" class="nav-link text-gray-900 hover:text-gray-700 px-3 py-2 text-sm font-medium">About</a>
+                        <a href="courses.html" class="nav-link text-gray-900 hover:text-gray-700 px-3 py-2 text-sm font-medium">Courses</a>
+                        <a href="index.html#portfolio" class="nav-link text-gray-900 hover:text-gray-700 px-3 py-2 text-sm font-medium">Portfolio</a>
+                        <a href="index.html#freelance" class="nav-link text-gray-900 hover:text-gray-700 px-3 py-2 text-sm font-medium">Freelance</a>
+                        <a href="index.html#contact" class="nav-link text-gray-900 hover:text-gray-700 px-3 py-2 text-sm font-medium">Contact</a>
+                    </div>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 focus:outline-none" aria-controls="mobile-menu" aria-expanded="false" id="mobile-menu-button">
+                        <i data-feather="menu"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div class="hidden md:hidden bg-white shadow-lg" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                 <a href="index.html#home" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Home</a>
+                <a href="index.html#about" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">About</a>
+                <a href="courses.html" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Courses</a>
+                <a href="index.html#portfolio" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Portfolio</a>
+                <a href="index.html#freelance" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Freelance</a>
+                <a href="index.html#contact" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Contact</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="pt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="lg:grid lg:grid-cols-3 lg:gap-12">
+                <!-- Left Column: Course Content -->
+                <div class="lg:col-span-2">
+                    <!-- Intro Video -->
+                    <div class="mb-8" data-aos="fade-up">
+                        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg">
+                           <video controls poster="https://placehold.co/1280x720/1a1a1a/white?text=Course+Intro+Video" class="w-full h-full object-cover">
+                                <source src="/hero-animation.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+
+                    <!-- Course Title & Description -->
+                    <div class="mb-8" data-aos="fade-up" data-aos-delay="100">
+                        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Basic to Intermediate Illustrator Class</h1>
+                        <p class="text-gray-600 leading-relaxed">
+                            This comprehensive course is designed for beginners and intermediate users who want to master Adobe Illustrator. We'll take you from the very basics of the interface to creating complex vector illustrations, logos, and layouts. Learn the essential tools, techniques for creating professional-grade artwork, and how to integrate AI prompts into your workflow.
+                        </p>
+                    </div>
+
+                    <!-- Course Outline -->
+                    <div data-aos="fade-up" data-aos-delay="200">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6">Course Outline</h2>
+                        <div class="space-y-4">
+                            <!-- Module 1 -->
+                            <div class="border border-gray-200 rounded-lg">
+                                <button onclick="toggleOutline('module1')" class="flex items-center justify-between w-full p-4 bg-gray-50 hover:bg-gray-100 transition duration-300">
+                                    <span class="font-semibold text-gray-800">Module 1: Foundations</span>
+                                    <i data-feather="chevron-down" class="transform transition-transform" id="module1-chevron"></i>
+                                </button>
+                                <div id="module1" class="hidden p-4 bg-white">
+                                    <ul class="text-gray-600 space-y-2">
+                                        <li class="flex items-center"><i data-feather="play-circle" class="w-4 h-4 mr-3 accent-text"></i>1. Getting to Know Work Area</li>
+                                        <li class="flex items-center"><i data-feather="play-circle" class="w-4 h-4 mr-3 accent-text"></i>2. Complete Tools</li>
+                                        <li class="flex items-center"><i data-feather="play-circle" class="w-4 h-4 mr-3 accent-text"></i>3. Basic Shapes</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Module 2 -->
+                             <div class="border border-gray-200 rounded-lg">
+                                <button onclick="toggleOutline('module2')" class="flex items-center justify-between w-full p-4 bg-gray-50 hover:bg-gray-100 transition duration-300">
+                                    <span class="font-semibold text-gray-800">Module 2: Core Illustration Techniques</span>
+                                    <i data-feather="chevron-down" class="transform transition-transform" id="module2-chevron"></i>
+                                </button>
+                                <div id="module2" class="hidden p-4 bg-white">
+                                    <ul class="text-gray-600 space-y-2">
+                                        <li class="flex items-center"><i data-feather="play-circle" class="w-4 h-4 mr-3 accent-text"></i>4. Shadow, Highlight and Mid-tone</li>
+                                        <li class="flex items-center"><i data-feather="play-circle" class="w-4 h-4 mr-3 accent-text"></i>5. Minimal Vector Drawing with Grain Effects</li>
+                                        <li class="flex items-center"><i data-feather="play-circle" class="w-4 h-4 mr-3 accent-text"></i>6. Color Theory</li>
+                                        <li class="flex items-center"><i data-feather="play-circle" class="w-4 h-4 mr-3 accent-text"></i>7. Layout and Typography</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Module 3 -->
+                             <div class="border border-gray-200 rounded-lg">
+                                <button onclick="toggleOutline('module3')" class="flex items-center justify-between w-full p-4 bg-gray-50 hover:bg-gray-100 transition duration-300">
+                                    <span class="font-semibold text-gray-800">Module 3: Advanced Topics & AI</span>
+                                    <i data-feather="chevron-down" class="transform transition-transform" id="module3-chevron"></i>
+                                </button>
+                                <div id="module3" class="hidden p-4 bg-white">
+                                    <ul class="text-gray-600 space-y-2">
+                                        <li class="flex items-center"><i data-feather="play-circle" class="w-4 h-4 mr-3 accent-text"></i>8. * What is an Artificial Intelligence (Ai)</li>
+                                        <li class="flex items-center"><i data-feather="play-circle" class="w-4 h-4 mr-3 accent-text"></i>9. * What is a JSON prompt?</li>
+                                        <li class="flex items-center"><i data-feather="play-circle" class="w-4 h-4 mr-3 accent-text"></i>10. * Must-Know Prompt Libraries</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Module 4 -->
+                             <div class="border border-gray-200 rounded-lg">
+                                <button onclick="toggleOutline('module4')" class="flex items-center justify-between w-full p-4 bg-gray-50 hover:bg-gray-100 transition duration-300">
+                                    <span class="font-semibold text-gray-800">Module 4: Professional Projects</span>
+                                    <i data-feather="chevron-down" class="transform transition-transform" id="module4-chevron"></i>
+                                </button>
+                                <div id="module4" class="hidden p-4 bg-white">
+                                    <ul class="text-gray-600 space-y-2">
+                                        <li class="flex items-center"><i data-feather="play-circle" class="w-4 h-4 mr-3 accent-text"></i>11. Logo Design</li>
+                                        <li class="flex items-center"><i data-feather="play-circle" class="w-4 h-4 mr-3 accent-text"></i>12. Iconography & Pattern</li>
+                                        <li class="flex items-center"><i data-feather="play-circle" class="w-4 h-4 mr-3 accent-text"></i>13. Logo Guideline</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Checkout Card -->
+                <div class="lg:col-span-1 mt-12 lg:mt-0">
+                    <div class="sticky top-24 bg-gray-50 rounded-lg shadow-lg p-6" data-aos="fade-left">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-2">100,000 MMK</h2>
+                        <p class="text-gray-500 mb-6">Full price for lifetime access</p>
+                        
+                        <a href="#contact" class="block w-full text-center py-3 px-4 text-white font-semibold rounded-lg transition duration-300 custom-hover shadow-md" style="background-color: #9dae11;">
+                            Enroll Now
+                        </a>
+                        
+                        <div class="border-t border-gray-200 my-6"></div>
+
+                        <h3 class="font-semibold text-gray-800 mb-4">This course includes:</h3>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex items-center"><i data-feather="video" class="w-5 h-5 mr-3 accent-text"></i>20+ hours of video lessons</li>
+                             <li class="flex items-center"><i data-feather="award" class="w-5 h-5 mr-3 accent-text"></i>Certificate of Completion</li>
+                            <li class="flex items-center"><i data-feather="download" class="w-5 h-5 mr-3 accent-text"></i>Downloadable resources</li>
+                            <li class="flex items-center"><i data-feather="smartphone" class="w-5 h-5 mr-3 accent-text"></i>Access on mobile and desktop</li>
+                            <li class="flex items-center"><i data-feather="repeat" class="w-5 h-5 mr-3 accent-text"></i>Lifetime access</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-black text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <span class="text-xl font-bold mb-4">ART de ONE</span>
+                    <p class="text-gray-400">
+                        Adobe Illustrator Classes & Freelance Creative Studio in Myanmar
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html#home" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
+                        <li><a href="index.html#about" class="text-gray-400 hover:text-white transition duration-300">About</a></li>
+                        <li><a href="courses.html" class="text-gray-400 hover:text-white transition duration-300">Courses</a></li>
+                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Freelance</a></li>
+                        <li><a href="index.html#contact" class="text-gray-400 hover:text-white transition duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Classes</h3>
+                    <ul class="space-y-2">
+                        <li><a href="course-detail.html" class="text-gray-400 hover:text-white transition duration-300">Video Record Course</a></li>
+                        <li><a href="course-detail.html" class="text-gray-400 hover:text-white transition duration-300">Basic to Intermediate</a></li>
+                        <li><a href="course-detail.html" class="text-gray-400 hover:text-white transition duration-300">By One Class</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Logo Design</a></li>
+                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Social Media Design</a></li>
+                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Printing Design</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">
+                    &copy; 2025 ART de ONE. All rights reserved.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-behance"></i></a>
+                    <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script>
+        AOS.init({ duration: 800, easing: 'ease-in-out', once: true });
+        feather.replace();
+
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+        
+        // Course outline accordion
+        function toggleOutline(moduleId) {
+            const outline = document.getElementById(moduleId);
+            const chevron = document.getElementById(moduleId + '-chevron');
+            outline.classList.toggle('hidden');
+            chevron.classList.toggle('rotate-180');
+        }
+    </script>
+</body>
+</html>
