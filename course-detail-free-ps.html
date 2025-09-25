@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Course: Photoshop Basics - ART de ONE</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+    <title>Free Course - ART de ONE</title> <link rel="icon" type="image/png" href="/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -17,29 +16,18 @@
         }
         .accent-text { color: #9dae11; }
         .accent-bg { background-color: #9dae11; }
-        .accent-border { border-color: #9dae11; }
         .nav-link {
             position: relative;
             transition: all 0.3s ease;
         }
-        .nav-link:hover {
-            transform: translateY(-2px);
-        }
+        .nav-link:hover { transform: translateY(-2px); }
         .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background-color: #808f0e;
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
+            content: ''; position: absolute; bottom: -5px; left: 50%;
+            width: 0; height: 2px; background-color: #808f0e;
+            transition: all 0.3s ease; transform: translateX(-50%);
         }
         .nav-link:hover::after { width: 70%; }
-        .detail-card-icon {
-            background-color: #f5f6e8;
-        }
+        .detail-card-icon { background-color: #f5f6e8; }
     </style>
 </head>
 
@@ -49,11 +37,9 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <a href="index.html" class="flex items-center">
-                            <img src="/logo.png" alt="ART de ONE" class="h-10 w-auto">
-                        </a>
-                    </div>
+                    <a href="index.html" class="flex items-center">
+                        <img src="/logo.png" alt="ART de ONE" class="h-10 w-auto">
+                    </a>
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-8">
@@ -85,106 +71,112 @@
     </nav>
 
     <main class="pt-24">
-        <section class="bg-gray-50 py-12 px-4">
-            <div class="max-w-5xl mx-auto">
-                <a href="courses.html" class="text-sm font-semibold accent-text hover:underline" data-aos="fade-up">&larr; Back to All Courses</a>
-                <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mt-4 mb-2" data-aos="fade-up" data-aos-delay="100">Free Course: Photoshop Basics for Beginners</h1>
-                <p class="text-lg text-gray-600 max-w-3xl" data-aos="fade-up" data-aos-delay="200">
-                    Your journey into the world of digital art starts here. This course covers the essential tools and techniques to get you started with Adobe Photoshop.
-                </p>
-            </div>
-        </section>
 
-        <section class="py-16 px-4">
-            <div class="max-w-5xl mx-auto grid lg:grid-cols-3 gap-12">
-                <div class="lg:col-span-2">
-                    <div class="aspect-w-16 aspect-h-9 mb-8 rounded-lg overflow-hidden shadow-lg" data-aos="fade-up">
-                        <iframe src="https://www.youtube.com/embed/IyR_uYsRdPs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-
-                    <div data-aos="fade-up" data-aos-delay="100">
-                        <h2 class="text-2xl font-bold mb-4">About This Course</h2>
-                        <p class="text-gray-700 leading-relaxed mb-6">
-                            Welcome to our introductory course on Adobe Photoshop! Whether you're a complete beginner or just need a refresher, this course is designed to be easy to follow. We'll guide you through the Photoshop interface, show you how to work with layers, make selections, and use the most fundamental tools for photo editing and graphic creation. By the end, you'll have the confidence to start your own projects.
-                        </p>
-                    </div>
-
-                    <div data-aos="fade-up" data-aos-delay="200">
-                        <h2 class="text-2xl font-bold mb-4">What You'll Learn</h2>
-                        <ul class="space-y-3">
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle accent-text mt-1 mr-3"></i>
-                                <span class="text-gray-700">Navigate the Photoshop workspace and understand its core components.</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle accent-text mt-1 mr-3"></i>
-                                <span class="text-gray-700">Master the concept of layers, the foundation of non-destructive editing.</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle accent-text mt-1 mr-3"></i>
-                                <span class="text-gray-700">Use basic selection tools like the Marquee, Lasso, and Magic Wand.</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle accent-text mt-1 mr-3"></i>
-                                <span class="text-gray-700">Perform simple retouching and color adjustments on photos.</span>
-                            </li>
-                             <li class="flex items-start">
-                                <i class="fas fa-check-circle accent-text mt-1 mr-3"></i>
-                                <span class="text-gray-700">Save and export your projects for web and print.</span>
-                            </li>
-                        </ul>
-                    </div>
+        <div id="photoshop-content" style="display: none;">
+            <section class="bg-gray-50 py-12 px-4">
+                <div class="max-w-5xl mx-auto">
+                    <a href="courses.html" class="text-sm font-semibold accent-text hover:underline" data-aos="fade-up">&larr; Back to All Courses</a>
+                    <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mt-4 mb-2" data-aos="fade-up" data-aos-delay="100">Free Course: Photoshop Basics for Beginners</h1>
+                    <p class="text-lg text-gray-600 max-w-3xl" data-aos="fade-up" data-aos-delay="200">Your journey into the world of digital art starts here. This course covers the essential tools and techniques to get you started with Adobe Photoshop.</p>
                 </div>
-
-                <div class="lg:col-span-1" data-aos="fade-left" data-aos-delay="300">
-                    <div class="bg-gray-50 rounded-lg p-6 sticky top-28">
-                        <h3 class="text-xl font-bold mb-6 text-center">Course Details</h3>
-                        <div class="space-y-5">
-                            <div class="flex items-center">
-                                <div class="w-12 h-12 rounded-full flex items-center justify-center detail-card-icon mr-4">
-                                    <i class="fas fa-signal accent-text text-xl"></i>
-                                </div>
-                                <div>
-                                    <p class="font-semibold">Skill Level</p>
-                                    <p class="text-gray-600">Beginner</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="w-12 h-12 rounded-full flex items-center justify-center detail-card-icon mr-4">
-                                    <i class="fas fa-clock accent-text text-xl"></i>
-                                </div>
-                                <div>
-                                    <p class="font-semibold">Duration</p>
-                                    <p class="text-gray-600">Approx. 45 Minutes</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="w-12 h-12 rounded-full flex items-center justify-center detail-card-icon mr-4">
-                                    <i class="fas fa-infinity accent-text text-xl"></i>
-                                </div>
-                                <div>
-                                    <p class="font-semibold">Access</p>
-                                    <p class="text-gray-600">Lifetime</p>
-                                </div>
+            </section>
+            <section class="py-16 px-4">
+                <div class="max-w-5xl mx-auto grid lg:grid-cols-3 gap-12">
+                    <div class="lg:col-span-2">
+                        <div class="aspect-w-16 aspect-h-9 mb-8 rounded-lg overflow-hidden shadow-lg" data-aos="fade-up">
+                            <iframe src="https://www.youtube.com/embed/IyR_uYsRdPs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <div data-aos="fade-up" data-aos-delay="100">
+                            <h2 class="text-2xl font-bold mb-4">About This Course</h2>
+                            <p class="text-gray-700 leading-relaxed mb-6">Welcome to our introductory course on Adobe Photoshop! We'll guide you through the interface, how to work with layers, make selections, and use the most fundamental tools for photo editing and graphic creation.</p>
+                        </div>
+                        <div data-aos="fade-up" data-aos-delay="200">
+                            <h2 class="text-2xl font-bold mb-4">What You'll Learn</h2>
+                            <ul class="space-y-3">
+                                <li class="flex items-start"><i class="fas fa-check-circle accent-text mt-1 mr-3"></i><span>Navigate the Photoshop workspace.</span></li>
+                                <li class="flex items-start"><i class="fas fa-check-circle accent-text mt-1 mr-3"></i><span>Master the concept of layers.</span></li>
+                                <li class="flex items-start"><i class="fas fa-check-circle accent-text mt-1 mr-3"></i><span>Use basic selection tools like Marquee and Lasso.</span></li>
+                                <li class="flex items-start"><i class="fas fa-check-circle accent-text mt-1 mr-3"></i><span>Perform simple retouching and color adjustments.</span></li>
+                                <li class="flex items-start"><i class="fas fa-check-circle accent-text mt-1 mr-3"></i><span>Save and export your projects.</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-1" data-aos="fade-left" data-aos-delay="300">
+                        <div class="bg-gray-50 rounded-lg p-6 sticky top-28">
+                            <h3 class="text-xl font-bold mb-6 text-center">Course Details</h3>
+                            <div class="space-y-5">
+                                <div class="flex items-center"><div class="w-12 h-12 rounded-full flex items-center justify-center detail-card-icon mr-4"><i class="fas fa-signal accent-text text-xl"></i></div><div><p class="font-semibold">Skill Level</p><p class="text-gray-600">Beginner</p></div></div>
+                                <div class="flex items-center"><div class="w-12 h-12 rounded-full flex items-center justify-center detail-card-icon mr-4"><i class="fas fa-clock accent-text text-xl"></i></div><div><p class="font-semibold">Duration</p><p class="text-gray-600">Approx. 45 Minutes</p></div></div>
+                                <div class="flex items-center"><div class="w-12 h-12 rounded-full flex items-center justify-center detail-card-icon mr-4"><i class="fas fa-infinity accent-text text-xl"></i></div><div><p class="font-semibold">Access</p><p class="text-gray-600">Lifetime</p></div></div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
 
-        <section class="bg-gray-50 py-20 px-4">
+        <div id="canva-content" style="display: none;">
+            <section class="bg-gray-50 py-12 px-4">
+                <div class="max-w-5xl mx-auto">
+                    <a href="courses.html" class="text-sm font-semibold accent-text hover:underline" data-aos="fade-up">&larr; Back to All Courses</a>
+                    <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mt-4 mb-2" data-aos="fade-up" data-aos-delay="100">Free Course: Quick Designs with Canva</h1>
+                    <p class="text-lg text-gray-600 max-w-3xl" data-aos="fade-up" data-aos-delay="200">Learn how to create stunning social media posts, presentations, and more in minutes with Canva's intuitive drag-and-drop interface.</p>
+                </div>
+            </section>
+            <section class="py-16 px-4">
+                <div class="max-w-5xl mx-auto grid lg:grid-cols-3 gap-12">
+                    <div class="lg:col-span-2">
+                        <div class="aspect-w-16 aspect-h-9 mb-8 rounded-lg overflow-hidden shadow-lg" data-aos="fade-up">
+                            <iframe src="https://www.youtube.com/embed/Vp_sU_E61p0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <div data-aos="fade-up" data-aos-delay="100">
+                            <h2 class="text-2xl font-bold mb-4">About This Course</h2>
+                            <p class="text-gray-700 leading-relaxed mb-6">This course is your fast track to creating professional-looking graphics without any prior design experience. Canva is a powerful online tool that makes design simple and fun. We'll show you how to leverage its vast library of templates, fonts, and elements.</p>
+                        </div>
+                        <div data-aos="fade-up" data-aos-delay="200">
+                            <h2 class="text-2xl font-bold mb-4">What You'll Learn</h2>
+                            <ul class="space-y-3">
+                                <li class="flex items-start"><i class="fas fa-check-circle accent-text mt-1 mr-3"></i><span>Explore the Canva dashboard and templates.</span></li>
+                                <li class="flex items-start"><i class="fas fa-check-circle accent-text mt-1 mr-3"></i><span>Use the drag-and-drop editor to add elements.</span></li>
+                                <li class="flex items-start"><i class="fas fa-check-circle accent-text mt-1 mr-3"></i><span>Customize colors, fonts, and layouts.</span></li>
+                                <li class="flex items-start"><i class="fas fa-check-circle accent-text mt-1 mr-3"></i><span>Design common projects like Instagram posts.</span></li>
+                                <li class="flex items-start"><i class="fas fa-check-circle accent-text mt-1 mr-3"></i><span>Export and share your finished designs.</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-1" data-aos="fade-left" data-aos-delay="300">
+                        <div class="bg-gray-50 rounded-lg p-6 sticky top-28">
+                            <h3 class="text-xl font-bold mb-6 text-center">Course Details</h3>
+                            <div class="space-y-5">
+                                <div class="flex items-center"><div class="w-12 h-12 rounded-full flex items-center justify-center detail-card-icon mr-4"><i class="fas fa-signal accent-text text-xl"></i></div><div><p class="font-semibold">Skill Level</p><p class="text-gray-600">Beginner</p></div></div>
+                                <div class="flex items-center"><div class="w-12 h-12 rounded-full flex items-center justify-center detail-card-icon mr-4"><i class="fas fa-clock accent-text text-xl"></i></div><div><p class="font-semibold">Duration</p><p class="text-gray-600">Approx. 30 Minutes</p></div></div>
+                                <div class="flex items-center"><div class="w-12 h-12 rounded-full flex items-center justify-center detail-card-icon mr-4"><i class="fas fa-infinity accent-text text-xl"></i></div><div><p class="font-semibold">Access</p><p class="text-gray-600">Lifetime</p></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="error-content" class="text-center py-20 px-4" style="display: none;">
+            <h2 class="text-2xl font-bold mb-4">Course Not Found</h2>
+            <p class="text-gray-600 mb-8">Please select a course from our main courses page.</p>
+            <a href="courses.html" class="accent-bg text-white font-bold py-3 px-8 rounded-full hover:bg-opacity-90 transition duration-300">
+                View All Courses
+            </a>
+        </div>
+
+        <section id="next-steps" style="display: none;" class="bg-gray-50 py-20 px-4">
             <div class="max-w-4xl mx-auto text-center">
                 <h2 class="text-3xl font-bold mb-4" data-aos="fade-up">Ready for the Next Step?</h2>
                 <p class="text-gray-600 text-lg mb-8" data-aos="fade-up" data-aos-delay="100">
-                    If you enjoyed this free introduction, you'll love our comprehensive paid courses. Dive deeper into advanced techniques and professional workflows.
+                    If you enjoyed this free introduction, you'll love our comprehensive paid courses.
                 </p>
                 <a href="courses.html" class="accent-bg text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-opacity-90 transition duration-300 transform hover:scale-105 inline-block" data-aos="fade-up" data-aos-delay="200">
                     Explore Paid Courses
                 </a>
             </div>
         </section>
-
     </main>
 
     <footer class="bg-black text-white py-12">
@@ -211,10 +203,8 @@
                     <ul class="space-y-2">
                          <li><a href="course-detail-basic.html" class="text-gray-400 hover:text-white transition duration-300">Basic Adobe Illustrator Course</a></li>
                         <li><a href="course-detail-intermediate.html" class="text-gray-400 hover:text-white transition duration-300">Intermediate</a></li>
-                        <li><a href="course-detail-advanced.html" class="text-gray-400 hover:text-white transition duration-300">Advanced Abstract Drawing</a></li>
-                        <li><a href="course-detail-graphic-design.html" class="text-gray-400 hover:text-white transition duration-300">Graphic Design Course</a></li>
-                        <li><a href="course-detail-free-ps.html" class="text-gray-400 hover:text-white transition duration-300">Free: Photoshop Basics</a></li>
-                        <li><a href="course-detail-free-canva.html" class="text-gray-400 hover:text-white transition duration-300">Free: Canva Designs</a></li>
+                        <li><a href="course-detail-free.html?course=photoshop" class="text-gray-400 hover:text-white transition duration-300">Free: Photoshop Basics</a></li>
+                        <li><a href="course-detail-free.html?course=canva" class="text-gray-400 hover:text-white transition duration-300">Free: Canva Designs</a></li>
                     </ul>
                 </div>
                 <div>
@@ -227,14 +217,12 @@
                 </div>
             </div>
             <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400 mb-4 md:mb-0">
-                    &copy; 2025 ART de ONE. All rights reserved.
-                </p>
+                <p class="text-gray-400 mb-4 md:mb-0">&copy; 2025 ART de ONE. All rights reserved.</p>
                 <div class="flex space-x-6">
-                    <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-behance"></i></a>
-                    <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-white"><i class="fab fa-behance"></i></a>
+                    <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-white"><i class="fab fa-tiktok"></i></a>
                 </div>
             </div>
         </div>
@@ -243,8 +231,42 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script>
-        AOS.init({ duration: 800, easing: 'ease-in-out', once: true });
-        feather.replace();
+        // --- LOGIC TO DISPLAY THE CORRECT COURSE ---
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. Get the URL parameter
+            const params = new URLSearchParams(window.location.search);
+            const course = params.get('course');
+
+            // 2. Find the content elements
+            const photoshopContent = document.getElementById('photoshop-content');
+            const canvaContent = document.getElementById('canva-content');
+            const errorContent = document.getElementById('error-content');
+            const nextSteps = document.getElementById('next-steps');
+
+            let courseTitle = 'Free Course - ART de ONE';
+
+            // 3. Show the correct content based on the parameter
+            if (course === 'photoshop') {
+                photoshopContent.style.display = 'block';
+                nextSteps.style.display = 'block';
+                courseTitle = 'Free Course: Photoshop Basics - ART de ONE';
+            } else if (course === 'canva') {
+                canvaContent.style.display = 'block';
+                nextSteps.style.display = 'block';
+                courseTitle = 'Free Course: Quick Designs with Canva - ART de ONE';
+            } else {
+                // If no valid course parameter is found, show an error message
+                errorContent.style.display = 'block';
+                courseTitle = 'Course Not Found - ART de ONE';
+            }
+            
+            // 4. Update the page title dynamically
+            document.title = courseTitle;
+            
+            // Initialize animations and icons AFTER content is displayed
+            AOS.init({ duration: 800, easing: 'ease-in-out', once: true });
+            feather.replace();
+        });
 
         // Mobile menu toggle
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
