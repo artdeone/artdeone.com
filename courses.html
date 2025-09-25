@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Courses - ART de ONE</title>
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -54,6 +55,7 @@
 
 <body class="bg-gray-50 text-gray-900">
 
+    <!-- Navigation -->
     <nav class="fixed w-full bg-white shadow-sm z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
@@ -81,6 +83,7 @@
                 </div>
             </div>
         </div>
+        <!-- Mobile menu -->
         <div class="hidden md:hidden bg-white shadow-lg" id="mobile-menu">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="index.html#home" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Home</a>
@@ -93,7 +96,9 @@
         </div>
     </nav>
 
+    <!-- Main Content -->
     <main class="pt-24">
+        <!-- Courses Header -->
         <section class="text-center py-16 px-4">
             <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4" data-aos="fade-up">Our <span class="accent-text">Courses</span></h1>
             <div class="w-24 h-1 bg-gray-300 mx-auto mb-6" data-aos="fade-up" data-aos-delay="100"></div>
@@ -102,15 +107,19 @@
             </p>
         </section>
 
+        <!-- Course Filter and Grid -->
         <section class="py-16 bg-white px-4">
             <div class="max-w-7xl mx-auto">
+                <!-- Filter Buttons -->
                 <div class="flex flex-wrap justify-center gap-4 mb-12" data-aos="fade-up">
                     <button class="filter-btn active px-6 py-2 rounded-full border-2 border-gray-300 font-semibold transition duration-300" data-filter="all">All Courses</button>
                     <button class="filter-btn px-6 py-2 rounded-full border-2 border-gray-300 font-semibold transition duration-300 hover:border-gray-400" data-filter="paid">Paid Courses</button>
                     <button class="filter-btn px-6 py-2 rounded-full border-2 border-gray-300 font-semibold transition duration-300 hover:border-gray-400" data-filter="free">Free Courses</button>
                 </div>
 
+                <!-- Courses Grid -->
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="course-grid">
+                    <!-- Course Card 1: Basic Adobe Illustrator Course -->
                     <div class="course-item paid" data-aos="fade-up">
                         <a href="course-detail-basic.html" class="block bg-white rounded-lg shadow-md overflow-hidden course-card">
                             <img src="https://placehold.co/600x400/9dae11/white?text=Basic+Course" alt="Basic Adobe Illustrator Course Thumbnail" class="w-full h-48 object-cover">
@@ -125,6 +134,7 @@
                         </a>
                     </div>
 
+                    <!-- Course Card 2: Intermediate -->
                     <div class="course-item paid relative" data-aos="fade-up" data-aos-delay="100">
                          <div class="absolute top-4 right-4 z-10">
                             <span class="bg-black text-[#9dad10] text-xs font-bold px-3 py-1 rounded-full shadow-md">Top Rated</span>
@@ -142,6 +152,7 @@
                         </a>
                     </div>
 
+                    <!-- Course Card 3: Advanced Abstract Drawing -->
                     <div class="course-item paid" data-aos="fade-up" data-aos-delay="200">
                         <a href="course-detail-advanced.html" class="block bg-white rounded-lg shadow-md overflow-hidden course-card">
                             <img src="https://placehold.co/600x400/5a5a5a/white?text=Advanced" alt="Advanced Abstract Drawing Thumbnail" class="w-full h-48 object-cover">
@@ -155,7 +166,8 @@
                             </div>
                         </a>
                     </div>
-                     <div class="course-item paid" data-aos="fade-up" data-aos-delay="300">
+                     <!-- Course Card 4: A mini Course on Generative AI Tool -->
+                    <div class="course-item paid" data-aos="fade-up" data-aos-delay="300">
                         <a href="course-detail-gen-ai.html" class="block bg-white rounded-lg shadow-md overflow-hidden course-card">
                             <img src="https://placehold.co/600x400/9dae11/white?text=Generative+AI" alt="Generative AI Course Thumbnail" class="w-full h-48 object-cover">
                             <div class="p-6">
@@ -168,6 +180,7 @@
                             </div>
                         </a>
                     </div>
+                    <!-- Course Card 5: Explain an Ai Intermediate Course -->
                     <div class="course-item paid" data-aos="fade-up" data-aos-delay="400">
                         <a href="course-detail-ai-intermediate.html" class="block bg-white rounded-lg shadow-md overflow-hidden course-card">
                             <img src="https://placehold.co/600x400/1a1a1a/white?text=AI+Intermediate" alt="AI Intermediate Course Thumbnail" class="w-full h-48 object-cover">
@@ -181,7 +194,8 @@
                             </div>
                         </a>
                     </div>
-                     <div class="course-item paid" data-aos="fade-up" data-aos-delay="500">
+                     <!-- Course Card 6: Graphic Design Course -->
+                    <div class="course-item paid" data-aos="fade-up" data-aos-delay="500">
                         <a href="course-detail-graphic-design.html" class="block bg-white rounded-lg shadow-md overflow-hidden course-card">
                             <img src="https://placehold.co/600x400/9dae11/white?text=Graphic+Design" alt="Graphic Design Course Thumbnail" class="w-full h-48 object-cover">
                             <div class="p-6">
@@ -194,7 +208,8 @@
                             </div>
                         </a>
                     </div>
-                     <div class="course-item paid" data-aos="fade-up" data-aos-delay="600">
+                     <!-- Course Card 7: Social Media Design Course -->
+                    <div class="course-item paid" data-aos="fade-up" data-aos-delay="600">
                         <a href="course-detail-social-media.html" class="block bg-white rounded-lg shadow-md overflow-hidden course-card">
                             <img src="https://placehold.co/600x400/1a1a1a/white?text=Social+Media" alt="Social Media Design Course Thumbnail" class="w-full h-48 object-cover">
                             <div class="p-6">
@@ -207,7 +222,8 @@
                             </div>
                         </a>
                     </div>
-                     <div class="course-item paid" data-aos="fade-up" data-aos-delay="700">
+                     <!-- Course Card 8: Adobe After Effects -->
+                    <div class="course-item paid" data-aos="fade-up" data-aos-delay="700">
                         <a href="course-detail-after-effects.html" class="block bg-white rounded-lg shadow-md overflow-hidden course-card">
                             <img src="https://placehold.co/600x400/5a5a5a/white?text=After+Effects" alt="Adobe After Effects Course Thumbnail" class="w-full h-48 object-cover">
                             <div class="p-6">
@@ -220,35 +236,7 @@
                             </div>
                         </a>
                     </div>
-                    
-                    <div class="course-item free" data-aos="fade-up" data-aos-delay="800">
-                        <a href="course-detail-free.html?course=photoshop" class="block bg-white rounded-lg shadow-md overflow-hidden course-card">
-    <img src="https://placehold.co/600x400/0078d4/white?text=Photoshop+Basics" alt="Free Photoshop Basics Thumbnail" class="w-full h-48 object-cover">
-    <div class="p-6">
-        <h3 class="text-xl font-semibold text-gray-800 mb-2">Free Course: Photoshop Basics</h3>
-        <p class="text-gray-600 mb-4">Get started with the fundamentals of Adobe Photoshop. No experience needed!</p>
-        <div class="flex justify-between items-center">
-            <span class="text-2xl font-bold accent-text">Free</span>
-            <span class="text-sm font-semibold accent-text">Watch Now &rarr;</span>
-        </div>
-    </div>
-</a>
-                    </div>
-
-                    <div class="course-item free" data-aos="fade-up" data-aos-delay="900">
-                         <a href="course-detail-free.html?course=photoshop" class="block bg-white rounded-lg shadow-md overflow-hidden course-card">
-                            <img src="https://placehold.co/600x400/20c4cb/white?text=Canva+Design" alt="Free Canva Design Course Thumbnail" class="w-full h-48 object-cover">
-                            <div class="p-6">
-                                <h3 class="text-xl font-semibold text-gray-800 mb-2">Free Course: Quick Designs with Canva</h3>
-                                <p class="text-gray-600 mb-4">Learn to create stunning graphics for social media quickly and easily.</p>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-2xl font-bold accent-text">Free</span>
-                                    <span class="text-sm font-semibold accent-text">Start Learning &rarr;</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    </div>
+                </div>
                  <div id="no-courses-message" class="text-center text-gray-500 py-12 hidden" data-aos="fade-up">
                     <p class="text-xl">No free courses available at the moment. Please check back later!</p>
                 </div>
@@ -256,6 +244,7 @@
         </section>
     </main>
     
+    <!-- Footer -->
     <footer class="bg-black text-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-4 gap-8">
@@ -282,8 +271,6 @@
                         <li><a href="course-detail-intermediate.html" class="text-gray-400 hover:text-white transition duration-300">Intermediate</a></li>
                         <li><a href="course-detail-advanced.html" class="text-gray-400 hover:text-white transition duration-300">Advanced Abstract Drawing</a></li>
                         <li><a href="course-detail-graphic-design.html" class="text-gray-400 hover:text-white transition duration-300">Graphic Design Course</a></li>
-                        <li><a href="course-detail-free.html?course=photoshop" class="text-gray-400 hover:text-white transition duration-300">Free: Chracter Vector Drawing</a></li>
-                        <li><a href="course-detail-free.html?course=photoshop" class="text-gray-400 hover:text-white transition duration-300">Free: Photoshop & Illustrator Tips</a></li>
                     </ul>
                 </div>
                 <div>
@@ -354,3 +341,5 @@
     </script>
 </body>
 </html>
+
+
