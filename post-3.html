@@ -20,9 +20,11 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex items-center">
-                    <a href="index.html#home" class="flex-shrink-0">
-                         <img src="/logo.png" alt="ART de ONE" class="h-10 w-auto">
-                    </a>
+                    <div class="flex-shrink-0">
+                        <a href="index.html" class="flex items-center">
+                            <img src="/logo.png" alt="ART de ONE" class="h-10 w-auto">
+                        </a>
+                    </div>
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-8">
@@ -35,9 +37,26 @@
                         <a href="index.html#contact" class="nav-link text-gray-900 hover:text-gray-700 px-3 py-2 text-sm font-medium">Contact</a>
                     </div>
                 </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 focus:outline-none" aria-controls="mobile-menu" aria-expanded="false" id="mobile-menu-button">
+                        <i data-feather="menu"></i>
+                    </button>
                 </div>
+            </div>
+        </div>
+        <div class="hidden md:hidden bg-white shadow-lg" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="index.html#home" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Home</a>
+                <a href="index.html#about" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">About</a>
+                <a href="courses.html" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Courses</a>
+                <a href="blog.html" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Blog</a>
+                <a href="index.html#portfolio" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Portfolio</a>
+                <a href="index.html#freelance" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Freelance</a>
+                <a href="index.html#contact" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Contact</a>
+            </div>
         </div>
     </nav>
+    
     <main class="pt-24 pb-20">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             
@@ -99,7 +118,7 @@
             </article>
             
             <div class="mt-16 text-center">
-                <a href="blog.html" class="inline-block bg-gray-900 text-white font-semibold px-8 py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300">
+                <a href="blog.html" class="inline-block bg-gray-900 text-white font-semibold px-8 py-3 rounded-full hover:bg-gray-700 transition-colors duration-300">
                     &larr; Back to All Posts
                 </a>
             </div>
