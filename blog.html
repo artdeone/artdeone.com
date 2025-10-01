@@ -75,54 +75,12 @@
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                    <a href="post-1.html" class="block">
-                        <img src="blog-image/blog-image-1.jpg" alt="Blog post thumbnail" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <h2 class="text-2xl font-bold text-gray-900 mb-2">ART de ONE's Shader and Stipple Brush Free Download</h2>
-                            <p class="text-gray-600 mb-4">ကိုယ်ဆွဲထားတဲ့ပုံတွေကို Shadow Highlight လုပ်လို့အကောင်းဆုံး Brush တွေထဲမှာ အခုလို Shader Brush တွေပါတယ်။ 
-                                ေဒါင်းလုပ်ပြီး သုံးကြည့်လိုက်ပါဦး။
-                            </p>
-                                <a href="post-1.html" class="inline-flex items-center gap-x-2 bg-gray-900 text-white font-semibold px-4 py-2 rounded-full hover:bg-gray-700 transition-colors">
-                                 Read More
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                                </a>
-                        </div>
-                    </a>
-                </div>
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                    <a href="post-2.html" class="block">
-                        <img src="blog-image/huevscolor/hue-color-1.jpg" alt="Blog post thumbnail" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <h2 class="text-2xl font-bold text-gray-900 mb-2">HUEs VS COLORS ကွာခြားပုံ</h2>
-                            <p class="text-gray-600 mb-4">Hue နဲ့ Color ကိုသတိမထားမိရင် တူသလိုထင်ရပေမယ့် သေချာစဥ်းစားကြည့်ရင်
-                                        မတူဘူးဗျ။ ဒါကလဲပေါ့ပေါ့ပါးပါးနဲ့ သတိထားမိအောင်sharing လုပ်တဲ့သဘောပါ။</p>
-                            <a href="post-2.html" class="inline-flex items-center gap-x-2 bg-gray-900 text-white font-semibold px-4 py-2 rounded-full hover:bg-gray-700 transition-colors">
-                                 Read More
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                                </a>
-                        </div>
-                    </a>
-                </div>
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                    <a href="post-3.html" class="block">
-                        <img src="blog-image/rgb/rgb-1.jpg" alt="Blog post thumbnail" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <h2 class="text-2xl font-bold text-gray-900 mb-2">RGB သ‌ဘောတရားနှင့်ဆက်စပ်နေတဲ့ သဘာ၀တရား</h2>
-                            <p class="text-gray-600 mb-4">"RGB သ‌ဘောတရား" နဲ့ “နေရဲ့အရောင်များ"
-                                                           နေရဲ့အရောင်ကဘာလဲ?  🔴အနီလား 🟡အ၀ါလား?</p>
-                            <a href="post-3.html" class="inline-flex items-center gap-x-2 bg-gray-900 text-white font-semibold px-4 py-2 rounded-full hover:bg-gray-700 transition-colors">
-                                 Read More
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                                </a>
-                        </div>
-                    </a>
-                </div>
-                
-                </div>
+            <!-- Blog posts will be loaded here dynamically -->
+            <div id="blog-posts" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Posts will be inserted here by JavaScript -->
             </div>
-         </main>
+         </div>
+    </main>
     
    <footer class="bg-black text-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -177,14 +135,68 @@
     </footer>
 
     <script>
+        // Blog posts data - Add new posts here
+        const blogPosts = [
+            {
+                id: 1,
+                title: "ART de ONE's Shader and Stipple Brush Free Download",
+                date: "September 27, 2025",
+                image: "blog-image/blog-image-1.jpg",
+                excerpt: "ကိုယ်ဆွဲထားတဲ့ပုံတွေကို Shadow Highlight လုပ်လို့အကောင်းဆုံး Brush တွေထဲမှာ အခုလို Shader Brush တွေပါတယ်။ ေဒါင်းလုပ်ပြီး သုံးကြည့်လိုက်ပါဦး။",
+                file: "post-1.html"
+            },
+            {
+                id: 2,
+                title: "HUEs VS COLORS ကွာခြားပုံ",
+                date: "October 1, 2025",
+                image: "blog-image/huevscolor/hue-color-1.jpg",
+                excerpt: "Hue နဲ့ Color ကိုသတိမထားမိရင် တူသလိုထင်ရပေမယ့် သေချာစဥ်းစားကြည့်ရင် မတူဘူးဗျ။ ဒါကလဲပေါ့ပေါ့ပါးပါးနဲ့ သတိထားမိအောင် sharing လုပ်တဲ့သဘောပါ။",
+                file: "post-2.html"
+            },
+            {
+                id: 3,
+                title: "RGB သ‌ဘောတရားနှင့်ဆက်စပ်နေတဲ့ သဘာ၀တရား",
+                date: "October 5, 2025",
+                image: "blog-image/rgb/rgb-1.jpg",
+                excerpt: "\"RGB သ‌�ောတရား\" နဲ့ \"နေရဲ့အရောင်များ\" နေရဲ့အရောင်ကဘာလဲ? 🔴အနီလား 🟡အ၀ါလား?",
+                file: "post-3.html"
+            }
+            // Add more posts here as you create them
+        ];
+
+        function loadBlogPosts() {
+            const container = document.getElementById('blog-posts');
+            
+            blogPosts.forEach(post => {
+                const postHTML = `
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                        <a href="${post.file}" class="block">
+                            <img src="${post.image}" alt="${post.title}" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <span class="text-gray-500 text-sm">${post.date}</span>
+                                <h2 class="text-2xl font-bold text-gray-900 mb-2">${post.title}</h2>
+                                <p class="text-gray-600 mb-4">${post.excerpt}</p>
+                                <a href="${post.file}" class="inline-flex items-center gap-x-2 bg-gray-900 text-white font-semibold px-4 py-2 rounded-full hover:bg-gray-700 transition-colors">
+                                    Read More
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                                </a>
+                            </div>
+                        </a>
+                    </div>
+                `;
+                container.innerHTML += postHTML;
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
-            // Get the mobile menu button and the mobile menu itself
+            // Load blog posts
+            loadBlogPosts();
+
+            // Mobile menu functionality
             const menuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
 
-            // Add a click event listener to the button
             menuButton.addEventListener('click', function() {
-                // Toggle the 'hidden' class on the menu to show/hide it
                 mobileMenu.classList.toggle('hidden');
             });
 
