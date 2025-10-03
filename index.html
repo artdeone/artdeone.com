@@ -199,17 +199,17 @@
     }
     
     /* Instructor Section Lift Effect */
-.instructor-card {
+    .instructor-card {
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     cursor: pointer;
     position: relative;
     z-index: 1;
-}
+    }
 
-.instructor-card:hover {
+    .instructor-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15) !important;
-}
+    }
     
     /* Freelance Service Tabs */
     .service-tab-hover {
@@ -244,14 +244,31 @@
         transform: translateY(0);
     }
     /* Instructor Section Lift Effect - More Specific */
-.mt-16.bg-white.rounded-2xl.shadow-lg.overflow-hidden[data-aos="fade-up"] {
+    .mt-16.bg-white.rounded-2xl.shadow-lg.overflow-hidden[data-aos="fade-up"] {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    }
+
+    .mt-16.bg-white.rounded-2xl.shadow-lg.overflow-hidden[data-aos="fade-up"]:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15) !important;
+    }
+
+    /* Freelance Service Boxes Hover Effects */
+.freelance-service-box {
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     cursor: pointer;
 }
 
-.mt-16.bg-white.rounded-2xl.shadow-lg.overflow-hidden[data-aos="fade-up"]:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15) !important;
+.freelance-service-box:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12) !important;
+    border-color: #9dae11 !important;
+}
+
+.freelance-service-box:hover .service-icon {
+    transform: scale(1.1);
+    background-color: #9dae11 !important;
 }
     
 
@@ -639,7 +656,7 @@
         <div class="service-content">
             <!-- Logo Design Content -->
             <div class="service-panel active" id="logo-panel">
-                <div class="bg-white rounded-lg shadow-md overflow-hidden" data-aos="fade-up">
+                <div class="freelance-service-box bg-white rounded-lg shadow-md overflow-hidden" data-aos="fade-up">
                     <div class="p-6">
                         <div class="flex items-center mb-6">
                             <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mr-4">
@@ -783,7 +800,7 @@
             
             <!-- Social Media Design Content -->
             <div class="service-panel hidden" id="social-panel">
-                <div class="bg-white rounded-lg shadow-md overflow-hidden" data-aos="fade-up">
+                <div class="freelance-service-box bg-white rounded-lg shadow-md overflow-hidden" data-aos="fade-up">
                     <div class="p-6">
                         <div class="flex items-center mb-6">
                             <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mr-4">
@@ -921,7 +938,7 @@
             
             <!-- Printing Design Content -->
             <div class="service-panel hidden" id="printing-panel">
-                <div class="bg-white rounded-lg shadow-md overflow-hidden" data-aos="fade-up">
+                <div class="freelance-service-box bg-white rounded-lg shadow-md overflow-hidden" data-aos="fade-up">
                     <div class="p-6">
                         <div class="flex items-center mb-6">
                             <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mr-4">
