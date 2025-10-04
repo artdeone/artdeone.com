@@ -21,6 +21,18 @@
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         body { font-family: 'Poppins', sans-serif; }
         .accent-text { color: #9dae11; }
+        
+        /* Lift effect with shadow animation */
+        .blog-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: translateY(0);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -136,58 +148,58 @@
 
     <script>
         // Blog posts data - Add new posts here
-const blogPosts = [
-    {
-        id: 1,
-        title: "ART de ONE's Shader and Stipple Brush Free Download",
-        date: "September 27, 2025",
-        image: "posts/post-1/images/blog-image-1.jpg", // Added /images/ folder
-        excerpt: "ကိုယ်ဆွဲထားတဲ့ပုံတွေကို Shadow Highlight လုပ်လို့အကောင်းဆုံး Brush တွေထဲမှာ အခုလို Shader Brush တွေပါတယ်။ ေဒါင်းလုပ်ပြီး သုံးကြည့်လိုက်ပါဦး။",
-        file: "posts/post-1/post-1.html" // Changed to index.html
-    },
-    {
-        id: 2,
-        title: "HUEs VS COLORS ကွာခြားပုံ",
-        date: "October 1, 2025",
-        image: "posts/post-2/images/hue-color-1.jpg", // Added /images/ folder
-        excerpt: "Hue နဲ့ Color ကိုသတိမထားမိရင် တူသလိုထင်ရပေမယ့် သေချာစဥ်းစားကြည့်ရင် မတူဘူးဗျ။ ဒါကလဲပေါ့ပေါ့ပါးပါးနဲ့ သတိထားမိအောင် sharing လုပ်တဲ့သဘောပါ။",
-        file: "posts/post-2/post-2.html" // Changed to index.html
-    },
-    {
-        id: 3,
-        title: "RGB သ‌ဘောတရားနှင့်ဆက်စပ်နေတဲ့ သဘာ၀တရား",
-        date: "October 1, 2025",
-        image: "posts/post-3/images/rgb-1.jpg", // Added /images/ folder
-        excerpt: "\"RGB သ‌ဘောတရား\" နဲ့ \"နေရဲ့အရောင်များ\" နေရဲ့အရောင်ကဘာလဲ? 🔴အနီလား 🟡အ၀ါလား?",
-        file: "posts/post-3/post-3.html" // Changed to index.html
-    },
+        const blogPosts = [
+            {
+                id: 1,
+                title: "ART de ONE's Shader and Stipple Brush Free Download",
+                date: "September 27, 2025",
+                image: "posts/post-1/images/blog-image-1.jpg", // Added /images/ folder
+                excerpt: "ကိုယ်ဆွဲထားတဲ့ပုံတွေကို Shadow Highlight လုပ်လို့အကောင်းဆုံး Brush တွေထဲမှာ အခုလို Shader Brush တွေပါတယ်။ ေဒါင်းလုပ်ပြီး သုံးကြည့်လိုက်ပါဦး။",
+                file: "posts/post-1/post-1.html" // Changed to index.html
+            },
+            {
+                id: 2,
+                title: "HUEs VS COLORS ကွာခြားပုံ",
+                date: "October 1, 2025",
+                image: "posts/post-2/images/hue-color-1.jpg", // Added /images/ folder
+                excerpt: "Hue နဲ့ Color ကိုသတိမထားမိရင် တူသလိုထင်ရပေမယ့် သေချာစဥ်းစားကြည့်ရင် မတူဘူးဗျ။ ဒါကလဲပေါ့ပေါ့ပါးပါးနဲ့ သတိထားမိအောင် sharing လုပ်တဲ့သဘောပါ။",
+                file: "posts/post-2/post-2.html" // Changed to index.html
+            },
+            {
+                id: 3,
+                title: "RGB သ‌ဘောတရားနှင့်ဆက်စပ်နေတဲ့ သဘာ၀တရား",
+                date: "October 1, 2025",
+                image: "posts/post-3/images/rgb-1.jpg", // Added /images/ folder
+                excerpt: "\"RGB သ‌ဘောတရား\" နဲ့ \"နေရဲ့အရောင်များ\" နေရဲ့အရောင်ကဘာလဲ? 🔴အနီလား 🟡အ၀ါလား?",
+                file: "posts/post-3/post-3.html" // Changed to index.html
+            },
 
-    {
-        id: 4,
-        title: "ဒီဇိုင်း Principle များအကြောင်း အတိုချုပ် အပိုင်း(၁)",
-        date: "October 3, 2025",
-        image: "posts/post-4/images/cover.jpg", // Added /images/ folder
-        excerpt: "Graphic Design Principles တွေကို Design စတင်လေ့လာမယ့်သူတွေအတွက် အထောက်အကူဖြစ်စေဖို့ ရည်ရွယ်ပြီး အတိုချုပ်လေးတင်ပေးလိုက်ပါတယ်။",
-        file: "posts/post-4/post-4.html" // Changed to index.html
-    },
+            {
+                id: 4,
+                title: "ဒီဇိုင်း Principle များအကြောင်း အတိုချုပ် အပိုင်း(၁)",
+                date: "October 3, 2025",
+                image: "posts/post-4/images/cover.jpg", // Added /images/ folder
+                excerpt: "Graphic Design Principles တွေကို Design စတင်လေ့လာမယ့်သူတွေအတွက် အထောက်အကူဖြစ်စေဖို့ ရည်ရွယ်ပြီး အတိုချုပ်လေးတင်ပေးလိုက်ပါတယ်။",
+                file: "posts/post-4/post-4.html" // Changed to index.html
+            },
 
-    {
-        id: 5,
-        title: "ဒီဇိုင်း Principle များအကြောင်း အတိုချုပ် အပိုင်း(၂)",
-        date: "October 4, 2025",
-        image: "posts/post-5/images/cover.jpg", // Added /images/ folder
-        excerpt: "ဒါကတော့ ဒီဇိုင်း Principle များအကြောင်း အတိုချုပ် အပိုင်း(၂) ဖြစ်ပါတယ်။ ဒီဇိုင်း Principle တွေကို Design စတင်လေ့လာမယ့်သူတွေအတွက် အထောက်အကူဖြစ်စေဖို့ ရည်ရွယ်ပြီး အတိုချုပ်လေးတင်ပေးလိုက်ပါတယ်။",
-        file: "posts/post-5/post-5.html" // Changed to index.html
-    }
-    // Add more posts here as you create them
-];
+            {
+                id: 5,
+                title: "ဒီဇိုင်း Principle များအကြောင်း အတိုချုပ် အပိုင်း(၂)",
+                date: "October 4, 2025",
+                image: "posts/post-5/images/cover.jpg", // Added /images/ folder
+                excerpt: "ဒါကတော့ ဒီဇိုင်း Principle များအကြောင်း အတိုချုပ် အပိုင်း(၂) ဖြစ်ပါတယ်။ ဒီဇိုင်း Principle တွေကို Design စတင်လေ့လာမယ့်သူတွေအတွက် အထောက်အကူဖြစ်စေဖို့ ရည်ရွယ်ပြီး အတိုချုပ်လေးတင်ပေးလိုက်ပါတယ်။",
+                file: "posts/post-5/post-5.html" // Changed to index.html
+            }
+            // Add more posts here as you create them
+        ];
 
         function loadBlogPosts() {
             const container = document.getElementById('blog-posts');
             
             blogPosts.forEach(post => {
                 const postHTML = `
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <div class="blog-card bg-white rounded-lg overflow-hidden">
                         <a href="${post.file}" class="block">
                             <img src="${post.image}" alt="${post.title}" class="w-full h-48 object-cover">
                             <div class="p-6">
