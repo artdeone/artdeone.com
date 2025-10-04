@@ -312,6 +312,42 @@
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
+/* Enhanced Testimonial Cards with Lift Effect */
+.testimonial-card {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    z-index: 1;
+    border: 1px solid #f3f4f6;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    border-color: #e5e7eb;
+}
+
+.testimonial-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(157, 174, 17, 0.02) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    border-radius: 0.5rem;
+    z-index: -1;
+}
+
+.testimonial-card:hover::before {
+    opacity: 1;
+}
+
+/* Optional: Add a subtle accent border on hover */
+.testimonial-card:hover {
+    border-bottom: 3px solid #9dae11;
+}
 
 
 
@@ -1121,6 +1157,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16" data-aos="fade-up">
             <h2 class="text-3xl font-bold text-gray-900 mb-4">What Our <span class="accent-text">Community Says</span></h2>
+            <!-- Your chosen divider here (animated dots, etc.) -->
             <div class="flex justify-center space-x-2 mb-6">
                 <div class="w-2 h-2 bg-[#9dae11] rounded-full animate-bounce" style="animation-delay: 0s"></div>
                 <div class="w-2 h-2 bg-[#9dae11] rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
@@ -1132,7 +1169,7 @@
             
             <!-- Facebook Rating Summary -->
             <div class="mt-8 flex flex-col items-center justify-center" data-aos="fade-up" data-aos-delay="100">
-                <div class="flex items-center bg-white rounded-lg shadow-md p-6 max-w-md">
+                <div class="flex items-center bg-white rounded-lg shadow-md p-6 max-w-md testimonial-card">
                     <div class="text-center mr-6">
                         <div class="flex items-center justify-center mb-2">
                             <div class="flex text-[#9dae11] mr-2">
@@ -1175,7 +1212,6 @@
                 </div>
                 <div class="flex items-center mb-4">
                     <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center mr-4 overflow-hidden">
-                        <!-- Replace with actual student photo -->
                         <img src="reviews-photos/review-1.jpg" alt="Lwin Oo Maung" class="w-full h-full object-cover">
                     </div>
                     <div>
@@ -1205,7 +1241,6 @@
                 </div>
                 <div class="flex items-center mb-4">
                     <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center mr-4 overflow-hidden">
-                        <!-- Replace with actual student photo -->
                         <img src="reviews-photos/review-2.jpg" alt="Thar Htet Aung" class="w-full h-full object-cover">
                     </div>
                     <div>
@@ -1235,7 +1270,6 @@
                 </div>
                 <div class="flex items-center mb-4">
                     <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center mr-4 overflow-hidden">
-                        <!-- Replace with actual student photo -->
                         <img src="reviews-photos/review-3.jpg" alt="May Phyu Thaw" class="w-full h-full object-cover">
                     </div>
                     <div>
@@ -1265,7 +1299,6 @@
                 </div>
                 <div class="flex items-center mb-4">
                     <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center mr-4 overflow-hidden">
-                        <!-- Replace with actual student photo -->
                         <img src="reviews-photos/review-4.jpg" alt="Su Myat Mon" class="w-full h-full object-cover">
                     </div>
                     <div>
