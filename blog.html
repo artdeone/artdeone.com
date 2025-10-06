@@ -91,6 +91,21 @@
             <div id="blog-posts" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Posts will be inserted here by JavaScript -->
             </div>
+
+            <!-- Pagination -->
+            <div class="flex justify-center items-center mt-12 space-x-4">
+                <button id="prev-page" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                    <i data-feather="chevron-left"></i> Previous
+                </button>
+                
+                <div id="page-numbers" class="flex space-x-2">
+                    <!-- Page numbers will be generated here -->
+                </div>
+                
+                <button id="next-page" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                    Next <i data-feather="chevron-right"></i>
+                </button>
+            </div>
          </div>
     </main>
     
@@ -153,60 +168,77 @@
                 id: 1,
                 title: "ART de ONE's Shader and Stipple Brush Free Download",
                 date: "September 27, 2025",
-                image: "posts/post-1/images/blog-image-1.jpg", // Added /images/ folder
+                image: "posts/post-1/images/blog-image-1.jpg",
                 excerpt: "ကိုယ်ဆွဲထားတဲ့ပုံတွေကို Shadow Highlight လုပ်လို့အကောင်းဆုံး Brush တွေထဲမှာ အခုလို Shader Brush တွေပါတယ်။ ေဒါင်းလုပ်ပြီး သုံးကြည့်လိုက်ပါဦး။",
-                file: "posts/post-1/post-1.html" // Changed to index.html
+                file: "posts/post-1/post-1.html"
             },
             {
                 id: 2,
                 title: "HUEs VS COLORS ကွာခြားပုံ",
                 date: "October 1, 2025",
-                image: "posts/post-2/images/hue-color-1.jpg", // Added /images/ folder
+                image: "posts/post-2/images/hue-color-1.jpg",
                 excerpt: "Hue နဲ့ Color ကိုသတိမထားမိရင် တူသလိုထင်ရပေမယ့် သေချာစဥ်းစားကြည့်ရင် မတူဘူးဗျ။ ဒါကလဲပေါ့ပေါ့ပါးပါးနဲ့ သတိထားမိအောင် sharing လုပ်တဲ့သဘောပါ။",
-                file: "posts/post-2/post-2.html" // Changed to index.html
+                file: "posts/post-2/post-2.html"
             },
             {
                 id: 3,
                 title: "RGB သ‌ဘောတရားနှင့်ဆက်စပ်နေတဲ့ သဘာ၀တရား",
                 date: "October 1, 2025",
-                image: "posts/post-3/images/rgb-1.jpg", // Added /images/ folder
+                image: "posts/post-3/images/rgb-1.jpg",
                 excerpt: "\"RGB သ‌ဘောတရား\" နဲ့ \"နေရဲ့အရောင်များ\" နေရဲ့အရောင်ကဘာလဲ? 🔴အနီလား 🟡အ၀ါလား?",
-                file: "posts/post-3/post-3.html" // Changed to index.html
+                file: "posts/post-3/post-3.html"
             },
-
             {
                 id: 4,
                 title: "ဒီဇိုင်း Principle များအကြောင်း အတိုချုပ် အပိုင်း(၁)",
                 date: "October 3, 2025",
-                image: "posts/post-4/images/cover.jpg", // Added /images/ folder
+                image: "posts/post-4/images/cover.jpg",
                 excerpt: "Graphic Design Principles တွေကို Design စတင်လေ့လာမယ့်သူတွေအတွက် အထောက်အကူဖြစ်စေဖို့ ရည်ရွယ်ပြီး အတိုချုပ်လေးတင်ပေးလိုက်ပါတယ်။",
-                file: "posts/post-4/post-4.html" // Changed to index.html
+                file: "posts/post-4/post-4.html"
             },
-
             {
                 id: 5,
                 title: "ဒီဇိုင်း Principle များအကြောင်း အတိုချုပ် အပိုင်း(၂)",
                 date: "October 4, 2025",
-                image: "posts/post-5/images/cover.jpg", // Added /images/ folder
+                image: "posts/post-5/images/cover.jpg",
                 excerpt: "ဒါကတော့ ဒီဇိုင်း Principle များအကြောင်း အတိုချုပ် အပိုင်း(၂) Final Part ဖြစ်ပါတယ်။ ဒီဇိုင်း Principle တွေကို Design စတင်လေ့လာမယ့်သူတွေအတွက် အထောက်အကူဖြစ်စေဖို့ ရည်ရွယ်ပြီး အတိုချုပ်လေးတင်ပေးလိုက်ပါတယ်။",
-                file: "posts/post-5/post-5.html" // Changed to index.html
+                file: "posts/post-5/post-5.html"
             },
-
             {
                 id: 6,
                 title: "Marketing Team အကြိုက်ဒီဇိုင်းတွေဖန်တီးနိုင်ဖို့ CRAP Principle",
                 date: "October 4, 2025",
-                image: "posts/post-6/images/crap-cover.jpg", // Added /images/ folder
+                image: "posts/post-6/images/crap-cover.jpg",
                 excerpt: "ဒီ Principles လေးခုသိထားရင် Marketing Team အကြိုက် Design တွေဖန်တီးလို့ရပါတယ်။ အခုမှ Design ကိုလေ့လာမယ့်ညီကိုမောင်နှမတွေအားလုံး အတွက် အဆင်ပြေစေချင်တဲ့ဆန္ဒနဲ့မျှ၀ယ်ပေးလိုက်ပါတယ်။",
-                file: "posts/post-6/post-6.html" // Changed to index.html
+                file: "posts/post-6/post-6.html"
             }
             // Add more posts here as you create them
+            // NEWEST POSTS WILL APPEAR FIRST ON PAGE 1
         ];
 
-        function loadBlogPosts() {
+        // Pagination settings
+        const postsPerPage = 6;
+        let currentPage = 1;
+
+        // Sort blog posts by date (newest first)
+        function sortBlogPosts() {
+            return [...blogPosts].sort((a, b) => {
+                return new Date(b.date) - new Date(a.date);
+            });
+        }
+
+        function loadBlogPosts(page = 1) {
             const container = document.getElementById('blog-posts');
+            container.innerHTML = ''; // Clear existing posts
             
-            blogPosts.forEach(post => {
+            const startIndex = (page - 1) * postsPerPage;
+            const endIndex = startIndex + postsPerPage;
+            
+            // Get sorted posts (newest first)
+            const sortedPosts = sortBlogPosts();
+            const postsToShow = sortedPosts.slice(startIndex, endIndex);
+            
+            postsToShow.forEach(post => {
                 const postHTML = `
                     <div class="blog-card bg-white rounded-lg overflow-hidden">
                         <a href="${post.file}" class="block">
@@ -225,11 +257,47 @@
                 `;
                 container.innerHTML += postHTML;
             });
+            
+            updatePaginationControls();
+        }
+
+        function updatePaginationControls() {
+            const sortedPosts = sortBlogPosts();
+            const totalPages = Math.ceil(sortedPosts.length / postsPerPage);
+            const pageNumbersContainer = document.getElementById('page-numbers');
+            const prevButton = document.getElementById('prev-page');
+            const nextButton = document.getElementById('next-page');
+            
+            // Update button states
+            prevButton.disabled = currentPage === 1;
+            nextButton.disabled = currentPage === totalPages;
+            
+            // Generate page numbers
+            pageNumbersContainer.innerHTML = '';
+            
+            for (let i = 1; i <= totalPages; i++) {
+                const pageButton = document.createElement('button');
+                pageButton.className = `px-3 py-2 rounded-lg ${
+                    i === currentPage 
+                    ? 'bg-gray-900 text-white' 
+                    : 'bg-gray-200 hover:bg-gray-300'
+                }`;
+                pageButton.textContent = i;
+                pageButton.addEventListener('click', () => {
+                    currentPage = i;
+                    loadBlogPosts(currentPage);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+                pageNumbersContainer.appendChild(pageButton);
+            }
+
+            // Update feather icons
+            feather.replace();
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Load blog posts
-            loadBlogPosts();
+            // Load first page of blog posts (newest first)
+            loadBlogPosts(1);
 
             // Mobile menu functionality
             const menuButton = document.getElementById('mobile-menu-button');
@@ -241,6 +309,25 @@
 
             // Initialize Feather Icons
             feather.replace();
+
+            // Event listeners for pagination
+            document.getElementById('prev-page').addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    loadBlogPosts(currentPage);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+
+            document.getElementById('next-page').addEventListener('click', () => {
+                const sortedPosts = sortBlogPosts();
+                const totalPages = Math.ceil(sortedPosts.length / postsPerPage);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    loadBlogPosts(currentPage);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
         });
     </script>
 
