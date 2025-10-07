@@ -33,6 +33,26 @@
             transform: translateY(-8px);
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
+
+        /* Pagination button animations */
+        .pagination-btn {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .pagination-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+        }
+        
+        .page-btn {
+            transition: all 0.3s ease;
+            min-width: 40px;
+        }
+        
+        .page-btn:hover {
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -92,18 +112,20 @@
                 <!-- Posts will be inserted here by JavaScript -->
             </div>
 
-            <!-- Pagination -->
-            <div class="flex justify-center items-center mt-12 space-x-4">
-                <button id="prev-page" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed">
-                    <i data-feather="chevron-left"></i> Previous
+            <!-- Beautiful Pagination -->
+            <div class="flex justify-center items-center mt-16 space-x-3">
+                <button id="prev-page" class="pagination-btn flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-gray-900 to-gray-700 text-white font-semibold rounded-full hover:from-gray-800 hover:to-gray-600 disabled:from-gray-300 disabled:to-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed transition-all duration-300">
+                    <i data-feather="arrow-left" class="w-4 h-4"></i>
+                    <span>Newer Posts</span>
                 </button>
                 
-                <div id="page-numbers" class="flex space-x-2">
+                <div id="page-numbers" class="flex items-center space-x-2 bg-white rounded-full p-2 shadow-lg">
                     <!-- Page numbers will be generated here -->
                 </div>
                 
-                <button id="next-page" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed">
-                    Next <i data-feather="chevron-right"></i>
+                <button id="next-page" class="pagination-btn flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-gray-900 to-gray-700 text-white font-semibold rounded-full hover:from-gray-800 hover:to-gray-600 disabled:from-gray-300 disabled:to-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed transition-all duration-300">
+                    <span>Older Posts</span>
+                    <i data-feather="arrow-right" class="w-4 h-4"></i>
                 </button>
             </div>
          </div>
@@ -206,7 +228,7 @@
             },
             {
                 id: 6,
-                title: "Marketing Team အကြိုက်ဒီဇိုင်းတွေဖန်တီးနိုင်ဖို့ CRAP Principle",
+                title: "Marketing Team အကြိုက်ဒီဇိုင်းတွေဖန်တီး�နိုင်ဖို့ CRAP Principle",
                 date: "October 4, 2025",
                 image: "posts/post-6/images/crap-cover.jpg",
                 excerpt: "ဒီ Principles လေးခုသိထားရင် Marketing Team အကြိုက် Design တွေဖန်တီးလို့ရပါတယ်။ အခုမှ Design ကိုလေ့လာမယ့်ညီကိုမောင်နှမတွေအားလုံး အတွက် အဆင်ပြေစေချင်တဲ့ဆန္ဒနဲ့မျှ၀ယ်ပေးလိုက်ပါတယ်။",
@@ -277,11 +299,11 @@
             
             for (let i = 1; i <= totalPages; i++) {
                 const pageButton = document.createElement('button');
-                pageButton.className = `px-3 py-2 rounded-lg ${
+                pageButton.className = `page-btn flex items-center justify-center w-10 h-10 rounded-full font-semibold text-sm ${
                     i === currentPage 
-                    ? 'bg-gray-900 text-white' 
-                    : 'bg-gray-200 hover:bg-gray-300'
-                }`;
+                    ? 'bg-gradient-to-r from-gray-900 to-gray-700 text-white shadow-lg' 
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200 hover:shadow-md'
+                } transition-all duration-300`;
                 pageButton.textContent = i;
                 pageButton.addEventListener('click', () => {
                     currentPage = i;
