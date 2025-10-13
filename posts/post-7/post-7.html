@@ -71,7 +71,13 @@
             
             <div class="mb-12">
                 <h1 class="text-4xl md:text-5xl font-bold text-gray-900 leading-[1.5]">Royal purple ကိုဘယ်သူစတင်ခဲ့တာလဲ?</h1>
-                <p class="mt-4 text-lg text-gray-500">Posted on October 13, 2025</p>
+                <div class="mt-4 flex items-center justify-between">
+                    <p class="text-lg text-gray-500">Posted on October 13, 2025</p>
+                    <div class="flex items-center text-gray-500">
+                        <i class="fas fa-eye mr-2"></i>
+                        <span id="viewCount">Loading...</span>
+                    </div>
+                </div>
             </div>
 
             <img src="images/image-1.jpg" alt="Article featured image" class="w-full rounded-lg shadow-lg mb-12">
@@ -247,6 +253,73 @@
             </div>
         </div>
     </footer>
+
+    <!-- View Count Script -->
+    <script>
+        // Function to get the current post ID from the URL
+        function getPostId() {
+            // You can customize this to extract from URL or use a data attribute
+            // For now, we'll use a simple approach based on the current page
+            const path = window.location.pathname;
+            const postMatch = path.match(/post-(\d+)/);
+            return postMatch ? postMatch[1] : '7'; // Default to post 7 for this example
+        }
+
+        // Function to update view count
+        function updateViewCount() {
+            const postId = getPostId();
+            const viewCountElement = document.getElementById('viewCount');
+            
+            // Try to get existing count from localStorage
+            let viewCounts = JSON.parse(localStorage.getItem('blogViewCounts')) || {};
+            
+            // Initialize if this post hasn't been viewed before
+            if (!viewCounts[postId]) {
+                viewCounts[postId] = 0;
+            }
+            
+            
+            // Always increment the view count
+            viewCounts[postId]++;
+            localStorage.setItem('blogViewCounts', JSON.stringify(viewCounts));
+            
+            // Update the display
+            viewCountElement.textContent = viewCounts[postId].toLocaleString();
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            updateViewCount();
+            
+            // Initialize Feather icons
+            if (typeof feather !== 'undefined') {
+                feather.replace();
+            }
+            
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', function() {
+                    const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+                    mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+                    mobileMenu.classList.toggle('hidden');
+                    
+                    // Update icon
+                    const icon = mobileMenuButton.querySelector('i');
+                    if (icon) {
+                        if (isExpanded) {
+                            icon.setAttribute('data-feather', 'menu');
+                        } else {
+                            icon.setAttribute('data-feather', 'x');
+                        }
+                        feather.replace();
+                    }
+                });
+            }
+        });
+    </script>
 
 </body>
 </html>
