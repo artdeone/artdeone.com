@@ -279,9 +279,13 @@
             }
             
             
-            // Always increment the view count
-            viewCounts[postId]++;
-            localStorage.setItem('blogViewCounts', JSON.stringify(viewCounts));
+             // Check if this is a new view (not a page refresh)
+            const sessionKey = `viewed_${postId}`;
+            if (!sessionStorage.getItem(sessionKey)) {
+                viewCounts[postId]++;
+                localStorage.setItem('blogViewCounts', JSON.stringify(viewCounts));
+                sessionStorage.setItem(sessionKey, 'true');
+            }
             
             // Update the display
             viewCountElement.textContent = viewCounts[postId].toLocaleString();
