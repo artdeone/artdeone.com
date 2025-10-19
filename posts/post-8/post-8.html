@@ -21,6 +21,129 @@
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         body { font-family: 'Poppins', sans-serif; }
         .accent-text { color: #9dae11; }
+        
+        /* Custom styles for download and video sections */
+         .download-section {
+            background-color: #f9fafb;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            
+        }
+        .video-section {
+            background-color: #f9fafb;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background-color: #9dae11;
+            color: white;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .download-btn:hover {
+            background-color: #8a9b0f;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .video-player {
+            width: 100%;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Image Gallery Styles */
+        .image-gallery {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gallery-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        
+        .gallery-slide {
+            min-width: 100%;
+            position: relative;
+        }
+        
+        .gallery-slide img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0.7;
+        }
+        
+        .gallery-nav:hover {
+            opacity: 1;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        
+        .gallery-prev {
+            left: 20px;
+        }
+        
+        .gallery-next {
+            right: 20px;
+        }
+        
+        .gallery-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .gallery-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-dot.active {
+            background-color: white;
+            transform: scale(1.2);
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -72,7 +195,7 @@
             <div class="mb-12">
                 <h1 class="text-4xl md:text-5xl font-bold text-gray-900 leading-[1.5]">Royal purple ကိုဘယ်သူစတင်ခဲ့တာလဲ?</h1>
                 <div class="mt-4 flex items-center justify-between">
-                    <p class="text-lg text-gray-500">Posted on October 13, 2025</p>
+                    <p class="text-lg text-gray-500">Posted on October 19, 2025</p>
                     <div class="flex items-center text-gray-500">
                         <i class="fas fa-eye mr-2"></i>
                         <span id="viewCount">Loading...</span>
@@ -80,70 +203,83 @@
                 </div>
             </div>
 
-            <img src="images/image-1.jpg" alt="Article featured image" class="w-full rounded-lg shadow-lg mb-12">
+            <!-- Image Gallery Section -->
+            <div class="image-gallery mb-12">
+                <div class="gallery-container" id="galleryContainer">
+                    <div class="gallery-slide">
+                        <img src="images/image-1.jpg" alt="Wavy Half-tone">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="images/image-2.jpg" alt="Circular">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="images/image-3.jpg" alt="Hard Edge">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="images/image-4.jpg" alt="Vertical Lines">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="images/image-5.jpg" alt="Horizontal Lines">
+                    </div>
+                </div>
+                
+                <!-- Navigation Buttons -->
+                <button class="gallery-nav gallery-prev" id="prevBtn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="gallery-nav gallery-next" id="nextBtn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                
+                <!-- Dots Indicator -->
+                <div class="gallery-dots" id="galleryDots">
+                    <!-- Dots will be generated by JavaScript -->
+                </div>
+            </div>
             
             <article class="prose lg:prose-xl max-w-none text-gray-700">
                 <p class="mb-4">
-                ဒီနေ့ကတော့ Royal purple အကြောင်းအရာလေးကို ဗဟုသုတအဖြစ် မျှ၀ယ်ပေးချင်ပါတယ်။
+                ART de ONE ရဲ့ ကိုယ်တိုင်လုပ် Half-tone Texture တွေကို Download လုပ်နိုင်ပါပြီ။
                 </p>
 
-                <img src="images/imag-2.jpg" alt="A short description of my photo" class="w-full rounded-lg shadow-lg my-8">
-                <p class="mb-4">
-                    <strong>Tyrian Color,</strong>
-                        <p class="mb-4">
-                        Royal Purple or Imperial Purple ကို <b>Murex Shellfish</b> လို့ခေါ်တဲ့ပင်လယ်ခရုကောင်ကနေရှိတာဖြစ်ပါတယ်။
-                        </p>
-                </p>
-
-                <img src="images/image-3.jpg" alt="A short description of my photo" class="w-full rounded-lg shadow-lg my-8">
                 <p class="mb-4">
                         <p class="mb-4">
-                        ဒီအရောင်ကိုစတင်ထုတ်ယူခဲ့တဲ့နေရာကတော့ <b>Tyre</b> ဆိုတဲ့ မြို့လေးကနေပါပဲ။ ကြေးခတ် (ကျောက်ခေတ်နဲ့သံခေတ်ကြား)တုန်းက Phoenicians လို့ခေါ်တွင်တဲ့လူမျိုးတွေဖြစ်ကြပါတယ်။ 
-                        </p>
-
-                        <p class="mb-4">
-                        ဒီမြို့ကနေ အရောင်ထုတ်ယူဖို့အတွက် ပင်လယ်ခရုကောင်တွေကို အများအပြား စုဆောင်းခဲ့ကြပါတယ်။
+                        လိုချင်တဲ့ Half-tone Texture တွေက စျေးကြီးလွန်းလို့ ကိုယ်တိုင်လုပ်ပြီး အားလုံးသုံးနိုင်အောင် မျှဝေပေးလိုက်တာပါ။
                         </p>
                 </p>
 
-                <img src="images/image-4.jpg" alt="A short description of my photo" class="w-full rounded-lg shadow-lg my-8">
-                <p class="mb-4">
-                        
-                        <p class="mb-4">
-                        ဒီအရောင်ကိုထုတ်ယူရတာခက်ခဲတဲ့အတွက် စျေးအရမ်းကြီးပါတယ်။ ဒါ့အပြင်အတုအပတွေမရှိအောင်လဲ
-                        သူတို့တွေအတတ်နိုင်ဆုံးကာကွယ်ခဲ့ကြပါသေးတယ်။
-                        </p>
-
-
-                <img src="images/image-5.jpg" alt="A short description of my photo" class="w-full rounded-lg shadow-lg my-8">
                 <p class="mb-4">
                         <p class="mb-4">
-                        နောက်ပိုင်း Phoenicians တွေဟာ Tyrian Color ကိုနိုင်ငံရပ်ခြားများသို့ ထုတ်ကုန်တစ်ခုအဖြစ်တင်ပို့ရောင်းချခဲ့ပြီး
-                        သူတို့တွေကို Purple People ဆိုပြီး လူသိများအောင်မြင်လာခဲ့ကြပါတယ်။
+                        Tutorial Video ကိုလည်း အောက်မှာ ထည့်ပေးထားပါတယ်။
                         </p>
                 </p>
 
-                <img src="images/image-6.jpg" alt="A short description of my photo" class="w-full rounded-lg shadow-lg my-8">
+                <!-- Download Assets Section -->
+                <div class="download-section">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Download Half-tone Effects</h3>
+                    <a href="download/artdeone-halftone-texture.zip" download class="download-btn">
+                        <i class="fas fa-download"></i>
+                        Download
+                    </a>
+                </div>
+
+                <!-- Video Tutorial Section -->
+                <div class="video-section">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Video Tutorial</h3>
+                    <p class="text-gray-600 mb-6">အသုံးပြုနည်း Tutorial ကြည့်ရန်</p>
+                    
+                    <video class="video-player" controls poster="images/thumbnail.jpg">
+                        <source src="tutorial-vid/tut.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+
                 <p class="mb-4">
                     <strong>
-                    Royal Purple Color Code
+                    အားလုံးအဆင်ပြေကြပါစေ။
                     </strong>
                         
-                        <p class="mb-4">
-                        Hex - #630330
-                        </p>
-
-                        <p class="mb-4">
-                        RGB - (99, 3, 48)
-                        </p>
-
-                        <p class="mb-4">
-                        CMYK - (0, 97, 52, 61)
-                        </p>
                         
-                        <p class="mb-4">
-                        <b>အားလုံးပဲ အဆင်ပြေကြပါစေ။</b>
-                        </p>
                 </p>
                 
                 
@@ -154,21 +290,21 @@
     <h3 class="text-lg font-semibold text-gray-900 mb-4">Share this post</h3>
     <div class="flex justify-center space-x-3">
         <!-- Facebook Share Button -->
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https://artdeone.com/posts/post-7/post-7.html" 
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://artdeone.com/posts/post-8/post-8.html" 
            target="_blank" 
            class="w-8 h-8 rounded-full bg-black flex items-center justify-center hover:bg-gray-800 transition-colors duration-300">
             <i class="fab fa-facebook-f text-white text-sm"></i>
         </a>
         
         <!-- LinkedIn Share Button -->
-        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://artdeone.com/posts/post-7/post-7.html" 
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://artdeone.com/posts/post-8/post-8.html" 
            target="_blank" 
            class="w-8 h-8 rounded-full bg-black flex items-center justify-center hover:bg-gray-800 transition-colors duration-300">
             <i class="fab fa-linkedin-in text-white text-sm"></i>
         </a>
         
         <!-- Pinterest Share Button -->
-        <a href="https://pinterest.com/pin/create/button/?url=https://artdeone.com/posts/post-7/post-7.html" 
+        <a href="https://pinterest.com/pin/create/button/?url=https://artdeone.com/posts/post-8/post-8.html" 
            target="_blank" 
            class="w-8 h-8 rounded-full bg-black flex items-center justify-center hover:bg-gray-800 transition-colors duration-300">
             <i class="fab fa-pinterest-p text-white text-sm"></i>
@@ -176,7 +312,7 @@
         
         <!-- X (Twitter) Share Button -->
         <!-- Alternative if X icon doesn't work -->
-<a href="https://twitter.com/intent/tweet?url=https://artdeone.com/posts/post-7/post-7.html" 
+<a href="https://twitter.com/intent/tweet?url=https://artdeone.com/posts/post-8/post-8.html" 
    target="_blank" 
    class="w-8 h-8 rounded-full bg-black flex items-center justify-center hover:bg-gray-800 transition-colors duration-300">
     <i class="fab fa-twitter text-white text-sm"></i>
@@ -262,7 +398,7 @@
             // For now, we'll use a simple approach based on the current page
             const path = window.location.pathname;
             const postMatch = path.match(/post-(\d+)/);
-            return postMatch ? postMatch[1] : '7'; // Default to post 7 for this example
+            return postMatch ? postMatch[1] : '8'; // Default to post 8 for this example
         }
 
         // Function to update view count
@@ -291,9 +427,75 @@
             viewCountElement.textContent = viewCounts[postId].toLocaleString();
         }
 
+        // Image Gallery Functionality
+        function initImageGallery() {
+            const galleryContainer = document.getElementById('galleryContainer');
+            const slides = galleryContainer.querySelectorAll('.gallery-slide');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const galleryDots = document.getElementById('galleryDots');
+            
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+            
+            // Create dots
+            slides.forEach((_, index) => {
+                const dot = document.createElement('button');
+                dot.className = 'gallery-dot';
+                if (index === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(index));
+                galleryDots.appendChild(dot);
+            });
+            
+            // Update gallery position
+            function updateGallery() {
+                galleryContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+                
+                // Update active dot
+                document.querySelectorAll('.gallery-dot').forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentSlide);
+                });
+            }
+            
+            // Go to specific slide
+            function goToSlide(slideIndex) {
+                currentSlide = slideIndex;
+                updateGallery();
+            }
+            
+            // Next slide
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateGallery();
+            }
+            
+            // Previous slide
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                updateGallery();
+            }
+            
+            // Event listeners
+            prevBtn.addEventListener('click', prevSlide);
+            nextBtn.addEventListener('click', nextSlide);
+            
+            // Auto-advance slides (optional)
+            let slideInterval = setInterval(nextSlide, 5000);
+            
+            // Pause auto-advance on hover
+            galleryContainer.addEventListener('mouseenter', () => {
+                clearInterval(slideInterval);
+            });
+            
+            galleryContainer.addEventListener('mouseleave', () => {
+                slideInterval = setInterval(nextSlide, 5000);
+            });
+        }
+
         // Initialize when page loads
         document.addEventListener('DOMContentLoaded', function() {
             updateViewCount();
+            initImageGallery();
             
             // Initialize Feather icons
             if (typeof feather !== 'undefined') {
