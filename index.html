@@ -142,20 +142,35 @@
 
     /* About Section Value Propositions */
     .value-prop-card {
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        cursor: pointer;
-    }
-    
-    .value-prop-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        border-color: #9dae11;
-    }
-    
-    .value-prop-card:hover i {
-        transform: scale(1.2);
-        color: #9dae11;
-    }
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    background-color: #161616 !important;
+    border: 1px solid #2a2a2a !important;
+}
+
+.value-prop-card h4 {
+    color: #ffffff !important; /* Primary white */
+}
+
+.value-prop-card p {
+    color: #efefef !important; /* Secondary light gray */
+}
+
+.value-prop-card i {
+    color: #9dae11 !important; /* Keep the accent color for icons */
+}
+
+.value-prop-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-color: #9dae11;
+    background-color: #1a1a1a !important;
+}
+
+.value-prop-card:hover i {
+    transform: scale(1.2);
+    color: #9dae11;
+}
     
     /* About Section Buttons */
     .about-btn {
