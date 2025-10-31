@@ -473,6 +473,15 @@
 .client-info-content .space-y-3 {
     padding: 16px;
 }
+/* Disable touch actions on video background section */
+#home {
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+}
+
+#home video {
+    pointer-events: none;
+}
 
 </style>
 </head>
