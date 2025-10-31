@@ -487,6 +487,35 @@ body {
 #home video {
     pointer-events: none;
 }
+/* Completely disable horizontal scrolling and dragging */
+html, body {
+    overflow-x: hidden;
+    position: relative;
+    width: 100%;
+}
+
+#home {
+    touch-action: pan-y;
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+}
+
+#home video {
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Prevent any horizontal drag on the entire page */
+* {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+}
 
 </style>
 </head>
