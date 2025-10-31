@@ -107,43 +107,6 @@
 .project-card:hover::before {
     opacity: 1;
 }
-/* Enhanced Stacked Slideshow Styles */
-.slideshow-container {
-    perspective: 1000px;
-}
-
-.slideshow-container div {
-    transform-style: preserve-3d;
-    box-shadow: 
-        0 10px 30px rgba(0, 0, 0, 0.1),
-        0 4px 8px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.slideshow-container div:hover {
-    transform: rotate(0deg) translateY(-5px) !important;
-    box-shadow: 
-        0 20px 40px rgba(0, 0, 0, 0.15),
-        0 8px 16px rgba(0, 0, 0, 0.1);
-}
-
-/* Smooth cursor indication */
-.slideshow-container div {
-    cursor: grab;
-}
-
-.slideshow-container div:active {
-    cursor: grabbing;
-}
-
-/* Mobile touch improvements */
-@media (max-width: 768px) {
-    .slideshow-container div {
-        transform: none !important;
-        opacity: 1 !important;
-    }
-}
     </style>
 </head>
 <body class="bg-white text-gray-900">
@@ -326,21 +289,10 @@
         </div>
         
         <div class="space-y-12">
-                                <!-- Row 1 - Character Design -->
+                    <!-- Row 1 -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center" data-aos="fade-up">
-                <div class="project-card group rounded-3xl overflow-hidden shadow-lg aspect-video lg:aspect-[4/3] relative" data-slideshow="character">
-                    <div class="slideshow-container w-full h-full"></div>
-                    
-                    <!-- Navigation Arrows -->
-                    <button class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 prev-btn">
-                        <i data-feather="chevron-left"></i>
-                    </button>
-                    <button class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 next-btn">
-                        <i data-feather="chevron-right"></i>
-                    </button>
-                    
-                    <!-- Navigation Dots -->
-                    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 dots-container"></div>
+                <div class="project-card group rounded-3xl overflow-hidden shadow-lg aspect-video lg:aspect-[4/3]">
+                    <img src="/portfolio/character-1.jpg" alt="Character Design" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                 </div>
                 <div class="lg:pl-8">
                     <h3 class="text-3xl font-bold text-gray-900 mb-4">Character Design</h3>
@@ -352,22 +304,11 @@
                 </div>
             </div>
 
-            <!-- Row 2 - Logo Design -->
+            <!-- Row 2 (reversed) -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center" data-aos="fade-up">
                 <div class="lg:order-2">
-                    <div class="project-card group rounded-3xl overflow-hidden shadow-lg aspect-video lg:aspect-[4/3] relative" data-slideshow="logo">
-                        <div class="slideshow-container w-full h-full"></div>
-                        
-                        <!-- Navigation Arrows -->
-                        <button class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 prev-btn">
-                            <i data-feather="chevron-left"></i>
-                        </button>
-                        <button class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 next-btn">
-                            <i data-feather="chevron-right"></i>
-                        </button>
-                        
-                        <!-- Navigation Dots -->
-                        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 dots-container"></div>
+                    <div class="project-card group rounded-3xl overflow-hidden shadow-lg aspect-video lg:aspect-[4/3]">
+                        <img src="/portfolio/logo-1.jpg" alt="Logo Design" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                     </div>
                 </div>
                 <div class="lg:pr-8 lg:order-1">
@@ -380,21 +321,10 @@
                 </div>
             </div>
 
-            <!-- Row 3 - Social Media Design -->
+            <!-- Row 3 -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center" data-aos="fade-up">
-                <div class="project-card group rounded-3xl overflow-hidden shadow-lg aspect-video lg:aspect-[4/3] relative" data-slideshow="social">
-                    <div class="slideshow-container w-full h-full"></div>
-                    
-                    <!-- Navigation Arrows -->
-                    <button class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 prev-btn">
-                        <i data-feather="chevron-left"></i>
-                    </button>
-                    <button class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 next-btn">
-                        <i data-feather="chevron-right"></i>
-                    </button>
-                    
-                    <!-- Navigation Dots -->
-                    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 dots-container"></div>
+                <div class="project-card group rounded-3xl overflow-hidden shadow-lg aspect-video lg:aspect-[4/3]">
+                    <img src="/portfolio/social-1.jpg" alt="Social Media Design" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                 </div>
                 <div class="lg:pl-8">
                     <h3 class="text-3xl font-bold text-gray-900 mb-4">Lady May Collection</h3>
@@ -587,139 +517,5 @@
             }
         });
     </script>
-    <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Define images for each project - EDIT THESE PATHS
-    const projectImages = {
-        character: [
-            '/portfolio/character-1.jpg',
-            '/portfolio/character-2.jpg',
-            '/portfolio/character-3.jpg'
-        ],
-        logo: [
-            '/portfolio/logo-1.jpg',
-            '/portfolio/logo-2.jpg',
-            '/portfolio/logo-3.jpg'
-        ],
-        social: [
-            '/portfolio/social-1.jpg',
-            '/portfolio/social-2.jpg',
-            '/portfolio/social-3.jpg'
-        ]
-    };
-    
-    // Initialize each slideshow
-    const slideshows = document.querySelectorAll('[data-slideshow]');
-    
-    slideshows.forEach(container => {
-        const projectId = container.getAttribute('data-slideshow');
-        const images = projectImages[projectId];
-        const slideshowContainer = container.querySelector('.slideshow-container');
-        const dotsContainer = container.querySelector('.dots-container');
-        
-        let currentSlide = 0;
-        let isAnimating = false;
-        
-        // Create stacked slides
-        images.forEach((src, index) => {
-            const slide = document.createElement('div');
-            const zIndex = images.length - index; // Stack order
-            const rotation = (index - Math.floor(images.length / 2)) * 2; // Staggered rotation
-            
-            slide.className = `absolute inset-0 w-full h-full transition-all duration-700 ease-out cursor-pointer`;
-            slide.style.zIndex = zIndex;
-            slide.style.transform = `rotate(${rotation}deg) translateY(${index * 8}px)`;
-            slide.style.opacity = index === 0 ? '1' : '0.8';
-            
-            slide.innerHTML = `
-                <img src="${src}" alt="${projectId} image ${index + 1}" 
-                     class="w-full h-full object-cover rounded-3xl shadow-2xl">
-            `;
-            
-            slideshowContainer.appendChild(slide);
-            
-            // Click to bring to front
-            slide.addEventListener('click', () => {
-                if (!isAnimating) bringToFront(index);
-            });
-        });
-        
-        // Create dots
-        images.forEach((_, index) => {
-            const dot = document.createElement('button');
-            dot.className = `w-3 h-3 rounded-full bg-white ${index === 0 ? 'opacity-100' : 'opacity-50'} transition-opacity duration-300`;
-            dot.addEventListener('click', () => bringToFront(index));
-            dotsContainer.appendChild(dot);
-        });
-        
-        function bringToFront(index) {
-            if (isAnimating || index === currentSlide) return;
-            
-            isAnimating = true;
-            const slides = slideshowContainer.querySelectorAll('div');
-            const dots = dotsContainer.querySelectorAll('button');
-            
-            // Animate current slide back to stack
-            const currentSlideEl = slides[currentSlide];
-            const currentRotation = (currentSlide - Math.floor(images.length / 2)) * 2;
-            currentSlideEl.style.transform = `rotate(${currentRotation}deg) translateY(${currentSlide * 8}px)`;
-            currentSlideEl.style.opacity = '0.8';
-            currentSlideEl.style.zIndex = images.length - currentSlide;
-            
-            // Animate new slide to front
-            const newSlideEl = slides[index];
-            newSlideEl.style.transform = 'rotate(0deg) translateY(0px)';
-            newSlideEl.style.opacity = '1';
-            newSlideEl.style.zIndex = images.length + 1;
-            
-            // Update dots
-            dots.forEach(dot => dot.classList.add('opacity-50'));
-            dots.forEach(dot => dot.classList.remove('opacity-100'));
-            dots[index].classList.remove('opacity-50');
-            dots[index].classList.add('opacity-100');
-            
-            currentSlide = index;
-            
-            setTimeout(() => {
-                isAnimating = false;
-            }, 700);
-        }
-        
-        // Mouse wheel navigation
-        container.addEventListener('wheel', (e) => {
-            e.preventDefault();
-            if (isAnimating) return;
-            
-            if (e.deltaY > 0) {
-                // Scroll down - next slide
-                let newSlide = currentSlide + 1;
-                if (newSlide >= images.length) newSlide = 0;
-                bringToFront(newSlide);
-            } else {
-                // Scroll up - previous slide
-                let newSlide = currentSlide - 1;
-                if (newSlide < 0) newSlide = images.length - 1;
-                bringToFront(newSlide);
-            }
-        });
-        
-        // Auto-advance (optional)
-        const slideInterval = setInterval(() => {
-            if (!isAnimating) {
-                let newSlide = currentSlide + 1;
-                if (newSlide >= images.length) newSlide = 0;
-                bringToFront(newSlide);
-            }
-        }, 4000);
-        
-        // Pause auto-slide on hover
-        container.addEventListener('mouseenter', () => {
-            clearInterval(slideInterval);
-        });
-    });
-    
-    feather.replace();
-});
-</script>
 </body>
 </html>
