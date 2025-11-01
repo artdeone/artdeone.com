@@ -103,12 +103,22 @@ function getCategory(postId) {
     return categories[postId] || 'ARTICLE';
 }
 
-// Auto-detect post ID from URL
+// Auto-detect post ID from URL - UPDATED FOR YOUR URL STRUCTURE
 function getCurrentPostId() {
-    // Extract post ID from URL path
     const path = window.location.pathname;
-    const match = path.match(/post-(\d+)\.html$/);
-    return match ? parseInt(match[1]) : null;
+    console.log('Current path:', path);
+    
+    // Match your URL pattern: /posts/post-2/post-2.html
+    const match = path.match(/\/posts\/post-(\d+)\/post-\d+\.html$/);
+    
+    if (match) {
+        const postId = parseInt(match[1]);
+        console.log('Detected post ID:', postId);
+        return postId;
+    }
+    
+    console.log('No post ID detected from URL');
+    return null;
 }
 
 // Main function to load related posts
