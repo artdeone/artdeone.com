@@ -285,6 +285,14 @@
                 
             </article>
 
+            <!-- Related Posts Section -->
+            <div class="mt-16">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">Related Posts</h2>
+                <div id="related-posts" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Related posts will be loaded here dynamically -->
+                </div>
+            </div>
+
             <!-- Share buttons section -->
 <div class="mt-16 text-center">
     <h3 class="text-lg font-semibold text-gray-900 mb-4">Share this post</h3>
@@ -526,6 +534,11 @@
             }
         });
     </script>
-
+<script src="/js/blog-data.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        loadRelatedPosts(); // This will load the random related posts
+    });
+</script>
 </body>
 </html>
