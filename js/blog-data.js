@@ -72,7 +72,7 @@ const blogPosts = [
         excerpt: "Midjourney က တစ်လကို $10 နဲ့ ပုံ 200 ပဲထုတ်လို့ရတာနဲ့ နှိုင်းယှဉ်ကြည့်လိုက်ရင်တော့ အခုပြပေးမယ့် Ai ကပိုကောင်းတယ်ပါတယ်။ ကျွန်တော်ထုတ်ကြည့်တာတော့ တစ်ရက်ကို ပုံ 40 နီးပါရှိပါတယ်။",
         file: "/posts/post-9/post-9.html"
     },
-    
+
     {
         id: 10, // Use ID 10 for featured post
         title: "Affinity Rebrand, A New Era for Creative Freedom",
@@ -115,6 +115,12 @@ function getCategory(postId) {
 
 // Auto-detect post ID from URL - UPDATED FOR YOUR URL STRUCTURE
 function getCurrentPostId() {
+    // Check if ID is manually set in the page (for featured post)
+    if (window.currentPostId) {
+        console.log('Using manually set post ID:', window.currentPostId);
+        return window.currentPostId;
+    }
+    
     const path = window.location.pathname;
     console.log('Current path:', path);
     
