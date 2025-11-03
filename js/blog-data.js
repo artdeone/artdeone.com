@@ -72,6 +72,14 @@ const blogPosts = [
         excerpt: "Midjourney က တစ်လကို $10 နဲ့ ပုံ 200 ပဲထုတ်လို့ရတာနဲ့ နှိုင်းယှဉ်ကြည့်လိုက်ရင်တော့ အခုပြပေးမယ့် Ai ကပိုကောင်းတယ်ပါတယ်။ ကျွန်တော်ထုတ်ကြည့်တာတော့ တစ်ရက်ကို ပုံ 40 နီးပါရှိပါတယ်။",
         file: "/posts/post-9/post-9.html"
     }
+    {
+        id: 10, // Use ID 10 for featured post
+        title: "Affinity Rebrand, A New Era for Creative Freedom",
+        date: "November 3, 2025",
+        image: "/posts/featured/images/featured-image-5.jpg",
+        excerpt: "Affinity က Free ဖြစ်တာမို့ Adobe Creative Suite ကို အစားထိုးဖို့အကောင်းဆုံး option တစ်ခုဖြစ်လာနိုင်တယ်ဆိုတာလဲမေ့ထားလို့မရပါဘူး။ Tools တွေကလဲ ကျွန်တော်တို့အသုံးပြနေကျ Adobe Software တွေကိုပိုင်နိုင်ထားတဲ့သူတစ်ယောက်အတွက်တော့လုံး၀မခက်ခဲတော့တာ သေချာပါတယ်။",
+        file: "/posts/featured/featured-post.html"
+    }
     // Add new posts here as you create them
 ];
 
@@ -97,7 +105,8 @@ function getCategory(postId) {
         6: 'DESIGN',
         7: 'HISTORY',
         8: 'TUTORIAL',
-        9: 'AI'
+        9: 'AI',
+        10: 'DESIGN' // Add category for featured post
         // Add more categories for new posts
     };
     return categories[postId] || 'ARTICLE';
@@ -108,13 +117,20 @@ function getCurrentPostId() {
     const path = window.location.pathname;
     console.log('Current path:', path);
     
-    // Match your URL pattern: /posts/post-2/post-2.html
-    const match = path.match(/\/posts\/post-(\d+)\/post-\d+\.html$/);
+    // Match regular post pattern: /posts/post-2/post-2.html
+    const postMatch = path.match(/\/posts\/post-(\d+)\/post-\d+\.html$/);
     
-    if (match) {
-        const postId = parseInt(match[1]);
+    if (postMatch) {
+        const postId = parseInt(postMatch[1]);
         console.log('Detected post ID:', postId);
         return postId;
+    }
+    
+    // Match featured post pattern: /posts/featured/featured-post.html
+    const featuredMatch = path.match(/\/posts\/featured\/featured-post\.html$/);
+    if (featuredMatch) {
+        console.log('Detected featured post');
+        return 10; // Assign a unique ID for the featured post
     }
     
     console.log('No post ID detected from URL');
