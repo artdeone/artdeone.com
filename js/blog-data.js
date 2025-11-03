@@ -107,7 +107,7 @@ function getCategory(postId) {
         7: 'HISTORY',
         8: 'TUTORIAL',
         9: 'AI',
-        10: 'DESIGN' // Add category for featured post
+        10: 'DESIGN'
         // Add more categories for new posts
     };
     return categories[postId] || 'ARTICLE';
