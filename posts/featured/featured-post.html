@@ -24,6 +24,21 @@
     </style>
 </head>
 <body class="bg-gray-50">
+    <!-- Migration script to preserve old view count -->
+    <script>
+        // Migrate old view count to new system
+        const oldViewCount = 33; // Your previous view count
+        const postId = '10'; // Featured post ID
+        
+        // Check if we need to migrate
+        let viewCounts = JSON.parse(localStorage.getItem('blogViewCounts')) || {};
+        if (!viewCounts[postId] && oldViewCount > 0) {
+            viewCounts[postId] = oldViewCount;
+            localStorage.setItem('blogViewCounts', JSON.stringify(viewCounts));
+            console.log('Migrated old view count:', oldViewCount);
+        }
+    </script>
+
      <script>window.currentPostId = 10;</script>
 
     <nav class="fixed w-full bg-white shadow-sm z-50">
@@ -281,7 +296,7 @@
         </div>
     </footer>
 
-        <!-- View Count Script -->
+            <!-- View Count Script -->
     <script>
         // Function to get the current post ID - USING THE SAME METHOD AS BLOG-DATA.JS
         function getPostId() {
@@ -354,7 +369,6 @@
             }
         });
     </script>
-    
     <script src="/js/blog-data.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
