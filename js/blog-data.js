@@ -71,7 +71,8 @@ const blogPosts = [
         image: "/posts/post-9/images/thumbnail.jpg",
         excerpt: "Midjourney က တစ်လကို $10 နဲ့ ပုံ 200 ပဲထုတ်လို့ရတာနဲ့ နှိုင်းယှဉ်ကြည့်လိုက်ရင်တော့ အခုပြပေးမယ့် Ai ကပိုကောင်းတယ်ပါတယ်။ ကျွန်တော်ထုတ်ကြည့်တာတော့ တစ်ရက်ကို ပုံ 40 နီးပါရှိပါတယ်။",
         file: "/posts/post-9/post-9.html"
-    }
+    },
+    
     {
         id: 10, // Use ID 10 for featured post
         title: "Affinity Rebrand, A New Era for Creative Freedom",
