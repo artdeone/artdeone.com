@@ -281,15 +281,19 @@
         </div>
     </footer>
 
-    <!-- View Count Script -->
+        <!-- View Count Script -->
     <script>
-        // Function to get the current post ID from the URL
+        // Function to get the current post ID - USING THE SAME METHOD AS BLOG-DATA.JS
         function getPostId() {
-            // You can customize this to extract from URL or use a data attribute
-            // For now, we'll use a simple approach based on the current page
+            // First check if manually set (for featured posts)
+            if (window.currentPostId) {
+                return window.currentPostId.toString();
+            }
+            
+            // Then try URL pattern matching (for regular posts)
             const path = window.location.pathname;
-            const postMatch = path.match(/post-(\d+)/);
-            return postMatch ? postMatch[1] : '7'; // Default to post 7 for this example
+            const postMatch = path.match(/\/posts\/post-(\d+)\/post-\d+\.html$/);
+            return postMatch ? postMatch[1] : '10'; // Default to 10 for featured post
         }
 
         // Function to update view count
@@ -305,8 +309,7 @@
                 viewCounts[postId] = 0;
             }
             
-            
-             // Check if this is a new view (not a page refresh)
+            // Check if this is a new view (not a page refresh)
             const sessionKey = `viewed_${postId}`;
             if (!sessionStorage.getItem(sessionKey)) {
                 viewCounts[postId]++;
@@ -350,8 +353,8 @@
                 });
             }
         });
-        
     </script>
+    
     <script src="/js/blog-data.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
