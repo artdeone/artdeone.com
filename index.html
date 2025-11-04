@@ -377,16 +377,26 @@
 .testimonial-card:hover::before {
     opacity: 1 !important;
 }
-/* Home Section Buttons Lift Effect */
+/* Home Section Buttons - Kittl Inspired */
 #home a {
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
     position: relative !important;
     z-index: 1 !important;
+    background-color: #f6f6f6 !important;
+    color: #000 !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    font-weight: 600 !important;
 }
 
 #home a:hover {
-    transform: translateY(-8px) !important;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2) !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+    background-color: #f0f0f0 !important;
 }
 
 #home a::before {
@@ -396,7 +406,7 @@
     left: 0 !important;
     right: 0 !important;
     bottom: 0 !important;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%) !important;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 50%) !important;
     opacity: 0 !important;
     transition: opacity 0.4s ease !important;
     border-radius: 1rem !important;
@@ -405,6 +415,16 @@
 
 #home a:hover::before {
     opacity: 1 !important;
+}
+
+/* Arrow icon styling */
+#home a i {
+    transition: transform 0.3s ease !important;
+    color: #000 !important;
+}
+
+#home a:hover i {
+    transform: translateX(3px) !important;
 }
 /* FIX: instructor image containment */
 .instructor-card { overflow: hidden; }
@@ -603,13 +623,14 @@ html, body {
                 The Art of Intelligence
             </p>
             <div class="flex flex-wrap gap-4 justify-center">
-                <a href="courses.html" class="px-6 py-3 md:px-8 md:py-4 bg-white/20 backdrop-blur-sm text-white font-semibold rounded-2xl border border-white/30 hover:bg-white/30 transition duration-300 shadow-lg glass-effect text-sm md:text-base">
-                    View Our Courses
+                <a href="courses.html" class="px-6 py-3 md:px-8 md:py-4 rounded-2xl text-sm md:text-base">
+                     View Our Courses <i class="fas fa-arrow-right"></i>
                 </a>
-                <a href="#freelance" class="px-6 py-3 md:px-8 md:py-4 bg-white/20 backdrop-blur-sm text-white font-semibold rounded-2xl border border-white/30 hover:bg-white/30 transition duration-300 shadow-lg glass-effect text-sm md:text-base">
-                    Hire Us
+                <a href="#freelance" class="px-6 py-3 md:px-8 md:py-4 rounded-2xl text-sm md:text-base">
+                    Hire Us <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
+            
 <!-- Add this right after your buttons in the Home section -->
 <!-- ANIMATED STATS - Hidden on Mobile -->
 <div class="mt-12 hidden sm:block" data-aos="fade-up" data-aos-delay="400">
