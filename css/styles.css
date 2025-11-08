@@ -531,3 +531,130 @@ html, body {
     -o-user-drag: none;
     user-drag: none;
 }
+/* Resource Card Styles */
+        .resource-card {
+            position: relative;
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .resource-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .resource-image img {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+            transition: all 0.3s ease;
+        }
+
+        .resource-card:hover .resource-image img {
+            transform: scale(1.05);
+            filter: blur(3px) brightness(0.8);
+        }
+
+        .resource-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+            padding: 1.5rem;
+        }
+
+        .resource-card:hover .resource-overlay {
+            opacity: 1;
+        }
+
+        .resource-info {
+            text-align: center;
+            color: white;
+        }
+
+        .resource-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .resource-badge.free {
+            background-color: #10b981;
+            color: white;
+        }
+
+        .resource-badge.paid {
+            background-color: #9dae11;
+            color: white;
+        }
+
+        .resource-description {
+            font-size: 0.875rem;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        .resource-content {
+            padding: 1.5rem;
+        }
+
+        .resource-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+
+        .resource-category {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        .resource-link {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 10;
+        }
+
+        /* Filter Button Styles */
+        .resource-filter {
+            background-color: white;
+            color: #4b5563;
+            border: 1px solid #d1d5db;
+        }
+
+        .resource-filter.active,
+        .resource-filter:hover {
+            background-color: #9dae11;
+            color: white;
+            border-color: #9dae11;
+        }
