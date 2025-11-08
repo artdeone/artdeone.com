@@ -258,4 +258,5 @@ document.addEventListener('gesturechange', function(event) {
 
 document.addEventListener('gestureend', function(event) {
     event.preventDefault();
-});
+}); 
+
