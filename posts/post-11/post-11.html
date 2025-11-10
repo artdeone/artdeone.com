@@ -410,27 +410,29 @@
         }
 
         // Function to update view count
-        function updateViewCount() {
-            const postId = getPostId();
-            const viewCountElement = document.getElementById('viewCount');
-            
-            // Try to get existing count from localStorage
-            let viewCounts = JSON.parse(localStorage.getItem('blogViewCounts')) || {};
-            
-            // FORCE RESET: Always set to 200 for this post (remove this after testing)
-            viewCounts[postId] = 200;
-            
-            // Check if this is a new view (not a page refresh)
-            const sessionKey = `viewed_${postId}`;
-            if (!sessionStorage.getItem(sessionKey)) {
-                viewCounts[postId]++;
-                localStorage.setItem('blogViewCounts', JSON.stringify(viewCounts));
-                sessionStorage.setItem(sessionKey, 'true');
-            }
-            
-            // Update the display
-            viewCountElement.textContent = viewCounts[postId].toLocaleString();
-        }
+function updateViewCount() {
+    const postId = getPostId();
+    const viewCountElement = document.getElementById('viewCount');
+    
+    // Try to get existing count from localStorage
+    let viewCounts = JSON.parse(localStorage.getItem('blogViewCounts')) || {};
+    
+    // Initialize with 200 views if this post hasn't been viewed before
+    if (!viewCounts[postId]) {
+        viewCounts[postId] = 200; // Start with 200 views
+    }
+    
+    // Check if this is a new view (not a page refresh)
+    const sessionKey = `viewed_${postId}`;
+    if (!sessionStorage.getItem(sessionKey)) {
+        viewCounts[postId]++;
+        localStorage.setItem('blogViewCounts', JSON.stringify(viewCounts));
+        sessionStorage.setItem(sessionKey, 'true');
+    }
+    
+    // Update the display
+    viewCountElement.textContent = viewCounts[postId].toLocaleString();
+}
 
         // Rest of your existing gallery and mobile menu code...
         // Image Gallery Functionality
