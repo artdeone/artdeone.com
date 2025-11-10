@@ -17,80 +17,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    
+    <link rel="stylesheet" href="nav-bar/navigation.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         body { font-family: 'Poppins', sans-serif; }
         .accent-text { color: #9dae11; }
-
-
-        /* Custom styles for Runway ML-inspired navigation */
-    .nav-container {
-        padding: 0.75rem 1rem;
-    }
-    
-    .nav-link {
-        position: relative;
-        color: #000;
-        font-weight: 500;
-        font-size: 0.875rem; /* Smaller font size */
-        transition: all 0.3s ease;
-    }
-    
-    /* Remove the green line effect */
-    .nav-link::after {
-        display: none; /* This removes the green line */
-    }
-    
-    /* Hover effect - make hovered item white, others grey */
-    .nav-link:hover {
-        color: #000000 !important; /* White text on hover */
-        transform: translateY(-1px);
-    }
-    
-    /* When hovering over a nav item, make all other nav items grey */
-    .nav-center:hover .nav-link:not(:hover) {
-        color: #888888 !important; /* Grey for non-hovered items */
-    }
-    
-    .contact-btn {
-        background-color: #000;
-        color: white;
-        padding: 0.5rem 1.5rem;
-        border-radius: 9999px;
-        font-weight: 500;
-        font-size: 0.875rem; /* Smaller font size */
-        transition: all 0.3s ease;
-    }
-    
-    .contact-btn:hover {
-        background-color: #333;
-        transform: translateY(-2px);
-    }
-    
-    .mobile-menu-btn {
-        transition: all 0.3s ease;
-    }
-    
-    .mobile-menu-btn:hover {
-        transform: scale(1.1);
-    }
-
-
-        .course-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .course-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-        }
-        .filter-btn.active {
-            background-color: #9dae11;
-            color: white;
-            border-color: #9dae11;
-        }
-
-
         
         /* Lift effect with shadow animation */
         .blog-card {
@@ -155,56 +86,7 @@
 </head>
 <body class="bg-gray-50">
 
-     <!-- Navigation - Runway ML Inspired -->
-    <nav class="fixed w-full bg-white z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 nav-container">
-            <div class="flex justify-between h-16 items-center">
-                <!-- Logo -->
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                         <a href="index.html" class="flex items-center">
-                         <img src="/logo.png" alt="ART de ONE" class="h-10 w-auto">
-                         </a>
-                    </div>
-                </div>
-                
-                <!-- Desktop Navigation - Centered -->
-                <div class="hidden md:flex items-center space-x-8 nav-center">
-                    <a href="index.html" class="nav-link">Home</a>
-                    <a href="index.html#about" class="nav-link">About</a>
-                    <a href="courses.html" class="nav-link">Courses</a>
-                    <a href="blog.html" class="nav-link">Blog</a>
-                    <a href="index.html#portfolio" class="nav-link">Portfolio</a>
-                    <a href="index.html#freelance" class="nav-link">Freelance</a>
-                </div>
-                
-                <!-- Contact Button - Right Side -->
-                <div class="hidden md:block">
-                    <a href="index.html#contact" class="contact-btn">Contact</a>
-                </div>
-                
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden flex items-center">
-                    <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md text-gray-700 focus:outline-none" aria-controls="mobile-menu" aria-expanded="false" id="mobile-menu-button">
-                        <i data-feather="menu"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Mobile menu -->
-        <div class="hidden mobile-menu md:hidden bg-white shadow-lg" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="index.html" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Home</a>
-                <a href="index.html#about" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">About</a>
-                <a href="courses.html" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Courses</a>
-                <a href="blog.html" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Blog</a>
-                <a href="index.html#portfolio" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Portfolio</a>
-                <a href="index.html#freelance" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Freelance</a>
-                <a href="index.html#contact" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Contact</a>
-            </div>
-        </div>
-    </nav>
+     <div id="navigation-container"></div>
 
     <main class="pt-24 pb-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -422,7 +304,7 @@
                 title: "Generative Ai ထဲမှာ Design လုပ်မယ်ဆိုရင် သိထားရမယ့် အခြေခံအချက် (၃)ချက်",
                 date: "November 10, 2025",
                 image: "/posts/post-11/images/yt-thumbnail.jpg",
-                excerpt: "Ai မှာ Design လုပ်တတ်ပေမယ့် ကိုယ်လိုချင်တဲ့ Result မရဘူးဖြစ်နေရင် ဒီ အချက် (၃)ချက် ကိုကြည့်ကြည့်ပါ။",
+                excerpt: "Ai မှာ Design တတ်ပေမယ့် ကိုယ်လိုချင်တဲ့ Result မရဘူးဖြစ်နေရင် ဒီ အချက် (၃)ချက် ကိုကြည့်ကြည့်ပါ။",
                 file: "/posts/post-11/post-11.html"
             },
             // NEWEST POSTS WILL APPEAR FIRST ON PAGE 1
@@ -540,55 +422,18 @@
             });
         });
     </script>
-    <!-- JavaScript for mobile menu toggle -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize Feather Icons
-            if (typeof feather !== 'undefined') {
-                feather.replace();
-            }
-            
-            // Mobile menu toggle
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            
-            if (mobileMenuButton && mobileMenu) {
-                mobileMenuButton.addEventListener('click', function() {
-                    mobileMenu.classList.toggle('hidden');
-                    mobileMenu.classList.toggle('active');
-                    
-                    // Change icon based on menu state
-                    const icon = mobileMenuButton.querySelector('i');
-                    if (mobileMenu.classList.contains('hidden')) {
-                        icon.setAttribute('data-feather', 'menu');
-                    } else {
-                        icon.setAttribute('data-feather', 'x');
-                    }
-                    
-                    // Re-render feather icon
-                    if (typeof feather !== 'undefined') {
-                        feather.replace();
-                    }
-                });
-            }
-            
-            // Close mobile menu when clicking on a link
-            const mobileMenuLinks = document.querySelectorAll('#mobile-menu a');
-            mobileMenuLinks.forEach(link => {
-                link.addEventListener('click', function() {
-                    mobileMenu.classList.add('hidden');
-                    mobileMenu.classList.remove('active');
-                    
-                    // Reset menu icon
-                    const icon = mobileMenuButton.querySelector('i');
-                    icon.setAttribute('data-feather', 'menu');
-                    if (typeof feather !== 'undefined') {
-                        feather.replace();
-                    }
-                });
-            });
+<script>
+    // Load navigation HTML
+    fetch('nav-bar/navigation.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navigation-container').innerHTML = data;
+            // Load navigation JS after HTML is loaded
+            const script = document.createElement('script');
+            script.src = 'nav-bar/navigation.js';
+            document.body.appendChild(script);
         });
-    </script>
+</script>
 
 </body>
 </html>
