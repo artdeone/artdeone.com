@@ -123,6 +123,32 @@
             background-color: white;
             transform: scale(1.2);
         }
+        
+        /* Mobile-specific adjustments */
+        @media (max-width: 768px) {
+            .gallery-nav {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .gallery-prev {
+                left: 10px;
+            }
+            
+            .gallery-next {
+                right: 10px;
+            }
+            
+            .gallery-dot {
+                width: 10px;
+                height: 10px;
+            }
+            
+            .gallery-dots {
+                bottom: 15px;
+                gap: 8px;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -231,11 +257,11 @@
                         </p>
                 </p>
 
-                <!-- YouTube Video - Clean Version -->
+                <!-- YouTube Video - Fixed Responsive Version -->
                 <div class="video-container">
                     <iframe 
-                        src="https://www.youtube.com/embed/93BseRCMLQY?si=DwTF_UKg3WGIWQpf" 
-                        title="YouTube video player" 
+                        src="https://www.youtube.com/embed/DnkinwErrtI" 
+                        title="Free AI Tools Comparison" 
                         frameborder="0" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                         referrerpolicy="strict-origin-when-cross-origin" 
@@ -319,6 +345,7 @@
                         <li><a href="/index.html#about" class="text-gray-400 hover:text-white transition duration-300">About</a></li>
                         <li><a href="/courses.html" class="text-gray-400 hover:text-white transition duration-300">Courses</a></li>
                         <li><a href="/blog.html" class="text-gray-400 hover:text-white transition duration-300">Blog</a></li>
+                        <li><a href="/index.html#portfolio" class="text-gray-400 hover:text-white transition duration-300">Portfolio</a></li>
                         <li><a href="/index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Freelance</a></li>
                         <li><a href="/index.html#contact" class="text-gray-400 hover:text-white transition duration-300">Contact</a></li>
                     </ul>
@@ -363,15 +390,13 @@
         </div>
     </footer>
 
-    <!-- View Count Script -->
+        <!-- View Count Script -->
     <script>
         // Function to get the current post ID from the URL
         function getPostId() {
-            // You can customize this to extract from URL or use a data attribute
-            // For now, we'll use a simple approach based on the current page
             const path = window.location.pathname;
             const postMatch = path.match(/post-(\d+)/);
-            return postMatch ? postMatch[1] : '9'; // Default to post 9 for this example
+            return postMatch ? postMatch[1] : '11';
         }
 
         // Function to update view count
@@ -382,13 +407,10 @@
             // Try to get existing count from localStorage
             let viewCounts = JSON.parse(localStorage.getItem('blogViewCounts')) || {};
             
-            // Initialize if this post hasn't been viewed before
-            if (!viewCounts[postId]) {
-                viewCounts[postId] = 0;
-            }
+            // FORCE RESET: Always set to 200 for this post (remove this after testing)
+            viewCounts[postId] = 200;
             
-            
-             // Check if this is a new view (not a page refresh)
+            // Check if this is a new view (not a page refresh)
             const sessionKey = `viewed_${postId}`;
             if (!sessionStorage.getItem(sessionKey)) {
                 viewCounts[postId]++;
@@ -400,6 +422,7 @@
             viewCountElement.textContent = viewCounts[postId].toLocaleString();
         }
 
+        // Rest of your existing gallery and mobile menu code...
         // Image Gallery Functionality
         function initImageGallery() {
             const galleryContainer = document.getElementById('galleryContainer');

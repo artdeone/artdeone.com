@@ -80,7 +80,16 @@ const blogPosts = [
         image: "/posts/featured/images/featured-image-5.jpg",
         excerpt: "Affinity က Free ဖြစ်တာမို့ Adobe Creative Suite ကို အစားထိုးဖို့အကောင်းဆုံး option တစ်ခုဖြစ်လာနိုင်တယ်ဆိုတာလဲမေ့ထားလို့မရပါဘူး။ Tools တွေကလဲ ကျွန်တော်တို့အသုံးပြနေကျ Adobe Software တွေကိုပိုင်နိုင်ထားတဲ့သူတစ်ယောက်အတွက်တော့လုံး၀မခက်ခဲတော့တာ သေချာပါတယ်။",
         file: "/posts/featured/featured-post.html"
-    }
+    },
+
+    {
+        id: 11, // Use ID 10 for featured post
+        title: "Generative Ai ထဲမှာ Design လုပ်မယ်ဆိုရင် သိထားရမယ့် အခြေခံအချက် (၃)ချက်",
+        date: "November 10, 2025",
+        image: "/posts/post-11/images/yt-thumbnail.jpg",
+        excerpt: "Ai မှာ Design တတ်ပေမယ့် ကိုယ်လိုချင်တဲ့ Result မရဘူးဖြစ်နေရင် ဒီ အချက် (၃)ချက် ကိုကြည့်ကြည့်ပါ။",
+        file: "/posts/post-11/post-11.html"
+    },
     // Add new posts here as you create them
 ];
 
@@ -107,7 +116,8 @@ function getCategory(postId) {
         7: 'HISTORY',
         8: 'TUTORIAL',
         9: 'AI',
-        10: 'DESIGN'
+        10: 'DESIGN',
+        11: 'AI',
         // Add more categories for new posts
     };
     return categories[postId] || 'ARTICLE';
