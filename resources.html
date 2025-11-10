@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
-    <script src="js/blog-data.js"></script>
+   
     
     <!-- JavaScript Libraries -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -58,11 +58,6 @@
     color: #1f2937;
     font-weight: 600;
 }
-
-
-
-
-
 
 /* Dot Grid for Resources Grid Section */
 .bg-\[\#121212\] {
@@ -155,7 +150,6 @@
     text-decoration: underline; /* Add underline to indicate active state */
 }
 
-
 /* Blog Card Styles for Resources Page */
 .blog-card {
     position: relative;
@@ -195,19 +189,145 @@
     overflow: hidden;
 }
 
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-    .blog-card {
-        margin-bottom: 1rem;
-    }
-    
-    .blog-image img {
-        height: 35vh;
-        max-height: 200px;
-    }
+/* Resource Card Styles - FIXED */
+.resource-card {
+    position: relative;
+    background: #1a1a1a;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: 100%;
 }
 
+.resource-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
 
+.resource-image {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+    background-color: #1a1a1a;
+}
+
+.resource-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    /* Force image to scale up */
+    min-width: 100%;
+    min-height: 100%;
+    /* Ensure it fills the container */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Scale up small images */
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* Force the image to scale up if it's too small */
+.resource-image img {
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+}
+
+.resource-card:hover .resource-image img {
+    transform: scale(1.0) translate(-50%, -50%);
+}
+
+.resource-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: flex-end;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    padding: 15px;
+}
+
+.resource-card:hover .resource-overlay {
+    opacity: 1;
+}
+
+.resource-info {
+    width: 100%;
+}
+
+.resource-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.resource-badge.free {
+    background: #10b981;
+    color: white;
+}
+
+.resource-badge.paid {
+    background: #3b82f6;
+    color: white;
+}
+
+.resource-description {
+    color: white;
+    font-size: 0.875rem;
+    line-height: 1.4;
+}
+
+.resource-content {
+    padding: 15px;
+}
+
+.resource-title {
+    color: white;
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.resource-category {
+    color: #9ca3af;
+    font-size: 0.875rem;
+    text-transform: capitalize;
+}
+
+.resource-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+/* Trend Card Styles */
+.trend-card {
+    background: #252525;
+    border-radius: 12px;
+    padding: 20px 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid #333;
+}
+
+.trend-card:hover {
+    transform: translateY(-5px);
+    border-color: #9dae11;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
 </style>
 
 </head>
@@ -256,14 +376,17 @@
         </div>
     </nav>
 
-            <!-- Resources Hero Section -->
-    <section class="py-20 bg-[#151515]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Resources Hero Section -->
+    <section class="py-20 bg-cover bg-center bg-no-repeat relative" style="background-image: url('resources-image/resource.jpg');">
+        <!-- Dark overlay for better text readability -->
+        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <!-- Add padding-top to push content down -->
             <div class="text-center pt-24" data-aos="fade-up">
                 <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Design <span class="accent-text">Resources</span></h1>
                 <p class="text-md text-gray-300 max-w-3xl mx-auto">
-                    Essential tools, resources, and free assets for designers and illustrators.
+                    Essential tools, resources, and free assets for illustrators and designers.
                 </p>
             </div>
         </div>
@@ -283,11 +406,11 @@
                 <button class="resource-filter px-6 py-2 rounded-full border transition duration-300" data-filter="illustration">
                     Illustration
                 </button>
-                <button class="resource-filter px-6 py-2 rounded-full border transition duration-300" data-filter="inspiration">
-                    Inspiration
+                <button class="resource-filter px-6 py-2 rounded-full border transition duration-300" data-filter="ai">
+                    AI (Artificial Intelligence)
                 </button>
-                <button class="resource-filter px-6 py-2 rounded-full border transition duration-300" data-filter="assets">
-                    Free Assets
+                <button class="resource-filter px-6 py-2 rounded-full border transition duration-300" data-filter="video">
+                    Video
                 </button>
             </div>
 
@@ -313,34 +436,217 @@
         </div>
     </section>
 
-    <!--
-    <section class="py-20 bg-[#121212]">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-aos="fade-up">
-            <h2 class="text-3xl font-bold text-white mb-4">Want to Master These Tools?</h2>
-            <p class="text-xl text-gray-200 mb-8">
-                Join our Adobe Illustrator courses and learn professional design skills from industry experts.
-            </p>
-            <a href="courses.html" class="inline-flex items-center px-8 py-4 accent-bg text-white font-semibold rounded-lg hover:bg-[#808f0e] transition duration-300 shadow-md text-lg">
-                Explore Our Courses
-                <i class="fas fa-arrow-right ml-2"></i>
-            </a>
-        </div>
-    </section>
-    -->
 
-                    <!-- Latest Blogs Section -->
+<!-- Latest Industry Trends Section -->
+<section class="py-16 bg-[#1a1a1a]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-2xl md:text-3xl font-bold text-white mb-3">Latest <span class="accent-text">Industry Trends</span></h2>
+            <p class="text-sm md:text-base text-gray-300 max-w-2xl mx-auto">
+                Top tech companies shaping the future of design, AI, and digital innovation worldwide.
+            </p>
+        </div>
+
+        <!-- Trends Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            <!-- Trend Company 1 -->
+            <div class="trend-card group" data-aos="fade-up">
+                <div class="trend-logo mb-4 flex justify-center">
+                    <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center">
+                        <span class="text-xl font-bold text-gray-800">O</span>
+                    </div>
+                </div>
+                <h3 class="text-white font-semibold text-center mb-2 group-hover:text-[#a3b30e] transition duration-300">OpenAI</h3>
+                <p class="text-gray-400 text-xs text-center">AI Research & Development</p>
+            </div>
+
+            <!-- Trend Company 2 -->
+            <div class="trend-card group" data-aos="fade-up" data-aos-delay="100">
+                <div class="trend-logo mb-4 flex justify-center">
+                    <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center">
+                        <span class="text-xl font-bold text-white">M</span>
+                    </div>
+                </div>
+                <h3 class="text-white font-semibold text-center mb-2 group-hover:text-[#a3b30e] transition duration-300">Midjourney</h3>
+                <p class="text-gray-400 text-xs text-center">AI Image Generation</p>
+            </div>
+
+            <!-- Trend Company 3 -->
+            <div class="trend-card group" data-aos="fade-up" data-aos-delay="200">
+                <div class="trend-logo mb-4 flex justify-center">
+                    <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center">
+                        <span class="text-xl font-bold text-white">F</span>
+                    </div>
+                </div>
+                <h3 class="text-white font-semibold text-center mb-2 group-hover:text-[#a3b30e] transition duration-300">Figma</h3>
+                <p class="text-gray-400 text-xs text-center">Collaborative Design</p>
+            </div>
+
+            <!-- Trend Company 4 -->
+            <div class="trend-card group" data-aos="fade-up" data-aos-delay="300">
+                <div class="trend-logo mb-4 flex justify-center">
+                    <div class="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center">
+                        <span class="text-xl font-bold text-white">A</span>
+                    </div>
+                </div>
+                <h3 class="text-white font-semibold text-center mb-2 group-hover:text-[#a3b30e] transition duration-300">Adobe</h3>
+                <p class="text-gray-400 text-xs text-center">Creative Software</p>
+            </div>
+
+            <!-- Trend Company 5 -->
+            <div class="trend-card group" data-aos="fade-up" data-aos-delay="400">
+                <div class="trend-logo mb-4 flex justify-center">
+                    <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center">
+                        <span class="text-xl font-bold text-white">R</span>
+                    </div>
+                </div>
+                <h3 class="text-white font-semibold text-center mb-2 group-hover:text-[#a3b30e] transition duration-300">Runway ML</h3>
+                <p class="text-gray-400 text-xs text-center">AI Video Tools</p>
+            </div>
+
+            <!-- Trend Company 6 -->
+            <div class="trend-card group" data-aos="fade-up">
+                <div class="trend-logo mb-4 flex justify-center">
+                    <div class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center">
+                        <span class="text-xl font-bold text-white">S</span>
+                    </div>
+                </div>
+                <h3 class="text-white font-semibold text-center mb-2 group-hover:text-[#a3b30e] transition duration-300">Stability AI</h3>
+                <p class="text-gray-400 text-xs text-center">Open Source AI</p>
+            </div>
+
+            <!-- Trend Company 7 -->
+            <div class="trend-card group" data-aos="fade-up" data-aos-delay="100">
+                <div class="trend-logo mb-4 flex justify-center">
+                    <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center">
+                        <span class="text-xl font-bold text-white">N</span>
+                    </div>
+                </div>
+                <h3 class="text-white font-semibold text-center mb-2 group-hover:text-[#a3b30e] transition duration-300">NVIDIA</h3>
+                <p class="text-gray-400 text-xs text-center">AI Hardware</p>
+            </div>
+
+            <!-- Trend Company 8 -->
+            <div class="trend-card group" data-aos="fade-up" data-aos-delay="200">
+                <div class="trend-logo mb-4 flex justify-center">
+                    <div class="w-16 h-16 bg-pink-500 rounded-full flex items-center justify-center">
+                        <span class="text-xl font-bold text-white">C</span>
+                    </div>
+                </div>
+                <h3 class="text-white font-semibold text-center mb-2 group-hover:text-[#a3b30e] transition duration-300">Canva</h3>
+                <p class="text-gray-400 text-xs text-center">Design Platform</p>
+            </div>
+
+            <!-- Trend Company 9 -->
+            <div class="trend-card group" data-aos="fade-up" data-aos-delay="300">
+                <div class="trend-logo mb-4 flex justify-center">
+                    <div class="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center">
+                        <span class="text-xl font-bold text-white">B</span>
+                    </div>
+                </div>
+                <h3 class="text-white font-semibold text-center mb-2 group-hover:text-[#a3b30e] transition duration-300">Behance</h3>
+                <p class="text-gray-400 text-xs text-center">Creative Community</p>
+            </div>
+
+            <!-- Trend Company 10 -->
+            <div class="trend-card group" data-aos="fade-up" data-aos-delay="400">
+                <div class="trend-logo mb-4 flex justify-center">
+                    <div class="w-16 h-16 bg-teal-500 rounded-full flex items-center justify-center">
+                        <span class="text-xl font-bold text-white">N</span>
+                    </div>
+                </div>
+                <h3 class="text-white font-semibold text-center mb-2 group-hover:text-[#a3b30e] transition duration-300">Notion</h3>
+                <p class="text-gray-400 text-xs text-center">Productivity Tools</p>
+            </div>
+        </div>
+
+        <!-- Update Note -->
+        <div class="text-center mt-8">
+            <p class="text-gray-500 text-xs">Trending companies in design & tech industry</p>
+        </div>
+    </div>
+</section>
+
+
+    <!-- Latest Blogs Section -->
     <section class="py-16 bg-[#151515]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-10" data-aos="fade-up">
                 <h2 class="text-2xl md:text-3xl font-bold text-white mb-3">Latest <span class="accent-text">Articles</span></h2>
                 <p class="text-sm md:text-base text-gray-300 max-w-2xl mx-auto">
-                    Read our latest design tips, tutorials, and industry insights.
+                    Read our latest illustration & design tips, tutorials, and industry insights.
                 </p>
             </div>
 
-            <!-- Blog Posts Grid - Will be populated automatically -->
-            <div id="latest-blogs-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-10">
-                <!-- Latest posts will be loaded here automatically -->
+            <!-- Blog Posts Grid - Show 4 posts -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-10">
+                <!-- Blog Post 1 -->
+                <div class="blog-card group" data-aos="fade-up">
+                    <div class="blog-image mb-3">
+                        <img src="posts/post-9/images/thumbnail.jpg" alt="Free Ai က Midjoureny ထက်ပိုကြမ်း" class="w-full h-40 md:h-36 object-cover rounded-lg">
+                    </div>
+                    <div class="blog-content p-3">
+                        <span class="text-xs text-gray-400">October 24, 2025</span>
+                        <h3 class="text-sm font-semibold text-white mt-1 mb-2 group-hover:text-[#a3b30e] transition duration-300 line-clamp-2">
+                            Free Ai က Midjoureny ထက်ပိုကြမ်း
+                        </h3>
+                        <p class="text-gray-400 text-xs line-clamp-2">
+                            Midjourney က တစ်လကို $10 နဲ့ ပုံ 200 ပဲထုတ်လို့ရတာနဲ့ နှိုင်းယှဉ်ကြည့်ရင် အခုပြပေးမယ့် Ai ကပိုကောင်းတယ်ပါတယ်။
+                        </p>
+                    </div>
+                    <a href="posts/post-9/post-9.html" class="blog-link"></a>
+                </div>
+
+                <!-- Blog Post 2 -->
+                <div class="blog-card group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="blog-image mb-3">
+                        <img src="posts/post-8/images/image-1.jpg" alt="ART de ONE's Half-tone Premium Effects" class="w-full h-40 md:h-36 object-cover rounded-lg">
+                    </div>
+                    <div class="blog-content p-3">
+                        <span class="text-xs text-gray-400">October 19, 2025</span>
+                        <h3 class="text-sm font-semibold text-white mt-1 mb-2 group-hover:text-[#a3b30e] transition duration-300 line-clamp-2">
+                            ART de ONE's Half-tone Premium Effects
+                        </h3>
+                        <p class="text-gray-400 text-xs line-clamp-2">
+                            လိုချင်တဲ့ Half-tone Effects တွေက စျေးကြီးလွန်းလို့ ကိုယ်တိုင်လုပ်ပြီး အားလုံးသုံးနိုင်အောင် မျှဝေပေးလိုက်တာပါ။
+                        </p>
+                    </div>
+                    <a href="posts/post-8/post-8.html" class="blog-link"></a>
+                </div>
+
+                <!-- Blog Post 3 -->
+                <div class="blog-card group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="blog-image mb-3">
+                        <img src="posts/post-7/images/image-1.jpg" alt="Royal purple ကိုဘယ်သူစတင်ခဲ့တာလဲ?" class="w-full h-40 md:h-36 object-cover rounded-lg">
+                    </div>
+                    <div class="blog-content p-3">
+                        <span class="text-xs text-gray-400">October 13, 2025</span>
+                        <h3 class="text-sm font-semibold text-white mt-1 mb-2 group-hover:text-[#a3b30e] transition duration-300 line-clamp-2">
+                            Royal purple ကိုဘယ်သူစတင်ခဲ့တာလဲ?
+                        </h3>
+                        <p class="text-gray-400 text-xs line-clamp-2">
+                            ဒီအကြောင်းရာလေးကို ကျွန်တော် NGO အဖွဲ့အစည်းတစ်ခုမှာ Graphic Design သင်ပေးရင်း ဗဟုသုတအဖြစ် မျှ၀ယ်ပေးခဲ့ပါသေးတယ်။
+                        </p>
+                    </div>
+                    <a href="posts/post-7/post-7.html" class="blog-link"></a>
+                </div>
+
+                <!-- Blog Post 4 -->
+                <div class="blog-card group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="blog-image mb-3">
+                        <img src="posts/post-6/images/crap-cover.jpg" alt="Marketing Team အကြိုက်ဒီဇိုင်းတွေဖန်တီးနိုင်ဖို့ CRAP Principle" class="w-full h-40 md:h-36 object-cover rounded-lg">
+                    </div>
+                    <div class="blog-content p-3">
+                        <span class="text-xs text-gray-400">October 4, 2025</span>
+                        <h3 class="text-sm font-semibold text-white mt-1 mb-2 group-hover:text-[#a3b30e] transition duration-300 line-clamp-2">
+                            Marketing Team အကြိုက်ဒီဇိုင်းတွေဖန်တီးနိုင်ဖို့ CRAP Principle
+                        </h3>
+                        <p class="text-gray-400 text-xs line-clamp-2">
+                            ဒီ Principles လေးခုသိထားရင် Marketing Team အကြိုက် Design တွေဖန်တီးလို့ရပါတယ်။
+                        </p>
+                    </div>
+                    <a href="posts/post-6/post-6.html" class="blog-link"></a>
+                </div>
             </div>
 
             <!-- Go to Blog Button -->
@@ -409,61 +715,61 @@
 
     <script src="js/script.js"></script>
     <script>
-        // Your actual resource data
+        // Updated resource data with AI and Video categories
         const resources = [
             {
                 id: 1,
-                title: "Adobe Illustrator",
-                category: "design illustration",
-                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Adobe_Illustrator_CC_icon.svg/2101px-Adobe_Illustrator_CC_icon.svg.png",
-                link: "https://www.adobe.com/products/illustrator.html",
-                description: "Industry-standard vector graphics software for creating logos, icons, and illustrations.",
-                badge: "paid"
+                title: "Color",
+                category: "color design",
+                image: "resources-image/super-color-palette.jpg",
+                link: "https://supercolorpalette.com/",
+                description: "Illustrator နဲ့ Graphic သမားတွေအတွက် Color Palette တွေကို အလွယ်တကူ ရှာဖွေနိုင်တဲ့ ဝဘ်ဆိုက်လေးပါ။",
+                badge: "free"
             },
             {
                 id: 2,
-                title: "Figma",
-                category: "design",
-                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Figma-logo.svg/1667px-Figma-logo.svg.png",
-                link: "https://www.figma.com",
-                description: "Collaborative interface design tool with powerful prototyping features.",
+                title: "Happy Huee",
+                category: "color design",
+                image: "resources-image/happy-hues.jpg",
+                link: "https://www.happyhues.co/",
+                description: "ဘယ်ကာလာကိုရွေးရင် ကိုယ့်ရဲ ့ဒီဇိုင်းနဲ့ ကိုက်ညီမလဲဆိုတာကို အလွယ်တကူ ရှာဖွေနိုင်တဲ့ ဝဘ်ဆိုက်လေးပါ။",
                 badge: "free"
             },
             {
                 id: 3,
-                title: "Behance",
-                category: "inspiration",
-                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Behance_Logo.svg/1024px-Behance_Logo.svg.png",
-                link: "https://www.behance.net",
-                description: "Showcase and discover creative work from designers worldwide.",
+                title: "Pigment",
+                category: "color design",
+                image: "resources-image/pigment.jpg",
+                link: "https://pigment.shapefactory.co/",
+                description: "Color contrast တွေကို စစ်ဆေးနိုင်တဲ့ ဝဘ်ဆိုက်လေးပါ။",
                 badge: "free"
             },
             {
                 id: 4,
-                title: "Dribbble",
-                category: "inspiration",
-                image: "https://cdn-icons-png.flaticon.com/512/124/124021.png",
-                link: "https://dribbble.com",
-                description: "Platform for designers to share small screenshots of their work.",
-                badge: "free"
+                title: "Gradient",
+                category: "gradient background",
+                image: "resources-image/gradient.jpg",
+                link: "https://photogradient.com/",
+                description: "Gradient Background တွေကို အလွယ်တကူ ကိုယ်ကိုတိုင်စိတ်ကြိုက်လုပ်လို့ရတဲ့ website ပါ။",
+                badge: "free & paid"
             },
             {
                 id: 5,
-                title: "Unsplash",
-                category: "assets",
-                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Unsplash_logo.png/800px-Unsplash_logo.png",
-                link: "https://unsplash.com",
-                description: "High-quality, free stock photos for personal and commercial use.",
-                badge: "free"
+                title: "Adobe Premiere Pro",
+                category: "video",
+                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Adobe_Premiere_Pro_CC_icon.svg/2101px-Adobe_Premiere_Pro_CC_icon.svg.png",
+                link: "https://www.adobe.com/products/premiere.html",
+                description: "Professional video editing software for film, TV, and web.",
+                badge: "paid"
             },
             {
                 id: 6,
-                title: "Freepik",
-                category: "assets",
-                image: "https://cdn.freepik.com/static/img/logo.png",
-                link: "https://www.freepik.com",
-                description: "Free vectors, stock photos, PSD files, and icons for designers.",
-                badge: "free"
+                title: "Final Cut Pro",
+                category: "video",
+                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Final_Cut_Pro_X_Icon.png/640px-Final_Cut_Pro_X_Icon.png",
+                link: "https://www.apple.com/final-cut-pro/",
+                description: "Professional video editing software for macOS with powerful features.",
+                badge: "paid"
             },
             {
                 id: 7,
@@ -494,71 +800,97 @@
             },
             {
                 id: 10,
-                title: "Font Awesome",
-                category: "assets",
-                image: "https://upload.wikimedia.org/wikipedia/commons/3/39/Font_Awesome_logo.png",
-                link: "https://fontawesome.com",
-                description: "Icon library and toolkit with thousands of vector icons.",
+                title: "Runway ML",
+                category: "ai",
+                image: "https://pbs.twimg.com/profile_images/1524179359908753408/1lCxS9jG_400x400.jpg",
+                link: "https://runwayml.com",
+                description: "AI-powered video editing and generation platform with creative tools.",
                 badge: "free"
             },
             {
                 id: 11,
-                title: "Google Fonts",
-                category: "assets",
-                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Google_Fonts_logo.png/800px-Google_Fonts_logo.png",
-                link: "https://fonts.google.com",
-                description: "Free, open-source font library for web and print projects.",
+                title: "DaVinci Resolve",
+                category: "video",
+                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/DaVinci_Resolve_17_logo.svg/1200px-DaVinci_Resolve_17_logo.svg.png",
+                link: "https://www.blackmagicdesign.com/products/davinciresolve",
+                description: "Professional video editing, color correction, and audio post-production software.",
                 badge: "free"
             },
             {
                 id: 12,
-                title: "Pinterest",
-                category: "inspiration",
-                image: "https://upload.wikimedia.org/wikipedia/commons/0/08/Pinterest-logo.png",
-                link: "https://www.pinterest.com",
-                description: "Visual discovery engine for finding ideas and inspiration.",
+                title: "ChatGPT",
+                category: "ai",
+                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1024px-ChatGPT_logo.svg.png",
+                link: "https://chat.openai.com",
+                description: "AI language model that can assist with creative writing and brainstorming.",
+                badge: "free"
+            },
+
+            {
+                id: 13,
+                title: "Super Color Palette",
+                category: "Color Design Illustration",
+                image: "resources-image/super-color-palette.jpg",
+                link: "https://supercolorpalette.com/",
+                description: "Color Palette တွေကို အလွယ်တကူ ရှာဖွေနိုင်တဲ့ ဝဘ်ဆိုက်လေးပါ။",
                 badge: "free"
             }
         ];
 
         // Pagination settings
-        const resourcesPerPage = 12; // Show 8 resources per page
+        const resourcesPerPage = 12; // Show 12 resources per page
         let currentPage = 1;
         let filteredResources = [...resources];
 
         function loadResources(page = 1) {
-            const container = document.getElementById('resources-container');
-            container.innerHTML = ''; // Clear existing resources
-            
-            const startIndex = (page - 1) * resourcesPerPage;
-            const endIndex = startIndex + resourcesPerPage;
-            
-            const resourcesToShow = filteredResources.slice(startIndex, endIndex);
-            
-            resourcesToShow.forEach(resource => {
-                const resourceHTML = `
-                    <div class="resource-card group" data-category="${resource.category}">
-                        <div class="resource-image">
-                            <img src="${resource.image}" alt="${resource.title}">
-                            <div class="resource-overlay">
-                                <div class="resource-info">
-                                    <span class="resource-badge ${resource.badge}">${resource.badge === 'paid' ? 'Paid' : 'Free'}</span>
-                                    <p class="resource-description">${resource.description}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="resource-content">
-                            <h3 class="resource-title">${resource.title}</h3>
-                            <p class="resource-category">${resource.category.replace(' ', ' • ')}</p>
-                        </div>
-                        <a href="${resource.link}" target="_blank" class="resource-link"></a>
-                    </div>
-                `;
-                container.innerHTML += resourceHTML;
-            });
-            
-            updatePaginationControls();
+    const container = document.getElementById('resources-container');
+    container.innerHTML = ''; // Clear existing resources
+    
+    const startIndex = (page - 1) * resourcesPerPage;
+    const endIndex = startIndex + resourcesPerPage;
+    
+    const resourcesToShow = filteredResources.slice(startIndex, endIndex);
+    
+    resourcesToShow.forEach(resource => {
+        // Handle both string and array formats
+        let badges = [];
+        if (Array.isArray(resource.badge)) {
+            badges = resource.badge;
+        } else if (resource.badge.includes('&')) {
+            // Split "free & paid" into array
+            badges = resource.badge.split('&').map(b => b.trim());
+        } else {
+            badges = [resource.badge];
         }
+        
+        // Generate badge HTML
+        const badgeHTML = badges.map(badge => 
+            `<span class="resource-badge ${badge}">${badge === 'paid' ? 'Paid' : 'Free'}</span>`
+        ).join('');
+        
+        const resourceHTML = `
+            <div class="resource-card group" data-category="${resource.category}">
+                <div class="resource-image">
+                    <img src="${resource.image}" alt="${resource.title}">
+                    <div class="resource-overlay">
+                        <div class="resource-info">
+                            ${badgeHTML}
+                            <p class="resource-description">${resource.description}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="resource-content">
+                    <h3 class="resource-title">${resource.title}</h3>
+                    <p class="resource-category">${resource.category.replace(' ', ' • ')}</p>
+                </div>
+                <a href="${resource.link}" target="_blank" class="resource-link"></a>
+            </div>
+        `;
+        container.innerHTML += resourceHTML;
+    });
+    
+    updatePaginationControls();
+}
 
         function updatePaginationControls() {
             const totalPages = Math.ceil(filteredResources.length / resourcesPerPage);
@@ -597,9 +929,6 @@
 
             // Load first page of resources
             loadResources(1);
-
-            // Load latest blog posts automatically
-            loadLatestBlogPosts();
 
             filterButtons.forEach(button => {
                 button.addEventListener('click', function() {
@@ -654,51 +983,6 @@
                 }
             });
         });
-
-
-                // Function to load latest blog posts dynamically
-function loadLatestBlogPosts() {
-    const container = document.getElementById('latest-blogs-container');
-    if (!container) return;
-    
-    // Get the 4 latest posts (sorted by date, newest first)
-    const latestPosts = [...blogPosts]
-        .sort((a, b) => new Date(b.date) - new Date(a.date))
-        .slice(0, 4);
-    
-    container.innerHTML = ''; // Clear existing content
-    
-    latestPosts.forEach((post, index) => {
-        const postHTML = `
-            <div class="blog-card group" data-aos="fade-up" data-aos-delay="${index * 100}">
-                <div class="blog-image mb-3">
-                    <img src="${post.image}" alt="${post.title}" 
-                         class="w-full h-40 md:h-36 object-cover rounded-lg"
-                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-                    <div class="w-full h-40 md:h-36 bg-gray-700 rounded-lg flex items-center justify-center hidden">
-                        <span class="text-gray-400 text-sm">Image not found</span>
-                    </div>
-                </div>
-                <div class="blog-content p-3">
-                    <span class="text-xs text-gray-400">${post.date}</span>
-                    <h3 class="text-sm font-semibold text-white mt-1 mb-2 group-hover:text-[#a3b30e] transition duration-300 line-clamp-2">
-                        ${post.title}
-                    </h3>
-                    <p class="text-gray-400 text-xs line-clamp-2">
-                        ${post.excerpt}
-                    </p>
-                </div>
-                <a href="${post.file}" class="blog-link"></a>
-            </div>
-        `;
-        container.innerHTML += postHTML;
-    });
-    
-    // Re-initialize AOS for the new elements
-    AOS.refresh();
-}
-
-
     </script>
 </body>
 </html>
