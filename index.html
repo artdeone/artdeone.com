@@ -97,7 +97,7 @@
 @media (max-width: 768px) {
     .rounded-video-container {
         max-width: 100%; /* Full width on mobile */
-        height: 70vh; /* Smaller height on mobile */
+        height: 75vh; /* Adjusted height on mobile */
         border-radius: 16px; /* Smaller radius on mobile */
         margin: 0 10px; /* Small side margins */
         width: calc(100% - 20px); /* Account for margins */
@@ -106,8 +106,17 @@
 
 @media (max-width: 480px) {
     .rounded-video-container {
-        height: 60vh; /* Even smaller on very small screens */
+        height: 70vh; /* Better height for very small screens */
         border-radius: 12px;
+        margin: 0 8px;
+        width: calc(100% - 16px);
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+    .rounded-video-container {
+        height: 65vh; /* Even smaller on very small screens */
     }
 }
     
@@ -188,68 +197,68 @@
     </nav>
 
                    <!-- Hero Section with Rounded Video Container - FIXED -->
-    <section id="home" class="relative min-h-screen flex items-center justify-center post-10 overflow-hidden">
-        <!-- Rounded Video Container -->
-        <div class="rounded-video-container relative w-full mx-4" style="height: 80vh;">
-            <!-- Video Background -->
-            <video autoplay muted loop playsinline preload="metadata" class="absolute w-full h-full object-cover z-0">
-                <source src="/hero-animation.webm" type="video/webm">
-                <source src="/hero-animation.mp4" type="video/mp4">
-                <!-- Fallback background if video doesn't load -->
-                <div class="absolute w-full h-full bg-gradient(135deg, #000000 0%, #11001c 100)"></div>
-            </video>
-            
-            <!-- Dark overlay for better text readability -->
-            <div class="absolute inset-0 bg-black bg-opacity-40 z-1"></div>
-            
-            <!-- Content -->
-            <div class="relative z-10 w-full h-full flex items-center justify-center">
-                <div class="text-center px-4 sm:px-6 lg:px-8 w-full" data-aos="fade-up">
-                    <!-- Large ART de ONE text -->
-                    <h1 class="text-5xl sm:text-6xl md:text-8xl font-bold text-white mb-4 leading-tight artdeone-font">
-                        ART de ONE
-                    </h1>
-                    
-                    <!-- Small tagline text -->
-                    <p class="text-xl sm:text-2xl text-gray-200 mb-8 mx-auto max-w-2xl">
-                        The Art of Intelligence
-                    </p>
-                    
-                    <!-- Buttons -->
-                    <div class="flex flex-wrap gap-4 justify-center">
-                        <a href="courses.html" class="px-6 py-3 md:px-8 md:py-4 rounded-2xl text-sm md:text-base font-semibold transition-all duration-300 custom-hover" style="background-color: #9dae11; color: white;">
-                            Read Our Blog <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                        <a href="#freelance" class="px-6 py-3 md:px-8 md:py-4 rounded-2xl text-sm md:text-base font-semibold transition-all duration-300 custom-hover" style="background-color: #9dae11; color: white;">
-                            Hire Us <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                    
-                    <!-- ANIMATED STATS - Hidden on Mobile -->
-                    <div class="mt-12 hidden sm:block" data-aos="fade-up" data-aos-delay="400">
-                        <div class="flex flex-wrap justify-center gap-8 md:gap-12">
-                            <div class="text-center stat-item">
-                                <div class="text-2xl md:text-3xl font-bold text-white mb-1 counter" data-target="100">0</div>
-                                <div class="text-sm text-gray-200">Students Trained</div>
-                            </div>
-                            <div class="text-center stat-item">
-                                <div class="text-2xl md:text-3xl font-bold text-white mb-1 counter" data-target="5.0">0</div>
-                                <div class="text-sm text-gray-200">Facebook Rating</div>
-                            </div>
-                            <div class="text-center stat-item">
-                                <div class="text-2xl md:text-3xl font-bold text-white mb-1 counter" data-target="9">0</div>
-                                <div class="text-sm text-gray-200">Years Experience</div>
-                            </div>
-                            <div class="text-center stat-item">
-                                <div class="text-2xl md:text-3xl font-bold text-white mb-1 counter" data-target="3">0</div>
-                                <div class="text-sm text-gray-200">Countries</div>
-                            </div>
+<section id="home" class="relative min-h-screen flex items-center justify-center post-10 overflow-hidden">
+    <!-- Rounded Video Container -->
+    <div class="rounded-video-container relative w-full mx-4">
+        <!-- Video Background -->
+        <video autoplay muted loop playsinline preload="metadata" class="absolute w-full h-full object-cover z-0">
+            <source src="/hero-animation.webm" type="video/webm">
+            <source src="/hero-animation.mp4" type="video/mp4">
+            <!-- Fallback background if video doesn't load -->
+            <div class="absolute w-full h-full bg-gradient(135deg, #000000 0%, #11001c 100)"></div>
+        </video>
+        
+        <!-- Dark overlay for better text readability -->
+        <div class="absolute inset-0 bg-black bg-opacity-40 z-1"></div>
+        
+        <!-- Content -->
+        <div class="relative z-10 w-full h-full flex items-center justify-center py-8">
+            <div class="text-center px-4 sm:px-6 lg:px-8 w-full" data-aos="fade-up">
+                <!-- Large ART de ONE text -->
+                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-white mb-4 leading-tight artdeone-font">
+                    ART de ONE
+                </h1>
+                
+                <!-- Small tagline text -->
+                <p class="text-lg sm:text-xl md:text-2xl text-gray-200 mb-8 mx-auto max-w-2xl">
+                    The Art of Intelligence
+                </p>
+                
+                <!-- Buttons -->
+                <div class="flex flex-wrap gap-3 justify-center">
+                    <a href="courses.html" class="px-5 py-3 md:px-8 md:py-4 rounded-2xl text-sm md:text-base font-semibold transition-all duration-300 custom-hover" style="background-color: #9dae11; color: white;">
+                        Read Our Blog <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                    <a href="#freelance" class="px-5 py-3 md:px-8 md:py-4 rounded-2xl text-sm md:text-base font-semibold transition-all duration-300 custom-hover" style="background-color: #9dae11; color: white;">
+                        Hire Us <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- ANIMATED STATS - Hidden on Mobile -->
+                <div class="mt-8 sm:mt-12 hidden sm:block" data-aos="fade-up" data-aos-delay="400">
+                    <div class="flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">
+                        <div class="text-center stat-item">
+                            <div class="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-1 counter" data-target="100">0</div>
+                            <div class="text-xs md:text-sm text-gray-200">Students Trained</div>
+                        </div>
+                        <div class="text-center stat-item">
+                            <div class="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-1 counter" data-target="5.0">0</div>
+                            <div class="text-xs md:text-sm text-gray-200">Facebook Rating</div>
+                        </div>
+                        <div class="text-center stat-item">
+                            <div class="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-1 counter" data-target="9">0</div>
+                            <div class="text-xs md:text-sm text-gray-200">Years Experience</div>
+                        </div>
+                        <div class="text-center stat-item">
+                            <div class="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-1 counter" data-target="3">0</div>
+                            <div class="text-xs md:text-sm text-gray-200">Countries</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Rest of your content remains the same -->
     <!-- Enhanced About Section -->
