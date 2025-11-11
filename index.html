@@ -86,38 +86,92 @@
     border-radius: 24px;
     overflow: hidden;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    max-width: 1600px; /* Desktop width */
+    max-width: 1600px;
     margin: 0 auto;
-    height: 80vh; /* Desktop height */
+    height: 75vh;
+    min-height: 500px;
     position: relative;
-    width: 95%; /* Added for better mobile control */
+    width: 95%;
+    z-index: 1; /* Lower than navigation */
+    margin-top: 2rem; /* Space below navigation */
+}
+
+/* Large desktop screens */
+@media (min-width: 1440px) {
+    .rounded-video-container {
+        height: 78vh;
+        min-height: 650px; /* Reduced from 795px to be more reasonable */
+    }
+}
+
+/* Medium desktop */
+@media (min-width: 1024px) and (max-width: 1439px) {
+    .rounded-video-container {
+        height: 72vh;
+        min-height: 550px;
+    }
+}
+
+/* Tablet screens */
+@media (max-width: 1024px) {
+    .rounded-video-container {
+        height: 68vh;
+        min-height: 450px;
+        margin-top: 1.5rem;
+    }
 }
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
     .rounded-video-container {
-        max-width: 100%; /* Full width on mobile */
-        height: 80vh; /* Adjusted height on mobile */
-        border-radius: 16px; /* Smaller radius on mobile */
-        margin: 0 10px; /* Small side margins */
-        width: calc(100% - 20px); /* Account for margins */
+        max-width: 100%;
+        height: 65vh;
+        min-height: 400px;
+        border-radius: 16px;
+        margin: 0 10px;
+        width: calc(100% - 20px);
+        margin-top: 1rem;
+    }
+    
+    #home {
+        padding-top: 5rem; /* More space for mobile nav */
+        padding-bottom: 1rem;
     }
 }
 
 @media (max-width: 480px) {
     .rounded-video-container {
-        height: 70vh; /* Better height for very small screens */
+        height: 60vh;
+        min-height: 350px;
         border-radius: 12px;
         margin: 0 8px;
         width: calc(100% - 16px);
+        margin-top: 0.5rem;
+    }
+    
+    #home {
+        padding-top: 4.5rem;
     }
 }
 
 /* Extra small devices */
 @media (max-width: 360px) {
     .rounded-video-container {
-        height: 65vh; /* Even smaller on very small screens */
+        height: 55vh;
+        min-height: 300px;
     }
+}
+
+/* Ensure the section has proper spacing below navigation */
+#home {
+    min-height: auto;
+    padding-top: 6rem; /* Enough space for fixed navigation */
+    padding-bottom: 2rem;
+}
+
+/* Content inside video container should have normal z-index */
+.rounded-video-container .relative.z-10 {
+    z-index: 2;
 }
     
     /* Mobile menu styles */
