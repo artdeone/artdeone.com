@@ -47,6 +47,24 @@
             color: #000;
         }
         
+        /* Access Button Style */
+        .access-btn {
+            display: block;
+            width: 100%;
+            background-color: #fff;
+            color: #000;
+            text-align: center;
+            font-weight: 700;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+        }
+        .access-btn:hover {
+            background-color: #9dae11;
+            color: #fff;
+        }
+        
         .progress-bar-bg {
             background-color: #333;
             height: 4px;
@@ -66,7 +84,9 @@
     <!-- Navbar -->
     <nav class="fixed w-full z-50 h-16 flex items-center px-6 justify-between">
         <div class="flex items-center">
-            <img src="/logo.png" alt="ART de ONE" class="h-8 w-auto">
+            <a href="../index.html">
+                <img src="../logo.png" alt="ART de ONE" class="h-8 w-auto">
+            </a>
             <span class="ml-4 text-gray-400 text-sm hidden sm:block">Student Portal</span>
         </div>
         <div class="flex items-center space-x-4">
@@ -81,41 +101,95 @@
         
         <!-- Course Grid -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="course-list">
-            <!-- Course Card Example (Will be dynamic) -->
-            <div class="course-card">
-                <div class="h-40 bg-gray-800 relative">
-                    <img src="courses/basic-illustrator/basic-thumb.jpg" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity">
-                    <div class="absolute top-2 right-2 bg-[#9dae11] text-black text-xs font-bold px-2 py-1 rounded">
-                        Active
-                    </div>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-lg font-bold mb-2">Basic Illustrator Course</h3>
-                    <p class="text-gray-400 text-xs mb-4">Last watched: Lesson 3</p>
-                    
-                    <!-- Progress -->
-                    <div class="flex justify-between text-xs text-gray-500 mb-1">
-                        <span>25% Completed</span>
-                        <span>3/12 Lessons</span>
-                    </div>
-                    <div class="progress-bar-bg">
-                        <div class="progress-bar-fill" style="width: 25%"></div>
-                    </div>
-                    
-                    <button class="mt-6 w-full bg-white text-black font-bold py-2 rounded hover:bg-[#9dae11] hover:text-white transition-colors">
-                        Continue Learning
-                    </button>
-                </div>
-            </div>
+            <!-- Courses will appear here automatically -->
         </div>
     </main>
 
-    <script>
-        function logout() {
-            // Firebase Logout
-            console.log("Logging out...");
-            window.location.href = 'student-login.html';
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+      import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+      import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyDxGe8syla67VxbV7DlnbPtIbMmIewZurY",
+        authDomain: "art-de-one.firebaseapp.com",
+        projectId: "art-de-one",
+        storageBucket: "art-de-one.firebasestorage.app",
+        messagingSenderId: "843424361824",
+        appId: "1:843424361824:web:d8e645ad12fe5f50be8205",
+        measurementId: "G-1W0PCMKRW7"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            document.getElementById('student-name').innerText = user.email;
+            
+            const courseList = document.getElementById('course-list');
+            courseList.innerHTML = '<p class="text-gray-500 col-span-3 text-center">Loading your courses...</p>';
+
+            try {
+                // Find courses where student email matches login email
+                const q = query(collection(db, "students"), where("email", "==", user.email));
+                const querySnapshot = await getDocs(q);
+                
+                if (querySnapshot.empty) {
+                    courseList.innerHTML = `
+                        <div class="col-span-3 text-center py-12">
+                            <i class="fas fa-book-open text-4xl text-gray-600 mb-4"></i>
+                            <p class="text-gray-400">You have not enrolled in any courses yet.</p>
+                            <a href="../courses.html" class="text-[#9dae11] hover:underline mt-2 block">Browse Courses</a>
+                        </div>
+                    `;
+                    return;
+                }
+
+                let html = '';
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    
+                    // --- HERE IS THE LINK LOGIC ---
+                    // We link to lesson-player.html
+                    html += `
+                    <div class="course-card">
+                        <div class="h-40 bg-gray-800 relative">
+                            <div class="w-full h-full bg-[#222] flex items-center justify-center">
+                                <i class="fas fa-play-circle text-4xl text-[#333]"></i>
+                            </div>
+                            <div class="absolute top-2 right-2 bg-[#9dae11] text-black text-xs font-bold px-2 py-1 rounded">
+                                Active
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold mb-2">${data.course}</h3>
+                            <p class="text-gray-400 text-xs mb-4">Status: ${data.amount}</p>
+                            
+                            <a href="lesson-player.html" class="access-btn">
+                                <i class="fas fa-play mr-2"></i> Access Content
+                            </a>
+                        </div>
+                    </div>
+                    `;
+                });
+                courseList.innerHTML = html;
+
+            } catch (e) {
+                console.error(e);
+                courseList.innerHTML = '<p class="text-red-500 col-span-3 text-center">Error loading courses. Please try refreshing.</p>';
+            }
+
+        } else {
+            // Redirect if not logged in
+            window.location.href = "student-login.html";
         }
+      });
+
+      window.logout = () => {
+          signOut(auth).then(() => window.location.href = "student-login.html");
+      }
     </script>
 
 </body>
