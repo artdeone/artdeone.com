@@ -16,230 +16,239 @@
     <link rel="icon" type="image/png" href="/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <link rel="stylesheet" href="nav-bar/navigation.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Poppins', sans-serif; }
-        .accent-text { color: #9dae11; }
         
-        /* Lift effect with shadow animation */
-        .blog-card {
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            transform: translateY(0);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
         }
+
+        /* --- CONSISTENT NAVIGATION STYLES (Match Index) --- */
+        nav { 
+            background-color: rgba(0,0,0,0.9) !important; 
+            border-bottom: 1px solid #222; 
+            backdrop-filter: blur(12px);
+        }
+        .nav-link { 
+            color: #ccc !important; 
+            font-weight: 300; /* Thin font match */
+            letter-spacing: 0.04em;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover { color: #fff !important; }
+        .mobile-menu { background-color: #111 !important; }
+        .mobile-nav-link { color: #ccc !important; }
+        /* Specific small button for Navigation */
+.nav-btn {
+    background-color: #fff;
+    color: #000;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1.25rem; /* Smaller padding */
+    font-size: 0.8rem;       /* Smaller font */
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #fff;
+    height: auto;
+    line-height: 1;
+}
+
+.nav-btn:hover {
+    background-color: #9dae11;
+    border-color: #9dae11;
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+
+        /* --- CONSISTENT BUTTONS --- */
+        .btn-primary {
+            background-color: #fff;
+            color: #000;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            padding: 0.5rem 1.5rem;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+        }
+        .btn-primary:hover {
+            background-color: #9dae11;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* Blog Specific Styles (Dark Minimalist) */
+        .blog-hero { padding-top: 8rem; padding-bottom: 4rem; }
         
+        .featured-post {
+            background: #0a0a0a;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            border: 1px solid #222;
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .featured-post:hover {
+            transform: translateY(-5px);
+            border-color: #333;
+            box-shadow: 0 20px 40px -20px rgba(0,0,0,0.8);
+        }
+
+        .blog-card {
+            background: #0a0a0a;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid #222;
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
         .blog-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-        }
-
-        /* Minimalist pagination styles */
-        .pagination-btn {
-            transition: all 0.3s ease;
-            border: none;
-            background: transparent;
-            color: #4b5563;
+            border-color: #333;
+            box-shadow: 0 20px 40px -20px rgba(0,0,0,0.8);
         }
         
-        .pagination-btn:hover:not(:disabled) {
-            color: #1f2937;
-            transform: translateY(-1px);
-        }
-        
-        .page-btn {
-            transition: all 0.3s ease;
-            min-width: 40px;
-            background: transparent;
-            border: none;
-            color: #4b5563;
-        }
-        
-        .page-btn:hover {
-            color: #1f2937;
-        }
-        
-        .page-btn.active {
-            color: #1f2937;
-            font-weight: 600;
-        }
-
-        /* Featured post styles */
-        .featured-post {
-        background: #EDEDED;
-        border-radius: 12px;
-        overflow: hidden;
-        }
+        .blog-card img { transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .blog-card:hover img { transform: scale(1.05); }
 
         .featured-badge {
             background-color: #9dae11;
             color: white;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 600;
             padding: 0.25rem 0.75rem;
-            border-radius: 20px;
+            border-radius: 999px;
             display: inline-block;
             margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
-        
 
+        /* Pagination */
+        .pagination-btn { color: #666; transition: all 0.3s; }
+        .pagination-btn:hover:not(:disabled) { color: #fff; }
+        .page-btn {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            color: #666;
+            transition: all 0.3s;
+        }
+        .page-btn:hover { background-color: #111; color: #fff; }
+        .page-btn.active { background-color: #fff; color: #000; font-weight: 600; }
 
-
-        /* Custom styles for Runway ML-inspired navigation */
-    .nav-container {
-        padding: 0.75rem 1rem;
-    }
-    
-    .nav-link {
-        position: relative;
-        color: #000;
-        font-weight: 500;
-        font-size: 0.875rem; /* Smaller font size */
-        transition: all 0.3s ease;
-    }
-    
-    /* Remove the green line effect */
-    .nav-link::after {
-        display: none; /* This removes the green line */
-    }
-    
-    /* Hover effect - make hovered item white, others grey */
-    .nav-link:hover {
-        color: #000000 !important; /* White text on hover */
-        transform: translateY(-1px);
-    }
-    
-    /* When hovering over a nav item, make all other nav items grey */
-    .nav-center:hover .nav-link:not(:hover) {
-        color: #888888 !important; /* Grey for non-hovered items */
-    }
-    .nav-center {
-    position: absolute !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-}
-.contact-btn {
-        background-color: #000;
-        color: white;
-        padding: 0.5rem 1.5rem;
-        border-radius: 9999px;
-        font-weight: 500;
-        font-size: 0.875rem; /* Smaller font size */
-        transition: all 0.3s ease;
-    }
-    
-    .contact-btn:hover {
-        background-color: #333;
-        transform: translateY(-2px);
-    }
-    
-    .mobile-menu-btn {
-        transition: all 0.3s ease;
-    }
-    
-    .mobile-menu-btn:hover {
-        transform: scale(1.1);
-    }
-    
-    
+        [data-aos] { transition-duration: 1000ms !important; }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="bg-black text-white">
 
-     <!-- Navigation - Runway ML Inspired -->
-    <nav class="fixed w-full bg-white z-50">
+    <!-- CONSISTENT NAVIGATION (Matches Index) -->
+    <nav class="fixed w-full z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 nav-container">
-            <div class="flex justify-between h-16 items-center">
-                <!-- Logo -->
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                         <a href="index.html" class="flex items-center">
-                         <img src="/logo.png" alt="ART de ONE" class="h-10 w-auto">
-                         </a>
+            <div class="nav-wrapper">
+                <div class="flex justify-between h-16 items-center">
+                    <!-- Logo -->
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <a href="index.html#home" class="flex items-center">
+                                <img src="logo.png" alt="ART de ONE" class="h-10 w-auto">
+                            </a>
+                        </div>
                     </div>
-                </div>
-                
-                <!-- Desktop Navigation - Centered -->
-                <div class="hidden md:flex items-center space-x-8 nav-center">
-                    <a href="index.html" class="nav-link">Home</a>
-                    <a href="index.html#about" class="nav-link">About</a>
-                    <a href="courses.html" class="nav-link">Courses</a>
-                    <a href="blog.html" class="nav-link">Blog</a>
-                    <a href="index.html#portfolio" class="nav-link">Portfolio</a>
-                    <a href="index.html#freelance" class="nav-link">Freelance</a>
-                </div>
-                
-                <!-- Contact Button - Right Side -->
-                <div class="hidden md:block">
-                    <a href="index.html#contact" class="contact-btn">Contact</a>
-                </div>
-                
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden flex items-center">
-                    <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md text-gray-700 focus:outline-none" aria-controls="mobile-menu" aria-expanded="false" id="mobile-menu-button">
-                        <i data-feather="menu"></i>
-                    </button>
+                    
+                    <!-- Desktop Navigation -->
+                    <div class="hidden md:flex items-center space-x-4 nav-center">
+                        <a href="index.html#home" class="nav-link">Home</a>
+                        <a href="courses.html" class="nav-link">Courses</a>
+                        <a href="blog.html" class="nav-link" style="color: #fff !important;">Blog</a> <!-- Active state override -->
+                        <a href="/resources/resources-collection.html" class="nav-link">Resources</a>
+                        <a href="index.html#about" class="nav-link">About</a>
+                        <a href="index.html#contact" class="nav-link">Contact</a>
+                    </div>
+                    
+                    <!-- Contact Button -->
+                    <div class="hidden md:block">
+                        <a href="claude/student-login.html" class="nav-btn">Student Login</a>
+
+                    </div>
+                    
+                    <!-- Mobile Menu Button -->
+                    <div class="md:hidden flex items-center">
+                        <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white focus:outline-none" id="mobile-menu-button">
+                            <i data-feather="menu"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
         
         <!-- Mobile menu -->
-        <div class="hidden mobile-menu md:hidden bg-white shadow-lg" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="index.html" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Home</a>
-                <a href="index.html#about" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">About</a>
-                <a href="courses.html" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Courses</a>
-                <a href="blog.html" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Blog</a>
-                <a href="index.html#portfolio" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Portfolio</a>
-                <a href="index.html#freelance" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Freelance</a>
-                <a href="index.html#contact" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Contact</a>
+        <div class="hidden mobile-menu md:hidden" id="mobile-menu">
+            <div class="py-2 px-4 space-y-1">
+                <a href="index.html#home" class="block py-2 mobile-nav-link">Home</a>
+                <a href="courses.html" class="block py-2 mobile-nav-link">Courses</a>
+                <a href="blog.html" class="block py-2 mobile-nav-link text-white">Blog</a>
+                <a href="/resources/resources-collection.html" class="block py-2 mobile-nav-link">Resources</a>
+                <a href="index.html#about" class="block py-2 mobile-nav-link">About</a>
+                <a href="index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
+                <a href="claude/student-dashboard.html" class="block py-2 mobile-nav-link">Student Login</a>
             </div>
         </div>
     </nav>
 
-    <main class="pt-24 pb-20">
+    <main class="pt-32 pb-20 bg-black min-h-screen">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h1 class="text-4xl font-bold text-gray-900">ART de ONE <span class="accent-text">Blog</span></h1>
-                <p class="mt-4 text-md text-gray-600">
-                    Ai (Artificial Intelligence), Adobe Illustrator Tips & Tricks, Graphic Design Principles နှင့် ပတ်သတ်သော အသစ်အသစ်များကို မျှဝေပေးသွားမှာ ဖြစ်ပါတယ်။
+            
+            <!-- Blog Hero -->
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4">
+                    ART de ONE <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Blog</span>
+                </h1>
+                <p class="mt-4 text-lg text-gray-400 max-w-2xl mx-auto font-light">
+                    Ai (Artificial Intelligence), Adobe Illustrator Tips & Tricks, Graphic Design Principles နှင့် ပတ်သတ်သော အသစ်အသစ်များကို မျှဝေပေးသွားမှာ ဖြစ်ပါတယ်။
                 </p>
             </div>
 
             <!-- Featured Post Section -->
-            <div class="mb-16">
-                <h2 class="text-2xl font-bold text-gray-900 mb-6">Featured Article</h2>
-                <div class="featured-post p-6 md:p-8">
-                    <div class="flex flex-col md:flex-row gap-8">
-                        <div class="md:w-2/3">
+            <div class="mb-20" data-aos="fade-up">
+                <h2 class="text-2xl font-bold text-white mb-6 border-l-4 border-[#9dae11] pl-4">Featured Article</h2>
+                <div class="featured-post p-6 md:p-10">
+                    <div class="flex flex-col lg:flex-row gap-10 items-center">
+                        <div class="lg:w-1/2">
                             <span class="featured-badge">FEATURED</span>
-                            <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Affinity Rebrand, A New Era for Creative Freedom</h3>
-                            <p class="text-gray-600 mb-4">
-                                   Affinity က Free ဖြစ်တာမို့ Adobe Creative Suite ကို အစားထိုးဖို့အကောင်းဆုံး option တစ်ခုဖြစ်လာနိုင်တယ်ဆိုတာလဲမေ့ထားလို့မရပါဘူး။ Tools တွေကလဲ ကျွန်တော်တို့အသုံးပြနေကျ Adobe Software 
-                                    တွေကိုပိုင်နိုင်ထားတဲ့သူတစ်ယောက်အတွက်တော့လုံး၀မခက်ခဲတော့တာ သေချာပါတယ်။
+                            <h3 class="text-2xl md:text-3xl font-bold text-white mb-4 leading-tight">Affinity Rebrand, A New Era for Creative Freedom</h3>
+                            <p class="text-gray-400 mb-6 leading-relaxed">
+                                Affinity က Free ဖြစ်တာမို့ Adobe Creative Suite ကို အစားထိုးဖို့အကောင်းဆုံး option တစ်ခုဖြစ်လာနိုင်တယ်ဆိုတာလဲမေ့ထားလို့မရပါဘူး။ Tools တွေကလဲ ကျွန်တော်တို့အသုံးပြနေကျ Adobe Software တွေကိုပိုင်နိုင်ထားတဲ့သူတစ်ယောက်အတွက်တော့လုံးဝမခက်ခဲတော့တာ သေချာပါတယ်။
                             </p>
-                            <div class="flex items-center text-gray-500 mb-6">
+                            <div class="flex items-center text-gray-500 mb-8 text-sm">
                                 <div class="flex items-center">
-                                    <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center mr-3">
-                                        <span class="text-xs font-semibold">AD</span>
+                                    <div class="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center mr-3 text-white">
+                                        <span class="text-xs font-bold">AD</span>
                                     </div>
                                     <div>
-                                        <p class="text-sm font-medium">ART de ONE Team</p>
-                                        <p class="text-xs">November 3, 2025</p>
+                                        <p class="text-white font-medium">ART de ONE Team</p>
+                                        <p>November 3, 2025</p>
                                     </div>
                                 </div>
                             </div>
-                            <a href="posts/featured/featured-post.html" class="inline-flex items-center gap-x-2 bg-gray-900 text-white font-semibold px-6 py-3 rounded-full hover:bg-[#9dae11] transition-colors"> 
+                            <a href="posts/featured/featured-post.html" class="btn-primary inline-flex items-center gap-2">
                                 Read Full Story
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                                <i data-feather="arrow-right" class="w-4 h-4"></i>
                             </a>
                         </div>
-                        <div class="md:w-1/3">
-                            <video autoplay muted loop playsinline class="w-full h-64 md:h-full object-cover rounded-lg">
-                            <source src="posts/featured/featured-vid/feature-vid-2.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                            </video>
+                        <div class="lg:w-1/2 w-full">
+                            <div class="rounded-xl overflow-hidden shadow-2xl">
+                                <video autoplay muted loop playsinline class="w-full object-cover">
+                                    <source src="/posts/featured/featured-vid/feature-vid-2.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -247,55 +256,55 @@
 
             <!-- Top Stories Section -->
             <div class="mb-12">
-                <h2 class="text-2xl font-bold text-gray-900 mb-6">Top Articles</h2>
+                <h2 class="text-2xl font-bold text-white mb-8 border-l-4 border-[#9dae11] pl-4" data-aos="fade-up">Top Articles</h2>
                 
-                <!-- Blog posts will be loaded here dynamically -->
-                <div id="blog-posts" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Posts will be inserted here by JavaScript -->
+                <div id="blog-posts" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-aos="fade-up" data-aos-delay="100">
+                    <!-- Posts loaded by JS -->
                 </div>
             </div>
 
             <!-- Minimalist Pagination -->
-            <div class="flex justify-center items-center mt-16 space-x-0.5 ">
-                <button id="prev-page" class="pagination-btn flex items-center gap-2 px-2 py-2 font-medium disabled:text-gray-300 disabled:cursor-not-allowed">
-                    <i data-feather="arrow-left" class="w-4 h-4"></i>
+            <div class="flex justify-center items-center mt-20 space-x-2" data-aos="fade-up">
+                <button id="prev-page" class="pagination-btn disabled:opacity-30 disabled:cursor-not-allowed">
+                    <i data-feather="chevron-left" class="w-6 h-6"></i>
                 </button>
                 
-                <div id="page-numbers" class="flex items-center space-x-0.5">
-                    <!-- Page numbers will be generated here -->
+                <div id="page-numbers" class="flex items-center space-x-2">
+                    <!-- Page numbers loaded by JS -->
                 </div>
                 
-                <button id="next-page" class="pagination-btn flex items-center gap-2 px-2 py-2 font-medium disabled:text-gray-300 disabled:cursor-not-allowed">
-                    <i data-feather="arrow-right" class="w-4 h-4"></i>
+                <button id="next-page" class="pagination-btn disabled:opacity-30 disabled:cursor-not-allowed">
+                    <i data-feather="chevron-right" class="w-6 h-6"></i>
                 </button>
             </div>
          </div>
     </main>
     
-   <footer class="bg-black text-white py-12">
+    <!-- CONSISTENT FOOTER (Matches Index) -->
+    <footer class="bg-black text-white py-12 border-t border-[#222]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-4 gap-8">
                 <div>
-                    <span class="text-xl font-bold mb-4">ART de ONE</span>
-                    <p class="text-gray-400">
+                    <span class="text-xl font-bold mb-4 block">ART de ONE</span>
+                    <p class="text-gray-400 text-sm leading-relaxed">
                         Adobe Illustrator Classes & Freelance Creative Studio in Myanmar
                     </p>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
-                    <ul class="space-y-2">
+                    <ul class="space-y-2 text-sm">
                         <li><a href="index.html#home" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
-                        <li><a href="index.html#about" class="text-gray-400 hover:text-white transition duration-300">About</a></li>
                         <li><a href="courses.html" class="text-gray-400 hover:text-white transition duration-300">Courses</a></li>
                         <li><a href="blog.html" class="text-gray-400 hover:text-white transition duration-300">Blog</a></li>
-                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Freelance</a></li>
+                        <li><a href="resources/resources-collection.html" class="text-gray-400 hover:text-white transition duration-300">Resources</a></li>
+                        <li><a href="index.html#about" class="text-gray-400 hover:text-white transition duration-300">About</a></li>
                         <li><a href="index.html#contact" class="text-gray-400 hover:text-white transition duration-300">Contact</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Classes</h3>
-                    <ul class="space-y-2">
-                         <li><a href="courses/basic-illustrator/course-detail-basic.html" class="text-gray-400 hover:text-white transition duration-300">Basic Adobe Illustrator Course</a></li>
+                    <ul class="space-y-2 text-sm">
+                         <li><a href="courses/basic-illustrator/course-detail-basic.html" class="text-gray-400 hover:text-white transition duration-300">Basic Course</a></li>
                         <li><a href="courses/intermediate-illustrator/course-detail-intermediate.html" class="text-gray-400 hover:text-white transition duration-300">Intermediate</a></li>
                         <li><a href="courses/advanced-illustrator/course-detail-advanced.html" class="text-gray-400 hover:text-white transition duration-300">Advanced Abstract Drawing</a></li>
                         <li><a href="course-detail-graphic-design.html" class="text-gray-400 hover:text-white transition duration-300">Graphic Design Course</a></li>
@@ -303,18 +312,18 @@
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Services</h3>
-                    <ul class="space-y-2">
+                    <ul class="space-y-2 text-sm">
                         <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Logo Design</a></li>
-                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Social Media Design</a></li>
-                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Printing Design</a></li>
+                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Social Media</a></li>
+                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Printing</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400 mb-4 md:mb-0">
+            <div class="border-t border-[#222] mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">
                     &copy; 2025 ART de ONE. All rights reserved.
                 </p>
-                <div class="flex space-x-6">
+                <div class="flex space-x-6 text-sm">
                     <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-facebook-f"></i></a>
                     <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-behance"></i></a>
                     <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-linkedin-in"></i></a>
@@ -324,15 +333,31 @@
         </div>
     </footer>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    
     <script>
-        // Blog posts data - Add new posts here
+        // Initialize Libraries
+        AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
+        feather.replace();
+
+        // Mobile Menu Logic
+        const menuBtn = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if(menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        // Blog Data & Logic
         const blogPosts = [
             {
                 id: 1,
                 title: "ART de ONE's Shader and Stipple Brush Free Download",
                 date: "September 27, 2025",
                 image: "posts/post-1/images/blog-image-1.jpg",
-                excerpt: "ကိုယ်ဆွဲထားတဲ့ပုံတွေကို Shadow Highlight လုပ်လို့အကောင်းဆုံး Brush တွေထဲမှာ အခုလို Shader Brush တွေပါတယ်။ ေဒါင်းလုပ်ပြီး သုံးကြည့်လိုက်ပါဦး။",
+                excerpt: "ကိုယ်ဆွဲထားတဲ့ပုံတွေကို Shadow Highlight လုပ်လို့အကောင်းဆုံး Brush တွေထဲမှာ အခုလို Shader Brush တွေပါတယ်။",
                 file: "posts/post-1/post-1.html"
             },
             {
@@ -340,15 +365,15 @@
                 title: "HUEs VS COLORS ကွာခြားပုံ",
                 date: "October 1, 2025",
                 image: "posts/post-2/images/hue-color-1.jpg",
-                excerpt: "Hue နဲ့ Color ကိုသတိမထားမိရင် တူသလိုထင်ရပေမယ့် သေချာစဥ်းစားကြည့်ရင် မတူဘူးဗျ။ ဒါကလဲပေါ့ပေါ့ပါးပါးနဲ့ သတိထားမိအောင် sharing လုပ်တဲ့သဘောပါ။",
+                excerpt: "\"Hue\" နဲ့ \"Color\" ကိုသတိမထားမိရင် တူသလိုထင်ရပေမယ့် သေချာစဥ်းစားကြည့်ရင် မတူဘူးဗျ။",
                 file: "posts/post-2/post-2.html"
             },
             {
                 id: 3,
-                title: "RGB သ‌ဘောတရားနှင့်ဆက်စပ်နေတဲ့ သဘာ၀တရား",
+                title: "RGB သ‌ဘောတရားနှင့်ဆက်စပ်နေတဲ့ သဘာ၀တရား",
                 date: "October 1, 2025",
                 image: "posts/post-3/images/rgb-1.jpg",
-                excerpt: "\"RGB သ‌ဘောတရား\" နဲ့ \"နေရဲ့အရောင်များ\" နေရဲ့အရောင်ကဘာလဲ? 🔴အနီလား 🟡အ၀ါလား?",
+                excerpt: "\"RGB သ‌ဘောတရား\" နဲ့ \"နေရဲ့အရောင်များ\" အကြောင်းအရာ sharing လုပ်ထားပါတယ်။",
                 file: "posts/post-3/post-3.html"
             },
             {
@@ -356,7 +381,7 @@
                 title: "ဒီဇိုင်း Principle များအကြောင်း အတိုချုပ် အပိုင်း(၁)",
                 date: "October 3, 2025",
                 image: "posts/post-4/images/cover.jpg",
-                excerpt: "Graphic Design Principles တွေကို Design စတင်လေ့လာမယ့်သူတွေအတွက် အထောက်အကူဖြစ်စေဖို့ ရည်ရွယ်ပြီး အတိုချုပ်လေးတင်ပေးလိုက်ပါတယ်။",
+                excerpt: "Graphic Design Principles တွေကို Design စတင်လေ့လာမယ့်သူတွေအတွက် အထောက်အကူဖြစ်စေဖို့ ရည်ရွယ်ထားပါတယ်။",
                 file: "posts/post-4/post-4.html"
             },
             {
@@ -364,7 +389,7 @@
                 title: "ဒီဇိုင်း Principle များအကြောင်း အတိုချုပ် အပိုင်း(၂)",
                 date: "October 4, 2025",
                 image: "posts/post-5/images/cover.jpg",
-                excerpt: "ဒါကတော့ ဒီဇိုင်း Principle များအကြောင်း အတိုချုပ် အပိုင်း(၂) Final Part ဖြစ်ပါတယ်။ ဒီဇိုင်း Principle တွေကို Design စတင်လေ့လာမယ့်သူတွေအတွက် အထောက်အကူဖြစ်စေဖို့ ရည်ရွယ်ပြီး အတိုချုပ်လေးတင်ပေးလိုက်ပါတယ်။",
+                excerpt: "ဒီဇိုင်း Principle များအကြောင်း အတိုချုပ် အပိုင်း(၂) Final Part ဖြစ်ပါတယ်။",
                 file: "posts/post-5/post-5.html"
             },
             {
@@ -372,7 +397,7 @@
                 title: "Marketing Team အကြိုက်ဒီဇိုင်းတွေဖန်တီးနိုင်ဖို့ CRAP Principle",
                 date: "October 4, 2025",
                 image: "posts/post-6/images/crap-cover.jpg",
-                excerpt: "ဒီ Principles လေးခုသိထားရင် Marketing Team အကြိုက် Design တွေဖန်တီးလို့ရပါတယ်။ အခုမှ Design ကိုလေ့လာမယ့်ညီကိုမောင်နှမတွေအားလုံး အတွက် အဆင်ပြေစေချင်တဲ့ဆန္ဒနဲ့မျှ၀ယ်ပေးလိုက်ပါတယ်။",
+                excerpt: "ဒီ Principles လေးခုသိထားရင် Marketing Team အကြိုက် Design တွေဖန်တီးလို့ရပါတယ်။",
                 file: "posts/post-6/post-6.html"
             },
             {
@@ -380,7 +405,7 @@
                 title: "Royal purple ကိုဘယ်သူစတင်ခဲ့တာလဲ?",
                 date: "October 13, 2025",
                 image: "posts/post-7/images/image-1.jpg",
-                excerpt: "ဒီအကြောင်းရာလေးကို ကျွန်တော် NGO အဖွဲ့အစည်းတစ်ခုမှာ Graphic Design သင်ပေးရင်း ဗဟုသုတအဖြစ် မျှ၀ယ်ပေးခဲ့ပါသေးတယ်။",
+                excerpt: "ဒီအကြောင်းရာလေးကို NGO မှာ Graphic Design သင်ပေးရင်း ဗဟုသုတအဖြစ် မျှဝေထားပါတယ်။",
                 file: "posts/post-7/post-7.html"
             },
             {
@@ -388,7 +413,7 @@
                 title: "ART de ONE's Half-tone Premium Effects",
                 date: "October 19, 2025",
                 image: "posts/post-8/images/image-1.jpg",
-                excerpt: "လိုချင်တဲ့ Half-tone Effects တွေက စျေးကြီးလွန်းလို့ ကိုယ်တိုင်လုပ်ပြီး အားလုံးသုံးနိုင်အောင် မျှဝေပေးလိုက်တာပါ။",
+                excerpt: "လိုချင်တဲ့ Half-tone Effects တွေက စျေးကြီးလွန်းလို့ ကိုယ်တိုင်လုပ်ပြီး မျှဝေထားပါတယ်။",
                 file: "posts/post-8/post-8.html"
             },
             {
@@ -396,65 +421,61 @@
                 title: "Free Ai က Midjoureny ထက်ပိုကြမ်း",
                 date: "October 24, 2025",
                 image: "posts/post-9/images/thumbnail.jpg",
-                excerpt: "Midjourney က တစ်လကို $10 နဲ့ ပုံ 200 ပဲထုတ်လို့ရတာနဲ့ နှိုင်းယှဉ်ကြည့်လိုက်ရင်တော့ အခုပြပေးမယ့် Ai ကပိုကောင်းတယ်ပါတယ်။ ကျွန်တော်ထုတ်ကြည့်တာတော့ တစ်ရက်ကို ပုံ 40 နီးပါရှိပါတယ်။",
+                excerpt: "Midjourney နဲ့ နှိုင်းယှဉ်ကြည့်ရင် အခုပြပေးမယ့် Ai က ပိုကောင်းတယ်လို့ တွေ့ရပါတယ်။",
                 file: "posts/post-9/post-9.html"
             },
-
-             {
+            {
                 id: 10,
                 title: "Affinity Rebrand, A New Era for Creative Freedom",
                 date: "November 3, 2025",
-                image: "/posts/featured/images/featured-image-5.jpg",
-                excerpt: "Affinity က Free ဖြစ်တာမို့ Adobe Creative Suite ကို အစားထိုးဖို့အကောင်းဆုံး option တစ်ခုဖြစ်လာနိုင်တယ်ဆိုတာလဲမေ့ထားလို့မရပါဘူး။ Tools တွေကလဲ ကျွန်တော်တို့အသုံးပြနေကျ Adobe Software တွေကိုပိုင်နိုင်ထားတဲ့သူတစ်ယောက်အတွက်တော့လုံး၀မခက်ခဲတော့တာ သေချာပါတယ်။",
-                file: "/posts/featured/featured-post.html"
+                image: "posts/featured/images/featured-image-5.jpg",
+                excerpt: "Affinity က Free ဖြစ်တာမို့ Adobe Creative Suite ကို အစားထိုးဖို့အကောင်းဆုံး option တစ်ခုဖြစ်လာနိုင်တယ်။",
+                file: "posts/featured/featured-post.html"
             },
-
             {
                 id: 11,
                 title: "Generative Ai ထဲမှာ Design လုပ်မယ်ဆိုရင် သိထားရမယ့် အခြေခံအချက် (၃)ချက်",
                 date: "November 10, 2025",
-                image: "/posts/post-11/images/yt-thumbnail.jpg",
-                excerpt: "Ai မှာ Design တတ်ပေမယ့် ကိုယ်လိုချင်တဲ့ Result မရဘူးဖြစ်နေရင် ဒီ အချက် (၃)ချက် ကိုကြည့်ကြည့်ပါ။",
-                file: "/posts/post-11/post-11.html"
-            },
-            // NEWEST POSTS WILL APPEAR FIRST ON PAGE 1
+                image: "posts/post-11/images/yt-thumbnail.jpg",
+                excerpt: "Ai မှာ Result မရသေးရင် ဒီ အချက် (၃)ချက်ကို စတင်သိထားရင် အရမ်းအထောက်အကူဖြစ်မယ်လို သောကြာပါတယ်။",
+                file: "posts/post-11/post-11.html"
+            }
         ];
 
-        // Pagination settings
         const postsPerPage = 6;
         let currentPage = 1;
 
-        // Sort blog posts by date (newest first)
         function sortBlogPosts() {
-            return [...blogPosts].sort((a, b) => {
-                return new Date(b.date) - new Date(a.date);
-            });
+            return [...blogPosts].sort((a, b) => new Date(b.date) - new Date(a.date));
         }
 
         function loadBlogPosts(page = 1) {
             const container = document.getElementById('blog-posts');
-            container.innerHTML = ''; // Clear existing posts
+            container.innerHTML = '';
             
+            const sortedPosts = sortBlogPosts();
             const startIndex = (page - 1) * postsPerPage;
             const endIndex = startIndex + postsPerPage;
-            
-            // Get sorted posts (newest first)
-            const sortedPosts = sortBlogPosts();
             const postsToShow = sortedPosts.slice(startIndex, endIndex);
             
-            postsToShow.forEach(post => {
+            postsToShow.forEach((post, index) => {
+                const delay = index * 50;
                 const postHTML = `
-                    <div class="blog-card bg-white rounded-lg overflow-hidden">
-                        <a href="${post.file}" class="block">
-                            <img src="${post.image}" alt="${post.title}" class="w-full h-48 object-cover">
-                            <div class="p-6">
-                                <span class="text-gray-500 text-sm">${post.date}</span>
-                                <h2 class="text-2xl font-bold text-gray-900 mb-2">${post.title}</h2>
-                                <p class="text-gray-600 mb-4">${post.excerpt}</p>
-                                <a href="${post.file}" class="inline-flex items-center gap-x-2 bg-gray-900 text-white font-semibold px-4 py-2 rounded-full hover:bg-[#9dae11] transition-colors">
-                                    Read More
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                                </a>
+                    <div class="blog-card group" data-aos="fade-up" data-aos-delay="${delay}">
+                        <a href="${post.file}" class="block h-full flex flex-col">
+                            <div class="relative h-56 overflow-hidden bg-[#111]">
+                                <img src="${post.image}" alt="${post.title}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+                            </div>
+                            <div class="p-6 flex-1 flex flex-col">
+                                <div class="flex justify-between items-center mb-3">
+                                    <span class="text-xs font-medium text-[#9dae11] uppercase tracking-wider">Article</span>
+                                    <span class="text-xs text-gray-500">${post.date}</span>
+                                </div>
+                                <h2 class="text-lg font-bold text-white mb-3 group-hover:text-[#9dae11] transition-colors leading-snug">${post.title}</h2>
+                                <p class="text-sm text-gray-400 mb-6 line-clamp-3 leading-relaxed flex-1">${post.excerpt}</p>
+                                <div class="flex items-center text-white text-sm font-medium group-hover:translate-x-2 transition-transform duration-300">
+                                    Read More <i data-feather="arrow-right" class="ml-2 w-4 h-4 text-[#9dae11]"></i>
+                                </div>
                             </div>
                         </a>
                     </div>
@@ -463,6 +484,7 @@
             });
             
             updatePaginationControls();
+            feather.replace();
         }
 
         function updatePaginationControls() {
@@ -472,18 +494,14 @@
             const prevButton = document.getElementById('prev-page');
             const nextButton = document.getElementById('next-page');
             
-            // Update button states
             prevButton.disabled = currentPage === 1;
             nextButton.disabled = currentPage === totalPages;
             
-            // Generate page numbers
             pageNumbersContainer.innerHTML = '';
             
             for (let i = 1; i <= totalPages; i++) {
                 const pageButton = document.createElement('button');
-                pageButton.className = `page-btn flex items-center justify-center w-8 h-8 font-medium text-sm ${
-                    i === currentPage ? 'active' : ''
-                }`;
+                pageButton.className = `page-btn flex items-center justify-center text-sm font-medium ${i === currentPage ? 'active' : ''}`;
                 pageButton.textContent = i;
                 pageButton.addEventListener('click', () => {
                     currentPage = i;
@@ -492,27 +510,11 @@
                 });
                 pageNumbersContainer.appendChild(pageButton);
             }
-
-            // Update feather icons
-            feather.replace();
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            // Load first page of blog posts (newest first)
+        document.addEventListener('DOMContentLoaded', () => {
             loadBlogPosts(1);
-
-            // Mobile menu functionality
-            const menuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-
-            menuButton.addEventListener('click', function() {
-                mobileMenu.classList.toggle('hidden');
-            });
-
-            // Initialize Feather Icons
-            feather.replace();
-
-            // Event listeners for pagination
+            
             document.getElementById('prev-page').addEventListener('click', () => {
                 if (currentPage > 1) {
                     currentPage--;
@@ -522,8 +524,7 @@
             });
 
             document.getElementById('next-page').addEventListener('click', () => {
-                const sortedPosts = sortBlogPosts();
-                const totalPages = Math.ceil(sortedPosts.length / postsPerPage);
+                const totalPages = Math.ceil(sortBlogPosts().length / postsPerPage);
                 if (currentPage < totalPages) {
                     currentPage++;
                     loadBlogPosts(currentPage);
@@ -532,6 +533,5 @@
             });
         });
     </script>
-
 </body>
 </html>

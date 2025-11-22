@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Learning - ART de ONE</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #000;
+            color: #fff;
+        }
+        
+        nav { 
+            background-color: rgba(17,17,17,0.9); 
+            border-bottom: 1px solid #333; 
+            backdrop-filter: blur(10px);
+        }
+        
+        .course-card {
+            background-color: #111;
+            border: 1px solid #333;
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .course-card:hover {
+            transform: translateY(-5px);
+            border-color: #9dae11;
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid #fff;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: #fff;
+            color: #000;
+        }
+        
+        .progress-bar-bg {
+            background-color: #333;
+            height: 4px;
+            border-radius: 2px;
+            width: 100%;
+            margin-top: 1rem;
+        }
+        .progress-bar-fill {
+            background-color: #9dae11;
+            height: 100%;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 h-16 flex items-center px-6 justify-between">
+        <div class="flex items-center">
+            <img src="logo.png" alt="ART de ONE" class="h-8 w-auto">
+            <span class="ml-4 text-gray-400 text-sm hidden sm:block">Student Portal</span>
+        </div>
+        <div class="flex items-center space-x-4">
+            <span class="text-sm font-medium" id="student-name">Loading...</span>
+            <button onclick="logout()" class="btn-secondary text-xs">Logout</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-24 pb-12 px-4 max-w-7xl mx-auto w-full flex-grow">
+        <h1 class="text-3xl font-bold mb-8">My Courses</h1>
+        
+        <!-- Course Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="course-list">
+            <!-- Course Card Example (Will be dynamic) -->
+            <div class="course-card">
+                <div class="h-40 bg-gray-800 relative">
+                    <img src="courses/basic-illustrator/basic-thumb.jpg" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity">
+                    <div class="absolute top-2 right-2 bg-[#9dae11] text-black text-xs font-bold px-2 py-1 rounded">
+                        Active
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-lg font-bold mb-2">Basic Illustrator Course</h3>
+                    <p class="text-gray-400 text-xs mb-4">Last watched: Lesson 3</p>
+                    
+                    <!-- Progress -->
+                    <div class="flex justify-between text-xs text-gray-500 mb-1">
+                        <span>25% Completed</span>
+                        <span>3/12 Lessons</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" style="width: 25%"></div>
+                    </div>
+                    
+                    <button class="mt-6 w-full bg-white text-black font-bold py-2 rounded hover:bg-[#9dae11] hover:text-white transition-colors">
+                        Continue Learning
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function logout() {
+            // Firebase Logout
+            console.log("Logging out...");
+            window.location.href = 'student-login.html';
+        }
+    </script>
+
+</body>
+</html>

@@ -2,19 +2,16 @@
 <html lang="en">
 <head>
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-CZRQ0NPPJ2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-CZRQ0NPPJ2');
-</script>
-    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CZRQ0NPPJ2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-CZRQ0NPPJ2');
+    </script>
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="p:domain_verify" content="ec0d8cce60db240c8b3015eb02fca511"/>
     <meta name="p:domain_verify" content="ec0d8cce60db240c8b3015eb02fca511"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ART de ONE - Adobe Illustrator Classes & Creative Studio</title>
@@ -22,1400 +19,667 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script src="https://unpkg.com/feather-icons"></script>
     <script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.iife.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
-    <link rel="stylesheet" href="css/styles.css">
+    
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         
-    /* Custom styles for Runway ML-inspired navigation */
-    .nav-container {
-        padding: 0.75rem 1rem;
-    }
-    
-    .nav-link {
-        position: relative;
-        color: #000;
-        font-weight: 500;
-        font-size: 0.875rem; /* Smaller font size */
-        transition: all 0.3s ease;
-    }
-    
-    /* Remove the green line effect */
-    .nav-link::after {
-        display: none; /* This removes the green line */
-    }
-    
-    /* Hover effect - make hovered item white, others grey */
-    .nav-link:hover {
-        color: #000000 !important; /* White text on hover */
-        transform: translateY(-1px);
-    }
-    
-    /* When hovering over a nav item, make all other nav items grey */
-    .nav-center:hover .nav-link:not(:hover) {
-        color: #888888 !important; /* Grey for non-hovered items */
-    }
-    
-    .contact-btn {
-        background-color: #000;
-        color: white;
-        padding: 0.5rem 1.5rem;
-        border-radius: 9999px;
-        font-weight: 500;
-        font-size: 0.875rem; /* Smaller font size */
-        transition: all 0.3s ease;
-    }
-    
-    .contact-btn:hover {
-        background-color: #333333;
-        transform: translateY(-2px);
-    }
-    
-    .mobile-menu-btn {
-        transition: all 0.3s ease;
-    }
-    
-    .mobile-menu-btn:hover {
-        transform: scale(1.1);
-    }
-    
-    .rounded-video-container {
-    border-radius: 24px;
-    overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    max-width: 1600px;
-    margin: 0 auto;
-    height: 75vh;
-    min-height: 500px;
-    position: relative;
-    width: 95%;
-    z-index: 1; /* Lower than navigation */
-    margin-top: 2rem; /* Space below navigation */
-}
+        /* --- MINIMALIST DARK THEME STYLES --- */
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+        }
 
-/* Large desktop screens */
-@media (min-width: 1440px) {
-    .rounded-video-container {
-        height: 78vh;
-        min-height: 650px; /* Reduced from 795px to be more reasonable */
-    }
-}
+        /* Navigation Overrides for Dark Theme */
+        nav { 
+            background-color: rgba(0,0,0,0.9) !important; 
+            border-bottom: 1px solid #222; 
+            backdrop-filter: blur(12px);
+        }
+        .nav-link { 
+            color: #ccc !important; 
+            font-weight: 300 !important;      /* thinner */
+            letter-spacing: 0.04em;
+            font-size: 0.9rem !important;     /* slightly smaller */
+        }
+        .nav-link:hover { 
+            color: #fff !important; 
+        }
+        .mobile-menu { 
+            background-color: #111 !important; 
+        }
+        .mobile-nav-link { 
+            color: #ccc !important; 
+            font-weight: 300;
+            font-size: 0.9rem;
+        }
 
-/* Medium desktop */
-@media (min-width: 1024px) and (max-width: 1439px) {
-    .rounded-video-container {
-        height: 72vh;
-        min-height: 550px;
-    }
-}
 
-/* Tablet screens */
-@media (max-width: 1024px) {
-    .rounded-video-container {
-        height: 68vh;
-        min-height: 450px;
-        margin-top: 1.5rem;
-    }
-}
-
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-    .rounded-video-container {
-        max-width: 100%;
-        height: 65vh;
-        min-height: 400px;
-        border-radius: 16px;
-        margin: 0 10px;
-        width: calc(100% - 20px);
-        margin-top: 1rem;
-    }
-    
-    #home {
-        padding-top: 5rem; /* More space for mobile nav */
-        padding-bottom: 1rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .rounded-video-container {
-        height: 60vh;
-        min-height: 350px;
-        border-radius: 12px;
-        margin: 0 8px;
-        width: calc(100% - 16px);
-        margin-top: 0.5rem;
-    }
-    
-    #home {
-        padding-top: 4.5rem;
-    }
-}
-
-/* Extra small devices */
-@media (max-width: 360px) {
-    .rounded-video-container {
-        height: 55vh;
-        min-height: 300px;
-    }
-}
-
-/* Ensure the section has proper spacing below navigation */
-#home {
-    min-height: auto;
-    padding-top: 6rem; /* Enough space for fixed navigation */
-    padding-bottom: 2rem;
-}
-
-/* Content inside video container should have normal z-index */
-.rounded-video-container .relative.z-10 {
-    z-index: 2;
-}
-    
-    /* Mobile menu styles */
-    .mobile-menu {
-        transition: all 0.3s ease;
-    }
-    
-    .mobile-menu.active {
-        display: block;
-        animation: fadeIn 0.3s ease;
-    }
-    
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-    
-    /* Center navigation items */
-    .nav-center {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-    /* Ensure consistent image scaling */
-.aspect-\[4\/3\] {
-    aspect-ratio: 4/3;
-}
-
-/* Smooth hover transitions */
-.portfolio-item {
+        /* Sections */
+        .section-dark { background-color: #000; }
+        .section-darker { background-color: #0a0a0a; }
+        .section-title {
+            color: #fff;
+            font-weight: 700;
+            font-size: 2.25rem;
+            margin-bottom: 1rem;
+        }
+        .section-subtitle {
+            color: #a0a0a0;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        /* Specific small button for Navigation */
+.nav-btn {
+    background-color: #fff;
+    color: #000;
+    font-weight: 600;
+    border-radius: 0.5rem; /* slightly less rounded than big buttons */
+    padding: 0.5rem 1.25rem; /* smaller padding */
+    font-size: 0.8rem; /* smaller text */
     transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #fff;
+    height: auto;
+    line-height: 1;
 }
 
-.portfolio-item:hover {
-    transform: translateY(-4px);
+.nav-btn:hover {
+    background-color: #9dae11;
+    border-color: #9dae11;
+    color: #fff;
+    transform: translateY(-1px);
 }
 
+
+                /* Buttons */
+        .btn-primary {
+            background-color: #fff;
+            color: #000;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            padding: 0.75rem 2rem;
+            transition: all 0.3s ease;
+            display: inline-flex; /* Changed from inline-block */
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #fff; /* Ensure border width matches secondary */
+        }
+        .btn-primary:hover {
+            background-color: #9dae11;
+            border-color: #9dae11;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background-color: transparent;
+            color: #fff;
+            font-weight: 600;
+            border: 1px solid #555;
+            border-radius: 0.75rem;
+            padding: 0.75rem 2rem;
+            transition: all 0.3s ease;
+            display: inline-flex; /* Changed from inline-block */
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-secondary:hover {
+            background-color: #fff;
+            color: #000;
+            border-color: #fff;
+        }
+
+
+        /* Cards */
+        .minimalist-card {
+            background-color: #111;
+            border: 1px solid #333;
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.4s ease;
+        }
+        .minimalist-card:hover {
+            transform: translateY(-8px);
+            border-color: #9dae11;
+        }
+
+        /* Portfolio Cards */
+        .portfolio-card {
+            background-color: #111;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid #333;
+            transition: all 0.4s ease;
+        }
+        .portfolio-card:hover {
+            transform: translateY(-8px);
+            border-color: #fff;
+        }
+        .portfolio-card img {
+            transition: transform 0.4s ease;
+        }
+        .portfolio-card:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Tabs */
+        .service-tab {
+            background-color: transparent;
+            color: #a0a0a0;
+            border: 1px solid #444;
+            transition: all 0.3s ease;
+        }
+        .service-tab.active {
+            background-color: #fff;
+            color: #000;
+            border-color: #fff;
+        }
+        .service-tab:hover:not(.active) {
+            background-color: #222;
+            border-color: #666;
+            color: #fff;
+        }
+        
+        /* Form */
+        .form-input {
+            background-color: #1a1a1a;
+            border: 1px solid #444;
+            color: #fff;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            border-color: #9dae11;
+            background-color: #222;
+            outline: none;
+        }
+
+        /* Animation */
+        [data-aos] {
+            transition-duration: 1000ms !important;
+        }
+        .hidden { display: none; }
     </style>
 </head>
-<body class="bg-white text-gray-900">
-    <!-- Navigation - Runway ML Inspired -->
-    <nav class="fixed w-full bg-white z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 nav-container">
+<body class="bg-black text-white">
+    
+    <!-- CONSISTENT NAVIGATION (Exact Match with Other Pages) -->
+<nav class="fixed w-full z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 nav-container">
+        <div class="nav-wrapper">
             <div class="flex justify-between h-16 items-center">
                 <!-- Logo -->
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
-                         <a href="#home" class="flex items-center">
-                         <img src="/logo.png" alt="ART de ONE" class="h-10 w-auto">
-                         </a>
+                        <a href="index.html#home" class="flex items-center">
+                            <img src="logo.png" alt="ART de ONE" class="h-10 w-auto">
+                        </a>
                     </div>
                 </div>
                 
-                <!-- Desktop Navigation - Centered -->
-                <div class="hidden md:flex items-center space-x-8 nav-center">
-                    <a href="#home" class="nav-link">Home</a>
-                    <a href="#about" class="nav-link">About</a>
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-4 nav-center">
+                    <a href="index.html#home" class="nav-link" style="color: #fff !important;">Home</a>
                     <a href="courses.html" class="nav-link">Courses</a>
                     <a href="blog.html" class="nav-link">Blog</a>
-                    <a href="#portfolio" class="nav-link">Portfolio</a>
-                    <a href="#freelance" class="nav-link">Freelance</a>
+                    <a href="/resources/resources-collection.html" class="nav-link">Resources</a>
+                    <a href="index.html#about" class="nav-link">About</a>
+                    <a href="index.html#contact" class="nav-link">Contact</a>
                 </div>
                 
-                <!-- Contact Button - Right Side -->
+                <!-- Contact Button -->
                 <div class="hidden md:block">
-                    <a href="#contact" class="contact-btn">Contact</a>
+                    <a href="claude/student-login.html" class="nav-btn">Student Login</a>
                 </div>
                 
                 <!-- Mobile Menu Button -->
                 <div class="md:hidden flex items-center">
-                    <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md text-gray-700 focus:outline-none" aria-controls="mobile-menu" aria-expanded="false" id="mobile-menu-button">
+                    <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white focus:outline-none" id="mobile-menu-button">
                         <i data-feather="menu"></i>
                     </button>
                 </div>
             </div>
         </div>
-        
-        <!-- Mobile menu -->
-        <div class="hidden mobile-menu md:hidden bg-white shadow-lg" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#home" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Home</a>
-                <a href="#about" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">About</a>
-                <a href="courses.html" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Courses</a>
-                <a href="blog.html" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Blog</a>
-                <a href="#portfolio" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Portfolio</a>
-                <a href="#freelance" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Freelance</a>
-                <a href="#contact" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Contact</a>
-            </div>
+    </div>
+    
+    <!-- Mobile menu -->
+    <div class="hidden mobile-menu md:hidden" id="mobile-menu">
+        <div class="py-2 px-4 space-y-1">
+            <a href="index.html#home" class="block py-2 mobile-nav-link text-white">Home</a>
+            <a href="courses.html" class="block py-2 mobile-nav-link">Courses</a>
+            <a href="blog.html" class="block py-2 mobile-nav-link">Blog</a>
+            <a href="/resources/resources-collection.html" class="block py-2 mobile-nav-link">Resources</a>
+            <a href="index.html#about" class="block py-2 mobile-nav-link">About</a>
+            <a href="index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
+            <a href="claude/student-dashboard.html" class="block py-2 mobile-nav-link">Student Login</a>
         </div>
-    </nav>
+    </div>
+</nav>
 
-                   <!-- Hero Section with Rounded Video Container - FIXED -->
-<section id="home" class="relative min-h-screen flex items-center justify-center post-10 overflow-hidden">
-    <!-- Rounded Video Container -->
-    <div class="rounded-video-container relative w-full mx-4">
-        <!-- Video Background -->
-        <video autoplay muted loop playsinline preload="metadata" class="absolute w-full h-full object-cover z-0">
-            <source src="/hero-animation.webm" type="video/webm">
-            <source src="/hero-animation.mp4" type="video/mp4">
-            <!-- Fallback background if video doesn't load -->
-            <div class="absolute w-full h-full bg-gradient(135deg, #000000 0%, #11001c 100)"></div>
-        </video>
-        
-        <!-- Dark overlay for better text readability -->
-        <div class="absolute inset-0 bg-black bg-opacity-40 z-1"></div>
-        
-        <!-- Content -->
-        <div class="relative z-10 w-full h-full flex items-center justify-center py-8">
-            <div class="text-center px-4 sm:px-6 lg:px-8 w-full" data-aos="fade-up">
-                <!-- Large ART de ONE text -->
-                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-white mb-4 leading-tight artdeone-font">
-                    ART de ONE
+
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
+            <div class="absolute inset-0 w-full h-full z-0">
+                <video autoplay muted loop playsinline preload="metadata" class="w-full h-full object-cover opacity-40">
+                    <source src="hero-animation.webm" type="video/webm">
+                    <source src="hero-animation.mp4" type="video/mp4">
+                </video>
+                <div class="absolute inset-0 bg-gradient-to-b from-black/10 via-black/50 to-black"></div>
+            </div>
+            <div class="relative z-10 text-center px-4" data-aos="fade-up">
+                <h1 class="text-5xl sm:text-6xl md:text-8xl font-bold leading-tight artdeone-font mb-4">
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">ART de ONE</span>
                 </h1>
-                
-                <!-- Small tagline text -->
-                <p class="text-lg sm:text-xl md:text-2xl text-gray-200 mb-8 mx-auto max-w-2xl">
-                    The Art of Intelligence
-                </p>
-                
-                <!-- Buttons -->
-                <div class="flex flex-wrap gap-3 justify-center">
-                    <a href="blog.html" class="px-5 py-3 md:px-8 md:py-4 rounded-2xl text-sm md:text-base font-semibold transition-all duration-300 custom-hover" style="background-color: #9dae11; color: white;">
-                        Read Our Blog <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                    <a href="#freelance" class="px-5 py-3 md:px-8 md:py-4 rounded-2xl text-sm md:text-base font-semibold transition-all duration-300 custom-hover" style="background-color: #9dae11; color: white;">
-                        Hire Us <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
+                <p class="text-xl md:text-2xl text-gray-300 mb-10 max-w-2xl mx-auto font-light tracking-wide">The Art of Intelligence</p>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <a href="blog.html" class="btn-primary">Read Our Blog</a>
+                    <a href="#freelance" class="btn-secondary">Hire Us</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-24 section-darker px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <h2 class="section-title">About ART de ONE</h2>
+                    <p class="section-subtitle">Transforming creative passion into professional skills for students worldwide.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8 mb-16">
+                    <div class="minimalist-card" data-aos="fade-up">
+                        <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center mb-6 text-black">
+                            <i class="fas fa-bullseye text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">Our Mission</h3>
+                        <p class="text-gray-400 leading-relaxed">To help people discover their passion for digital art and learn professional vector drawing skills. We welcome anyone who loves to draw or wants to explore their creative side.</p>
+                    </div>
+                    <div class="minimalist-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center mb-6 text-black">
+                            <i class="fas fa-eye text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">Our Vision</h3>
+                        <p class="text-gray-400 leading-relaxed">To become Myanmar's leading creative hub where anyone with a passion for drawing can build a successful career in digital art and design.</p>
+                    </div>
                 </div>
                 
-                <!-- ANIMATED STATS - Hidden on Mobile -->
-                <div class="mt-8 sm:mt-12 hidden sm:block" data-aos="fade-up" data-aos-delay="400">
-                    <div class="flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">
-                        <div class="text-center stat-item">
-                            <div class="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-1 counter" data-target="100">0</div>
-                            <div class="text-xs md:text-sm text-gray-200">Students Trained</div>
+                <!-- Instructor Info -->
+                <div class="minimalist-card flex flex-col lg:flex-row gap-12 items-center" data-aos="fade-up">
+                    <div class="w-full lg:w-1/3">
+                        <div class="rounded-xl overflow-hidden aspect-square">
+                            <img src="instructor-photo/instructor-02.jpg" alt="Instructor" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500">
                         </div>
-                        <div class="text-center stat-item">
-                            <div class="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-1 counter" data-target="5.0">0</div>
-                            <div class="text-xs md:text-sm text-gray-200">Facebook Rating</div>
-                        </div>
-                        <div class="text-center stat-item">
-                            <div class="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-1 counter" data-target="9">0</div>
-                            <div class="text-xs md:text-sm text-gray-200">Years Experience</div>
-                        </div>
-                        <div class="text-center stat-item">
-                            <div class="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-1 counter" data-target="3">0</div>
-                            <div class="text-xs md:text-sm text-gray-200">Countries</div>
-                        </div>
+                    </div>
+                    <div class="w-full lg:w-2/3">
+                         <h3 class="text-2xl font-bold text-white mb-2">Meet Your Instructor</h3>
+                         <p class="text-[#9dae11] font-medium mb-6">Lead Instructor & Design Lead</p>
+                         <p class="text-gray-400 mb-8 leading-relaxed">With 9 years of professional design experience and 3 years of teaching, I guide students from countries like Germany, Thailand, and Myanmar to achieve exceptional results, building a shared reputation for quality education and creative excellence.</p>
+                                                  <div class="flex flex-wrap gap-4">
+                             <a href="instructor.html" class="btn-primary">View Profile</a>
+                             <a href="#contact" class="btn-secondary">Contact</a>
+                         </div>
+
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
-
-   <!-- Enhanced About Section -->
-<section id="about" class="py-20 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16" data-aos="fade-up">
-            <h2 class="text-3xl font-bold text-gray-900 mb-4">About <span class="accent-text">ART de ONE</span></h2>
-            <p class="text-gray-600 max-w-2xl mx-auto">
-                Transforming creative passion into professional skills for students worldwide.
-            </p>
-        </div>
+        </section>
         
-        <!-- Mission & Vision Section -->
-        <div class="grid md:grid-cols-2 gap-8 mb-16" data-aos="fade-up">
-            <div class="mission-vision-card bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
-                <div class="mission-icon w-16 h-16 rounded-full bg-black flex items-center justify-center mb-6 mx-auto md:mx-0 transition-all duration-400">
-                    <i class="fas fa-bullseye text-white text-2xl"></i>
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="py-24 section-dark px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <h2 class="section-title">Our Portfolio</h2>
+                    <p class="section-subtitle">Creative solutions that transform ideas into compelling visual stories.</p>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-4 text-center md:text-left">Our Mission</h3>
-                <p class="text-gray-600 text-center md:text-left">
-                    To help people discover their passion for digital art and learn professional vector drawing skills. We welcome anyone who loves to draw or wants to explore their creative side.
-                </p>
-            </div>
-            
-            <div class="mission-vision-card bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
-                <div class="mission-icon w-16 h-16 rounded-full bg-black flex items-center justify-center mb-6 mx-auto md:mx-0 transition-all duration-400">
-                    <i class="fas fa-eye text-white text-2xl"></i>
-                </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-4 text-center md:text-left">Our Vision</h3>
-                <p class="text-gray-600 text-center md:text-left">
-                   To become Myanmar's leading creative hub where anyone with a passion for drawing can build a successful career in digital art and design.
-                </p>
-            </div>
-        </div>
-        
-        <!-- Founder/Instructor Section - Clean Design -->
-        <div class="mt-16" data-aos="fade-up">
-            <div class="flex flex-col lg:flex-row gap-12 items-start">
-                <!-- Image -->
-                <div class="w-full lg:w-2/5">
-                    <div class="rounded-2xl overflow-hidden shadow-lg">
-                        <img src="instructor-photo/instructor-02.jpg" alt="ART de ONE Instructor"
-                             class="w-full h-auto object-cover">
-                    </div>
-                </div>
-
-                <!-- Content -->
-                <div class="w-full lg:w-3/5">
-                    <!-- Instructor Header - Aligned with content -->
-                    <div class="flex items-start mb-6">
-                        <div class="w-12 h-12 rounded-full bg-black flex items-center justify-center mr-4 flex-shrink-0">
-                            <i class="fas fa-user text-white"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-2xl font-bold text-gray-900 mb-1">Meet Your Instructor</h3>
-                            <p class="text-gray-600">Lead Instructor</p>
-                        </div>
-                    </div>
-
-                    <p class="text-gray-600 mb-6 leading-relaxed">
-                        With 9 years of professional design experience and 3 years of teaching, I guide students from countries like Germany, Thailand, and Myanmar to achieve exceptional results, building a shared reputation for quality education and creative excellence.
-                    </p>
-
-                    <div class="flex flex-wrap gap-3 mb-8">
-                        <span class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Design Lead</span>
-                        <span class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">9+ Years Experience</span>
-                        <span class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">100+ Students</span>
-                        <span class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">5.0 Facebook Rating</span>
-                    </div>
-
-                    <div class="flex flex-wrap gap-4 mb-8">
-                        <a href="instructor.html"
-                           class="px-6 py-3 accent-bg text-white font-semibold rounded-lg bg-black hover:bg-[#9dae11] transition duration-300 shadow-md inline-flex items-center group"
-                           aria-label="See Instructor Profile">
-                            <span>See Instructor Profile</span>
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                 class="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300"
-                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                <path d="M5 12h14"></path>
-                                <path d="M12 5l7 7-7 7"></path>
-                            </svg>
-                        </a>
-                        <a href="#contact"
-                            class="px-6 py-3 bg-black text-white font-semibold rounded-lg hover:bg-[#9dae11] transition duration-300 inline-flex items-center">
-                                <span>Contact Instructor</span>
-                        </a>
-                    </div>
-
-                    <!-- Collaboration Section -->
-                    <div class="pt-6 border-t border-gray-200">
-                        <div class="flex flex-col items-start">
-                            <p class="text-gray-600 text-sm mb-4 font-medium">Collaborated With</p>
-                            <div class="flex items-center space-x-6">
-                                <!-- Huion Myanmar Logo -->
-                                <div class="flex items-center">
-                                    <img src="collaborations/huion-1.png" alt="Huion Myanmar" class="h-10 w-auto object-contain">
-                                </div>
-                                <!-- Collaboration Symbol -->
-                                <div class="text-gray-400">
-                                    <i class="fas fa-times"></i>
-                                </div>
-                                <!-- ART de ONE Logo -->
-                                <div class="flex items-center">
-                                    <img src="collaborations/artdeone-1.png" alt="ART de ONE" class="h-8 w-auto object-contain">
-                                </div>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="portfolio-card group" data-aos="fade-up">
+                        <div class="relative aspect-[4/3] overflow-hidden">
+                            <img src="portfolio/character-2.jpg" alt="Project" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <span class="text-[#9dae11] font-bold uppercase tracking-wider">View Project</span>
                             </div>
-                            <p class="text-gray-500 text-xs mt-3">Official collaboration between Huion Myanmar and ART de ONE</p>
+                        </div>
+                        <div class="p-6 bg-[#111]">
+                            <h3 class="font-bold text-lg text-white mb-1 group-hover:text-[#9dae11] transition-colors">Venom Illustration</h3>
+                            <p class="text-sm text-gray-400">Digital Illustration</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-card group" data-aos="fade-up" data-aos-delay="100">
+                        <div class="relative aspect-[4/3] overflow-hidden">
+                            <img src="/portfolio/social-1.jpg" alt="Project" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <span class="text-[#9dae11] font-bold uppercase tracking-wider">View Project</span>
+                            </div>
+                        </div>
+                        <div class="p-6 bg-[#111]">
+                            <h3 class="font-bold text-lg text-white mb-1 group-hover:text-[#9dae11] transition-colors">ONE DAY STUDIO</h3>
+                            <p class="text-sm text-gray-400">Brand Identity</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-card group" data-aos="fade-up" data-aos-delay="200">
+                        <div class="relative aspect-[4/3] overflow-hidden">
+                            <img src="/portfolio/client-2.jpg" alt="Project" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <span class="text-[#9dae11] font-bold uppercase tracking-wider">View Project</span>
+                            </div>
+                        </div>
+                        <div class="p-6 bg-[#111]">
+                            <h3 class="font-bold text-lg text-white mb-1 group-hover:text-[#9dae11] transition-colors">Nescafe Ad</h3>
+                            <p class="text-sm text-gray-400">Advertising design</p>
+                        </div>
+                    </div>
+                     <div class="portfolio-card group" data-aos="fade-up" data-aos-delay="300">
+                        <div class="relative aspect-[4/3] overflow-hidden">
+                            <img src="/portfolio/student-1.jpg" alt="Project" class="w-full h-full object-cover">
+                             <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <span class="text-[#9dae11] font-bold uppercase tracking-wider">View Project</span>
+                            </div>
+                        </div>
+                        <div class="p-6 bg-[#111]">
+                            <h3 class="font-bold text-lg text-white mb-1 group-hover:text-[#9dae11] transition-colors">Vector Art</h3>
+                            <p class="text-sm text-gray-400">Student Project</p>
+                        </div>
+                    </div>
+                     <div class="portfolio-card group" data-aos="fade-up" data-aos-delay="400">
+                        <div class="relative aspect-[4/3] overflow-hidden">
+                            <img src="/portfolio/social-2.jpg" alt="Project" class="w-full h-full object-cover">
+                             <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <span class="text-[#9dae11] font-bold uppercase tracking-wider">View Project</span>
+                            </div>
+                        </div>
+                        <div class="p-6 bg-[#111]">
+                            <h3 class="font-bold text-lg text-white mb-1 group-hover:text-[#9dae11] transition-colors">Royal Food</h3>
+                            <p class="text-sm text-gray-400">Branding</p>
+                        </div>
+                    </div>
+                     <div class="portfolio-card group" data-aos="fade-up" data-aos-delay="500">
+                        <div class="relative aspect-[4/3] overflow-hidden">
+                            <img src="/portfolio/client-1.jpg" alt="Project" class="w-full h-full object-cover">
+                             <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <span class="text-[#9dae11] font-bold uppercase tracking-wider">View Project</span>
+                            </div>
+                        </div>
+                        <div class="p-6 bg-[#111]">
+                            <h3 class="font-bold text-lg text-white mb-1 group-hover:text-[#9dae11] transition-colors">Venucia</h3>
+                            <p class="text-sm text-gray-400">Social Media</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
+        </section>
 
-    <!-- Minimalist Portfolio Section -->
-<section id="portfolio" class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16" data-aos="fade-up">
-            <h2 class="text-3xl font-bold text-gray-900 mb-4">Our <span class="accent-text">Portfolio</span></h2>
-            <p class="text-gray-600 max-w-2xl mx-auto">
-                Creative solutions that transform ideas into compelling visual stories.
-            </p>
-        </div>
-
-        <!-- Portfolio Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" data-aos="fade-up">
-            <!-- Project 1 -->
-            <div class="portfolio-item group">
-                <div class="relative rounded-2xl overflow-hidden mb-4 bg-gray-50 aspect-[4/3]">
-                    <img src="/portfolio/student-2.jpg" alt="Student digital art project" 
-                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        <!-- Freelance Services Section -->
+        <section id="freelance" class="py-24 section-darker px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <h2 class="section-title">Freelance Services</h2>
+                    <p class="section-subtitle">Professional design services tailored to your business needs.</p>
                 </div>
-                <div class="space-y-2">
-                    <span class="inline-block text-xs font-medium uppercase tracking-wider" style="color: #9dae11;">Creative Ad</span>
-                    <h3 class="text-lg font-semibold text-gray-900 group-hover:text-gray-700 transition-colors">Grape Wine</h3>
-                    <p class="text-gray-600 text-sm">Digital illustration campaign</p>
+                
+                <!-- Service Tabs -->
+                <div class="flex flex-wrap justify-center gap-4 mb-12" data-aos="fade-up">
+                    <button class="service-tab px-6 py-3 rounded-full text-sm font-semibold active" onclick="switchService('logo')">Logo Design</button>
+                    <button class="service-tab px-6 py-3 rounded-full text-sm font-semibold" onclick="switchService('social')">Social Media</button>
+                    <button class="service-tab px-6 py-3 rounded-full text-sm font-semibold" onclick="switchService('printing')">Printing</button>
                 </div>
-            </div>
-
-            <!-- Project 2 -->
-            <div class="portfolio-item group">
-                <div class="relative rounded-2xl overflow-hidden mb-4 bg-gray-50 aspect-[4/3]">
-                    <img src="/portfolio/social-1.jpg" alt="Social media campaign design" 
-                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                </div>
-                <div class="space-y-2">
-                    <span class="inline-block text-xs font-medium uppercase tracking-wider" style="color: #9dae11;">Logo Design</span>
-                    <h3 class="text-lg font-semibold text-gray-900 group-hover:text-gray-700 transition-colors">ONE DAY STUDIO</h3>
-                    <p class="text-gray-600 text-sm">Brand identity design</p>
-                </div>
-            </div>
-
-            <!-- Project 3 -->
-            <div class="portfolio-item group">
-                <div class="relative rounded-2xl overflow-hidden mb-4 bg-gray-50 aspect-[4/3]">
-                    <img src="/portfolio/character-2.jpg" alt="Character series illustration" 
-                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                </div>
-                <div class="space-y-2">
-                    <span class="inline-block text-xs font-medium uppercase tracking-wider" style="color: #9dae11;">Character</span>
-                    <h3 class="text-lg font-semibold text-gray-900 group-hover:text-gray-700 transition-colors">Venom Illustration</h3>
-                    <p class="text-gray-600 text-sm">Digital character art</p>
-                </div>
-            </div>
-
-            <!-- Project 4 -->
-            <div class="portfolio-item group">
-                <div class="relative rounded-2xl overflow-hidden mb-4 bg-gray-50 aspect-[4/3]">
-                    <img src="/portfolio/student-1.jpg" alt="Student vector illustration project" 
-                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                </div>
-                <div class="space-y-2">
-                    <span class="inline-block text-xs font-medium uppercase tracking-wider" style="color: #9dae11;">Vector Art</span>
-                    <h3 class="text-lg font-semibold text-gray-900 group-hover:text-gray-700 transition-colors">Vector Illustration</h3>
-                    <p class="text-gray-600 text-sm">Student project work</p>
-                </div>
-            </div>
-
-            <!-- Project 5 -->
-            <div class="portfolio-item group">
-                <div class="relative rounded-2xl overflow-hidden mb-4 bg-gray-50 aspect-[4/3]">
-                    <img src="/portfolio/social-2.jpg" alt="Professional client brand design" 
-                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                </div>
-                <div class="space-y-2">
-                    <span class="inline-block text-xs font-medium uppercase tracking-wider" style="color: #9dae11;">Branding</span>
-                    <h3 class="text-lg font-semibold text-gray-900 group-hover:text-gray-700 transition-colors">Royal Food & Drink</h3>
-                    <p class="text-gray-600 text-sm">Client project</p>
-                </div>
-            </div>
-
-            <!-- Project 6 -->
-            <div class="portfolio-item group">
-                <div class="relative rounded-2xl overflow-hidden mb-4 bg-gray-50 aspect-[4/3]">
-                    <img src="/portfolio/client-1.jpg" alt="Social media post design" 
-                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                </div>
-                <div class="space-y-2">
-                    <span class="inline-block text-xs font-medium uppercase tracking-wider" style="color: #9dae11;">Social Media Design</span>
-                    <h3 class="text-lg font-semibold text-gray-900 group-hover:text-gray-700 transition-colors">Venucia</h3>
-                    <p class="text-gray-600 text-sm">Social media post design</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-    <!-- Freelance Services Section -->
-<section id="freelance" class="py-20 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16" data-aos="fade-up">
-            <h2 class="text-3xl font-bold text-gray-900 mb-4">Our <span class="accent-text">Freelance Services</span></h2>
-             
-            <p class="text-gray-600 max-w-2xl mx-auto">
-                Professional design services tailored to your business needs. 
-                We create visual solutions that make an impact.
-            </p>
-        </div>
-        
-        <!-- Service Navigation Tabs -->
-        <div class="flex flex-wrap justify-center gap-4 mb-12" data-aos="fade-up">
-            <button class="service-tab service-tab-hover px-6 py-3 rounded-full border transition duration-300 active" data-service="logo">
-                Logo Design
-            </button>
-            <button class="service-tab service-tab-hover px-6 py-3 rounded-full border transition duration-300" data-service="social">
-                Social Media Design
-            </button>
-            <button class="service-tab service-tab-hover px-6 py-3 rounded-full border transition duration-300" data-service="printing">
-                Printing Design
-            </button>
-        </div>
-        
-                                <!-- Logo Design Content -->
-                <div class="service-panel active" id="logo-panel">
-                    <div data-aos="fade-up">
-                        <div class="p-6">
+                
+                <!-- Logo Design Panel -->
+                <div id="logo-panel" class="service-panel block">
+                    <div class="minimalist-card flex flex-col md:flex-row gap-8 items-center" data-aos="fade-up">
+                        <div class="flex-1">
                             <div class="flex items-center mb-6">
-                                <!-- Logo Design Icon -->
-                                <div class="w-12 h-12 bg-black rounded-full flex items-center justify-center mr-4">
-                                    <i class="fas fa-pen-nib text-white"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-xl font-semibold text-gray-800">Logo Design</h3>
-                                    <p class="text-gray-600">
-                                        Unique and memorable logo designs that represent your brand identity and values.
-                                    </p>
-                                </div>
+                                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mr-4 text-black"><i class="fas fa-pen-nib"></i></div>
+                                <h3 class="text-2xl font-bold text-white">Logo Design</h3>
                             </div>
-                            
-                            <div class="grid md:grid-cols-2 gap-6">
-                                <!-- Standard Package -->
-                                    <div class="border-2 border-gray-200 rounded-2xl p-5 hover:border-[#9dad10] transition duration-300 relative">
-                                        <!-- Top Rated Badge - Absolute positioned -->
-                                        <img src="/portfolio/top-rated.png" alt="Top Rated" class="absolute top-4 right-4 h-24 w-auto">
-                                        
-                                        <!-- Content -->
-                                        <div class="flex justify-between items-start">
-                                            <h4 class="font-semibold text-gray-700 text-lg">Standard Package</h4>
-                                        </div>
-                                        <div class="flex items-baseline gap-2 mb-4 mt-2">
-                                            <span class="text-2xl font-bold text-gray-900">300,000 MMK</span>
-                                        </div>
-                                        <ul class="text-sm text-gray-600 space-y-2 mb-4">
-                                            <li class="flex items-start">
-                                                <span class="accent-text mr-2">•</span>
-                                                <span>2 premium concepts included</span>
-                                            </li>
-                                            <li class="flex items-start">
-                                                <span class="accent-text mr-2">•</span>
-                                                <span>Logo guideline book (Colors, Misuse Examples) - 2 pages with PDF format</span>
-                                            </li>
-                                            <li class="flex items-start">
-                                                <span class="accent-text mr-2">•</span>
-                                                <span>JPEG, PNG for web and digital use</span>
-                                            </li>
-                                            <li class="flex items-start">
-                                                <span class="accent-text mr-2">•</span>
-                                                <span>SVG, EPS for high-quality printing</span>
-                                            </li>
-                                            <li class="flex items-start">
-                                                <span class="accent-text mr-2">•</span>
-                                                <span>2 revisions</span>
-                                            </li>
-                                            <li class="flex items-start">
-                                                <span class="accent-text mr-2">•</span>
-                                                <span>Print Ready</span>
-                                            </li>
-                                            <li class="flex items-start">
-                                                <span class="accent-text mr-2">•</span>
-                                                <span>Font Files</span>
-                                            </li>
-                                        </ul>
-                                        <a href="#contact" class="block w-full mt-4 py-2 px-4 text-white text-center rounded-lg transition duration-300 custom-hover bg-black text-white" >
-                                            Choose Standard
-                                        </a>
-                                    </div>
-                                
-                                <!-- Professional Package -->
-                                <div class="border-2 border-gray-200 rounded-2xl p-5 hover:border-[#9dad10] transition duration-300">
-                                    <h4 class="font-semibold text-gray-700 mb-3 text-lg">Professional Package</h4>
-                                    <div class="flex items-baseline gap-2 mb-4">
-                                        <span class="text-2xl font-bold text-gray-900">600,000 MMK</span>
-                                    </div>
-                                    <ul class="text-sm text-gray-600 space-y-2 mb-4">
-                                        <li class="flex items-start">
-                                            <span class="accent-text mr-2">•</span>
-                                            <span>4 premium concepts included</span>
-                                        </li>
-                                        <li class="flex items-start">
-                                            <span class="accent-text mr-2">•</span>
-                                            <span>Primary Logo and Secondary Logo</span>
-                                        </li>
-                                        <li class="flex items-start">
-                                            <span class="accent-text mr-2">•</span>
-                                            <span>Complete logo guideline book with PDF format</span>
-                                        </li>
-                                        <li class="flex items-start">
-                                            <span class="accent-text mr-2">•</span>
-                                            <span>Raster & Vector formats</span>
-                                        </li>
-                                        <li class="flex items-start">
-                                            <span class="accent-text mr-2">•</span>
-                                            <span>3 revisions</span>
-                                        </li>
-                                        <li class="flex items-start">
-                                            <span class="accent-text mr-2">•</span>
-                                            <span>Print Ready</span>
-                                        </li>
-                                        <li class="flex items-start">
-                                            <span class="accent-text mr-2">•</span>
-                                            <span>Font Files</span>
-                                        </li>
-                                        <li class="flex items-start">
-                                            <span class="accent-text mr-2">•</span>
-                                            <span>1 Month Social Media Essential Package</span>
-                                        </li>
-                                        <li class="flex items-start">
-                                            <span class="accent-text mr-2">•</span>
-                                            <span>Business Card Design</span>
-                                        </li>
-                                        <li class="flex items-start">
-                                            <span class="accent-text mr-2">•</span>
-                                            <span>Company Letter Head Design</span>
-                                        </li>
-                                        <li class="flex items-start">
-                                            <span class="accent-text mr-2">•</span>
-                                            <span>Company Letterhead Design</span>
-                                        </li>
-                                    </ul>
-                                    <a href="#contact" class="block w-full mt-4 py-2 px-4 text-white text-center rounded-lg transition duration-300 custom-hover bg-black text-white" >
-                                        Choose Professional
-                                    </a>
-                                </div>
-                            </div>
-                            
-                            <!-- Client Information Section - ONLY FOR LOGO DESIGN -->
-                            <div class="mt-8 rounded-2xl overflow-hidden">
-                                <div class="client-info-toggle" onclick="toggleClientInfo('logo-info')">
-                                    <h4>Logo လုပ်ရန်လိုအပ်သည့်အချက်အလက်များ</h4>
-                                    <i class="fas fa-chevron-down"></i>
-                                </div>
-                                <div class="client-info-content" id="logo-info">
-                                    <div class="space-y-3 text-sm text-gray-700">
-                                        <div class="flex items-start">
-                                            <span class="accent-text font-medium mr-2">1.</span>
-                                            <span>လူကြီးမင်းတို့ရဲ့လုပ်ငန်းနဲ့ပတ်သက်ပြီး လိုအပ်သည့်အချက်အလက်များကိုသေသေချာချာပြောပြပေးရပါမည်။ (Tagline ရှိပါက "tagline"ပေးပါရန်)။</span>
-                                        </div>
-                                        <div class="flex items-start">
-                                            <span class="accent-text font-medium mr-2">2.</span>
-                                            <span>ကာလာနဲ့ပတ်သက်ပြီး ကြိုက်တဲ့အရောင်များ မကြိုက်တဲ့အရောင်များပြောပြပေးရပါမည်။</span>
-                                        </div>
-                                        <div class="flex items-start">
-                                            <span class="accent-text font-medium mr-2">3.</span>
-                                            <span>လုပ်ငန်းစတင်ဖို့ နှစ်ဦးနှစ်ဖက် သေချာပါက စရန်ငွေ 30% အရင်ပေးချေရပါမည်။ ကျန် 70% Payment ကို Logo နောက်ဆုံး Confirmed ဖြစ်ပြီးပါက ပေးချေရပါမည်။</span>
-                                        </div>
-                                        <div class="flex items-start">
-                                            <span class="accent-text font-medium mr-2">4.</span>
-                                            <span>သတ်မှတ်ထားတဲ့ Revision ထက်ကျော်လွန်ပါက Revision တစ်ခါရဲ့စျေးနူန်းကို "20,000 Kyats" ထပ်မံကောက်ခံသွားမည်ဖြစ်ပါသည်။</span>
-                                        </div>
-                                    </div>
-                                </div>
+                            <p class="text-gray-400 mb-6">Unique and memorable logo designs that represent your brand identity and values.</p>
+                            <ul class="space-y-3 mb-8 text-gray-300">
+                                <li class="flex items-center"><i class="fas fa-check text-[#9dae11] mr-3"></i> Premium Concepts</li>
+                                <li class="flex items-center"><i class="fas fa-check text-[#9dae11] mr-3"></i> Full Guideline Book</li>
+                                <li class="flex items-center"><i class="fas fa-check text-[#9dae11] mr-3"></i> All Source Files (Ai, EPS, SVG, PNG)</li>
+                            </ul>
+                        </div>
+                        <div class="flex-1 w-full bg-[#1a1a1a] p-6 rounded-xl border border-[#333]">
+                            <div class="text-center">
+                                <p class="text-sm text-gray-500 uppercase tracking-widest mb-2">Starting From</p>
+                                <h4 class="text-3xl font-bold text-white mb-6">300,000 MMK</h4>
+                                <a href="#contact" class="btn-primary w-full block text-center">Get Started</a>
                             </div>
                         </div>
                     </div>
                 </div>
-            
-                        <!-- Social Media Design Content -->
-            <div class="service-panel hidden" id="social-panel">
-                <div data-aos="fade-up">
-                    <div class="p-6">
-                        <div class="flex items-center mb-6">
-                            <!-- Social Media Design Icon -->
-                                <div class="w-12 h-12 bg-black rounded-full flex items-center justify-center mr-4">
-                                    <i class="fas fa-hashtag text-white"></i>
-                                </div>
-                            <div>
-                                <h3 class="text-xl font-semibold text-gray-800">Social Media Design</h3>
-                                <p class="text-gray-600">
-                                    Engaging visuals for your social media platforms that attract and retain your audience.
-                                </p>
+
+                <!-- Social Panel -->
+                <div id="social-panel" class="service-panel hidden">
+                    <div class="minimalist-card flex flex-col md:flex-row gap-8 items-center">
+                        <div class="flex-1">
+                            <div class="flex items-center mb-6">
+                                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mr-4 text-black"><i class="fas fa-hashtag"></i></div>
+                                <h3 class="text-2xl font-bold text-white">Social Media Design</h3>
+                            </div>
+                            <p class="text-gray-400 mb-6">Engaging visuals for your social media platforms that attract and retain your audience.</p>
+                             <ul class="space-y-3 mb-8 text-gray-300">
+                                <li class="flex items-center"><i class="fas fa-check text-[#9dae11] mr-3"></i> Monthly Packages</li>
+                                <li class="flex items-center"><i class="fas fa-check text-[#9dae11] mr-3"></i> Consistent Branding</li>
+                                <li class="flex items-center"><i class="fas fa-check text-[#9dae11] mr-3"></i> Fast Turnaround</li>
+                            </ul>
+                        </div>
+                         <div class="flex-1 w-full bg-[#1a1a1a] p-6 rounded-xl border border-[#333]">
+                            <div class="text-center">
+                                <p class="text-sm text-gray-500 uppercase tracking-widest mb-2">Packages From</p>
+                                <h4 class="text-3xl font-bold text-white mb-6">192,000 MMK/mo</h4>
+                                <a href="#contact" class="btn-primary w-full block text-center">View Packages</a>
                             </div>
                         </div>
-                        
-                        <div class="grid md:grid-cols-3 gap-6">
-                            <!-- Essential Package -->
-                            <div class="border-2 border-gray-200 rounded-2xl p-5 hover:border-[#9dad10] transition duration-300">
-                                <div class="flex items-center justify-between mb-2">
-                                    <h4 class="font-semibold text-gray-700 text-lg">Essential Package</h4>
-                                    <div class="flex items-center bg-black px-3 py-1 rounded-full">
-                                        <div class="flex text-[#9dae11] mr-1">
-                                            <i class="fas fa-star text-xs"></i>
-                                            <i class="fas fa-star text-xs"></i>
-                                            <i class="fas fa-star text-xs"></i>
-                                            <i class="fas fa-star text-xs"></i>
-                                            <i class="fas fa-star text-xs"></i>
-                                        </div>
-                                        <span class="text-xs font-semibold text-[#9dae11]">Top Rated</span>
-                                    </div>
-                                </div>
-                                <div class="flex items-baseline gap-2 mb-4">
-                                    <span class="text-2xl font-bold text-gray-900">192,000 MMK/month</span>
-                                    <span class="text-sm text-gray-500 line-through">240,000 MMK</span>
-                                    <span class="text-sm text-green-600 font-semibold">(20% OFF)</span>
-                                </div>
-                                <ul class="text-sm text-gray-600 space-y-2 mb-4">
-                                    <li class="flex items-start">
-                                        <span class="accent-text mr-2">•</span>
-                                        <span>တစ်လကို social media design 8 ပုံ</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <span class="accent-text mr-2">•</span>
-                                        <span>Revision 2 ခါ</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <span class="accent-text mr-2">•</span>
-                                        <span>Final graphics in PNG or JPG formats</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <span class="accent-text mr-2">•</span>
-                                        <span>Design လုပ်မယ့် Content နဲ့ Tagline ကိုပို့ပေးရမည်</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <span class="accent-text mr-2">•</span>
-                                        <span>Work hour 8:30 AM to 9:30 PM</span>
-                                    </li>
-                                </ul>
-                                <a href="#contact" class="block w-full mt-4 py-2 px-4 text-white text-center rounded-lg transition duration-300 custom-hover" style="background-color: #9dae11">
-                                    Choose Essential
-                                </a>
+                    </div>
+                </div>
+
+                <!-- Printing Panel -->
+                <div id="printing-panel" class="service-panel hidden">
+                    <div class="minimalist-card flex flex-col md:flex-row gap-8 items-center">
+                        <div class="flex-1">
+                             <div class="flex items-center mb-6">
+                                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mr-4 text-black"><i class="fas fa-print"></i></div>
+                                <h3 class="text-2xl font-bold text-white">Printing Design</h3>
                             </div>
-                            
-                            <!-- Standard Package -->
-                            <div class="border-2 border-gray-200 rounded-2xl p-5 hover:border-[#9dad10] transition duration-300">
-                                <h4 class="font-semibold text-gray-700 mb-3 text-lg">Standard Package</h4>
-                                <div class="flex items-baseline gap-2 mb-4">
-                                    <span class="text-2xl font-bold text-gray-900">432,000 MMK/month</span>
-                                    <span class="text-sm text-gray-500 line-through">480,000 MMK</span>
-                                    <span class="text-sm text-green-600 font-semibold">(10% OFF)</span>
-                                </div>
-                                <ul class="text-sm text-gray-600 space-y-2 mb-4">
-                                    <li class="flex items-start">
-                                        <span class="accent-text mr-2">•</span>
-                                        <span>တစ်လကို social media design 16 ပုံ</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <span class="accent-text mr-2">•</span>
-                                        <span>Revision 2 ခါ</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <span class="accent-text mr-2">•</span>
-                                        <span>Final graphics in PNG or JPG formats</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <span class="accent-text mr-2">•</span>
-                                        <span>Design လုပ်မယ့် Content နဲ့ Tagline ကိုပို့ပေးရမည်</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <span class="accent-text mr-2">•</span>
-                                        <span>Work hour 8:30 AM to 9:30 PM</span>
-                                    </li>
-                                </ul>
-                                <a href="#contact" class="block w-full mt-4 py-2 px-4 text-white text-center rounded-lg transition duration-300 custom-hover" style="background-color: #9dae11">
-                                    Choose Standard
-                                </a>
-                            </div>
-                            
-                            <!-- Premium Package -->
-                            <div class="border-2 border-gray-200 rounded-2xl p-5 hover:border-[#9dad10] transition duration-300">
-                                <h4 class="font-semibold text-gray-700 mb-3 text-lg">Premium Package</h4>
-                                <div class="flex items-baseline gap-2 mb-4">
-                                    <span class="text-2xl font-bold text-gray-900">648,000 MMK/month</span>
-                                    <span class="text-sm text-gray-500 line-through">720,000 MMK</span>
-                                    <span class="text-sm text-green-600 font-semibold">(10% OFF)</span>
-                                </div>
-                                <ul class="text-sm text-gray-600 space-y-2 mb-4">
-                                    <li class="flex items-start">
-                                        <span class="accent-text mr-2">•</span>
-                                        <span>တစ်လကို social media design ပုံ 20</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <span class="accent-text mr-2">•</span>
-                                        <span>Revision 2 ခါ</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <span class="accent-text mr-2">•</span>
-                                        <span>Final graphics in PNG or JPG formats</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <span class="accent-text mr-2">•</span>
-                                        <span>Design လုပ်မယ့် Content နဲ့ Tagline ကိုပို့ပေးရမည်</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <span class="accent-text mr-2">•</span>
-                                        <span>Work hour 8:30 AM to 9:30 PM</span>
-                                    </li>
-                                </ul>
-                                <a href="#contact" class="block w-full mt-4 py-2 px-4 text-white text-center rounded-lg transition duration-300 custom-hover" style="background-color: #9dae11">
-                                    Choose Premium
-                                </a>
-                            </div>
+                            <p class="text-gray-400 mb-6">High-quality designs for business materials, marketing collateral, and specialized print items.</p>
+                             <ul class="space-y-3 mb-8 text-gray-300">
+                                <li class="flex items-center"><i class="fas fa-check text-[#9dae11] mr-3"></i> Business Cards & Stationery</li>
+                                <li class="flex items-center"><i class="fas fa-check text-[#9dae11] mr-3"></i> Flyers & Brochures</li>
+                                <li class="flex items-center"><i class="fas fa-check text-[#9dae11] mr-3"></i> Packaging Design</li>
+                            </ul>
                         </div>
-                        
-                        <!-- Client Information Section - FOR SOCIAL MEDIA DESIGN -->
-                        <div class="mt-8 rounded-2xl overflow-hidden">
-                            <div class="client-info-toggle" onclick="toggleClientInfo('social-info')">
-                                <h4>Social Media Design အတွက် လူကြီးမင်းတို့သိထားသင့်တဲ့အချက်အလက်များ</h4>
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
-                            <div class="client-info-content" id="social-info">
-                                <div class="space-y-3 text-sm text-gray-700">
-                                    <div class="flex items-start">
-                                        <span class="accent-text font-medium mr-2">1.</span>
-                                        <span>လူကြီးမင်းတို့ရဲ့ Company Logo (Ai) file ပေးပါရန် (Ai - Adobe Illustrator), Ai file မရှိပါက Resolution ကောင်းသော PNG ပေးပါရန်။</span>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <span class="accent-text font-medium mr-2">2.</span>
-                                        <span>Design လုပ်မယ့် Content နဲ့ Tagline တို့ကို Google Doc ဒါမှမဟုတ် Trello ထဲမှ လူကြီးမင်းတို့အဆင်ပြေတဲ့ Platform ဖြင့်ပို့ပေးနိုင်ပါသည်။</span>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <span class="accent-text font-medium mr-2">3.</span>
-                                        <span>Logo Guideline ရှိပါက ပို့ပေးပါရန်။</span>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <span class="accent-text font-medium mr-2">4.</span>
-                                        <span>Revision လုပ်တဲ့အခါမှာ တစ်ပုံကို ၂ ခါ Free လုပ်ခွင့်ပေးပါသည်။ သတ်မှတ် Revision ကျော်လွန်သွားပါက Revision တစ်ခါလျှင် "၁၅၀၀၀ တစ်သောင်းငါးထောင်ကျပ်" ထပ်မံကောက်ခံသွားမည်ဖြစ်ပါသည်။ </span>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <span class="accent-text font-medium mr-2">5.</span>
-                                        <span>Meeting လုပ်မည်ဆိုပါက ကြိုတင်အကြောင်းကြားပြီးပြောပေးရန်လိုအပ်ပါသည်။</span>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <span class="accent-text font-medium mr-2">6.</span>
-                                        <span>လူကြီးမင်းတို့ရဲ့ လုပ်ငန်းအတွက် အလုပ်ချိန်မှာ 8:30 AM မှ 9:30 PM ထိဖြစ်ပါသည်။</span>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <span class="accent-text font-medium mr-2">7.</span>
-                                        <span>သတ်မှတ်အလုပ်ချိန်ကျော်လွန်ပါက တစ်နာရီလျှင် "၆၀၀၀၀ ခြောက်သောင်းကျပ်တိတိ" ထပ်မံကောက်ခံသွားမည်ဖြစ်ပါသည်။</span>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <span class="accent-text font-medium mr-2">8.</span>
-                                        <span>Canvas ဖြင့် Design လုပ်ပေးရန် တောင်းဆိုခြင်းအားမပြုလုပ်ကြပါရန်။</span>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <span class="accent-text font-medium mr-2">9.</span>
-                                        <span>Ai (Artificial Intelligence) ဖြင့်လုပ်ထားသော Design များအား Reference ယူရန်ပြောကြားခြင်းအားမပြုလုပ်ပါရန်။</span>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <span class="accent-text font-medium mr-2">10.</span>
-                                        <span>အလုပ်လုပ်ရန် သဘောတူညီပါက စရန်ငွေ 30% အရင်ပေးချေရပါမည်။ ကျန်ငွေ 70% ကို လကုန်မှပေးချေရမည်ဖြစ်ပါသည်။</span>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <span class="accent-text font-medium mr-2">11.</span>
-                                        <span>ယခုအချက်အလက်များကို သဘောတူညီပါက လူကြီးမင်းတို့ရဲ့ Business ကိုအရည်အသွေးမြှင့်ဖို့ ART de ONE မှအဆင်သင့်ရှိနေပါပြီ။</span>
-                                    </div>
-                                </div>
+                         <div class="flex-1 w-full bg-[#1a1a1a] p-6 rounded-xl border border-[#333]">
+                            <div class="text-center">
+                                <p class="text-sm text-gray-500 uppercase tracking-widest mb-2">Starting From</p>
+                                <h4 class="text-3xl font-bold text-white mb-6">20,000 MMK</h4>
+                                <a href="#contact" class="btn-primary w-full block text-center">Get Quote</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <!-- Printing Design Content -->
-            <div class="service-panel hidden" id="printing-panel">
-                <div data-aos="fade-up">
-                    <div class="p-6">
-                        <div class="flex items-center mb-6">
-                            <!-- Printing Design Icon -->
-                            <div class="w-12 h-12 bg-black rounded-full flex items-center justify-center mr-4">
-                                <i class="fas fa-print text-white"></i>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="py-24 section-dark px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <h2 class="section-title">Community Reviews</h2>
+                    <p class="section-subtitle">Hear from our students about their learning journey.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="minimalist-card" data-aos="fade-up">
+                        <div class="flex text-[#9dae11] mb-4">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-gray-300 mb-6 italic">"Batch 1 ဆိုပေမဲ့ စိတ်ရှည်ရှည်နဲ့ သင်ပြတဲ့အတွက် Illustrator အခြေခံတဲ့မသိတဲ့သူတောင် ၄ ပတ်လောက်နဲ့ တော်တော် ဆွဲနိုင်နေတယ်"</p>
+                        <div class="flex items-center border-t border-[#333] pt-4">
+                            <div class="w-10 h-10 rounded-full bg-gray-700 mr-4 overflow-hidden">
+                                 <img src="reviews-photos/review-1.jpg" alt="Reviewer" class="w-full h-full object-cover">
                             </div>
                             <div>
-                                <h3 class="text-xl font-semibold text-gray-800">Printing Design</h3>
-                                <p class="text-gray-600">
-                                    High-quality designs for business materials, marketing collateral, and specialized print items.
-                                </p>
+                                <h4 class="font-bold text-white text-sm">Lwin Oo Maung</h4>
+                                <p class="text-xs text-gray-500">Batch 1 Student</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="minimalist-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="flex text-[#9dae11] mb-4">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-gray-300 mb-6 italic">"illustratorကိုအခုမှစလေ့လာမယ်ဆိုတဲ့ ညီကိုမောင်နှမတွေလည်း batch2မှာ လာတက်စေချင်တယ် စေသနာပါပါနဲ့ သေချာသင်ပေးတဲ့ဆရာမို့ recommendပေးတာပါ"</p>
+                        <div class="flex items-center border-t border-[#333] pt-4">
+                             <div class="w-10 h-10 rounded-full bg-gray-700 mr-4 overflow-hidden">
+                                 <img src="reviews-photos/review-2.jpg" alt="Reviewer" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Thar Htet Aung</h4>
+                                <p class="text-xs text-gray-500">Batch 2 Student</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-24 section-darker px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <h2 class="section-title">Get In Touch</h2>
+                    <p class="section-subtitle">Have a question or a project in mind? We'd love to hear from you.</p>
+                </div>
+                <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12">
+                    <div data-aos="fade-right">
+                        <h3 class="text-2xl font-bold text-white mb-6">Contact Info</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-[#222] flex items-center justify-center mr-4 text-white"><i class="fas fa-phone"></i></div>
+                                <div><p class="text-gray-500 text-sm">Phone</p><p class="text-white font-medium">09 953 681 497</p></div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-[#222] flex items-center justify-center mr-4 text-white"><i class="fas fa-envelope"></i></div>
+                                <div><p class="text-gray-500 text-sm">Email</p><p class="text-white font-medium">artdeone.educators@gmail.com</p></div>
+                            </div>
+                             <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-[#222] flex items-center justify-center mr-4 text-white"><i class="fas fa-map-marker-alt"></i></div>
+                                <div><p class="text-gray-500 text-sm">Location</p><p class="text-white font-medium">Yangon, Myanmar</p></div>
                             </div>
                         </div>
                         
-                        <div class="grid md:grid-cols-3 gap-6">
-                            <!-- Brand Identity & Stationery -->
-                            <div class="border-2 border-gray-200 rounded-2xl p-5 hover:border-[#9dad10] transition duration-300">
-                                <div class="flex items-center justify-between mb-2">
-                                    <h4 class="font-semibold text-gray-700 text-lg">Brand Identity & Stationery</h4>
-                                    <div class="flex items-center bg-black px-3 py-1 rounded-full">
-                                        <div class="flex text-[#9dae11] mr-1">
-                                            <i class="fas fa-star text-xs"></i>
-                                            <i class="fas fa-star text-xs"></i>
-                                            <i class="fas fa-star text-xs"></i>
-                                            <i class="fas fa-star text-xs"></i>
-                                            <i class="fas fa-star text-xs"></i>
-                                        </div>
-                                        <span class="text-xs font-semibold text-[#9dae11]">Top Rated</span>
-                                    </div>
-                                </div>
-                                <div class="flex items-baseline gap-2 mb-4">
-                                    <span class="text-2xl font-bold text-gray-900">Starting from 20,000 MMK</span>
-                                </div>
-                                <ul class="text-sm text-gray-600 space-y-2 mb-4">
-                                    <li class="flex items-start">
-                                        <span class="accent-text mr-2">•</span>
-                                        <span>Letterhead Design</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <span class="accent-text mr-2">•</span>
-                                        <span>Envelope Design</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <span class="accent-text mr-2">•</span>
-                                        <span>Notepad Design</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <span class="accent-text mr-2">•</span>
-                                        <span>Invoice Design</span>
-                                    </li>
-                                </ul>
-                                <a href="#contact" class="block w-full mt-4 py-2 px-4 text-white text-center rounded-lg transition duration-300 custom-hover" style="background-color: #9dae11">
-                                    Get Quote
-                                </a>
-                            </div>
-                            
-                            <!-- Marketing & Advertising -->
-                            <div class="border-2 border-gray-200 rounded-2xl p-5 hover:border-[#9dad10] transition duration-300">
-                                <h4 class="font-semibold text-gray-700 mb-3 text-lg">Marketing & Advertising</h4>
-                                <div class="flex items-baseline gap-2 mb-4">
-                                    <span class="text-2xl font-bold text-gray-900">Starting from 50,000 MMK</span>
-                                </div>
-                                <ul class="text-sm text-gray-600 space-y-2 mb-4">
-                                    <li class="flex items-start">
-                                        <span class="accent-text mr-2">•</span>
-                                        <span>Poster Design</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <span class="accent-text mr-2">•</span>
-                                        <span>Banner & Signage Design</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <span class="accent-text mr-2">•</span>
-                                        <span>Menu Design</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <span class="accent-text mr-2">•</span>
-                                        <span>Packaging & Label Design</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <span class="accent-text mr-2">•</span>
-                                        <span>Roll-Up Banner Design</span>
-                                    </li>
-                                </ul>
-                                <a href="#contact" class="block w-full mt-4 py-2 px-4 text-white text-center rounded-lg transition duration-300 custom-hover" style="background-color: #9dae11">
-                                    Get Quote
-                                </a>
-                            </div>
-                            
-                            <!-- Events & Specialized -->
-                            <div class="border-2 border-gray-200 rounded-2xl p-5 hover:border-[#9dad10] transition duration-300">
-                                <h4 class="font-semibold text-gray-700 mb-3 text-lg">Events & Specialized</h4>
-                                <div class="flex items-baseline gap-2 mb-4">
-                                    <span class="text-2xl font-bold text-gray-900">Starting from 50,000 MMK</span>
-                                </div>
-                                <ul class="text-sm text-gray-600 space-y-2 mb-4">
-                                    <li class="flex items-start">
-                                        <span class="accent-text mr-2">•</span>
-                                        <span>Greeting Card Design</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <span class="accent-text mr-2">•</span>
-                                        <span>Certificate Design</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <span class="accent-text mr-2">•</span>
-                                        <span>Merchandise Design (T-shirts, Mugs)</span>
-                                    </li>
-                                </ul>
-                                <a href="#contact" class="block w-full mt-4 py-2 px-4 text-white text-center rounded-lg transition duration-300 custom-hover" style="background-color: #9dae11">
-                                    Get Quote
-                                </a>
+                        <div class="mt-10">
+                            <h4 class="text-lg font-bold text-white mb-4">Social Media</h4>
+                            <div class="flex gap-4">
+                                <a href="#" class="w-10 h-10 rounded-full bg-[#222] flex items-center justify-center text-white hover:bg-[#9dae11] transition-colors"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-[#222] flex items-center justify-center text-white hover:bg-[#9dae11] transition-colors"><i class="fab fa-behance"></i></a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-[#222] flex items-center justify-center text-white hover:bg-[#9dae11] transition-colors"><i class="fab fa-linkedin-in"></i></a>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-    <!-- Testimonials Section -->
-<section id="testimonials" class="py-20 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16" data-aos="fade-up">
-            <h2 class="text-3xl font-bold text-gray-900 mb-4">What Our <span class="accent-text">Community Says</span></h2>
-            <p class="text-gray-600 max-w-2xl mx-auto">
-                Hear from our students and clients about their experiences with ART de ONE.
-            </p>
-            
-            <!-- Student Countries Box -->
-            <div class="mt-8 flex flex-col items-center justify-center" data-aos="fade-up" data-aos-delay="100">
-                <div class="max-w-2xl mb-0">
-                    <div class="flex flex-col items-center">
-                        <div class="flex items-center mb-4">
-                            <i class="fas fa-globe text-[#9dae11] text-xl mr-3"></i>
-                            <span class="font-semibold text-gray-800 text-lg">Our Students From</span>
-                        </div>
-                        <div class="flex items-center justify-center gap-4 sm:gap-6 md:gap-8">
-    <div class="flex items-center space-x-2">
-        <span class="text-xl">🇩🇪</span>
-        <span class="text-gray-700 text-sm sm:text-base">Germany</span>
-    </div>
-    <div class="flex items-center space-x-2">
-        <span class="text-xl">🇹🇭</span>
-        <span class="text-gray-700 text-sm sm:text-base">Thailand</span>
-    </div>
-    <div class="flex items-center space-x-2">
-        <span class="text-xl">🇲🇲</span>
-        <span class="text-gray-700 text-sm sm:text-base">Myanmar</span>
-    </div>
-</div>
-                        
+                    
+                    <div class="minimalist-card" data-aos="fade-left">
+                        <form class="space-y-4">
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-1">Name</label>
+                                <input type="text" class="form-input w-full">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-1">Email</label>
+                                <input type="email" class="form-input w-full">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-1">Message</label>
+                                <textarea rows="4" class="form-input w-full"></textarea>
+                            </div>
+                            <button type="submit" class="btn-primary w-full">Send Message</button>
+                        </form>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Rest of the testimonials remain unchanged -->
-        <div class="grid md:grid-cols-2 gap-8">
-            <!-- Testimonial 1 -->
-            <div class="testimonial-card bg-white p-6 rounded-lg shadow-md relative" data-aos="fade-up" data-aos-delay="100">
-                <div class="absolute top-4 right-4">
-                    <div class="flex text-[#9dae11]">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                </div>
-                <div class="flex items-center mb-4">
-                    <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center mr-4 overflow-hidden">
-                        <img src="reviews-photos/review-1.jpg" alt="Lwin Oo Maung" class="w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h4 class="font-semibold text-gray-800">Lwin Oo Maung</h4>
-                        <p class="text-gray-600 text-sm">Batch 1 Student</p>
-                    </div>
-                </div>
-                <p class="text-gray-700">
-                    "Batch 1 ဆိုပေမဲ့ စိတ်ရှည်ရှည်နဲ့ သင်ပြတဲ့အတွက် Illustrator အခြေခံတဲ့မသိတဲ့သူတောင် ၄ ပတ်လောက်နဲ့ေ တာ်တော် ဆွဲနိုင်နေတယ် tools တခုချင်းစီ စိတ်ရှည်ရှည်နဲ့ အလိုလိုက်တဲ့အတွက် basic သင်ချင်တဲ့သူတွေအတွက် တကယ်ထိရောက်တဲ့ သင်တန်းပါ"
-                </p>
-                <div class="mt-4 flex items-center text-sm text-gray-500">
-                    <i class="fab fa-facebook text-blue-500 mr-2"></i>
-                    <span>Posted on Facebook</span>
-                </div>
-            </div>
-            
-            <!-- Testimonial 2 -->
-            <div class="testimonial-card bg-white p-6 rounded-lg shadow-md relative" data-aos="fade-up" data-aos-delay="200">
-                <div class="absolute top-4 right-4">
-                    <div class="flex text-[#9dae11]">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                </div>
-                <div class="flex items-center mb-4">
-                    <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center mr-4 overflow-hidden">
-                        <img src="reviews-photos/review-2.jpg" alt="Thar Htet Aung" class="w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h4 class="font-semibold text-gray-800">Thar Htet Aung</h4>
-                        <p class="text-gray-600 text-sm">Batch 2 Student</p>
-                    </div>
-                </div>
-                <p class="text-gray-700">
-                    "illustratorကိုအခုမှစလေ့လာမယ်ဆိုတဲ့ ညီကိုမောင်နှမတွေလည်း batch2မှာ လာတက်စေချင်တယ် စေသနာပါပါနဲ့ သေချာသင်ပေးတဲ့ဆရာမို့ recommendပေးတာပါ အခြေခံကစပြီးသေချာသင်ပေးတာမလို့ တကယ်တက်ကြည့်စေချင်တယ် မသိတာရှိရင်လည်းအချိန်မရွေးမေးလို့ရတယ် ဆရာကတော်တော်သဘောကောင်းတယ်"
-                </p>
-                <div class="mt-4 flex items-center text-sm text-gray-500">
-                    <i class="fab fa-facebook text-blue-500 mr-2"></i>
-                    <span>Posted on Facebook</span>
-                </div>
-            </div>
-            
-            <!-- Testimonial 3 -->
-            <div class="testimonial-card bg-white p-6 rounded-lg shadow-md relative" data-aos="fade-up" data-aos-delay="300">
-                <div class="absolute top-4 right-4">
-                    <div class="flex text-[#9dae11]">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                </div>
-                <div class="flex items-center mb-4">
-                    <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center mr-4 overflow-hidden">
-                        <img src="reviews-photos/review-3.jpg" alt="May Phyu Thaw" class="w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h4 class="font-semibold text-gray-800">May Phyu Thaw</h4>
-                        <p class="text-gray-600 text-sm">Batch 3 Student</p>
-                    </div>
-                </div>
-                <p class="text-gray-700">
-                    "illustratorကိုအခုမှစလေ့လာမယ်ဆိုတဲ့ ညီကိုမောင်နှမတွေလည်း 24ARTမှာ လာတက်စေချင်တယ် စေသနာပါပါနဲ့ သေချာသင်ပေးတဲ့ဆရာမို့ recommendပေးတာပါ အခြေခံကစပြီးသေချာသင်ပေးတာမလို့ တကယ်တက်ကြည့်စေချင်တယ် မသိတာရှိရင်လည်းအချိန်မရွေးမေးလို့ရတယ် ဆရာကတော်တော်သဘောကောင်းပါတယ်ရှင့်။"
-                </p>
-                <div class="mt-4 flex items-center text-sm text-gray-500">
-                    <i class="fab fa-facebook text-blue-500 mr-2"></i>
-                    <span>Posted on Facebook</span>
-                </div>
-            </div>
-            
-            <!-- Testimonial 4 -->
-            <div class="testimonial-card bg-white p-6 rounded-lg shadow-md relative" data-aos="fade-up" data-aos-delay="400">
-                <div class="absolute top-4 right-4">
-                    <div class="flex text-[#9dae11]">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                </div>
-                <div class="flex items-center mb-4">
-                    <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center mr-4 overflow-hidden">
-                        <img src="reviews-photos/review-4.jpg" alt="Su Myat Mon" class="w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h4 class="font-semibold text-gray-800">Su Myat Mon</h4>
-                        <p class="text-gray-600 text-sm">By One Student</p>
-                    </div>
-                </div>
-                <p class="text-gray-700">
-                    "Illustrator ကိုအခုမှစလေ့လာမယ့်သူတွေအတွက်တကယ်အဆင်ပြေတဲ့ သင်တန်းပါ။ By one ဆရာနဲ့သင်တာပါ။ ဆရာကစိတ်ရှည်ပြီးသေသေချာချာလေးရှင်းပြပေးတယ်။ စေတနာပါပါနဲ့သင်ပေးတဲ့ဆရာမို့ လုံး၀ Highly recommend ပေးပါတယ်။ 👏👏"
-                </p>
-                <div class="mt-4 flex items-center text-sm text-gray-500">
-                    <i class="fab fa-facebook text-blue-500 mr-2"></i>
-                    <span>Posted on Facebook</span>
-                </div>
-            </div>
-        </div>
-        
-        <!-- CTA to Facebook -->
-        <div class="text-center mt-12" data-aos="fade-up">
-            <a href="https://www.facebook.com/artdeone/" target="_blank" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-300 shadow-md">
-                <i class="fab fa-facebook mr-2"></i>
-                See More Reviews on Facebook
-            </a>
-        </div>
-    </div>
-</section>
-
-    <!-- Contact Section -->
-<section id="contact" class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16" data-aos="fade-up">
-            <h2 class="text-3xl font-bold text-gray-900 mb-4">Get In <span class="accent-text">Touch</span></h2>
-            <p class="text-gray-600 max-w-2xl mx-auto">
-                သိလိုသောအကြောင်းအရာများကို ဖုန်းဆက်ပြီးမေးမြန်းနိုင်သလို၊ အီးမေးလ်ပို့ခြင်းဖြင့်လည်း ဆက်သွယ်နိုင်ပါသည်။ သို့မဟုတ် အောက်ပါဖောင်မှတဆင့် မက်ဆေ့ခ်ျပို့နိုင်ပါသည်။
-            </p>
-        </div>
-        
-        <div class="grid md:grid-cols-2 gap-12">
-            <div data-aos="fade-right">
-                <h3 class="text-xl font-semibold text-gray-800 mb-6">Contact Information</h3>
-                
-                <!-- Phone -->
-                <div class="flex items-start mb-6">
-                    <div class="w-10 h-10 rounded-full bg-black flex items-center justify-center mr-4">
-                        <i class="fas fa-phone text-white"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-medium text-gray-800">Phone</h4>
-                        <p class="text-gray-600">09953681497</p>
-                    </div>
-                </div>
-                
-                <!-- Email -->
-                <div class="flex items-start mb-6">
-                    <div class="w-10 h-10 rounded-full bg-black flex items-center justify-center mr-4">
-                        <i class="fas fa-envelope text-white"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-medium text-gray-800">Email</h4>
-                        <p class="text-gray-600">artdeone.educators@gmail.com</p>
-                    </div>
-                </div>
-                
-                <!-- Location -->
-                <div class="flex items-start">
-                    <div class="w-10 h-10 rounded-full bg-black flex items-center justify-center mr-4">
-                        <i class="fas fa-map-marker-alt text-white"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-medium text-gray-800">Location</h4>
-                        <p class="text-gray-600">Yangon, Myanmar</p>
-                    </div>
-                </div>
-                
-                <!-- Social Media -->
-                <div class="mt-8">
-                    <h4 class="font-medium text-gray-800 mb-4">Follow Us</h4>
-                    <div class="flex space-x-4">
-                        <a href="https://www.facebook.com/artdeone/" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition duration-300">
-                            <i class="fab fa-facebook-f text-black"></i>
-                        </a>
-                        <a href="https://www.behance.net/phyomin7" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition duration-300">
-                            <i class="fab fa-behance text-black"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition duration-300">
-                            <i class="fab fa-linkedin-in text-black"></i>
-                        </a>
-                        <a href="https://www.tiktok.com/@artdeone" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition duration-300">
-                            <i class="fab fa-tiktok text-black"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Payment Methods -->
-                <div class="mt-6">
-                    <h4 class="font-medium text-gray-800 mb-4">Payment Accepted</h4>
-                    <div class="flex flex-wrap gap-3">
-                        <img src="/payments/kbz-pay.png" alt="KBZ Pay" class="w-10 h-10 object-contain">
-                        <img src="/payments/wave-pay.png" alt="Wave Pay" class="w-10 h-10 object-contain">
-                        <img src="/payments/kbz-bank.png" alt="KBZ Bank" class="w-10 h-10 object-contain">
-                        <img src="/payments/aya-bank.png" alt="AYA Bank" class="w-10 h-10 object-contain">
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Contact Form -->
-            <div data-aos="fade-left">
-                <h3 class="text-xl font-semibold text-gray-800 mb-6">Send Us a Message</h3>
-                <form class="space-y-4" name="contact" method="POST" netlify>
-                    <div>
-                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                        <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9dae11] focus:border-transparent">
-                    </div>
-                    <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                        <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9dae11] focus:border-transparent">
-                    </div>
-                    <div>
-                        <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
-                        <select id="subject" name="subject" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9dae11] focus:border-transparent">
-                            <option value="">Select a subject</option>
-                            <option value="classes">သင်တန်းစုံစမ်းရန်</option>
-                            <option value="freelance">Social Media Design Package စုံစမ်းရန်</option>
-                            <option value="other">Logo Design စုံစမ်းရန်</option>
-                            <option value="other">Collaboration အတွက်စုံစမ်းရန်</option>
-                            <option value="other">Others</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                        <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9dae11] focus:border-transparent"></textarea>
-                    </div>
-                    <div>
-                        <button type="submit" class="w-full py-2 px-4 border border-transparent text-base font-medium rounded-md text-white transition duration-300 custom-hover" style="background-color: #9dae11">
-                            Send Message
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
+        </section>
+    </main>
 
     <!-- Footer -->
-    <footer class="bg-black text-white py-12">
+    <footer class="bg-black text-white py-12 border-t border-[#222]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-4 gap-8">
                 <div>
-                    <span class="text-xl font-bold mb-4">ART de ONE</span>
-                    <p class="text-gray-400">
+                    <span class="text-xl font-bold mb-4 block">ART de ONE</span>
+                    <p class="text-gray-400 text-sm">
                         Adobe Illustrator Classes & Freelance Creative Studio in Myanmar
                     </p>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
-                    <ul class="space-y-2">
-                        <li><a href="index.html#home" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
-                        <li><a href="index.html#about" class="text-gray-400 hover:text-white transition duration-300">About</a></li>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
                         <li><a href="courses.html" class="text-gray-400 hover:text-white transition duration-300">Courses</a></li>
                         <li><a href="blog.html" class="text-gray-400 hover:text-white transition duration-300">Blog</a></li>
-                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Freelance</a></li>
-                        <li><a href="index.html#contact" class="text-gray-400 hover:text-white transition duration-300">Contact</a></li>
+                        <li><a href="resources/resources-collection.html" class="text-gray-400 hover:text-white transition duration-300">Resources</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Classes</h3>
-                    <ul class="space-y-2">
-                         <li><a href="courses/basic-illustrator/course-detail-basic.html" class="text-gray-400 hover:text-white transition duration-300">Basic Adobe Illustrator Course</a></li>
+                    <ul class="space-y-2 text-sm">
+                         <li><a href="courses/basic-illustrator/course-detail-basic.html" class="text-gray-400 hover:text-white transition duration-300">Basic Course</a></li>
                         <li><a href="courses/intermediate-illustrator/course-detail-intermediate.html" class="text-gray-400 hover:text-white transition duration-300">Intermediate</a></li>
-                        <li><a href="courses/advanced-illustrator/course-detail-advanced.html" class="text-gray-400 hover:text-white transition duration-300">Advanced Abstract Drawing</a></li>
-                        <li><a href="courses/graphic-design/course-detail-graphic-design.html" class="text-gray-400 hover:text-white transition duration-300">Graphic Design Course</a></li>
+                        <li><a href="courses/graphic-design/course-detail-graphic-design.html" class="text-gray-400 hover:text-white transition duration-300">Graphic Design</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Services</h3>
-                    <ul class="space-y-2">
-                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Logo Design</a></li>
-                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Social Media Design</a></li>
-                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Printing Design</a></li>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#freelance" class="text-gray-400 hover:text-white transition duration-300">Logo Design</a></li>
+                        <li><a href="#freelance" class="text-gray-400 hover:text-white transition duration-300">Social Media</a></li>
+                        <li><a href="#freelance" class="text-gray-400 hover:text-white transition duration-300">Printing</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400 mb-4 md:mb-0">
+            <div class="border-t border-[#222] mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">
                     &copy; 2025 ART de ONE. All rights reserved.
                 </p>
-                <div class="flex space-x-6">
-                    <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-behance"></i></a>
-                    <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-tiktok"></i></a>
+                <div class="flex space-x-6 text-sm">
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-behance"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
         </div>
     </footer>
-    
-    <!-- JavaScript for mobile menu toggle -->
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize Feather Icons
-            if (typeof feather !== 'undefined') {
-                feather.replace();
-            }
+        AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
+        feather.replace();
+        
+        // Service Switcher
+        function switchService(service) {
+            // Reset Tabs
+            document.querySelectorAll('.service-tab').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
             
-            // Mobile menu toggle
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            
-            if (mobileMenuButton && mobileMenu) {
-                mobileMenuButton.addEventListener('click', function() {
-                    mobileMenu.classList.toggle('hidden');
-                    mobileMenu.classList.toggle('active');
-                    
-                    // Change icon based on menu state
-                    const icon = mobileMenuButton.querySelector('i');
-                    if (mobileMenu.classList.contains('hidden')) {
-                        icon.setAttribute('data-feather', 'menu');
-                    } else {
-                        icon.setAttribute('data-feather', 'x');
-                    }
-                    
-                    // Re-render feather icon
-                    if (typeof feather !== 'undefined') {
-                        feather.replace();
-                    }
-                });
-            }
-            
-            // Close mobile menu when clicking on a link
-            const mobileMenuLinks = document.querySelectorAll('#mobile-menu a');
-            mobileMenuLinks.forEach(link => {
-                link.addEventListener('click', function() {
-                    mobileMenu.classList.add('hidden');
-                    mobileMenu.classList.remove('active');
-                    
-                    // Reset menu icon
-                    const icon = mobileMenuButton.querySelector('i');
-                    icon.setAttribute('data-feather', 'menu');
-                    if (typeof feather !== 'undefined') {
-                        feather.replace();
-                    }
-                });
-            });
+            // Reset Panels
+            document.querySelectorAll('.service-panel').forEach(panel => panel.classList.add('hidden'));
+            document.getElementById(service + '-panel').classList.remove('hidden');
+        }
+        
+        // Mobile Menu
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
         });
     </script>
-    
-    <script src="js/script.js"></script>
-    <script src="artdeone-chat-simple.js"></script>
 </body>
 </html>

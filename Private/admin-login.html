@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - ART de ONE</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        /* --- MINIMALIST DARK THEME --- */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #000;
+            color: #fff;
+        }
+
+        /* Login Card */
+        .login-card {
+            background-color: #111;
+            border: 1px solid #333;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+        }
+        .login-card:hover {
+            border-color: #444;
+        }
+
+        /* Form Inputs */
+        .form-input {
+            background-color: #1a1a1a;
+            border: 1px solid #444;
+            color: #fff;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #9dae11;
+            background-color: #222;
+        }
+        .form-label {
+            color: #a0a0a0;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Primary Button */
+        .btn-primary {
+            background-color: #fff;
+            color: #000;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            width: 100%;
+            transition: all 0.3s ease;
+            border: 1px solid #fff;
+            cursor: pointer;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .btn-primary:hover {
+            background-color: #9dae11;
+            border-color: #9dae11;
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Helpers */
+        .text-muted { color: #a0a0a0; }
+        .text-accent { color: #9dae11; }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <div class="w-full max-w-md animate-fade-in">
+        <!-- Logo -->
+        <div class="text-center mb-8">
+            <img src="logo.png" alt="ART de ONE" class="h-12 w-auto mx-auto mb-4">
+            <h1 class="text-2xl font-bold text-white">Admin Access</h1>
+            <p class="text-muted mt-2 text-sm">Restricted to authorized personnel only</p>
+        </div>
+
+        <!-- Login Card -->
+        <div class="login-card">
+            <form action="admin-panel.html" method="GET" class="space-y-6">
+                <div>
+                    <label class="form-label">Email Address</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                        <input type="email" class="form-input pl-10" placeholder="admin@artdeone.com" required>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="form-label">Password</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                        <input type="password" class="form-input pl-10" placeholder="••••••••" required>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between text-sm">
+                    <label class="flex items-center text-muted cursor-pointer hover:text-white transition-colors">
+                        <input type="checkbox" class="form-checkbox h-4 w-4 text-[#9dae11] rounded border-gray-600 bg-[#1a1a1a] focus:ring-offset-black focus:ring-[#9dae11]">
+                        <span class="ml-2">Remember me</span>
+                    </label>
+                    <a href="#" class="text-muted hover:text-white transition-colors">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-sign-in-alt mr-2"></i> Sign In
+                </button>
+            </form>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-8 text-xs text-gray-600">
+            <p>&copy; 2025 ART de ONE. System v2.0</p>
+            <p class="mt-1">Secure Connection <i class="fas fa-lock ml-1"></i></p>
+        </div>
+    </div>
+
+    <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDxGe8syla67VxbV7DlnbPtIbMmIewZurY",
+    authDomain: "art-de-one.firebaseapp.com",
+    projectId: "art-de-one",
+    storageBucket: "art-de-one.firebasestorage.app",
+    messagingSenderId: "843424361824",
+    appId: "1:843424361824:web:d8e645ad12fe5f50be8205",
+    measurementId: "G-1W0PCMKRW7"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const loginForm = document.querySelector('form');
+  
+  loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    // Get values specifically from the inputs inside the form
+    const email = loginForm.querySelector('input[type="email"]').value;
+    const password = loginForm.querySelector('input[type="password"]').value;
+    const btn = loginForm.querySelector('button');
+
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+    
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        console.log("Admin Logged In:", user.email);
+        // Redirect to Panel
+        window.location.href = "admin-panel.html";
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert("Login Failed: " + errorMessage);
+        btn.innerHTML = '<i class="fas fa-sign-in-alt mr-2"></i> Sign In';
+      });
+  });
+</script>
+
+
+</body>
+</html>

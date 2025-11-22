@@ -16,6 +16,7 @@
     <link rel="icon" type="image/png" href="/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/courses/courses-css/courses-style.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         body { font-family: 'Poppins', sans-serif; }
@@ -68,51 +69,103 @@
             </div>
         </div>
     </nav>
-    <main class="pt-20">
+    <!-- Main Content -->
+    <main class="pt-24">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="lg:grid lg:grid-cols-3 lg:gap-12">
+            
+            <!-- Title Section -->
+            <div class="mb-12 border-b border-gray-100 pb-12">
+                <span class="text-[#9dae11] font-bold tracking-wider text-sm uppercase mb-2 block">Intermediate Level</span>
+                <h1 class="text-4xl md:text-5xl font-bold text-black mb-6 leading-tight">Explain an Ai Intermediate Course</h1>
+                <p class="text-gray-500 text-lg leading-relaxed max-w-3xl">Go beyond the basics and master the art of AI-powered design. This course covers advanced prompting techniques, workflow integration, and how to use tools like Generative Recolor to elevate your creative projects efficiently.</p>
+            </div>
+
+            <div class="lg:grid lg:grid-cols-12 lg:gap-16">
+                
                 <!-- Left Column -->
-                <div class="lg:col-span-2">
-                    <div class="mb-8"><div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg"><video controls poster="https://placehold.co/1280x720/1a1a1a/white?text=AI+Intermediate" class="w-full h-full object-cover"><source src="/hero-animation.mp4" type="video/mp4"></video></div></div>
-                    <div class="mb-8">
-                        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Explain an Ai Intermediate Course</h1>
-                        <p class="text-gray-600 leading-relaxed">Go beyond the basics and master the art of AI-powered design. This course covers advanced prompting techniques, workflow integration, and how to use tools like Generative Recolor to elevate your creative projects efficiently.</p>
+                <div class="lg:col-span-8">
+                    <div class="mb-12 rounded-xl overflow-hidden bg-black">
+                         <div class="aspect-w-16 aspect-h-9">
+                            <video controls poster="https://placehold.co/1280x720/f3f4f6/a3a3a3?text=AI+Intermediate+Preview" class="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity">
+                                <source src="/hero-animation.mp4" type="video/mp4">
+                            </video>
+                        </div>
                     </div>
-                    <div>
-                        <h2 class="text-2xl font-bold text-gray-800 mb-6">Course Outline</h2>
-                        <div class="space-y-4">
-                            <div class="border border-gray-200 rounded-lg">
-                                <button onclick="toggleOutline('module1')" class="flex items-center justify-between w-full p-4 bg-gray-50 hover:bg-gray-100"><span class="font-semibold text-gray-800">Module 1: Advanced Prompting</span><i data-feather="chevron-down" class="transform" id="module1-chevron"></i></button>
-                                <div id="module1" class="hidden p-4"><ul class="text-gray-600 space-y-2">
-                                    <li class="flex items-center"><i data-feather="play-circle" class="w-4 h-4 mr-3 accent-text"></i>Structuring Prompts for Complex Scenes</li>
-                                    <li class="flex items-center"><i data-feather="play-circle" class="w-4 h-4 mr-3 accent-text"></i>Using Negative Prompts to Refine Results</li>
-                                    <li class="flex items-center"><i data-feather="play-circle" class="w-4 h-4 mr-3 accent-text"></i>Introduction to JSON for Precise Control</li>
-                                </ul></div>
+
+                    <div class="mb-16">
+                        <h2 class="text-2xl font-bold text-black mb-8">Course Outline</h2>
+                        
+                        <div class="border-t border-gray-200">
+                            <!-- Module 1 -->
+                            <div class="outline-item">
+                                <button onclick="toggleOutline('module1')" class="outline-btn group">
+                                    <span>Module 1: Advanced Prompting</span>
+                                    <i data-feather="chevron-down" class="transform transition-transform duration-300 group-hover:text-[#9dae11]" id="module1-chevron"></i>
+                                </button>
+                                <div id="module1" class="hidden outline-content">
+                                    <ul class="text-gray-600 space-y-3 pl-4 border-l-2 border-gray-100 ml-2">
+                                        <li class="flex items-center"><i data-feather="play-circle" class="w-4 h-4 mr-3 text-gray-400"></i>Structuring Prompts for Complex Scenes</li>
+                                        <li class="flex items-center"><i data-feather="play-circle" class="w-4 h-4 mr-3 text-gray-400"></i>Using Negative Prompts to Refine Results</li>
+                                        <li class="flex items-center"><i data-feather="play-circle" class="w-4 h-4 mr-3 text-gray-400"></i>Introduction to JSON for Precise Control</li>
+                                    </ul>
+                                </div>
                             </div>
-                            <div class="border border-gray-200 rounded-lg">
-                                <button onclick="toggleOutline('module2')" class="flex items-center justify-between w-full p-4 bg-gray-50 hover:bg-gray-100"><span class="font-semibold text-gray-800">Module 2: Professional AI Workflows</span><i data-feather="chevron-down" class="transform" id="module2-chevron"></i></button>
-                                <div id="module2" class="hidden p-4"><ul class="text-gray-600 space-y-2">
-                                    <li class="flex items-center"><i data-feather="play-circle" class="w-4 h-4 mr-3 accent-text"></i>Integrating AI into Your Design Process</li>
-                                    <li class="flex items-center"><i data-feather="play-circle" class="w-4 h-4 mr-3 accent-text"></i>Mastering Generative Recolor</li>
-                                    <li class="flex items-center"><i data-feather="play-circle" class="w-4 h-4 mr-3 accent-text"></i>Editing and Finalizing AI Artwork for Clients</li>
-                                </ul></div>
+
+                            <!-- Module 2 -->
+                            <div class="outline-item">
+                                <button onclick="toggleOutline('module2')" class="outline-btn group">
+                                    <span>Module 2: Professional Workflow</span>
+                                    <i data-feather="chevron-down" class="transform transition-transform duration-300 group-hover:text-[#9dae11]" id="module2-chevron"></i>
+                                </button>
+                                <div id="module2" class="hidden outline-content">
+                                    <ul class="text-gray-600 space-y-3 pl-4 border-l-2 border-gray-100 ml-2">
+                                        <li class="flex items-center"><i data-feather="play-circle" class="w-4 h-4 mr-3 text-gray-400"></i>Integrating AI into Your Design Process</li>
+                                        <li class="flex items-center"><i data-feather="play-circle" class="w-4 h-4 mr-3 text-gray-400"></i>Mastering Generative Recolor</li>
+                                        <li class="flex items-center"><i data-feather="play-circle" class="w-4 h-4 mr-3 text-gray-400"></i>Editing and Finalizing AI Artwork for Clients</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <!-- Right Column -->
-                <div class="lg:col-span-1 mt-12 lg:mt-0">
-                    <div class="sticky top-24 bg-gray-50 rounded-lg shadow-lg p-6">
-                        <h2 class="text-2xl font-bold text-gray-900 mb-2">39,500 MMK</h2>
-                        <p class="text-gray-500 mb-6">Full price for lifetime access</p>
-                        <a href="/checkout.html?course=Explain+an+Ai+Intermediate+Course&price=39500" class="block w-full text-center py-3 px-4 text-white font-semibold rounded-full custom-hover shadow-md" style="background-color: #9dae11;">Enroll Now</a>
-                        <div class="border-t border-gray-200 my-6"></div>
-                        <h3 class="font-semibold text-gray-800 mb-4">This course includes:</h3>
-                        <ul class="space-y-3 text-gray-600">
-                           <li class="flex items-center"><i data-feather="video" class="w-5 h-5 mr-3 accent-text"></i>Video lessons</li>
-                            <li class="flex items-center"><i data-feather="award" class="w-5 h-5 mr-3 accent-text"></i>Certificate of Completion</li>
-                            <li class="flex items-center"><i data-feather="repeat" class="w-5 h-5 mr-3 accent-text"></i>Lifetime access</li>
-                        </ul>
+                <div class="lg:col-span-4 mt-12 lg:mt-0">
+                    <div class="sticky top-32">
+                        <div class="enroll-card rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+                            <div class="mb-6">
+                                <p class="text-gray-400 text-sm font-medium uppercase tracking-wide mb-1">Total Price</p>
+                                <h2 class="text-3xl font-bold text-black">39,500 MMK</h2>
+                            </div>
+                            
+                            <a href="/checkout.html?course=Explain+an+Ai+Intermediate+Course&price=39500" class="enroll-btn block w-full text-center py-4 px-6 rounded-lg font-bold text-sm tracking-wide uppercase">
+                                Enroll Now
+                            </a>
+                            
+                            <div class="my-8 border-t border-dashed border-gray-200"></div>
+                            
+                            <h3 class="font-bold text-black mb-4 text-sm uppercase tracking-wide">Includes:</h3>
+                            <ul class="space-y-4 text-gray-600">
+                                <li class="flex items-center">
+                                    <div class="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center mr-3 text-black">
+                                        <i data-feather="video" class="w-4 h-4"></i>
+                                    </div>
+                                    <span class="text-sm">Video lessons</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <div class="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center mr-3 text-black">
+                                        <i data-feather="award" class="w-4 h-4"></i>
+                                    </div>
+                                    <span class="text-sm">Certificate of Completion</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <div class="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center mr-3 text-black">
+                                        <i data-feather="repeat" class="w-4 h-4"></i>
+                                    </div>
+                                    <span class="text-sm">Lifetime access</span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

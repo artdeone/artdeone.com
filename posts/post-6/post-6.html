@@ -12,340 +12,342 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - ART de ONE</title>
+    <title>CRAP Principle - ART de ONE</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Poppins', sans-serif; }
-        .accent-text { color: #9dae11; }
-        /* Custom styles for Runway ML-inspired navigation */
-    .nav-container {
-        padding: 0.75rem 1rem;
-    }
-    
-    .nav-link {
-        position: relative;
-        color: #000;
-        font-weight: 500;
-        font-size: 0.875rem; /* Smaller font size */
-        transition: all 0.3s ease;
-    }
-    
-    /* Remove the green line effect */
-    .nav-link::after {
-        display: none; /* This removes the green line */
-    }
-    
-    /* Hover effect - make hovered item white, others grey */
-    .nav-link:hover {
-        color: #000000 !important; /* White text on hover */
-        transform: translateY(-1px);
-    }
-    
-    /* When hovering over a nav item, make all other nav items grey */
-    .nav-center:hover .nav-link:not(:hover) {
-        color: #888888 !important; /* Grey for non-hovered items */
-    }
-    .nav-center {
-    position: absolute !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-}
-.contact-btn {
-        background-color: #000;
-        color: white;
-        padding: 0.5rem 1.5rem;
-        border-radius: 9999px;
-        font-weight: 500;
-        font-size: 0.875rem; /* Smaller font size */
-        transition: all 0.3s ease;
-    }
-    
-    .contact-btn:hover {
-        background-color: #333;
-        transform: translateY(-2px);
-    }
-    
-    .mobile-menu-btn {
-        transition: all 0.3s ease;
-    }
-    
-    .mobile-menu-btn:hover {
-        transform: scale(1.1);
-    }
+        
+        body {
+            background-color: #000;
+            color: #d1d5db;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* --- NAVIGATION --- */
+        nav { 
+            background-color: rgba(0,0,0,0.9) !important; 
+            border-bottom: 1px solid #222; 
+            backdrop-filter: blur(12px);
+        }
+        .nav-link { 
+            color: #888 !important; 
+            font-weight: 300;
+            letter-spacing: 0.04em;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover { color: #fff !important; }
+        .mobile-menu { background-color: #111 !important; }
+        .mobile-nav-link { color: #ccc !important; }
+
+        /* --- BUTTONS --- */
+        .btn-primary {
+            background-color: #fff;
+            color: #000;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            padding: 0.5rem 1.5rem;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-primary:hover {
+            background-color: #9dae11;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+        .nav-btn {
+            background-color: #fff;
+            color: #000;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1.25rem;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #fff;
+            height: auto;
+            line-height: 1;
+        }
+        .nav-btn:hover {
+            background-color: #9dae11;
+            border-color: #9dae11;
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* --- BLOG POST STYLES --- */
+        .post-header {
+            padding-top: 8rem;
+            padding-bottom: 4rem;
+            border-bottom: 1px solid #222;
+        }
+        .post-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        .post-content h2 {
+            color: #fff;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        .post-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .share-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #333;
+            color: #888;
+            transition: all 0.3s ease;
+        }
+        .share-btn:hover {
+            background-color: #fff;
+            color: #000;
+            border-color: #fff;
+        }
+
+        .related-card {
+            background-color: #0a0a0a;
+            border: 1px solid #222;
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        .related-card:hover {
+            transform: translateY(-5px);
+            border-color: #333;
+        }
+
+        [data-aos] { transition-duration: 1000ms !important; }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="bg-black text-gray-300">
 
-    <!-- Navigation - Runway ML Inspired -->
-    <nav class="fixed w-full bg-white z-50">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 nav-container">
-            <div class="flex justify-between h-16 items-center">
-                <!-- Logo -->
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                         <a href="/index.html" class="flex items-center">
-                         <img src="/logo.png" alt="ART de ONE" class="h-10 w-auto">
-                         </a>
+            <div class="nav-wrapper">
+                <div class="flex justify-between h-16 items-center">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <a href="../../index.html#home" class="flex items-center">
+                                <img src="../../logo.png" alt="ART de ONE" class="h-10 w-auto">
+                            </a>
+                        </div>
                     </div>
-                </div>
-                
-                <!-- Desktop Navigation - Centered -->
-                <div class="hidden md:flex items-center space-x-8 nav-center">
-                    <a href="/index.html" class="nav-link">Home</a>
-                    <a href="/index.html#about" class="nav-link">About</a>
-                    <a href="/courses.html" class="nav-link">Courses</a>
-                    <a href="/blog.html" class="nav-link">Blog</a>
-                    <a href="/index.html#portfolio" class="nav-link">Portfolio</a>
-                    <a href="/index.html#freelance" class="nav-link">Freelance</a>
-                </div>
-                
-                <!-- Contact Button - Right Side -->
-                <div class="hidden md:block">
-                    <a href="/index.html#contact" class="contact-btn">Contact</a>
-                </div>
-                
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden flex items-center">
-                    <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md text-gray-700 focus:outline-none" aria-controls="mobile-menu" aria-expanded="false" id="mobile-menu-button">
-                        <i data-feather="menu"></i>
-                    </button>
+                    <div class="hidden md:flex items-center space-x-4 nav-center">
+                        <a href="../../index.html#home" class="nav-link">Home</a>
+                        <a href="../../courses.html" class="nav-link">Courses</a>
+                        <a href="../../blog.html" class="nav-link" style="color: #fff !important;">Blog</a>
+                        <a href="../../resources/resources-collection.html" class="nav-link">Resources</a>
+                        <a href="../../index.html#about" class="nav-link">About</a>
+                        <a href="../../index.html#contact" class="nav-link">Contact</a>
+                    </div>
+                    <div class="hidden md:block">
+                        <a href="../../claude/student-login.html" class="nav-btn">Student Login</a>
+                    </div>
+                    <div class="md:hidden flex items-center">
+                        <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white focus:outline-none" id="mobile-menu-button">
+                            <i data-feather="menu"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-        
-        <!-- Mobile menu -->
-        <div class="hidden mobile-menu md:hidden bg-white shadow-lg" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="/index.html" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Home</a>
-                <a href="/index.html#about" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">About</a>
-                <a href="/courses.html" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Courses</a>
-                <a href="/blog.html" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Blog</a>
-                <a href="/index.html#portfolio" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Portfolio</a>
-                <a href="/index.html#freelance" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Freelance</a>
-                <a href="/index.html#contact" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Contact</a>
+        <div class="hidden mobile-menu md:hidden" id="mobile-menu">
+            <div class="py-2 px-4 space-y-1">
+                <a href="../../index.html#home" class="block py-2 mobile-nav-link">Home</a>
+                <a href="../../courses.html" class="block py-2 mobile-nav-link">Courses</a>
+                <a href="../../blog.html" class="block py-2 mobile-nav-link text-white">Blog</a>
+                <a href="../../resources/resources-collection.html" class="block py-2 mobile-nav-link">Resources</a>
+                <a href="../../index.html#about" class="block py-2 mobile-nav-link">About</a>
+                <a href="../../index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
+                <a href="../../claude/student-dashboard.html" class="block py-2 mobile-nav-link">Student Login</a>
             </div>
         </div>
     </nav>
-    
-    <main class="pt-24 pb-20">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            
-            <div class="mb-12">
-                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 leading-[1.5]">Marketing Team အကြိုက်ဒီဇိုင်းတွေဖန်တီးနိုင်ဖို့ CRAP Principle</h1>
-                <p class="mt-4 text-lg text-gray-500">Posted on October 4, 2025</p>
-            </div>
 
-            <img src="images/crap-cover.jpg" alt="Article featured image" class="w-full rounded-lg shadow-lg mb-12">
-            
-            <article class="prose lg:prose-xl max-w-none text-gray-700">
-                <p class="mb-4">
-                အခုမှ Design ကိုလေ့လာမယ့်ညီကိုမောင်နှမတွေအားလုံး အတွက် အဆင်ပြေစေချင်တဲ့ဆန္ဒနဲ့မျှ၀ယ်ပေးလိုက်ပါတယ်။"
-                </p>
-
-                <img src="images/crap-1.jpg" alt="A short description of my photo" class="w-full rounded-lg shadow-lg my-8">
-                <p class="mb-4">
-                    <strong>CRAP,</strong>
-                        <p class="mb-4">
-                        C-Contract, R-Repetition, A-Alignment, P-Proximity ဆိုတဲ့အတိုကောက်ပါ။
-                        ဒီ Principles လေးခုသိထားရင် Marketing Team အကြိုက် Design တွေဖန်တီးလို့ရပါတယ်။
-                        </p>
-                </p>
-
-                <img src="images/crap-2.jpg" alt="A short description of my photo" class="w-full rounded-lg shadow-lg my-8">
-                <p class="mb-4">
-                    <strong> 
-                     Use differences in size, color, or shape to make important elements 
-                     stand out and create visual interest.
-                     </strong>
-                        <p class="mb-4">
-                        <b>Size, Color or shape တွေကို Stand Out ဖြစ်ဖို့အတွက် Contrast 
-                        ကိုဂရုစိုက်ဖို့လိုအပ်ပါတယ်။
-                        </b>
-                        </p>
-
-                        <p class="mb-4">
-                        ဒါပေမယ့် အရေးကြီးတဲ့ Size, color, shape တွေကိုဆိုလိုတယ်ဆိုတာ
-                        သတိပြုရမယ်။
-                        </p>
-                </p>
-
-                <img src="images/crap-3.jpg" alt="A short description of my photo" class="w-full rounded-lg shadow-lg my-8">
-                <p class="mb-4">
-                    <strong> Use the same colors, fonts, or shapes throughout your design 
-                        to make it look consistent and unified.
-                    </strong>
-                        
-                        <p class="mb-4">
-                        Elements တွေကို Repeat လုပ်ပြီးအသုံးပြုတာပါ။ <b>Colors, Fonts နဲ့ Shapes တွေကို
-                        Consistency ဖြစ်အောင်အသုံးပြုတာပါ။</b>
-                        </p>
-                        <p class="mb-4">
-                        ဥပမာ - ဒီဇိုင်းတစ်ခုမှာ Font တွေကို အများကြီးအသုံးမပြုပဲ တူညီတဲ့ Font ကိုပဲ
-                        Weight ကစားပြီးအသုံးပြုတာမျိုးကိုဆိုလိုပါတယ်။ (Weight ဆိုတာ Regular,
-                        Medium, Bold, Thin) စတာတွေကိုဆိုလိုတာဖြစ်ပါတယ်။
-                        </p>
-                </p>
-
-                <img src="images/crap-4.jpg" alt="A short description of my photo" class="w-full rounded-lg shadow-lg my-8">
-                <p class="mb-4">
-                    <strong>Every element should have a visual connection to another element, 
-                    making the design look organized and clean.
-                    </strong>
-                        
-                        <p class="mb-4">
-                        Alignment ကိုတစ်နည်းအားဖြင့် Balance ပေါ့။ Text ရေးတဲ့အခါ Center align,
-                        Right align ယူပြီးရေးကြတယ်။ ဒီလိုပဲ ဒီဇိုင်းလုပ်တဲ့အခါလဲ Elements တွေ Balance
-                        ဖြစ်အောင် Align ပြန်လုပ်ရတာပဲ။
-                        </p>
-                </p>
-
-                <img src="images/crap-5.jpg" alt="A short description of my photo" class="w-full rounded-lg shadow-lg my-8">
-                <p class="mb-4">
-                    <strong>
-                    Put things that belong together close to each other, so it's instantly 
-                    clear what information is connected.
-                    </strong>
-                        
-                        <p class="mb-4">
-                        ဥပမာ - ကိုယ်ရောင်းမယ့်ပစ္စည်းပုံရဲ့ အပေါ် (ဒါမှမဟုတ်) အောက်မှာ
-                        “Discount” ဆိုတဲ့ဟာကို တွဲပြီးပြတာမျိုး။ ဒါမှ User တွေနဲ့ ကိုယ့်ရဲ့အလုပ်က
-                        Engage ဖြစ်မှာပေါ့။
-                        </p>
-
-                        <p class="mb-4">
-                        ဒါကို Proximity = တစ်ခုနဲ့တစ်ခု ဆက်စပ်နေတယ်ဆိုတဲ့ဟာကို 
-                        ဒီဇိုင်းထဲမှာ တွဲပြီးပြတာမျိုးကိုဆိုလိုတာဖြစ်ပါတယ်။
-                        </p>
-                        
-                        <p class="mb-4">
-                        <b>အားလုံးပဲ အဆင်ပြေကြပါစေ။</b>
-                        </p>
-                </p>
-                
-                
-            </article>
-
-            <!-- Related Posts Section -->
-            <div class="mt-16">
-                <h2 class="text-2xl font-bold text-gray-900 mb-6">Related Posts</h2>
-                <div id="related-posts" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Related posts will be loaded here dynamically -->
+    <main>
+        <section class="post-header">
+            <div class="max-w-3xl mx-auto px-4 text-center" data-aos="fade-up">
+                <div class="flex items-center justify-center gap-4 text-sm text-gray-500 mb-6">
+                    <span class="uppercase tracking-wider text-[#9dae11] font-semibold">Marketing Design</span>
+                    <span>•</span>
+                    <span>October 4, 2025</span>
+                </div>
+                <h1 class="text-3xl md:text-5xl font-bold text-white mb-8 leading-tight">
+                    Marketing Team အကြိုက်ဒီဇိုင်းတွေဖန်တီးနိုင်ဖို့ CRAP Principle
+                </h1>
+                <div class="flex items-center justify-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-white font-bold text-xs">AD</div>
+                    <div class="text-left">
+                        <p class="text-white text-sm font-medium">ART de ONE Team</p>
+                        <p class="text-xs text-gray-500">Author</p>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <!-- Share buttons section -->
-<div class="mt-16 text-center">
-    <h3 class="text-lg font-semibold text-gray-900 mb-4">Share this post</h3>
-    <div class="flex justify-center space-x-3">
-        <!-- Facebook Share Button -->
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https://artdeone.com/posts/post-6/post-6.html" 
-           target="_blank" 
-           class="w-8 h-8 rounded-full bg-black flex items-center justify-center hover:bg-gray-800 transition-colors duration-300">
-            <i class="fab fa-facebook-f text-white text-sm"></i>
-        </a>
-        
-        <!-- LinkedIn Share Button -->
-        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://artdeone.com/posts/post-6/post-6.html" 
-           target="_blank" 
-           class="w-8 h-8 rounded-full bg-black flex items-center justify-center hover:bg-gray-800 transition-colors duration-300">
-            <i class="fab fa-linkedin-in text-white text-sm"></i>
-        </a>
-        
-        <!-- Pinterest Share Button -->
-        <a href="https://pinterest.com/pin/create/button/?url=https://artdeone.com/posts/post-6/post-6.html" 
-           target="_blank" 
-           class="w-8 h-8 rounded-full bg-black flex items-center justify-center hover:bg-gray-800 transition-colors duration-300">
-            <i class="fab fa-pinterest-p text-white text-sm"></i>
-        </a>
-        
-        <!-- X (Twitter) Share Button -->
-        <!-- Alternative if X icon doesn't work -->
-<a href="https://twitter.com/intent/tweet?url=https://artdeone.com/posts/post-6/post-6.html" 
-   target="_blank" 
-   class="w-8 h-8 rounded-full bg-black flex items-center justify-center hover:bg-gray-800 transition-colors duration-300">
-    <i class="fab fa-twitter text-white text-sm"></i>
-</a>
-    </div>
-</div>
-            
-            <div class="mt-16 text-center">
-                <a href="/blog.html" class="inline-block bg-gray-900 text-white font-semibold px-8 py-3 rounded-full hover:bg-gray-700 transition-colors duration-300">
-                    &larr; Back to All Posts
-                </a>
+        <section class="py-12 px-4">
+            <div class="max-w-3xl mx-auto">
+                <div class="rounded-2xl overflow-hidden mb-12 border border-[#222]" data-aos="fade-up">
+                    <img src="images/crap-cover.jpg" alt="CRAP Principle" class="w-full h-auto">
+                </div>
+
+                <div class="post-content" data-aos="fade-up">
+                    <p class="text-lg text-gray-300 font-light italic mb-8">
+                        Marketing team အကြိုက် ဒီဇိုင်းတွေဖန်တီးနိုင်ဖို့ဆိုရင် ဒီ CRAP Principles (4) ချက်ကိုသိထားရင် အရမ်းအဆင်ပြေပါတယ်။
+                    </p>
+                    
+                    <h2>Contrast (ကွာခြားမှု)</h2>
+                    <p>
+                        ဒီဇိုင်းမှာ အရေးကြီးတဲ့အချက်တွေကို ပေါ်လွင်အောင်လုပ်ပါ။ အရောင်၊ အရွယ်အစား၊ ဖောင့် စတာတွေကို ကွာခြားအောင်သုံးပြီး ကြည့်တဲ့သူရဲ့အာရုံကို ဖမ်းစားပါ။
+                    </p>
+
+                    <h2>Repetition (ထပ်ခါတလဲလဲသုံးခြင်း)</h2>
+                    <p>
+                        ဒီဇိုင်းတစ်ခုလုံးမှာ တူညီတဲ့ ပုံစံတွေ၊ အရောင်တွေ၊ ဖောင့်တွေကို ပြန်သုံးပေးပါ။ ဒါမှ ကိုယ့်ရဲ့ Brand ကို မှတ်မိလွယ်စေမှာပါ။
+                    </p>
+
+                    <h2>Alignment (ညီညာမှု)</h2>
+                    <p>
+                        စာတွေ၊ ပုံတွေကို ညီညာအောင် စီထားပါ။ ဘယ်၊ ညာ၊ အလယ် ညီတာမျိုးပေါ့။ ဒါမှ ဒီဇိုင်းက သပ်ရပ်ပြီး ဖတ်ရလွယ်ကူမှာပါ။
+                    </p>
+
+                    <h2>Proximity (နီးစပ်မှု)</h2>
+                    <p>
+                        ဆက်စပ်နေတဲ့ အရာတွေကို အတူတူစုထားပါ။ ဥပမာ - ခေါင်းစဉ်နဲ့ စာကို နီးနီးလေးထားတာမျိုးပေါ့။ ဒါမှ ဖတ်တဲ့သူက အလွယ်တကူ နားလည်နိုင်မှာပါ။
+                    </p>
+
+                    <div class="border-t border-[#222] mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center gap-6">
+                        <span class="text-sm font-medium text-gray-400 uppercase tracking-wider">Share this article</span>
+                        <div class="flex gap-3">
+                            <a href="#" class="share-btn"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="share-btn"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="share-btn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="share-btn"><i class="fas fa-link"></i></a>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </section>
 
-        </div>
+        <section class="py-20 bg-[#050505] border-t border-[#222]">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="flex justify-between items-end mb-10">
+                    <h2 class="text-2xl font-bold text-white">Related Articles</h2>
+                    <a href="../../blog.html" class="text-sm text-[#9dae11] hover:text-white transition-colors">View all posts →</a>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                     <a href="../post-4/post-4.html" class="related-card group block">
+                        <div class="h-48 overflow-hidden">
+                            <img src="../post-4/images/cover.jpg" alt="Related" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-white mb-2 group-hover:text-[#9dae11] transition-colors">Design Principles (Part 1)</h3>
+                            <p class="text-sm text-gray-500">October 3, 2025</p>
+                        </div>
+                    </a>
+                    <a href="../post-5/post-5.html" class="related-card group block">
+                        <div class="h-48 overflow-hidden">
+                            <img src="../post-5/images/cover.jpg" alt="Related" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-white mb-2 group-hover:text-[#9dae11] transition-colors">Design Principles (Part 2)</h3>
+                            <p class="text-sm text-gray-500">October 4, 2025</p>
+                        </div>
+                    </a>
+                    <a href="../post-2/post-2.html" class="related-card group block">
+                        <div class="h-48 overflow-hidden">
+                            <img src="../post-2/images/hue-color-1.jpg" alt="Related" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-white mb-2 group-hover:text-[#9dae11] transition-colors">HUEs VS COLORS</h3>
+                            <p class="text-sm text-gray-500">October 1, 2025</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="text-center mt-16">
+                    <a href="../../blog.html" class="btn-primary inline-flex gap-2">
+                        <i data-feather="arrow-left" class="w-4 h-4"></i> Back to All Posts
+                    </a>
+                </div>
+            </div>
+        </section>
     </main>
-    
-   <!-- Footer -->
-    <footer class="bg-black text-white py-12">
+
+    <footer class="bg-black text-white py-12 border-t border-[#222]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-4 gap-8">
                 <div>
-                    <span class="text-xl font-bold mb-4">ART de ONE</span>
-                    <p class="text-gray-400">
-                        Adobe Illustrator Classes & Freelance Creative Studio in Myanmar
-                    </p>
+                    <span class="text-xl font-bold mb-4 block">ART de ONE</span>
+                    <p class="text-gray-400 text-sm leading-relaxed">Adobe Illustrator Classes & Freelance Creative Studio in Myanmar</p>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
-                    <ul class="space-y-2">
-                        <li><a href="/index.html#home" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
-                        <li><a href="/index.html#about" class="text-gray-400 hover:text-white transition duration-300">About</a></li>
-                        <li><a href="/courses.html" class="text-gray-400 hover:text-white transition duration-300">Courses</a></li>
-                        <li><a href="/blog.html" class="text-gray-400 hover:text-white transition duration-300">Blog</a></li>
-                        <li><a href="/index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Freelance</a></li>
-                        <li><a href="/index.html#contact" class="text-gray-400 hover:text-white transition duration-300">Contact</a></li>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="../../index.html#home" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
+                        <li><a href="../../courses.html" class="text-gray-400 hover:text-white transition duration-300">Courses</a></li>
+                        <li><a href="../../blog.html" class="text-gray-400 hover:text-white transition duration-300">Blog</a></li>
+                        <li><a href="../../resources/resources-collection.html" class="text-gray-400 hover:text-white transition duration-300">Resources</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Classes</h3>
-                    <ul class="space-y-2">
-                         <li><a href="/courses/basic-illustrator/course-detail-basic.html" class="text-gray-400 hover:text-white transition duration-300">Basic Adobe Illustrator Course</a></li>
-                        <li><a href="/courses/intermediate-illustrator/course-detail-intermediate.html" class="text-gray-400 hover:text-white transition duration-300">Intermediate</a></li>
-                        <li><a href="/courses/advanced-illustrator/course-detail-advanced.html" class="text-gray-400 hover:text-white transition duration-300">Advanced Abstract Drawing</a></li>
-                        <li><a href="/courses/graphic-design/course-detail-graphic-design.html" class="text-gray-400 hover:text-white transition duration-300">Graphic Design Course</a></li>
+                    <ul class="space-y-2 text-sm">
+                         <li><a href="../../courses/basic-illustrator/course-detail-basic.html" class="text-gray-400 hover:text-white transition duration-300">Basic Course</a></li>
+                        <li><a href="../../courses/intermediate-illustrator/course-detail-intermediate.html" class="text-gray-400 hover:text-white transition duration-300">Intermediate</a></li>
+                        <li><a href="../../courses/advanced-illustrator/course-detail-advanced.html" class="text-gray-400 hover:text-white transition duration-300">Advanced Abstract</a></li>
+                        <li><a href="../../courses/graphic-design/course-detail-graphic-design.html" class="text-gray-400 hover:text-white transition duration-300">Graphic Design</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Services</h3>
-                    <ul class="space-y-2">
-                        <li><a href="/index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Logo Design</a></li>
-                        <li><a href="/index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Social Media Design</a></li>
-                        <li><a href="/index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Printing Design</a></li>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="../../index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Logo Design</a></li>
+                        <li><a href="../../index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Social Media</a></li>
+                        <li><a href="../../index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Printing</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400 mb-4 md:mb-0">
-                    &copy; 2025 ART de ONE. All rights reserved.
-                </p>
-                <div class="flex space-x-6">
-    <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-white transition duration-300">
-        <i class="fab fa-facebook-f"></i>
-    </a>
-    <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-white transition duration-300">
-        <i class="fab fa-behance"></i>
-    </a>
-    <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-white transition duration-300">
-        <i class="fab fa-linkedin-in"></i>
-    </a>
-    <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-white transition duration-300">
-        <i class="fab fa-tiktok"></i>
-    </a>
-</div>
+            <div class="border-t border-[#222] mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">&copy; 2025 ART de ONE. All rights reserved.</p>
+                <div class="flex space-x-6 text-sm">
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-behance"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+                </div>
             </div>
         </div>
     </footer>
-<script src="/js/blog-data.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        loadRelatedPosts(); // This will load the random related posts
-    });
-</script>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script>
+        AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
+        feather.replace();
+        document.getElementById('mobile-menu-button')?.addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+    </script>
 </body>
 </html>

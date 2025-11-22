@@ -19,537 +19,327 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script src="https://unpkg.com/feather-icons"></script>
-    <script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.iife.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        
+
         body {
             font-family: 'Poppins', sans-serif;
             scroll-behavior: smooth;
-        }
-        
-        .accent-text {
-            color: #9dae11;
-        }
-        
-        .accent-bg {
-            background-color: #9dae11;
-        }
-        
-        .nav-link {
-            position: relative;
-            transition: all 0.3s ease;
+            background-color: #000;
+            color: #fff;
         }
 
-        .nav-link:hover {
+        /* --- NAVIGATION --- */
+        nav { 
+            background-color: rgba(0,0,0,0.9) !important; 
+            border-bottom: 1px solid #222; 
+            backdrop-filter: blur(12px);
+        }
+        .nav-link { 
+            color: #888 !important; 
+            font-weight: 300;
+            letter-spacing: 0.04em;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover { color: #fff !important; }
+        .mobile-menu { background-color: #111 !important; }
+        .mobile-nav-link { color: #ccc !important; }
+
+        /* --- BUTTONS --- */
+        .btn-primary {
+            background-color: #fff;
+            color: #000;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            padding: 0.5rem 1.5rem;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-primary:hover {
+            background-color: #9dae11;
+            color: #fff;
             transform: translateY(-2px);
         }
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background-color: #808f0e;
+        /* Specific small button for Navigation */
+        .nav-btn {
+            background-color: #fff;
+            color: #000;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1.25rem;
+            font-size: 0.8rem;
             transition: all 0.3s ease;
-            transform: translateX(-50%);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #fff;
+            height: auto;
+            line-height: 1;
+        }
+        .nav-btn:hover {
+            background-color: #9dae11;
+            border-color: #9dae11;
+            color: #fff;
+            transform: translateY(-1px);
         }
 
-        .nav-link:hover::after {
-            width: 70%;
+        /* Instructor Page Specifics */
+        .accent-text { color: #9dae11; }
+        
+        .minimalist-card {
+            background-color: #0a0a0a;
+            border: 1px solid #222;
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        .minimalist-card:hover {
+            transform: translateY(-5px);
+            border-color: #333;
+        }
+
+        .stat-card {
+            background-color: #111;
+            border: 1px solid #222;
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
         }
         
-        .hover-scale {
-            transition: transform 0.3s ease;
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
         }
         
-        .hover-scale:hover {
-            transform: scale(1.03);
+        .portfolio-item {
+            border-radius: 1rem;
+            overflow: hidden;
+            position: relative;
+            aspect-ratio: 4/3;
         }
         
-/* Enhanced Project Card Styles */
-.project-card {
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    position: relative;
-}
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .portfolio-item:hover img {
+            transform: scale(1.05);
+        }
 
-.project-card:hover {
-    transform: translateY(-12px);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-}
-
-.project-image-container {
-    position: relative;
-    overflow: hidden;
-}
-
-/* Optional: Add a subtle background pattern */
-.project-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(157, 174, 17, 0.02) 0%, transparent 50%);
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    border-radius: 1.5rem;
-    pointer-events: none;
-}
-
-.project-card:hover::before {
-    opacity: 1;
-}
-/* Custom styles for Runway ML-inspired navigation */
-    .nav-container {
-        padding: 0.75rem 1rem;
-    }
-    
-    .nav-link {
-        position: relative;
-        color: #000;
-        font-weight: 500;
-        font-size: 0.875rem; /* Smaller font size */
-        transition: all 0.3s ease;
-    }
-    
-    /* Remove the green line effect */
-    .nav-link::after {
-        display: none; /* This removes the green line */
-    }
-    
-    /* Hover effect - make hovered item white, others grey */
-    .nav-link:hover {
-        color: #000000 !important; /* White text on hover */
-        transform: translateY(-1px);
-    }
-    
-    /* When hovering over a nav item, make all other nav items grey */
-    .nav-center:hover .nav-link:not(:hover) {
-        color: #888888 !important; /* Grey for non-hovered items */
-    }
-    .nav-center {
-    position: absolute !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-}
-.contact-btn {
-        background-color: #000;
-        color: white;
-        padding: 0.5rem 1.5rem;
-        border-radius: 9999px;
-        font-weight: 500;
-        font-size: 0.875rem; /* Smaller font size */
-        transition: all 0.3s ease;
-    }
-    
-    .contact-btn:hover {
-        background-color: #333;
-        transform: translateY(-2px);
-    }
-    
-    .mobile-menu-btn {
-        transition: all 0.3s ease;
-    }
-    
-    .mobile-menu-btn:hover {
-        transform: scale(1.1);
-    }
+        [data-aos] { transition-duration: 1000ms !important; }
     </style>
 </head>
-<body class="bg-white text-gray-900">
-    <!-- Navigation - Runway ML Inspired -->
-    <nav class="fixed w-full bg-white z-50">
+<body class="bg-black text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 nav-container">
-            <div class="flex justify-between h-16 items-center">
-                <!-- Logo -->
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                         <a href="/index.html" class="flex items-center">
-                         <img src="/logo.png" alt="ART de ONE" class="h-10 w-auto">
-                         </a>
+            <div class="nav-wrapper">
+                <div class="flex justify-between h-16 items-center">
+                    <!-- Logo -->
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <a href="index.html#home" class="flex items-center">
+                                <img src="logo.png" alt="ART de ONE" class="h-10 w-auto">
+                            </a>
+                        </div>
                     </div>
-                </div>
-                
-                <!-- Desktop Navigation - Centered -->
-                <div class="hidden md:flex items-center space-x-8 nav-center">
-                    <a href="/index.html" class="nav-link">Home</a>
-                    <a href="/index.html#about" class="nav-link">About</a>
-                    <a href="/courses.html" class="nav-link">Courses</a>
-                    <a href="/blog.html" class="nav-link">Blog</a>
-                    <a href="/index.html#portfolio" class="nav-link">Portfolio</a>
-                    <a href="/index.html#freelance" class="nav-link">Freelance</a>
-                </div>
-                
-                <!-- Contact Button - Right Side -->
-                <div class="hidden md:block">
-                    <a href="/index.html#contact" class="contact-btn">Contact</a>
-                </div>
-                
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden flex items-center">
-                    <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md text-gray-700 focus:outline-none" aria-controls="mobile-menu" aria-expanded="false" id="mobile-menu-button">
-                        <i data-feather="menu"></i>
-                    </button>
+                    
+                    <!-- Desktop Navigation -->
+                    <div class="hidden md:flex items-center space-x-4 nav-center">
+                        <a href="index.html#home" class="nav-link">Home</a>
+                        <a href="courses.html" class="nav-link">Courses</a>
+                        <a href="blog.html" class="nav-link">Blog</a>
+                        <a href="/resources/resources-collection.html" class="nav-link">Resources</a>
+                        <a href="index.html#about" class="nav-link">About</a>
+                        <a href="index.html#contact" class="nav-link">Contact</a>
+                    </div>
+                    
+                    <!-- Contact Button -->
+                    <div class="hidden md:block">
+                        <a href="claude/student-login.html" class="nav-btn">Student Login</a>
+                    </div>
+                    
+                    <!-- Mobile Menu Button -->
+                    <div class="md:hidden flex items-center">
+                        <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white focus:outline-none" id="mobile-menu-button">
+                            <i data-feather="menu"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
         
         <!-- Mobile menu -->
-        <div class="hidden mobile-menu md:hidden bg-white shadow-lg" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="/index.html" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Home</a>
-                <a href="/index.html#about" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">About</a>
-                <a href="/courses.html" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Courses</a>
-                <a href="/blog.html" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Blog</a>
-                <a href="/index.html#portfolio" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Portfolio</a>
-                <a href="/index.html#freelance" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Freelance</a>
-                <a href="/index.html#contact" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Contact</a>
+        <div class="hidden mobile-menu md:hidden" id="mobile-menu">
+            <div class="py-2 px-4 space-y-1">
+                <a href="index.html#home" class="block py-2 mobile-nav-link">Home</a>
+                <a href="courses.html" class="block py-2 mobile-nav-link">Courses</a>
+                <a href="blog.html" class="block py-2 mobile-nav-link">Blog</a>
+                <a href="/resources/resources-collection.html" class="block py-2 mobile-nav-link">Resources</a>
+                <a href="index.html#about" class="block py-2 mobile-nav-link">About</a>
+                <a href="index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
+                <a href="claude/student-dashboard.html" class="block py-2 mobile-nav-link">Student Login</a>
             </div>
         </div>
     </nav>
 
-           <!-- Creative Card Stack Instructor Section - Mobile Optimized -->
-    <section class="pt-20 pb-16 bg-gradient-to-br from-white to-gray-50 relative overflow-hidden">
-        <!-- Background Pattern - Mobile Adjusted -->
-        <div class="absolute inset-0 opacity-[0.02]">
-            <div class="absolute top-10 left-4 w-40 h-40 bg-[#9dae11] rounded-full md:top-20 md:left-10 md:w-64 md:h-64"></div>
-            <div class="absolute bottom-10 right-4 w-32 h-32 bg-[#9dae11] rounded-full md:bottom-20 md:right-10 md:w-48 md:h-48"></div>
-        </div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-                <!-- Creative Card Stack - Mobile Adjusted -->
-                <div class="relative mb-12 lg:mb-0" data-aos="fade-right">
-                       <!-- Main Card -->
-                    <div class="relative z-30 bg-white rounded-2xl lg:rounded-3xl shadow-xl lg:shadow-2xl overflow-hidden border border-gray-100 mx-auto w-full max-w-full lg:max-w-[1148px] aspect-square lg:aspect-[1148/1034]">
-                        <img src="instructor-photo/instructor-02.jpg" alt="ART de ONE Instructor" class="w-full h-full object-cover">
-                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 lg:p-8">
-                            <h3 class="text-xl lg:text-2xl font-bold text-white mb-1 lg:mb-2">KO PHYO</h3>
-                            <p class="text-gray-200 text-sm lg:text-base">Lead Instructor</p>
-                        </div>
+    <main class="pt-32 pb-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Hero Section -->
+            <div class="flex flex-col lg:flex-row items-center gap-12 mb-24" data-aos="fade-up">
+                <div class="lg:w-1/2">
+                    <div class="relative rounded-2xl overflow-hidden border border-[#222]">
+                        <img src="instructor-photo/instructor-02.jpg" alt="Instructor" class="w-full object-cover aspect-[4/5]">
                     </div>
-                    
-                    <!-- Back Card 1 - Hidden on mobile, visible on desktop -->
-                    <div class="hidden lg:block absolute top-4 left-4 right-4 bottom-4 bg-[#9dae11] rounded-3xl opacity-20 z-20 transform -rotate-3"></div>
-                    
-                    <!-- Back Card 2 - Hidden on mobile, visible on desktop -->
-                    <div class="hidden lg:block absolute top-8 left-8 right-8 bottom-8 bg-gray-200 rounded-3xl opacity-10 z-10 transform rotate-1"></div>
-                    
-                    
-</div>
-
-                <!-- Content Column - Mobile Adjusted -->
-                <div class="text-center lg:text-left" data-aos="fade-left">
-                    <div class="inline-flex items-center px-4 py-2 rounded-full bg-white shadow-md lg:shadow-lg text-gray-700 text-sm font-medium mb-6 border border-gray-200">
-                        <div class="flex text-[#9dae11] mr-2">
-                            <i class="fas fa-star text-xs"></i>
-                            <i class="fas fa-star text-xs"></i>
-                            <i class="fas fa-star text-xs"></i>
-                            <i class="fas fa-star text-xs"></i>
-                            <i class="fas fa-star text-xs"></i>
-                        </div>
-                        5.0 Rated Instructor
-                    </div>
-
-                    <h1 class="text-3xl lg:text-5xl font-bold text-gray-900 mb-4 lg:mb-6 leading-tight">
-                        Transform Your<br>
-                        <span class="text-[#9dae11] relative">
-                            Creative Skills
-                            <span class="absolute bottom-1 lg:bottom-2 left-0 w-full h-1 lg:h-2 bg-[#9dae11] opacity-20 -z-10"></span>
-                        </span>
-                    </h1>
-
-                    <p class="text-base lg:text-lg text-gray-600 mb-6 lg:mb-8 leading-relaxed">
+                </div>
+                <div class="lg:w-1/2">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4">Lead <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Instructor</span></h1>
+                    <p class="text-xl text-[#9dae11] mb-6 font-medium">Design Lead & Educator</p>
+                    <p class="text-gray-400 text-lg mb-8 leading-relaxed">
                         For nearly a decade I've worked in this field, then spent three years guiding others - people everywhere, actually - to find their own way with design. Come explore what's possible alongside me.
                     </p>
-
-                    <!-- Feature Grid - Mobile Adjusted -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6 mb-6 lg:mb-8">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-8 h-8 lg:w-10 lg:h-10 rounded-lg lg:rounded-xl bg-[#9dae11] bg-opacity-10 flex items-center justify-center flex-shrink-0">
-                                <i data-feather="globe" class="text-[#9dae11] w-4 h-4 lg:w-5 lg:h-5"></i>
-                            </div>
-                            <div class="text-left">
-                                <div class="font-semibold text-gray-800 text-sm lg:text-base">Global Students</div>
-                                <div class="text-gray-600 text-xs lg:text-sm">Germany, Thailand, Myanmar</div>
-                            </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div class="stat-card">
+                            <h3 class="text-3xl font-bold text-white">9+</h3>
+                            <p class="text-sm text-gray-500 mt-1">Years Experience</p>
                         </div>
-                        <div class="flex items-center space-x-3">
-                            <div class="w-8 h-8 lg:w-10 lg:h-10 rounded-lg lg:rounded-xl bg-[#9dae11] bg-opacity-10 flex items-center justify-center flex-shrink-0">
-                                <i data-feather="award" class="text-[#9dae11] w-4 h-4 lg:w-5 lg:h-5"></i>
-                            </div>
-                            <div class="text-left">
-                                <div class="font-semibold text-gray-800 text-sm lg:text-base">Design Lead</div>
-                                <div class="text-gray-600 text-xs lg:text-sm">9+ Years Experience</div>
-                            </div>
-                        </div>
-                        <div class="flex items-center space-x-3">
-                            <div class="w-8 h-8 lg:w-10 lg:h-10 rounded-lg lg:rounded-xl bg-[#9dae11] bg-opacity-10 flex items-center justify-center flex-shrink-0">
-                                <i data-feather="users" class="text-[#9dae11] w-4 h-4 lg:w-5 lg:h-5"></i>
-                            </div>
-                            <div class="text-left">
-                                <div class="font-semibold text-gray-800 text-sm lg:text-base">100+ Students</div>
-                                <div class="text-gray-600 text-xs lg:text-sm">Successfully Trained</div>
-                            </div>
-                        </div>
-                        <div class="flex items-center space-x-3">
-                            <div class="w-8 h-8 lg:w-10 lg:h-10 rounded-lg lg:rounded-xl bg-[#9dae11] bg-opacity-10 flex items-center justify-center flex-shrink-0">
-                                <i data-feather="heart" class="text-[#9dae11] w-4 h-4 lg:w-5 lg:h-5"></i>
-                            </div>
-                            <div class="text-left">
-                                <div class="font-semibold text-gray-800 text-sm lg:text-base">Passionate</div>
-                                <div class="text-gray-600 text-xs lg:text-sm">About Teaching</div>
-                            </div>
+                        <div class="stat-card">
+                            <h3 class="text-3xl font-bold text-white">100+</h3>
+                            <p class="text-sm text-gray-500 mt-1">Students Trained</p>
                         </div>
                     </div>
+                    
+                    <a href="index.html#contact" class="btn-primary w-full sm:w-auto text-center">Work With Me</a>
+                </div>
+            </div>
 
-                    <!-- Skills Tags - Mobile Adjusted -->
-                    <div class="flex flex-wrap gap-2 lg:gap-3 mb-6 lg:mb-8 justify-center lg:justify-start">
-                        <span class="px-3 py-1 lg:px-4 lg:py-2 bg-white shadow-sm lg:shadow-md text-gray-700 rounded-full text-xs lg:text-sm font-medium border border-gray-200 hover:border-[#9dae11] transition duration-300">
-                            🎯 Adobe Illustrator
-                        </span>
-                        <span class="px-3 py-1 lg:px-4 lg:py-2 bg-white shadow-sm lg:shadow-md text-gray-700 rounded-full text-xs lg:text-sm font-medium border border-gray-200 hover:border-[#9dae11] transition duration-300">
-                            💼 Professional Designer
-                        </span>
-                        <span class="px-3 py-1 lg:px-4 lg:py-2 bg-white shadow-sm lg:shadow-md text-gray-700 rounded-full text-xs lg:text-sm font-medium border border-gray-200 hover:border-[#9dae11] transition duration-300">
-                            🌍 International Students
-                        </span>
+            <!-- Philosophy Section -->
+            <div class="mb-24" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-white mb-12 text-center">My Philosophy</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="minimalist-card p-8">
+                        <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center mb-6 text-black">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Innovation</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">For me, real innovation happens when what you're good at meets what truly excites you - it's about growing ideas from that sweet spot.</p>
                     </div>
-
-                    <!-- Buttons - Mobile Adjusted -->
-                    <div class="flex flex-col sm:flex-row gap-3 lg:gap-4 justify-center lg:justify-start">
-                        <a href="courses.html" class="px-6 py-3 lg:px-8 lg:py-4 bg-[#9dae11] text-white font-semibold rounded-lg lg:rounded-xl hover:bg-[#808f0e] transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center">
-                            <i data-feather="play-circle" class="w-4 h-4 lg:w-5 lg:h-5 mr-2"></i>
-                            Start Learning Journey
-                        </a>
-                        <a href="index.html#contact" class="px-6 py-3 lg:px-8 lg:py-4 bg-white text-gray-800 font-semibold rounded-lg lg:rounded-xl border border-gray-300 hover:border-[#9dae11] hover:bg-gray-50 transition duration-300 shadow-md text-center">
-                            Contact Me
-                        </a>
+                    <div class="minimalist-card p-8">
+                        <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center mb-6 text-black">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Adaptability</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">Every learner's different, so I always tweak my teaching style to match what works for them and what they're aiming for.</p>
+                    </div>
+                    <div class="minimalist-card p-8">
+                        <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center mb-6 text-black">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Practicality</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">I focus on practical skills that students can immediately apply to personal projects or professional work.</p>
                     </div>
                 </div>
             </div>
+
+            <!-- Featured Work -->
+            <div class="mb-24" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-white mb-4 text-center">Featured Work</h2>
+                <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">Here's a handpicked mix of professional projects and creative work. Each one highlights different design styles and real industry know-how.</p>
+                
+                <div class="portfolio-grid">
+                    <div class="portfolio-item group">
+                        <img src="/portfolio/client-1.jpg" alt="Venucia">
+                        <div class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-center items-center p-6 text-center">
+                            <h3 class="text-xl font-bold text-white mb-2">Venucia Myanmar</h3>
+                            <p class="text-gray-400 text-sm">Social Media Campaign</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item group">
+                        <img src="/portfolio/social-1.jpg" alt="One Day Studio">
+                        <div class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-center items-center p-6 text-center">
+                            <h3 class="text-xl font-bold text-white mb-2">ONE DAY STUDIO</h3>
+                            <p class="text-gray-400 text-sm">Brand Identity</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item group">
+                        <img src="/portfolio/character-2.jpg" alt="Curva">
+                        <div class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-center items-center p-6 text-center">
+                            <h3 class="text-xl font-bold text-white mb-2">Curva</h3>
+                            <p class="text-gray-400 text-sm">Character Illustration</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Collaborations -->
+            <div class="text-center" data-aos="fade-up">
+                <p class="text-gray-500 text-sm uppercase tracking-widest mb-8">Official Collebration with</p>
+                <div class="flex flex-wrap justify-center items-center gap-12 opacity-50 grayscale">
+                    <!-- Placeholder for logos, ensuring consistent styling -->
+                    <img src="collaborations/huion-1.png" alt="Huion" class="h-8 object-contain invert">
+                    <img src="collaborations/artdeone-1.png" alt="Art de One" class="h-8 object-contain invert">
+                </div>
+            </div>
+
         </div>
-    </section>
-
-           <!-- My Work Section - Asymmetrical Layout -->
-<section class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-20" data-aos="fade-up">
-            <h2 class="text-4xl font-bold text-gray-900 mb-6">My <span class="accent-text">Creative Work</span></h2>
-            
-            <p class="text-sm lg:text-base text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                Here’s a handpicked mix of professional projects and creative work. Each one highlights different design styles and real industry know-how.
-            </p>
-        </div>
-        
-        <div class="space-y-12">
-                    <!-- Row 1 -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center" data-aos="fade-up">
-                <div class="project-card group rounded-3xl overflow-hidden shadow-lg aspect-video lg:aspect-[4/3]">
-                    <img src="/portfolio/client-1.jpg" alt="Character Design" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                </div>
-                <div class="lg:pl-8">
-                    <h3 class="text-3xl font-bold text-gray-900 mb-4">Social Media Design</h3>
-                    <p class="text-gray-600 text-md mb-6"> A modern and sleek social media design for the launch of an electric vehicle by Venucia Myanmar, with a clean, attractive layout that showcases the innovative and sustainable thinking of the brand.</p>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Graphic Design</span>
-                        <span class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Social Media</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Row 2 (reversed) -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center" data-aos="fade-up">
-                <div class="lg:order-2">
-                    <div class="project-card group rounded-3xl overflow-hidden shadow-lg aspect-video lg:aspect-[4/3]">
-                        <img src="/portfolio/social-1.jpg" alt="Logo Design" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                    </div>
-                </div>
-                <div class="lg:pr-8 lg:order-1">
-                    <h3 class="text-3xl font-bold text-gray-900 mb-4">ONE DAY STUDIO</h3>
-                    <p class="text-gray-600 text-md mb-6">Complete logo and brand identity design for a modern creative studio that can be applied with versatility across digital and print media.</p>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Logo Design</span>
-                        <span class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Branding</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Row 3 -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center" data-aos="fade-up">
-                <div class="project-card group rounded-3xl overflow-hidden shadow-lg aspect-video lg:aspect-[4/3]">
-                    <img src="/portfolio/my-character.jpg" alt="Own Character Design" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                </div>
-                <div class="lg:pl-8">
-                    <h3 class="text-3xl font-bold text-gray-900 mb-4">Curva</h3>
-                    <p class="text-gray-600 text-md mb-6">This is my original character design, 'Curva.' I love illustrating, whether for personal projects in my free time or for client commissions.</p>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Character Design</span>
-                        <span class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Passion</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-        <!-- Clients Section -->
-    <section class="py-16 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Brands <span class="accent-text">I've Worked With</span></h2>
-                
-                <p class="text-gray-600 max-w-2xl mx-auto">
-                    Trusted by businesses and organizations across Southeast Asia.
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 md:gap-12 items-center justify-items-center">
-                <!-- Client Logo 1 -->
-                <div class="client-logo flex items-center justify-center h-20" data-aos="fade-up">
-                    <img src="client-logos/logo-1.png" alt="Air Thinlwin" class="max-h-16 max-w-full object-contain opacity-80 hover:opacity-100 transition-opacity duration-300">
-                </div>
-                
-                <!-- Client Logo 2 -->
-                <div class="client-logo flex items-center justify-center h-20" data-aos="fade-up" data-aos-delay="100">
-                    <img src="client-logos/logo-2.png" alt="Jackery" class="max-h-16 max-w-full object-contain opacity-80 hover:opacity-100 transition-opacity duration-300">
-                </div>
-                
-                <!-- Client Logo 3 -->
-                <div class="client-logo flex items-center justify-center h-20" data-aos="fade-up" data-aos-delay="200">
-                    <img src="client-logos/logo-3.png" alt="VENUCIA" class="max-h-16 max-w-full object-contain opacity-80 hover:opacity-100 transition-opacity duration-300">
-                </div>
-                
-                <!-- Client Logo 4 -->
-                <div class="client-logo flex items-center justify-center h-20" data-aos="fade-up" data-aos-delay="300">
-                    <img src="client-logos/logo-4.png" alt="Yealink" class="max-h-16 max-w-full object-contain opacity-80 hover:opacity-100 transition-opacity duration-300">
-                </div>
-
-                <!-- Client Logo 5 -->
-                <div class="client-logo flex items-center justify-center h-20" data-aos="fade-up" data-aos-delay="400">
-                    <img src="client-logos/logo-5.png" alt="CHANGANt" class="max-h-16 max-w-full object-contain opacity-80 hover:opacity-100 transition-opacity duration-300">
-                </div>
-
-                <!-- Client Logo 6 -->
-                <div class="client-logo flex items-center justify-center h-20" data-aos="fade-up" data-aos-delay="500">
-                    <img src="client-logos/logo-6.png" alt="AVer" class="max-h-16 max-w-full object-contain opacity-80 hover:opacity-100 transition-opacity duration-300">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Teaching Philosophy Section -->
-    <section class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">My <span class="accent-text">Teaching Philosophy</span></h2>
-                
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="text-center" data-aos="fade-up">
-                    <div class="w-16 h-16 rounded-full accent-bg flex items-center justify-center mb-4 mx-auto">
-                        <i data-feather="heart" class="text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Passion-Driven Learning</h3>
-                    <p class="text-gray-600">
-                        For me, real innovation happens when what you’re good at meets what truly excites you - it’s about growing ideas from that sweet spot.
-                    </p>
-                </div>
-                
-                <div class="text-center" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-16 h-16 rounded-full accent-bg flex items-center justify-center mb-4 mx-auto">
-                        <i data-feather="users" class="text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Student-Centered Approach</h3>
-                    <p class="text-gray-600">
-                        Every learner’s different, so I always tweak my teaching style to match what works for them and what they’re aiming for.
-                    </p>
-                </div>
-                
-                <div class="text-center" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-16 h-16 rounded-full accent-bg flex items-center justify-center mb-4 mx-auto">
-                        <i data-feather="award" class="text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Real-World Application</h3>
-                    <p class="text-gray-600">
-                        I focus on practical skills that students can immediately apply to personal projects or professional work.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="py-16 bg-gray-100 text-gray-900">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl font-bold mb-4" data-aos="fade-up">Ready to Start Your Creative Journey?</h2>
-            <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
-                Join my classes and discover the world of digital art and design.
-            </p>
-            <div class="flex flex-wrap gap-4 justify-center" data-aos="fade-up" data-aos-delay="200">
-                <a href="courses.html" class="px-6 py-3 accent-bg text-white font-semibold rounded-lg hover:bg-[#808f0e] transition duration-300 shadow-md">
-                    View Courses
-                </a>
-                <a href="index.html#contact" class="px-6 py-3 bg-white text-gray-800 font-semibold rounded-lg border border-gray-300 hover:bg-gray-50 transition duration-300 shadow-sm">
-                    Contact Me
-                </a>
-            </div>
-        </div>
-    </section>
+    </main>
 
     <!-- Footer -->
-    <footer class="bg-black text-white py-12">
+    <footer class="bg-black text-white py-12 border-t border-[#222]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-4 gap-8">
                 <div>
-                    <span class="text-xl font-bold mb-4">ART de ONE</span>
-                    <p class="text-gray-400">
+                    <span class="text-xl font-bold mb-4 block">ART de ONE</span>
+                    <p class="text-gray-400 text-sm leading-relaxed">
                         Adobe Illustrator Classes & Freelance Creative Studio in Myanmar
                     </p>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
-                    <ul class="space-y-2">
-                        <li><a href="index.html" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
-                        <li><a href="index.html#about" class="text-gray-400 hover:text-white transition duration-300">About</a></li>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index.html#home" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
                         <li><a href="courses.html" class="text-gray-400 hover:text-white transition duration-300">Courses</a></li>
                         <li><a href="blog.html" class="text-gray-400 hover:text-white transition duration-300">Blog</a></li>
-                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Freelance</a></li>
-                        <li><a href="index.html#contact" class="text-gray-400 hover:text-white transition duration-300">Contact</a></li>
+                        <li><a href="/resources/resources-collection.html" class="text-gray-400 hover:text-white transition duration-300">Resources</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Classes</h3>
-                    <ul class="space-y-2">
-                         <li><a href="courses/basic-illustrator/course-detail-basic.html" class="text-gray-400 hover:text-white transition duration-300">Basic Adobe Illustrator Course</a></li>
+                    <ul class="space-y-2 text-sm">
+                         <li><a href="courses/basic-illustrator/course-detail-basic.html" class="text-gray-400 hover:text-white transition duration-300">Basic Course</a></li>
                         <li><a href="courses/intermediate-illustrator/course-detail-intermediate.html" class="text-gray-400 hover:text-white transition duration-300">Intermediate</a></li>
-                        <li><a href="courses/advanced-illustrator/course-detail-advanced.html" class="text-gray-400 hover:text-white transition duration-300">Advanced Abstract Drawing</a></li>
-                        <li><a href="courses/graphic-design/course-detail-graphic-design.html" class="text-gray-400 hover:text-white transition duration-300">Graphic Design Course</a></li>
+                        <li><a href="courses/advanced-illustrator/course-detail-advanced.html" class="text-gray-400 hover:text-white transition duration-300">Advanced Abstract</a></li>
+                        <li><a href="courses/graphic-design/course-detail-graphic-design.html" class="text-gray-400 hover:text-white transition duration-300">Graphic Design</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Services</h3>
-                    <ul class="space-y-2">
+                    <ul class="space-y-2 text-sm">
                         <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Logo Design</a></li>
-                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Social Media Design</a></li>
-                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Printing Design</a></li>
+                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Social Media</a></li>
+                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Printing</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400 mb-4 md:mb-0">
+            <div class="border-t border-[#222] mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">
                     &copy; 2025 ART de ONE. All rights reserved.
                 </p>
-                <div class="flex space-x-6">
+                <div class="flex space-x-6 text-sm">
                     <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-facebook-f"></i></a>
                     <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-behance"></i></a>
                     <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-linkedin-in"></i></a>
@@ -559,23 +349,21 @@
         </div>
     </footer>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script>
-        AOS.init({
-            duration: 800,
-            easing: 'ease-in-out',
-            once: true
-        });
-        
+        AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
         feather.replace();
-        
+
         // Mobile menu toggle
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
             const menu = document.getElementById('mobile-menu');
-            if (menu.classList.contains('hidden')) {
-                menu.classList.remove('hidden');
+            menu.classList.toggle('hidden');
+            
+            const icon = this.querySelector('i');
+            if (icon) {
+                icon.setAttribute('data-feather', menu.classList.contains('hidden') ? 'menu' : 'x');
                 feather.replace();
-            } else {
-                menu.classList.add('hidden');
             }
         });
     </script>

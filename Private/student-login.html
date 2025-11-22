@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Login - ART de ONE</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        /* --- MINIMALIST DARK THEME --- */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #000;
+            color: #fff;
+        }
+
+        /* Login Card */
+        .login-card {
+            background-color: #111;
+            border: 1px solid #333;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Form Inputs */
+        .form-input {
+            background-color: #1a1a1a;
+            border: 1px solid #444;
+            color: #fff;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #9dae11;
+            background-color: #222;
+        }
+        .form-label {
+            color: #a0a0a0;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Primary Button */
+        .btn-primary {
+            background-color: #fff;
+            color: #000;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            width: 100%;
+            transition: all 0.3s ease;
+            border: 1px solid #fff;
+            cursor: pointer;
+        }
+        .btn-primary:hover {
+            background-color: #9dae11;
+            border-color: #9dae11;
+            color: #fff;
+        }
+        
+        .text-accent { color: #9dae11; }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <div class="w-full max-w-md animate-fade-in">
+        <!-- Logo -->
+        <div class="text-center mb-8">
+            <img src="logo.png" alt="ART de ONE" class="h-12 w-auto mx-auto mb-4">
+            <h1 class="text-2xl font-bold text-white">Student Portal</h1>
+            <p class="text-gray-400 mt-2 text-sm">Log in to access your courses</p>
+        </div>
+
+        <!-- Login Card -->
+        <div class="login-card">
+            <form id="student-login-form" class="space-y-6">
+                <div>
+                    <label class="form-label">Email Address</label>
+                    <input type="email" id="email" class="form-input" placeholder="student@example.com" required>
+                </div>
+
+                <div>
+                    <label class="form-label">Password</label>
+                    <input type="password" id="password" class="form-input" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    Log In
+                </button>
+            </form>
+            
+            <p class="text-center text-sm text-gray-500 mt-6">
+                Having trouble? <a href="#" class="text-accent hover:underline">Contact Support</a>
+            </p>
+        </div>
+    </div>
+    
+    <!-- Placeholder Script for Firebase -->
+    <script>
+        document.getElementById('student-login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Firebase Login Logic will go here
+            console.log("Login attempted");
+            // Simulate success for UI demo
+            // window.location.href = 'student-dashboard.html';
+        });
+    </script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDxGe8syla67VxbV7DlnbPtIbMmIewZurY",
+    authDomain: "art-de-one.firebaseapp.com",
+    projectId: "art-de-one",
+    storageBucket: "art-de-one.firebasestorage.app",
+    messagingSenderId: "843424361824",
+    appId: "1:843424361824:web:d8e645ad12fe5f50be8205",
+    measurementId: "G-1W0PCMKRW7"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const form = document.getElementById('student-login-form');
+  
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const btn = form.querySelector('button');
+
+    btn.innerText = 'Logging in...';
+    
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        console.log("Student Logged In");
+        window.location.href = "student-dashboard.html";
+      })
+      .catch((error) => {
+        alert("Login Failed: " + error.message);
+        btn.innerText = 'Log In';
+      });
+  });
+</script>
+
+</body>
+</html>

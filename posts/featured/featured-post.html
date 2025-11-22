@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-CZRQ0NPPJ2"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -12,386 +11,437 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - ART de ONE</title>
+    <title>Affinity Rebrand - ART de ONE</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Poppins', sans-serif; }
-        .accent-text { color: #9dae11; }
-        /* Custom styles for Runway ML-inspired navigation */
-    .nav-container {
-        padding: 0.75rem 1rem;
-    }
-    
-    .nav-link {
-        position: relative;
-        color: #000;
-        font-weight: 500;
-        font-size: 0.875rem; /* Smaller font size */
-        transition: all 0.3s ease;
-    }
-    
-    /* Remove the green line effect */
-    .nav-link::after {
-        display: none; /* This removes the green line */
-    }
-    
-    /* Hover effect - make hovered item white, others grey */
-    .nav-link:hover {
-        color: #000000 !important; /* White text on hover */
-        transform: translateY(-1px);
-    }
-    
-    /* When hovering over a nav item, make all other nav items grey */
-    .nav-center:hover .nav-link:not(:hover) {
-        color: #888888 !important; /* Grey for non-hovered items */
-    }
-    .nav-center {
-    position: absolute !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-}
-.contact-btn {
-        background-color: #000;
-        color: white;
-        padding: 0.5rem 1.5rem;
-        border-radius: 9999px;
-        font-weight: 500;
-        font-size: 0.875rem; /* Smaller font size */
-        transition: all 0.3s ease;
-    }
-    
-    .contact-btn:hover {
-        background-color: #333;
-        transform: translateY(-2px);
-    }
-    
-    .mobile-menu-btn {
-        transition: all 0.3s ease;
-    }
-    
-    .mobile-menu-btn:hover {
-        transform: scale(1.1);
-    }
+        
+        body {
+            background-color: #000;
+            color: #d1d5db; /* Light gray text */
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* --- NAVIGATION --- */
+        nav { 
+            background-color: rgba(0,0,0,0.9) !important; 
+            border-bottom: 1px solid #222; 
+            backdrop-filter: blur(12px);
+        }
+        .nav-link { 
+            color: #888 !important; 
+            font-weight: 300;
+            letter-spacing: 0.04em;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover { color: #fff !important; }
+        .mobile-menu { background-color: #111 !important; }
+        .mobile-nav-link { color: #ccc !important; }
+
+        /* --- BUTTONS --- */
+        .btn-primary {
+            background-color: #fff;
+            color: #000;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            padding: 0.5rem 1.5rem;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-primary:hover {
+            background-color: #9dae11;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+        .nav-btn {
+            background-color: #fff;
+            color: #000;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1.25rem;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #fff;
+            height: auto;
+            line-height: 1;
+        }
+        .nav-btn:hover {
+            background-color: #9dae11;
+            border-color: #9dae11;
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* --- BLOG POST STYLES --- */
+        .post-header {
+            padding-top: 8rem;
+            padding-bottom: 4rem;
+            border-bottom: 1px solid #222;
+        }
+        .post-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        .post-content h2 {
+            color: #fff;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        .post-content p {
+            margin-bottom: 1.5rem;
+        }
+        .post-content strong, .post-content b {
+            color: #fff;
+            font-weight: 600;
+        }
+        
+        .share-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #333;
+            color: #888;
+            transition: all 0.3s ease;
+        }
+        .share-btn:hover {
+            background-color: #fff;
+            color: #000;
+            border-color: #fff;
+        }
+
+        .related-card {
+            background-color: #0a0a0a;
+            border: 1px solid #222;
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        .related-card:hover {
+            transform: translateY(-5px);
+            border-color: #333;
+        }
+
+        /* Image Styles */
+        .content-image {
+            width: 100%;
+            border-radius: 0.75rem;
+            border: 1px solid #222;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .image-caption {
+            font-size: 0.85rem;
+            color: #666;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        [data-aos] { transition-duration: 1000ms !important; }
     </style>
 </head>
-<body class="bg-gray-50">
-     <script>window.currentPostId = 10;</script>
+<body class="bg-black text-gray-300">
 
-    <!-- Navigation - Runway ML Inspired -->
-    <nav class="fixed w-full bg-white z-50">
+    <nav class="fixed w-full z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 nav-container">
-            <div class="flex justify-between h-16 items-center">
-                <!-- Logo -->
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                         <a href="/index.html" class="flex items-center">
-                         <img src="/logo.png" alt="ART de ONE" class="h-10 w-auto">
-                         </a>
+            <div class="nav-wrapper">
+                <div class="flex justify-between h-16 items-center">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <a href="../../index.html#home" class="flex items-center">
+                                <img src="../../logo.png" alt="ART de ONE" class="h-10 w-auto">
+                            </a>
+                        </div>
                     </div>
-                </div>
-                
-                <!-- Desktop Navigation - Centered -->
-                <div class="hidden md:flex items-center space-x-8 nav-center">
-                    <a href="/index.html" class="nav-link">Home</a>
-                    <a href="/index.html#about" class="nav-link">About</a>
-                    <a href="/courses.html" class="nav-link">Courses</a>
-                    <a href="/blog.html" class="nav-link">Blog</a>
-                    <a href="/index.html#portfolio" class="nav-link">Portfolio</a>
-                    <a href="/index.html#freelance" class="nav-link">Freelance</a>
-                </div>
-                
-                <!-- Contact Button - Right Side -->
-                <div class="hidden md:block">
-                    <a href="/index.html#contact" class="contact-btn">Contact</a>
-                </div>
-                
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden flex items-center">
-                    <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md text-gray-700 focus:outline-none" aria-controls="mobile-menu" aria-expanded="false" id="mobile-menu-button">
-                        <i data-feather="menu"></i>
-                    </button>
+                    
+                    <div class="hidden md:flex items-center space-x-4 nav-center">
+                        <a href="../../index.html#home" class="nav-link">Home</a>
+                        <a href="../../courses.html" class="nav-link">Courses</a>
+                        <a href="../../blog.html" class="nav-link" style="color: #fff !important;">Blog</a>
+                        <a href="../../resources/resources-collection.html" class="nav-link">Resources</a>
+                        <a href="../../index.html#about" class="nav-link">About</a>
+                        <a href="../../index.html#contact" class="nav-link">Contact</a>
+                    </div>
+                    
+                    <div class="hidden md:block">
+                        <a href="../../claude/student-login.html" class="nav-btn">Student Login</a>
+                    </div>
+                    
+                    <div class="md:hidden flex items-center">
+                        <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white focus:outline-none" id="mobile-menu-button">
+                            <i data-feather="menu"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
         
-        <!-- Mobile menu -->
-        <div class="hidden mobile-menu md:hidden bg-white shadow-lg" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="/index.html" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Home</a>
-                <a href="/index.html#about" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">About</a>
-                <a href="/courses.html" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Courses</a>
-                <a href="/blog.html" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Blog</a>
-                <a href="/index.html#portfolio" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Portfolio</a>
-                <a href="/index.html#freelance" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Freelance</a>
-                <a href="/index.html#contact" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-700">Contact</a>
+        <div class="hidden mobile-menu md:hidden" id="mobile-menu">
+            <div class="py-2 px-4 space-y-1">
+                <a href="../../index.html#home" class="block py-2 mobile-nav-link">Home</a>
+                <a href="../../courses.html" class="block py-2 mobile-nav-link">Courses</a>
+                <a href="../../blog.html" class="block py-2 mobile-nav-link text-white">Blog</a>
+                <a href="../../resources/resources-collection.html" class="block py-2 mobile-nav-link">Resources</a>
+                <a href="../../index.html#about" class="block py-2 mobile-nav-link">About</a>
+                <a href="../../index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
+                <a href="../../claude/student-dashboard.html" class="block py-2 mobile-nav-link">Student Login</a>
             </div>
         </div>
     </nav>
-    
-    <main class="pt-24 pb-20">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            
-            <div class="mb-12">
-                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 leading-[1.5]">Affinity Rebrand, A New Era for Creative Freedom</h1>
-                <div class="mt-4">
-                        <p class="text-lg text-gray-500">Posted on November 3, 2025</p>
+
+    <main>
+        <section class="post-header">
+            <div class="max-w-4xl mx-auto px-4 text-center" data-aos="fade-up">
+                <div class="flex items-center justify-center gap-4 text-sm text-gray-500 mb-6">
+                    <span class="uppercase tracking-wider text-[#9dae11] font-semibold">Featured</span>
+                    <span>•</span>
+                    <span>November 3, 2025</span>
+                </div>
+                <h1 class="text-3xl md:text-5xl font-bold text-white mb-8 leading-tight">
+                    Affinity Rebrand, A New Era for <br> Creative Freedom
+                </h1>
+                <div class="flex items-center justify-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-white font-bold text-xs">AD</div>
+                    <div class="text-left">
+                        <p class="text-white text-sm font-medium">ART de ONE Team</p>
+                        <p class="text-xs text-gray-500">Author</p>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <img src="images/featured-image-5.jpg" alt="Article featured image" class="w-full rounded-lg shadow-lg mb-12">
-            
-            <article class="prose lg:prose-xl max-w-none text-gray-700">
-                <p class="mb-4">
-                Oct 29 က Adobe Max 2025 ကိုကြည့်လိုက်တာ Ai နဲ့ပတ်သက်ပြီး Update လုပ်ထားတာတွေအများကြီးတွေ့ရတော့မိုက်တယ်ပေါ့။ ဒီအကြောင်းအရာကိုပြောချင်ပေမယ့် Affinity ရဲ့အကြောင်းအရာသစ်တွေကိုလဲ
-                Creative နယ်ပယ်ကသူတွေကိုသိစေချင်တယ်... 
-                <p class="mb-4"></p>
-                Adobe ရဲ့ အရမ်းမိုက်တဲ့ project light touch အကြောင်းအရာကိုလဲ နောက်ပိုင်းရေးပေးပါမယ်။
-                </p>
-
-                <img src="images/featured-image-6.jpg" alt="A short description of my photo" class="w-full rounded-lg shadow-lg my-8">
-                <p class="mb-4">
-                    Affinity နဲ့ပတ်သက်ပြီးမရင်းနှီးသေးတဲ့သူတွေအတွက် အကျည်းချုံးကလေးနည်းနည်းပြောပြပါမယ်။ Affinity Designer က 2015 ခုနှစ်မှာ Apple Design Award နဲ့ 2018 မှာ Mircorsoft ရဲ့ 
-                    Application Creator of the Year ဆုတို့ကို ရရှိထားတဲ့ Software တစ်ခုဖြစ်ပါတယ်။ 
-
-                    <img src="images/featured-image-2.jpg" alt="A short description of my photo" class="w-full rounded-lg shadow-lg my-12 mb-4">
-                    <p class="mb-4" style="font-size: 13px;">
-                    Affinity Designer won the 2015 Apple Design Award
-                    </p>
-                    <p class="mb-4">
-                    လူသိနည်းပေမယ့်လဲ Adobe အသုံးပြုသူတစ်ချို့ Affinity ကိုပြောင်းလဲအသုံးပြုသူတွေအများကြီးရှိခဲ့ပါတယ်။
-                    </p>
-                    <p class="mb-4">
-                    ဒီထဲမှာ ကျွန်တော်အရမ်းကြိုက်တဲ့ <b>“THE HONEST GUIDE TO CREATIVITY AND LOGO DESIGN” စာအုပ်ထုပ်၀ယ်သူ JAMES MARTIN </b> ကိုယ်တိုင်ကိုက Affinity ပဲသုံးတဲ့သူဆိုတာကို သူ့ရဲ့ Short videos လေးတွေကြည့်ရင်း
-                    သိခဲ့တာဖြစ်ပါတယ်။
-                    </p>
-                    <img src="images/featured-image-1.jpg" alt="A short description of my photo" class="w-full rounded-lg shadow-lg my-12 mb-4">
-                    <p class="mb-4" style="font-size: 13px;">
-                    JAMES MARTIN
-                    </p>
-                    <p class="mb-4">
-                    Adobe လို တစ်လတစ်ခါ Subscription လုပ်စရာမလိုပဲ License တစ်ခါ၀ယ်ပြီးတာနဲ့ Lifetime အသုံးပြုနိုင်လို့ဖြစ်ပါတယ်။
-                    အခု Rebranded လုပ်ပြီး 2025 မှာတော့ လုံး၀ကို Free ဖြစ်သွားတာပါ။ License ၀ယ်စရာမလိုတော့ဘူးဆိုတဲ့သဘောပါ။
-                    </p>    
-                </p>
+        <section class="py-12 px-4">
+            <div class="max-w-3xl mx-auto">
                 
-                
-                <img src="images/featured-image.jpg" alt="A short description of my photo" class="w-full rounded-lg shadow-lg my-12">
-                <p class="mb-4">
-                    Affinity Version အနေနဲ့  2014 ခုနှစ်တုန်းက V1 နဲ့ 2022 မှာ V2 ထွက်ခဲ့ပါတယ်။
-                    <p class="mb-4">
-                    2024 ခုနှစ်မှာ ကျွန်တော်တို့သိတဲ့ Canva ကနေပြီး Affinity Designer ကို ၀ယ်လိုက်ပြီး Rebranding လုပ်နေခဲ့တာဖြစ်ပါတယ်။ 
-                    </p>
-                    <stront>ဒီလောက်ဆိုရင်တော့ Affinity Designer နဲ့ပတ်သက်ပြီး အနည်းငယ်သိသွားပြီထင်ပါတယ်။</stront>
-                </p>
-                
-                <img src="images/featured-image-3.jpg" alt="A short description of my photo" class="w-full rounded-lg shadow-lg my-12 mb-4">
-                <p class="mb-4" style="font-size: 13px;">
-                    Vector | Pixel | Layout | Retouching | Color Grading
-                </p>
-                <p class="mb-4">
-                    အဓိကပြောချင်တာကတော့ အခု Rebranded လုပ်ပြီး Designer တွေဆီကို ရောက်လာတဲ့ Version က <b>3 in 1</b> အသုံးပြုနိုင်တဲ့အတွက် Graphic Designer နဲ့ Illustrator တွေအတွက် တော်တော်လေးအဆင်ပြေသွားမှာသေချာပါတယ်။ 
-                    <p class="mb-4">
-                    (3in1 ဆိုတာက Adobe Photoshop, Illustrator, InDesign တို့လိုမျိုးကို တစ်နေရာတည်းမှာပဲ အသုံးပြုနိုင်တာကို ဆိုလိုတာပါ)။ ဒါ့အပြင် Retouching နဲ့ Color Grading တွေကိုလဲ သီးသန့် Tab လေးတွေနဲ့အသုံးပြုနိုင်လို့ တော်တော်လေးသဘောကျမိတာတော့အမှန်ပါပဲ။
-                    </p>
-                </p>
-                
-                <p class="mb-4">
-                    <b>Affinity က Free ဖြစ်တာမို့ Adobe Photoshop, Illustrator ကို အစားထိုးဖို့အကောင်းဆုံး Option တစ်ခုဖြစ်လာနိုင်တယ်ဆိုတာလဲမေ့ထားလို့မရပါဘူး။</b>
-                    <b>Tools တွေကလဲ Adobe Softwares တွေကိုပိုင်နိုင်ထားတဲ့သူတစ်ယောက်အတွက်တော့ 75-80% လောက်အဆင်ပြေပြီးသားဆိုတာ သေချာပါတယ်။</b> 
-                    ကျင့်သားရအောင်တော့အစပိုင်း အနည်းငယ်အခက်အခဲရှိနိုင်ပေမယ့်လဲ ခဏပါပဲ။
-                </p>
+                <div class="rounded-2xl overflow-hidden mb-12 border border-[#222]" data-aos="fade-up">
+                    <img src="images/featured-image-5.jpg" alt="Affinity Feature" class="w-full h-auto">
+                </div>
 
-                    <p class="mb-4">
-                    ကျွန်တော်ကိုယ်တိုင် ကျင့်သားရအောင်လေ့ကျင့်နေတာ ဖြစ်တဲ့အတွက် တစ်ချို့နေရာလေးတွေမှာ Shortcut key လေးတွေ မတူညီတာတွေကိုတွေ့ရပါတယ်။
+                <div class="post-content" data-aos="fade-up">
+                    <p class="text-lg leading-relaxed text-gray-300 mb-8">
+                        Oct 29 က Adobe Max 2025 ကိုကြည့်လိုက်တာ Ai နဲ့ပတ်သက်ပြီး Update လုပ်ထားတာတွေအများကြီးတွေ့ရတော့မိုက်တယ်ပေါ့။ ဒီအကြောင်းအရာကိုပြောချင်ပေမယ့် Affinity ရဲ့အကြောင်းအရာသစ်တွေကိုလဲ Creative နယ်ပယ်ကသူတွေကိုသိစေချင်တယ်...
                     </p>
-                </p>
-                <p class="mb-4">
-                    လုံး၀ကို Free လားဆိုတော့မဟုတ်ပါဘူး။ Photoshop မှာလို Generative Ai အသုံးပြုချင်ရင်တော့ တစ်လကို $10 နဲ့ ၀ယ်ရမှာဖြစ်ပါတယ်။ 
-                    <p class="mb-4">
-                    Adobe ရဲ့ 1 month subscription ($69.99) နဲ့နိူင်းယှဥ်ရင် တော်တော်လေးသက်သာတဲ့စျေးနူန်းတစ်ခုလို့ပြောလို့ရပေမယ့်လဲ
-                    တစ်ဖက်မှာ Adobe လိုမျိုးတကယ့်ကြီးတဲ့ Industry ရဲ့ Ai ကတော့အမှန်အကန်ကြမ်းတာ ကျွန်တော်တို့ကိုယ်တိုင်လဲလက်တွေ့ဖြစ်ပါတယ်။ လာမယ့် Adobe ရဲ့ 2026 Versions တွေမှာ 
-                    <b>Google ရဲ့ Ai နဲ့ Topaz ရဲ့ Ai </b> တွေရော ပါလာတာဖြစ်တဲ့အတွက်ဘယ်လိုမှ ယှဥ်ဖို့နိုင်ဖို့ဆိုတာမလွယ်ကူလှပါဘူး။
+                    <p>
+                        Adobe ရဲ့ အရမ်းမိုက်တဲ့ project light touch အကြောင်းအရာကိုလဲ နောက်ပိုင်းရေးပေးပါမယ်။
                     </p>
-                </p>
-                <p class="mb-4">
-                    ကွာခြားချက်တွေကတော့ အများကြီးရှိပါတယ်။ Adobe Photoshop, Illustrator တို့လို တကယ့် Industrial Standard Softwares တွေကို ကိုလိုက်မှီဖို့အတွက် အများကြီးလိုအပ်သေးတာတော့အမှန်ပါပဲ။
-                    စမ်းသုံးကြည့်ချင်ရင်တော့ <a href="https://affinity.serif.com/en-us/" style="color: #9dae11;"> <b>ဒီမှာ Download </b> </a>သွားရောက် လုပ်နိုင်ပါတယ်။
-                </p>
-                </p>
 
-                <img src="images/featured-image-4.jpg" alt="A short description of my photo" class="w-full rounded-lg shadow-lg my-12">
-                <p class="mb-4">
-                        <p class="mb-4">
-                        ဒါကတော့ Affinity Designer နဲ့ 2017 တုန်းကဆွဲခဲ့တဲ့ ကျွန်တော့်ရဲ့ Artwork ဖြစ်ပါတယ်တယ်။
+                    <img src="images/featured-image-6.jpg" alt="Affinity Interface" class="content-image">
+                    
+                    <p class="mt-8">
+                        Affinity နဲ့ပတ်သက်ပြီးမရင်းနှီးသေးတဲ့သူတွေအတွက် အကျဉ်းချုံးကလေးနည်းနည်းပြောပြပါမယ်။ Affinity Designer က 2015 ခုနှစ်မှာ Apple Design Award နဲ့ 2018 မှာ Mircorsoft ရဲ့ Application Creator of the Year ဆုတို့ကို ရရှိထားတဲ့ Software တစ်ခုဖြစ်ပါတယ်။
+                    </p>
+
+                    <img src="images/featured-image-2.jpg" alt="Award" class="content-image">
+                    <p class="image-caption">Affinity Designer won the 2015 Apple Design Award</p>
+
+                    <p>
+                        လူသိနည်းပေမယ့်လဲ Adobe အသုံးပြုသူတစ်ချို့ Affinity ကိုပြောင်းလဲအသုံးပြုသူတွေအများကြီးရှိခဲ့ပါတယ်။ ဒီထဲမှာ ကျွန်တော်အရမ်းကြိုက်တဲ့ <b>“THE HONEST GUIDE TO CREATIVITY AND LOGO DESIGN”</b> စာအုပ်ထုပ်ဝယ်သူ <b>JAMES MARTIN</b> ကိုယ်တိုင်ကိုက Affinity ပဲသုံးတဲ့သူဆိုတာကို သူ့ရဲ့ Short videos လေးတွေကြည့်ရင်း သိခဲ့တာဖြစ်ပါတယ်။
+                    </p>
+
+                    <img src="images/featured-image-1.jpg" alt="James Martin" class="content-image">
+                    <p class="image-caption">JAMES MARTIN</p>
+
+                    <p>
+                        Adobe လို တစ်လတစ်ခါ Subscription လုပ်စရာမလိုပဲ License တစ်ခါဝယ်ပြီးတာနဲ့ Lifetime အသုံးပြုနိုင်လို့ဖြစ်ပါတယ်။ အခု Rebranded လုပ်ပြီး 2025 မှာတော့ လုံးဝကို Free ဖြစ်သွားတာပါ။ License ဝယ်စရာမလိုတော့ဘူးဆိုတဲ့သဘောပါ။
+                    </p>
+
+                    <img src="images/featured-image.jpg" alt="Affinity Versions" class="content-image">
+
+                    <p>
+                        Affinity Version အနေနဲ့ 2014 ခုနှစ်တုန်းက V1 နဲ့ 2022 မှာ V2 ထွက်ခဲ့ပါတယ်။ 2024 ခုနှစ်မှာ ကျွန်တော်တို့သိတဲ့ Canva ကနေပြီး Affinity Designer ကို ဝယ်လိုက်ပြီး Rebranding လုပ်နေခဲ့တာဖြစ်ပါတယ်။
+                    </p>
+                    <p class="border-l-4 border-[#9dae11] pl-4 italic text-white">
+                        ဒီလောက်ဆိုရင်တော့ Affinity Designer နဲ့ပတ်သက်ပြီး အနည်းငယ်သိသွားပြီထင်ပါတယ်။
+                    </p>
+
+                    <img src="images/featured-image-3.jpg" alt="Tools" class="content-image">
+                    <p class="image-caption">Vector | Pixel | Layout | Retouching | Color Grading</p>
+
+                    <p>
+                        အဓိကပြောချင်တာကတော့ အခု Rebranded လုပ်ပြီး Designer တွေဆီကို ရောက်လာတဲ့ Version က <b>3 in 1</b> အသုံးပြုနိုင်တဲ့အတွက် Graphic Designer နဲ့ Illustrator တွေအတွက် တော်တော်လေးအဆင်ပြေသွားမှာသေချာပါတယ်။
+                    </p>
+                    <p>
+                        (3in1 ဆိုတာက Adobe Photoshop, Illustrator, InDesign တို့လိုမျိုးကို တစ်နေရာတည်းမှာပဲ အသုံးပြုနိုင်တာကို ဆိုလိုတာပါ)။ ဒါ့အပြင် Retouching နဲ့ Color Grading တွေကိုလဲ သီးသန့် Tab လေးတွေနဲ့အသုံးပြုနိုင်လို့ တော်တော်လေးသဘောကျမိတာတော့အမှန်ပါပဲ။
+                    </p>
+
+                    <div class="my-8 p-6 bg-[#111] rounded-lg border border-[#222]">
+                        <p class="mb-4 text-white">
+                            <b>Affinity က Free ဖြစ်တာမို့ Adobe Photoshop, Illustrator ကို အစားထိုးဖို့အကောင်းဆုံး Option တစ်ခုဖြစ်လာနိုင်တယ်ဆိုတာလဲမေ့ထားလို့မရပါဘူး။</b>
                         </p>
-                </p> 
-                <p class="mb-4">
-                <b>အားလုံကို ကျေးဇူးတင်ပါတယ်။</b>
-                </p>
-                
-                
-            </article>
-            <!-- Related Posts Section -->
-            <div class="mt-16">
-                <h2 class="text-2xl font-bold text-gray-900 mb-6">Related Posts</h2>
-                <div id="related-posts" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Related posts will be loaded here dynamically -->
+                        <p class="mb-0 text-gray-400">
+                            Tools တွေကလဲ Adobe Softwares တွေကိုပိုင်နိုင်ထားတဲ့သူတစ်ယောက်အတွက်တော့ 75-80% လောက်အဆင်ပြေပြီးသားဆိုတာ သေချာပါတယ်။ ကျင့်သားရအောင်တော့အစပိုင်း အနည်းငယ်အခက်အခဲရှိနိုင်ပေမယ့်လဲ ခဏပါပဲ။
+                        </p>
+                    </div>
+
+                    <p>
+                        ကျွန်တော်ကိုယ်တိုင် ကျင့်သားရအောင်လေ့ကျင့်နေတာ ဖြစ်တဲ့အတွက် တစ်ချို့နေရာလေးတွေမှာ Shortcut key လေးတွေ မတူညီတာတွေကိုတွေ့ရပါတယ်။
+                    </p>
+                    <p>
+                        လုံးဝကို Free လားဆိုတော့မဟုတ်ပါဘူး။ Photoshop မှာလို Generative Ai အသုံးပြုချင်ရင်တော့ တစ်လကို $10 နဲ့ ဝယ်ရမှာဖြစ်ပါတယ်။
+                    </p>
+                    <p>
+                        Adobe ရဲ့ 1 month subscription ($69.99) နဲ့နိူင်းယှဉ်ရင် တော်တော်လေးသက်သာတဲ့စျေးနူန်းတစ်ခုလို့ပြောလို့ရပေမယ့်လဲ တစ်ဖက်မှာ Adobe လိုမျိုးတကယ့်ကြီးတဲ့ Industry ရဲ့ Ai ကတော့အမှန်အကန်ကြမ်းတာ ကျွန်တော်တို့ကိုယ်တိုင်လဲလက်တွေ့ဖြစ်ပါတယ်။ လာမယ့် Adobe ရဲ့ 2026 Versions တွေမှာ <b>Google ရဲ့ Ai နဲ့ Topaz ရဲ့ Ai</b> တွေရော ပါလာတာဖြစ်တဲ့အတွက်ဘယ်လိုမှ ယှဉ်ဖို့နိုင်ဖို့ဆိုတာမလွယ်ကူလှပါဘူး။
+                    </p>
+
+                    <div class="my-10 text-center">
+                        <p class="mb-6">
+                            ကွာခြားချက်တွေကတော့ အများကြီးရှိပါတယ်။ Adobe Photoshop, Illustrator တို့လို တကယ့် Industrial Standard Softwares တွေကို ကိုလိုက်မှီဖို့အတွက် အများကြီးလိုအပ်သေးတာတော့အမှန်ပါပဲ။
+                        </p>
+                        <a href="https://affinity.serif.com/en-us/" target="_blank" class="btn-primary inline-flex gap-2">
+                             <i data-feather="download" class="w-4 h-4"></i> Download Affinity
+                        </a>
+                    </div>
+
+                    <img src="images/featured-image-4.jpg" alt="Artwork" class="content-image">
+                    <p class="text-center text-sm text-gray-500">
+                        ဒါကတော့ Affinity Designer နဲ့ 2017 တုန်းကဆွဲခဲ့တဲ့ ကျွန်တော့်ရဲ့ Artwork ဖြစ်ပါတယ်တယ်။
+                    </p>
+
+                    <p class="text-center font-bold text-white mt-12 text-lg">
+                        အားလုံကို ကျေးဇူးတင်ပါတယ်။
+                    </p>
+
+                    <div class="border-t border-[#222] mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center gap-6">
+                        <span class="text-sm font-medium text-gray-400 uppercase tracking-wider">Share this article</span>
+                        <div class="flex gap-3">
+                            <a href="#" class="share-btn"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="share-btn"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="share-btn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="share-btn"><i class="fas fa-link"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <!-- Share buttons section -->
-<div class="mt-16 text-center">
-    <h3 class="text-lg font-semibold text-gray-900 mb-4">Share this post</h3>
-    <div class="flex justify-center space-x-3">
-        <!-- Facebook Share Button -->
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https://artdeone.com/posts/featured/fetured-post.html" 
-           target="_blank" 
-           class="w-8 h-8 rounded-full bg-black flex items-center justify-center hover:bg-gray-800 transition-colors duration-300">
-            <i class="fab fa-facebook-f text-white text-sm"></i>
-        </a>
-        
-        <!-- LinkedIn Share Button -->
-        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://artdeone.com/posts/featured/fetured-post.html" 
-           target="_blank" 
-           class="w-8 h-8 rounded-full bg-black flex items-center justify-center hover:bg-gray-800 transition-colors duration-300">
-            <i class="fab fa-linkedin-in text-white text-sm"></i>
-        </a>
-        
-        <!-- Pinterest Share Button -->
-        <a href="https://pinterest.com/pin/create/button/?url=https://artdeone.com/posts/featured/fetured-post.html" 
-           target="_blank" 
-           class="w-8 h-8 rounded-full bg-black flex items-center justify-center hover:bg-gray-800 transition-colors duration-300">
-            <i class="fab fa-pinterest-p text-white text-sm"></i>
-        </a>
-        
-        <!-- X (Twitter) Share Button -->
-        <!-- Alternative if X icon doesn't work -->
-<a href="https://twitter.com/intent/tweet?url=https://artdeone.com/posts/featured/fetured-post.html" 
-   target="_blank" 
-   class="w-8 h-8 rounded-full bg-black flex items-center justify-center hover:bg-gray-800 transition-colors duration-300">
-    <i class="fab fa-twitter text-white text-sm"></i>
-</a>
-    </div>
-</div>
-            
-            <div class="mt-16 text-center">
-                <a href="/blog.html" class="inline-block bg-gray-900 text-white font-semibold px-8 py-3 rounded-full hover:bg-gray-700 transition-colors duration-300">
-                    &larr; Back to All Posts
-                </a>
+        <section class="py-20 bg-[#050505] border-t border-[#222]">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="flex justify-between items-end mb-10">
+                    <h2 class="text-2xl font-bold text-white">Related Articles</h2>
+                    <a href="../../blog.html" class="text-sm text-[#9dae11] hover:text-white transition-colors">View all posts →</a>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <a href="../post-1/post-1.html" class="related-card group block">
+                        <div class="h-48 overflow-hidden">
+                            <img src="../post-1/images/blog-image-1.jpg" alt="Shader Brush" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-white mb-2 group-hover:text-[#9dae11] transition-colors">Shader and Stipple Brush</h3>
+                            <p class="text-sm text-gray-500">September 27, 2025</p>
+                        </div>
+                    </a>
+
+
+                    <a href="../post-9/post-9.html" class="related-card group block">
+                        <div class="h-48 overflow-hidden">
+                            <img src="../post-9/images/thumbnail.jpg" alt="Hues vs Colors" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-white mb-2 group-hover:text-[#9dae11] transition-colors">Free Ai - Limit ရှိပေမယ့် အရမ်းမိုက်တဲ့ Ai Tool</h3>
+                            <p class="text-sm text-gray-500">October 24, 2025</p>
+                        </div>
+                    </a>
+                    <a href="../post-3/post-3.html" class="related-card group block">
+                        <div class="h-48 overflow-hidden">
+                            <img src="../post-3/images/rgb-1.jpg" alt="Related" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-white mb-2 group-hover:text-[#9dae11] transition-colors">RGB သဘောတရား</h3>
+                            <p class="text-sm text-gray-500">October 1, 2025</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="text-center mt-16">
+                    <a href="../../blog.html" class="btn-primary inline-flex gap-2">
+                        <i data-feather="arrow-left" class="w-4 h-4"></i> Back to All Posts
+                    </a>
+                </div>
             </div>
-
-        </div>
+        </section>
     </main>
-    
-   <!-- Footer -->
-    <footer class="bg-black text-white py-12">
+
+    <footer class="bg-black text-white py-12 border-t border-[#222]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-4 gap-8">
                 <div>
-                    <span class="text-xl font-bold mb-4">ART de ONE</span>
-                    <p class="text-gray-400">
+                    <span class="text-xl font-bold mb-4 block">ART de ONE</span>
+                    <p class="text-gray-400 text-sm leading-relaxed">
                         Adobe Illustrator Classes & Freelance Creative Studio in Myanmar
                     </p>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
-                    <ul class="space-y-2">
-                        <li><a href="/index.html#home" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
-                        <li><a href="/index.html#about" class="text-gray-400 hover:text-white transition duration-300">About</a></li>
-                        <li><a href="/courses.html" class="text-gray-400 hover:text-white transition duration-300">Courses</a></li>
-                        <li><a href="/blog.html" class="text-gray-400 hover:text-white transition duration-300">Blog</a></li>
-                        <li><a href="/index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Freelance</a></li>
-                        <li><a href="/index.html#contact" class="text-gray-400 hover:text-white transition duration-300">Contact</a></li>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="../../index.html#home" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
+                        <li><a href="../../courses.html" class="text-gray-400 hover:text-white transition duration-300">Courses</a></li>
+                        <li><a href="../../blog.html" class="text-gray-400 hover:text-white transition duration-300">Blog</a></li>
+                        <li><a href="../../resources/resources-collection.html" class="text-gray-400 hover:text-white transition duration-300">Resources</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Classes</h3>
-                    <ul class="space-y-2">
-                         <li><a href="/courses/basic-illustrator/course-detail-basic.html" class="text-gray-400 hover:text-white transition duration-300">Basic Adobe Illustrator Course</a></li>
-                        <li><a href="/courses/intermediate-illustrator/course-detail-intermediate.html" class="text-gray-400 hover:text-white transition duration-300">Intermediate</a></li>
-                        <li><a href="/courses/advanced-illustrator/course-detail-advanced.html" class="text-gray-400 hover:text-white transition duration-300">Advanced Abstract Drawing</a></li>
-                        <li><a href="/courses/graphic-design/course-detail-graphic-design.html" class="text-gray-400 hover:text-white transition duration-300">Graphic Design Course</a></li>
+                    <ul class="space-y-2 text-sm">
+                         <li><a href="../../courses/basic-illustrator/course-detail-basic.html" class="text-gray-400 hover:text-white transition duration-300">Basic Course</a></li>
+                        <li><a href="../../courses/intermediate-illustrator/course-detail-intermediate.html" class="text-gray-400 hover:text-white transition duration-300">Intermediate</a></li>
+                        <li><a href="../../courses/advanced-illustrator/course-detail-advanced.html" class="text-gray-400 hover:text-white transition duration-300">Advanced Abstract</a></li>
+                        <li><a href="../../courses/graphic-design/course-detail-graphic-design.html" class="text-gray-400 hover:text-white transition duration-300">Graphic Design</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Services</h3>
-                    <ul class="space-y-2">
-                        <li><a href="/index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Logo Design</a></li>
-                        <li><a href="/index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Social Media Design</a></li>
-                        <li><a href="/index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Printing Design</a></li>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="../../index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Logo Design</a></li>
+                        <li><a href="../../index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Social Media</a></li>
+                        <li><a href="../../index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Printing</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400 mb-4 md:mb-0">
+            <div class="border-t border-[#222] mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">
                     &copy; 2025 ART de ONE. All rights reserved.
                 </p>
-                <div class="flex space-x-6">
-    <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-white transition duration-300">
-        <i class="fab fa-facebook-f"></i>
-    </a>
-    <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-white transition duration-300">
-        <i class="fab fa-behance"></i>
-    </a>
-    <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-white transition duration-300">
-        <i class="fab fa-linkedin-in"></i>
-    </a>
-    <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-white transition duration-300">
-        <i class="fab fa-tiktok"></i>
-    </a>
-</div>
+                <div class="flex space-x-6 text-sm">
+                    <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-white"><i class="fab fa-behance"></i></a>
+                    <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-white"><i class="fab fa-tiktok"></i></a>
+                </div>
             </div>
         </div>
     </footer>
 
-
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script>
-        
+        AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
+        feather.replace();
 
-        // Initialize when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            
-            
-            // Initialize Feather icons
-            if (typeof feather !== 'undefined') {
-                feather.replace();
-            }
-            
-            // Mobile menu toggle
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            
-            if (mobileMenuButton && mobileMenu) {
-                mobileMenuButton.addEventListener('click', function() {
-                    const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-                    mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
-                    mobileMenu.classList.toggle('hidden');
-                    
-                    // Update icon
-                    const icon = mobileMenuButton.querySelector('i');
-                    if (icon) {
-                        if (isExpanded) {
-                            icon.setAttribute('data-feather', 'menu');
-                        } else {
-                            icon.setAttribute('data-feather', 'x');
-                        }
-                        feather.replace();
-                    }
-                });
-            }
-        });
-        
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
     </script>
-    <script src="/js/blog-data.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        loadRelatedPosts(); // This will load the random related posts
-    });
-</script>
-
 </body>
 </html>
