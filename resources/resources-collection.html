@@ -384,6 +384,28 @@
                 });
             });
 
+            
+            prevButton.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderResources();
+                    setupPagination();
+                    // Optional: Scroll to top of resources
+                    document.getElementById('resources-container').scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+
+            nextButton.addEventListener('click', () => {
+                const totalPages = Math.ceil(filteredResources.length / resourcesPerPage);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderResources();
+                    setupPagination();
+                    // Optional: Scroll to top of resources
+                    document.getElementById('resources-container').scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+    
             // Init & Listeners
             AOS.init({ duration: 1000, once: true });
             feather.replace();
