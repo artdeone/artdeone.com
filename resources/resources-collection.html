@@ -4,398 +4,388 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-CZRQ0NPPJ2"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-CZRQ0NPPJ2');
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-CZRQ0NPPJ2');
     </script>
-    
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="p:domain_verify" content="ec0d8cce60db240c8b3015eb02fca511"/>
     <title>Design Resources - ART de ONE</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/feather-icons"></script>
-    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         
         body {
+            font-family: 'Poppins', sans-serif;
             background-color: #000;
             color: #fff;
-            font-family: 'Poppins', sans-serif;
         }
 
-        /* --- NAVIGATION --- */
+        /* Navigation */
         nav { 
-            background-color: rgba(0,0,0,0.9) !important; 
+            background-color: rgba(17,17,17,0.9); 
             border-bottom: 1px solid #222; 
-            backdrop-filter: blur(12px);
-        }
-        .nav-link { 
-            color: #888 !important; 
-            font-weight: 300;
-            letter-spacing: 0.04em;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
-        }
-        .nav-link:hover { color: #fff !important; }
-        .mobile-menu { background-color: #111 !important; }
-        .mobile-nav-link { color: #ccc !important; }
-
-        /* --- BUTTONS --- */
-        .btn-primary {
-            background-color: #fff;
-            color: #000;
-            font-weight: 600;
-            border-radius: 0.75rem;
-            padding: 0.5rem 1.5rem;
-            transition: all 0.3s ease;
-            font-size: 0.875rem;
-        }
-        .btn-primary:hover {
-            background-color: #9dae11;
-            color: #fff;
-            transform: translateY(-2px);
+            backdrop-filter: blur(10px);
         }
 
-        /* Specific small button for Navigation */
-        .nav-btn {
-            background-color: #fff;
-            color: #000;
-            font-weight: 600;
-            border-radius: 0.5rem;
-            padding: 0.5rem 1.25rem; /* Smaller padding */
-            font-size: 0.8rem;       /* Smaller font */
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #fff;
-            height: auto;
-            line-height: 1;
-        }
-        .nav-btn:hover {
-            background-color: #9dae11;
-            border-color: #9dae11;
-            color: #fff;
-            transform: translateY(-1px);
-        }
-
-        /* RESOURCE PAGE STYLES */
-        .resource-card-minimal {
-            background: #0a0a0a;
-            border: 1px solid #222;
+        .resource-card {
+            background-color: #111;
+            border: 1px solid #333;
             border-radius: 1rem;
             overflow: hidden;
-            transform: translateY(0);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .resource-card-minimal:hover {
-            transform: translateY(-8px);
-            border-color: #fff; /* Stroke effect on hover */
-        }
-        .resource-card-minimal img {
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .resource-card-minimal:hover img {
-            transform: scale(1.05);
-        }
-        .resource-card-minimal .resource-title {
-            color: #fff;
-            transition: color 0.3s ease;
-        }
-        .resource-card-minimal:hover .resource-title {
-            color: #9dae11;
-        }
-        
-        .resource-filter {
-            background: transparent;
-            color: #9ca3af;
-            border: 1px solid #444;
-            border-radius: 9999px;
-            padding: 0.5rem 1.5rem;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-        .resource-filter:hover {
-            background: #222;
-            color: #fff;
-            border-color: #666;
-        }
-        .resource-filter.active {
-            background: #fff;
-            color: #000;
-            border-color: #fff;
-            font-weight: 600;
-        }
-        
-        .sub-card {
-            background: #111;
-            border: 1px solid #222;
-            border-radius: 1rem;
             transition: all 0.3s ease;
         }
-        .sub-card:hover {
+        
+        .resource-card:hover {
             transform: translateY(-5px);
-            border-color: #333;
+            border-color: #9dae11;
         }
 
-        [data-aos] { transition-duration: 1000ms !important; }
+        .category-badge {
+            background-color: rgba(157, 174, 17, 0.1);
+            color: #9dae11;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            border: 1px solid rgba(157, 174, 17, 0.3);
+        }
+
+        /* Filter Buttons */
+        .filter-btn {
+            border: 1px solid #333;
+            color: #888;
+            padding: 0.5rem 1.25rem;
+            border-radius: 2rem;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background-color: #9dae11;
+            color: #000;
+            border-color: #9dae11;
+        }
+
+        /* Search Bar */
+        .search-input {
+            background-color: #111;
+            border: 1px solid #333;
+            color: #fff;
+            padding: 0.75rem 1rem;
+            padding-left: 2.5rem;
+            border-radius: 0.5rem;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .search-input:focus {
+            border-color: #9dae11;
+            outline: none;
+        }
     </style>
 </head>
-<body class="bg-black text-white">
+<body class="min-h-screen flex flex-col">
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 nav-container">
-            <div class="nav-wrapper">
-                <div class="flex justify-between h-16 items-center">
-                    <!-- Logo -->
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <a href="/index.html#home" class="flex items-center">
-                                <img src="/logo.png" alt="ART de ONE" class="h-10 w-auto">
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <!-- Desktop Navigation -->
-                    <div class="hidden md:flex items-center space-x-4 nav-center">
-                        <a href="/index.html#home" class="nav-link">Home</a>
-                        <a href="/courses.html" class="nav-link">Courses</a>
-                        <a href="/blog.html" class="nav-link">Blog</a>
-                        <a href="resources-collection.html" class="nav-link" style="color: #fff !important;">Resources</a>
-                        <a href="/index.html#about" class="nav-link">About</a>
-                        <a href="/index.html#contact" class="nav-link">Contact</a>
-                    </div>
-                    
-                    <!-- Contact Button -->
-                    <div class="hidden md:block">
-                        <a href="/Private/student-login.html" class="nav-btn">Student Login</a>
-                    </div>
-                    
-                    <!-- Mobile Menu Button -->
-                    <div class="md:hidden flex items-center">
-                        <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white focus:outline-none" id="mobile-menu-button">
-                            <i data-feather="menu"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
+    <nav class="fixed w-full z-50 h-16 flex items-center px-6 justify-between">
+        <div class="flex items-center">
+            <a href="../index.html">
+                <img src="../logo.png" alt="ART de ONE" class="h-8 w-auto">
+            </a>
+            <span class="ml-4 text-gray-400 text-sm hidden sm:block">Resources Collection</span>
         </div>
-        
-        <!-- Mobile menu -->
-        <div class="hidden mobile-menu md:hidden" id="mobile-menu">
-            <div class="py-2 px-4 space-y-1">
-                <a href="/index.html#home" class="block py-2 mobile-nav-link">Home</a>
-                <a href="/courses.html" class="block py-2 mobile-nav-link">Courses</a>
-                <a href="/blog.html" class="block py-2 mobile-nav-link">Blog</a>
-                <a href="resources-collection.html" class="block py-2 mobile-nav-link text-white">Resources</a>
-                <a href="/index.html#about" class="block py-2 mobile-nav-link">About</a>
-                <a href="/index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
-                <a href="/Private/student-login.html" class="block py-2 mobile-nav-link">Student Login</a>
-            </div>
+        <div class="flex items-center space-x-6">
+            <a href="../index.html" class="text-gray-400 hover:text-white text-sm">Home</a>
+            <a href="../courses.html" class="text-gray-400 hover:text-white text-sm">Courses</a>
+            <a href="../blog.html" class="text-gray-400 hover:text-white text-sm">Blog</a>
         </div>
     </nav>
-    
+
     <!-- Main Content -->
-    <main class="bg-black min-h-screen">
-        <section class="pt-48 pb-20 px-4">
-            <div class="max-w-7xl mx-auto text-center" data-aos="fade-up">
-                <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight">
-                    Design <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Resources</span>
-                </h1>
-                <p class="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-                    A curated collection of essential tools, free assets, and learning materials for modern designers.
-                </p>
+    <main class="pt-24 pb-12 px-4 max-w-7xl mx-auto w-full flex-grow">
+        
+        <!-- Header -->
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h1 class="text-3xl md:text-4xl font-bold mb-4">Design Resources</h1>
+            <p class="text-gray-400 max-w-2xl mx-auto">Curated collection of tools, assets, and inspiration for designers.</p>
+        </div>
+
+        <!-- Search and Filter -->
+        <div class="mb-12" data-aos="fade-up" data-aos-delay="100">
+            <!-- Search -->
+            <div class="relative max-w-md mx-auto mb-8">
+                <i class="fas fa-search absolute left-4 top-3.5 text-gray-500"></i>
+                <input type="text" id="searchInput" placeholder="Search resources..." class="search-input">
             </div>
-        </section>
 
-        <section class="py-20 px-4">
-            <div class="max-w-7xl mx-auto">
-                <div class="flex flex-wrap justify-center gap-4 mb-16" data-aos="fade-up">
-                    <button class="resource-filter active" data-filter="all">All Resources</button>
-                    <button class="resource-filter" data-filter="design">Design Tools</button>
-                    <button class="resource-filter" data-filter="illustration">Illustration</button>
-                    <button class="resource-filter" data-filter="ai">AI</button>
-                    <button class="resource-filter" data-filter="font">Font</button>
-                </div>
-
-                <div id="resources-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" data-aos="fade-up" data-aos-delay="200">
-                    <!-- JS will load cards here -->
-                </div>
-
-                <div class="flex justify-center items-center mt-20 space-x-2">
-                    <button id="prev-page" class="pagination-btn flex items-center justify-center w-10 h-10 rounded-full bg-[#1a1a1a] text-white hover:bg-[#333] transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-                        <i data-feather="chevron-left" class="w-5 h-5"></i>
-                    </button>
-                    <div id="page-numbers" class="flex items-center space-x-2"></div>
-                    <button id="next-page" class="pagination-btn flex items-center justify-center w-10 h-10 rounded-full bg-[#1a1a1a] text-white hover:bg-[#333] transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-                        <i data-feather="chevron-right" class="w-5 h-5"></i>
-                    </button>
-                </div>
+            <!-- Categories -->
+            <div class="flex flex-wrap justify-center gap-3" id="categoryFilters">
+                <button class="filter-btn active" onclick="filterResources('all')">All</button>
+                <button class="filter-btn" onclick="filterResources('Icons')">Icons</button>
+                <button class="filter-btn" onclick="filterResources('Illustrations')">Illustrations</button>
+                <button class="filter-btn" onclick="filterResources('Colors')">Colors</button>
+                <button class="filter-btn" onclick="filterResources('Typography')">Typography</button>
+                <button class="filter-btn" onclick="filterResources('Mockups')">Mockups</button>
+                <button class="filter-btn" onclick="filterResources('Stock Photos')">Stock Photos</button>
+                <button class="filter-btn" onclick="filterResources('Ai')">Ai</button>
+                <button class="filter-btn" onclick="filterResources('Inspiration')">Inspiration</button>
             </div>
-        </section>
+        </div>
 
-        <section class="py-24 bg-[#0a0a0a] px-4 border-y border-[#1a1a1a]">
-            <div class="max-w-7xl mx-auto">
-                <div class="text-center mb-16" data-aos="fade-up">
-                    <h2 class="text-3xl font-bold text-white mb-3">Latest Industry Trends</h2>
-                    <p class="text-gray-400 max-w-2xl mx-auto">Top companies shaping the future of design, AI, and digital innovation.</p>
-                </div>
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
-                    <a href="#" class="sub-card block p-6 text-center" data-aos="fade-up"><h3 class="font-bold text-lg text-white">OpenAI</h3></a>
-                    <a href="#" class="sub-card block p-6 text-center" data-aos="fade-up" data-aos-delay="100"><h3 class="font-bold text-lg text-white">Midjourney</h3></a>
-                    <a href="#" class="sub-card block p-6 text-center" data-aos="fade-up" data-aos-delay="200"><h3 class="font-bold text-lg text-white">Figma</h3></a>
-                    <a href="#" class="sub-card block p-6 text-center" data-aos="fade-up" data-aos-delay="300"><h3 class="font-bold text-lg text-white">Adobe</h3></a>
-                    <a href="#" class="sub-card block p-6 text-center" data-aos="fade-up" data-aos-delay="400"><h3 class="font-bold text-lg text-white">Runway</h3></a>
-                </div>
-            </div>
-        </section>
+        <!-- Resources Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="resourcesGrid">
+            <!-- Resources will be injected here via JS -->
+        </div>
+
+        <!-- Pagination Controls (ADDED THIS) -->
+        <div class="flex justify-center mt-12 space-x-2" id="pagination-controls">
+            <!-- Buttons injected via JS -->
+        </div>
+
     </main>
 
     <!-- Footer -->
-    <footer class="bg-black text-white py-12 border-t border-[#222]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-4 gap-8">
-                <div>
-                    <span class="text-xl font-bold mb-4 block">ART de ONE</span>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        Adobe Illustrator Classes & Freelance Creative Studio in Myanmar
-                    </p>
-                </div>
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="index.html#home" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
-                        <li><a href="courses.html" class="text-gray-400 hover:text-white transition duration-300">Courses</a></li>
-                        <li><a href="blog.html" class="text-gray-400 hover:text-white transition duration-300">Blog</a></li>
-                        <li><a href="/resources/resources-collection.html" class="text-gray-400 hover:text-white transition duration-300">Resources</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Classes</h3>
-                    <ul class="space-y-2 text-sm">
-                         <li><a href="courses/basic-illustrator/course-detail-basic.html" class="text-gray-400 hover:text-white transition duration-300">Basic Course</a></li>
-                        <li><a href="courses/intermediate-illustrator/course-detail-intermediate.html" class="text-gray-400 hover:text-white transition duration-300">Intermediate</a></li>
-                        <li><a href="courses/advanced-illustrator/course-detail-advanced.html" class="text-gray-400 hover:text-white transition duration-300">Advanced Abstract</a></li>
-                        <li><a href="courses/graphic-design/course-detail-graphic-design.html" class="text-gray-400 hover:text-white transition duration-300">Graphic Design</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Services</h3>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Logo Design</a></li>
-                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Social Media</a></li>
-                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Printing</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="border-t border-[#222] mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400 text-sm mb-4 md:mb-0">
-                    &copy; 2025 ART de ONE. All rights reserved.
-                </p>
-                <div class="flex space-x-6 text-sm">
-                    <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-white"><i class="fab fa-behance"></i></a>
-                    <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-            </div>
+    <footer class="border-t border-[#222] py-8 mt-auto">
+        <div class="text-center text-gray-500 text-sm">
+            <p>&copy; 2025 ART de ONE. All rights reserved.</p>
         </div>
     </footer>
 
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const resources = [
-                { id: 1, title: "Photo Gradient", category: "design . illustration", image: "resources-images/photogradient.jpg", link: "https://photogradient.com/" },
-                { id: 2, title: "ColorPalette Pro", category: "design . illustration", image: "resources-images/colorpaletterpro.jpg", link: "https://colorpalette.pro/" },
-                { id: 3, title: "UI Color", category: "design", image: "resources-images/uicolors.jpg", link: "https://uicolors.app/generate/d16745" },
-                { id: 4, title: "UnCut", category: "font", image: "resources-images/uncut.jpg", link: "https://uncut.wtf/" },
-                { id: 5, title: "Reve AI", category: "ai", image: "resources-images/reve.jpg", link: "https://app.reve.com/" },
-                { id: 6, title: "Icon Buddy", category: "design . illustration", image: "resources-images/iconbuddy.jpg", link: "https://iconbuddy.com/" },
-                { id: 7, title: "FONT IN USE", category: "font", image: "resources-images/fontinuse.jpg", link: "https://fontsinuse.com/" },
-                { id: 8, title: "Fonts Ninja", category: "font", image: "resources-images/fontninja.jpg", link: "https://fonts.ninja/" },
-                { id: 9, title: "Font Mojo", category: "font", image: "resources-images/fontmojo.jpg", link: "https://fontmojo.com/" },
-                { id: 10, title: "Free Minimal Mockup", category: "design", image: "resources-images/minimalmockups.jpg", link: "https://www.minimalmockups.com/" },
-                { id: 11, title: "Pixel Market", category: "illustration", image: "resources-images/pixelsmarket.jpg", link: "https://pixels.market/" },
-                { id: 12, title: "SpaceType Generator", category: "font", image: "resources-images/spacetypegenerator.jpg", link: "https://spacetypegenerator.com/" },
-                { id: 13, title: "Pomelli - Content Generator", category: "Ai . Content Generator", image: "resources-images/pomelli.jpg", link: "https://labs.google.com/pomelli/about/" }
-            ];
+        AOS.init();
 
-            const resourcesPerPage = 12;
-            let currentPage = 1;
-            let filteredResources = [...resources];
-
-            const container = document.getElementById('resources-container');
-            const pageNumbersContainer = document.getElementById('page-numbers');
-            const prevButton = document.getElementById('prev-page');
-            const nextButton = document.getElementById('next-page');
-            const filterButtons = document.querySelectorAll('.resource-filter');
-
-            function renderResources() {
-                if (!container) return;
-                container.innerHTML = '';
-                const startIndex = (currentPage - 1) * resourcesPerPage;
-                const paginatedResources = filteredResources.slice(startIndex, startIndex + resourcesPerPage);
-
-                paginatedResources.forEach(resource => {
-                    const resourceEl = `
-                        <a href="${resource.link}" target="_blank" class="resource-card-minimal block group">
-                            <div class="relative overflow-hidden h-48 bg-[#111]">
-                                 <img src="${resource.image}" alt="${resource.title}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100">
-                            </div>
-                            <div class="p-6">
-                                <h3 class="resource-title text-xl font-bold mb-2">${resource.title}</h3>
-                                <p class="text-gray-400 text-sm line-clamp-2">Category: ${resource.category}</p>
-                            </div>
-                        </a>
-                    `;
-                    container.innerHTML += resourceEl;
-                });
+        // Resource Data
+        const resources = [
+            {
+                id: 1,
+                title: "Phosphor Icons",
+                category: "Icons",
+                image: "resources-images/phosphor.jpg",
+                link: "https://phosphoricons.com/"
+            },
+            {
+                id: 2,
+                title: "Undraw",
+                category: "Illustrations",
+                image: "resources-images/undraw.jpg",
+                link: "https://undraw.co/"
+            },
+            {
+                id: 3,
+                title: "Coolors",
+                category: "Colors",
+                image: "resources-images/coolors.jpg",
+                link: "https://coolors.co/"
+            },
+            {
+                id: 4,
+                title: "Google Fonts",
+                category: "Typography",
+                image: "resources-images/googlefonts.jpg",
+                link: "https://fonts.google.com/"
+            },
+            {
+                id: 5,
+                title: "Unsplash",
+                category: "Stock Photos",
+                image: "resources-images/unsplash.jpg",
+                link: "https://unsplash.com/"
+            },
+            {
+                id: 6,
+                title: "Behance",
+                category: "Inspiration",
+                image: "resources-images/behance.jpg",
+                link: "https://www.behance.net/"
+            },
+             {
+                id: 7,
+                title: "Figma",
+                category: "Tools",
+                image: "resources-images/figma.jpg",
+                link: "https://www.figma.com/"
+            },
+             {
+                id: 8,
+                title: "Dribbble",
+                category: "Inspiration",
+                image: "resources-images/dribbble.jpg",
+                link: "https://dribbble.com/"
+            },
+             {
+                id: 9,
+                title: "Pexels",
+                category: "Stock Photos",
+                image: "resources-images/pexels.jpg",
+                link: "https://www.pexels.com/"
+            },
+             {
+                id: 10,
+                title: "Mockup World",
+                category: "Mockups",
+                image: "resources-images/mockupworld.jpg",
+                link: "https://www.mockupworld.co/"
+            },
+             {
+                id: 11,
+                title: "Font Awesome",
+                category: "Icons",
+                image: "resources-images/fontawesome.jpg",
+                link: "https://fontawesome.com/"
+            },
+             {
+                id: 12,
+                title: "Freepik",
+                category: "Vectors",
+                image: "resources-images/freepik.jpg",
+                link: "https://www.freepik.com/"
+            },
+            {
+                id: 13,
+                title: "Pomelli - Content Generator",
+                category: "Ai . Content Generator",
+                image: "resources-images/pomelli.jpg",
+                link: "https://labs.google.com/pomelli/about/"
             }
+        ];
 
-            function setupPagination() {
-                if(!pageNumbersContainer) return;
-                pageNumbersContainer.innerHTML = '';
-                const totalPages = Math.ceil(filteredResources.length / resourcesPerPage);
-                prevButton.disabled = currentPage === 1;
-                nextButton.disabled = currentPage === totalPages || totalPages === 0;
-            }
+        // State
+        let currentCategory = 'all';
+        let searchQuery = '';
+        let currentPage = 1;
+        const resourcesPerPage = 12;
 
-            function filterAndRender() {
-                const activeFilter = document.querySelector('.resource-filter.active').dataset.filter;
-                filteredResources = (activeFilter === 'all') ? [...resources] : resources.filter(r => r.category.includes(activeFilter));
-                currentPage = 1;
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderResources();
+            
+            // Search Listener
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                searchQuery = e.target.value.toLowerCase();
+                currentPage = 1; // Reset to page 1 on search
                 renderResources();
-                setupPagination();
-            }
+            });
+        });
 
-            filterButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-                    filterAndRender();
-                });
+        // Filter Function
+        function filterResources(category) {
+            currentCategory = category;
+            currentPage = 1; // Reset to page 1 on filter change
+            
+            // Update Active Button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if(btn.textContent === (category === 'all' ? 'All' : category)) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            renderResources();
+        }
+
+        // Render Function (With Pagination Logic)
+        function renderResources() {
+            const grid = document.getElementById('resourcesGrid');
+            grid.innerHTML = '';
+
+            // Filter Logic
+            const filteredResources = resources.filter(item => {
+                const matchesCategory = currentCategory === 'all' || item.category.includes(currentCategory);
+                const matchesSearch = item.title.toLowerCase().includes(searchQuery) || 
+                                    item.category.toLowerCase().includes(searchQuery);
+                return matchesCategory && matchesSearch;
             });
 
-            // Init & Listeners
-            AOS.init({ duration: 1000, once: true });
-            feather.replace();
-            filterAndRender();
-            
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            if (mobileMenuButton && mobileMenu) {
-                mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-            }
-        });
-    </script>
+            // Pagination Slicing
+            const startIndex = (currentPage - 1) * resourcesPerPage;
+            const paginatedResources = filteredResources.slice(startIndex, startIndex + resourcesPerPage);
 
+            // Create Cards
+            paginatedResources.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'resource-card group';
+                card.innerHTML = `
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute top-3 left-3">
+                            <span class="category-badge bg-black bg-opacity-70 backdrop-blur-sm border-none text-white text-xs">${item.category}</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-lg font-bold mb-2 group-hover:text-[#9dae11] transition-colors">${item.title}</h3>
+                        <a href="${item.link}" target="_blank" class="inline-flex items-center text-sm text-gray-400 hover:text-white mt-2">
+                            Visit Website <i class="fas fa-external-link-alt ml-2 text-xs"></i>
+                        </a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            // Empty State
+            if (paginatedResources.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12 text-gray-500">
+                        <i class="far fa-sad-tear text-4xl mb-4"></i>
+                        <p>No resources found matching your criteria.</p>
+                    </div>
+                `;
+            }
+
+            // Update Pagination Buttons
+            renderPagination(filteredResources.length);
+        }
+
+        // Render Pagination Controls
+        function renderPagination(totalItems) {
+            const paginationContainer = document.getElementById('pagination-controls');
+            const totalPages = Math.ceil(totalItems / resourcesPerPage);
+            
+            // Hide if only 1 page
+            if (totalPages <= 1) {
+                paginationContainer.innerHTML = '';
+                return;
+            }
+
+            let html = '';
+
+            // Previous Button
+            if (currentPage > 1) {
+                html += `<button onclick="changePage(${currentPage - 1})" class="w-10 h-10 flex items-center justify-center rounded-full border border-[#333] text-gray-400 hover:border-[#9dae11] hover:text-[#9dae11] transition"><i class="fas fa-chevron-left"></i></button>`;
+            }
+
+            // Page Numbers
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === currentPage) {
+                    html += `<button class="w-10 h-10 flex items-center justify-center rounded-full bg-[#9dae11] text-black font-bold shadow-[0_0_10px_rgba(157,174,17,0.3)]">${i}</button>`;
+                } else {
+                    html += `<button onclick="changePage(${i})" class="w-10 h-10 flex items-center justify-center rounded-full border border-[#333] text-gray-400 hover:border-white hover:text-white transition">${i}</button>`;
+                }
+            }
+
+            // Next Button
+            if (currentPage < totalPages) {
+                html += `<button onclick="changePage(${currentPage + 1})" class="w-10 h-10 flex items-center justify-center rounded-full border border-[#333] text-gray-400 hover:border-[#9dae11] hover:text-[#9dae11] transition"><i class="fas fa-chevron-right"></i></button>`;
+            }
+
+            paginationContainer.innerHTML = html;
+        }
+
+        // Change Page Helper
+        window.changePage = function(page) {
+            currentPage = page;
+            renderResources();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+    </script>
 </body>
 </html>
