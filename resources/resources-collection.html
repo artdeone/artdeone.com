@@ -409,6 +409,43 @@
                 if(!pageNumbersContainer) return;
                 pageNumbersContainer.innerHTML = '';
                 const totalPages = Math.ceil(filteredResources.length / resourcesPerPage);
+
+                // Logic to show only 3 numbers max (Sliding Window)
+                let startPage, endPage;
+                const maxVisible = 3;
+
+                if (totalPages <= maxVisible) {
+                    startPage = 1;
+                    endPage = totalPages;
+                } else {
+                    // Try to center the current page
+                    startPage = Math.max(1, currentPage - 1);
+                    endPage = startPage + maxVisible - 1;
+
+                    // If we go past the end, shift back
+                    if (endPage > totalPages) {
+                        endPage = totalPages;
+                        startPage = Math.max(1, endPage - maxVisible + 1);
+                    }
+                }
+
+                for (let i = startPage; i <= endPage; i++) {
+                    const btn = document.createElement('button');
+                    btn.innerText = i;
+                    if (i === currentPage) {
+                        btn.className = 'w-10 h-10 rounded-full flex items-center justify-center bg-white text-black font-medium transition-colors';
+                    } else {
+                        btn.className = 'w-10 h-10 rounded-full flex items-center justify-center text-gray-400 hover:bg-[#1a1a1a] hover:text-white transition-colors';
+                    }
+                    btn.addEventListener('click', () => {
+                        currentPage = i;
+                        renderResources();
+                        setupPagination();
+                        document.getElementById('resources-container').scrollIntoView({ behavior: 'smooth' });
+                    });
+                    pageNumbersContainer.appendChild(btn);
+                }
+
                 prevButton.disabled = currentPage === 1;
                 nextButton.disabled = currentPage === totalPages || totalPages === 0;
             }
