@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CZRQ0NPPJ2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-CZRQ0NPPJ2');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venom Illustration - ART de ONE Portfolio</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+    <!-- Libraries & Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    
+    <!-- Global Styles -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        /* --- MINIMALIST DARK THEME STYLES --- */
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Navigation Overrides */
+        nav { 
+            background-color: rgba(0,0,0,0.9) !important; 
+            border-bottom: 1px solid #222; 
+            backdrop-filter: blur(12px);
+        }
+        .nav-link { 
+            color: #ccc !important; 
+            font-weight: 300 !important;
+            letter-spacing: 0.04em;
+            font-size: 0.9rem !important;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover { 
+            color: #fff !important; 
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu { background-color: #111 !important; }
+        .mobile-nav-link { color: #ccc !important; font-weight: 300; font-size: 0.9rem; }
+
+        /* Sections */
+        .section-dark { background-color: #000; }
+        .section-title {
+            color: #fff;
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        .section-subtitle {
+            color: #9dae11; /* Brand Accent Color */
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+            display: block;
+        }
+        
+        /* Text Styles */
+        .text-body { color: #a0a0a0; line-height: 1.8; font-weight: 300; }
+        
+        /* Button Style */
+        .nav-btn {
+            background-color: #fff;
+            color: #000;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1.25rem;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+        .nav-btn:hover { background-color: #ccc; }
+
+        /* --- BEFORE / AFTER SLIDER STYLES --- */
+        .ba-slider {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border: 1px solid #333;
+            border-radius: 0.5rem;
+            cursor: col-resize;
+        }
+        .ba-slider img {
+            width: 100%;
+            height: auto;
+            display: block;
+            pointer-events: none; /* Prevents dragging image itself */
+        }
+        .ba-before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 50%; /* Initial position */
+            overflow: hidden;
+            z-index: 2;
+            border-right: 2px solid #9dae11; /* Brand accent divider */
+        }
+        .ba-before img {
+            /* Important: Width must be strictly defined to match container 
+               so image doesn't squish when div resizes */
+            width: 100vw; 
+            max-width: none; /* Allow it to overflow the div */
+        }
+        /* Ensure the inner image width matches the container width via JS or strict sizing */
+        
+        .ba-handle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: #9dae11;
+            border-radius: 50%;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            pointer-events: none; /* Let clicks pass through to container */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav class="fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 nav-container">
+            <div class="nav-wrapper">
+                <div class="flex justify-between h-16 items-center">
+                    <!-- Logo -->
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <a href="/index.html#home" class="flex items-center">
+                                <img src="/logo.png" alt="ART de ONE" class="h-10 w-auto">
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Desktop Navigation -->
+                    <div class="hidden md:flex items-center space-x-4 nav-center">
+                        <a href="/index.html#home" class="nav-link">Home</a>
+                        <a href="/courses.html" class="nav-link">Courses</a>
+                        <a href="/blog.html" class="nav-link">Blog</a>
+                        <a href="/resources/resources-collection.html" class="nav-link">Resources</a>
+                        <a href="/index.html#about" class="nav-link">About</a>
+                        <a href="/index.html#contact" class="nav-link">Contact</a>
+                    </div>
+                    
+                    <!-- Contact Button -->
+                    <div class="hidden md:block">
+                        <a href="/Private/student-login.html" class="nav-btn">Student Login</a>
+                    </div>
+                    
+                    <!-- Mobile Menu Button -->
+                    <div class="md:hidden flex items-center">
+                        <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white focus:outline-none" id="mobile-menu-button">
+                            <i data-feather="menu"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div class="hidden mobile-menu md:hidden" id="mobile-menu">
+            <div class="py-2 px-4 space-y-1">
+                <a href="/index.html#home" class="block py-2 mobile-nav-link text-white">Home</a>
+                <a href="/courses.html" class="block py-2 mobile-nav-link">Courses</a>
+                <a href="/blog.html" class="block py-2 mobile-nav-link">Blog</a>
+                <a href="/resources/resources-collection.html" class="block py-2 mobile-nav-link">Resources</a>
+                <a href="/index.html#about" class="block py-2 mobile-nav-link">About</a>
+                <a href="/index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
+                <a href="/Private/student-login.html" class="block py-2 mobile-nav-link">Student Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT: PORTFOLIO DETAIL -->
+    <section class="pt-32 pb-12 section-dark px-4 min-h-screen">
+        <div class="max-w-7xl mx-auto">
+            
+            <!-- Header Section -->
+            <div class="mb-12 border-b border-[#222] pb-8" data-aos="fade-up">
+                <span class="section-subtitle">Digital Illustration</span>
+                <h1 class="section-title">Venom Illustration</h1>
+                <a href="/index.html#portfolio" class="text-gray-500 hover:text-white text-sm flex items-center gap-2 transition-colors">
+                    <i class="fas fa-arrow-left"></i> Back to Portfolio
+                </a>
+            </div>
+
+            <!-- Main Layout: Info + Main Image -->
+            <div class="grid lg:grid-cols-2 gap-12 items-start mb-24">
+                
+                <!-- Left Column: Text Info -->
+                <div data-aos="fade-right">
+                    <h3 class="text-2xl font-bold mb-6 text-white">The Concept</h3>
+                    <div class="text-body space-y-6">
+                        <p>
+                            This digital illustration explores the duality of the Venom character, merging organic textures with sharp, aggressive symbiotic forms. The goal was to capture the raw energy and chaotic nature of the subject using Adobe Illustrator's vector capabilities.
+                        </p>
+                        <p>
+                            By utilizing complex gradients and mesh tools, we achieved a sense of depth and realism that is often difficult to produce in vector art. The high contrast lighting emphasizes the glossy texture of the suit while maintaining the menacing atmosphere of the character.
+                        </p>
+                        
+                        <!-- Project Details List -->
+                        <div class="mt-8 py-8 border-t border-[#222]">
+                            <h4 class="text-white font-semibold mb-4">Project Details</h4>
+                            <ul class="space-y-3 text-sm text-gray-400">
+                                <li class="flex justify-between">
+                                    <span>Tools Used:</span>
+                                    <span class="text-white">Adobe Illustrator, Wacom Tablet</span>
+                                </li>
+                                <li class="flex justify-between">
+                                    <span>Category:</span>
+                                    <span class="text-white">Character Design / Vector Art</span>
+                                </li>
+                                <li class="flex justify-between">
+                                    <span>Client:</span>
+                                    <span class="text-white">Personal Project</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Main Image -->
+                <div class="rounded-lg overflow-hidden border border-[#222]" data-aos="fade-left">
+                    <img src="/portfolio/character-2.jpg" alt="Venom Illustration Final" class="w-full h-auto object-cover">
+                </div>
+            </div>
+
+            <!-- BEFORE & AFTER SECTION (New) -->
+            <div class="mb-24" data-aos="fade-up">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl font-bold text-white">Process Breakdown</h2>
+                    <p class="text-gray-500 text-sm mt-2">Drag the slider to see the transition from Outline to Final Render</p>
+                </div>
+
+                <!-- Slider Container -->
+                <div class="max-w-4xl mx-auto">
+                    <div class="ba-slider" id="ba-slider">
+                        <!-- Image 1: Background (Final Version) -->
+                        <img src="portfolio/venom-full.jpg" alt="Final Art">
+                        
+                        <!-- Image 2: Foreground (Sketch/Outline Version) -->
+                        <div class="ba-before" id="ba-before">
+                            <!-- Important: This image must be the exact same dimensions as the background image -->
+                            <img src="portfolio/venom-sketch.jpg" alt="Sketch Version" id="ba-before-img">
+                        </div>
+                        
+                        <!-- Slider Handle -->
+                        <div class="ba-handle" id="ba-handle">
+                            <i class="fas fa-arrows-alt-h"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EXPANDED GALLERY (New) -->
+            <div class="mb-12" data-aos="fade-up">
+                <h3 class="text-2xl font-bold mb-8 text-white border-l-4 border-[#9dae11] pl-4">Visual Exploration</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Image 1 -->
+                    <div class="group relative aspect-video overflow-hidden rounded-lg border border-[#222] cursor-pointer">
+                        <img src="portfolio/venom-detail-1.jpg" alt="Detail 1" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="text-sm font-medium text-white">Detail: Eyes</span>
+                        </div>
+                    </div>
+
+                    <!-- Image 2 -->
+                    <div class="group relative aspect-video overflow-hidden rounded-lg border border-[#222] cursor-pointer">
+                        <img src="portfolio/venom-detail-2.jpg" alt="Detail 2" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="text-sm font-medium text-white">Detail: Texture</span>
+                        </div>
+                    </div>
+
+                    <!-- Image 3 -->
+                    <div class="group relative aspect-video overflow-hidden rounded-lg border border-[#222] cursor-pointer">
+                        <img src="portfolio/venom-detail-3.jpg" alt="Process 1" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="text-sm font-medium text-white">Base Colors</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Image 4 -->
+                    <div class="group relative aspect-video overflow-hidden rounded-lg border border-[#222] cursor-pointer">
+                        <img src="portfolio/venom-detail-4.jpg" alt="Process 2" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="text-sm font-medium text-white">Wireframe View</span>
+                        </div>
+                    </div>
+
+                     <!-- Call To Action Box -->
+                     <div class="col-span-1 md:col-span-2 lg:col-span-2 border border-[#9dae11] rounded-lg p-8 flex flex-col md:flex-row items-center justify-between bg-[#9dae11]/5">
+                        <div class="mb-4 md:mb-0">
+                            <h4 class="text-xl font-bold text-white">Master Vector Art</h4>
+                            <p class="text-gray-400 text-sm mt-1">Learn the techniques used in this project.</p>
+                        </div>
+                        <a href="courses.html" class="inline-block bg-[#9dae11] text-black font-bold py-3 px-8 rounded hover:bg-white transition-all duration-300">
+                            Start Learning
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black text-white py-12 border-t border-[#222]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <span class="text-xl font-bold mb-4 block">ART de ONE</span>
+                    <p class="text-gray-400 text-sm">
+                        Adobe Illustrator Classes & Freelance Creative Studio in Myanmar
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index.html#home" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
+                        <li><a href="courses.html" class="text-gray-400 hover:text-white transition duration-300">Courses</a></li>
+                        <li><a href="blog.html" class="text-gray-400 hover:text-white transition duration-300">Blog</a></li>
+                        <li><a href="resources/resources-collection.html" class="text-gray-400 hover:text-white transition duration-300">Resources</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Classes</h3>
+                    <ul class="space-y-2 text-sm">
+                         <li><a href="courses/basic-illustrator/course-detail-basic.html" class="text-gray-400 hover:text-white transition duration-300">Basic Course</a></li>
+                        <li><a href="courses/intermediate-illustrator/course-detail-intermediate.html" class="text-gray-400 hover:text-white transition duration-300">Intermediate</a></li>
+                        <li><a href="courses/graphic-design/course-detail-graphic-design.html" class="text-gray-400 hover:text-white transition duration-300">Graphic Design</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Services</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Logo Design</a></li>
+                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Social Media</a></li>
+                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Printing</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-[#222] mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">
+                    &copy; 2025 ART de ONE. All rights reserved.
+                </p>
+                <div class="flex space-x-6 text-sm">
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-behance"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize Icons
+        feather.replace();
+        
+        // Initialize Animations
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // --- BEFORE / AFTER SLIDER SCRIPT ---
+        const slider = document.getElementById('ba-slider');
+        const before = document.getElementById('ba-before');
+        const beforeImg = document.getElementById('ba-before-img');
+        const handle = document.getElementById('ba-handle');
+
+        // Function to sync width of inner image with container
+        function resizeImage() {
+            if(beforeImg && slider) {
+                beforeImg.style.width = slider.offsetWidth + 'px';
+            }
+        }
+        window.addEventListener('resize', resizeImage);
+        // Run once on load
+        window.addEventListener('load', resizeImage);
+
+        // Mouse Move Functionality
+        if(slider) {
+            slider.addEventListener('mousemove', function(e) {
+                const rect = slider.getBoundingClientRect();
+                const x = e.clientX - rect.left; // X position within the element.
+                const width = slider.offsetWidth;
+                
+                // Calculate percentage
+                let percentage = (x / width) * 100;
+                
+                // Limit range
+                if (percentage < 0) percentage = 0;
+                if (percentage > 100) percentage = 100;
+                
+                // Apply styles
+                before.style.width = percentage + '%';
+                handle.style.left = percentage + '%';
+            });
+
+            // Touch Support for Mobile
+            slider.addEventListener('touchmove', function(e) {
+                const rect = slider.getBoundingClientRect();
+                const touch = e.touches[0];
+                const x = touch.clientX - rect.left;
+                const width = slider.offsetWidth;
+                let percentage = (x / width) * 100;
+                if (percentage < 0) percentage = 0;
+                if (percentage > 100) percentage = 100;
+                before.style.width = percentage + '%';
+                handle.style.left = percentage + '%';
+            });
+        }
+    </script>
+</body>
+</html>
