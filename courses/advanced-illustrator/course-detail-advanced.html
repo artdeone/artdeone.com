@@ -17,7 +17,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
+    <link rel="stylesheet" href="/css-and-js/mobile-smooth-nav.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         
@@ -213,16 +213,21 @@
     
                     <!-- Mobile menu button -->
                     <div class="md:hidden flex items-center">
-                        <button id="mobile-menu-button" class="text-gray-300 hover:text-white focus:outline-none">
-                            <i data-feather="menu" class="h-6 w-6"></i>
+                        <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white focus:outline-none" id="mobile-menu-button">
+                        <!-- Container to stack icons -->
+                            <div class="icon-container">
+                                <i data-feather="menu" class="icon-menu"></i>
+                                <i data-feather="x" class="icon-close"></i>
+                            </div>
                         </button>
+
                     </div>
                 </div>
             </div>
         </div>
     
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden mobile-menu absolute w-full left-0 top-16 border-b border-gray-800">
+        <div class="mobile-menu md:hidden" id="mobile-menu">
             <div class="px-4 pt-2 pb-4 space-y-1">
                 <a href="/index.html#home" class="block px-3 py-2 rounded-md mobile-nav-link hover:bg-gray-800">Home</a>
                 <a href="/courses.html" class="block px-3 py-2 rounded-md mobile-nav-link hover:bg-gray-800">Courses</a>
@@ -450,6 +455,7 @@
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+     <script src="/css-and-js/mobile-smooth-nav.js"></script>
     <script>
         AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
         feather.replace();
