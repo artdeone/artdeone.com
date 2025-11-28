@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/feather-icons"></script>
-    <link rel="stylesheet" href="/css-and-js/drop-down.css">
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
@@ -149,12 +148,11 @@
 </head>
 <body class="bg-black text-white">
 
-    <!-- NAVIGATION BAR -->
+    <!-- Navigation -->
     <nav class="fixed w-full z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 nav-container">
             <div class="nav-wrapper">
                 <div class="flex justify-between h-16 items-center">
-                    
                     <!-- Logo -->
                     <div class="flex items-center">
                         <div class="flex-shrink-0">
@@ -165,32 +163,16 @@
                     </div>
                     
                     <!-- Desktop Navigation -->
-                    <div class="hidden md:flex items-center space-x-6 nav-center">
+                    <div class="hidden md:flex items-center space-x-4 nav-center">
                         <a href="/index.html#home" class="nav-link">Home</a>
                         <a href="/courses.html" class="nav-link">Courses</a>
-                        
-                        <!-- DROPDOWN START -->
-                        <div class="dropdown">
-                            <a href="/blog.html" class="nav-link">
-                                Blog <i class="fas fa-chevron-down text-[10px] opacity-50 mt-[2px]"></i>
-                            </a>
-                            <div class="dropdown-menu">
-                                <a href="/student-gallery.html" class="dropdown-item">
-                                    Student Gallery
-                                </a>
-                                <a href="/blog.html" class="dropdown-item">
-                                    All Blog Posts
-                                </a>
-                            </div>
-                        </div>
-                        <!-- DROPDOWN END -->
-
-                        <a href="/resources/resources-collection.html" class="nav-link">Resources</a>
+                        <a href="/blog.html" class="nav-link">Blog</a>
+                        <a href="resources-collection.html" class="nav-link" style="color: #fff !important;">Resources</a>
                         <a href="/index.html#about" class="nav-link">About</a>
                         <a href="/index.html#contact" class="nav-link">Contact</a>
                     </div>
                     
-                    <!-- Login Button -->
+                    <!-- Contact Button -->
                     <div class="hidden md:block">
                         <a href="/Private/student-login.html" class="nav-btn">Student Login</a>
                     </div>
@@ -205,26 +187,16 @@
             </div>
         </div>
         
-        <!-- Mobile Menu -->
+        <!-- Mobile menu -->
         <div class="hidden mobile-menu md:hidden" id="mobile-menu">
-            <div class="py-2 px-4 space-y-1 bg-black border-b border-[#222]">
-                <a href="index.html#home" class="block py-2 mobile-nav-link text-gray-300 hover:text-white">Home</a>
-                <a href="courses.html" class="block py-2 mobile-nav-link text-gray-300 hover:text-white">Courses</a>
-                
-                <div class="pl-4 border-l border-[#333] my-2 bg-[#0a0a0a] rounded-r-md">
-                    <span class="text-[10px] text-gray-500 uppercase tracking-wider pt-2 block mb-1">Blog & Gallery</span>
-                    <a href="student-gallery.html" class="block py-2 mobile-nav-link text-[#9dae11] font-medium">
-                        Student Gallery
-                    </a>
-                    <a href="blog.html" class="block py-2 mobile-nav-link text-gray-300 hover:text-white">
-                        Blog
-                    </a>
-                </div>
-                
-                <a href="/resources/resources-collection.html" class="block py-2 mobile-nav-link text-gray-300 hover:text-white">Resources</a>
-                <a href="index.html#about" class="block py-2 mobile-nav-link text-gray-300 hover:text-white">About</a>
-                <a href="index.html#contact" class="block py-2 mobile-nav-link text-gray-300 hover:text-white">Contact</a>
-                <a href="/Private/student-login.html" class="block py-2 mobile-nav-link text-gray-300 hover:text-white mt-4 border-t border-[#222] pt-4 text-center bg-[#111] rounded">Student Login</a>
+            <div class="py-2 px-4 space-y-1">
+                <a href="/index.html#home" class="block py-2 mobile-nav-link">Home</a>
+                <a href="/courses.html" class="block py-2 mobile-nav-link">Courses</a>
+                <a href="/blog.html" class="block py-2 mobile-nav-link">Blog</a>
+                <a href="resources-collection.html" class="block py-2 mobile-nav-link text-white">Resources</a>
+                <a href="/index.html#about" class="block py-2 mobile-nav-link">About</a>
+                <a href="/index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
+                <a href="/Private/student-login.html" class="block py-2 mobile-nav-link">Student Login</a>
             </div>
         </div>
     </nav>
@@ -553,7 +525,6 @@
             }
         });
     </script>
-    <script src="/css-and-js/mobile-nav.js"></script>
 
 </body>
 </html>
