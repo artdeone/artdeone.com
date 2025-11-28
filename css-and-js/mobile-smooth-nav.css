@@ -1,0 +1,85 @@
+/* Enhanced Mobile Menu Animation */
+#mobile-menu {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    /* Cubic-bezier gives it a natural 'snap' feeling */
+    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
+    display: block;
+}
+
+#mobile-menu.open {
+    max-height: 500px; /* Adjust if your menu is very long */
+    opacity: 1;
+}
+
+/* Default state for links: slightly shifted up and invisible */
+.mobile-nav-link {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* When menu is open, reset links to normal position */
+#mobile-menu.open .mobile-nav-link {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggered Delay Loop: This makes them appear one by one */
+/* We assume you have about 5-6 links. This covers up to 6. */
+#mobile-menu.open .mobile-nav-link:nth-child(1) { transition-delay: 0.10s; }
+#mobile-menu.open .mobile-nav-link:nth-child(2) { transition-delay: 0.15s; }
+#mobile-menu.open .mobile-nav-link:nth-child(3) { transition-delay: 0.20s; }
+#mobile-menu.open .mobile-nav-link:nth-child(4) { transition-delay: 0.25s; }
+#mobile-menu.open .mobile-nav-link:nth-child(5) { transition-delay: 0.30s; }
+#mobile-menu.open .mobile-nav-link:nth-child(6) { transition-delay: 0.35s; }
+
+/* Smooth Rotate & Scale for the Button */
+#mobile-menu-button {
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+#mobile-menu-button.open {
+    transform: rotate(90deg) scale(1.1); /* Slight scale up looks nice */
+}
+
+/* Icon Container: Ensures icons sit exactly on top of each other */
+.icon-container {
+    position: relative;
+    width: 24px;
+    height: 24px;
+}
+
+/* Shared styles for the SVG icons */
+.icon-menu, .icon-close {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    /* Smooth cubic-bezier for that "premium" feel */
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Default State (Menu visible, X hidden) */
+.icon-menu {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}
+
+.icon-close {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.5); /* Starts smaller and rotated */
+}
+
+/* Open State (Menu hidden, X visible) */
+/* The Javascript from the previous step adds the 'open' class to the button */
+#mobile-menu-button.open .icon-menu {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.5); /* Rotates away and shrinks */
+}
+
+#mobile-menu-button.open .icon-close {
+    opacity: 1;
+    transform: rotate(0deg) scale(1); /* Rotates in and grows */
+}

@@ -21,6 +21,8 @@
     <script src="https://unpkg.com/feather-icons"></script>
     <script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.iife.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+    <link rel="stylesheet" href="css-and-js/mobile-smooth-nav.css">
+
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
@@ -247,7 +249,11 @@
                 <!-- Mobile Menu Button -->
                 <div class="md:hidden flex items-center">
                     <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white focus:outline-none" id="mobile-menu-button">
-                        <i data-feather="menu"></i>
+                <!-- Container to stack icons -->
+                    <div class="icon-container">
+                            <i data-feather="menu" class="icon-menu"></i>
+                            <i data-feather="x" class="icon-close"></i>
+                        </div>
                     </button>
                 </div>
             </div>
@@ -255,7 +261,7 @@
     </div>
     
     <!-- Mobile menu -->
-    <div class="hidden mobile-menu md:hidden" id="mobile-menu">
+    <div class="mobile-menu md:hidden" id="mobile-menu">
         <div class="py-2 px-4 space-y-1">
             <a href="index.html#home" class="block py-2 mobile-nav-link text-white">Home</a>
             <a href="courses.html" class="block py-2 mobile-nav-link">Courses</a>
@@ -665,6 +671,7 @@
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="css-and-js/mobile-smooth-nav.js"></script>
     <script>
         AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
         feather.replace();
