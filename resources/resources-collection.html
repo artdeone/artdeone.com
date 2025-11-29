@@ -227,7 +227,22 @@
                 <p class="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
                    ရှာဖွေပါ ၊ လေ့လာပါ ၊ မှတ်သားပါ ၊ လက်တွေ့အသုံးချပါ
                 </p>
+
+                <!-- COMPACT CENTERED SEARCH BAR -->
+<div class="w-full max-w-md mx-auto mt-8 relative group px-4" data-aos="fade-up" data-aos-delay="100">
+    <div class="absolute inset-y-0 left-0 pl-7 flex items-center pointer-events-none">
+        <i data-feather="search" class="h-4 w-4 text-gray-500 group-focus-within:text-[#9dae11] transition-colors"></i>
+    </div>
+    <input 
+        type="text" 
+        id="resource-search" 
+        placeholder="Search resources..." 
+        class="block w-full pl-10 pr-4 py-2.5 bg-[#111] border border-[#333] rounded-full text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#9dae11] focus:ring-1 focus:ring-[#9dae11] transition-all duration-300"
+    >
+</div>
+
             </div>
+            
         </section>
 
         <section class="py-20 px-4">
@@ -328,209 +343,245 @@
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script src="/css-and-js/mobile-smooth-nav.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const resources = [
-                { id: 1, title: "Human Made Vector Illustration", category: "illustration . design", image: "resources-images/getillustrations.jpg", link: "https://www.getillustrations.com/?via=art-de" },
-                { id: 2, title: "ColorPalette Pro", category: "design . illustration", image: "resources-images/colorpaletterpro.jpg", link: "https://colorpalette.pro/" },
-                { id: 3, title: "Lupa Image Upscaler", category: "ai . design", image: "resources-images/lupa.jpg", link: "https://app.lupaupscaler.com/?via=artde" },
-                { id: 4, title: "UnCut", category: "font", image: "resources-images/uncut.jpg", link: "https://uncut.wtf/" },
-                { id: 5, title: "Reve AI", category: "ai", image: "resources-images/reve.jpg", link: "https://app.reve.com/" },
-                { id: 6, title: "Icon Buddy", category: "design . illustration", image: "resources-images/iconbuddy.jpg", link: "https://iconbuddy.com/" },
-                { id: 7, title: "FONT IN USE", category: "font", image: "resources-images/fontinuse.jpg", link: "https://fontsinuse.com/" },
-                { id: 8, title: "Fonts Ninja", category: "font", image: "resources-images/fontninja.jpg", link: "https://fonts.ninja/" },
-                { id: 9, title: "Font Mojo", category: "font", image: "resources-images/fontmojo.jpg", link: "https://fontmojo.com/" },
-                { id: 10, title: "Free Minimal Mockup", category: "design", image: "resources-images/minimalmockups.jpg", link: "https://www.minimalmockups.com/" },
-                { id: 11, title: "Pixel Market", category: "illustration", image: "resources-images/pixelsmarket.jpg", link: "https://pixels.market/" },
-                { id: 12, title: "SpaceType Generator", category: "font", image: "resources-images/spacetypegenerator.jpg", link: "https://spacetypegenerator.com/" },
-                { id: 13, title: "Pomelli - Content Generator", category: "ai . content generator", image: "resources-images/pomelli.jpg", link: "https://labs.google.com/pomelli/about/" },
-                { id: 14, title: "Shots - Mockup", category: "design . mockup", image: "resources-images/shots.jpg", link: "https://shots.so/" },
-                { id: 15, title: "Font Joy", category: "font . design", image: "resources-images/fontjoy.jpg", link: "https://fontjoy.com/" },
-                { id: 16, title: "Calligraphr", category: "font", image: "resources-images/calligraphr.jpg", link: "https://www.calligraphr.com/en/" },
-                { id: 17, title: "Color and Font", category: "font .  color", image: "resources-images/colorandfont.jpg", link: "https://www.colorsandfonts.com/color-tools/monochromatic-color-palette-generator" },
-                { id: 18, title: "Bezier", category: "illustration . design", image: "resources-images/bezier.jpg", link: "https://bezier.method.ac/" },
-                { id: 19, title: "World Brand Design", category: "design", image: "resources-images/worldbranddesign.jpg", link: "https://worldbranddesign.com/" },
-                { id: 20, title: "Logolounge", category: "design . logo", image: "resources-images/logolounge.jpg", link: "https://www.logolounge.com/" },
-                { id: 21, title: "Graphis", category: "design", image: "resources-images/graphis.jpg", link: "https://graphis.com/" },
-                { id: 22, title: "Kerntype", category: "font", image: "resources-images/kerntype.jpg", link: "https://type.method.ac" },
-                { id: 23, title: "Designspiration", category: "design", image: "resources-images/designspiration.jpg", link: "https://www.designspiration.com/" },
-                { id: 24, title: "Steep", category: "design . story", image: "resources-images/steep.jpg", link: "https://www.steep.design/?via=toools" },
-                { id: 25, title: "Love The Work More", category: "design . award winning", image: "resources-images/lovetheworkmore.jpg", link: "https://lovetheworkmore.com/?via=toools" },
-                { id: 26, title: "Adfolio", category: "design . ads", image: "resources-images/adfolio.jpg", link: "https://www.adfolio.design/?via=toools" },
-                { id: 27, title: "PFOLIOS", category: "design . portfolio", image: "resources-images/pfolios.jpg", link: "https://pfolios.net/?via=toools" },
-                { id: 28, title: "Bestfolios", category: "design . portfolio", image: "resources-images/bestfolios.jpg", link: "https://www.bestfolios.com/portfolio/gabrieltarin" },
-                { id: 29, title: "Pafolios", category: "design . portfolio", image: "resources-images/pafolios.jpg", link: "https://pafolios.com/?via=toools&category=Creative+Designer" },
-                { id: 30, title: "EYECANDY", category: "video . design", image: "resources-images/eyecannndy.jpg", link: "https://eyecannndy.com/?via=toools" },
-                { id: 31, title: "ART OF THE TITLE", category: "video . design", image: "resources-images/artofthetitle.jpg", link: "https://www.artofthetitle.com/titles/?via=toools" },
-                { id: 32, title: "Logobook", category: "design . illustration", image: "resources-images/logobook.jpg", link: "https://logobook.com/?via=toools" },
-                { id: 33, title: "Logosystem", category: "design . illustration", image: "resources-images/logosystem.jpg", link: "https://logosystem.co/?via=toools" },
-                { id: 34, title: "Logggos", category: "design . illustration", image: "resources-images/logggos.jpg", link: "https://www.logggos.club/?via=toools" },
-                { id: 35, title: "Modern Illustration", category: "illustration", image: "resources-images/modernillustration.jpg", link: "https://www.modernillustration.org/archive/category/1940s" },
-                { id: 36, title: "Illustration.lol", category: "illustration", image: "resources-images/illustration.lol.jpg", link: "https://www.illustration.lol/?via=toools" },
-                { id: 37, title: "Pattern Club", category: "illustration", image: "resources-images/patternclub.jpg", link: "https://patternclub.io/?via=toools" },
-                { id: 38, title: "Clever AI Humanizer", category: "ai . writing", image: "resources-images/aihumanizer.jpg", link: "https://aihumanizer.net/" },
-                { id: 39, title: "Free Image Upscaler", category: "ai . design . upscaler", image: "resources-images/imgupscaler.jpg", link: "https://imgupscaler.ai/" },
-                { id: 40, title: "Upscale Media", category: "ai . upscaler . design", image: "resources-images/upscale.media.jpg", link: "https://www.upscale.media/" },
-                { id: 41, title: "Ai Free Forever", category: "ai", image: "resources-images/aifreeforever.jpg", link: "https://aifreeforever.com/image-generators" },
-                { id: 42, title: "Photo Gradient", category: "design . illustration", image: "resources-images/photogradient.jpg", link: "https://photogradient.com/" },
-                { id: 43, title: "Humaaans", category: "illustration . design", image: "resources-images/humaaans.jpg", link: "https://www.humaaans.com/" },
-                { id: 44, title: "Absurd Design", category: "illustration . design", image: "resources-images/absurd.jpg", link: "https://absurd.design/" },
-                { id: 45, title: "2D & 3D Illustration", category: "illustration . design", image: "resources-images/storytale.jpg", link: "https://storytale.io/" },
-                { id: 46, title: "Morflax Studio", category: "design", image: "resources-images/studio.morflax.jpg", link: "https://studio.morflax.com/" },
-                { id: 47, title: "Garmcompany", category: "design .  illustration", image: "resources-images/garmcompany.jpg", link: "https://garmcompany.com/" },
-                { id: 48, title: "Prompt Library", category: "ai . design .  illustration", image: "resources-images/promptlibrary.jpg", link: "https://promptlibrary.org/" },
-                { id: 49, title: "Free Ai Chat | Z AI", category: "ai", image: "resources-images/zai.jpg", link: "https://chat.z.ai/" },
-                { id: 50, title: "Free Ai | Bytez", category: "ai", image: "resources-images/bytez.jpg", link: "https://bytez.com/" },
-                { id: 51, title: "Media.io", category: "ai", image: "resources-images/media.jpg", link: "https://www.media.io/" },
-                { id: 52, title: "All Time Design", category: "design . principles", image: "resources-images/alltimedesign.jpg", link: "https://alltimedesign.com/graphic-design-principles/#7_Key_Elements_of_Visual_Design" },
-                { id: 53, title: "Personal color test", category: "design . color", image: "resources-images/personalcolortest.jpg", link: "https://ktestone.com/kapable.github.io/personalColorEng" },
-                { id: 54, title: "Colour Contrast", category: "design . illustration", image: "resources-images/colourcontrast.jpg", link: "https://colourcontrast.cc/" },
-                { id: 55, title: "Color Mind", category: "design . illustration", image: "resources-images/colormind.jpg", link: "http://colormind.io/bootstrap/" },
-                { id: 56, title: "Lupa Image Upscaler", category: "ai . design", image: "resources-images/lupa.jpg", link: "https://app.lupaupscaler.com/?via=artde" },
-                { id: 57, title: "UI Color", category: "design", image: "resources-images/uicolors.jpg", link: "https://uicolors.app/generate/d16745" },
-                { id: 58, title: "BrandGuidelines", category: "design", image: "resources-images/brandguidelines.jpg", link: "https://www.brandguidelines.net/?via=toools" },
-                { id: 59, title: "bentogrids", category: "design", image: "resources-images/bentogrids.jpg", link: "https://bentogrids.com/?category=graphic" },
-                { id: 60, title: "visuelle", category: "design . illustration . trend", image: "resources-images/visuelle.jpg", link: "https://visuelle.co.uk/" },
-                { id: 61, title: "DESIGN EVERYWHERE", category: "design . illustration . trend", image: "resources-images/designeverywhere.jpg", link: "https://designeverywhere.co/?via=toools" },
-                { id: 62, title: "InspirationGrid", category: "design . illustration . trend", image: "resources-images/theinspirationgrid.jpg", link: "https://theinspirationgrid.com/?via=toools" },
-                { id: 63, title: "THE BRANDING GUIDELINES", category: "design . illustration . trend", image: "resources-images/brandingstyleguides.jpg", link: "https://brandingstyleguides.com/?via=toools" },
-                { id: 64, title: "Deck.Gallery", category: "design . inspiration . trend", image: "resources-images/deck.gallery.jpg", link: "https://www.deck.gallery/?via=toools" },
-                { id: 65, title: "THE INDEX", category: "design . inspiration . trend", image: "resources-images/theindex.website.jpg", link: "https://theindex.website/projects" },
-                { id: 66, title: "typo/graphicposters", category: "design . font . poster", image: "resources-images/typographicposters.jpg", link: "https://www.typographicposters.com/archive" },
-                { id: 67, title: "trending.design", category: "design . font . book", image: "resources-images/trending.design.jpg", link: "https://trending.design/?via=toools" },
-                { id: 68, title: "Fabric", category: "design . notes", image: "resources-images/fabric.jpg", link: "https://fabric.so/" },
-                { id: 69, title: "Same Energy", category: "design . notes", image: "resources-images/same.energy.jpg", link: "https://same.energy/?via=toools" },
-                
-                
+    document.addEventListener('DOMContentLoaded', function() {
+        // 1. Your Resources Data
+        const resources = [
+            { id: 1, title: "Human Made Vector Illustration", category: "illustration . design", image: "resources-images/getillustrations.jpg", link: "https://www.getillustrations.com/?via=art-de" },
+            { id: 2, title: "ColorPalette Pro", category: "design . illustration", image: "resources-images/colorpaletterpro.jpg", link: "https://colorpalette.pro/" },
+            { id: 3, title: "Lupa Image Upscaler", category: "ai . design", image: "resources-images/lupa.jpg", link: "https://app.lupaupscaler.com/?via=artde" },
+            { id: 4, title: "UnCut", category: "font", image: "resources-images/uncut.jpg", link: "https://uncut.wtf/" },
+            { id: 5, title: "Reve AI", category: "ai", image: "resources-images/reve.jpg", link: "https://app.reve.com/" },
+            { id: 6, title: "Icon Buddy", category: "design . illustration", image: "resources-images/iconbuddy.jpg", link: "https://iconbuddy.com/" },
+            { id: 7, title: "FONT IN USE", category: "font", image: "resources-images/fontinuse.jpg", link: "https://fontsinuse.com/" },
+            { id: 8, title: "Fonts Ninja", category: "font", image: "resources-images/fontninja.jpg", link: "https://fonts.ninja/" },
+            { id: 9, title: "Font Mojo", category: "font", image: "resources-images/fontmojo.jpg", link: "https://fontmojo.com/" },
+            { id: 10, title: "Free Minimal Mockup", category: "design", image: "resources-images/minimalmockups.jpg", link: "https://www.minimalmockups.com/" },
+            { id: 11, title: "Pixel Market", category: "illustration", image: "resources-images/pixelsmarket.jpg", link: "https://pixels.market/" },
+            { id: 12, title: "SpaceType Generator", category: "font", image: "resources-images/spacetypegenerator.jpg", link: "https://spacetypegenerator.com/" },
+            { id: 13, title: "Pomelli - Content Generator", category: "ai . content generator", image: "resources-images/pomelli.jpg", link: "https://labs.google.com/pomelli/about/\"" },
+            { id: 14, title: "Shots - Mockup", category: "design . mockup", image: "resources-images/shots.jpg", link: "https://shots.so/" },
+            { id: 15, title: "Font Joy", category: "font . design", image: "resources-images/fontjoy.jpg", link: "https://fontjoy.com/" },
+            { id: 16, title: "Calligraphr", category: "font", image: "resources-images/calligraphr.jpg", link: "https://www.calligraphr.com/en/" },
+            { id: 17, title: "Color and Font", category: "font .  color", image: "resources-images/colorandfont.jpg", link: "https://www.colorsandfonts.com/color-tools/monochromatic-color-palette-generator" },
+            { id: 18, title: "Bezier", category: "illustration . design", image: "resources-images/bezier.jpg", link: "https://bezier.method.ac/" },
+            { id: 19, title: "World Brand Design", category: "design", image: "resources-images/worldbranddesign.jpg", link: "https://worldbranddesign.com/" },
+            { id: 20, title: "Logolounge", category: "design . logo", image: "resources-images/logolounge.jpg", link: "https://www.logolounge.com/" },
+            { id: 21, title: "Graphis", category: "design", image: "resources-images/graphis.jpg", link: "https://graphis.com/" },
+            { id: 22, title: "Kerntype", category: "font", image: "resources-images/kerntype.jpg", link: "https://type.method.ac" },
+            { id: 23, title: "Designspiration", category: "design", image: "resources-images/designspiration.jpg", link: "https://www.designspiration.com/" },
+            { id: 24, title: "Steep", category: "design . story", image: "resources-images/steep.jpg", link: "https://www.steep.design/?via=toools" },
+            { id: 25, title: "Love The Work More", category: "design . award winning", image: "resources-images/lovetheworkmore.jpg", link: "https://lovetheworkmore.com/?via=toools" },
+            { id: 26, title: "Adfolio", category: "design . ads", image: "resources-images/adfolio.jpg", link: "https://www.adfolio.design/?via=toools" },
+            { id: 27, title: "PFOLIOS", category: "design . portfolio", image: "resources-images/pfolios.jpg", link: "https://pfolios.net/?via=toools" },
+            { id: 28, title: "Bestfolios", category: "design . portfolio", image: "resources-images/bestfolios.jpg", link: "https://www.bestfolios.com/portfolio/gabrieltarin" },
+            { id: 29, title: "Pafolios", category: "design . portfolio", image: "resources-images/pafolios.jpg", link: "https://pafolios.com/?via=toools&category=Creative+Designer" },
+            { id: 30, title: "EYECANDY", category: "video . design", image: "resources-images/eyecannndy.jpg", link: "https://eyecannndy.com/?via=toools" },
+            { id: 31, title: "ART OF THE TITLE", category: "video . design", image: "resources-images/artofthetitle.jpg", link: "https://www.artofthetitle.com/titles/?via=toools" },
+            { id: 32, title: "Logobook", category: "design . illustration", image: "resources-images/logobook.jpg", link: "https://logobook.com/?via=toools" },
+            { id: 33, title: "Logosystem", category: "design . illustration", image: "resources-images/logosystem.jpg", link: "https://logosystem.co/?via=toools" },
+            { id: 34, title: "Logggos", category: "design . illustration", image: "resources-images/logggos.jpg", link: "https://www.logggos.club/?via=toools" },
+            { id: 35, title: "Modern Illustration", category: "illustration", image: "resources-images/modernillustration.jpg", link: "https://www.modernillustration.org/archive/category/1940s" },
+            { id: 36, title: "Illustration.lol", category: "illustration", image: "resources-images/illustration.lol.jpg", link: "https://www.illustration.lol/?via=toools" },
+            { id: 37, title: "Pattern Club", category: "illustration", image: "resources-images/patternclub.jpg", link: "https://patternclub.io/?via=toools" },
+            { id: 38, title: "Clever AI Humanizer", category: "ai . writing", image: "resources-images/aihumanizer.jpg", link: "https://aihumanizer.net/" },
+            { id: 39, title: "Free Image Upscaler", category: "ai . design . upscaler", image: "resources-images/imgupscaler.jpg", link: "https://imgupscaler.ai/" },
+            { id: 40, title: "Upscale Media", category: "ai . upscaler . design", image: "resources-images/upscale.media.jpg", link: "https://www.upscale.media/" },
+            { id: 41, title: "Ai Free Forever", category: "ai", image: "resources-images/aifreeforever.jpg", link: "https://aifreeforever.com/image-generators" },
+            { id: 42, title: "Photo Gradient", category: "design . illustration", image: "resources-images/photogradient.jpg", link: "https://photogradient.com/" },
+            { id: 43, title: "Humaaans", category: "illustration . design", image: "resources-images/humaaans.jpg", link: "https://www.humaaans.com/" },
+            { id: 44, title: "Absurd Design", category: "illustration . design", image: "resources-images/absurd.jpg", link: "https://absurd.design/" },
+            { id: 45, title: "2D & 3D Illustration", category: "illustration . design", image: "resources-images/storytale.jpg", link: "https://storytale.io/" },
+            { id: 46, title: "Morflax Studio", category: "design", image: "resources-images/studio.morflax.jpg", link: "https://studio.morflax.com/" },
+            { id: 47, title: "Garmcompany", category: "design .  illustration", image: "resources-images/garmcompany.jpg", link: "https://garmcompany.com/" },
+            { id: 48, title: "Prompt Library", category: "ai . design .  illustration", image: "resources-images/promptlibrary.jpg", link: "https://promptlibrary.org/" },
+            { id: 49, title: "Free Ai Chat | Z AI", category: "ai", image: "resources-images/zai.jpg", link: "https://chat.z.ai/" },
+            { id: 50, title: "Free Ai | Bytez", category: "ai", image: "resources-images/bytez.jpg", link: "https://bytez.com/" },
+            { id: 51, title: "Media.io", category: "ai", image: "resources-images/media.jpg", link: "https://www.media.io/" },
+            { id: 52, title: "All Time Design", category: "design . principles", image: "resources-images/alltimedesign.jpg", link: "https://alltimedesign.com/graphic-design-principles/#7_Key_Elements_of_Visual_Design" },
+            { id: 53, title: "Personal color test", category: "design . color", image: "resources-images/personalcolortest.jpg", link: "https://ktestone.com/kapable.github.io/personalColorEng" },
+            { id: 54, title: "Colour Contrast", category: "design . illustration", image: "resources-images/colourcontrast.jpg", link: "https://colourcontrast.cc/" },
+            { id: 55, title: "Color Mind", category: "design . illustration", image: "resources-images/colormind.jpg", link: "http://colormind.io/bootstrap/" },
+            { id: 56, title: "Lupa Image Upscaler", category: "ai . design", image: "resources-images/lupa.jpg", link: "https://app.lupaupscaler.com/?via=artde" },
+            { id: 57, title: "UI Color", category: "design", image: "resources-images/uicolors.jpg", link: "https://uicolors.app/generate/d16745" },
+            { id: 58, title: "BrandGuidelines", category: "design", image: "resources-images/brandguidelines.jpg", link: "https://www.brandguidelines.net/?via=toools" },
+            { id: 59, title: "bentogrids", category: "design", image: "resources-images/bentogrids.jpg", link: "https://bentogrids.com/?category=graphic" },
+            { id: 60, title: "visuelle", category: "design . illustration . trend", image: "resources-images/visuelle.jpg", link: "https://visuelle.co.uk/" },
+            { id: 61, title: "DESIGN EVERYWHERE", category: "design . illustration . trend", image: "resources-images/designeverywhere.jpg", link: "https://designeverywhere.co/?via=toools" },
+            { id: 62, title: "InspirationGrid", category: "design . illustration . trend", image: "resources-images/theinspirationgrid.jpg", link: "https://theinspirationgrid.com/?via=toools" },
+            { id: 63, title: "THE BRANDING GUIDELINES", category: "design . illustration . trend", image: "resources-images/brandingstyleguides.jpg", link: "https://brandingstyleguides.com/?via=toools" },
+            { id: 64, title: "Deck.Gallery", category: "design . inspiration . trend", image: "resources-images/deck.gallery.jpg", link: "https://www.deck.gallery/?via=toools" },
+            { id: 65, title: "THE INDEX", category: "design . inspiration . trend", image: "resources-images/theindex.website.jpg", link: "https://theindex.website/projects" },
+            { id: 66, title: "typo/graphicposters", category: "design . font . poster", image: "resources-images/typographicposters.jpg", link: "https://www.typographicposters.com/archive" },
+            { id: 67, title: "trending.design", category: "design . font . book", image: "resources-images/trending.design.jpg", link: "https://trending.design/?via=toools" },
+            { id: 68, title: "Fabric", category: "design . notes", image: "resources-images/fabric.jpg", link: "https://fabric.so/" },
+            { id: 69, title: "Same Energy", category: "design . notes", image: "resources-images/same.energy.jpg", link: "https://same.energy/?via=toools" }
+        ];
 
-            ];
+        const resourcesPerPage = 16;
+        let currentPage = 1;
+        let filteredResources = [...resources];
 
-            const resourcesPerPage = 16;
-            let currentPage = 1;
-            let filteredResources = [...resources];
+        const container = document.getElementById('resources-container');
+        const pageNumbersContainer = document.getElementById('page-numbers');
+        const prevButton = document.getElementById('prev-page');
+        const nextButton = document.getElementById('next-page');
+        const filterButtons = document.querySelectorAll('.resource-filter');
+        const searchInput = document.getElementById('resource-search'); // Get the search input
 
-            const container = document.getElementById('resources-container');
-            const pageNumbersContainer = document.getElementById('page-numbers');
-            const prevButton = document.getElementById('prev-page');
-            const nextButton = document.getElementById('next-page');
-            const filterButtons = document.querySelectorAll('.resource-filter');
+        // 2. Render Function
+        function renderResources() {
+            if (!container) return;
+            container.innerHTML = '';
+            const startIndex = (currentPage - 1) * resourcesPerPage;
+            const paginatedResources = filteredResources.slice(startIndex, startIndex + resourcesPerPage);
 
-            function renderResources() {
-                if (!container) return;
-                container.innerHTML = '';
-                const startIndex = (currentPage - 1) * resourcesPerPage;
-                const paginatedResources = filteredResources.slice(startIndex, startIndex + resourcesPerPage);
-
-                paginatedResources.forEach(resource => {
-                    const resourceEl = `
-                        <a href="${resource.link}" target="_blank" class="resource-card-minimal block group">
-                            <div class="relative overflow-hidden h-48 bg-[#111]">
-                                 <img src="${resource.image}" alt="${resource.title}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100">
-                            </div>
-                            <div class="p-6">
-                                <h3 class="resource-title text-xl font-bold mb-2">${resource.title}</h3>
-                                <p class="text-gray-400 text-sm line-clamp-2">Category: ${resource.category}</p>
-                            </div>
-                        </a>
-                    `;
-                    container.innerHTML += resourceEl;
-                });
-            }
-
-            function setupPagination() {
-                if(!pageNumbersContainer) return;
-                pageNumbersContainer.innerHTML = '';
-                const totalPages = Math.ceil(filteredResources.length / resourcesPerPage);
-
-                // Logic to show only 3 numbers max (Sliding Window)
-                let startPage, endPage;
-                const maxVisible = 3;
-
-                if (totalPages <= maxVisible) {
-                    startPage = 1;
-                    endPage = totalPages;
-                } else {
-                    // Try to center the current page
-                    startPage = Math.max(1, currentPage - 1);
-                    endPage = startPage + maxVisible - 1;
-
-                    // If we go past the end, shift back
-                    if (endPage > totalPages) {
-                        endPage = totalPages;
-                        startPage = Math.max(1, endPage - maxVisible + 1);
-                    }
-                }
-
-                for (let i = startPage; i <= endPage; i++) {
-                    const btn = document.createElement('button');
-                    btn.innerText = i;
-                    if (i === currentPage) {
-                        btn.className = 'w-10 h-10 rounded-full flex items-center justify-center bg-white text-black font-medium transition-colors';
-                    } else {
-                        btn.className = 'w-10 h-10 rounded-full flex items-center justify-center text-gray-400 hover:bg-[#1a1a1a] hover:text-white transition-colors';
-                    }
-                    btn.addEventListener('click', () => {
-                        currentPage = i;
-                        renderResources();
-                        setupPagination();
-                        document.getElementById('resources-container').scrollIntoView({ behavior: 'smooth' });
-                    });
-                    pageNumbersContainer.appendChild(btn);
-                }
-
-                prevButton.disabled = currentPage === 1;
-                nextButton.disabled = currentPage === totalPages || totalPages === 0;
-            }
-
-            function filterAndRender() {
-                const activeFilter = document.querySelector('.resource-filter.active').dataset.filter;
-                filteredResources = (activeFilter === 'all') ? [...resources] : resources.filter(r => r.category.includes(activeFilter));
-                currentPage = 1;
-                renderResources();
-                setupPagination();
-            }
-
-            filterButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-                    filterAndRender();
-                });
+            paginatedResources.forEach(resource => {
+                const resourceEl = `
+                    <a href="${resource.link}" target="_blank" class="resource-card-minimal block group">
+                        <div class="relative overflow-hidden h-48 bg-[#111]">
+                                <img src="${resource.image}" alt="${resource.title}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="resource-title text-xl font-bold mb-2">${resource.title}</h3>
+                            <p class="text-gray-400 text-sm line-clamp-2">Category: ${resource.category}</p>
+                        </div>
+                    </a>
+                `;
+                container.innerHTML += resourceEl;
             });
 
+            if (paginatedResources.length === 0) {
+                container.innerHTML = `<p class="text-gray-500 col-span-full text-center py-10">No resources found matching your search.</p>`;
+            }
+        }
+
+        // 3. Pagination Function
+        function setupPagination() {
+            if(!pageNumbersContainer) return;
+            pageNumbersContainer.innerHTML = '';
+            const totalPages = Math.ceil(filteredResources.length / resourcesPerPage);
+
+            if (totalPages === 0) {
+                prevButton.disabled = true;
+                nextButton.disabled = true;
+                return;
+            }
+
+            let startPage, endPage;
+            const maxVisible = 3;
+
+            if (totalPages <= maxVisible) {
+                startPage = 1;
+                endPage = totalPages;
+            } else {
+                startPage = Math.max(1, currentPage - 1);
+                endPage = startPage + maxVisible - 1;
+                if (endPage > totalPages) {
+                    endPage = totalPages;
+                    startPage = Math.max(1, endPage - maxVisible + 1);
+                }
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+                const btn = document.createElement('button');
+                btn.innerText = i;
+                if (i === currentPage) {
+                    btn.className = 'w-10 h-10 rounded-full flex items-center justify-center bg-white text-black font-medium transition-colors';
+                } else {
+                    btn.className = 'w-10 h-10 rounded-full flex items-center justify-center text-gray-400 hover:bg-[#1a1a1a] hover:text-white transition-colors';
+                }
+                btn.addEventListener('click', () => {
+                    currentPage = i;
+                    renderResources();
+                    setupPagination();
+                    document.getElementById('resources-container').scrollIntoView({ behavior: 'smooth' });
+                });
+                pageNumbersContainer.appendChild(btn);
+            }
+
+            prevButton.disabled = currentPage === 1;
+            nextButton.disabled = currentPage === totalPages;
+        }
+
+        // 4. Combined Filter Function (Search + Buttons)
+        function filterAndRender() {
+            const activeFilterBtn = document.querySelector('.resource-filter.active');
+            const activeFilter = activeFilterBtn ? activeFilterBtn.dataset.filter : 'all';
             
+            const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
+
+            filteredResources = resources.filter(r => {
+                // Check Category Button
+                const matchesCategory = (activeFilter === 'all') || r.category.toLowerCase().includes(activeFilter.toLowerCase());
+                
+                // Check Search Input (checks Title OR Category)
+                const matchesSearch = r.title.toLowerCase().includes(searchTerm) || 
+                                      r.category.toLowerCase().includes(searchTerm);
+
+                return matchesCategory && matchesSearch;
+            });
+
+            currentPage = 1; // Reset to page 1 on any filter change
+            renderResources();
+            setupPagination();
+        }
+
+        // 5. Event Listeners
+        
+        // Category Buttons
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                filterAndRender();
+            });
+        });
+
+        // Search Input (Real-time)
+        if (searchInput) {
+            searchInput.addEventListener('input', filterAndRender);
+        }
+
+        // Pagination Buttons
+        if (prevButton) {
             prevButton.addEventListener('click', () => {
                 if (currentPage > 1) {
                     currentPage--;
                     renderResources();
                     setupPagination();
-                    // Optional: Scroll to top of resources
                     document.getElementById('resources-container').scrollIntoView({ behavior: 'smooth' });
                 }
             });
+        }
 
+        if (nextButton) {
             nextButton.addEventListener('click', () => {
                 const totalPages = Math.ceil(filteredResources.length / resourcesPerPage);
                 if (currentPage < totalPages) {
                     currentPage++;
                     renderResources();
                     setupPagination();
-                    // Optional: Scroll to top of resources
                     document.getElementById('resources-container').scrollIntoView({ behavior: 'smooth' });
                 }
             });
-    
-            // Init & Listeners
-            AOS.init({ duration: 1000, once: true });
-            feather.replace();
-            filterAndRender();
-            
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            if (mobileMenuButton && mobileMenu) {
-                mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-            }
-        });
-    </script>
+        }
+
+        // 6. Initial Load
+        AOS.init({ duration: 1000, once: true });
+        feather.replace();
+        
+        // Mobile Menu
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        }
+
+        // Start everything
+        filterAndRender();
+    });
+</script>
+
 
 </body>
 </html>
