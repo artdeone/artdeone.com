@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CZRQ0NPPJ2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-CZRQ0NPPJ2');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="p:domain_verify" content="ec0d8cce60db240c8b3015eb02fca511"/>
+    <title>ONE DAY STUDIO - Brand Identity Reveal</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="css-and-js/mobile-smooth-nav.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        /* --- MINIMALIST DARK THEME STYLES --- */
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Navigation */
+        nav { 
+            background-color: rgba(0,0,0,0.9) !important; 
+            border-bottom: 1px solid #222; 
+            backdrop-filter: blur(12px);
+        }
+        .nav-link { 
+            color: #ccc !important; 
+            font-weight: 300 !important;
+            letter-spacing: 0.04em;
+            font-size: 0.9rem !important;
+        }
+        .nav-link:hover { color: #fff !important; }
+        
+        /* Mobile Menu */
+        .mobile-menu { background-color: #111 !important; }
+        .mobile-nav-link { color: #ccc !important; font-weight: 300; font-size: 0.9rem; }
+
+        /* Buttons & Common Elements */
+        .nav-btn {
+            background-color: #fff; color: #000; font-weight: 600;
+            border-radius: 0.5rem; padding: 0.5rem 1.25rem; font-size: 0.8rem;
+            transition: all 0.3s ease; display: inline-flex; align-items: center;
+            justify-content: center; border: 1px solid #fff; line-height: 1;
+        }
+        .nav-btn:hover {
+            background-color: #9dae11; border-color: #9dae11; color: #fff;
+            transform: translateY(-1px);
+        }
+        
+        /* Portfolio Cards */
+        .portfolio-card {
+            background-color: #111; border-radius: 1rem; overflow: hidden;
+            border: 1px solid #333; transition: all 0.4s ease;
+        }
+        .portfolio-card:hover {
+            transform: translateY(-8px); border-color: #fff;
+        }
+        .portfolio-card img { transition: transform 0.4s ease; }
+        .portfolio-card:hover img { transform: scale(1.05); }
+
+        /* Project Detail Specific Styles */
+        .project-image-container {
+            background-color: #111;
+            border-radius: 1rem;
+            border: 1px solid #333;
+            overflow: hidden;
+        }
+        
+        .text-accent { color: #9dae11; }
+        .bg-accent { background-color: #9dae11; }
+
+        /* Typography */
+        .section-title {
+            color: #fff; font-weight: 700; font-size: 2.25rem; margin-bottom: 1rem;
+        }
+        .section-subtitle {
+            color: #a0a0a0; max-width: 600px; margin-left: auto; margin-right: auto;
+        }
+        
+        [data-aos] { transition-duration: 1000ms !important; }
+        .hidden { display: none; }
+        html, body { overflow-x: hidden; max-width: 100%; }
+    </style>
+</head>
+<body class="bg-black text-white">
+    
+    <!-- NAVIGATION -->
+    <nav class="fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 nav-container">
+            <div class="nav-wrapper">
+                <div class="flex justify-between h-16 items-center">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <a href="index.html#home" class="flex items-center">
+                                <img src="logo.png" alt="ART de ONE" class="h-10 w-auto">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hidden md:flex items-center space-x-4 nav-center">
+                        <a href="index.html#home" class="nav-link">Home</a>
+                        <a href="courses.html" class="nav-link">Courses</a>
+                        <a href="blog.html" class="nav-link">Blog</a>
+                        <a href="/resources/resources-collection.html" class="nav-link">Resources</a>
+                        <a href="index.html#about" class="nav-link">About</a>
+                        <a href="index.html#contact" class="nav-link">Contact</a>
+                    </div>
+                    <div class="hidden md:block">
+                        <a href="/Private/student-login.html" class="nav-btn">Student Login</a>
+                    </div>
+                    <div class="md:hidden flex items-center">
+                        <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white focus:outline-none" id="mobile-menu-button">
+                            <div class="icon-container">
+                                <i data-feather="menu" class="icon-menu"></i>
+                                <i data-feather="x" class="icon-close"></i>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mobile-menu md:hidden hidden" id="mobile-menu">
+            <div class="py-2 px-4 space-y-1">
+                <a href="index.html#home" class="block py-2 mobile-nav-link text-white">Home</a>
+                <a href="courses.html" class="block py-2 mobile-nav-link">Courses</a>
+                <a href="blog.html" class="block py-2 mobile-nav-link">Blog</a>
+                <a href="/resources/resources-collection.html" class="block py-2 mobile-nav-link">Resources</a>
+                <a href="index.html#about" class="block py-2 mobile-nav-link">About</a>
+                <a href="index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
+                <a href="/Private/student-login.html" class="block py-2 mobile-nav-link">Student Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        <!-- PROJECT HERO SECTION -->
+        <section class="pt-32 pb-16 section-dark px-4">
+            <div class="max-w-7xl mx-auto">
+                <!-- Header Text -->
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <span class="text-accent font-semibold tracking-widest text-sm uppercase mb-2 block">Brand Identity Project</span>
+                    <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">ONE DAY STUDIO</h1>
+                    <p class="section-subtitle text-lg">A minimal and modern identity design representing creative excellence.</p>
+                    
+                    <!-- Added Back to Portfolio Link -->
+                    <a href="/index.html#portfolio" class="text-gray-500 hover:text-white text-sm inline-flex items-center gap-2 transition-colors mt-6">
+                        <i class="fas fa-arrow-left"></i> Back to Portfolio
+                    </a>
+                </div>
+
+                <!-- 1. UPPER REVEAL & EXPLANATION SECTION -->
+                <div class="grid lg:grid-cols-2 gap-12 items-center mb-24">
+                    <!-- Explanation Text -->
+                    <div class="order-2 lg:order-1" data-aos="fade-right">
+                        <div class="space-y-6">
+                            <div>
+                                <h3 class="text-2xl font-bold text-white mb-3">The Concept</h3>
+                                <p class="text-gray-400 leading-relaxed">
+                                    The "One Day Studio" logo was crafted to symbolize swift creativity and timeless design. We focused on clean geometric shapes to ensure the brand stands out in both digital and print media.
+                                </p>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-white mb-3">Design Approach</h3>
+                                <p class="text-gray-400 leading-relaxed">
+                                    Using a monochromatic palette with the signature <span class="text-accent">#9dae11</span> accent, we created a visual language that is both professional and energetic. The typography is modern sans-serif to reflect forward-thinking innovation.
+                                </p>
+                            </div>
+                            
+                            <!-- Project Info Stats -->
+                            <div class="grid grid-cols-2 gap-6 pt-6 border-t border-[#333]">
+                                <div>
+                                    <span class="block text-xs text-gray-500 uppercase tracking-wider">Client</span>
+                                    <span class="text-white font-medium">One Day Studio</span>
+                                </div>
+                                <div>
+                                    <span class="block text-xs text-gray-500 uppercase tracking-wider">Services</span>
+                                    <span class="text-white font-medium">Branding, Logo, Print</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Logo Reveal Image -->
+                    <div class="order-1 lg:order-2 project-image-container aspect-square md:aspect-[4/3] relative group" data-aos="fade-left">
+                        <img src="/portfolio/social-1.jpg" alt="One Day Studio Main Logo" class="w-full h-full object-cover">
+                    </div>
+                </div>
+
+                <!-- 2. GUIDELINE BOOK MOCKUP SECTION -->
+                <div class="mb-20" data-aos="fade-up">
+                    <div class="text-center mb-10">
+                        <h2 class="text-2xl font-bold text-white">Brand Guideline Book</h2>
+                        <p class="text-gray-400">Standardizing the visual identity for consistency.</p>
+                    </div>
+                    
+                    <!-- Full Width Mockup Image -->
+                    <div class="project-image-container w-full aspect-[16/9] md:aspect-[21/9] relative overflow-hidden">
+                        <img src="/portfolio/social-1.jpg" alt="Brand Guideline Book Mockup" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-500">
+                        <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black to-transparent p-8">
+                             <span class="text-white/80 text-sm font-light tracking-wider">MOCKUP VIEW</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. BRAND APPLICATION MOCKUPS (Social, Merch, Shop) -->
+                <div class="grid md:grid-cols-3 gap-8 mb-32" data-aos="fade-up">
+                    <!-- Social Media -->
+                    <div class="portfolio-card group">
+                        <div class="relative aspect-[4/5] overflow-hidden">
+                            <img src="/portfolio/social-1.jpg" alt="Social Media Mockup" class="w-full h-full object-cover">
+                             <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <span class="text-[#9dae11] font-bold uppercase tracking-wider">Social Media</span>
+                            </div>
+                        </div>
+                        <div class="p-6 bg-[#111]">
+                            <h3 class="font-bold text-lg text-white mb-1">Online Presence</h3>
+                            <p class="text-sm text-gray-400">Instagram & Facebook Kit</p>
+                        </div>
+                    </div>
+
+                    <!-- Merchandise -->
+                    <div class="portfolio-card group" data-aos="fade-up" data-aos-delay="100">
+                        <div class="relative aspect-[4/5] overflow-hidden">
+                            <img src="/portfolio/social-1.jpg" alt="Merchandise Mockup" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <span class="text-[#9dae11] font-bold uppercase tracking-wider">Merchandise</span>
+                            </div>
+                        </div>
+                        <div class="p-6 bg-[#111]">
+                            <h3 class="font-bold text-lg text-white mb-1">Brand Merch</h3>
+                            <p class="text-sm text-gray-400">T-shirt & Accessories</p>
+                        </div>
+                    </div>
+
+                    <!-- Shop/Store -->
+                    <div class="portfolio-card group" data-aos="fade-up" data-aos-delay="200">
+                        <div class="relative aspect-[4/5] overflow-hidden">
+                            <img src="/portfolio/social-1.jpg" alt="Shop Signage Mockup" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <span class="text-[#9dae11] font-bold uppercase tracking-wider">Shop Signage</span>
+                            </div>
+                        </div>
+                        <div class="p-6 bg-[#111]">
+                            <h3 class="font-bold text-lg text-white mb-1">Physical Store</h3>
+                            <p class="text-sm text-gray-400">Signage & Interior</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. MORE LOGOS REVEAL (6 BOXES - CLEAN IMAGES) -->
+                <div class="border-t border-[#222] pt-20">
+                    <div class="flex flex-col md:flex-row justify-between items-end mb-12" data-aos="fade-up">
+                        <div>
+                            <h2 class="section-title text-3xl">More Logo Projects</h2>
+                            <p class="text-gray-400">Explore other brand identities we've crafted.</p>
+                        </div>
+                        <a href="index.html#portfolio" class="hidden md:inline-flex text-sm text-gray-400 hover:text-white transition-colors items-center gap-2 mt-4 md:mt-0">
+                            View Full Portfolio <i data-feather="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Box 1 -->
+                        <div class="portfolio-card group" data-aos="fade-up">
+                            <div class="relative aspect-[4/3] overflow-hidden">
+                                <img src="/portfolio/social-1.jpg" alt="Logo 1" class="w-full h-full object-cover">
+                            </div>
+                            <div class="p-6 bg-[#111]">
+                                <h3 class="font-bold text-lg text-white mb-1 group-hover:text-[#9dae11] transition-colors">Minimalist Tech</h3>
+                                <p class="text-sm text-gray-400">Tech Startup</p>
+                            </div>
+                        </div>
+
+                        <!-- Box 2 -->
+                        <div class="portfolio-card group" data-aos="fade-up" data-aos-delay="100">
+                            <div class="relative aspect-[4/3] overflow-hidden">
+                                <img src="/portfolio/social-1.jpg" alt="Logo 2" class="w-full h-full object-cover">
+                            </div>
+                            <div class="p-6 bg-[#111]">
+                                <h3 class="font-bold text-lg text-white mb-1 group-hover:text-[#9dae11] transition-colors">Organic Foods</h3>
+                                <p class="text-sm text-gray-400">Brand Identity</p>
+                            </div>
+                        </div>
+
+                        <!-- Box 3 -->
+                        <div class="portfolio-card group" data-aos="fade-up" data-aos-delay="200">
+                            <div class="relative aspect-[4/3] overflow-hidden">
+                                <img src="/portfolio/social-1.jpg" alt="Logo 3" class="w-full h-full object-cover">
+                            </div>
+                            <div class="p-6 bg-[#111]">
+                                <h3 class="font-bold text-lg text-white mb-1 group-hover:text-[#9dae11] transition-colors">Urban Wear</h3>
+                                <p class="text-sm text-gray-400">Fashion Logo</p>
+                            </div>
+                        </div>
+
+                        <!-- Box 4 -->
+                        <div class="portfolio-card group" data-aos="fade-up">
+                            <div class="relative aspect-[4/3] overflow-hidden">
+                                <img src="/portfolio/social-1.jpg" alt="Logo 4" class="w-full h-full object-cover">
+                            </div>
+                            <div class="p-6 bg-[#111]">
+                                <h3 class="font-bold text-lg text-white mb-1 group-hover:text-[#9dae11] transition-colors">Coffee House</h3>
+                                <p class="text-sm text-gray-400">Rebranding</p>
+                            </div>
+                        </div>
+
+                        <!-- Box 5 -->
+                        <div class="portfolio-card group" data-aos="fade-up" data-aos-delay="100">
+                            <div class="relative aspect-[4/3] overflow-hidden">
+                                <img src="/portfolio/social-1.jpg" alt="Logo 5" class="w-full h-full object-cover">
+                            </div>
+                            <div class="p-6 bg-[#111]">
+                                <h3 class="font-bold text-lg text-white mb-1 group-hover:text-[#9dae11] transition-colors">Travel App</h3>
+                                <p class="text-sm text-gray-400">App Icon</p>
+                            </div>
+                        </div>
+
+                        <!-- Box 6 -->
+                        <div class="portfolio-card group" data-aos="fade-up" data-aos-delay="200">
+                            <div class="relative aspect-[4/3] overflow-hidden">
+                                <img src="/portfolio/social-1.jpg" alt="Logo 6" class="w-full h-full object-cover">
+                            </div>
+                            <div class="p-6 bg-[#111]">
+                                <h3 class="font-bold text-lg text-white mb-1 group-hover:text-[#9dae11] transition-colors">Creative Agency</h3>
+                                <p class="text-sm text-gray-400">Corporate Identity</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Mobile "View All" Button -->
+                    <div class="md:hidden text-center mt-10">
+                        <a href="index.html#portfolio" class="btn-secondary inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-white">
+                            View Full Portfolio
+                        </a>
+                    </div>
+
+                    <!-- NEW: CALL TO ACTION BOX -->
+                    <div class="mt-16 border border-[#9dae11] rounded-lg p-8 flex flex-col md:flex-row items-center justify-between bg-[#9dae11]/5" data-aos="fade-up">
+                        <div class="mb-4 md:mb-0">
+                            <h4 class="text-xl font-bold text-white">Master Vector Art</h4>
+                            <p class="text-gray-400 text-sm mt-1">Learn the techniques used in this project.</p>
+                        </div>
+                        <a href="/courses/advanced-illustrator/course-detail-advanced.html" class="inline-block bg-[#9dae11] text-black font-bold py-3 px-8 rounded hover:bg-white transition-all duration-300">
+                            Start Learning
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-black text-white py-12 border-t border-[#222]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <span class="text-xl font-bold mb-4 block">ART de ONE</span>
+                    <p class="text-gray-400 text-sm">
+                        Adobe Illustrator Classes & Freelance Creative Studio in Myanmar
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index.html#home" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
+                        <li><a href="courses.html" class="text-gray-400 hover:text-white transition duration-300">Courses</a></li>
+                        <li><a href="blog.html" class="text-gray-400 hover:text-white transition duration-300">Blog</a></li>
+                        <li><a href="resources/resources-collection.html" class="text-gray-400 hover:text-white transition duration-300">Resources</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Classes</h3>
+                    <ul class="space-y-2 text-sm">
+                         <li><a href="courses/basic-illustrator/course-detail-basic.html" class="text-gray-400 hover:text-white transition duration-300">Basic Course</a></li>
+                        <li><a href="courses/intermediate-illustrator/course-detail-intermediate.html" class="text-gray-400 hover:text-white transition duration-300">Intermediate</a></li>
+                        <li><a href="courses/graphic-design/course-detail-graphic-design.html" class="text-gray-400 hover:text-white transition duration-300">Graphic Design</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Services</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Logo Design</a></li>
+                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Social Media</a></li>
+                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Printing</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-[#222] mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">
+                    &copy; 2025 ART de ONE. All rights reserved.
+                </p>
+                <div class="flex space-x-6 text-sm">
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-behance"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="css-and-js/mobile-smooth-nav.js"></script>
+    <script>
+        AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
+        feather.replace();
+        
+        // Mobile Menu
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
