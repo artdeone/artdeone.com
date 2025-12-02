@@ -281,6 +281,43 @@
            overflow-x: hidden;
            max-width: 100%;
        }
+
+
+
+
+       /* ========================================
+           SIMPLE CONTACT - NO BOXES, NO EFFECTS
+        ======================================== */
+
+        .simple-contact-item {
+            display: block;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid #1a1a1a;
+            transition: padding-left 0.3s ease;
+            text-decoration: none;
+        }
+
+        .simple-contact-item:hover {
+            padding-left: 0.5rem;
+        }
+
+        .simple-contact-item:last-child {
+            border-bottom: none;
+        }
+
+        .simple-social-link {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .simple-social-link:hover {
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body class="bg-black text-white">
@@ -626,14 +663,16 @@
                     <p class="section-subtitle">Hear from our students about their learning journey.</p>
                 </div>
                 <div class="grid md:grid-cols-2 gap-8">
+
+                    <!-- Review 1 -->
                     <div class="minimalist-card" data-aos="fade-up">
                         <div class="flex text-[#9dae11] mb-4">
                             <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                         </div>
-                        <p class="text-gray-300 mb-6 italic">"Batch 1 ဆိုပေမဲ့ စိတ်ရှည်ရှည်နဲ့ သင်ပြတဲ့အတွက် Illustrator အခြေခံတဲ့မသိတဲ့သူတောင် ၄ ပတ်လောက်နဲ့ တော်တော် ဆွဲနိုင်နေတယ်"</p>
+                        <p class="text-gray-300 mb-6 italic">"Batch 1 ဆိုပေမဲ့ စိတ်ရှည်ရှည်နဲ့ သင်ပြတဲ့အတွက် Illustrator အခြေခံတဲ့မသိတဲ့သူတောင် ၄ ပတ်လောက်နဲ့ေ တော်တော် ဆွဲနိုင်နေတယ် tools တခုချင်းစီ စိတ်ရှည်ရှည်နဲ့ အလိုလိုက်တဲ့အတွက် basic သင်ချင်တဲ့သူတွေအတွက် တကယ်ထိရောက်တဲ့ သင်တန်းပါ"</p>
                         <div class="flex items-center border-t border-[#333] pt-4">
                             <div class="w-10 h-10 rounded-full bg-gray-700 mr-4 overflow-hidden">
-                                 <img src="reviews-photos/review-1.jpg" alt="Reviewer" class="w-full h-full object-cover">
+                                <img src="reviews-photos/review-1.jpg" alt="Reviewer" class="w-full h-full object-cover">
                             </div>
                             <div>
                                 <h4 class="font-bold text-white text-sm">Lwin Oo Maung</h4>
@@ -641,14 +680,16 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Review 2 -->
                     <div class="minimalist-card" data-aos="fade-up" data-aos-delay="100">
                         <div class="flex text-[#9dae11] mb-4">
                             <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                         </div>
-                        <p class="text-gray-300 mb-6 italic">"illustratorကိုအခုမှစလေ့လာမယ်ဆိုတဲ့ ညီကိုမောင်နှမတွေလည်း batch2မှာ လာတက်စေချင်တယ် စေသနာပါပါနဲ့ သေချာသင်ပေးတဲ့ဆရာမို့ recommendပေးတာပါ"</p>
+                        <p class="text-gray-300 mb-6 italic">"illustratorကိုအခုမှစလေ့လာမယ်ဆိုတဲ့ ညီကိုမောင်နှမတွေလည်း batch2မှာ လာတက်စေချင်တယ် စေသနာပါပါနဲ့ သေချာသင်ပေးတဲ့ဆရာမို့ recommendပေးတာပါ အခြေခံကစပြီးသေချာသင်ပေးတာမလို့ တကယ်တက်ကြည့်စေချင်တယ် မသိတာရှိရင်လည်းအချိန်မရွေးမေးလို့ရတယ် ဆရာကတော်တော်သဘောကောင်းတယ်"</p>
                         <div class="flex items-center border-t border-[#333] pt-4">
-                             <div class="w-10 h-10 rounded-full bg-gray-700 mr-4 overflow-hidden">
-                                 <img src="reviews-photos/review-2.jpg" alt="Reviewer" class="w-full h-full object-cover">
+                            <div class="w-10 h-10 rounded-full bg-gray-700 mr-4 overflow-hidden">
+                                <img src="reviews-photos/review-2.jpg" alt="Reviewer" class="w-full h-full object-cover">
                             </div>
                             <div>
                                 <h4 class="font-bold text-white text-sm">Thar Htet Aung</h4>
@@ -656,6 +697,41 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Review 3 -->
+                    <div class="minimalist-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="flex text-[#9dae11] mb-4">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-gray-300 mb-6 italic">"illustratorကိုအခုမှစလေ့လာမယ်ဆိုတဲ့ ညီကိုမောင်နှမတွေလည်း 24ARTမှာ လာတက်စေချင်တယ် စေသနာပါပါနဲ့ သေချာသင်ပေးတဲ့ဆရာမို့ recommendပေးတာပါ အခြေခံကစပြီးသေချာသင်ပေးတာမလို့ တကယ်တက်ကြည့်စေချင်တယ် မသိတာရှိရင်လည်းအချိန်မရွေးမေးလို့ရတယ် ဆရာကတော်တော်သဘောကောင်းပါတယ်ရှင့်။"</p>
+                        <div class="flex items-center border-t border-[#333] pt-4">
+                            <div class="w-10 h-10 rounded-full bg-gray-700 mr-4 overflow-hidden">
+                                <img src="reviews-photos/review-3.jpg" alt="Reviewer" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Min Ta Waw Marn</h4>
+                                <p class="text-xs text-gray-500">Batch 3 Student</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review 4 -->
+                    <div class="minimalist-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="flex text-[#9dae11] mb-4">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-gray-300 mb-6 italic">"Illustrator ကိုအခုမှစလေ့လာမယ့်သူတွေအတွက်တကယ်အဆင်ပြေတဲ့ သင်တန်းပါ။ By one ဆရာနဲ့သင်တာပါ။ ဆရာကစိတ်ရှည်ပြီးသေသေချာချာလေးရှင်းပြပေးတယ်။ စေတနာပါပါနဲ့သင်ပေးတဲ့ဆရာမို့ လုံး၀ Highly recommend ပေးပါတယ်။ 👏👏"</p>
+                        <div class="flex items-center border-t border-[#333] pt-4">
+                            <div class="w-10 h-10 rounded-full bg-gray-700 mr-4 overflow-hidden">
+                                <img src="reviews-photos/review-4.jpg" alt="Reviewer" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Su Myat Mon</h4>
+                                <p class="text-xs text-gray-500">By One Student</p>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -665,53 +741,79 @@
             <div class="max-w-7xl mx-auto">
                 <div class="text-center mb-16" data-aos="fade-up">
                     <h2 class="section-title">Get In Touch</h2>
-                    <p class="section-subtitle">Have a question or a project in mind? We'd love to hear from you.</p>
+                    <p class="section-subtitle">သိလိုသောအကြောင်းအရာများကို ဖုန်းဆက်ပြီးမေးမြန်းနိုင်သလို၊ အီးမေးလ်ပို့ခြင်းဖြင့်လည်း ဆက်သွယ်နိုင်ပါသည်။</p>
                 </div>
-                <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12">
-                    <div data-aos="fade-right">
-                        <h3 class="text-2xl font-bold text-white mb-6">Contact Info</h3>
-                        <div class="space-y-6">
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 rounded-full bg-[#222] flex items-center justify-center mr-4 text-white"><i class="fas fa-phone"></i></div>
-                                <div><p class="text-gray-500 text-sm">Phone</p><p class="text-white font-medium">09 953 681 497</p></div>
+
+                <div class="max-w-4xl mx-auto">
+
+                    <!-- Contact Info List -->
+                    <div class="space-y-6 mb-12" data-aos="fade-up" data-aos-delay="100">
+
+                        <!-- Phone -->
+                        <a href="tel:09953681497" class="simple-contact-item group">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 flex items-center justify-center text-[#888] group-hover:text-white transition-colors">
+                                    <i class="fas fa-phone-alt text-xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-gray-400 text-xs uppercase tracking-wider mb-1">Phone</p>
+                                    <p class="text-white text-lg font-medium">09 953 681 497</p>
+                                    <p class="text-gray-500 text-sm">Mon-Sat, 9am - 6pm</p>
+                                </div>
+                                <i class="fas fa-arrow-right text-gray-600 group-hover:text-white group-hover:translate-x-1 transition-all"></i>
                             </div>
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 rounded-full bg-[#222] flex items-center justify-center mr-4 text-white"><i class="fas fa-envelope"></i></div>
-                                <div><p class="text-gray-500 text-sm">Email</p><p class="text-white font-medium">artdeone.educators@gmail.com</p></div>
+                        </a>
+
+                        <!-- Email -->
+                        <a href="mailto:artdeone.educators@gmail.com" class="simple-contact-item group">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 flex items-center justify-center text-[#888] group-hover:text-white transition-colors">
+                                    <i class="fas fa-envelope text-xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-gray-400 text-xs uppercase tracking-wider mb-1">Email</p>
+                                    <p class="text-white text-lg font-medium break-all">artdeone.educators@gmail.com</p>
+                                    <p class="text-gray-500 text-sm">Response within 24 hours</p>
+                                </div>
+                                <i class="fas fa-arrow-right text-gray-600 group-hover:text-white group-hover:translate-x-1 transition-all"></i>
                             </div>
-                             <div class="flex items-center">
-                                <div class="w-10 h-10 rounded-full bg-[#222] flex items-center justify-center mr-4 text-white"><i class="fas fa-map-marker-alt"></i></div>
-                                <div><p class="text-gray-500 text-sm">Location</p><p class="text-white font-medium">Yangon, Myanmar</p></div>
+                        </a>
+
+                        <!-- Location -->
+                        <div class="simple-contact-item">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 flex items-center justify-center text-[#888]">
+                                    <i class="fas fa-map-marker-alt text-xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-gray-400 text-xs uppercase tracking-wider mb-1">Location</p>
+                                    <p class="text-white text-lg font-medium">Yangon, Myanmar</p>
+                                    <p class="text-gray-500 text-sm">Studio & Teaching Space</p>
+                                </div>
                             </div>
                         </div>
-                        
-                        <div class="mt-10">
-                            <h4 class="text-lg font-bold text-white mb-4">Social Media</h4>
-                            <div class="flex gap-4">
-                                <a href="#" class="w-10 h-10 rounded-full bg-[#222] flex items-center justify-center text-white hover:bg-[#9dae11] transition-colors"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#" class="w-10 h-10 rounded-full bg-[#222] flex items-center justify-center text-white hover:bg-[#9dae11] transition-colors"><i class="fab fa-behance"></i></a>
-                                <a href="#" class="w-10 h-10 rounded-full bg-[#222] flex items-center justify-center text-white hover:bg-[#9dae11] transition-colors"><i class="fab fa-linkedin-in"></i></a>
-                            </div>
+
+                    </div>
+
+                    <!-- Divider -->
+                    <div class="border-t border-[#222] my-12" data-aos="fade-up" data-aos-delay="200"></div>
+
+                    <!-- Social Media Links -->
+                    <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+                        <p class="text-gray-400 text-sm uppercase tracking-wider mb-6">Connect With Us</p>
+                        <div class="flex justify-center gap-6">
+                            <a href="https://www.facebook.com/artdeone/" target="_blank" class="simple-social-link group">
+                                <i class="fab fa-facebook-f text-2xl text-[#888] group-hover:text-white transition-colors"></i>
+                            </a>
+                            <a href="https://www.behance.net/phyomin7" target="_blank" class="simple-social-link group">
+                                <i class="fab fa-behance text-2xl text-[#888] group-hover:text-white transition-colors"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/phyo-min-8b1a02134/" target="_blank" class="simple-social-link group">
+                                <i class="fab fa-linkedin-in text-2xl text-[#888] group-hover:text-white transition-colors"></i>
+                            </a>
                         </div>
                     </div>
-                    
-                    <div class="minimalist-card" data-aos="fade-left">
-                        <form class="space-y-4">
-                            <div>
-                                <label class="block text-sm text-gray-400 mb-1">Name</label>
-                                <input type="text" class="form-input w-full">
-                            </div>
-                            <div>
-                                <label class="block text-sm text-gray-400 mb-1">Email</label>
-                                <input type="email" class="form-input w-full">
-                            </div>
-                            <div>
-                                <label class="block text-sm text-gray-400 mb-1">Message</label>
-                                <textarea rows="4" class="form-input w-full"></textarea>
-                            </div>
-                            <button type="submit" class="btn-primary w-full">Send Message</button>
-                        </form>
-                    </div>
+
                 </div>
             </div>
         </section>
