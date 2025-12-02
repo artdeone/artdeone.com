@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CZRQ0NPPJ2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-CZRQ0NPPJ2');
+    </script>
+    
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="ec0d8cce60db240c8b3015eb02fca511" name="p:domain_verify">
+    <title>ART de ONE - Adobe Illustrator Classes &amp; Creative Studio</title>
+    <link href="/favicon.png" rel="icon" type="image/png"/>
+    
+    <!-- External Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+    <link href="/css-and-js/mobile-smooth-nav.css" rel="stylesheet"/>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.iife.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+    
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        /* ===========================================
+           MINIMALIST DARK THEME STYLES
+        =========================================== */
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Navigation Overrides for Dark Theme */
+        nav { 
+            background-color: rgba(0,0,0,0.9) !important; 
+            border-bottom: 1px solid #222; 
+            backdrop-filter: blur(12px);
+        }
+        .nav-link { 
+            color: #ccc !important; 
+            font-weight: 300 !important;      /* thinner */
+            letter-spacing: 0.04em;
+            font-size: 0.9rem !important;     /* slightly smaller */
+        }
+        .nav-link:hover { 
+            color: #fff !important; 
+        }
+        .mobile-menu { 
+            background-color: #111 !important; 
+        }
+        .mobile-nav-link { 
+            color: #ccc !important; 
+            font-weight: 300;
+            font-size: 0.9rem;
+        }
+
+        /* Specific small button for Navigation */
+.nav-btn {
+    background-color: #fff;
+    color: #000;
+    font-weight: 600;
+    border-radius: 0.5rem; /* slightly less rounded than big buttons */
+    padding: 0.5rem 1.25rem; /* smaller padding */
+    font-size: 0.8rem; /* smaller text */
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #fff;
+    height: auto;
+    line-height: 1;
+}
+
+.nav-btn:hover {
+    background-color: #9dae11;
+    border-color: #9dae11;
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+        /* ===========================================
+           MOBILE MENU ICON TOGGLE
+        =========================================== */
+        .icon-container {
+            position: relative;
+            width: 24px;
+            height: 24px;
+        }
+
+        .icon-container .icon-menu,
+        .icon-container .icon-close {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        /* Default: Show hamburger, hide X */
+        .icon-container .icon-menu {
+            opacity: 1;
+            transform: rotate(0deg);
+        }
+
+        .icon-container .icon-close {
+            opacity: 0;
+            transform: rotate(-90deg);
+        }
+
+        /* When active: Hide hamburger, show X */
+        .mobile-menu-btn.active .icon-menu {
+            opacity: 0;
+            transform: rotate(90deg);
+        }
+
+        .mobile-menu-btn.active .icon-close {
+            opacity: 1;
+            transform: rotate(0deg);
+        }
+
+        /* ===========================================
+           SECTIONS
+        =========================================== */
+        .section-dark { 
+            background-color: #000; 
+        }
+        
+        .section-darker { 
+            background-color: #0a0a0a; 
+        }
+        
+        .section-title {
+            color: #fff;
+            font-weight: 700;
+            font-size: 2.25rem;
+            margin-bottom: 1rem;
+        }
+        
+        .section-subtitle {
+            color: #a0a0a0;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ===========================================
+           BUTTONS
+        =========================================== */
+        .nav-btn {
+            background-color: #fff;
+            color: #000;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1.25rem;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #fff;
+            height: auto;
+            line-height: 1;
+        }
+
+        .nav-btn:hover {
+            background-color: #9dae11;
+            border-color: #9dae11;
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background-color: #fff;
+            color: #000;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            padding: 0.75rem 2rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #fff;
+        }
+        
+        .btn-primary:hover {
+            background-color: #9dae11;
+            border-color: #9dae11;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: #fff;
+            font-weight: 600;
+            border: 1px solid #555;
+            border-radius: 0.75rem;
+            padding: 0.75rem 2rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #fff;
+            color: #000;
+            border-color: #fff;
+        }
+
+        /* ===========================================
+           CARDS
+        =========================================== */
+        .minimalist-card {
+            background-color: #111;
+            border: 1px solid #333;
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.4s ease;
+        }
+        
+        .minimalist-card:hover {
+            transform: translateY(-8px);
+            border-color: #9dae11;
+        }
+
+        /* ===========================================
+           PORTFOLIO CARDS
+        =========================================== */
+        .portfolio-card {
+            background-color: #111;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid #333;
+            transition: all 0.4s ease;
+            break-inside: avoid;
+            margin-bottom: 2rem;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-8px); 
+            border-color: #fff;
+        }
+
+        .portfolio-card img { 
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.4s ease; 
+        }
+        
+        .portfolio-card:hover img { 
+            transform: scale(1.03);
+        }
+
+        /* ===========================================
+           UTILITIES
+        =========================================== */
+        .text-accent { 
+            color: #9dae11; 
+        }
+        
+        .section-subtitle { 
+            color: #a0a0a0; 
+            max-width: 600px; 
+            margin: 0 auto; 
+            font-weight: 300; 
+        }
+
+        [data-aos] {
+            transition-duration: 1000ms !important;
+        }
+        
+        .hidden { 
+            display: none; 
+        }
+
+        html, body {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+    </style>
+</meta>
+</head>
+
+<body class="bg-black text-white">
+
+    <!-- ===========================================
+         NAVIGATION
+    =========================================== -->
+    <nav class="fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 nav-container">
+            <div class="nav-wrapper">
+                <div class="flex justify-between h-16 items-center">
+                    
+                    <!-- Logo -->
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <a class="flex items-center" href="/index.html#home">
+                                <img alt="ART de ONE" class="h-10 w-auto" src="/logo.png">
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Desktop Navigation -->
+                    <div class="hidden md:flex items-center space-x-4 nav-center">
+                        <a class="nav-link" href="/index.html#home" style="color: #fff !important;">Home</a>
+                        <a class="nav-link" href="/courses.html">Courses</a>
+                        <a class="nav-link" href="/blog.html">Blog</a>
+                        <a class="nav-link" href="/resources/resources-collection.html">Resources</a>
+                        <a class="nav-link" href="/index.html#about">About</a>
+                        <a class="nav-link" href="/index.html#contact">Contact</a>
+                    </div>
+                    
+                    <!-- Contact Button -->
+                    <div class="hidden md:block">
+                        <a class="nav-btn" href="/Private/student-login.html">Student Login</a>
+                    </div>
+                    
+                    <!-- Mobile Menu Button -->
+                    <div class="md:hidden flex items-center">
+                        <button class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white focus:outline-none" id="mobile-menu-button" type="button">
+                            <div class="icon-container">
+                                <i class="icon-menu" data-feather="menu"></i>
+                                <i class="icon-close" data-feather="x"></i>
+                            </div>
+                        </button>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu md:hidden hidden" id="mobile-menu">
+            <div class="py-2 px-4 space-y-1">
+                <a class="block py-2 mobile-nav-link text-white" href="/index.html#home">Home</a>
+                <a class="block py-2 mobile-nav-link" href="/courses.html">Courses</a>
+                <a class="block py-2 mobile-nav-link" href="/blog.html">Blog</a>
+                <a class="block py-2 mobile-nav-link" href="/resources/resources-collection.html">Resources</a>
+                <a class="block py-2 mobile-nav-link" href="/index.html#about">About</a>
+                <a class="block py-2 mobile-nav-link" href="/index.html#contact">Contact</a>
+                <a class="block py-2 mobile-nav-link" href="/Private/student-login.html">Student Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===========================================
+         MAIN CONTENT
+    =========================================== -->
+    <main class="pt-32">
+        
+        <!-- Header Section -->
+        <section class="pt-32 pb-12 px-4 sm:px-6 lg:px-8 section-dark">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <span class="text-accent font-semibold tracking-widest text-sm uppercase mb-2 block">
+                        Ads Design &amp; Social Media
+                    </span>
+                    <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
+                        ADS DESIGN COLLECTION
+                    </h1>
+                    <p class="section-subtitle text-lg text-gray-400">
+                        Engaging visuals designed to attract and retain audiences across social platforms.
+                    </p>
+                    <a class="text-gray-500 hover:text-white text-sm inline-flex items-center gap-2 transition-colors mt-6" href="index.html#portfolio">
+                        <i class="fas fa-arrow-left"></i> Back to Portfolio
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Masonry Portfolio Grid -->
+        <section class="pb-20 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto">
+                <div class="columns-1 md:columns-2 lg:columns-3 gap-8" data-aos="fade-up" data-aos-delay="100">
+                    
+                    <!-- Item 1 -->
+                    <div class="portfolio-card group">
+                        <img alt="Instagram Story Design" src="ad/nescafe.jpg"/>
+                        <div class="p-6 bg-[#111]">
+                            <h3 class="text-lg font-semibold text-white mb-1 group-hover:text-accent transition-colors">Nescafe</h3>
+                            <p class="text-sm text-gray-400">Advertising design</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 2 -->
+                    <div class="portfolio-card group">
+                        <img alt="Facebook Ad Design" src="ad/bella.jpg"/>
+                        <div class="p-6 bg-[#111]">
+                            <h3 class="text-lg font-semibold text-white mb-1 group-hover:text-accent transition-colors">Singage</h3>
+                            <p class="text-sm text-gray-400">Printing design</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 3 -->
+                    <div class="portfolio-card group">
+                        <img alt="Social Media Post" src="ad/rome-green.jpg"/>
+                        <div class="p-6 bg-[#111]">
+                            <h3 class="text-lg font-semibold text-white mb-1 group-hover:text-accent transition-colors">Product Character Design</h3>
+                            <p class="text-sm text-gray-400">Cosmetic Product</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 4 -->
+                    <div class="portfolio-card group">
+                        <img alt="Design 4" src="ad/asus-1.jpg"/>
+                        <div class="p-6 bg-[#111]">
+                            <h3 class="text-lg font-semibold text-white mb-1 group-hover:text-accent transition-colors">BYD Dolphin</h3>
+                            <p class="text-sm text-gray-400">Social Media Design</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 5 -->
+                    <div class="portfolio-card group">
+                        <img alt="Design 5" src="ad/bella-2.jpg"/>
+                        <div class="p-6 bg-[#111]">
+                            <h3 class="text-lg font-semibold text-white mb-1 group-hover:text-accent transition-colors">Travel Agency</h3>
+                            <p class="text-sm text-gray-400">Social Media Design</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 6 -->
+                    <div class="portfolio-card group">
+                        <img alt="Design 6" src="ad/haniu-1.jpg"/>
+                        <div class="p-6 bg-[#111]">
+                            <h3 class="text-lg font-semibold text-white mb-1 group-hover:text-accent transition-colors">Haniu</h3>
+                            <p class="text-sm text-gray-400">Social Media Design</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 7 -->
+                    <div class="portfolio-card group">
+                        <img alt="Design 8" src="ad/venucia-2.jpg"/>
+                        <div class="p-6 bg-[#111]">
+                            <h3 class="text-lg font-semibold text-white mb-1 group-hover:text-accent transition-colors">Venucia</h3>
+                            <p class="text-sm text-gray-400">Social Media Design</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 8 -->
+                    <div class="portfolio-card group">
+                        <img alt="Design 8" src="ad/venucia-3.jpg"/>
+                        <div class="p-6 bg-[#111]">
+                            <h3 class="text-lg font-semibold text-white mb-1 group-hover:text-accent transition-colors">Venucia</h3>
+                            <p class="text-sm text-gray-400">Social Media Design</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 9 -->
+                    <div class="portfolio-card group">
+                        <img alt="Design 8" src="ad/venucia-4.jpg"/>
+                        <div class="p-6 bg-[#111]">
+                            <h3 class="text-lg font-semibold text-white mb-1 group-hover:text-accent transition-colors">Venucia</h3>
+                            <p class="text-sm text-gray-400">Social Media Design</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 10 -->
+                    <div class="portfolio-card group">
+                        <img alt="Design 8" src="ad/jackery-2.jpg"/>
+                        <div class="p-6 bg-[#111]">
+                            <h3 class="text-lg font-semibold text-white mb-1 group-hover:text-accent transition-colors">Jackery</h3>
+                            <p class="text-sm text-gray-400">Social Media Design</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 11 -->
+                    <div class="portfolio-card group">
+                        <img alt="Design 8" src="ad/jackery-3.jpg"/>
+                        <div class="p-6 bg-[#111]">
+                            <h3 class="text-lg font-semibold text-white mb-1 group-hover:text-accent transition-colors">Jackery</h3>
+                            <p class="text-sm text-gray-400">Social Media Design</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 12 -->
+                    <div class="portfolio-card group">
+                        <img alt="Design 8" src="ad/venucia-5.jpg"/>
+                        <div class="p-6 bg-[#111]">
+                            <h3 class="text-lg font-semibold text-white mb-1 group-hover:text-accent transition-colors">Venucia</h3>
+                            <p class="text-sm text-gray-400">Social Media Design</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 13 -->
+                    <div class="portfolio-card group">
+                        <img alt="Design 8" src="ad/venucia-6.jpg"/>
+                        <div class="p-6 bg-[#111]">
+                            <h3 class="text-lg font-semibold text-white mb-1 group-hover:text-accent transition-colors">Venucia</h3>
+                            <p class="text-sm text-gray-400">Social Media Design</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 14 -->
+                    <div class="portfolio-card group">
+                        <img alt="Design 7" src="ad/venucia-1.jpg"/>
+                        <div class="p-6 bg-[#111]">
+                            <h3 class="text-lg font-semibold text-white mb-1 group-hover:text-accent transition-colors">Venucia</h3>
+                            <p class="text-sm text-gray-400">Social Media Design</p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <!-- ===========================================
+         CONTACT SECTION
+    =========================================== -->
+    <section class="py-24 section-darker px-4" id="contact">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle">Have a question or a project in mind? We'd love to hear from you.</p>
+            </div>
+            
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-center items-start md:items-center gap-8 md:gap-16 px-4">
+                
+                <!-- Phone -->
+                <a class="flex items-center group w-full md:w-auto" data-aos="fade-up" data-aos-delay="100" href="tel:9.953681497e+09">
+                    <div class="w-10 h-10 rounded-full bg-[#222] flex items-center justify-center mr-4 text-white group-hover:bg-[#9dae11] transition-all duration-300 shrink-0">
+                        <i class="fas fa-phone text-base"></i>
+                    </div>
+                    <div class="text-left">
+                        <p class="text-gray-500 text-sm mb-1">Phone</p>
+                        <p class="text-white font-medium text-base group-hover:text-[#9dae11] transition-colors">09 953 681 497</p>
+                    </div>
+                </a>
+                
+                <!-- Email -->
+                <a class="flex items-center group w-full md:w-auto" data-aos="fade-up" data-aos-delay="200" href="mailto:artdeone.educators@gmail.com">
+                    <div class="w-10 h-10 rounded-full bg-[#222] flex items-center justify-center mr-4 text-white group-hover:bg-[#9dae11] transition-all duration-300 shrink-0">
+                        <i class="fas fa-envelope text-base"></i>
+                    </div>
+                    <div class="text-left">
+                        <p class="text-gray-500 text-sm mb-1">Email</p>
+                        <p class="text-white font-medium text-base group-hover:text-[#9dae11] transition-colors">artdeone.educators@gmail.com</p>
+                    </div>
+                </a>
+                
+                <!-- Location -->
+                <div class="flex items-center group w-full md:w-auto" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-10 h-10 rounded-full bg-[#222] flex items-center justify-center mr-4 text-white group-hover:bg-[#9dae11] transition-all duration-300 shrink-0">
+                        <i class="fas fa-map-marker-alt text-base"></i>
+                    </div>
+                    <div class="text-left">
+                        <p class="text-gray-500 text-sm mb-1">Location</p>
+                        <p class="text-white font-medium text-base group-hover:text-[#9dae11] transition-colors">Yangon, Myanmar</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         FOOTER
+    =========================================== -->
+    <footer class="bg-black text-white py-12 border-t border-[#222]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                
+                <!-- Brand -->
+                <div>
+                    <span class="text-xl font-bold mb-4 block">ART de ONE</span>
+                    <p class="text-gray-400 text-sm">Adobe Illustrator Classes &amp; Freelance Creative Studio in Myanmar</p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a class="text-gray-400 hover:text-white transition duration-300" href="/index.html#home">Home</a></li>
+                        <li><a class="text-gray-400 hover:text-white transition duration-300" href="/courses.html">Courses</a></li>
+                        <li><a class="text-gray-400 hover:text-white transition duration-300" href="/blog.html">Blog</a></li>
+                        <li><a class="text-gray-400 hover:text-white transition duration-300" href="/resources/resources-collection.html">Resources</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Classes -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Classes</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a class="text-gray-400 hover:text-white transition duration-300" href="/courses/basic-illustrator/course-detail-basic.html">Basic Course</a></li>
+                        <li><a class="text-gray-400 hover:text-white transition duration-300" href="/courses/intermediate-illustrator/course-detail-intermediate.html">Intermediate</a></li>
+                        <li><a class="text-gray-400 hover:text-white transition duration-300" href="/courses/graphic-design/course-detail-graphic-design.html">Graphic Design</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Services -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Services</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a class="text-gray-400 hover:text-white transition duration-300" href="/index.html#freelance">Logo Design</a></li>
+                        <li><a class="text-gray-400 hover:text-white transition duration-300" href="/index.html#freelance">Social Media</a></li>
+                        <li><a class="text-gray-400 hover:text-white transition duration-300" href="/index.html#freelance">Printing</a></li>
+                    </ul>
+                </div>
+                
+            </div>
+            
+            <!-- Bottom Bar -->
+            <div class="border-t border-[#222] mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">© 2025 ART de ONE. All rights reserved.</p>
+                <div class="flex space-x-6 text-sm">
+                    <a class="text-gray-400 hover:text-white" href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a class="text-gray-400 hover:text-white" href="#"><i class="fab fa-behance"></i></a>
+                    <a class="text-gray-400 hover:text-white" href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===========================================
+         SCRIPTS
+    =========================================== -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="/css-and-js/mobile-smooth-nav.js"></script>
+
+    <script>
+        // Initialize Libraries
+        AOS.init({ 
+            duration: 1000, 
+            easing: 'ease-in-out', 
+            once: true 
+        });
+        
+        if (typeof feather !== 'undefined') {
+            feather.replace();
+        }
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('mobile-menu-button');
+        
+        if (menuBtn) {
+            menuBtn.addEventListener('click', function() {
+                const menu = document.getElementById('mobile-menu');
+                menu.classList.toggle('hidden');
+                this.classList.toggle('active');
+            });
+        }
+
+        // Image Modal Logic
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+
+        function openModal(src) {
+            modal.classList.remove('hidden');
+            modalImg.src = src;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof feather !== 'undefined') {
+                feather.replace();
+            }
+
+            document.querySelectorAll('.portfolio-card img').forEach(img => {
+                img.style.cursor = 'pointer';
+                img.addEventListener('click', function() {
+                    openModal(this.src);
+                });
+            });
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+
+    <!-- Image Modal -->
+    <div class="fixed inset-0 z-[100] hidden bg-black bg-opacity-95 flex items-center justify-center p-4 backdrop-blur-sm" id="imageModal" onclick="closeModal()">
+        <div class="absolute top-4 right-6 text-white hover:text-gray-300 cursor-pointer z-[101]" onclick="closeModal()">
+            <i data-feather="x" style="width: 32px; height: 32px;"></i>
+        </div>
+        <img alt="Full Size Image" class="max-w-full max-h-[90vh] object-contain rounded-md shadow-2xl" id="modalImage" onclick="event.stopPropagation()" src=""/>
+    </div>
+
+</body>
+</html>

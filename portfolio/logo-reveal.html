@@ -31,7 +31,7 @@
             font-family: 'Poppins', sans-serif;
         }
 
-        /* Navigation */
+        /* Navigation Overrides for Dark Theme */
         nav { 
             background-color: rgba(0,0,0,0.9) !important; 
             border-bottom: 1px solid #222; 
@@ -39,27 +39,45 @@
         }
         .nav-link { 
             color: #ccc !important; 
-            font-weight: 300 !important;
+            font-weight: 300 !important;      /* thinner */
             letter-spacing: 0.04em;
-            font-size: 0.9rem !important;
+            font-size: 0.9rem !important;     /* slightly smaller */
         }
-        .nav-link:hover { color: #fff !important; }
-        
-        /* Mobile Menu */
-        .mobile-menu { background-color: #111 !important; }
-        .mobile-nav-link { color: #ccc !important; font-weight: 300; font-size: 0.9rem; }
+        .nav-link:hover { 
+            color: #fff !important; 
+        }
+        .mobile-menu { 
+            background-color: #111 !important; 
+        }
+        .mobile-nav-link { 
+            color: #ccc !important; 
+            font-weight: 300;
+            font-size: 0.9rem;
+        }
 
-        /* Buttons & Common Elements */
-        .nav-btn {
-            background-color: #fff; color: #000; font-weight: 600;
-            border-radius: 0.5rem; padding: 0.5rem 1.25rem; font-size: 0.8rem;
-            transition: all 0.3s ease; display: inline-flex; align-items: center;
-            justify-content: center; border: 1px solid #fff; line-height: 1;
-        }
-        .nav-btn:hover {
-            background-color: #9dae11; border-color: #9dae11; color: #fff;
-            transform: translateY(-1px);
-        }
+        /* Specific small button for Navigation */
+.nav-btn {
+    background-color: #fff;
+    color: #000;
+    font-weight: 600;
+    border-radius: 0.5rem; /* slightly less rounded than big buttons */
+    padding: 0.5rem 1.25rem; /* smaller padding */
+    font-size: 0.8rem; /* smaller text */
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #fff;
+    height: auto;
+    line-height: 1;
+}
+
+.nav-btn:hover {
+    background-color: #9dae11;
+    border-color: #9dae11;
+    color: #fff;
+    transform: translateY(-1px);
+}
         
         /* Portfolio Cards */
         .portfolio-card {
@@ -106,7 +124,7 @@
                     <div class="flex items-center">
                         <div class="flex-shrink-0">
                             <a href="index.html#home" class="flex items-center">
-                                <img src="logo.png" alt="ART de ONE" class="h-10 w-auto">
+                                <img src="/logo.png" alt="ART de ONE" class="h-10 w-auto">
                             </a>
                         </div>
                     </div>
@@ -420,7 +438,7 @@
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script src="css-and-js/mobile-smooth-nav.js"></script>
+    <script src="/css-and-js/mobile-smooth-nav.js"></script>
     <script>
         AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
         feather.replace();
