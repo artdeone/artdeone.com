@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CZRQ0NPPJ2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-CZRQ0NPPJ2');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="p:domain_verify" content="ec0d8cce60db240c8b3015eb02fca511"/>
+    <title>Modern Face Typeface - ART de ONE</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="fonts/stylesheet.css">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css-and-js/mobile-smooth-nav.css">
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        accent: '#9dae11',
+                    }
+                }
+            }
+        }
+    </script>
+    
+
+    <style>
+
+        /* Navigation Overrides for Dark Theme */
+        nav { 
+            background-color: rgba(0,0,0,0.9) !important; 
+            border-bottom: 1px solid #222; 
+            backdrop-filter: blur(12px);
+        }
+        .nav-link { 
+            color: #ccc !important; 
+            font-weight: 300 !important;      /* thinner */
+            letter-spacing: 0.04em;
+            font-size: 0.9rem !important;     /* slightly smaller */
+        }
+        .nav-link:hover { 
+            color: #fff !important; 
+        }
+        .mobile-menu { 
+            background-color: #111 !important; 
+        }
+        .mobile-nav-link { 
+            color: #ccc !important; 
+            font-weight: 300;
+            font-size: 0.9rem;
+        }
+
+        /* Specific small button for Navigation */
+        .nav-btn {
+            background-color: #fff;
+            color: #000;
+            font-weight: 600;
+            border-radius: 0.5rem; /* slightly less rounded than big buttons */
+            padding: 0.5rem 1.25rem; /* smaller padding */
+            font-size: 0.8rem; /* smaller text */
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #fff;
+            height: auto;
+            line-height: 1;
+        }
+
+        .nav-btn:hover {
+            background-color: #9dae11;
+            border-color: #9dae11;
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* MINIMALIST DARK THEME STYLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        
+
+        /* Typography Display Styles */
+        .typeface-hero {
+            font-family: 'Modern Face', serif;
+            font-size: clamp(4rem, 15vw, 12rem);
+            font-weight: 900;
+            line-height: 0.9;
+            letter-spacing: -0.02em;
+        }
+
+        .typeface-display {
+            font-family: 'Modern Face', serif;
+            font-size: clamp(2rem, 8vw, 6rem);
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .typeface-specimen {
+            font-family: 'Modern Face', serif;
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            line-height: 1.3;
+        }
+
+        /* Gradient Text Effect */
+        .gradient-text {
+            background: linear-gradient(135deg, #fff 0%, #9dae11 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Character Card Styles */
+        .char-card {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .char-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(157, 174, 17, 0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .char-card:hover {
+            transform: translateY(-8px);
+            border-color: #fff;
+            box-shadow: 0 20px 40px rgba(157, 174, 17, 0.15);
+        }
+
+        .char-card:hover::before {
+            opacity: 1;
+        }
+
+        .char-display {
+            font-family: 'Modern Face', serif;
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 700;
+            color: #fff;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .char-card:hover .char-display {
+            color: #9dae11;
+            transform: scale(1.1);
+        }
+
+        /* Example Text Styles */
+        .example-text {
+            font-family: 'Modern Face', serif;
+            font-size: clamp(1.25rem, 3vw, 2.5rem);
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .example-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid #333;
+            border-radius: 1rem;
+            padding: 3rem;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .example-card:hover {
+            background: #111;
+            border-color: #fff;
+            transform: translateX(10px);
+        }
+
+        .example-card:hover .example-text {
+            color: #fff;
+            letter-spacing: 0.02em;
+        }
+
+        /* Section Styles */
+        .section-dark {
+            background-color: #000;
+            position: relative;
+        }
+
+        .section-title {
+            color: #fff;
+            font-weight: 700;
+            font-size: 2.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            color: #a0a0a0;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(68, 68, 68, 0.5) 50%, transparent 100%);
+            margin: 4rem 0;
+        }
+
+        /* Accent Line - GREY not green */
+        .accent-line {
+            width: 60px;
+            height: 3px;
+            background: #444;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive Grid */
+        .char-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 640px) {
+            .char-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+                gap: 1rem;
+            }
+
+            .char-card {
+                padding: 1.5rem;
+            }
+        }
+
+
+        .icon-container {
+            position: relative;
+            width: 24px;
+            height: 24px;
+        }
+
+        .icon-container .icon-menu,
+        .icon-container .icon-close {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .icon-container .icon-menu {
+            opacity: 1;
+            transform: rotate(0deg);
+        }
+
+        .icon-container .icon-close {
+            opacity: 0;
+            transform: rotate(-90deg);
+        }
+
+
+
+        .hidden {
+            display: none;
+        }
+
+        /* Header with Image Background + Fade */
+        .header-with-background {
+            background-image: 
+                linear-gradient(
+                    to bottom,
+                    rgba(0, 0, 0, 0.7) 0%,      /* Dark overlay */
+                    rgba(0, 0, 0, 0.6) 30%,     /* Lighter middle */
+                    rgba(0, 0, 0, 0.75) 60%,
+                    rgba(0, 0, 0, 0.85) 80%,    /* Start fade */
+                    rgba(0, 0, 0, 0.95) 90%,
+                    rgb(0, 0, 0) 100%           /* Black at bottom */
+                ),
+                url('fonts/mdface.jpg');           /* ← YOUR IMAGE */
+            
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;       /* Parallax effect */
+            
+            position: relative;
+            padding-top: 8rem !important;
+            padding-bottom: 8rem !important;
+            margin-bottom: -2rem;
+        }
+
+        .header-with-background > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .header-with-background {
+                background-attachment: scroll;  /* Better for mobile */
+            }
+        }
+
+    </style>
+</head>
+<body class="bg-black text-white">
+
+    <!-- NAVIGATION -->
+    <nav class="fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 nav-container">
+            <div class="nav-wrapper">
+                <div class="flex justify-between h-16 items-center">
+                    <!-- Logo -->
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <a href="/index.html#home" class="flex items-center">
+                                <img src="/logo.png" alt="ART de ONE" class="h-10 w-auto">
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Desktop Navigation -->
+                    <div class="hidden md:flex items-center space-x-4 nav-center">
+                        <a href="/index.html#home" class="nav-link" style="color: #fff !important">Home</a>
+                        <a href="/courses.html" class="nav-link">Courses</a>
+                        <a href="/blog.html" class="nav-link">Blog</a>
+                        <a href="/resources/resources-collection.html" class="nav-link">Resources</a>
+                        <a href="/index.html#about" class="nav-link">About</a>
+                        <a href="/index.html#contact" class="nav-link">Contact</a>
+                    </div>
+
+                    <!-- Contact Button -->
+                    <div class="hidden md:block">
+                        <a href="/Private/student-login.html" class="nav-btn">Student Login</a>
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <div class="md:hidden flex items-center">
+                        <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white focus:outline-none" id="mobile-menu-button">
+                            <div class="icon-container">
+                                <i data-feather="menu" class="icon-menu"></i>
+                                <i data-feather="x" class="icon-close"></i>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu md:hidden hidden" id="mobile-menu">
+            <div class="py-2 px-4 space-y-1">
+                <a href="/index.html#home" class="block py-2 mobile-nav-link text-white">Home</a>
+                <a href="/courses.html" class="block py-2 mobile-nav-link">Courses</a>
+                <a href="/blog.html" class="block py-2 mobile-nav-link">Blog</a>
+                <a href="/resources/resources-collection.html" class="block py-2 mobile-nav-link">Resources</a>
+                <a href="/index.html#about" class="block py-2 mobile-nav-link">About</a>
+                <a href="/index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
+                <a href="/Private/student-login.html" class="block py-2 mobile-nav-link">Student Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-32">
+
+        <!-- Header Section -->
+        <section class="px-4 sm:px-6 lg:px-8 section-dark header-with-background">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <span class="text-accent font-semibold tracking-widest text-sm uppercase mb-2 block">
+                        Custom Typography Design
+                    </span>
+                    <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
+                        MODERN TYPEFACE
+                    </h1>
+                    <p class="section-subtitle text-lg text-gray-400">
+                        A contemporary typeface crafted with precision and elegance for modern design.
+                    </p>
+                    <a class="text-gray-500 hover:text-white text-sm inline-flex items-center gap-2 transition-colors mt-6" href="index.html#portfolio">
+                        <i class="fas fa-arrow-left"></i> Back to Portfolio
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hero Showcase -->
+        <section class="py-24 px-4 sm:px-6 lg:px-8 section-dark">
+            <div class="max-w-7xl mx-auto text-center">
+                <div data-aos="fade-up" data-aos-duration="1000">
+                    <h2 class="typeface-hero gradient-text mb-8">
+                        MODERN <br>
+                        FACE
+                    </h2>
+                    <p class="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto">
+                        Bold, modern, and versatile. Perfect for headlines, branding, and impactful design projects.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Uppercase Characters Section -->
+        <section class="py-24 px-4 sm:px-6 lg:px-8 section-dark">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <span class="accent-line"></span>
+                    <h2 class="text-4xl md:text-5xl font-bold text-white mt-6 mb-4">
+                        Uppercase Characters
+                    </h2>
+                    <p class="text-gray-400 text-lg">
+                        Strong and commanding letterforms
+                    </p>
+                </div>
+
+                <div class="char-grid" data-aos="fade-up" data-aos-delay="200">
+                    <div class="char-card">
+                        <div class="char-display text-center">A</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">B</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">C</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">D</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">E</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">F</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">G</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">H</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">I</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">J</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">K</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">L</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">M</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">N</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">O</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">P</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">Q</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">R</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">S</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">T</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">U</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">V</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">W</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">X</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">Y</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">Z</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Lowercase Characters Section -->
+        <section class="py-24 px-4 sm:px-6 lg:px-8 section-dark">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <span class="accent-line"></span>
+                    <h2 class="text-4xl md:text-5xl font-bold text-white mt-6 mb-4">
+                        Lowercase Characters
+                    </h2>
+                    <p class="text-gray-400 text-lg">
+                        Refined and balanced letterforms
+                    </p>
+                </div>
+
+                <div class="char-grid" data-aos="fade-up" data-aos-delay="200">
+                    <div class="char-card">
+                        <div class="char-display text-center">a</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">b</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">c</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">d</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">e</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">f</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">g</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">h</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">i</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">j</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">k</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">l</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">m</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">n</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">o</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">p</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">q</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">r</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">s</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">t</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">u</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">v</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">w</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">x</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">y</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">z</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Numbers & Symbols Section -->
+        <section class="py-24 px-4 sm:px-6 lg:px-8 section-dark">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <span class="accent-line"></span>
+                    <h2 class="text-4xl md:text-5xl font-bold text-white mt-6 mb-4">
+                        Numbers & Symbols
+                    </h2>
+                    <p class="text-gray-400 text-lg">
+                        Complete character set for all design needs
+                    </p>
+                </div>
+
+                <div class="char-grid" data-aos="fade-up" data-aos-delay="200">
+                    <div class="char-card">
+                        <div class="char-display text-center">0</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">1</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">2</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">3</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">4</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">5</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">6</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">7</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">8</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">9</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">!</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">?</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">&</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">@</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">#</div>
+                    </div>
+                    <div class="char-card">
+                        <div class="char-display text-center">$</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Typography in Context Section -->
+        <section class="py-24 px-4 sm:px-6 lg:px-8 section-dark">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-20" data-aos="fade-up">
+                    <span class="accent-line"></span>
+                    <h2 class="text-4xl md:text-5xl font-bold text-white mt-6 mb-4">
+                        Typography in Context
+                    </h2>
+                    <p class="text-gray-400 text-lg">
+                        See how Modern Face performs in real-world applications
+                    </p>
+                </div>
+
+                <div class="space-y-8">
+                    <div class="example-card" data-aos="fade-right" data-aos-delay="100">
+                        <p class="example-text">
+                            The quick brown fox jumps over the lazy dog
+                        </p>
+                    </div>
+
+                    <div class="example-card" data-aos="fade-left" data-aos-delay="200">
+                        <p class="example-text" style="text-transform: uppercase;">
+                            MODERN DESIGN FOR CONTEMPORARY BRANDS
+                        </p>
+                    </div>
+
+                    <div class="example-card" data-aos="fade-right" data-aos-delay="300">
+                        <p class="example-text">
+                            Elegance meets functionality in every letter
+                        </p>
+                    </div>
+
+                    <div class="example-card" data-aos="fade-left" data-aos-delay="400">
+                        <p class="example-text" style="font-size: clamp(2rem, 5vw, 4rem);">
+                            Typography that speaks volumes
+                        </p>
+                    </div>
+
+                    <div class="example-card" data-aos="fade-right" data-aos-delay="500">
+                        <p class="example-text">
+                            Perfect for headlines, branding & editorial design
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Features Section -->
+        <section class="py-24 px-4 sm:px-6 lg:px-8 section-dark">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <span class="accent-line"></span>
+                    <h2 class="text-4xl md:text-5xl font-bold text-white mt-6 mb-4">
+                        Typeface Features
+                    </h2>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="char-card text-center" data-aos="fade-up" data-aos-delay="100">
+                        <div class="text-5xl mb-4">✦</div>
+                        <h3 class="text-2xl font-bold text-white mb-3">Modern Aesthetic</h3>
+                        <p class="text-gray-400">
+                            Clean, contemporary design perfect for modern brands and digital platforms
+                        </p>
+                    </div>
+
+                    <div class="char-card text-center" data-aos="fade-up" data-aos-delay="200">
+                        <div class="text-5xl mb-4">✦</div>
+                        <h3 class="text-2xl font-bold text-white mb-3">Versatile Usage</h3>
+                        <p class="text-gray-400">
+                            Works beautifully in headlines, body text, logos, and branding materials
+                        </p>
+                    </div>
+
+                    <div class="char-card text-center" data-aos="fade-up" data-aos-delay="300">
+                        <div class="text-5xl mb-4">✦</div>
+                        <h3 class="text-2xl font-bold text-white mb-3">Complete Character Set</h3>
+                        <p class="text-gray-400">
+                            Full alphabet, numbers, and special characters for all your design needs
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-32 px-4 sm:px-6 lg:px-8 section-dark">
+            <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
+                <h2 class="text-4xl md:text-6xl font-bold text-white mb-6">
+                    Ready to Use <span class="gradient-text">Modern Face</span>?
+                </h2>
+                <p class="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">
+                    Perfect for your next design project. Get in touch to learn more about licensing and usage.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="/index.html#contact" class="nav-btn" style="padding: 0.75rem 2rem; font-size: 1rem;">
+                        Get in Touch
+                    </a>
+                    <a href="/index.html#portfolio" class="nav-btn" style="background: transparent; color: #9dae11; border-color: #555; padding: 0.75rem 2rem; font-size: 1rem;">
+                        View More Work
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-black text-white py-12 border-t border-[#222]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+
+                <!-- Brand -->
+                <div>
+                    <span class="text-xl font-bold mb-4 block">ART de ONE</span>
+                    <p class="text-gray-400 text-sm">Adobe Illustrator Classes & Freelance Creative Studio in Myanmar</p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a class="text-gray-400 hover:text-white transition duration-300" href="/index.html#home">Home</a></li>
+                        <li><a class="text-gray-400 hover:text-white transition duration-300" href="/courses.html">Courses</a></li>
+                        <li><a class="text-gray-400 hover:text-white transition duration-300" href="/blog.html">Blog</a></li>
+                        <li><a class="text-gray-400 hover:text-white transition duration-300" href="/resources/resources-collection.html">Resources</a></li>
+                    </ul>
+                </div>
+
+                <!-- Classes -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Classes</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a class="text-gray-400 hover:text-white transition duration-300" href="/courses/basic-illustrator/course-detail-basic.html">Basic Course</a></li>
+                        <li><a class="text-gray-400 hover:text-white transition duration-300" href="/courses/intermediate-illustrator/course-detail-intermediate.html">Intermediate</a></li>
+                        <li><a class="text-gray-400 hover:text-white transition duration-300" href="/courses/graphic-design/course-detail-graphic-design.html">Graphic Design</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Services</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a class="text-gray-400 hover:text-white transition duration-300" href="/index.html#freelance">Logo Design</a></li>
+                        <li><a class="text-gray-400 hover:text-white transition duration-300" href="/index.html#freelance">Social Media</a></li>
+                        <li><a class="text-gray-400 hover:text-white transition duration-300" href="/index.html#freelance">Printing</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-[#222] mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">© 2025 ART de ONE. All rights reserved.</p>
+                <div class="flex space-x-6 text-sm">
+                    <a class="text-gray-400 hover:text-white" href="https://www.facebook.com/artdeone" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a class="text-gray-400 hover:text-white" href="https://www.behance.net/phyomin7" target="_blank"><i class="fab fa-behance"></i></a>
+                    <a class="text-gray-400 hover:text-white" href="https://www.linkedin.com/in/phyo-min-8b1a02134/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="/css-and-js/mobile-smooth-nav.js"></script>
+    <script>
+
+  AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
+        feather.replace();
+        
+        // Mobile Menu
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+    </script>
+
+</body>
+</html>
