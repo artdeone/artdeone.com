@@ -226,6 +226,24 @@
             transform: translateX(-4px);
         }
 
+        .share-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #333;
+    color: #888;
+    transition: all 0.3s ease;
+}
+.share-btn:hover {
+    background-color: #fff;
+    color: #000;
+    border-color: #fff;
+}
+
+
         /* --- FOOTER --- */
         footer { background-color: #000; border-top: 1px solid #222; }
     </style>
@@ -464,16 +482,35 @@
                         </a>
                     </div>
 
-                    <!-- Share this article -->
+                   <!-- Share this article -->
                     <div class="border-t border-[#222] mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center gap-6">
                         <span class="text-sm font-medium text-gray-400 uppercase tracking-wider">
                             Share this article
                         </span>
                         <div class="flex gap-3">
-                            <a href="https://artdeone.com/posts/post-12/post-12.html" class="share-btn"><i class="fab fa-facebook-f"></i></a>
-                            <a href="https://artdeone.com/posts/post-12/post-12.html" class="share-btn"><i class="fab fa-twitter"></i></a>
-                            <a href="https://artdeone.com/posts/post-12/post-12.html" class="share-btn"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="https://artdeone.com/posts/post-12/post-12.html" class="share-btn"><i class="fas fa-link"></i></a>
+                            <!-- 1. Facebook -->
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-12%2Fpost-12.html"
+                            class="share-btn" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+
+                            <!-- 2. Twitter / X -->
+                            <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-12%2Fpost-12.html&text=7%20Fonts%20That%20Look%20Like%20Logo"
+                            class="share-btn" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+
+                            <!-- 3. LinkedIn -->
+                            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-12%2Fpost-12.html"
+                            class="share-btn" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+
+                            <!-- 4. Copy / open link (simple) -->
+                            <a href="https://artdeone.com/posts/post-12/post-12.html"
+                            class="share-btn" target="_blank" rel="noopener noreferrer">
+                                <i class="fas fa-link"></i>
+                            </a>
                         </div>
                     </div>
 
