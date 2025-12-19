@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CZRQ0NPPJ2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-CZRQ0NPPJ2');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="p:domain_verify" content="ec0d8cce60db240c8b3015eb02fca511"/>
+    <title>AI Prompts Gallery - ART de ONE</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="css-and-js/mobile-smooth-nav.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        /* --- MINIMALIST DARK THEME STYLES --- */
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Navigation Overrides for Dark Theme */
+        nav {
+            background-color: rgba(0,0,0,0.9) !important;
+            border-bottom: 1px solid #222;
+            backdrop-filter: blur(12px);
+        }
+        .nav-link {
+            color: #ccc !important;
+            font-weight: 300 !important;
+            letter-spacing: 0.04em;
+            font-size: 0.9rem !important;
+        }
+        .nav-link:hover {
+            color: #fff !important;
+        }
+        .mobile-menu {
+            background-color: #111 !important;
+        }
+        .mobile-nav-link {
+            color: #ccc !important;
+            font-weight: 300;
+            font-size: 0.9rem;
+        }
+
+        /* Sections */
+        .section-dark { background-color: #000; }
+        .section-darker { background-color: #0a0a0a; }
+        .section-title {
+            color: #fff;
+            font-weight: 700;
+            font-size: 2.25rem;
+            margin-bottom: 1rem;
+        }
+        .section-subtitle {
+            color: #a0a0a0;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Specific small button for Navigation */
+        .nav-btn {
+            background-color: #fff;
+            color: #000;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1.25rem;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #fff;
+            height: auto;
+            line-height: 1;
+        }
+
+        .nav-btn:hover {
+            background-color: #9dae11;
+            border-color: #9dae11;
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background-color: #fff;
+            color: #000;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            padding: 0.75rem 2rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #fff;
+        }
+        .btn-primary:hover {
+            background-color: #9dae11;
+            border-color: #9dae11;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* Fix horizontal scrolling */
+        html, body {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+
+        /* Prompt Card Styles */
+        .prompt-card {
+            background-color: #111;
+            border: 1px solid #333;
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .prompt-card:hover {
+            transform: translateY(-8px);
+            border-color: #9dae11;
+        }
+
+        .prompt-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .prompt-card:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Prompt Text Area */
+        .prompt-text {
+            background-color: #1a1a1a;
+            border: 1px solid #444;
+            color: #fff;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            font-family: 'Courier New', monospace;
+            resize: none;
+            width: 100%;
+        }
+
+        /* Copy Button */
+        .copy-btn {
+            background-color: #9dae11;
+            color: #000;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1.5rem;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .copy-btn:hover {
+            background-color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .copy-btn.copied {
+            background-color: #fff;
+            color: #000;
+        }
+
+        /* Lightbox Styles */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-close:hover {
+            color: #9dae11;
+            transform: rotate(90deg);
+        }
+
+        /* Model Tag */
+        .model-tag {
+            background-color: #9dae11;
+            color: #000;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.25rem;
+            display: inline-block;
+        }
+
+        /* Load More Button */
+        .load-more-btn {
+            background-color: transparent;
+            color: #fff;
+            font-weight: 600;
+            border: 1px solid #fff;
+            border-radius: 0.5rem;
+            padding: 0.75rem 2rem;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .load-more-btn:hover {
+            background-color: #fff;
+            color: #000;
+            transform: translateY(-2px);
+        }
+
+        .load-more-btn.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+
+    <!-- CONSISTENT NAVIGATION -->
+    <nav class="fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 nav-container">
+            <div class="nav-wrapper">
+                <div class="flex justify-between h-16 items-center">
+                    <!-- Logo -->
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <a href="index.html#home" class="flex items-center">
+                                <img src="logo.png" alt="ART de ONE" class="h-10 w-auto">
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Desktop Navigation -->
+                    <div class="hidden md:flex items-center space-x-4 nav-center">
+                        <a href="index.html#home" class="nav-link">Home</a>
+                        <a href="courses.html" class="nav-link">Courses</a>
+                        <a href="prompt.html" class="nav-link">Prompts</a>
+                        <a href="blog.html" class="nav-link">Blog</a>
+                        <a href="/resources/resources-collection.html" class="nav-link">Resources</a>
+                        <a href="index.html#about" class="nav-link">About</a>
+                        <a href="index.html#contact" class="nav-link">Contact</a>
+                    </div>
+
+                    <!-- Contact Button -->
+                    <div class="hidden md:block">
+                        <a href="/Private/student-login.html" class="nav-btn">Student Login</a>
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <div class="md:hidden flex items-center">
+                        <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white focus:outline-none" id="mobile-menu-button">
+                            <div class="icon-container">
+                                <i data-feather="menu" class="icon-menu"></i>
+                                <i data-feather="x" class="icon-close"></i>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="mobile-menu md:hidden" id="mobile-menu">
+            <div class="py-2 px-4 space-y-1">
+                <a href="index.html#home" class="block py-2 mobile-nav-link">Home</a>
+                <a href="courses.html" class="block py-2 mobile-nav-link">Courses</a>
+                <a href="prompt.html" class="block py-2 mobile-nav-link">Prompts</a>
+                <a href="blog.html" class="block py-2 mobile-nav-link">Blog</a>
+                <a href="/resources/resources-collection.html" class="block py-2 mobile-nav-link">Resources</a>
+                <a href="index.html#about" class="block py-2 mobile-nav-link">About</a>
+                <a href="index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
+                <a href="/Private/student-login.html" class="block py-2 mobile-nav-link">Student Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="relative min-h-[40vh] flex items-center justify-center overflow-hidden bg-black pt-16">
+            <div class="relative z-10 text-center px-4 py-20" data-aos="fade-up">
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-4">
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">AI Prompts Gallery</span>
+                </h1>
+                <p class="text-xl md:text-xl text-gray-300 mb-4 max-w-2xl mx-auto font-light tracking-wide">Explore our collection of AI-generated artworks with ready-to-use prompts</p>
+            </div>
+        </section>
+
+        <!-- Prompts Gallery Section -->
+        <section class="py-24 section-darker px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8" id="prompts-gallery">
+                    <!-- Prompt cards will be dynamically loaded here -->
+                </div>
+
+                <!-- Load More Button -->
+                <div class="text-center mt-12">
+                    <button id="load-more-btn" class="load-more-btn">
+                        Load More Prompts
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightbox-img" src="" alt="Full size image">
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-12 border-t border-[#222]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <span class="text-xl font-bold mb-4 block">ART de ONE</span>
+                    <p class="text-gray-400 text-sm">
+                        Adobe Illustrator Classes & Freelance Creative Studio in Myanmar
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index.html#home" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
+                        <li><a href="courses.html" class="text-gray-400 hover:text-white transition duration-300">Courses</a></li>
+                        <li><a href="blog.html" class="text-gray-400 hover:text-white transition duration-300">Blog</a></li>
+                        <li><a href="resources/resources-collection.html" class="text-gray-400 hover:text-white transition duration-300">Resources</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Classes</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="courses/basic-illustrator/course-detail-basic.html" class="text-gray-400 hover:text-white transition duration-300">Basic Course</a></li>
+                        <li><a href="courses/intermediate-illustrator/course-detail-intermediate.html" class="text-gray-400 hover:text-white transition duration-300">Intermediate</a></li>
+                        <li><a href="courses/graphic-design/course-detail-graphic-design.html" class="text-gray-400 hover:text-white transition duration-300">Graphic Design</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Services</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Logo Design</a></li>
+                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Social Media</a></li>
+                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Printing</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-[#222] mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">
+                    &copy; 2025 ART de ONE. All rights reserved.
+                </p>
+                <div class="flex space-x-6 text-sm">
+                    <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-white"><i class="fab fa-behance"></i></a>
+                    <a href="https://www.linkedin.com/in/phyo-min-8b1a02134/" target="_blank" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="css-and-js/mobile-smooth-nav.js"></script>
+    <script>
+        AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
+        feather.replace();
+
+        // Prompts Data Array - Add your prompts here
+        const promptsData = [
+            {
+                id: 1,
+                title: "Rustic Market Elegance",
+                model: "Any AI Model",
+                image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1766129731/67175f64-6394-4cf7-a824-c308b06b753f_snf1en.jpg",
+                fullImage: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1766129731/67175f64-6394-4cf7-a824-c308b06b753f_snf1en.jpg",
+                prompt: "Candid street photography of a busy traditional morning market in Myanmar. A large red traditional Pathein umbrella dominates the foreground, shading bamboo baskets filled with fresh vegetables and flowers. A local man wearing a longyi and bamboo hat (Khamauk) is browsing. Golden morning sunlight filtering through dust, creating a warm, nostalgic atmosphere. Old wooden shop houses in the background. Authentic daily life in Mandalay, rich cultural colors, grainy film texture, 35mm photography --ar 3:4 --v 6"
+            },
+            {
+                id: 2,
+                title: "Retro Vibes Chic",
+                model: "Any AI Model",
+                image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1766129697/low-angle_fcrtrm.jpg",
+                fullImage: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1766129697/low-angle_fcrtrm.jpg",
+                prompt: "Low angle fantasy shot of a beautiful Myanmar girl sitting on a large branch of an ancient Banyan tree at night. She is wearing a modern traditional Burmese silk dress, soft Thanaka on her cheeks. Glowing giant magical mushrooms or lanterns attached to the tree bark are illuminating her face with warm amber light. Dreamy, surreal atmosphere. Dark blue night sky peaking through leaves. Mystical forest vibe, soft focus, ethereal glow, cinematic lighting, photorealistic fantasy art"
+            },
+            {
+                id: 3,
+                title: "Coastal Dreaming Vibes",
+                model: "Any AI Model",
+                image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1766129698/cozy-scene_ctbca1.jpg",
+                fullImage: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1766129698/cozy-scene_ctbca1.jpg",
+                prompt: "Cozy scene of a Myanmar girl sitting by a large window in a small apartment near the Yangon river at sunrise, wearing light cotton loungewear, writing in her journal. Warm yellow glow from a simple lamp contrasts with the cool blue morning sky outside, faint silhouettes of boats on the water, soft pastel colors, nostalgic quiet mood, light film grain, dust motes in the air, peaceful coastal dreaming vibes --ar 3:4 --style raw --v 6"
+            },
+            {
+                id: 4,
+                title: "Avant-Futuristic Chic",
+                model: "Any AI Model",
+                image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1766129697/low-angle-fashion_fvks8r.jpg",
+                fullImage: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1766129697/low-angle-fashion_fvks8r.jpg",
+                prompt: "Low angle fashion shot of a chic model stepping out of a vintage sage green car, door open. She is wearing a green patterned jacket, striped trousers, leather boots, and retro sunglasses. 1970s fashion aesthetic. Wide angle lens, distorting perspective slightly for a dynamic look. Overcast soft lighting, grassy field background. High-end editorial photography, Kodachrome film stock, rich colors, sharp focus on subject --ar 3:4 --style raw --v 6"
+            },
+            {
+                id: 5,
+                title: "Soft Horizon Chic",
+                model: "Any AI Model",
+                image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1766129698/fashion-editorial_r0okqj.jpg",
+                fullImage: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1766129698/fashion-editorial_r0okqj.jpg",
+                prompt: "Fashion editorial shot of a stylish woman with a short bob haircut wearing an oversized beige blazer and linen trousers, standing behind a blurred wire fence on a sandy hill. Soft morning sunlight casting gentle diagonal shadows. Minimalist composition, muted neutral color palette of cream, sand, and pale blue sky. Dreamy, nostalgic atmosphere, low angle shot, 35mm film grain aesthetic, high fashion magazine style --ar 3:4 --style raw --v 6"
+            },
+            
+            // Add more prompts here as needed - the system will handle pagination automatically
+        ];
+
+        let currentIndex = 0;
+        const promptsPerPage = 12;
+
+        // Load initial prompts
+        function loadPrompts() {
+            const gallery = document.getElementById('prompts-gallery');
+            const loadMoreBtn = document.getElementById('load-more-btn');
+
+            const endIndex = Math.min(currentIndex + promptsPerPage, promptsData.length);
+
+            for (let i = currentIndex; i < endIndex; i++) {
+                const prompt = promptsData[i];
+                const card = createPromptCard(prompt);
+                gallery.innerHTML += card;
+            }
+
+            currentIndex = endIndex;
+
+            // Hide button if all prompts are loaded
+            if (currentIndex >= promptsData.length) {
+                loadMoreBtn.classList.add('hidden');
+            }
+
+            // Reinitialize AOS for new elements
+            AOS.refresh();
+        }
+
+        // Create prompt card HTML
+        function createPromptCard(prompt) {
+            return `
+                <div class="prompt-card" data-aos="fade-up">
+                    <div class="relative overflow-hidden cursor-pointer" onclick="openLightbox(this)">
+                        <img src="${prompt.image}" alt="${prompt.title}" data-full="${prompt.fullImage}">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-bold text-lg text-white">${prompt.title}</h3>
+                            <span class="model-tag">${prompt.model}</span>
+                        </div>
+                        <textarea class="prompt-text" rows="4" readonly>${prompt.prompt}</textarea>
+                        <button class="copy-btn mt-4 w-full justify-center" onclick="copyPrompt(this)">
+                            <i class="fas fa-copy"></i>
+                            <span>Copy Prompt</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Load more button click handler
+        document.getElementById('load-more-btn').addEventListener('click', function() {
+            loadPrompts();
+        });
+
+        // Initial load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPrompts();
+        });
+
+        // Copy Prompt Function
+        function copyPrompt(button) {
+            const card = button.closest('.prompt-card');
+            const textarea = card.querySelector('.prompt-text');
+            const text = textarea.value;
+
+            // Copy to clipboard
+            navigator.clipboard.writeText(text).then(() => {
+                // Change button state
+                const originalHTML = button.innerHTML;
+                button.classList.add('copied');
+                button.innerHTML = '<i class="fas fa-check"></i><span>Copied!</span>';
+
+                // Reset after 2 seconds
+                setTimeout(() => {
+                    button.classList.remove('copied');
+                    button.innerHTML = originalHTML;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+
+        // Lightbox Functions
+        function openLightbox(element) {
+            const img = element.querySelector('img');
+            const fullSrc = img.getAttribute('data-full') || img.src;
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+
+            lightboxImg.src = fullSrc;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close lightbox on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+    </script>
+</body>
+</html>
