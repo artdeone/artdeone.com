@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-CZRQ0NPPJ2"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -12,102 +11,57 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Venom Illustration - ART de ONE</title>
+    <title>Venom Illustration - ART de ONE | Portfolio</title>
+    <meta name="description" content="Explore the advanced vector illustration process of Venom by ART de ONE. See the breakdown from outline to final render using Adobe Illustrator.">
     <link rel="icon" type="image/png" href="/favicon.png">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link href="/css-and-js/mobile-smooth-nav.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css-and-js/mobile-smooth-nav.css">
     <script src="https://unpkg.com/feather-icons"></script>
-   
     
-    <!-- Image Comparison Script -->
+    <link rel="stylesheet" href="/css-and-js/theme.css">
+    
     <script defer src="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/index.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/styles.css"/>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        /* --- PAGE SPECIFIC STYLES (Light Theme) --- */
         
-        body {
-            background-color: #000;
-            color: #fff;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        /* Navigation Overrides for Dark Theme */
-        nav { 
-            background-color: rgba(0,0,0,0.9) !important; 
-            border-bottom: 1px solid #222; 
-            backdrop-filter: blur(12px);
-        }
-        .nav-link { 
-            color: #ccc !important; 
-            font-weight: 300 !important;      /* thinner */
-            letter-spacing: 0.04em;
-            font-size: 0.9rem !important;     /* slightly smaller */
-        }
-        .nav-link:hover { 
-            color: #fff !important; 
-        }
-        .mobile-menu { 
-            background-color: #111 !important; 
-        }
-        .mobile-nav-link { 
-            color: #ccc !important; 
-            font-weight: 300;
-            font-size: 0.9rem;
-        }
-
-        /* Specific small button for Navigation */
-        .nav-btn {
-            background-color: #fff;
-            color: #000;
-            font-weight: 600;
-            border-radius: 0.5rem; /* slightly less rounded than big buttons */
-            padding: 0.5rem 1.25rem; /* smaller padding */
-            font-size: 0.8rem; /* smaller text */
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #fff;
-            height: auto;
-            line-height: 1;
-        }
-
-        .nav-btn:hover {
-            background-color: #9dae11;
-            border-color: #9dae11;
-            color: #fff;
-            transform: translateY(-1px);
-        }
-
-        /* Project Specific Styles */
+        /* Project Tags */
         .project-tag {
-            background: rgba(255,255,255,0.1);
+            background: #f3f4f6;
             padding: 0.5rem 1rem;
-            border-radius: 2rem;
-            font-size: 0.875rem;
-            color: #ccc;
-            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #555;
+            border: 1px solid #e5e5e5;
+            transition: all 0.3s ease;
+        }
+        .project-tag:hover {
+            background: #a7e169;
+            color: #000;
+            border-color: #a7e169;
         }
         
-        /* Enhanced Card Animation Styles (From Logo Reveal) */
+        /* Artwork Card (Minimal Style) */
         .artwork-card {
             position: relative;
             overflow: hidden;
-            border-radius: 0.5rem;
-            border: 1px solid #222;
-            transition: all 0.4s ease;
-            cursor: pointer;
+            border-radius: 1rem;
+            border: 1px solid #e5e5e5;
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            background: #fff;
         }
         .artwork-card:hover {
             transform: translateY(-8px);
-            border-color: #fff;
-            box-shadow: 0 10px 30px -10px rgba(255, 255, 255, 0.1);
+            border-color: #a7e169;
+            box-shadow: 0 20px 40px -20px rgba(167, 225, 105, 0.3);
         }
         .artwork-card img {
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -118,36 +72,34 @@
         
         /* Custom Comparison Slider Styling */
         img-comparison-slider {
-            --divider-color: #9dae11;
-            --default-handle-color: #9dae11;
+            --divider-color: #a7e169; /* New Brand Accent */
+            --default-handle-color: #a7e169;
             --default-handle-width: 50px;
             border-radius: 1rem;
             overflow: hidden;
-            border: 1px solid #333;
+            border: 1px solid #e5e5e5;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
         }
         
-        /* Typography */
-        .section-title {
-            color: #fff; font-weight: 700; font-size: 2.25rem; margin-bottom: 1rem;
+        /* CTA Button */
+        .cta-btn-primary {
+            background-color: #000;
+            color: #fff;
+            font-weight: 600;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            transition: all 0.3s ease;
         }
-        .section-subtitle {
-            display: block;
-            color: #a0a0a0;
-            font-size: 0.875rem; 
-            text-transform: uppercase; 
-            letter-spacing: 0.05em;
-            margin-bottom: 0.5rem;
+        .cta-btn-primary:hover {
+            background-color: #a7e169;
+            color: #000;
         }
 
-        /* Utility */
-        .text-accent { color: #9dae11; }
         [data-aos] { transition-duration: 1000ms !important; }
-        .hidden { display: none; }
     </style>
 </head>
-<body class="bg-black text-white">
+<body class="bg-white text-[#323232]">
     
-    <!-- NAVIGATION -->
     <nav class="fixed w-full z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 nav-container">
             <div class="nav-wrapper">
@@ -155,26 +107,28 @@
                     <div class="flex items-center">
                         <div class="flex-shrink-0">
                             <a href="/index.html#home" class="flex items-center">
-                                <img src="/logo.png" alt="ART de ONE" class="h-10 w-auto">
+                                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png" alt="ART de ONE" class="h-10 w-auto">
                             </a>
                         </div>
                     </div>
+                    
                     <div class="hidden md:flex items-center space-x-4 nav-center">
-                        <a href="/index.html#home" class="nav-link">Home</a>
-                        <a href="/courses.html" class="nav-link">Courses</a>
+                        <a href="/index.html#home" class="nav-link font-bold" style="color: #000 !important;">Home</a>
+                        <!-- <a href="/courses.html" class="nav-link">Courses</a> -->
                         <a href="/prompt.html" class="nav-link">Prompts</a>
                         <a href="/blog.html" class="nav-link">Blog</a>
                         <a href="/resources/resources-collection.html" class="nav-link">Resources</a>
-                        <a href="/index.html#about" class="nav-link">About</a>
+                        
                         <a href="/index.html#contact" class="nav-link">Contact</a>
                     </div>
+                    
                     <div class="hidden md:block">
                         <a href="/Private/student-login.html" class="nav-btn">Student Login</a>
                     </div>
-                    <!-- Mobile Menu Button -->
+                    
                     <div class="md:hidden flex items-center">
-                        <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white focus:outline-none" id="mobile-menu-button">
-                            <div class="icon-container">
+                        <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md hover:bg-gray-100 focus:outline-none" id="mobile-menu-button">
+                            <div class="icon-container text-black">
                                 <i data-feather="menu" class="icon-menu"></i>
                                 <i data-feather="x" class="icon-close"></i>
                             </div>
@@ -183,52 +137,52 @@
                 </div>
             </div>
         </div>
+        
         <div class="mobile-menu md:hidden hidden" id="mobile-menu">
             <div class="py-2 px-4 space-y-1">
-                <a href="/index.html#home" class="block py-2 mobile-nav-link text-white">Home</a>
-                <a href="/courses.html" class="block py-2 mobile-nav-link">Courses</a>
+                <a href="/index.html#home" class="block py-2 mobile-nav-link text-black font-bold">Home</a>
+                <!-- <a href="/courses.html" class="block py-2 mobile-nav-link">Courses</a> -->
                 <a href="/prompt.html" class="block py-2 mobile-nav-link">Prompts</a>
                 <a href="/blog.html" class="block py-2 mobile-nav-link">Blog</a>
                 <a href="/resources/resources-collection.html" class="block py-2 mobile-nav-link">Resources</a>
-                <a href="/index.html#about" class="block py-2 mobile-nav-link">About</a>
+               
                 <a href="/index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
                 <a href="/Private/student-login.html" class="block py-2 mobile-nav-link">Student Login</a>
             </div>
         </div>
     </nav>
 
-    <!-- MAIN CONTENT -->
     <main>
         <section class="pt-32 pb-20 px-4">
             <div class="max-w-7xl mx-auto">
                 
-                <!-- CENTERED HEADER SECTION -->
                 <div class="text-center mb-16" data-aos="fade-up">
-                    <span class="text-accent font-semibold tracking-widest text-sm uppercase mb-2 block">Digital Illustration Project</span>
-                    <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">Advanced Illustration</h1>
-                    <p class="section-subtitle text-lg" style="text-transform: none; color: #a0a0a0; max-width: 600px; margin: 0 auto 1.5rem auto;">Exploring character design through complex vector shapes.</p>
+                    <span class="text-[#a7e169] font-bold tracking-widest text-xs uppercase mb-2 block">Digital Illustration Project</span>
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-4 artdeone-font">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-black to-[#a7e169]">ADVANCED ILLUSTRATION</span>
+                    </h1>
+                    <p class="text-lg text-[#555] max-w-2xl mx-auto font-light">
+                        Exploring character design through complex vector shapes and advanced shading techniques.
+                    </p>
                     
-                    <a href="/index.html#portfolio" class="text-gray-500 hover:text-white text-sm inline-flex items-center gap-2 transition-colors mt-4">
+                    <a href="/index.html#portfolio" class="inline-flex items-center gap-2 mt-6 text-sm font-semibold text-black hover:text-[#a7e169] transition-colors">
                         <i class="fas fa-arrow-left"></i> Back to Portfolio
                     </a>
                 </div>
 
-                <!-- Main Layout: Info + Main Image -->
                 <div class="grid lg:grid-cols-2 gap-12 items-start mb-24">
                     
-                    <!-- Project Details -->
                     <div class="space-y-8" data-aos="fade-right">
                         <div>
-                            <h2 class="text-2xl font-bold mb-4">The Concept</h2>
-                            <p class="text-gray-400 leading-relaxed mb-6">
+                            <h2 class="text-2xl font-bold mb-4 text-black">The Concept</h2>
+                            <p class="text-gray-600 leading-relaxed mb-6">
                                 I used Adobe Illustrator to capture Venom's raw energy. The design blends organic textures with sharp, aggressive forms to show just how chaotic the character is. 
                             </p>
-                            <p class="text-gray-400 leading-relaxed">
+                            <p class="text-gray-600 leading-relaxed">
                                 Instead of using gradients or mesh tools, I used complex shapes and a simple color palette to create depth. This is a very hard look to achieve. The lighting gives the suit a shiny look without losing that intense, scary vibe.
                             </p>
                         </div>
 
-                        <!-- Tags -->
                         <div class="flex flex-wrap gap-3">
                             <span class="project-tag">Vector Art</span>
                             <span class="project-tag">Character Design</span>
@@ -236,126 +190,112 @@
                             <span class="project-tag">Advanced Shading</span>
                         </div>
 
-                        <!-- Project Stats -->
-                        <div class="grid grid-cols-2 gap-6 pt-6 border-t border-[#222]">
+                        <div class="grid grid-cols-2 gap-6 pt-6 border-t border-gray-200">
                             <div>
                                 <span class="block text-sm text-gray-500 mb-1">Software</span>
-                                <span class="font-medium">Adobe Illustrator CC</span>
+                                <span class="font-bold text-black">Adobe Illustrator CC</span>
                             </div>
                             <div>
                                 <span class="block text-sm text-gray-500 mb-1">Time Taken</span>
-                                <span class="font-medium">3 Days</span>
+                                <span class="font-bold text-black">3 Days</span>
                             </div>
                             <div>
                                 <span class="block text-sm text-gray-500 mb-1">Style</span>
-                                <span class="font-medium">Advanced Vector Illustration</span>
+                                <span class="font-bold text-black">Advanced Vector</span>
                             </div>
                             <div>
                                 <span class="block text-sm text-gray-500 mb-1">Year</span>
-                                <span class="font-medium">2019</span>
+                                <span class="font-bold text-black">2019</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Main Image -->
-                    <div class="bg-[#111] rounded-2xl p-2 border border-[#333]" data-aos="fade-left">
-                         <img src="venom-illustration-images/advanced.jpg" alt="Venom Final Illustration" class="w-full h-auto rounded-xl">
+                    <div class="bg-gray-50 rounded-2xl p-2 border border-gray-200 shadow-sm" data-aos="fade-left">
+                         <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119195/advanced_tagqhw.jpg" alt="Venom Final Illustration" class="w-full h-auto rounded-xl">
                     </div>
                 </div>
 
-                <!-- Process/Comparison Section -->
                 <div class="mb-24" data-aos="fade-up">
                     <div class="text-center mb-12">
-                        <h2 class="text-2xl font-bold mb-2">Process Breakdown</h2>
-                        <p class="text-gray-400">Drag the slider to see the transition from Outline to Final Render</p>
+                        <h2 class="text-3xl font-bold mb-3 text-black">Process Breakdown</h2>
+                        <p class="text-gray-500">Drag the slider to see the transition from Outline to Final Render</p>
                     </div>
 
-                    <!-- Comparison Slider -->
                     <div class="max-w-4xl mx-auto">
                         <img-comparison-slider class="w-full aspect-[4/3] object-cover">
-                            <!-- First Image (Before/Outline) -->
-                            <img slot="first" src="venom-illustration-images/advanced.jpg" class="w-full h-full object-cover" alt="Venom Outline" />
+                            <img slot="first" src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119195/advanced_tagqhw.jpg" class="w-full h-full object-cover" alt="Venom Final" />
                             
-                            <!-- Second Image (After/Final) -->
-                            <img slot="second" src="venom-illustration-images/before.jpg" class="w-full h-full object-cover" alt="Venom Final" />
+                            <img slot="second" src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119195/before_y1jwo1.jpg" class="w-full h-full object-cover" alt="Venom Outline" />
                             
-                            <!-- Custom Handle -->
                             <svg slot="handle" class="custom-animated-handle" xmlns="http://www.w3.org/2000/svg" width="100" viewBox="-8 -3 16 6">
-                                <path stroke="#fff" d="M -5 -2 L -7 0 L -5 2 M -5 -2 L -5 2 M 5 -2 L 7 0 L 5 2 M 5 -2 L 5 2" stroke-width="1" fill="#9dae11" vector-effect="non-scaling-stroke"></path>
+                                <path stroke="#fff" d="M -5 -2 L -7 0 L -5 2 M -5 -2 L -5 2 M 5 -2 L 7 0 L 5 2 M 5 -2 L 5 2" stroke-width="1" fill="#a7e169" vector-effect="non-scaling-stroke"></path>
                             </svg>
                         </img-comparison-slider>
                     </div>
                 </div>
 
-                <!-- MORE ARTWORKS SECTION (Enhanced Animation) -->
                 <div class="mb-12" data-aos="fade-up">
-                    <h3 class="text-2xl font-bold mb-8 text-white border-l-4 border-[#9dae11] pl-4">More Artworks</h3>
+                    <h3 class="text-2xl font-bold mb-8 text-black border-l-4 border-[#a7e169] pl-4">More Artworks</h3>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         
-                        <!-- LEFT COLUMN -->
                         <div class="flex flex-col gap-6">
-                            <!-- Slot 1: Portrait (Tall) -->
-                            <div class="artwork-card aspect-[3/4] group">
-                                <img src="venom-illustration-images/medusa.jpg" alt="Artwork 1">
+                            <div class="artwork-card aspect-[3/4] group cursor-pointer">
+                                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119196/medusa_dq2snq.jpg" alt="medusa-artwork-1">
                                 <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                    <span class="text-sm font-medium text-white">Artwork 1 (Portrait)</span>
+                                    <span class="text-sm font-bold text-white uppercase tracking-widest">Medusa</span>
                                 </div>
                             </div>
 
-                            <!-- Slot 2: Landscape (Wide) -->
-                            <div class="artwork-card aspect-video group">
-                                <img src="venom-illustration-images/warrior.jpg" alt="Artwork 2">
+                            <div class="artwork-card aspect-video group cursor-pointer">
+                                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119197/warrior_wobqag.jpg" alt="warrior-artwork-2">
                                 <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                    <span class="text-sm font-medium text-white">Artwork 2 (Landscape)</span>
+                                    <span class="text-sm font-bold text-white uppercase tracking-widest">Warrior</span>
                                 </div>
                             </div>
 
-                            <!-- Slot 3: Portrait (Tall) -->
-                            <div class="artwork-card aspect-[3/4] group">
-                                <img src="venom-illustration-images/wacom.jpg" alt="Artwork 3">
+                            <div class="artwork-card aspect-[3/4] group cursor-pointer">
+                                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119196/wacom_q4ommh.jpg" alt="wacom-cintiq-artwork-3">
                                 <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                    <span class="text-sm font-medium text-white">Artwork 3 (Portrait)</span>
+                                    <span class="text-sm font-bold text-white uppercase tracking-widest">Wacom Cintiq</span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- RIGHT COLUMN -->
                         <div class="flex flex-col gap-6">
-                            <!-- Slot 4: Portrait (Tall) -->
-                            <div class="artwork-card aspect-[3/4] group">
-                                <img src="venom-illustration-images/chinese-dg.jpg" alt="Artwork 4">
+                            <div class="artwork-card aspect-[3/4] group cursor-pointer">
+                                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119194/chinese-dg_mlhwqu.jpg" alt="chinese-dg-artwork-4">
                                 <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                    <span class="text-sm font-medium text-white">Artwork 4 (Portrait)</span>
+                                    <span class="text-sm font-bold text-white uppercase tracking-widest">Chinese Dragon</span>
                                 </div>
                             </div>
 
-                            <!-- Slot 5: Landscape (Wide) -->
-                            <div class="artwork-card aspect-video group">
-                                <img src="venom-illustration-images/malificiant.jpg" alt="Artwork 5">
+                            <div class="artwork-card aspect-video group cursor-pointer">
+                                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119194/malificiant_x8uahb.jpg" alt="malificiant-artwork-5">
                                 <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                    <span class="text-sm font-medium text-white">Artwork 5 (Landscape)</span>
+                                    <span class="text-sm font-bold text-white uppercase tracking-widest">Malificiant</span>
                                 </div>
                             </div>
 
-                            <!-- Slot 6: Portrait (Tall) -->
-                            <div class="artwork-card aspect-[3/4] group">
-                                <img src="venom-illustration-images/org.jpg" alt="Artwork 6">
+                            <div class="artwork-card aspect-[3/4] group cursor-pointer">
+                                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119198/org_kphvar.jpg" alt="org-artwork-6">
                                 <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                    <span class="text-sm font-medium text-white">Artwork 6 (Portrait)</span>
+                                    <span class="text-sm font-bold text-white uppercase tracking-widest">Org</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Call To Action Box -->
-                    <div class="mt-6 border border-[#9dae11] rounded-lg p-8 flex flex-col md:flex-row items-center justify-between bg-[#9dae11]/5" data-aos="fade-up">
+                    <div class="mt-16 border border-[#a7e169] rounded-lg p-8 flex flex-col md:flex-row items-center justify-between bg-[#a7e169]/10" data-aos="fade-up">
                         <div class="mb-4 md:mb-0">
-                            <h4 class="text-xl font-bold text-white">Master Vector Art</h4>
-                            <p class="text-gray-400 text-sm mt-1">Learn the techniques used in this project.</p>
+                            <h4 class="text-xl font-bold text-black">Master Vector ART</h4>
+                            <p class="text-gray-500 text-sm mt-1">Learn the advanced techniques used in this project.</p>
                         </div>
-                        <a href="/courses/advanced-illustrator/course-detail-advanced.html" class="inline-block bg-[#9dae11] text-black font-bold py-3 px-8 rounded hover:bg-white transition-all duration-300">
-                            Start Learning
+                        <a href="tel:09953681497" class="inline-flex items-center gap-2 bg-[#a7e169] text-black font-bold py-3 px-8 rounded hover:bg-[#ed2939] hover:text-white transition-all duration-300 shadow-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                                <path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd" />
+                            </svg>
+                            <span>09953681497</span>
                         </a>
                     </div>
                 </div>
@@ -364,67 +304,84 @@
         </section>
     </main>
 
-    <!-- FOOTER -->
-    <footer class="bg-black text-white py-12 border-t border-[#222]">
+    <footer class="bg-white text-[#323232] py-12 border-t border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-4 gap-8">
                 <div>
-                    <span class="text-xl font-bold mb-4 block">ART de ONE</span>
-                    <p class="text-gray-400 text-sm">
-                        Adobe Illustrator Classes & Freelance Creative Studio in Myanmar
+                    <span class="text-xl font-bold mb-4 block text-black">ART de ONE</span>
+                    <p class="text-gray-500 text-sm">
+                        Freelance Graphic Designer & Illustrator Portfolio, Blog, Resources and Online Courses
                     </p>
                 </div>
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Quick Links</h3>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="/index.html#home" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
-                        <li><a href="/courses.html" class="text-gray-400 hover:text-white transition duration-300">Courses</a></li>
-                        <li><a href="/blog.html" class="text-gray-400 hover:text-white transition duration-300">Blog</a></li>
-                        <li><a href="/resources/resources-collection.html" class="text-gray-400 hover:text-white transition duration-300">Resources</a></li>
+                        <li><a href="index.html#home" class="text-gray-500 hover:text-black transition duration-300">Home</a></li>
+                      <!--  <li><a href="courses.html" class="text-gray-500 hover:text-black transition duration-300">Courses</a></li> -->
+                        <li><a href="/prompt.html" class="text-gray-500 hover:text-black transition duration-300">Prompts</a></li>
+                        <li><a href="/blog.html" class="text-gray-500 hover:text-black transition duration-300">Blog</a></li>
+                        <li><a href="/resources/resources-collection.html" class="text-gray-500 hover:text-black transition duration-300">Resources</a></li>
                     </ul>
                 </div>
+
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">Classes</h3>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Services</h3>
                     <ul class="space-y-2 text-sm">
-                         <li><a href="/courses/basic-illustrator/course-detail-basic.html" class="text-gray-400 hover:text-white transition duration-300">Basic Course</a></li>
-                        <li><a href="/courses/intermediate-illustrator/course-detail-intermediate.html" class="text-gray-400 hover:text-white transition duration-300">Intermediate</a></li>
-                        <li><a href="/courses/graphic-design/course-detail-graphic-design.html" class="text-gray-400 hover:text-white transition duration-300">Graphic Design</a></li>
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Logo Design</a></li>
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Social Media</a></li>
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Printing</a></li>
                     </ul>
                 </div>
+
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">Services</h3>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Contact</h3>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="/index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Logo Design</a></li>
-                        <li><a href="/index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Social Media</a></li>
-                        <li><a href="/index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Printing</a></li>
+                         <li><a href="/index.html#about" class="text-gray-500 hover:text-black transition duration-300">About</a></li>
+                        <li><a href="/index.html#contact" class="text-gray-500 hover:text-black transition duration-300">Contact</a></li>
                     </ul>
-                </div>
+                </div> 
+                <!-- <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Classes</h3>
+                    <ul class="space-y-2 text-sm">
+                         <li><a href="courses/basic-illustrator/course-detail-basic.html" class="text-gray-500 hover:text-black transition duration-300">Basic Course</a></li>
+                        <li><a href="courses/intermediate-illustrator/course-detail-intermediate.html" class="text-gray-500 hover:text-black transition duration-300">Intermediate</a></li>
+                        <li><a href="courses/graphic-design/course-detail-graphic-design.html" class="text-gray-500 hover:text-black transition duration-300">Graphic Design</a></li>
+                    </ul>
+                </div> -->
+                
             </div>
-            <div class="border-t border-[#222] mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400 text-sm mb-4 md:mb-0">
+            <div class="border-t border-gray-200 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">
                     &copy; 2025 ART de ONE. All rights reserved.
                 </p>
                 <div class="flex space-x-6 text-sm">
-                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-behance"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-behance"></i></a>
+                    <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-tiktok"></i></a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script src="/css-and-js/mobile-smooth-nav.js"></script>
     <script>
-        AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
-        feather.replace();
-        
-        // Mobile Menu
-        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
+            feather.replace();
+            
+            // Mobile Menu Logic
+            const menuButton = document.getElementById('mobile-menu-button');
             const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+            
+            if (menuButton && menu) {
+                menuButton.addEventListener('click', function() {
+                    menu.classList.toggle('hidden');
+                    feather.replace();
+                });
+            }
         });
     </script>
 </body>

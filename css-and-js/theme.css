@@ -1,0 +1,312 @@
+/* theme.css */
+
+/* 1. Font Imports */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+/* 2. Global Theme Styles */
+body {
+    background-color: #ffffff;
+    color: #323232;
+    font-family: 'Space Grotesk', sans-serif;
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+/* Secondary Font Application */
+h1, h2, h3, h4, h5, h6 {
+    color: #000000;
+}
+
+.artdeone-font, .section-title {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* 3. Navigation Overrides */
+nav { 
+    background-color: rgba(255, 255, 255, 0.95) !important; 
+    border-bottom: 1px solid #e5e5e5; 
+    backdrop-filter: blur(12px);
+}
+.nav-link { 
+    color: #323232 !important; 
+    font-weight: 400 !important;      
+    letter-spacing: 0.04em;
+    font-size: 0.9rem !important;     
+}
+.nav-link:hover { 
+    color: #000 !important; 
+    font-weight: 600 !important;
+}
+.mobile-menu { 
+    background-color: #ffffff !important; 
+    border-bottom: 1px solid #e5e5e5;
+}
+.mobile-nav-link { 
+    color: #323232 !important; 
+    font-weight: 400;
+    font-size: 0.9rem;
+}
+.mobile-menu-btn {
+    color: #000 !important;
+}
+.mobile-menu-btn:hover {
+    background-color: #f3f4f6;
+}
+
+/* 4. Sections */
+.section-dark { background-color: #ffffff; }
+.section-darker { background-color: #f9f9f9; }
+
+.section-title {
+    color: #000;
+    font-weight: 700;
+    font-size: 2.25rem;
+    margin-bottom: 1rem;
+}
+.section-subtitle {
+    color: #555;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 5. Buttons */
+.nav-btn {
+    background-color: #a7e169;
+    color: #000;
+    font-weight: 600;
+    border-radius: 0.5rem; 
+    padding: 0.5rem 1.25rem; 
+    font-size: 0.8rem; 
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #a7e169;
+    height: auto;
+    line-height: 1;
+}
+
+.nav-btn:hover {
+    background-color: #ed2939;
+    border-color: #ed2939;
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+.btn-primary {
+    background-color: #a7e169;
+    color: #000;
+    font-weight: 600;
+    border-radius: 0.75rem;
+    padding: 0.75rem 2rem;
+    transition: all 0.3s ease;
+    display: inline-flex; 
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #a7e169; 
+}
+.btn-primary:hover {
+    background-color: #ed2939;
+    border-color: #ed2939;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: #323232;
+    font-weight: 600;
+    border: 1px solid #323232;
+    border-radius: 0.75rem;
+    padding: 0.75rem 2rem;
+    transition: all 0.3s ease;
+    display: inline-flex; 
+    align-items: center;
+    justify-content: center;
+}
+.btn-secondary:hover {
+    background-color: #000;
+    color: #fff;
+    border-color: #000;
+}
+
+/* 6. Cards & Containers */
+.minimalist-card {
+    background-color: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 1rem;
+    padding: 2rem;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+.minimalist-card:hover {
+    transform: translateY(-8px);
+    border-color: #a7e169;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.portfolio-card {
+    background-color: #ffffff;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid #e5e5e5;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.portfolio-card:hover {
+    transform: translateY(-8px);
+    border-color: #a7e169;
+    box-shadow: 0 20px 40px -10px rgba(167, 225, 105, 0.3);
+}
+
+.portfolio-card img {
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.portfolio-card:hover img {
+    transform: scale(1.1);
+}
+
+.portfolio-text-area {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-top: 1px solid #f0f0f0;
+}
+
+/* 7. Animations & Interactions */
+.portfolio-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.8);
+    opacity: 1; 
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (min-width: 768px) {
+    .portfolio-overlay {
+        background: rgba(255, 255, 255, 0.9);
+        opacity: 0;
+    }
+    .portfolio-card:hover .portfolio-overlay {
+        opacity: 1;
+    }
+}
+
+.view-project-btn {
+    transform: translateY(0);
+    opacity: 1;
+    background-color: #a7e169;
+    color: #000;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.875rem;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.view-project-btn:hover {
+    background-color: #ed2939;
+    color: #fff;
+    transform: translateY(-2px) !important;
+}
+
+@media (min-width: 768px) {
+    .view-project-btn {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    .portfolio-card:hover .view-project-btn {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* 8. Tabs & Forms */
+.service-tab {
+    background-color: transparent;
+    color: #555;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
+}
+.service-tab.active {
+    background-color: #000;
+    color: #fff;
+    border-color: #000;
+}
+.service-tab:hover:not(.active) {
+    background-color: #f0f0f0;
+    border-color: #ccc;
+    color: #000;
+}
+
+.form-input {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    color: #323232;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+.form-input:focus {
+    border-color: #a7e169;
+    background-color: #fff;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(167, 225, 105, 0.2);
+}
+
+/* 9. Contact & Icons */
+.simple-contact-item {
+    display: block;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid #e5e5e5;
+    transition: padding-left 0.3s ease;
+    text-decoration: none;
+}
+.simple-contact-item:hover {
+    padding-left: 0.5rem;
+}
+.simple-contact-item:last-child {
+    border-bottom: none;
+}
+
+.simple-social-link {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+.simple-social-link:hover {
+    transform: translateY(-2px);
+}
+
+.icon-circle {
+    background-color: #000;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+}
+
+/* Helpers */
+[data-aos] {
+    transition-duration: 1000ms !important;
+}
+.hidden { display: none; }

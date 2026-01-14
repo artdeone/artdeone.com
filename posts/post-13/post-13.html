@@ -8,7 +8,7 @@
         gtag('js', new Date());
         gtag('config', 'G-CZRQ0NPPJ2');
     </script>
-
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Christmas Fonts Collection - ART de ONE</title>
@@ -18,321 +18,161 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="/css-and-js/mobile-smooth-nav.css">
     <script src="https://unpkg.com/feather-icons"></script>
-
+    
+    <link rel="stylesheet" href="/css-and-js/theme.css">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
-        body {
-            background-color: #000;
-            color: #d1d5db; /* Light gray text */
-            font-family: 'Poppins', sans-serif;
+        /* PAGE SPECIFIC BLOG STYLES */
+        .post-header {
+            padding-top: 8rem;
+            padding-bottom: 4rem;
+            border-bottom: 1px solid #f3f4f6;
         }
-
-        /* --- NAVIGATION --- */
-        nav { 
-            background-color: rgba(0,0,0,0.9) !important; 
-            border-bottom: 1px solid #222; 
-            backdrop-filter: blur(12px);
-        }
-        .nav-link { 
-            color: #888 !important; 
-            font-weight: 300;
-            letter-spacing: 0.04em;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
-        }
-        .nav-link:hover { color: #fff !important; }
-        .mobile-menu { background-color: #111 !important; }
-        .mobile-nav-link { color: #ccc !important; }
-
-        /* --- BUTTONS --- */
-        .btn-primary {
-            background-color: #fff;
-            color: #000;
-            font-weight: 600;
-            border-radius: 0.75rem;
-            padding: 0.5rem 1.5rem;
-            transition: all 0.3s ease;
-            font-size: 0.875rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .btn-primary:hover {
-            background-color: #9dae11;
-            color: #fff;
-            transform: translateY(-2px);
-        }
-        .nav-btn {
-            background-color: #fff;
-            color: #000;
-            font-weight: 600;
-            border-radius: 0.5rem;
-            padding: 0.5rem 1.25rem;
-            font-size: 0.8rem;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #fff;
-            height: auto;
-            line-height: 1;
-        }
-        .nav-btn:hover {
-            background-color: #9dae11;
-            border-color: #9dae11;
-            color: #fff;
-            transform: translateY(-1px);
-        }
-
-        /* --- HERO HEADER WITH BACKGROUND IMAGE --- */
-        .hero-header {
-            position: relative;
-            width: 100%;
-            height: 70vh;
-            min-height: 500px;
-            background-image: url('images/bg.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-        .hero-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to bottom, 
-                rgba(0,0,0,0.3) 0%, 
-                rgba(0,0,0,0.6) 50%, 
-                rgba(0,0,0,0.95) 100%);
-            z-index: 1;
-        }
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            padding: 0 1rem;
-            margin-top: 80px;
-        }
-
-        /* --- BLOG POST STYLES --- */
         .post-content {
-            color: #d1d5db;
+            font-size: 1.1rem;
             line-height: 1.8;
+            color: #323232;
         }
-        .post-content h2 {
-            color: #fff;
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin-top: 3rem;
-            margin-bottom: 1.5rem;
-        }
-        .post-content h3 {
-            color: #fff;
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-        }
-        .post-content p {
-            margin-bottom: 1.5rem;
-        }
-        .post-content ul, .post-content ol {
-            margin-left: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-        .post-content li {
-            margin-bottom: 0.75rem;
+        
+        .info-card {
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            margin: 3rem 0;
+            border-left: 6px solid #a7e169;
         }
 
-        /* --- FONT SHOWCASE CARDS --- */
-        .font-card {
-            background-color: #111;
-            border: 1px solid #222;
-            border-radius: 1rem;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            transition: all 0.3s ease;
+        /* FONT SHOWCASE CARDS */
+        .font-card-container {
+            margin-bottom: 3rem;
         }
-        .font-card:hover {
-            border-color: #9dae11;
-            transform: translateY(-4px);
-        }
-        .font-image-container {
-            width: 100%;
-            height: 300px;
-            background-color: #1a1a1a;
-            border-radius: 0.75rem;
-            overflow: hidden;
-            margin-bottom: 1.5rem;
+        .font-card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 1rem;
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 0.5rem;
         }
-        .font-image-container img {
+        .font-preview-box {
+            width: 100%;
+            background-color: #f3f4f6;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+            transition: all 0.4s ease;
+            aspect-ratio: 9/16;
+        }
+        .font-preview-box:hover {
+            border-color: #a7e169;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+        .font-preview-box img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-        .font-name {
-            color: #fff;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
+        .related-card {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.4s ease;
         }
-        .font-description {
-            color: #999;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 1.25rem;
-        }
-        .download-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background-color: #9dae11;
-            color: #000;
-            font-weight: 600;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-        .download-link:hover {
-            background-color: #b4c730;
-            transform: translateX(4px);
-        }
-
-        /* --- BACK BUTTON --- */
-        .back-to-blog {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: #888;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            margin-bottom: 2rem;
-        }
-        .back-to-blog:hover {
-            color: #9dae11;
-            transform: translateX(-4px);
+        .related-card:hover {
+            transform: translateY(-5px);
+            border-color: #a7e169;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
         }
 
         .share-btn {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #333;
-    color: #888;
-    transition: all 0.3s ease;
-}
-.share-btn:hover {
-    background-color: #fff;
-    color: #000;
-    border-color: #fff;
-}
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e5e7eb;
+            color: #6b7280;
+            transition: all 0.3s ease;
+        }
+        .share-btn:hover {
+            background-color: #000;
+            color: #fff;
+            border-color: #000;
+        }
 
-
-        /* --- FOOTER --- */
-        footer { background-color: #000; border-top: 1px solid #222; }
-    @import url('https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap');
-        body { font-family: 'Poppins', 'Padauk', sans-serif; }
+        .text-accent { color: #a7e169; }
+        [data-aos] { transition-duration: 1000ms !important; }
     </style>
 </head>
+<body class="bg-white text-[#323232]">
 
-<body>
     <nav class="fixed w-full z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 nav-container">
             <div class="nav-wrapper">
                 <div class="flex justify-between h-16 items-center">
                     <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <a href="/index.html#home" class="flex items-center">
-                                <img src="/logo.png" alt="ART de ONE" class="h-10 w-auto">
-                            </a>
-                        </div>
+                        <a href="/index.html"><img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png" alt="ART de ONE" class="h-10 w-auto"></a>
                     </div>
-
+                    
                     <div class="hidden md:flex items-center space-x-4 nav-center">
                         <a href="/index.html#home" class="nav-link">Home</a>
-                        <a href="/courses.html" class="nav-link">Courses</a>
+                       <!-- <a href="/courses.html" class="nav-link">Courses</a> -->
                         <a href="/prompt.html" class="nav-link">Prompts</a>
-                        <a href="/blog.html" class="nav-link" style="color: #fff !important;">Blog</a>
+                        <a href="/blog.html" class="nav-link font-bold text-black" style="color: #000 !important;">Blog</a>
                         <a href="/resources/resources-collection.html" class="nav-link">Resources</a>
-                        <a href="/index.html#about" class="nav-link">About</a>
+                        
                         <a href="/index.html#contact" class="nav-link">Contact</a>
                     </div>
-
+                    
                     <div class="hidden md:block">
                         <a href="/Private/student-login.html" class="nav-btn">Student Login</a>
                     </div>
-
-                    <!-- Mobile Menu Button -->
-                    <div class="md:hidden">
-                        <button id="mobile-menu-button" class="text-gray-400 hover:text-white focus:outline-none">
-                            <div class="icon-container">
-                                <!-- Menu Icon (Hamburger) -->
-                                <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4 6h16M4 12h16M4 18h16" />
-                                </svg>
-
-                                <!-- Close Icon (X) -->
-                                <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M6 6l12 12M6 18L18 6" />
-                                </svg>
+                    
+                    <div class="md:hidden flex items-center">
+                        <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md hover:bg-gray-100 focus:outline-none" id="mobile-menu-button">
+                            <div class="icon-container text-black">
+                                <i data-feather="menu" class="icon-menu"></i>
+                                <i data-feather="x" class="icon-close"></i>
                             </div>
                         </button>
-
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="md:hidden mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1">
-                <a href="/index.html#home" class="mobile-nav-link block px-3 py-2 text-base font-medium">Home</a>
-                <a href="/courses.html" class="mobile-nav-link block px-3 py-2 text-base font-medium">Courses</a>
-                <a href="/blog.html" class="mobile-nav-link block px-3 py-2 text-base font-medium" style="color: #fff !important;">Blog</a>
-                <a href="/resources/resources-collection.html" class="mobile-nav-link block px-3 py-2 text-base font-medium">Resources</a>
-                <a href="/index.html#about" class="mobile-nav-link block px-3 py-2 text-base font-medium">About</a>
-                <a href="/index.html#contact" class="mobile-nav-link block px-3 py-2 text-base font-medium">Contact</a>
-                <a href="/Private/student-login.html" class="mobile-nav-link block px-3 py-2 text-base font-medium">Student Login</a>
+        
+        <div class="mobile-menu md:hidden hidden" id="mobile-menu">
+            <div class="py-2 px-4 space-y-1 bg-white border-b border-gray-100">
+                <a href="/index.html#home" class="block py-2 mobile-nav-link">Home</a>
+                <!-- <a href="/courses.html" class="block py-2 mobile-nav-link">Courses</a> -->
+                <a href="/prompt.html" class="block py-2 mobile-nav-link">Prompts</a>
+                <a href="/blog.html" class="block py-2 mobile-nav-link font-bold text-black">Blog</a>
+                <a href="/resources/resources-collection.html" class="block py-2 mobile-nav-link">Resources</a>
+                <a href="/index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
+                <a href="/Private/student-login.html" class="block py-2 mobile-nav-link">Student Login</a>
             </div>
         </div>
     </nav>
 
     <main>
-        <!-- HERO HEADER WITH BACKGROUND IMAGE -->
-        
-<section class="hero-header">
-            <div class="hero-content" data-aos="fade-up">
-                <div class="flex items-center justify-center gap-4 text-sm text-gray-400 mb-6">
-                    <span class="uppercase tracking-wider text-[#9dae11] font-semibold">Resources</span>
+        <section class="post-header">
+            <div class="max-w-3xl mx-auto px-4 text-center" data-aos="fade-up">
+                <div class="flex items-center justify-center gap-4 text-sm text-gray-500 mb-6">
+                    <span class="uppercase tracking-widest text-accent font-bold">Resources</span>
                     <span>•</span>
                     <span>December 17, 2025</span>
                 </div>
-                <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-8 leading-relaxed px-4">
+                <h1 class="text-3xl md:text-5xl font-bold text-black mb-8 leading-tight section-title">
                     Free Christmas Fonts Collection
                 </h1>
                 <div class="flex items-center justify-center gap-3">
-                    <div class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-white font-bold text-xs">AD</div>
+                    <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-black font-bold text-xs border border-gray-200">AD</div>
                     <div class="text-left">
-                        <p class="text-white text-sm font-medium">ART de ONE Team</p>
-                        <p class="text-xs text-gray-400">Author</p>
+                        <p class="text-black text-sm font-semibold">ART de ONE Team</p>
+                        <p class="text-xs text-gray-500">Author</p>
                     </div>
                 </div>
             </div>
@@ -340,176 +180,191 @@
 
         <section class="py-12 px-4">
             <div class="max-w-5xl mx-auto">
-                <a href="/resources.html" class="back-to-blog" data-aos="fade-right">
-                    <i data-feather="arrow-left"></i>
-                    <span>Back to Resources</span>
-                </a>
-
-<div class="post-content" data-aos="fade-up">
-                    <p class="text-lg mb-8">
+                <div class="post-content" data-aos="fade-up">
+                    <p class="text-lg leading-relaxed mb-8 max-w-3xl mx-auto text-center">
                         Christmas Season 🎅 ရောက်လာပြီဆိုတော့ Holiday Designs တွေဖန်တီးရာမှာအသုံးဝင်မယ့် Greeting Cards, Social Media Posts နဲ့ Seasonal Promotion တွေအတွက် အထူးသင့်တော်တဲ့ <strong>Christmas Fonts</strong> Collection လေးကို မျှဝေပေးလိုက်ပါတယ်ခင်ဗျာ။
                     </p>
 
-                    <h2 class="text-2xl font-bold text-white mb-6">Why These Fonts?</h2>
-                    <p class="mb-6">
-                        ဒီ Collection ထဲမှာပါတဲ့ Font တွေက ဒီဇိုင်းတွေကို Warmth, Joy နဲ့ Nostalgia vibes တွေပေးစွမ်းနိုင်ပါတယ်။ Headlines တွေအတွက် Bold ဖြစ်တဲ့စာလုံးတွေလိုချင်တာပဲဖြစ်ဖြစ်၊ Invitations တွေအတွက် Elegant ဖြစ်တာမျိုးရှာနေတာပဲဖြစ်ဖြစ် ဒီ Collection လေးက အဆင်ပြေစေမှာပါ။
-                    </p>
+                    <div class="info-card max-w-3xl mx-auto">
+                        <h3 class="text-xl font-bold text-black mb-4">Why These Fonts?</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            ဒီ Collection ထဲမှာပါတဲ့ Font တွေက ဒီဇိုင်းတွေကို Warmth, Joy နဲ့ Nostalgia vibes တွေပေးစွမ်းနိုင်ပါတယ်။ Headlines တွေအတွက် Bold ဖြစ်တဲ့စာလုံးတွေလိုချင်တာပဲဖြစ်ဖြစ်၊ Invitations တွေအတွက် Elegant ဖြစ်တာမျိုးရှာနေတာပဲဖြစ်ဖြစ် ဒီ Collection လေးက အဆင်ပြေစေမှာပါ။
+                        </p>
+                    </div>
 
-                    <!-- MEGA DOWNLOAD BUTTON -->
-                    <div class="my-10 text-center">
-                        <a href="https://mega.nz/folder/sVchRJoT#m2Bl1NhGjhilkzv_SnVQBg" target="_blank" class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-full text-lg transition-all transform hover:-translate-y-1 shadow-lg hover:shadow-red-900/50">
+                    <div class="my-16 text-center">
+                        <a href="https://mega.nz/folder/sVchRJoT#m2Bl1NhGjhilkzv_SnVQBg" target="_blank" class="nav-btn px-10 py-5 h-auto text-lg inline-flex items-center gap-3">
                             <i class="fas fa-cloud-download-alt"></i>
                             <span>Download All Fonts (Mega)</span>
                         </a>
-                        <p class="text-gray-500 text-sm mt-3">File Size: 2.4MB • Format: folders</p>
+                        <p class="text-gray-400 text-sm mt-4">File Size: 2.4MB • Format: folders</p>
                     </div>
 
-                    <!-- IMAGES GRID: SIDE BY SIDE -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-
-                        <!-- IMAGE 1 -->
-                        <div>
-                            <h3 class="text-xl font-bold text-[#9dae11] mb-4">1. Bogista</h3>
-                            <div class="w-full bg-gray-900 rounded-lg overflow-hidden shadow-2xl border border-gray-800 relative group" style="aspect-ratio: 9/16;">
-                                <img src="images/christmas-1.jpg" alt="Bogista Font Preview" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                        <div class="font-card-container" data-aos="fade-up">
+                            <h3 class="font-card-title"><span class="text-accent">01.</span> Bogista</h3>
+                            <div class="font-preview-box">
+                                <img src="images/christmas-1.jpg" alt="Bogista Font Preview">
                             </div>
                         </div>
 
-                        <!-- IMAGE 2 -->
-                        <div>
-                            <h3 class="text-xl font-bold text-[#9dae11] mb-4">2. Metha</h3>
-                            <div class="w-full bg-gray-900 rounded-lg overflow-hidden shadow-2xl border border-gray-800 relative group" style="aspect-ratio: 9/16;">
-                               <div class="w-full bg-gray-900 rounded-lg overflow-hidden shadow-2xl border border-gray-800 relative group" style="aspect-ratio: 9/16;">
-                                <img src="images/christmas-2.jpg" alt="Bogista Font Preview" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300">
-                               </div>
+                        <div class="font-card-container" data-aos="fade-up" data-aos-delay="100">
+                            <h3 class="font-card-title"><span class="text-accent">02.</span> Metha</h3>
+                            <div class="font-preview-box">
+                                <img src="images/christmas-2.jpg" alt="Metha Font Preview">
                             </div>
                         </div>
 
-                        <!-- IMAGE 3 -->
-                        <div>
-                            <h3 class="text-xl font-bold text-[#9dae11] mb-4">3. Crafter Signature</h3>
-                            <div class="w-full bg-gray-900 rounded-lg overflow-hidden shadow-2xl border border-gray-800 relative group" style="aspect-ratio: 9/16;">
-                                <div class="w-full bg-gray-900 rounded-lg overflow-hidden shadow-2xl border border-gray-800 relative group" style="aspect-ratio: 9/16;">
-                                <img src="images/christmas-3.jpg" alt="Bogista Font Preview" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300">
-                               </div>
+                        <div class="font-card-container" data-aos="fade-up" data-aos-delay="200">
+                            <h3 class="font-card-title"><span class="text-accent">03.</span> Crafter Signature</h3>
+                            <div class="font-preview-box">
+                                <img src="images/christmas-3.jpg" alt="Crafter Signature Preview">
                             </div>
                         </div>
-
                     </div>
 
-                    <div class="bg-zinc-900 p-6 rounded-xl border border-zinc-800 mt-8">
-                        <h3 class="text-xl font-bold text-white mb-3">Tips for Usage</h3>
-                        <ul class="space-y-3 text-gray-400">
+                    <div class="info-card max-w-3xl mx-auto">
+                        <h3 class="text-xl font-bold text-black mb-6">Tips for Usage</h3>
+                        <ul class="space-y-4 text-gray-600">
                             <li class="flex items-start gap-3">
-                                <span class="text-[#9dae11] mt-1">•</span>
+                                <i data-feather="check-circle" class="text-accent mt-1 w-5 h-5"></i>
                                 <span>Commercial Use အတွက် License ကိုသေချာစစ်ဆေးအသုံးပြုပါ။</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                <span class="text-[#9dae11] mt-1">•</span>
+                                <i data-feather="check-circle" class="text-accent mt-1 w-5 h-5"></i>
                                 <span>Premium look ရဖို့ Gold textures လေးတွေနဲ့ တွဲဖက်အသုံးပြုနိုင်ပါတယ်။</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                <span class="text-[#9dae11] mt-1">•</span>
+                                <i data-feather="check-circle" class="text-accent mt-1 w-5 h-5"></i>
                                 <span>Traditional Red (#D42426) နဲ့ Green (#146B3A) အရောင်တွေကို အဓိကထားအသုံးပြုပါ။</span>
                             </li>
                         </ul>
                     </div>
-                </div>
 
-                    <div class="border-t border-[#222] mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center gap-6">
-                       <span class="text-sm font-medium text-gray-400 uppercase tracking-wider">
-                            Share this article
-                        </span>
+                    <div class="max-w-3xl mx-auto border-t border-gray-100 mt-16 pt-8 flex flex-col sm:flex-row justify-between items-center gap-6">
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Share this collection</span>
                         <div class="flex gap-3">
-                            <!-- 1. Facebook -->
-                            <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-13%2Fpost-13"
-                            class="share-btn" target="_blank" rel="noopener noreferrer">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-
-                            <!-- 2. Twitter / X -->
-                            <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-13%2Fpost-13&text=7%20Fonts%20That%20Look%20Like%20Logo"
-                            class="share-btn" target="_blank" rel="noopener noreferrer">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-
-                            <!-- 3. LinkedIn -->
-                            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-13%2Fpost-13"
-                            class="share-btn" target="_blank" rel="noopener noreferrer">
-                                <i class="fab fa-linkedin-in"></i>
-                            </a>
-
-                            <!-- 4. Copy / open link (simple) -->
-                            <a href="https://artdeone.com/posts/post-13/post-13"
-                            class="share-btn" target="_blank" rel="noopener noreferrer">
-                                <i class="fas fa-link"></i>
-                            </a>
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-13%2Fpost-13" class="share-btn" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-13%2Fpost-13" class="share-btn" target="_blank"><i class="fab fa-twitter"></i></a>
+                            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-13%2Fpost-13" class="share-btn" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="share-btn"><i class="fas fa-link"></i></a>
                         </div>
                     </div>
-
+                </div>
+            </div>
+        </section>
+        <section class="py-20 bg-gray-50 border-t border-gray-100">
+            <div class="max-w-7xl mx-auto px-4">
+                <h2 class="text-2xl font-bold text-black mb-10 section-title text-center">Related Articles</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                     <a href="../post-11/post-11.html" class="related-card group block">
+                        <div class="h-48 overflow-hidden">
+                            <img src="../post-11/images/yt-thumbnail.jpg" alt="Related" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-black mb-2 group-hover:text-accent transition-colors">AI Design Basics</h3>
+                            <p class="text-xs font-bold text-gray-400 uppercase">November 10, 2025</p>
+                        </div>
+                    </a>
+                     <a href="../post-7/post-7.html" class="related-card group block">
+                        <div class="h-48 overflow-hidden">
+                            <img src="../post-7/images/imag-2.jpg" alt="Related" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-black mb-2 group-hover:text-accent transition-colors">Royal Purple Color</h3>
+                            <p class="text-xs font-bold text-gray-400 uppercase">October 15, 2025</p>
+                        </div>
+                    </a>
+                     <a href="../post-8/post-8.html" class="related-card group block">
+                        <div class="h-48 overflow-hidden">
+                            <img src="../post-8/images/image-1.jpg" alt="Related" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-black mb-2 group-hover:text-accent transition-colors">Halftone Effects</h3>
+                            <p class="text-xs font-bold text-gray-400 uppercase">October 20, 2025</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="text-center mt-16">
+                    <a href="../../blog.html" class="nav-btn px-8 py-3 h-auto inline-flex gap-2">
+                        <i data-feather="arrow-left" class="w-4 h-4"></i> Back to All Posts
+                    </a>
+                </div>
             </div>
         </section>
     </main>
-<footer class="bg-black text-white py-12 border-t border-[#222]">
+
+    <footer class="bg-white text-[#323232] py-12 border-t border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-4 gap-8">
                 <div>
-                    <span class="text-xl font-bold mb-4 block">ART de ONE</span>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        Adobe Illustrator Classes & Freelance Creative Studio in Myanmar
+                    <span class="text-xl font-bold mb-4 block text-black">ART de ONE</span>
+                    <p class="text-gray-500 text-sm">
+                        Freelance Graphic Designer & Illustrator Portfolio, Blog, Resources and Online Courses
                     </p>
                 </div>
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Quick Links</h3>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="../../index.html#home" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
-                        <li><a href="../../courses.html" class="text-gray-400 hover:text-white transition duration-300">Courses</a></li>
-                        <li><a href="../../blog.html" class="text-gray-400 hover:text-white transition duration-300">Blog</a></li>
-                        <li><a href="../../resources/resources-collection.html" class="text-gray-400 hover:text-white transition duration-300">Resources</a></li>
+                        <li><a href="index.html#home" class="text-gray-500 hover:text-black transition duration-300">Home</a></li>
+                      <!--  <li><a href="courses.html" class="text-gray-500 hover:text-black transition duration-300">Courses</a></li> -->
+                        <li><a href="/prompt.html" class="text-gray-500 hover:text-black transition duration-300">Prompts</a></li>
+                        <li><a href="/blog.html" class="text-gray-500 hover:text-black transition duration-300">Blog</a></li>
+                        <li><a href="/resources/resources-collection.html" class="text-gray-500 hover:text-black transition duration-300">Resources</a></li>
                     </ul>
                 </div>
+
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">Classes</h3>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Services</h3>
                     <ul class="space-y-2 text-sm">
-                         <li><a href="../../courses/basic-illustrator/course-detail-basic.html" class="text-gray-400 hover:text-white transition duration-300">Basic Course</a></li>
-                        <li><a href="../../courses/intermediate-illustrator/course-detail-intermediate.html" class="text-gray-400 hover:text-white transition duration-300">Intermediate</a></li>
-                        <li><a href="../../courses/advanced-illustrator/course-detail-advanced.html" class="text-gray-400 hover:text-white transition duration-300">Advanced Abstract</a></li>
-                        <li><a href="../../courses/graphic-design/course-detail-graphic-design.html" class="text-gray-400 hover:text-white transition duration-300">Graphic Design</a></li>
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Logo Design</a></li>
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Social Media</a></li>
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Printing</a></li>
                     </ul>
                 </div>
+
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">Services</h3>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Contact</h3>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="../../index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Logo Design</a></li>
-                        <li><a href="../../index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Social Media</a></li>
-                        <li><a href="../../index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Printing</a></li>
+                         <li><a href="/index.html#about" class="text-gray-500 hover:text-black transition duration-300">About</a></li>
+                        <li><a href="/index.html#contact" class="text-gray-500 hover:text-black transition duration-300">Contact</a></li>
                     </ul>
-                </div>
+                </div> 
+                <!-- <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Classes</h3>
+                    <ul class="space-y-2 text-sm">
+                         <li><a href="courses/basic-illustrator/course-detail-basic.html" class="text-gray-500 hover:text-black transition duration-300">Basic Course</a></li>
+                        <li><a href="courses/intermediate-illustrator/course-detail-intermediate.html" class="text-gray-500 hover:text-black transition duration-300">Intermediate</a></li>
+                        <li><a href="courses/graphic-design/course-detail-graphic-design.html" class="text-gray-500 hover:text-black transition duration-300">Graphic Design</a></li>
+                    </ul>
+                </div> -->
+                
             </div>
-            <div class="border-t border-[#222] mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400 text-sm mb-4 md:mb-0">
+            <div class="border-t border-gray-200 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">
                     &copy; 2025 ART de ONE. All rights reserved.
                 </p>
                 <div class="flex space-x-6 text-sm">
-                    <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-white"><i class="fab fa-behance"></i></a>
-                    <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-white"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-behance"></i></a>
+                    <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-tiktok"></i></a>
                 </div>
             </div>
         </div>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script src="/css-and-js/mobile-smooth-nav.js"></script>
     <script>
-        AOS.init({
-            duration: 800,
-            easing: 'ease-in-out',
-            once: true
-        });
-
+        AOS.init({ duration: 1000, once: true });
         feather.replace();
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
+        }
     </script>
 </body>
 </html>

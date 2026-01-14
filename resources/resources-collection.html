@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-CZRQ0NPPJ2"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -21,170 +20,106 @@
     <link rel="stylesheet" href="/css-and-js/mobile-smooth-nav.css">
     <script src="https://unpkg.com/feather-icons"></script>
     
+    <link rel="stylesheet" href="/css-and-js/theme.css">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        
-        body {
-            background-color: #000;
-            color: #fff;
+        /* --- PAGE SPECIFIC STYLES (Resources Light Theme) --- */
+        h1 {
             font-family: 'Poppins', sans-serif;
+            font-weight: 700; /* Ensures it uses the bold version of Poppins */
         }
-
-        /* --- NAVIGATION --- */
-        nav { 
-            background-color: rgba(0,0,0,0.9) !important; 
-            border-bottom: 1px solid #222; 
-            backdrop-filter: blur(12px);
-        }
-        .nav-link { 
-            color: #888 !important; 
-            font-weight: 300;
-            letter-spacing: 0.04em;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
-        }
-        .nav-link:hover { color: #fff !important; }
-        .mobile-menu { background-color: #111 !important; }
-        .mobile-nav-link { color: #ccc !important; }
-
-        /* --- BUTTONS --- */
-        .btn-primary {
-            background-color: #fff;
-            color: #000;
-            font-weight: 600;
-            border-radius: 0.75rem;
-            padding: 0.5rem 1.5rem;
-            transition: all 0.3s ease;
-            font-size: 0.875rem;
-        }
-        .btn-primary:hover {
-            background-color: #9dae11;
-            color: #fff;
-            transform: translateY(-2px);
-        }
-
-        /* Specific small button for Navigation */
-        .nav-btn {
-            background-color: #fff;
-            color: #000;
-            font-weight: 600;
-            border-radius: 0.5rem;
-            padding: 0.5rem 1.25rem; /* Smaller padding */
-            font-size: 0.8rem;       /* Smaller font */
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #fff;
-            height: auto;
-            line-height: 1;
-        }
-        .nav-btn:hover {
-            background-color: #9dae11;
-            border-color: #9dae11;
-            color: #fff;
-            transform: translateY(-1px);
-        }
-
-        /* RESOURCE PAGE STYLES */
+        /* Resource Cards */
         .resource-card-minimal {
-            background: #0a0a0a;
-            border: 1px solid #222;
+            background: #ffffff;
+            border: 1px solid #e5e5e5;
             border-radius: 1rem;
             overflow: hidden;
-            transform: translateY(0);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
         .resource-card-minimal:hover {
             transform: translateY(-8px);
-            border-color: #fff; /* Stroke effect on hover */
+            border-color: #a7e169;
+            box-shadow: 0 20px 40px -20px rgba(167, 225, 105, 0.2);
         }
         .resource-card-minimal img {
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
         .resource-card-minimal:hover img {
             transform: scale(1.05);
         }
-        .resource-card-minimal .resource-title {
-            color: #fff;
-            transition: color 0.3s ease;
-        }
-        .resource-card-minimal:hover .resource-title {
-            color: #9dae11;
-        }
         
+        /* Filter Pills */
         .resource-filter {
             background: transparent;
-            color: #9ca3af;
-            border: 1px solid #444;
+            color: #555;
+            border: 1px solid #e5e5e5;
             border-radius: 9999px;
             padding: 0.5rem 1.5rem;
             transition: all 0.3s ease;
             font-weight: 500;
         }
         .resource-filter:hover {
-            background: #222;
-            color: #fff;
-            border-color: #666;
+            background: #f9f9f9;
+            color: #000;
+            border-color: #a7e169;
         }
         .resource-filter.active {
-            background: #fff;
+            background: #a7e169;
             color: #000;
-            border-color: #fff;
+            border-color: #a7e169;
             font-weight: 600;
         }
         
+        /* Search Bar Override */
+        #resource-search:focus {
+            border-color: #a7e169;
+            ring-color: #a7e169;
+        }
+
+        /* Industry Cards at bottom */
         .sub-card {
-            background: #111;
-            border: 1px solid #222;
+            background: #ffffff;
+            border: 1px solid #e5e5e5;
             border-radius: 1rem;
             transition: all 0.3s ease;
         }
         .sub-card:hover {
             transform: translateY(-5px);
-            border-color: #333;
+            border-color: #a7e169;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
         }
 
         [data-aos] { transition-duration: 1000ms !important; }
     </style>
 </head>
-<body class="bg-black text-white">
+<body class="bg-white text-[#323232]">
 
-    <!-- Navigation -->
     <nav class="fixed w-full z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 nav-container">
             <div class="nav-wrapper">
                 <div class="flex justify-between h-16 items-center">
-                    <!-- Logo -->
                     <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <a href="/index.html#home" class="flex items-center">
-                                <img src="/logo.png" alt="ART de ONE" class="h-10 w-auto">
-                            </a>
-                        </div>
+                        <a href="/index.html"><img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png" alt="ART de ONE" class="h-10 w-auto"></a>
                     </div>
                     
-                    <!-- Desktop Navigation -->
                     <div class="hidden md:flex items-center space-x-4 nav-center">
                         <a href="/index.html#home" class="nav-link">Home</a>
-                        <a href="/courses.html" class="nav-link">Courses</a>
+                       <!-- <a href="/courses.html" class="nav-link">Courses</a> -->
                         <a href="/prompt.html" class="nav-link">Prompts</a>
                         <a href="/blog.html" class="nav-link">Blog</a>
-                        <a href="resources-collection.html" class="nav-link" style="color: #fff !important;">Resources</a>
-                        <a href="/index.html#about" class="nav-link">About</a>
+                        <a href="/resources/resources-collection.html" class="nav-link font-bold text-black" style="color: #000 !important;">Resources</a>
+                        
                         <a href="/index.html#contact" class="nav-link">Contact</a>
                     </div>
                     
-                    <!-- Contact Button -->
                     <div class="hidden md:block">
                         <a href="/Private/student-login.html" class="nav-btn">Student Login</a>
                     </div>
                     
-                    <!-- Mobile Menu Button -->
                     <div class="md:hidden flex items-center">
-                        <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white focus:outline-none" id="mobile-menu-button">
-                        <!-- Container to stack icons -->
-                            <div class="icon-container">
+                        <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md hover:bg-gray-100 focus:outline-none" id="mobile-menu-button">
+                            <div class="icon-container text-black">
                                 <i data-feather="menu" class="icon-menu"></i>
                                 <i data-feather="x" class="icon-close"></i>
                             </div>
@@ -194,162 +129,154 @@
             </div>
         </div>
         
-        <!-- Mobile menu -->
-        <div class="mobile-menu md:hidden" id="mobile-menu">
-            <div class="py-2 px-4 space-y-1">
+        <div class="mobile-menu md:hidden hidden" id="mobile-menu">
+            <div class="py-2 px-4 space-y-1 bg-white border-b border-gray-100">
                 <a href="/index.html#home" class="block py-2 mobile-nav-link">Home</a>
-                <a href="/courses.html" class="block py-2 mobile-nav-link">Courses</a>
+                <!-- <a href="/courses.html" class="block py-2 mobile-nav-link">Courses</a> -->
                 <a href="/prompt.html" class="block py-2 mobile-nav-link">Prompts</a>
                 <a href="/blog.html" class="block py-2 mobile-nav-link">Blog</a>
-                <a href="resources-collection.html" class="block py-2 mobile-nav-link text-white">Resources</a>
-                <a href="/index.html#about" class="block py-2 mobile-nav-link">About</a>
+                <a href="/resources/resources-collection.html" class="block py-2 mobile-nav-link font-bold text-black">Resources</a>
                 <a href="/index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
                 <a href="/Private/student-login.html" class="block py-2 mobile-nav-link">Student Login</a>
             </div>
         </div>
     </nav>
     
-    <!-- Main Content -->
-    <!-- Hero Section with Background Image -->
-        <section class="relative flex items-center justify-center overflow-hidden bg-black pt-48 pb-32 px-4">
-            
-            <!-- Background Image & Overlay (Style from index.html) -->
-            <div class="absolute inset-0 w-full h-full z-0">
-                <!-- Replace 'your-background-image.jpg' with your actual image file -->
-                <img src="resources-images/crystal-2.png" alt="Background" class="w-full h-full object-cover opacity-40">
-                
-                <!-- This is the "Black Bottom" gradient overlay -->
-                <div class="absolute inset-0 bg-gradient-to-b from-black/10 via-black/50 to-black"></div>
+    <section class="relative flex items-center justify-center overflow-hidden bg-white pt-48 pb-32 px-4">
+        <div class="absolute inset-0 w-full h-full z-0">
+            <img src="resources-images/crystal-2.png" alt="Background" class="w-full h-full object-cover opacity-10">
+            <div class="absolute inset-0 bg-gradient-to-b from-white/10 via-white/50 to-white"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto text-center" data-aos="fade-up">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-4 artdeone-font">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-black to-[#a7e169]">DESIGN RESOURCES</span>
+                    </h1>
+            <p class="text-md text-gray-500 max-w-3xl mx-auto leading-relaxed">
+               တကယ့်အကောင်းဆုံး Design Resources တွေကို ဒီမှာစုပေးထားပါတယ်။
+            </p>
+
+            <div class="w-full max-w-md mx-auto mt-8 relative group px-4">
+                <div class="absolute inset-y-0 left-0 pl-7 flex items-center pointer-events-none">
+                    <i data-feather="search" class="h-4 w-4 text-gray-400 group-focus-within:text-[#a7e169] transition-colors"></i>
+                </div>
+                <input 
+                    type="text" 
+                    id="resource-search" 
+                    placeholder="Search resources..." 
+                    class="block w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-full text-sm text-black placeholder-gray-400 focus:outline-none focus:border-[#a7e169] focus:ring-1 focus:ring-[#a7e169] transition-all duration-300 shadow-sm"
+                >
+            </div>
+        </div>
+    </section>
+
+    <section class="py-10 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-wrap justify-center gap-4 mb-16" data-aos="fade-up">
+                <button class="resource-filter active" data-filter="all">All Resources</button>
+                <button class="resource-filter" data-filter="design">Design Tools</button>
+                <button class="resource-filter" data-filter="illustration">Illustration</button>
+                <button class="resource-filter" data-filter="ai">AI</button>
+                <button class="resource-filter" data-filter="font">Font</button>
             </div>
 
-            <!-- Content (Kept on top using z-10) -->
-            <div class="relative z-10 max-w-7xl mx-auto text-center" data-aos="fade-up">
-                <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight">
-                    Design <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Resources</span>
-                </h1>
-                <p class="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-                   ရှာဖွေပါ ၊ လေ့လာပါ ၊ မှတ်သားပါ ၊ လက်တွေ့အသုံးချပါ
-                </p>
+            <div id="resources-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" data-aos="fade-up" data-aos-delay="200">
+                </div>
 
-                <!-- COMPACT CENTERED SEARCH BAR -->
-<div class="w-full max-w-md mx-auto mt-8 relative group px-4" data-aos="fade-up" data-aos-delay="100">
-    <div class="absolute inset-y-0 left-0 pl-7 flex items-center pointer-events-none">
-        <i data-feather="search" class="h-4 w-4 text-gray-500 group-focus-within:text-[#9dae11] transition-colors"></i>
-    </div>
-    <input 
-        type="text" 
-        id="resource-search" 
-        placeholder="Search resources..." 
-        class="block w-full pl-10 pr-4 py-2.5 bg-[#111] border border-[#333] rounded-full text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#9dae11] focus:ring-1 focus:ring-[#9dae11] transition-all duration-300"
-    >
-</div>
-
+            <div class="flex justify-center items-center mt-20 space-x-2">
+                <button id="prev-page" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-gray-600 hover:bg-black hover:text-white transition-colors disabled:opacity-30 disabled:cursor-not-allowed">
+                    <i data-feather="chevron-left" class="w-5 h-5"></i>
+                </button>
+                <div id="page-numbers" class="flex items-center space-x-2"></div>
+                <button id="next-page" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-gray-600 hover:bg-black hover:text-white transition-colors disabled:opacity-30 disabled:cursor-not-allowed">
+                    <i data-feather="chevron-right" class="w-5 h-5"></i>
+                </button>
             </div>
-            
-        </section>
+        </div>
+    </section>
 
-        <section class="py-20 px-4">
-            <div class="max-w-7xl mx-auto">
-                <div class="flex flex-wrap justify-center gap-4 mb-16" data-aos="fade-up">
-                    <button class="resource-filter active" data-filter="all">All Resources</button>
-                    <button class="resource-filter" data-filter="design">Design Tools</button>
-                    <button class="resource-filter" data-filter="illustration">Illustration</button>
-                    <button class="resource-filter" data-filter="ai">AI</button>
-                    <button class="resource-filter" data-filter="font">Font</button>
-                </div>
-
-                <div id="resources-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" data-aos="fade-up" data-aos-delay="200">
-                    <!-- JS will load cards here -->
-                </div>
-
-                <div class="flex justify-center items-center mt-20 space-x-2">
-                    <button id="prev-page" class="pagination-btn flex items-center justify-center w-10 h-10 rounded-full bg-[#1a1a1a] text-white hover:bg-[#333] transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-                        <i data-feather="chevron-left" class="w-5 h-5"></i>
-                    </button>
-                    <div id="page-numbers" class="flex items-center space-x-2"></div>
-                    <button id="next-page" class="pagination-btn flex items-center justify-center w-10 h-10 rounded-full bg-[#1a1a1a] text-white hover:bg-[#333] transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-                        <i data-feather="chevron-right" class="w-5 h-5"></i>
-                    </button>
-                </div>
+    <section class="py-24 bg-gray-50 px-4 border-y border-gray-100">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-black mb-3">Latest Industry Trends</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto">Top companies shaping the future of design, AI, and digital innovation.</p>
             </div>
-        </section>
-
-        <section class="py-24 bg-[#0a0a0a] px-4 border-y border-[#1a1a1a]">
-            <div class="max-w-7xl mx-auto">
-                <div class="text-center mb-16" data-aos="fade-up">
-                    <h2 class="text-3xl font-bold text-white mb-3">Latest Industry Trends</h2>
-                    <p class="text-gray-400 max-w-2xl mx-auto">Top companies shaping the future of design, AI, and digital innovation.</p>
-                </div>
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
-                    <a href="#" class="sub-card block p-6 text-center" data-aos="fade-up"><h3 class="font-bold text-lg text-white">OpenAI</h3></a>
-                    <a href="#" class="sub-card block p-6 text-center" data-aos="fade-up" data-aos-delay="100"><h3 class="font-bold text-lg text-white">Midjourney</h3></a>
-                    <a href="#" class="sub-card block p-6 text-center" data-aos="fade-up" data-aos-delay="200"><h3 class="font-bold text-lg text-white">Figma</h3></a>
-                    <a href="#" class="sub-card block p-6 text-center" data-aos="fade-up" data-aos-delay="300"><h3 class="font-bold text-lg text-white">Adobe</h3></a>
-                    <a href="#" class="sub-card block p-6 text-center" data-aos="fade-up" data-aos-delay="400"><h3 class="font-bold text-lg text-white">Runway</h3></a>
-                </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
+                <a href="#" class="sub-card block p-6 text-center" data-aos="fade-up"><h3 class="font-bold text-lg text-black">OpenAI</h3></a>
+                <a href="#" class="sub-card block p-6 text-center" data-aos="fade-up" data-aos-delay="100"><h3 class="font-bold text-lg text-black">Midjourney</h3></a>
+                <a href="#" class="sub-card block p-6 text-center" data-aos="fade-up" data-aos-delay="200"><h3 class="font-bold text-lg text-black">Figma</h3></a>
+                <a href="#" class="sub-card block p-6 text-center" data-aos="fade-up" data-aos-delay="300"><h3 class="font-bold text-lg text-black">Adobe</h3></a>
+                <a href="#" class="sub-card block p-6 text-center" data-aos="fade-up" data-aos-delay="400"><h3 class="font-bold text-lg text-black">Runway</h3></a>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
-    <!-- Footer -->
-    <footer class="bg-black text-white py-12 border-t border-[#222]">
+    <footer class="bg-white text-[#323232] py-12 border-t border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-4 gap-8">
                 <div>
-                    <span class="text-xl font-bold mb-4 block">ART de ONE</span>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        Adobe Illustrator Classes & Freelance Creative Studio in Myanmar
+                    <span class="text-xl font-bold mb-4 block text-black">ART de ONE</span>
+                    <p class="text-gray-500 text-sm">
+                        Freelance Graphic Designer & Illustrator Portfolio, Blog, Resources and Online Courses
                     </p>
                 </div>
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Quick Links</h3>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="index.html#home" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
-                        <li><a href="courses.html" class="text-gray-400 hover:text-white transition duration-300">Courses</a></li>
-                        <li><a href="/prompt.html" class="text-gray-400 hover:text-white transition duration-300">Prompts</a></li>
-                        <li><a href="blog.html" class="text-gray-400 hover:text-white transition duration-300">Blog</a></li>
-                        <li><a href="/resources/resources-collection.html" class="text-gray-400 hover:text-white transition duration-300">Resources</a></li>
+                        <li><a href="index.html#home" class="text-gray-500 hover:text-black transition duration-300">Home</a></li>
+                      <!--  <li><a href="courses.html" class="text-gray-500 hover:text-black transition duration-300">Courses</a></li> -->
+                        <li><a href="/prompt.html" class="text-gray-500 hover:text-black transition duration-300">Prompts</a></li>
+                        <li><a href="/blog.html" class="text-gray-500 hover:text-black transition duration-300">Blog</a></li>
+                        <li><a href="/resources/resources-collection.html" class="text-gray-500 hover:text-black transition duration-300">Resources</a></li>
                     </ul>
                 </div>
+
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">Classes</h3>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Services</h3>
                     <ul class="space-y-2 text-sm">
-                         <li><a href="courses/basic-illustrator/course-detail-basic.html" class="text-gray-400 hover:text-white transition duration-300">Basic Course</a></li>
-                        <li><a href="courses/intermediate-illustrator/course-detail-intermediate.html" class="text-gray-400 hover:text-white transition duration-300">Intermediate</a></li>
-                        <li><a href="courses/advanced-illustrator/course-detail-advanced.html" class="text-gray-400 hover:text-white transition duration-300">Advanced Abstract</a></li>
-                        <li><a href="courses/graphic-design/course-detail-graphic-design.html" class="text-gray-400 hover:text-white transition duration-300">Graphic Design</a></li>
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Logo Design</a></li>
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Social Media</a></li>
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Printing</a></li>
                     </ul>
                 </div>
+
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">Services</h3>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Contact</h3>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Logo Design</a></li>
-                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Social Media</a></li>
-                        <li><a href="index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Printing</a></li>
+                         <li><a href="/index.html#about" class="text-gray-500 hover:text-black transition duration-300">About</a></li>
+                        <li><a href="/index.html#contact" class="text-gray-500 hover:text-black transition duration-300">Contact</a></li>
                     </ul>
-                </div>
+                </div> 
+                <!-- <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Classes</h3>
+                    <ul class="space-y-2 text-sm">
+                         <li><a href="courses/basic-illustrator/course-detail-basic.html" class="text-gray-500 hover:text-black transition duration-300">Basic Course</a></li>
+                        <li><a href="courses/intermediate-illustrator/course-detail-intermediate.html" class="text-gray-500 hover:text-black transition duration-300">Intermediate</a></li>
+                        <li><a href="courses/graphic-design/course-detail-graphic-design.html" class="text-gray-500 hover:text-black transition duration-300">Graphic Design</a></li>
+                    </ul>
+                </div> -->
+                
             </div>
-            <div class="border-t border-[#222] mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400 text-sm mb-4 md:mb-0">
+            <div class="border-t border-gray-200 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">
                     &copy; 2025 ART de ONE. All rights reserved.
                 </p>
                 <div class="flex space-x-6 text-sm">
-                    <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-behance"></i></a>
-                    <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-behance"></i></a>
+                    <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-tiktok"></i></a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script src="/css-and-js/mobile-smooth-nav.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // 1. Your Resources Data
+        // Resources Data
         const resources = [
             { id: 1, title: "Klign Ai | Best Ai Video Generator", category: "ai . design . video", image: "resources-images/klign.jpg", link: "https://klingaiaffiliate.pxf.io/Oe2XEN" },
             { id: 1, title: "Human Made Vector Illustration", category: "illustration . design", image: "resources-images/getillustrations.jpg", link: "https://www.getillustrations.com/?via=art-de" },
@@ -364,11 +291,11 @@
             { id: 10, title: "Free Minimal Mockup", category: "design", image: "resources-images/minimalmockups.jpg", link: "https://www.minimalmockups.com/" },
             { id: 11, title: "Pixel Market", category: "illustration", image: "resources-images/pixelsmarket.jpg", link: "https://pixels.market/" },
             { id: 12, title: "SpaceType Generator", category: "font", image: "resources-images/spacetypegenerator.jpg", link: "https://spacetypegenerator.com/" },
-            { id: 13, title: "Pomelli - Content Generator", category: "ai . content generator", image: "resources-images/pomelli.jpg", link: "https://labs.google.com/pomelli/about/\"" },
+            { id: 13, title: "Pomelli - Content Generator", category: "ai . content generator", image: "resources-images/pomelli.jpg", link: "https://labs.google.com/pomelli/about/" },
             { id: 14, title: "Shots - Mockup", category: "design . mockup", image: "resources-images/shots.jpg", link: "https://shots.so/" },
             { id: 15, title: "Font Joy", category: "font . design", image: "resources-images/fontjoy.jpg", link: "https://fontjoy.com/" },
             { id: 16, title: "Calligraphr", category: "font", image: "resources-images/calligraphr.jpg", link: "https://www.calligraphr.com/en/" },
-            { id: 17, title: "Color and Font", category: "font .  color", image: "resources-images/colorandfont.jpg", link: "https://www.colorsandfonts.com/color-tools/monochromatic-color-palette-generator" },
+            { id: 17, title: "Color and Font", category: "font . color", image: "resources-images/colorandfont.jpg", link: "https://www.colorsandfonts.com/color-tools/monochromatic-color-palette-generator" },
             { id: 18, title: "Bezier", category: "illustration . design", image: "resources-images/bezier.jpg", link: "https://bezier.method.ac/" },
             { id: 19, title: "World Brand Design", category: "design", image: "resources-images/worldbranddesign.jpg", link: "https://worldbranddesign.com/" },
             { id: 20, title: "Logolounge", category: "design . logo", image: "resources-images/logolounge.jpg", link: "https://www.logolounge.com/" },
@@ -398,8 +325,8 @@
             { id: 44, title: "Absurd Design", category: "illustration . design", image: "resources-images/absurd.jpg", link: "https://absurd.design/" },
             { id: 45, title: "2D & 3D Illustration", category: "illustration . design", image: "resources-images/storytale.jpg", link: "https://storytale.io/" },
             { id: 46, title: "Morflax Studio", category: "design", image: "resources-images/studio.morflax.jpg", link: "https://studio.morflax.com/" },
-            { id: 47, title: "Garmcompany", category: "design .  illustration", image: "resources-images/garmcompany.jpg", link: "https://garmcompany.com/" },
-            { id: 48, title: "Prompt Library", category: "ai . design .  illustration", image: "resources-images/promptlibrary.jpg", link: "https://promptlibrary.org/" },
+            { id: 47, title: "Garmcompany", category: "design . illustration", image: "resources-images/garmcompany.jpg", link: "https://garmcompany.com/" },
+            { id: 48, title: "Prompt Library", category: "ai . design . illustration", image: "resources-images/promptlibrary.jpg", link: "https://promptlibrary.org/" },
             { id: 49, title: "Free Ai Chat | Z AI", category: "ai", image: "resources-images/zai.jpg", link: "https://chat.z.ai/" },
             { id: 50, title: "Free Ai | Bytez", category: "ai", image: "resources-images/bytez.jpg", link: "https://bytez.com/" },
             { id: 51, title: "Media.io", category: "ai", image: "resources-images/media.jpg", link: "https://www.media.io/" },
@@ -432,9 +359,9 @@
         const prevButton = document.getElementById('prev-page');
         const nextButton = document.getElementById('next-page');
         const filterButtons = document.querySelectorAll('.resource-filter');
-        const searchInput = document.getElementById('resource-search'); // Get the search input
+        const searchInput = document.getElementById('resource-search');
 
-        // 2. Render Function
+        // Render Function
         function renderResources() {
             if (!container) return;
             container.innerHTML = '';
@@ -444,12 +371,12 @@
             paginatedResources.forEach(resource => {
                 const resourceEl = `
                     <a href="${resource.link}" target="_blank" class="resource-card-minimal block group">
-                        <div class="relative overflow-hidden h-48 bg-[#111]">
-                                <img src="${resource.image}" alt="${resource.title}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100">
+                        <div class="relative overflow-hidden h-48 bg-gray-50">
+                            <img src="${resource.image}" alt="${resource.title}" class="w-full h-full object-cover opacity-90 group-hover:opacity-100">
                         </div>
                         <div class="p-6">
-                            <h3 class="resource-title text-xl font-bold mb-2">${resource.title}</h3>
-                            <p class="text-gray-400 text-sm line-clamp-2">Category: ${resource.category}</p>
+                            <h3 class="resource-title text-xl font-bold text-black mb-2 group-hover:text-[#a7e169] transition-colors">${resource.title}</h3>
+                            <p class="text-gray-500 text-sm line-clamp-2">Category: ${resource.category}</p>
                         </div>
                     </a>
                 `;
@@ -461,7 +388,7 @@
             }
         }
 
-        // 3. Pagination Function
+        // Pagination Logic
         function setupPagination() {
             if(!pageNumbersContainer) return;
             pageNumbersContainer.innerHTML = '';
@@ -492,9 +419,9 @@
                 const btn = document.createElement('button');
                 btn.innerText = i;
                 if (i === currentPage) {
-                    btn.className = 'w-10 h-10 rounded-full flex items-center justify-center bg-white text-black font-medium transition-colors';
+                    btn.className = 'w-10 h-10 rounded-full flex items-center justify-center bg-black text-white font-medium transition-colors';
                 } else {
-                    btn.className = 'w-10 h-10 rounded-full flex items-center justify-center text-gray-400 hover:bg-[#1a1a1a] hover:text-white transition-colors';
+                    btn.className = 'w-10 h-10 rounded-full flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-black transition-colors';
                 }
                 btn.addEventListener('click', () => {
                     currentPage = i;
@@ -509,32 +436,24 @@
             nextButton.disabled = currentPage === totalPages;
         }
 
-        // 4. Combined Filter Function (Search + Buttons)
+        // Filter & Search Logic
         function filterAndRender() {
             const activeFilterBtn = document.querySelector('.resource-filter.active');
             const activeFilter = activeFilterBtn ? activeFilterBtn.dataset.filter : 'all';
-            
             const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
 
             filteredResources = resources.filter(r => {
-                // Check Category Button
                 const matchesCategory = (activeFilter === 'all') || r.category.toLowerCase().includes(activeFilter.toLowerCase());
-                
-                // Check Search Input (checks Title OR Category)
-                const matchesSearch = r.title.toLowerCase().includes(searchTerm) || 
-                                      r.category.toLowerCase().includes(searchTerm);
-
+                const matchesSearch = r.title.toLowerCase().includes(searchTerm) || r.category.toLowerCase().includes(searchTerm);
                 return matchesCategory && matchesSearch;
             });
 
-            currentPage = 1; // Reset to page 1 on any filter change
+            currentPage = 1;
             renderResources();
             setupPagination();
         }
 
-        // 5. Event Listeners
-        
-        // Category Buttons
+        // Event Listeners
         filterButtons.forEach(button => {
             button.addEventListener('click', () => {
                 filterButtons.forEach(btn => btn.classList.remove('active'));
@@ -543,51 +462,43 @@
             });
         });
 
-        // Search Input (Real-time)
         if (searchInput) {
             searchInput.addEventListener('input', filterAndRender);
         }
 
-        // Pagination Buttons
-        if (prevButton) {
-            prevButton.addEventListener('click', () => {
-                if (currentPage > 1) {
-                    currentPage--;
-                    renderResources();
-                    setupPagination();
-                    document.getElementById('resources-container').scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        }
+        prevButton.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderResources();
+                setupPagination();
+                document.getElementById('resources-container').scrollIntoView({ behavior: 'smooth' });
+            }
+        });
 
-        if (nextButton) {
-            nextButton.addEventListener('click', () => {
-                const totalPages = Math.ceil(filteredResources.length / resourcesPerPage);
-                if (currentPage < totalPages) {
-                    currentPage++;
-                    renderResources();
-                    setupPagination();
-                    document.getElementById('resources-container').scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        }
+        nextButton.addEventListener('click', () => {
+            const totalPages = Math.ceil(filteredResources.length / resourcesPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderResources();
+                setupPagination();
+                document.getElementById('resources-container').scrollIntoView({ behavior: 'smooth' });
+            }
+        });
 
-        // 6. Initial Load
+        // Initialize libraries
         AOS.init({ duration: 1000, once: true });
         feather.replace();
         
-        // Mobile Menu
+        // Mobile menu toggle
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         if (mobileMenuButton && mobileMenu) {
             mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
         }
 
-        // Start everything
         filterAndRender();
     });
 </script>
-
 
 </body>
 </html>

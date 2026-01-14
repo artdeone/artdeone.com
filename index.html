@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-CZRQ0NPPJ2"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -23,148 +22,178 @@
     <script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.iife.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
     <link rel="stylesheet" href="css-and-js/mobile-smooth-nav.css">
+    
 
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        /* Added Space Grotesk to imports */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
         
-        /* --- MINIMALIST DARK THEME STYLES --- */
+        /* --- NEW BRAND THEME STYLES --- */
         body {
-            background-color: #000;
-            color: #fff;
+            background-color: #ffffff;
+            color: #323232;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Secondary Font Application */
+        h1, h2, h3, h4, h5, h6 {
+            color: #000000;
+        }
+
+        /* Specific override for secondary font where needed, 
+           or you can apply to all headings if preferred. 
+           Here applied to section titles as requested by "Secondary font" usage usually for headers */
+        .artdeone-font, .section-title {
             font-family: 'Poppins', sans-serif;
         }
 
-        /* Navigation Overrides for Dark Theme */
+        /* Navigation Overrides for Light Theme */
         nav { 
-            background-color: rgba(0,0,0,0.9) !important; 
-            border-bottom: 1px solid #222; 
+            background-color: rgba(255,255,255,0.95) !important; 
+            border-bottom: 1px solid #e5e5e5; 
             backdrop-filter: blur(12px);
         }
         .nav-link { 
-            color: #ccc !important; 
-            font-weight: 300 !important;      /* thinner */
+            color: #323232 !important; 
+            font-weight: 400 !important;      
             letter-spacing: 0.04em;
-            font-size: 0.9rem !important;     /* slightly smaller */
+            font-size: 0.9rem !important;     
         }
         .nav-link:hover { 
-            color: #fff !important; 
+            color: #000 !important; 
+            font-weight: 600 !important;
         }
         .mobile-menu { 
-            background-color: #111 !important; 
+            background-color: #ffffff !important; 
+            border-bottom: 1px solid #e5e5e5;
         }
         .mobile-nav-link { 
-            color: #ccc !important; 
-            font-weight: 300;
+            color: #323232 !important; 
+            font-weight: 400;
             font-size: 0.9rem;
+        }
+        
+        /* Icons in Mobile Menu */
+        .mobile-menu-btn {
+            color: #000 !important;
+        }
+        .mobile-menu-btn:hover {
+            background-color: #f3f4f6;
         }
 
 
         /* Sections */
-        .section-dark { background-color: #000; }
-        .section-darker { background-color: #0a0a0a; }
+        .section-dark { background-color: #ffffff; }
+        .section-darker { background-color: #f9f9f9; } /* Slight off-white for contrast */
+        
         .section-title {
-            color: #fff;
+            color: #000;
             font-weight: 700;
             font-size: 2.25rem;
             margin-bottom: 1rem;
         }
         .section-subtitle {
-            color: #a0a0a0;
+            color: #555;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
         }
-        /* Specific small button for Navigation */
-.nav-btn {
-    background-color: #fff;
-    color: #000;
-    font-weight: 600;
-    border-radius: 0.5rem; /* slightly less rounded than big buttons */
-    padding: 0.5rem 1.25rem; /* smaller padding */
-    font-size: 0.8rem; /* smaller text */
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #fff;
-    height: auto;
-    line-height: 1;
-}
 
-.nav-btn:hover {
-    background-color: #9dae11;
-    border-color: #9dae11;
-    color: #fff;
-    transform: translateY(-1px);
-}
+        /* Navigation Button */
+        .nav-btn {
+            background-color: #a7e169;
+            color: #000;
+            font-weight: 600;
+            border-radius: 0.5rem; 
+            padding: 0.5rem 1.25rem; 
+            font-size: 0.8rem; 
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #a7e169;
+            height: auto;
+            line-height: 1;
+        }
+
+        .nav-btn:hover {
+            background-color: #ed2939;
+            border-color: #ed2939;
+            color: #fff;
+            transform: translateY(-1px);
+        }
 
 
-                /* Buttons */
+        /* Buttons */
         .btn-primary {
-            background-color: #fff;
+            background-color: #a7e169;
             color: #000;
             font-weight: 600;
             border-radius: 0.75rem;
             padding: 0.75rem 2rem;
             transition: all 0.3s ease;
-            display: inline-flex; /* Changed from inline-block */
+            display: inline-flex; 
             align-items: center;
             justify-content: center;
-            border: 1px solid #fff; /* Ensure border width matches secondary */
+            border: 1px solid #a7e169; 
         }
         .btn-primary:hover {
-            background-color: #9dae11;
-            border-color: #9dae11;
+            background-color: #ed2939;
+            border-color: #ed2939;
             color: #fff;
             transform: translateY(-2px);
         }
+        
         .btn-secondary {
-            background-color: transparent;
-            color: #fff;
+            background-color: white;
+            color: #323232;
             font-weight: 600;
-            border: 1px solid #555;
+            border: 1px solid #a7e169;
             border-radius: 0.75rem;
             padding: 0.75rem 2rem;
             transition: all 0.3s ease;
-            display: inline-flex; /* Changed from inline-block */
+            display: inline-flex; 
             align-items: center;
             justify-content: center;
         }
         .btn-secondary:hover {
-            background-color: #fff;
-            color: #000;
-            border-color: #fff;
+            background-color: #000;
+            color: #fff;
+            border-color: #000;
         }
 
 
         /* Cards */
         .minimalist-card {
-            background-color: #111;
-            border: 1px solid #333;
+            background-color: #ffffff;
+            border: 1px solid #e5e5e5;
             border-radius: 1rem;
             padding: 2rem;
             transition: all 0.4s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
         .minimalist-card:hover {
             transform: translateY(-8px);
-            border-color: #9dae11;
+            border-color: #a7e169;
+            box-shadow: 0 10px 15px -3px rgba(167, 225, 105, 0.3);
         }
 
-                /* Portfolio Cards Enhanced */
+        /* Portfolio Cards Enhanced */
         .portfolio-card {
-            background-color: #111;
+            background-color: #ffffff;
             border-radius: 1rem;
             overflow: hidden;
-            border: 1px solid #333;
+            border: 1px solid #e5e5e5;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
         
         .portfolio-card:hover {
             transform: translateY(-8px);
-            border-color: #fff;
-            box-shadow: 0 20px 40px -10px rgba(157, 174, 17, 0.15);
+            border-color: #a7e169;
+            box-shadow: 0 20px 40px -10px rgba(167, 225, 105, 0.3); /* Green shadow */
         }
         
         .portfolio-card img {
@@ -178,97 +207,99 @@
             transform: scale(1.1);
         }
 
-        /* Overlay Animation - Fixed for Mobile */
-.portfolio-overlay {
-    position: absolute;
-    inset: 0;
-    /* Default (Mobile): Visible background and opacity */
-    background: rgba(0, 0, 0, 0.6); 
-    opacity: 1; 
-    transition: opacity 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+        /* Portfolio Text Area */
+        .portfolio-text-area {
+            background-color: #fff;
+            padding: 1.5rem;
+            border-top: 1px solid #f0f0f0;
+        }
 
-/* Desktop: Hide by default, show on hover */
-@media (min-width: 768px) {
-    .portfolio-overlay {
-        background: rgba(0, 0, 0, 0.8);
-        opacity: 0;
-    }
-    .portfolio-card:hover .portfolio-overlay {
-        opacity: 1;
-    }
-}
+        /* UPDATED: LOW BLACK TRANSPARENT OVERLAY */
+        .portfolio-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4); /* Low black transparent */
+            opacity: 1; 
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .portfolio-card:hover .portfolio-overlay { opacity: 1; }
+
+        @media (min-width: 768px) {
+            .portfolio-overlay { opacity: 0; }
+            .portfolio-card:hover .portfolio-overlay { opacity: 1; }
+        }
 
 
-        /* Button Animation - Fixed for Mobile */
-.view-project-btn {
-    /* Default (Mobile): Visible, no transform */
-    transform: translateY(0);
-    opacity: 1;
-    background-color: #9dae11;
-    color: #000;
-    font-weight: 600;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-size: 0.875rem;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
+        /* Button Animation */
+        .view-project-btn {
+            transform: translateY(0);
+            opacity: 1;
+            background-color: #a7e169;
+            color: #000;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.875rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
 
-.view-project-btn:hover {
-    background-color: #fff;
-    transform: translateY(-2px) !important;
-}
+        .view-project-btn:hover {
+            background-color: #ed2939;
+            color: #fff;
+            transform: translateY(-2px) !important;
+        }
 
-/* Desktop: Hide by default, animate on hover */
-@media (min-width: 768px) {
-    .view-project-btn {
-        transform: translateY(20px);
-        opacity: 0;
-    }
-    .portfolio-card:hover .view-project-btn {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
+        @media (min-width: 768px) {
+            .view-project-btn {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            .portfolio-card:hover .view-project-btn {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
 
 
 
         /* Tabs */
         .service-tab {
             background-color: transparent;
-            color: #a0a0a0;
-            border: 1px solid #444;
+            color: #555;
+            border: 1px solid #ddd;
             transition: all 0.3s ease;
         }
         .service-tab.active {
-            background-color: #fff;
+            background-color: #a7e169;
             color: #000;
-            border-color: #fff;
+            border-color: #a7e169;
         }
         .service-tab:hover:not(.active) {
-            background-color: #222;
-            border-color: #666;
+            background-color: #ed2939;
+            border-color: #ed2939;
             color: #fff;
         }
         
         /* Form */
         .form-input {
-            background-color: #1a1a1a;
-            border: 1px solid #444;
-            color: #fff;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            color: #323232;
             border-radius: 0.5rem;
             padding: 0.75rem 1rem;
             transition: all 0.3s ease;
         }
         .form-input:focus {
-            border-color: #9dae11;
-            background-color: #222;
+            border-color: #a7e169;
+            background-color: #fff;
             outline: none;
+            box-shadow: 0 0 0 2px rgba(167, 225, 105, 0.2);
         }
 
         /* Animation */
@@ -283,17 +314,14 @@
            max-width: 100%;
        }
 
-
-
-
        /* ========================================
-           SIMPLE CONTACT - NO BOXES, NO EFFECTS
+           SIMPLE CONTACT
         ======================================== */
 
         .simple-contact-item {
             display: block;
             padding: 1.5rem 0;
-            border-bottom: 1px solid #1a1a1a;
+            border-bottom: 1px solid #e5e5e5;
             transition: padding-left 0.3s ease;
             text-decoration: none;
         }
@@ -319,63 +347,79 @@
         .simple-social-link:hover {
             transform: translateY(-2px);
         }
+
+        /* Icon Wrapper Style (Black circle, white icon) */
+        .icon-circle {
+            background-color: #000;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem; /* 12 in tailwind */
+            height: 3rem;
+        }
+        /* Gradient Text Effect for Title */
+        .gradient-text {
+            background: linear-gradient(135deg, #000 0%, #a7e169 100%); /* Adjusted for white bg */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Checkmark colors */
+        .text-accent {
+            color: #000; /* Or branding green #a7e169 depending on preference for checks */
+        }
+        
     </style>
 </head>
-<body class="bg-black text-white">
+<body class="bg-white text-[#323232]">
     
-    <!-- CONSISTENT NAVIGATION (Exact Match with Other Pages) -->
-<nav class="fixed w-full z-50">
+    <nav class="fixed w-full z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 nav-container">
         <div class="nav-wrapper">
             <div class="flex justify-between h-16 items-center">
-                <!-- Logo -->
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
                         <a href="index.html#home" class="flex items-center">
-                            <img src="logo.png" alt="ART de ONE" class="h-10 w-auto">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png" alt="ART de ONE" class="h-10 w-auto">
                         </a>
                     </div>
                 </div>
                 
-                <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center space-x-4 nav-center">
-                    <a href="index.html#home" class="nav-link" style="color: #fff !important;">Home</a>
-                    <a href="courses.html" class="nav-link">Courses</a>
+                    <a href="index.html#home" class="nav-link font-bold" style="color: #000 !important;">Home</a>
+                    <!-- <a href="courses.html" class="nav-link">Courses</a> --> 
                     <a href="prompt.html" class="nav-link">Prompts</a>
                     <a href="blog.html" class="nav-link">Blog</a>
                     <a href="/resources/resources-collection.html" class="nav-link">Resources</a>
-                    <a href="index.html#about" class="nav-link">About</a>
                     <a href="index.html#contact" class="nav-link">Contact</a>
                 </div>
                 
-                <!-- Contact Button -->
                 <div class="hidden md:block">
                     <a href="/Private/student-login.html" class="nav-btn">Student Login</a>
                 </div>
                 
-                <!-- Mobile Menu Button -->
                 <div class="md:hidden flex items-center">
-                    <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white focus:outline-none" id="mobile-menu-button">
-                <!-- Container to stack icons -->
-                    <div class="icon-container">
-                            <i data-feather="menu" class="icon-menu"></i>
-                            <i data-feather="x" class="icon-close"></i>
-                        </div>
-                    </button>
-                </div>
+                        <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md hover:bg-gray-100 focus:outline-none" id="mobile-menu-button">
+                            <div class="icon-container text-black">
+                                <i data-feather="menu" class="icon-menu"></i>
+                                <i data-feather="x" class="icon-close"></i>
+                            </div>
+                        </button>
+                    </div>
             </div>
         </div>
     </div>
     
-    <!-- Mobile menu -->
     <div class="mobile-menu md:hidden" id="mobile-menu">
         <div class="py-2 px-4 space-y-1">
-            <a href="index.html#home" class="block py-2 mobile-nav-link text-white">Home</a>
-            <a href="courses.html" class="block py-2 mobile-nav-link">Courses</a>
+            <a href="index.html#home" class="block py-2 mobile-nav-link text-black font-bold">Home</a>
+           <!-- <a href="courses.html" class="block py-2 mobile-nav-link">Courses</a> -->
             <a href="prompt.html" class="block py-2 mobile-nav-link">Prompts</a>
             <a href="blog.html" class="block py-2 mobile-nav-link">Blog</a>
             <a href="/resources/resources-collection.html" class="block py-2 mobile-nav-link">Resources</a>
-            <a href="index.html#about" class="block py-2 mobile-nav-link">About</a>
             <a href="index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
             <a href="/Private/student-login.html" class="block py-2 mobile-nav-link">Student Login</a>
         </div>
@@ -384,30 +428,30 @@
 
 
 
-    <!-- Main Content -->
     <main>
-        <!-- Hero Section -->
-        <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
-            <div class="absolute inset-0 w-full h-full z-0">
-                <video autoplay muted loop playsinline preload="metadata" class="w-full h-full object-cover opacity-40">
-                    <source src="hero-animation.webm" type="video/webm">
-                    <source src="hero-animation.mp4" type="video/mp4">
-                </video>
-                <div class="absolute inset-0 bg-gradient-to-b from-black/10 via-black/50 to-black"></div>
-            </div>
-            <div class="relative z-10 text-center px-4" data-aos="fade-up">
-                <h1 class="text-5xl sm:text-6xl md:text-8xl font-bold leading-tight artdeone-font mb-4">
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">ART de ONE</span>
-                </h1>
-                <p class="text-xl md:text-2xl text-gray-300 mb-10 max-w-2xl mx-auto font-light tracking-wide">The Art of Intelligence</p>
-                <div class="flex flex-wrap gap-4 justify-center">
-                    <a href="blog.html" class="btn-primary">Read Our Blog</a>
-                    <a href="#freelance" class="btn-secondary">Hire Us</a>
-                </div>
-            </div>
-        </section>
+        <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden bg-white">
+    <div class="absolute inset-0 w-full h-full z-0">
+        <video autoplay muted loop playsinline preload="metadata" class="w-full h-full object-cover opacity-50">
+            <source src="https://res.cloudinary.com/ddkd9lxpr/video/upload/v1768369564/hero-animation_ozxvd5.mp4" type="video/webm">
+            <source src="https://res.cloudinary.com/ddkd9lxpr/video/upload/v1768369564/hero-animation_ozxvd5.mp4" type="video/mp4">
+        </video>
+        <!-- Black overlay (20% opacity) -->
+        <!-- <div class="absolute inset-0 bg-black/20"></div> -->
+        <!-- White gradient overlay (kept from original) -->
+        <div class="absolute inset-0 bg-gradient-to-b from-white/30 via-white/80 to-white"></div>
+    </div>
+    <div class="relative z-10 text-center px-4" data-aos="fade-up">
+        <h1 class="text-6xl sm:text-7xl md:text-8xl font-bold leading-tight artdeone-font mb-4">
+    <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#385916] to-[#a7e169]">ART de ONE</span>
+</h1>
+        <p class="text-xl md:text-2xl text-[#323232] mb-10 max-w-2xl mx-auto font-light tracking-wide">The Art of Intelligence</p>
+        <div class="flex flex-wrap gap-4 justify-center">
+            <a href="blog.html" class="btn-primary">Read Our Blog</a>
+            <a href="#freelance" class="btn-secondary">Hire Us</a>
+        </div>
+    </div>
+</section>
 
-        <!-- About Section -->
         <section id="about" class="py-24 section-darker px-4">
             <div class="max-w-7xl mx-auto">
                 <div class="text-center mb-16" data-aos="fade-up">
@@ -416,32 +460,31 @@
                 </div>
                 <div class="grid md:grid-cols-2 gap-8 mb-16">
                     <div class="minimalist-card" data-aos="fade-up">
-                        <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center mb-6 text-black">
+                        <div class="icon-circle mb-6">
                             <i class="fas fa-bullseye text-xl"></i>
                         </div>
-                        <h3 class="text-2xl font-bold text-white mb-4">Our Mission</h3>
-                        <p class="text-gray-400 leading-relaxed">To help people discover their passion for digital art and learn professional vector drawing skills. We welcome anyone who loves to draw or wants to explore their creative side.</p>
+                        <h3 class="text-2xl font-bold text-black mb-4">Our Mission</h3>
+                        <p class="text-[#323232] leading-relaxed">To help people discover their passion for digital art and learn professional vector drawing skills. We welcome anyone who loves to draw or wants to explore their creative side.</p>
                     </div>
                     <div class="minimalist-card" data-aos="fade-up" data-aos-delay="100">
-                        <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center mb-6 text-black">
+                        <div class="icon-circle mb-6">
                             <i class="fas fa-eye text-xl"></i>
                         </div>
-                        <h3 class="text-2xl font-bold text-white mb-4">Our Vision</h3>
-                        <p class="text-gray-400 leading-relaxed">To become Myanmar's leading creative hub where anyone with a passion for drawing can build a successful career in digital art and design.</p>
+                        <h3 class="text-2xl font-bold text-black mb-4">Our Vision</h3>
+                        <p class="text-[#323232] leading-relaxed">To become Myanmar's leading creative hub where anyone with a passion for drawing can build a successful career in digital art and design.</p>
                     </div>
                 </div>
                 
-                <!-- Instructor Info -->
                 <div class="minimalist-card flex flex-col lg:flex-row gap-12 items-center" data-aos="fade-up">
                     <div class="w-full lg:w-1/3">
                         <div class="rounded-xl overflow-hidden aspect-square">
-                            <img src="instructor-photo/instructor-02.jpg" alt="Instructor" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119870/instructor-02_a7snby.jpg" alt="Instructor" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500">
                         </div>
                     </div>
                     <div class="w-full lg:w-2/3">
-                         <h3 class="text-2xl font-bold text-white mb-2">Meet Your Instructor</h3>
-                         <p class="text-[#9dae11] font-medium mb-6">Lead Instructor & Design Lead</p>
-                         <p class="text-gray-400 mb-8 leading-relaxed">With 9 years of professional design experience and 3 years of teaching, I guide students from countries like Germany, Thailand, and Myanmar to achieve exceptional results, building a shared reputation for quality education and creative excellence.</p>
+                         <h3 class="text-2xl font-bold text-black mb-2">Meet Your Instructor</h3>
+                         <p class="text-[#7fae2e] font-medium mb-6">Lead Instructor & Design Lead</p>
+                         <p class="text-[#323232] mb-8 leading-relaxed">With 9 years of professional design experience and 3 years of teaching, I guide students from countries like Germany, Thailand, and Myanmar to achieve exceptional results, building a shared reputation for quality education and creative excellence.</p>
                                                   <div class="flex flex-wrap gap-4">
                              <a href="instructor.html" class="btn-primary">View Profile</a>
                              <a href="#contact" class="btn-secondary">Contact</a>
@@ -452,121 +495,138 @@
             </div>
         </section>
         
-        <!-- Portfolio Section -->
         <section id="portfolio" class="py-24 section-dark px-4">
-            <div class="max-w-7xl mx-auto">
-                <div class="text-center mb-16" data-aos="fade-up">
-                    <h2 class="section-title">Our Portfolio</h2>
-                    <p class="section-subtitle">Creative solutions that transform ideas into compelling visual stories.</p>
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="section-title">Our Portfolio</h2>
+            <p class="section-subtitle">Creative solutions that transform ideas into compelling visual stories.</p>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <div class="portfolio-card group" data-aos="fade-up">
+                <div class="relative aspect-[4/3] overflow-hidden">
+                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119692/character-2_k2oew1.jpg" alt="Advanced Illustration" class="w-full h-full object-cover">
+                    <div class="portfolio-overlay">
+                        <a href="portfolio/venom-illustration.html" class="view-project-btn hidden md:inline-flex">
+                            View Project
+                        </a>
+                    </div>
                 </div>
-                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                                        <!-- Item 1: Advanced Illustration (Venom) -->
-                    <div class="portfolio-card group" data-aos="fade-up">
-                        <div class="relative aspect-[4/3] overflow-hidden">
-                            <img src="portfolio/character-2.jpg" alt="Advanced Illustration" class="w-full h-full object-cover">
-                            <!-- New Overlay & Button -->
-                            <div class="portfolio-overlay">
-                                <a href="/portfolio/venom-illustration.html" class="view-project-btn">
-                                    View Project
-                                </a>
-                            </div>
-                        </div>
-                        <div class="p-6 bg-[#111]">
-                            <h3 class="font-bold text-lg text-white mb-1 group-hover:text-[#9dae11] transition-colors">Advanced Illustration</h3>
-                            <p class="text-sm text-gray-400">Adobe Illustrator</p>
-                        </div>
+                <div class="portfolio-text-area flex justify-between items-center">
+                    <div class="pr-2">
+                        <h3 class="font-bold text-lg text-black mb-1 group-hover:text-[#a7e169] transition-colors">Advanced Illustration</h3>
+                        <p class="text-sm text-[#555]">Adobe Illustrator</p>
                     </div>
-
-                    <!-- Item 2: ONE DAY STUDIO -->
-                    <div class="portfolio-card group" data-aos="fade-up" data-aos-delay="100">
-                        <div class="relative aspect-[4/3] overflow-hidden">
-                            <img src="/portfolio/social-1.jpg" alt="ONE DAY STUDIO" class="w-full h-full object-cover">
-                            <!-- New Overlay & Button -->
-                            <div class="portfolio-overlay">
-                                <a href="/portfolio/logo-reveal.html" class="view-project-btn">
-                                    View Project
-                                </a>
-                            </div>
-                        </div>
-                        <div class="p-6 bg-[#111]">
-                            <h3 class="font-bold text-lg text-white mb-1 group-hover:text-[#9dae11] transition-colors">Logo Collection</h3>
-                            <p class="text-sm text-gray-400">Brand Identity</p>
-                        </div>
-                    </div>
-
-                    <!-- Item 3: Nescafe Ad -->
-                    <div class="portfolio-card group" data-aos="fade-up" data-aos-delay="200">
-                        <div class="relative aspect-[4/3] overflow-hidden">
-                            <img src="/portfolio/client-2.jpg" alt="Nescafe Ad" class="w-full h-full object-cover">
-                            <!-- New Overlay & Button -->
-                            <div class="portfolio-overlay">
-                                <a href="/portfolio/ads-social.html" class="view-project-btn">
-                                    View Project
-                                </a>
-                            </div>
-                        </div>
-                        <div class="p-6 bg-[#111]">
-                            <h3 class="font-bold text-lg text-white mb-1 group-hover:text-[#9dae11] transition-colors">Ads Design and Social Media Design</h3>
-                            <p class="text-sm text-gray-400">Ads & Social Media</p>
-                        </div>
-                    </div>
-
-                     <!-- Item 4: Student Project -->
-                     <div class="portfolio-card group" data-aos="fade-up" data-aos-delay="300">
-                        <div class="relative aspect-[4/3] overflow-hidden">
-                            <img src="/portfolio/student-1.jpg" alt="Vector Art" class="w-full h-full object-cover">
-                             <!-- New Overlay & Button -->
-                             <div class="portfolio-overlay">
-                                <a href="portfolio/student-gallery.html" class="view-project-btn">
-                                    View Project
-                                </a>
-                            </div>
-                        </div>
-                        <div class="p-6 bg-[#111]">
-                            <h3 class="font-bold text-lg text-white mb-1 group-hover:text-[#9dae11] transition-colors">Student Projects</h3>
-                            <p class="text-sm text-gray-400">Student Artworks</p>
-                        </div>
-                    </div>
-
-                    <!-- Item 5: Royal Food -->
-                    <div class="portfolio-card group" data-aos="fade-up" data-aos-delay="400">
-                        <div class="relative aspect-[4/3] overflow-hidden">
-                            <img src="/portfolio/fonts/custom-thumb.jpg" alt="Royal Food" class="w-full h-full object-cover">
-                            <!-- New Overlay & Button -->
-                            <div class="portfolio-overlay">
-                                <a href="portfolio/custom-typography-FINAL.html" class="view-project-btn">
-                                    View Project
-                                </a>
-                            </div>
-                        </div>
-                        <div class="p-6 bg-[#111]">
-                            <h3 class="font-bold text-lg text-white mb-1 group-hover:text-[#9dae11] transition-colors">Custom Typography</h3>
-                            <p class="text-sm text-gray-400">Typography</p>
-                        </div>
-                    </div>
-
-                    <!-- Item 6: Venucia -->
-                    <div class="portfolio-card group" data-aos="fade-up" data-aos-delay="500">
-                        <div class="relative aspect-[4/3] overflow-hidden">
-                            <img src="/portfolio/client-1.jpg" alt="Venucia" class="w-full h-full object-cover">
-                             <!-- New Overlay & Button -->
-                             <div class="portfolio-overlay">
-                                <a href="#" class="view-project-btn">
-                                    View Project
-                                </a>
-                            </div>
-                        </div>
-                        <div class="p-6 bg-[#111]">
-                            <h3 class="font-bold text-lg text-white mb-1 group-hover:text-[#9dae11] transition-colors">Various Artworks and Design</h3>
-                            <p class="text-sm text-gray-400">By ART de ONE Instructor</p>
-                        </div>
-                    </div>
-
+                    <a href="portfolio/venom-illustration.html" class="md:hidden bg-[#a7e169] !text-black text-sm font-bold px-6 py-3 rounded-lg whitespace-nowrap hover:bg-[#ed2939] hover:!text-white transition-colors">
+                        View
+                    </a>
                 </div>
             </div>
-        </section>
 
-        <!-- Freelance Services Section -->
+            <div class="portfolio-card group" data-aos="fade-up" data-aos-delay="100">
+                <div class="relative aspect-[4/3] overflow-hidden">
+                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119692/social-1_hrn8ul.jpg" alt="ONE DAY STUDIO" class="w-full h-full object-cover">
+                    <div class="portfolio-overlay">
+                        <a href="portfolio/logo-reveal.html" class="view-project-btn hidden md:inline-flex">
+                            View Project
+                        </a>
+                    </div>
+                </div>
+                <div class="portfolio-text-area flex justify-between items-center">
+                    <div class="pr-2">
+                        <h3 class="font-bold text-lg text-black mb-1 group-hover:text-[#a7e169] transition-colors">Logo Collection</h3>
+                        <p class="text-sm text-[#555]">Brand Identity</p>
+                    </div>
+                    <a href="portfolio/logo-reveal.html" class="md:hidden bg-[#a7e169] !text-black text-sm font-bold px-6 py-3 rounded-lg whitespace-nowrap hover:bg-[#ed2939] hover:!text-white transition-colors">
+                        View
+                    </a>
+                </div>
+            </div>
+
+            <div class="portfolio-card group" data-aos="fade-up" data-aos-delay="200">
+                <div class="relative aspect-[4/3] overflow-hidden">
+                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119691/client-2_dk6cnq.jpg" alt="Nescafe Ad" class="w-full h-full object-cover">
+                    <div class="portfolio-overlay">
+                        <a href="portfolio/ads-social.html" class="view-project-btn hidden md:inline-flex">
+                            View Project
+                        </a>
+                    </div>
+                </div>
+                <div class="portfolio-text-area flex justify-between items-center">
+                    <div class="pr-2">
+                        <h3 class="font-bold text-lg text-black mb-1 group-hover:text-[#a7e169] transition-colors">Ads & Social Media</h3>
+                        <p class="text-sm text-[#555]">Ads & Social Media</p>
+                    </div>
+                    <a href="portfolio/ads-social.html" class="md:hidden bg-[#a7e169] !text-black text-sm font-bold px-6 py-3 rounded-lg whitespace-nowrap hover:bg-[#ed2939] hover:!text-white transition-colors">
+                        View
+                    </a>
+                </div>
+            </div>
+
+            <div class="portfolio-card group" data-aos="fade-up" data-aos-delay="300">
+                <div class="relative aspect-[4/3] overflow-hidden">
+                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119691/student-1_kylsbc.jpg" alt="Vector Art" class="w-full h-full object-cover">
+                    <div class="portfolio-overlay">
+                        <a href="portfolio/student-gallery.html" class="view-project-btn hidden md:inline-flex">
+                            View Project
+                        </a>
+                    </div>
+                </div>
+                <div class="portfolio-text-area flex justify-between items-center">
+                    <div class="pr-2">
+                        <h3 class="font-bold text-lg text-black mb-1 group-hover:text-[#a7e169] transition-colors">Student Projects</h3>
+                        <p class="text-sm text-[#555]">Student Artworks</p>
+                    </div>
+                    <a href="portfolio/student-gallery.html" class="md:hidden bg-[#a7e169] !text-black text-sm font-bold px-6 py-3 rounded-lg whitespace-nowrap hover:bg-[#ed2939] hover:!text-white transition-colors">
+                        View
+                    </a>
+                </div>
+            </div>
+
+            <div class="portfolio-card group" data-aos="fade-up" data-aos-delay="400">
+                <div class="relative aspect-[4/3] overflow-hidden">
+                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119672/custom-thumb_mq1iyv.png" alt="Royal Food" class="w-full h-full object-cover">
+                    <div class="portfolio-overlay">
+                        <a href="portfolio/custom-typography-FINAL.html" class="view-project-btn hidden md:inline-flex">
+                            View Project
+                        </a>
+                    </div>
+                </div>
+                <div class="portfolio-text-area flex justify-between items-center">
+                    <div class="pr-2">
+                        <h3 class="font-bold text-lg text-black mb-1 group-hover:text-[#a7e169] transition-colors">Custom Typography</h3>
+                        <p class="text-sm text-[#555]">Typography</p>
+                    </div>
+                    <a href="portfolio/custom-typography-FINAL.html" class="md:hidden bg-[#a7e169] !text-black text-sm font-bold px-6 py-3 rounded-lg whitespace-nowrap hover:bg-[#ed2939] hover:!text-white transition-colors">
+                        View
+                    </a>
+                </div>
+            </div>
+
+            <div class="portfolio-card group" data-aos="fade-up" data-aos-delay="500">
+                <div class="relative aspect-[4/3] overflow-hidden">
+                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119693/client-1_io01hq.jpg" alt="Venucia" class="w-full h-full object-cover">
+                    <div class="portfolio-overlay">
+                        <a href="#" class="view-project-btn hidden md:inline-flex">
+                            View Project
+                        </a>
+                    </div>
+                </div>
+                <div class="portfolio-text-area flex justify-between items-center">
+                    <div class="pr-2">
+                        <h3 class="font-bold text-lg text-black mb-1 group-hover:text-[#a7e169] transition-colors">Various Artworks</h3>
+                        <p class="text-sm text-[#555]">Instructor Works</p>
+                    </div>
+                    <a href="#" class="md:hidden bg-[#a7e169] !text-black text-sm font-bold px-6 py-3 rounded-lg whitespace-nowrap hover:bg-[#ed2939] hover:!text-white transition-colors">
+                        View
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
         <section id="freelance" class="py-24 section-darker px-4">
             <div class="max-w-7xl mx-auto">
                 <div class="text-center mb-16" data-aos="fade-up">
@@ -574,196 +634,187 @@
                     <p class="section-subtitle">Professional design services tailored to your business needs.</p>
                 </div>
 
-                <!-- Service Tabs -->
                 <div class="flex flex-wrap justify-center gap-4 mb-12" data-aos="fade-up">
                     <button class="service-tab px-6 py-3 rounded-full text-sm font-semibold active" onclick="switchService('logo')">Logo Design</button>
                     <button class="service-tab px-6 py-3 rounded-full text-sm font-semibold" onclick="switchService('social')">Social Media</button>
                     <button class="service-tab px-6 py-3 rounded-full text-sm font-semibold" onclick="switchService('printing')">Printing</button>
                 </div>
 
-                <!-- Logo Design Panel -->
                 <div id="logo-panel" class="service-panel block">
-                    <!-- Single Package Card with Lift Effect -->
                     <div class="minimalist-card flex flex-col md:flex-row gap-8 items-center" data-aos="fade-up">
                         <div class="flex-1">
                             <div class="flex items-center mb-6">
-                                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mr-4 text-black"><i class="fas fa-pen-nib"></i></div>
-                                <h3 class="text-2xl font-bold text-white">Logo Design</h3>
+                                <div class="icon-circle mr-4"><i class="fas fa-pen-nib"></i></div>
+                                <h3 class="text-2xl font-bold text-black">Logo Design</h3>
                             </div>
-                            <p class="text-gray-400 mb-6">လူကြီးမင်း၏ brand identity နှင့် လုပ်ငန်းကိုယ်စားပြုသော အမှတ်တံဆိပ်ဒီဇိုင်းများ</p>
-                            <ul class="space-y-3 mb-8 text-gray-300">
-                                <li class="flex items-center"><i class="fas fa-check text-9dae11 mr-3"></i> 3 Premium Concepts</li>
-                                <li class="flex items-center"><i class="fas fa-check text-9dae11 mr-3"></i> 2-3 Revisions</li>
-                                <li class="flex items-center"><i class="fas fa-check text-9dae11 mr-3"></i> Logo Guideline Book (PDF)</li>
-                                <li class="flex items-center"><i class="fas fa-check text-9dae11 mr-3"></i> All Source Files (Ai, EPS, SVG, PNG)</li>
-                                <li class="flex items-center"><i class="fas fa-check text-9dae11 mr-3"></i> Color & B/W Variations</li>
-                                <li class="flex items-center"><i class="fas fa-check text-9dae11 mr-3"></i> Typography Selection</li>
-                                <li class="flex items-center"><i class="fas fa-check text-9dae11 mr-3"></i> 3D Mockups & Social Media Kit</li>
-                                <li class="flex items-center"><i class="fas fa-check text-9dae11 mr-3"></i> 3-5 Days Delivery</li>
+                            <p class="text-[#323232] mb-6">လူကြီးမင်း၏ brand identity နှင့် လုပ်ငန်းကိုယ်စားပြုသော အမှတ်တံဆိပ်ဒီဇိုင်းများ</p>
+                            <ul class="space-y-3 mb-8 text-[#555]">
+                                <li class="flex items-center"><i class="fas fa-check text-green-600 mr-3"></i> 3 Premium Concepts</li>
+                                <li class="flex items-center"><i class="fas fa-check text-green-600 mr-3"></i> 2-3 Revisions</li>
+                                <li class="flex items-center"><i class="fas fa-check text-green-600 mr-3"></i> Logo Guideline Book (PDF)</li>
+                                <li class="flex items-center"><i class="fas fa-check text-green-600 mr-3"></i> All Source Files (Ai, EPS, SVG, PNG)</li>
+                                <li class="flex items-center"><i class="fas fa-check text-green-600 mr-3"></i> Color & B/W Variations</li>
+                                <li class="flex items-center"><i class="fas fa-check text-green-600 mr-3"></i> Typography Selection</li>
+                                <li class="flex items-center"><i class="fas fa-check text-green-600 mr-3"></i> 3D Mockups & Social Media Kit</li>
+                                <li class="flex items-center"><i class="fas fa-check text-green-600 mr-3"></i> 3-5 Days Delivery</li>
                             </ul>
                         </div>
-                        <div class="flex-1 w-full bg-1a1a1a p-6 rounded-xl border border-333">
+                        <div class="flex-1 w-full bg-gray-50 p-6 rounded-xl border border-gray-200">
                             <div class="text-center">
                                 <p class="text-sm text-gray-500 uppercase tracking-widest mb-2">စတင်သည့်စျေးနှုန်း</p>
-                                <h4 class="text-3xl font-bold text-white mb-6">300,000 MMK</h4>
+                                <h4 class="text-3xl font-bold text-black mb-6">300,000 MMK</h4>
                                 <a href="#contact" class="btn-primary w-full block text-center">Contact Us</a>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Additional Info for Logo Design -->
-                    <div class="mt-8 p-6 bg-111 rounded-xl border border-333" data-aos="fade-up" data-aos-delay="100">
-                        <h4 class="font-semibold text-gray-400 mb-3 flex items-center">
-                            <i class="fas fa-info-circle text-9dae11 mr-3"></i> Logo Design အတွက် လူကြီးမင်းတို့ သိထားသင့်တဲ့အချက်အလက်များ
+                    <div class="mt-8 p-6 bg-white rounded-xl border border-gray-200 shadow-sm" data-aos="fade-up" data-aos-delay="100">
+                        <h4 class="font-semibold text-black mb-3 flex items-center">
+                            <i class="fas fa-info-circle text-[#a7e169] mr-3"></i> Logo Design အတွက် လူကြီးမင်းတို့ သိထားသင့်တဲ့အချက်အလက်များ
                         </h4>
-                        <ul class="space-y-2 text-gray-500 text-sm">
+                        <ul class="space-y-2 text-[#555] text-sm">
                             <li class="flex items-start">
-                                <span class="text-9dae11 mr-2">→</span>
+                                <span class="text-[#a7e169] mr-2">→</span>
                                 <span>မိမိ၏ brand identity၊ target audience နှင့် design preferences များကို ကြိုတင်ဆွေးနွေးခြင်း</span>
                             </li>
                             <li class="flex items-start">
-                                <span class="text-9dae11 mr-2">→</span>
+                                <span class="text-[#a7e169] mr-2">→</span>
                                 <span>Design concepts ၂-၃ ခု</span>
                             </li>
                             <li class="flex items-start">
-                                <span class="text-9dae11 mr-2">→</span>
+                                <span class="text-[#a7e169] mr-2">→</span>
                                 <span>ရွေးချယ်ထားသော concept အတွက် Revisions လုပ်ဆောင်ခြင်း</span>
                             </li>
                             <li class="flex items-start">
-                                <span class="text-9dae11 mr-2">→</span>
+                                <span class="text-[#a7e169] mr-2">→</span>
                                 <span>Final logo အတည်ပြုပြီး၊ source files အားလုံးပေးအပ်ခြင်း</span>
                             </li>
                             <li class="flex items-start">
-                                <span class="text-9dae11 mr-2">→</span>
+                                <span class="text-[#a7e169] mr-2">→</span>
                                 <span>ကြိုတင်ငွေ ၅၀% ပေးချေခြင်း၊ ကျန် ၅၀% ကို logo finalized လုပ်ပြီး ပေးချေခြင်း</span>
                             </li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- Social Panel -->
                 <div id="social-panel" class="service-panel hidden">
                     <div class="mb-6" data-aos="fade-up">
                         <div class="flex items-center mb-4">
-                            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mr-4 text-black"><i class="fas fa-hashtag"></i></div>
-                            <h3 class="text-2xl font-bold text-white">Social Media Design</h3>
+                            <div class="icon-circle mr-4"><i class="fas fa-hashtag"></i></div>
+                            <h3 class="text-2xl font-bold text-black">Social Media Design</h3>
                         </div>
-                        <p class="text-gray-400">Social Media အတွက် visual design များ</p>
+                        <p class="text-[#323232]">Social Media အတွက် visual design များ</p>
                     </div>
 
-                    <!-- 3 Packages Grid with Lift Effect -->
                     <div class="grid md:grid-cols-3 gap-6 mt-8">
-                        <!-- Starter Package -->
                         <div class="minimalist-card" data-aos="fade-up">
                             <div class="flex items-center justify-between mb-3">
-                                <h4 class="font-semibold text-white text-lg">Starter Pack</h4>
-                                <div class="flex items-center bg-black px-3 py-1 rounded-full">
-                                    <div class="flex text-9dae11 mr-1">
+                                <h4 class="font-semibold text-black text-lg">Starter Pack</h4>
+                                <div class="flex items-center bg-gray-100 px-3 py-1 rounded-full">
+                                    <div class="flex text-[#a7e169] mr-1">
                                         <i class="fas fa-star text-xs"></i>
                                         <i class="fas fa-star text-xs"></i>
                                         <i class="fas fa-star text-xs"></i>
                                         <i class="fas fa-star text-xs"></i>
                                         <i class="fas fa-star text-xs"></i>
                                     </div>
-                                    <span class="text-xs font-semibold text-9dae11">Top Rated</span>
+                                    <span class="text-xs font-semibold text-gray-700">Top Rated</span>
                                 </div>
                             </div>
                             <div class="flex items-baseline gap-2 mb-2">
-                                <span class="text-3xl font-bold text-white">240,000</span>
-                                <span class="text-sm text-gray-400">MMK/month</span>
+                                <span class="text-3xl font-bold text-black">240,000</span>
+                                <span class="text-sm text-gray-500">MMK/month</span>
                             </div>
                             
-                            <ul class="text-sm text-gray-300 space-y-3 mb-6">
+                            <ul class="text-sm text-[#555] space-y-3 mb-6">
                                 <li class="flex items-start">
-                                    <span class="text-9dae11 mr-2">✓</span>
+                                    <span class="text-green-600 mr-2">✓</span>
                                     <span>တစ်လလျှင် social media design ၈ ခု</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <span class="text-9dae11 mr-2">✓</span>
+                                    <span class="text-green-600 mr-2">✓</span>
                                     <span>Revision ၂ ကြိမ် အခမဲ့ပြင်ဆင်ပေးခြင်း</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <span class="text-9dae11 mr-2">✓</span>
+                                    <span class="text-green-600 mr-2">✓</span>
                                     <span>Final graphics (PNG/JPG)</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <span class="text-9dae11 mr-2">✓</span>
+                                    <span class="text-green-600 mr-2">✓</span>
                                     <span>Content ကိုယ်တိုင်ရေးပေးရမည်</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <span class="text-9dae11 mr-2">✓</span>
+                                    <span class="text-green-600 mr-2">✓</span>
                                     <span>နံနက် ၈:၃၀ - ည ၆း၃၀</span>
                                 </li>
                             </ul>
                             <a href="#contact" class="btn-primary w-full block text-center">Starter ရွေးမည်</a>
                         </div>
 
-                        <!-- Growth Package -->
                         <div class="minimalist-card" data-aos="fade-up" data-aos-delay="100">
-                            <h4 class="font-semibold text-white text-lg mb-3">Growth Pack</h4>
+                            <h4 class="font-semibold text-black text-lg mb-3">Growth Pack</h4>
                             <div class="flex items-baseline gap-2 mb-2">
-                                <span class="text-3xl font-bold text-white">432,000</span>
-                                <span class="text-sm text-gray-400">MMK/month</span>
+                                <span class="text-3xl font-bold text-black">432,000</span>
+                                <span class="text-sm text-gray-500">MMK/month</span>
                             </div>
                             <div class="flex items-baseline gap-2 mb-6">
-                                <span class="text-sm text-gray-500 line-through">480,000 MMK</span>
-                                <span class="text-sm text-green-500 font-semibold">10% OFF</span>
+                                <span class="text-sm text-gray-400 line-through">480,000 MMK</span>
+                                <span class="text-sm text-green-600 font-semibold">10% OFF</span>
                             </div>
-                            <ul class="text-sm text-gray-300 space-y-3 mb-6">
+                            <ul class="text-sm text-[#555] space-y-3 mb-6">
                                 <li class="flex items-start">
-                                    <span class="text-9dae11 mr-2">✓</span>
+                                    <span class="text-green-600 mr-2">✓</span>
                                     <span>တစ်လလျှင် social media design ၁၆ ခု</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <span class="text-9dae11 mr-2">✓</span>
+                                    <span class="text-green-600 mr-2">✓</span>
                                     <span>Revision ၂ ကြိမ် အခမဲ့ပြင်ဆင်ပေးခြင်း</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <span class="text-9dae11 mr-2">✓</span>
+                                    <span class="text-green-600 mr-2">✓</span>
                                     <span>Final graphics (PNG/JPG)</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <span class="text-9dae11 mr-2">✓</span>
+                                    <span class="text-green-600 mr-2">✓</span>
                                     <span>Content ကိုယ်တိုင်ရေးပေးရမည်</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <span class="text-9dae11 mr-2">✓</span>
+                                    <span class="text-green-600 mr-2">✓</span>
                                     <span>နံနက် ၈:၃၀ - ည ၆း၃၀</span>
                                 </li>
                             </ul>
                             <a href="#contact" class="btn-primary w-full block text-center">Growth ရွေးမည်</a>
                         </div>
 
-                        <!-- Pro Package -->
                         <div class="minimalist-card" data-aos="fade-up" data-aos-delay="200">
-                            <h4 class="font-semibold text-white text-lg mb-3">Pro Pack</h4>
+                            <h4 class="font-semibold text-black text-lg mb-3">Pro Pack</h4>
                             <div class="flex items-baseline gap-2 mb-2">
-                                <span class="text-3xl font-bold text-white">648,000</span>
-                                <span class="text-sm text-gray-400">MMK/လ</span>
+                                <span class="text-3xl font-bold text-black">648,000</span>
+                                <span class="text-sm text-gray-500">MMK/month</span>
                             </div>
                             <div class="flex items-baseline gap-2 mb-6">
-                                <span class="text-sm text-gray-500 line-through">720,000 MMK</span>
-                                <span class="text-sm text-green-500 font-semibold">10% OFF</span>
+                                <span class="text-sm text-gray-400 line-through">720,000 MMK</span>
+                                <span class="text-sm text-green-600 font-semibold">10% OFF</span>
                             </div>
-                            <ul class="text-sm text-gray-300 space-y-3 mb-6">
+                            <ul class="text-sm text-[#555] space-y-3 mb-6">
                                 <li class="flex items-start">
-                                    <span class="text-9dae11 mr-2">✓</span>
+                                    <span class="text-green-600 mr-2">✓</span>
                                     <span>တစ်လလျှင် social media design ၂၀ ခု</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <span class="text-9dae11 mr-2">✓</span>
+                                    <span class="text-green-600 mr-2">✓</span>
                                     <span>Revision ၂ ကြိမ် အခမဲ့ပြင်ဆင်ပေးခြင်း</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <span class="text-9dae11 mr-2">✓</span>
+                                    <span class="text-green-600 mr-2">✓</span>
                                     <span>Final graphics (PNG/JPG)</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <span class="text-9dae11 mr-2">✓</span>
+                                    <span class="text-green-600 mr-2">✓</span>
                                     <span>Content ကိုယ်တိုင်ရေးပေးရမည်</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <span class="text-9dae11 mr-2">✓</span>
+                                    <span class="text-green-600 mr-2">✓</span>
                                     <span>နံနက် ၈:၃၀ - ည ၉:၃၀</span>
                                 </li>
                             </ul>
@@ -771,61 +822,58 @@
                         </div>
                     </div>
 
-                    <!-- Additional Info for Social Media Design -->
-                    <div class="mt-8 p-6 bg-111 rounded-xl border border-333" data-aos="fade-up" data-aos-delay="100">
-                        <h4 class="font-semibold text-white mb-4 flex items-center text-lg">
-                            <i class="fas fa-info-circle text-9dae11 mr-3"></i> Social Media Design အတွက် သိထားသင့်တဲ့အချက်အလက်များ
+                    <div class="mt-8 p-6 bg-white rounded-xl border border-gray-200 shadow-sm" data-aos="fade-up" data-aos-delay="100">
+                        <h4 class="font-semibold text-black mb-4 flex items-center text-lg">
+                            <i class="fas fa-info-circle text-[#a7e169] mr-3"></i> Social Media Design အတွက် သိထားသင့်တဲ့အချက်အလက်များ
                         </h4>
-                        <ul class="space-y-3 text-gray-400 text-sm">
+                        <ul class="space-y-3 text-[#555] text-sm">
                             <li class="flex items-start">
-                                <span class="text-9dae11 mr-3 mt-1">→</span>
+                                <span class="text-[#a7e169] mr-3 mt-1">→</span>
                                 <span>လစဉ် content calendar ဖြင့် design direction ကို ရှင်းလင်းဆွေးနွေးခြင်း</span>
                             </li>
                             <li class="flex items-start">
-                                <span class="text-9dae11 mr-3 mt-1">→</span>
+                                <span class="text-[#a7e169] mr-3 mt-1">→</span>
                                 <span>Post designs များကို batch လိုက် ပေးအပ်ပြီး review လုပ်ခြင်း</span>
                             </li>
                             <li class="flex items-start">
-                                <span class="text-9dae11 mr-3 mt-1">→</span>
+                                <span class="text-[#a7e169] mr-3 mt-1">→</span>
                                 <span>Package ထက်ကျော်လွန်သောပို့စ် များကို တစ်ပုံစျေးနူန်းဖြင့်ပြုလုပ်ပေးခြင်း</span>
                             </li>
                             <li class="flex items-start">
-                                <span class="text-9dae11 mr-3 mt-1">→</span>
+                                <span class="text-[#a7e169] mr-3 mt-1">→</span>
                                 <span>လစဉ် package - အသုံးမပြုသော posts များ နောက်လသို့ ရွှေ့ယူလို့မရပါ</span>
                             </li>
                             <li class="flex items-start">
-                                <span class="text-9dae11 mr-3 mt-1">→</span>
+                                <span class="text-[#a7e169] mr-3 mt-1">→</span>
                                 <span>၃ လ commitment ပြုလုပ်ပါက စုစုပေါင်း package ဈေးနှုန်းတွင် 10% လျှော့စျေးရရှိမည်</span>
                             </li>
                             <li class="flex items-start">
-                                <span class="text-9dae11 mr-3 mt-1">→</span>
+                                <span class="text-[#a7e169] mr-3 mt-1">→</span>
                                 <span>Content copywriting ကို လူကြီးမင်းတို့ဆီမှ ပေးအပ်ရမည် (design-only service)</span>
                             </li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- Printing Panel -->
                 <div id="printing-panel" class="service-panel hidden">
-                    <!-- Single Package Card with Lift Effect -->
                     <div class="minimalist-card flex flex-col md:flex-row gap-8 items-center" data-aos="fade-up">
                         <div class="flex-1">
                             <div class="flex items-center mb-6">
-                                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mr-4 text-black"><i class="fas fa-print"></i></div>
-                                <h3 class="text-2xl font-bold text-white">Printing Design</h3>
+                                <div class="icon-circle mr-4"><i class="fas fa-print"></i></div>
+                                <h3 class="text-2xl font-bold text-black">Printing Design</h3>
                             </div>
-                            <p class="text-gray-400 mb-6">ပုံနှိပ်ပစ္စည်းများအတွက် အရည်အသွေးမြင့် ဒီဇိုင်းများ</p>
-                            <ul class="space-y-3 mb-8 text-gray-300">
-                                <li class="flex items-center"><i class="fas fa-check text-9dae11 mr-3"></i> Business Cards & Stationery</li>
-                                <li class="flex items-center"><i class="fas fa-check text-9dae11 mr-3"></i> Flyers & Brochures</li>
-                                <li class="flex items-center"><i class="fas fa-check text-9dae11 mr-3"></i> Packaging Design</li>
-                                <li class="flex items-center"><i class="fas fa-check text-9dae11 mr-3"></i> VIP Card Design</li>
+                            <p class="text-[#323232] mb-6">ပုံနှိပ်ပစ္စည်းများအတွက် အရည်အသွေးမြင့် ဒီဇိုင်းများ</p>
+                            <ul class="space-y-3 mb-8 text-[#555]">
+                                <li class="flex items-center"><i class="fas fa-check text-green-600 mr-3"></i> Business Cards & Stationery</li>
+                                <li class="flex items-center"><i class="fas fa-check text-green-600 mr-3"></i> Flyers & Brochures</li>
+                                <li class="flex items-center"><i class="fas fa-check text-green-600 mr-3"></i> Packaging Design</li>
+                                <li class="flex items-center"><i class="fas fa-check text-green-600 mr-3"></i> VIP Card Design</li>
                             </ul>
                         </div>
-                        <div class="flex-1 w-full bg-1a1a1a p-6 rounded-xl border border-333">
+                        <div class="flex-1 w-full bg-gray-50 p-6 rounded-xl border border-gray-200">
                             <div class="text-center">
                                 <p class="text-sm text-gray-500 uppercase tracking-widest mb-2">စတင်သည့်စျေးနှုန်း</p>
-                                <h4 class="text-3xl font-bold text-white mb-6">70,000 MMK</h4>
+                                <h4 class="text-3xl font-bold text-black mb-6">70,000 MMK</h4>
                                 <a href="#contact" class="btn-primary w-full block text-center">စျေးနှုန်းမေးမည်</a>
                             </div>
                         </div>
@@ -834,7 +882,6 @@
             </div>
         </section>
 
-        <!-- Testimonials Section -->
         <section id="testimonials" class="py-24 section-dark px-4">
             <div class="max-w-7xl mx-auto">
                 <div class="text-center mb-16" data-aos="fade-up">
@@ -843,69 +890,65 @@
                 </div>
                 <div class="grid md:grid-cols-2 gap-8">
 
-                    <!-- Review 1 -->
                     <div class="minimalist-card" data-aos="fade-up">
-                        <div class="flex text-[#9dae11] mb-4">
+                        <div class="flex text-[#a7e169] mb-4">
                             <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                         </div>
-                        <p class="text-gray-300 mb-6 italic">"Batch 1 ဆိုပေမဲ့ စိတ်ရှည်ရှည်နဲ့ သင်ပြတဲ့အတွက် Illustrator အခြေခံတဲ့မသိတဲ့သူတောင် ၄ ပတ်လောက်နဲ့ေ တော်တော် ဆွဲနိုင်နေတယ် tools တခုချင်းစီ စိတ်ရှည်ရှည်နဲ့ အလိုလိုက်တဲ့အတွက် basic သင်ချင်တဲ့သူတွေအတွက် တကယ်ထိရောက်တဲ့ သင်တန်းပါ"</p>
-                        <div class="flex items-center border-t border-[#333] pt-4">
-                            <div class="w-10 h-10 rounded-full bg-gray-700 mr-4 overflow-hidden">
-                                <img src="reviews-photos/review-1.jpg" alt="Reviewer" class="w-full h-full object-cover">
+                        <p class="text-[#323232] mb-6 italic">"Batch 1 ဆိုပေမဲ့ စိတ်ရှည်ရှည်နဲ့ သင်ပြတဲ့အတွက် Illustrator အခြေခံတဲ့မသိတဲ့သူတောင် ၄ ပတ်လောက်နဲ့ေ တော်တော် ဆွဲနိုင်နေတယ် tools တခုချင်းစီ စိတ်ရှည်ရှည်နဲ့ အလိုလိုက်တဲ့အတွက် basic သင်ချင်တဲ့သူတွေအတွက် တကယ်ထိရောက်တဲ့ သင်တန်းပါ"</p>
+                        <div class="flex items-center border-t border-gray-200 pt-4">
+                            <div class="w-10 h-10 rounded-full bg-gray-200 mr-4 overflow-hidden">
+                                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768369639/review-1_jnh9b3.jpg" alt="Reviewer" class="w-full h-full object-cover">
                             </div>
                             <div>
-                                <h4 class="font-bold text-white text-sm">Lwin Oo Maung</h4>
+                                <h4 class="font-bold text-black text-sm">Lwin Oo Maung</h4>
                                 <p class="text-xs text-gray-500">Batch 1 Student</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Review 2 -->
                     <div class="minimalist-card" data-aos="fade-up" data-aos-delay="100">
-                        <div class="flex text-[#9dae11] mb-4">
+                        <div class="flex text-[#a7e169] mb-4">
                             <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                         </div>
-                        <p class="text-gray-300 mb-6 italic">"illustratorကိုအခုမှစလေ့လာမယ်ဆိုတဲ့ ညီကိုမောင်နှမတွေလည်း batch2မှာ လာတက်စေချင်တယ် စေသနာပါပါနဲ့ သေချာသင်ပေးတဲ့ဆရာမို့ recommendပေးတာပါ အခြေခံကစပြီးသေချာသင်ပေးတာမလို့ တကယ်တက်ကြည့်စေချင်တယ် မသိတာရှိရင်လည်းအချိန်မရွေးမေးလို့ရတယ် ဆရာကတော်တော်သဘောကောင်းတယ်"</p>
-                        <div class="flex items-center border-t border-[#333] pt-4">
-                            <div class="w-10 h-10 rounded-full bg-gray-700 mr-4 overflow-hidden">
-                                <img src="reviews-photos/review-2.jpg" alt="Reviewer" class="w-full h-full object-cover">
+                        <p class="text-[#323232] mb-6 italic">"illustratorကိုအခုမှစလေ့လာမယ်ဆိုတဲ့ ညီကိုမောင်နှမတွေလည်း batch2မှာ လာတက်စေချင်တယ် စေသနာပါပါနဲ့ သေချာသင်ပေးတဲ့ဆရာမို့ recommendပေးတာပါ အခြေခံကစပြီးသေချာသင်ပေးတာမလို့ တကယ်တက်ကြည့်စေချင်တယ် မသိတာရှိရင်လည်းအချိန်မရွေးမေးလို့ရတယ် ဆရာကတော်တော်သဘောကောင်းတယ်"</p>
+                        <div class="flex items-center border-t border-gray-200 pt-4">
+                            <div class="w-10 h-10 rounded-full bg-gray-200 mr-4 overflow-hidden">
+                                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768369637/review-2_ynnmgo.jpg" alt="Reviewer" class="w-full h-full object-cover">
                             </div>
                             <div>
-                                <h4 class="font-bold text-white text-sm">Thar Htet Aung</h4>
+                                <h4 class="font-bold text-black text-sm">Thar Htet Aung</h4>
                                 <p class="text-xs text-gray-500">Batch 2 Student</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Review 3 -->
                     <div class="minimalist-card" data-aos="fade-up" data-aos-delay="200">
-                        <div class="flex text-[#9dae11] mb-4">
+                        <div class="flex text-[#a7e169] mb-4">
                             <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                         </div>
-                        <p class="text-gray-300 mb-6 italic">"illustratorကိုအခုမှစလေ့လာမယ်ဆိုတဲ့ ညီကိုမောင်နှမတွေလည်း 24ARTမှာ လာတက်စေချင်တယ် စေသနာပါပါနဲ့ သေချာသင်ပေးတဲ့ဆရာမို့ recommendပေးတာပါ အခြေခံကစပြီးသေချာသင်ပေးတာမလို့ တကယ်တက်ကြည့်စေချင်တယ် မသိတာရှိရင်လည်းအချိန်မရွေးမေးလို့ရတယ် ဆရာကတော်တော်သဘောကောင်းပါတယ်ရှင့်။"</p>
-                        <div class="flex items-center border-t border-[#333] pt-4">
-                            <div class="w-10 h-10 rounded-full bg-gray-700 mr-4 overflow-hidden">
-                                <img src="reviews-photos/review-3.jpg" alt="Reviewer" class="w-full h-full object-cover">
+                        <p class="text-[#323232] mb-6 italic">"illustratorကိုအခုမှစလေ့လာမယ်ဆိုတဲ့ ညီကိုမောင်နှမတွေလည်း 24ARTမှာ လာတက်စေချင်တယ် စေသနာပါပါနဲ့ သေချာသင်ပေးတဲ့ဆရာမို့ recommendပေးတာပါ အခြေခံကစပြီးသေချာသင်ပေးတာမလို့ တကယ်တက်ကြည့်စေချင်တယ် မသိတာရှိရင်လည်းအချိန်မရွေးမေးလို့ရတယ် ဆရာကတော်တော်သဘောကောင်းပါတယ်ရှင့်။"</p>
+                        <div class="flex items-center border-t border-gray-200 pt-4">
+                            <div class="w-10 h-10 rounded-full bg-gray-200 mr-4 overflow-hidden">
+                                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768369639/review-3_pz6hvq.jpg" alt="Reviewer" class="w-full h-full object-cover">
                             </div>
                             <div>
-                                <h4 class="font-bold text-white text-sm">Min Ta Waw Marn</h4>
+                                <h4 class="font-bold text-black text-sm">Ma May Phyu Thaw</h4>
                                 <p class="text-xs text-gray-500">Batch 3 Student</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Review 4 -->
                     <div class="minimalist-card" data-aos="fade-up" data-aos-delay="300">
-                        <div class="flex text-[#9dae11] mb-4">
+                        <div class="flex text-[#a7e169] mb-4">
                             <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                         </div>
-                        <p class="text-gray-300 mb-6 italic">"Illustrator ကိုအခုမှစလေ့လာမယ့်သူတွေအတွက်တကယ်အဆင်ပြေတဲ့ သင်တန်းပါ။ By one ဆရာနဲ့သင်တာပါ။ ဆရာကစိတ်ရှည်ပြီးသေသေချာချာလေးရှင်းပြပေးတယ်။ စေတနာပါပါနဲ့သင်ပေးတဲ့ဆရာမို့ လုံး၀ Highly recommend ပေးပါတယ်။ 👏👏"</p>
-                        <div class="flex items-center border-t border-[#333] pt-4">
-                            <div class="w-10 h-10 rounded-full bg-gray-700 mr-4 overflow-hidden">
-                                <img src="reviews-photos/review-4.jpg" alt="Reviewer" class="w-full h-full object-cover">
+                        <p class="text-[#323232] mb-6 italic">"Illustrator ကိုအခုမှစလေ့လာမယ့်သူတွေအတွက်တကယ်အဆင်ပြေတဲ့ သင်တန်းပါ။ By one ဆရာနဲ့သင်တာပါ။ ဆရာကစိတ်ရှည်ပြီးသေသေချာချာလေးရှင်းပြပေးတယ်။ စေတနာပါပါနဲ့သင်ပေးတဲ့ဆရာမို့ လုံး၀ Highly recommend ပေးပါတယ်။ 👏👏"</p>
+                        <div class="flex items-center border-t border-gray-200 pt-4">
+                            <div class="w-10 h-10 rounded-full bg-gray-200 mr-4 overflow-hidden">
+                                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768369638/review-4_mmpa8x.jpg" alt="Reviewer" class="w-full h-full object-cover">
                             </div>
                             <div>
-                                <h4 class="font-bold text-white text-sm">Su Myat Mon</h4>
+                                <h4 class="font-bold text-black text-sm">Su Myat Mon</h4>
                                 <p class="text-xs text-gray-500">By One Student</p>
                             </div>
                         </div>
@@ -915,7 +958,6 @@
             </div>
         </section>
 
-        <!-- Contact Section -->
         <section id="contact" class="py-24 section-darker px-4">
             <div class="max-w-7xl mx-auto">
                 <div class="text-center mb-16" data-aos="fade-up">
@@ -925,48 +967,44 @@
 
                 <div class="max-w-4xl mx-auto">
 
-                    <!-- Contact Info List -->
                     <div class="space-y-6 mb-12" data-aos="fade-up" data-aos-delay="100">
 
-                        <!-- Phone -->
                         <a href="tel:09953681497" class="simple-contact-item group">
                             <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 flex items-center justify-center text-[#888] group-hover:text-white transition-colors">
-                                    <i class="fas fa-phone-alt text-xl"></i>
+                                <div class="icon-circle group-hover:bg-[#333] transition-colors">
+                                    <i class="fas fa-phone-alt text-lg"></i>
                                 </div>
                                 <div class="flex-1">
-                                    <p class="text-gray-400 text-xs uppercase tracking-wider mb-1">Phone</p>
-                                    <p class="text-white text-lg font-medium">09 953 681 497</p>
+                                    <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Phone</p>
+                                    <p class="text-black text-lg font-medium">09 953 681 497</p>
                                     <p class="text-gray-500 text-sm">Mon-Sat, 9am - 6pm</p>
                                 </div>
-                                <i class="fas fa-arrow-right text-gray-600 group-hover:text-white group-hover:translate-x-1 transition-all"></i>
+                                <i class="fas fa-arrow-right text-gray-400 group-hover:text-black group-hover:translate-x-1 transition-all"></i>
                             </div>
                         </a>
 
-                        <!-- Email -->
                         <a href="mailto:artdeone.educators@gmail.com" class="simple-contact-item group">
                             <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 flex items-center justify-center text-[#888] group-hover:text-white transition-colors">
-                                    <i class="fas fa-envelope text-xl"></i>
+                                <div class="icon-circle group-hover:bg-[#333] transition-colors">
+                                    <i class="fas fa-envelope text-lg"></i>
                                 </div>
                                 <div class="flex-1">
-                                    <p class="text-gray-400 text-xs uppercase tracking-wider mb-1">Email</p>
-                                    <p class="text-white text-lg font-medium break-all">artdeone.educators@gmail.com</p>
+                                    <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Email</p>
+                                    <p class="text-black text-lg font-medium break-all">artdeone.educators@gmail.com</p>
                                     <p class="text-gray-500 text-sm">Response within 24 hours</p>
                                 </div>
-                                <i class="fas fa-arrow-right text-gray-600 group-hover:text-white group-hover:translate-x-1 transition-all"></i>
+                                <i class="fas fa-arrow-right text-gray-400 group-hover:text-black group-hover:translate-x-1 transition-all"></i>
                             </div>
                         </a>
 
-                        <!-- Location -->
                         <div class="simple-contact-item">
                             <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 flex items-center justify-center text-[#888]">
-                                    <i class="fas fa-map-marker-alt text-xl"></i>
+                                <div class="icon-circle">
+                                    <i class="fas fa-map-marker-alt text-lg"></i>
                                 </div>
                                 <div class="flex-1">
-                                    <p class="text-gray-400 text-xs uppercase tracking-wider mb-1">Location</p>
-                                    <p class="text-white text-lg font-medium">Yangon, Myanmar</p>
+                                    <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Location</p>
+                                    <p class="text-black text-lg font-medium">Yangon, Myanmar</p>
                                     <p class="text-gray-500 text-sm">Studio & Teaching Space</p>
                                 </div>
                             </div>
@@ -974,24 +1012,22 @@
 
                     </div>
 
-                    <!-- Divider -->
-                    <div class="border-t border-[#222] my-12" data-aos="fade-up" data-aos-delay="200"></div>
+                    <div class="border-t border-gray-300 my-12" data-aos="fade-up" data-aos-delay="200"></div>
                         
-                    <!-- Social Media Links -->
                     <div class="text-center" data-aos="fade-up" data-aos-delay="300">
-                        <p class="text-gray-400 text-sm uppercase tracking-wider mb-6">Connect With Us</p>
+                        <p class="text-gray-500 text-sm uppercase tracking-wider mb-6">Connect With Us</p>
                         <div class="flex justify-center gap-6">
                             <a href="https://www.facebook.com/artdeone/" target="_blank" class="simple-social-link group">
-                                <i class="fab fa-facebook-f text-2xl text-[#888] group-hover:text-white transition-colors"></i>
+                                <i class="fab fa-facebook-f text-2xl text-gray-400 group-hover:text-[#ed2939] transition-colors"></i>
                             </a>
                             <a href="https://www.behance.net/phyomin7" target="_blank" class="simple-social-link group">
-                                <i class="fab fa-behance text-2xl text-[#888] group-hover:text-white transition-colors"></i>
+                                <i class="fab fa-behance text-2xl text-gray-400 group-hover:text-[#ed2939] transition-colors"></i>
                             </a>
                             <a href="https://www.linkedin.com/in/phyo-min-8b1a02134/" target="_blank" class="simple-social-link group">
-                                <i class="fab fa-linkedin-in text-2xl text-[#888] group-hover:text-white transition-colors"></i>
+                                <i class="fab fa-linkedin-in text-2xl text-gray-400 group-hover:text-[#ed2939] transition-colors"></i>
                             </a>
                             <a href="https://www.tiktok.com/@artdeone" target="_blank" class="simple-social-link group">
-                            <i class="fab fa-tiktok text-2xl text-[#888] group-hover:text-white transition-colors"></i>
+                            <i class="fab fa-tiktok text-2xl text-gray-400 group-hover:text-[#ed2939] transition-colors"></i>
                         </a>
                         </div>
                     </div>
@@ -1001,58 +1037,66 @@
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-black text-white py-12 border-t border-[#222]">
+    <footer class="bg-white text-[#323232] py-12 border-t border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-4 gap-8">
                 <div>
-                    <span class="text-xl font-bold mb-4 block">ART de ONE</span>
-                    <p class="text-gray-400 text-sm">
-                        Adobe Illustrator Classes & Freelance Creative Studio in Myanmar
+                    <span class="text-xl font-bold mb-4 block text-black">ART de ONE</span>
+                    <p class="text-gray-500 text-sm">
+                        Freelance Graphic Designer & Illustrator Portfolio, Blog, Resources and Online Courses
                     </p>
                 </div>
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Quick Links</h3>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="#home" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
-                        <li><a href="courses.html" class="text-gray-400 hover:text-white transition duration-300">Courses</a></li>
-                        <li><a href="prompt.html" class="text-gray-400 hover:text-white transition duration-300">Prompts</a></li>
-                        <li><a href="blog.html" class="text-gray-400 hover:text-white transition duration-300">Blog</a></li>
-                        <li><a href="resources/resources-collection.html" class="text-gray-400 hover:text-white transition duration-300">Resources</a></li>
+                        <li><a href="index.html#home" class="text-gray-500 hover:text-black transition duration-300">Home</a></li>
+                      <!--  <li><a href="courses.html" class="text-gray-500 hover:text-black transition duration-300">Courses</a></li> -->
+                        <li><a href="/prompt.html" class="text-gray-500 hover:text-black transition duration-300">Prompts</a></li>
+                        <li><a href="/blog.html" class="text-gray-500 hover:text-black transition duration-300">Blog</a></li>
+                        <li><a href="/resources/resources-collection.html" class="text-gray-500 hover:text-black transition duration-300">Resources</a></li>
                     </ul>
                 </div>
+
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">Classes</h3>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Services</h3>
                     <ul class="space-y-2 text-sm">
-                         <li><a href="courses/basic-illustrator/course-detail-basic.html" class="text-gray-400 hover:text-white transition duration-300">Basic Course</a></li>
-                        <li><a href="courses/intermediate-illustrator/course-detail-intermediate.html" class="text-gray-400 hover:text-white transition duration-300">Intermediate</a></li>
-                        <li><a href="courses/graphic-design/course-detail-graphic-design.html" class="text-gray-400 hover:text-white transition duration-300">Graphic Design</a></li>
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Logo Design</a></li>
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Social Media</a></li>
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Printing</a></li>
                     </ul>
                 </div>
+
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">Services</h3>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Contact</h3>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="#freelance" class="text-gray-400 hover:text-white transition duration-300">Logo Design</a></li>
-                        <li><a href="#freelance" class="text-gray-400 hover:text-white transition duration-300">Social Media</a></li>
-                        <li><a href="#freelance" class="text-gray-400 hover:text-white transition duration-300">Printing</a></li>
+                         <li><a href="/index.html#about" class="text-gray-500 hover:text-black transition duration-300">About</a></li>
+                        <li><a href="/index.html#contact" class="text-gray-500 hover:text-black transition duration-300">Contact</a></li>
                     </ul>
-                </div>
+                </div> 
+                <!-- <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Classes</h3>
+                    <ul class="space-y-2 text-sm">
+                         <li><a href="courses/basic-illustrator/course-detail-basic.html" class="text-gray-500 hover:text-black transition duration-300">Basic Course</a></li>
+                        <li><a href="courses/intermediate-illustrator/course-detail-intermediate.html" class="text-gray-500 hover:text-black transition duration-300">Intermediate</a></li>
+                        <li><a href="courses/graphic-design/course-detail-graphic-design.html" class="text-gray-500 hover:text-black transition duration-300">Graphic Design</a></li>
+                    </ul>
+                </div> -->
+                
             </div>
-            <div class="border-t border-[#222] mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400 text-sm mb-4 md:mb-0">
+            <div class="border-t border-gray-200 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">
                     &copy; 2025 ART de ONE. All rights reserved.
                 </p>
                 <div class="flex space-x-6 text-sm">
-                    <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-behance"></i></a>
-                    <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-behance"></i></a>
+                    <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-tiktok"></i></a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script src="css-and-js/mobile-smooth-nav.js"></script>

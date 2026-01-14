@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-CZRQ0NPPJ2"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -20,102 +19,26 @@
     <link rel="stylesheet" href="/css-and-js/mobile-smooth-nav.css">
     <script src="https://unpkg.com/feather-icons"></script>
     
+    <link rel="stylesheet" href="/css-and-js/theme.css">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        
-        body {
-            background-color: #000;
-            color: #d1d5db;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        /* --- NAVIGATION --- */
-        nav { 
-            background-color: rgba(0,0,0,0.9) !important; 
-            border-bottom: 1px solid #222; 
-            backdrop-filter: blur(12px);
-        }
-        .nav-link { 
-            color: #888 !important; 
-            font-weight: 300;
-            letter-spacing: 0.04em;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
-        }
-        .nav-link:hover { color: #fff !important; }
-        .mobile-menu { background-color: #111 !important; }
-        .mobile-nav-link { color: #ccc !important; }
-
-        /* --- BUTTONS --- */
-        .btn-primary {
-            background-color: #fff;
-            color: #000;
-            font-weight: 600;
-            border-radius: 0.75rem;
-            padding: 0.5rem 1.5rem;
-            transition: all 0.3s ease;
-            font-size: 0.875rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .btn-primary:hover {
-            background-color: #9dae11;
-            color: #fff;
-            transform: translateY(-2px);
-        }
-        .nav-btn {
-            background-color: #fff;
-            color: #000;
-            font-weight: 600;
-            border-radius: 0.5rem;
-            padding: 0.5rem 1.25rem;
-            font-size: 0.8rem;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #fff;
-            height: auto;
-            line-height: 1;
-        }
-        .nav-btn:hover {
-            background-color: #9dae11;
-            border-color: #9dae11;
-            color: #fff;
-            transform: translateY(-1px);
-        }
-
-        /* --- BLOG POST STYLES --- */
+        /* PAGE SPECIFIC BLOG STYLES */
         .post-header {
             padding-top: 8rem;
             padding-bottom: 4rem;
-            border-bottom: 1px solid #222;
+            border-bottom: 1px solid #f3f4f6;
         }
         .post-content {
             font-size: 1.1rem;
             line-height: 1.8;
+            color: #323232;
         }
         .post-content h2 {
-            color: #fff;
+            color: #000;
             font-size: 1.75rem;
             font-weight: 700;
             margin-top: 3rem;
             margin-bottom: 1.5rem;
-        }
-        .post-content h3 {
-            color: #fff;
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-        }
-        .post-content p {
-            margin-bottom: 1.5rem;
-        }
-        .post-content strong {
-            color: #fff;
-            font-weight: 600;
         }
         
         .share-btn {
@@ -125,68 +48,74 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid #333;
-            color: #888;
+            border: 1px solid #e5e7eb;
+            color: #6b7280;
             transition: all 0.3s ease;
         }
         .share-btn:hover {
-            background-color: #fff;
-            color: #000;
-            border-color: #fff;
+            background-color: #000;
+            color: #fff;
+            border-color: #000;
+        }
+
+        .principle-item {
+            background-color: #ffffff;
+            border: 1px solid #f3f4f6;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        .principle-item:hover {
+            border-color: #a7e169;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
         }
 
         .related-card {
-            background-color: #0a0a0a;
-            border: 1px solid #222;
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
             border-radius: 1rem;
             overflow: hidden;
             transition: all 0.4s ease;
         }
         .related-card:hover {
             transform: translateY(-5px);
-            border-color: #333;
+            border-color: #a7e169;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
         }
 
+        .text-accent { color: #a7e169; }
+        
         [data-aos] { transition-duration: 1000ms !important; }
     </style>
 </head>
-<body class="bg-black text-gray-300">
+<body class="bg-white text-[#323232]">
 
-    <!-- Navigation -->
     <nav class="fixed w-full z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 nav-container">
             <div class="nav-wrapper">
                 <div class="flex justify-between h-16 items-center">
-                    <!-- Logo -->
                     <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <a href="/index.html#home" class="flex items-center">
-                                <img src="/logo.png" alt="ART de ONE" class="h-10 w-auto">
-                            </a>
-                        </div>
+                        <a href="/index.html"><img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png" alt="ART de ONE" class="h-10 w-auto"></a>
                     </div>
                     
-                    <!-- Desktop Navigation -->
                     <div class="hidden md:flex items-center space-x-4 nav-center">
                         <a href="/index.html#home" class="nav-link">Home</a>
-                        <a href="/courses.html" class="nav-link">Courses</a>
+                       <!-- <a href="/courses.html" class="nav-link">Courses</a> -->
                         <a href="/prompt.html" class="nav-link">Prompts</a>
-                        <a href="/blog.html" class="nav-link" style="color: #fff !important;">Blog</a>
+                        <a href="/blog.html" class="nav-link font-bold text-black" style="color: #000 !important;">Blog</a>
                         <a href="/resources/resources-collection.html" class="nav-link">Resources</a>
-                        <a href="/index.html#about" class="nav-link">About</a>
+                        
                         <a href="/index.html#contact" class="nav-link">Contact</a>
                     </div>
                     
-                    <!-- Contact Button -->
                     <div class="hidden md:block">
                         <a href="/Private/student-login.html" class="nav-btn">Student Login</a>
                     </div>
                     
-                    <!-- Mobile Menu Button -->
                     <div class="md:hidden flex items-center">
-                        <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white focus:outline-none" id="mobile-menu-button">
-                        <!-- Container to stack icons -->
-                            <div class="icon-container">
+                        <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md hover:bg-gray-100 focus:outline-none" id="mobile-menu-button">
+                            <div class="icon-container text-black">
                                 <i data-feather="menu" class="icon-menu"></i>
                                 <i data-feather="x" class="icon-close"></i>
                             </div>
@@ -196,15 +125,13 @@
             </div>
         </div>
         
-        <!-- Mobile menu -->
-        <div class="mobile-menu md:hidden" id="mobile-menu">
-            <div class="py-2 px-4 space-y-1">
+        <div class="mobile-menu md:hidden hidden" id="mobile-menu">
+            <div class="py-2 px-4 space-y-1 bg-white border-b border-gray-100">
                 <a href="/index.html#home" class="block py-2 mobile-nav-link">Home</a>
-                <a href="/courses.html" class="block py-2 mobile-nav-link">Courses</a>
+                <!-- <a href="/courses.html" class="block py-2 mobile-nav-link">Courses</a> -->
                 <a href="/prompt.html" class="block py-2 mobile-nav-link">Prompts</a>
-                <a href="/blog.html" class="block py-2 mobile-nav-link text-white">Blog</a>
+                <a href="/blog.html" class="block py-2 mobile-nav-link font-bold text-black">Blog</a>
                 <a href="/resources/resources-collection.html" class="block py-2 mobile-nav-link">Resources</a>
-                <a href="/index.html#about" class="block py-2 mobile-nav-link">About</a>
                 <a href="/index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
                 <a href="/Private/student-login.html" class="block py-2 mobile-nav-link">Student Login</a>
             </div>
@@ -212,71 +139,60 @@
     </nav>
 
     <main>
-        <!-- Post Header -->
         <section class="post-header">
             <div class="max-w-3xl mx-auto px-4 text-center" data-aos="fade-up">
                 <div class="flex items-center justify-center gap-4 text-sm text-gray-500 mb-6">
-                    <span class="uppercase tracking-wider text-[#9dae11] font-semibold">Design Principles</span>
+                    <span class="uppercase tracking-widest text-accent font-bold">Design Basics</span>
                     <span>•</span>
                     <span>October 4, 2025</span>
                 </div>
-                <h1 class="text-3xl md:text-5xl font-bold text-white mb-8 leading-tight">
+                <h1 class="text-3xl md:text-5xl font-bold text-black mb-8 leading-tight section-title">
                     ဒီဇိုင်း Principle များအကြောင်း အတိုချုပ် အပိုင်း(၂)
                 </h1>
                 <div class="flex items-center justify-center gap-3">
-                    <div class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-white font-bold text-xs">AD</div>
+                    <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-black font-bold text-xs border border-gray-200">AD</div>
                     <div class="text-left">
-                        <p class="text-white text-sm font-medium">ART de ONE Team</p>
+                        <p class="text-black text-sm font-semibold">ART de ONE Team</p>
                         <p class="text-xs text-gray-500">Author</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Post Image & Content -->
         <section class="py-12 px-4">
             <div class="max-w-3xl mx-auto">
-                <div class="rounded-2xl overflow-hidden mb-12 border border-[#222]" data-aos="fade-up">
+                <div class="rounded-2xl overflow-hidden mb-12 border border-gray-100 shadow-sm" data-aos="fade-up">
                     <img src="images/cover.jpg" alt="Design Principles Part 2" class="w-full h-auto">
                 </div>
 
                 <div class="post-content" data-aos="fade-up">
-                    <p class="text-lg text-gray-300 font-light italic mb-8">
-                        Graphic Design Principles တွေကို Design စတင်လေ့လာမယ့်သူတွေအတွက် အထောက်အကူဖြစ်စေဖို့ ရည်ရွယ်ပြီး အတိုချုပ်လေးတင်ပေးလိုက်ပါတယ်။
+                    <p class="text-xl text-gray-600 font-light mb-12 border-l-4 border-accent pl-6 italic">
+                        အရင်အပိုင်းမှာ Balance, Contrast နဲ့ Emphasis အကြောင်း ပြောပြခဲ့ပြီးပါပြီ။ ဒီနေ့မှာတော့ ကျန်ရှိနေတဲ့ အရေးကြီးတဲ့ အခြေခံမူ ၃ ချက်ကို ထပ်မံရှင်းပြပေးပါမယ်။
                     </p>
                     
-                    <h2>Movement</h2>
-                    <p>
-                        ဒီဇိုင်းမှာ movement ကိုအသုံးပြုတာက ရိုးရိုး static design တွေထက်ပိုပြီး ကိုယ့်ရဲ့ viewer တွေကိုစိတ်ပို၀င်စားစေတယ်။
-                    </p>
-                    <p>
-                        ဥပမာ 5G network ကိုဖုန်းအမျိုးစားတစ်ခုမှာအသုံးပြုလို့ရပြီဆိုပါစို့။ ဒီ ဒီဇိုင်းကိုလုပ်တဲ့အခါ ကျွန်တော်တို့ အငြိမ်လုပ်မလား? movement တွေနဲ့လန်ပြန်နေအောင်လုပ်မလား?
+                    <div class="space-y-6">
+                        <div class="principle-item">
+                            <h2 class="mt-0 text-2xl mb-4">4. Repetition (ထပ်ခါတလဲလဲ အသုံးပြုခြင်း)</h2>
+                            <p>ဒီဇိုင်းတစ်ခုမှာ တူညီတဲ့ Elements တွေကို ထပ်ခါတလဲလဲ သုံးခြင်းအားဖြင့် ဒီဇိုင်းကို ပိုမိုခိုင်မာစေပြီး စည်းစနစ်ကျသွားစေပါတယ်။ Brand identity တွေဖန်တီးရာမှာ အရမ်းအသုံးဝင်ပါတယ်။</p>
+                        </div>
+
+                        <div class="principle-item">
+                            <h2 class="mt-0 text-2xl mb-4">5. Proportion (အချိုးအစား ညီညွတ်ခြင်း)</h2>
+                            <p>Elements တစ်ခုနဲ့တစ်ခုကြားက အရွယ်အစား အချိုးအစားကို ဆိုလိုတာဖြစ်ပါတယ်။ အရာဝတ္ထုတွေရဲ့ အရေးပါမှုကို ဖော်ပြဖို့အတွက် ဒီအချက်က အလွန်အရေးကြီးပါတယ်။</p>
+                        </div>
+
+                        <div class="principle-item">
+                            <h2 class="mt-0 text-2xl mb-4">6. White Space (နေရာလွတ် ချန်ထားခြင်း)</h2>
+                            <p>ဒီဇိုင်းတစ်ခုမှာ အရာအားလုံးကို ပြည့်နှက်နေအောင် မထည့်ဘဲ မျက်စိအေးစေဖို့နဲ့ အချက်အလက်တွေကို သေချာဖတ်ရှုနိုင်ဖို့ နေရာလွတ် (Negative Space) ထားပေးဖို့ လိုအပ်ပါတယ်။</p>
+                        </div>
+                    </div>
+
+                    <p class="mt-10">
+                        ဒီ Principles တွေကို ပိုင်နိုင်စွာ အသုံးချနိုင်မယ်ဆိုရင် သင့်ရဲ့ ဒီဇိုင်းတွေဟာ ပိုမို professional ကျလာမှာ အမှန်ပါပဲ။ ဆက်လက်လေ့လာချင်တယ်ဆိုရင်တော့ ကျွန်တော်တို့ရဲ့ သင်တန်းတွေကို စုံစမ်းနိုင်ပါတယ်။
                     </p>
 
-                    <h2>Emphasis</h2>
-                    <p>
-                        ဆိုတာတူညီတဲ့ circles, shapes, colors, weight တွေကိုကွဲထွက်အောင်လုပ်ပေးတဲ့သဘော။ အဓိကကတော့ Focal point ကိုရှာတဲ့သဘော။
-                    </p>
-                    <p>
-                        ဥပမာ ကိုယ့်ကောင်မလေးကို မွေးနေ့မှာ ပန်းစဥ်းနဲ့ ပူပေါင်းလေးတစ်လုံး လက်ဆောင်ပေးချင်တယ်ဆိုပါစို့။ ပူပေါင်းဆိုင်ကိုသွားမယ်။ ဆိုင်ထဲမှာရှိတဲ့ပူပေါင်းတွေကလဲ အရောင်တွေသိပ်မစုံတော့ဘူး။ အမဲရောင်တွေချည်းပဲဗျာ။ ဒီထဲမှာမှ ရှားရှားပါးပါး အနီရောင်ပူပေါင်းလေးတစ်လုံးကိုတွေ့လိုက်တယ်ဆိုရင် ဘယ်လိုနေမလဲ?
-                    </p>
-
-                    <h2>Proportion</h2>
-                    <p>
-                        Graphic Design မှာ Proportion ဆိုတာက shapes, colors, sizes, weight တွေကိုတစ်ခုနဲ့တစ်ခုတွဲဖက်ညီအောင်လုပ်ဆောင်ပေးတာဖြစ်တယ်။
-                    </p>
-                    <p>
-                        ဥပမာ ကျွန်တော်တို့ရဲ့ ခန္ဓာကိုယ်အချိုးအစားကိုပဲကြည့်ကြည့်ပါ။ သူ့အချိုးအစားနဲ့သူဖွဲ့စဥ်းထားတော့ကြည့်ကောင်းနေတယ်။
-                    </p>
-
-                    <h2>Variety</h2>
-                    <p>
-                        ဒီဇိုင်းတစ်ခုမှာ ကြည့်တဲ့သူတွေရိုးမသွားရအောင်၊ ပျင်းမသွားရအောင် အရောင်အသွေးစုံစုံလင်လင်နဲ့သုံးပေးတာတို့၊ shapes, elements, weight တွေကို မတူညီအောင်အကြီးအသေးတွေ ကစားပေးတာတို့ဖြစ်ပါတယ်။
-                    </p>
-
-                    <!-- Share Buttons -->
-                    <div class="border-t border-[#222] mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center gap-6">
-                        <span class="text-sm font-medium text-gray-400 uppercase tracking-wider">Share this article</span>
+                    <div class="border-t border-gray-100 mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center gap-6">
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Share this article</span>
                         <div class="flex gap-3">
                             <a href="#" class="share-btn"><i class="fab fa-facebook-f"></i></a>
                             <a href="#" class="share-btn"><i class="fab fa-twitter"></i></a>
@@ -288,49 +204,45 @@
             </div>
         </section>
 
-        <!-- Related Posts -->
-        <section class="py-20 bg-[#050505] border-t border-[#222]">
+        <section class="py-20 bg-gray-50 border-t border-gray-100">
             <div class="max-w-7xl mx-auto px-4">
                 <div class="flex justify-between items-end mb-10">
-                    <h2 class="text-2xl font-bold text-white">Related Articles</h2>
-                    <a href="../../blog.html" class="text-sm text-[#9dae11] hover:text-white transition-colors">View all posts →</a>
+                    <h2 class="text-2xl font-bold text-black section-title">Related Articles</h2>
+                    <a href="../../blog.html" class="text-sm font-bold text-accent hover:text-black transition-colors uppercase tracking-wider">View all posts →</a>
                 </div>
                 
                 <div class="grid md:grid-cols-3 gap-8">
-                    <!-- Post 4 -->
                     <a href="../post-4/post-4.html" class="related-card group block">
                         <div class="h-48 overflow-hidden">
-                            <img src="../post-4/images/cover.jpg" alt="Related" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                            <img src="../post-4/images/cover.jpg" alt="Related" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
                         </div>
                         <div class="p-6">
-                            <h3 class="text-lg font-bold text-white mb-2 group-hover:text-[#9dae11] transition-colors">Design Principles (Part 1)</h3>
-                            <p class="text-sm text-gray-500">October 3, 2025</p>
+                            <h3 class="text-lg font-bold text-black mb-2 group-hover:text-accent transition-colors">Design Principles (Part 1)</h3>
+                            <p class="text-xs font-bold text-gray-400 uppercase">October 3, 2025</p>
                         </div>
                     </a>
-                    <!-- Post 3 -->
                     <a href="../post-3/post-3.html" class="related-card group block">
                         <div class="h-48 overflow-hidden">
-                            <img src="../post-3/images/rgb-1.jpg" alt="Related" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                            <img src="../post-3/images/rgb-1.jpg" alt="Related" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
                         </div>
                         <div class="p-6">
-                            <h3 class="text-lg font-bold text-white mb-2 group-hover:text-[#9dae11] transition-colors">RGB သဘောတရား</h3>
-                            <p class="text-sm text-gray-500">October 1, 2025</p>
+                            <h3 class="text-lg font-bold text-black mb-2 group-hover:text-accent transition-colors">RGB သဘောတရား</h3>
+                            <p class="text-xs font-bold text-gray-400 uppercase">October 1, 2025</p>
                         </div>
                     </a>
-                    <!-- Post 2 -->
-                    <a href="../post-2/post-2.html" class="related-card group block">
+                    <a href="../post-1/post-1.html" class="related-card group block">
                         <div class="h-48 overflow-hidden">
-                            <img src="../post-2/images/hue-color-1.jpg" alt="Related" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                            <img src="../post-1/images/blog-image-1.jpg" alt="Related" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
                         </div>
                         <div class="p-6">
-                            <h3 class="text-lg font-bold text-white mb-2 group-hover:text-[#9dae11] transition-colors">HUEs VS COLORS</h3>
-                            <p class="text-sm text-gray-500">October 1, 2025</p>
+                            <h3 class="text-lg font-bold text-black mb-2 group-hover:text-accent transition-colors">Shader & Stipple Brush Free</h3>
+                            <p class="text-xs font-bold text-gray-400 uppercase">September 27, 2025</p>
                         </div>
                     </a>
                 </div>
-                
+
                 <div class="text-center mt-16">
-                    <a href="../../blog.html" class="btn-primary inline-flex gap-2">
+                    <a href="../../blog.html" class="nav-btn px-8 py-3 h-auto inline-flex gap-2">
                         <i data-feather="arrow-left" class="w-4 h-4"></i> Back to All Posts
                     </a>
                 </div>
@@ -338,52 +250,61 @@
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-black text-white py-12 border-t border-[#222]">
+    <footer class="bg-white text-[#323232] py-12 border-t border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-4 gap-8">
                 <div>
-                    <span class="text-xl font-bold mb-4 block">ART de ONE</span>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        Adobe Illustrator Classes & Freelance Creative Studio in Myanmar
+                    <span class="text-xl font-bold mb-4 block text-black">ART de ONE</span>
+                    <p class="text-gray-500 text-sm">
+                        Freelance Graphic Designer & Illustrator Portfolio, Blog, Resources and Online Courses
                     </p>
                 </div>
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Quick Links</h3>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="../../index.html#home" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
-                        <li><a href="../../courses.html" class="text-gray-400 hover:text-white transition duration-300">Courses</a></li>
-                        <li><a href="../../blog.html" class="text-gray-400 hover:text-white transition duration-300">Blog</a></li>
-                        <li><a href="../../resources/resources-collection.html" class="text-gray-400 hover:text-white transition duration-300">Resources</a></li>
+                        <li><a href="index.html#home" class="text-gray-500 hover:text-black transition duration-300">Home</a></li>
+                      <!--  <li><a href="courses.html" class="text-gray-500 hover:text-black transition duration-300">Courses</a></li> -->
+                        <li><a href="/prompt.html" class="text-gray-500 hover:text-black transition duration-300">Prompts</a></li>
+                        <li><a href="/blog.html" class="text-gray-500 hover:text-black transition duration-300">Blog</a></li>
+                        <li><a href="/resources/resources-collection.html" class="text-gray-500 hover:text-black transition duration-300">Resources</a></li>
                     </ul>
                 </div>
+
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">Classes</h3>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Services</h3>
                     <ul class="space-y-2 text-sm">
-                         <li><a href="../../courses/basic-illustrator/course-detail-basic.html" class="text-gray-400 hover:text-white transition duration-300">Basic Course</a></li>
-                        <li><a href="../../courses/intermediate-illustrator/course-detail-intermediate.html" class="text-gray-400 hover:text-white transition duration-300">Intermediate</a></li>
-                        <li><a href="../../courses/advanced-illustrator/course-detail-advanced.html" class="text-gray-400 hover:text-white transition duration-300">Advanced Abstract</a></li>
-                        <li><a href="../../courses/graphic-design/course-detail-graphic-design.html" class="text-gray-400 hover:text-white transition duration-300">Graphic Design</a></li>
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Logo Design</a></li>
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Social Media</a></li>
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Printing</a></li>
                     </ul>
                 </div>
+
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">Services</h3>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Contact</h3>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="../../index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Logo Design</a></li>
-                        <li><a href="../../index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Social Media</a></li>
-                        <li><a href="../../index.html#freelance" class="text-gray-400 hover:text-white transition duration-300">Printing</a></li>
+                         <li><a href="/index.html#about" class="text-gray-500 hover:text-black transition duration-300">About</a></li>
+                        <li><a href="/index.html#contact" class="text-gray-500 hover:text-black transition duration-300">Contact</a></li>
                     </ul>
-                </div>
+                </div> 
+                <!-- <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Classes</h3>
+                    <ul class="space-y-2 text-sm">
+                         <li><a href="courses/basic-illustrator/course-detail-basic.html" class="text-gray-500 hover:text-black transition duration-300">Basic Course</a></li>
+                        <li><a href="courses/intermediate-illustrator/course-detail-intermediate.html" class="text-gray-500 hover:text-black transition duration-300">Intermediate</a></li>
+                        <li><a href="courses/graphic-design/course-detail-graphic-design.html" class="text-gray-500 hover:text-black transition duration-300">Graphic Design</a></li>
+                    </ul>
+                </div> -->
+                
             </div>
-            <div class="border-t border-[#222] mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400 text-sm mb-4 md:mb-0">
+            <div class="border-t border-gray-200 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">
                     &copy; 2025 ART de ONE. All rights reserved.
                 </p>
                 <div class="flex space-x-6 text-sm">
-                    <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-white"><i class="fab fa-behance"></i></a>
-                    <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-white"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-behance"></i></a>
+                    <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-tiktok"></i></a>
                 </div>
             </div>
         </div>
@@ -393,7 +314,7 @@
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script src="/css-and-js/mobile-smooth-nav.js"></script>
     <script>
-        AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
+        AOS.init({ duration: 1000, once: true });
         feather.replace();
 
         const mobileMenuButton = document.getElementById('mobile-menu-button');
