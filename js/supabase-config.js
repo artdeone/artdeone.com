@@ -18,7 +18,7 @@
 // Example: 'https://xyzabcdefgh.supabase.co'
 // ⚠️ '' မေ့မထည့်ပါနဲ့!
 
-const SUPABASE_URL = 'https://supabase.com/dashboard/project/eyhyvlszpfsmsjyzijxg';
+const SUPABASE_URL = 'https://eyhyvlszpfsmsjyzijxg.supabase.co';
 
 
 // =====================================================
@@ -27,14 +27,15 @@ const SUPABASE_URL = 'https://supabase.com/dashboard/project/eyhyvlszpfsmsjyzijx
 // Example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdX...'
 // ⚠️ အရမ်းရှည်ပါတယ် (200+ characters)
 
-const SUPABASE_ANON_KEY = 'sb_publishable_BhPbsTtxI4ZuTNpnWA30uQ_Cfddf7OY';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5aHl2bHN6cGZzbXNqeXppanhnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg1Mzc3MDcsImV4cCI6MjA4NDExMzcwN30.rvU2oh0zmdLVaAZFjqgQvKInX1ePCQudK9cBT4hiv80';
 
 
 // =====================================================
 // STEP 3: Supabase Client ကို Initialize လုပ်ပါ
 // =====================================================
 // ဒါကို မပြောင်းပါနဲ့ - အလိုလို အလုပ်လုပ်ပါလိမ့်မယ်
-const supabase = window.supabase.createClient('https://supabase.com/dashboard/project/eyhyvlszpfsmsjyzijxg', 'sb_publishable_BhPbsTtxI4ZuTNpnWA30uQ_Cfddf7OY');
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// ↑ ဒါက အပေါ်က variables တွေကို သုံးတယ်
 
 
 // =====================================================

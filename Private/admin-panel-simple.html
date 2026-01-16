@@ -683,13 +683,14 @@
 
     <script>
         // ⚠️ CONFIGURATION - Replace with your Supabase credentials
-        const SUPABASE_URL = 'https://supabase.com/dashboard/project/eyhyvlszpfsmsjyzijxg';
-        const SUPABASE_ANON_KEY = 'sb_publishable_BhPbsTtxI4ZuTNpnWA30uQ_Cfddf7OY';
-        
-        // ⚠️ ADMIN PASSWORD - Change this to your preferred password!
-        const ADMIN_PASSWORD = 'admin123';
+        const SUPABASE_URL = 'https://eyhyvlszpfsmsjyzijxg.supabase.co';  // ✅ မှန်ပါပြီ
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5aHl2bHN6cGZzbXNqeXppanhnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg1Mzc3MDcsImV4cCI6MjA4NDExMzcwN30.rvU2oh0zmdLVaAZFjqgQvKInX1ePCQudK9cBT4hiv80';  // ⚠️ သေချာစစ်ရန်
 
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// ⚠️ ADMIN PASSWORD - Change this to your preferred password!
+const ADMIN_PASSWORD = 'admin123';
+
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// ↑ ဒါက အပေါ်က variables တွေကို သုံးတယ်
 
         // Global variables
         let allStudents = [];
