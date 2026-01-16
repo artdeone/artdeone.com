@@ -5,153 +5,231 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Login - ART de ONE</title>
     <link rel="icon" type="image/png" href="/favicon.png">
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
+        /* Import Poppins Font to match your Index */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        
-        /* --- MINIMALIST DARK THEME --- */
+
+        /* --- THEME VARIABLES --- */
+        :root {
+            --text-main: #323232;
+            --text-muted: #6b7280;
+            --bg-white: #ffffff;
+            --accent-green: #a7e169;       /* Your signature green */
+            --border-light: #e5e7eb;
+            --hover-red: #ed2939;          /* New Red Hover Color */
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #000;
-            color: #fff;
+            background-color: var(--bg-white);
+            color: var(--text-main);
         }
 
-        /* Login Card */
+        /* Navbar Styling */
+        .nav-container {
+            background-color: #ffffff;
+            border-bottom: 1px solid var(--border-light);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        }
+
+        /* Login Card Styling */
         .login-card {
-            background-color: #111;
-            border: 1px solid #333;
+            background-color: #ffffff;
+            border: 1px solid var(--border-light);
             border-radius: 1rem;
             padding: 2.5rem;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 440px;
         }
 
-        /* Form Inputs */
+        /* Input Fields */
         .form-input {
-            background-color: #1a1a1a;
-            border: 1px solid #444;
-            color: #fff;
-            border-radius: 0.5rem;
-            padding: 0.75rem 1rem;
+            background-color: #ffffff;
+            border: 1px solid #d1d5db;
+            color: var(--text-main);
+            border-radius: 0.75rem;
+            padding: 0.85rem 1rem;
             width: 100%;
-            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
         }
+        
         .form-input:focus {
             outline: none;
-            border-color: #9dae11;
-            background-color: #222;
+            border-color: var(--accent-green);
+            box-shadow: 0 0 0 4px rgba(167, 225, 105, 0.2);
         }
+
+        /* Labels */
         .form-label {
-            color: #a0a0a0;
+            color: var(--text-main);
             font-size: 0.9rem;
-            font-weight: 500;
+            font-weight: 600;
             margin-bottom: 0.5rem;
             display: block;
         }
 
-        /* Primary Button */
+        /* Primary Button (Green normally, Red on Hover) */
         .btn-primary {
-            background-color: #fff;
-            color: #000;
-            font-weight: 600;
-            border-radius: 0.5rem;
-            padding: 0.75rem 1.5rem;
+            background-color: var(--accent-green);
+            color: #000000;
+            font-weight: 700;
+            font-size: 1rem;
+            border-radius: 0.75rem;
+            padding: 0.9rem 1.5rem;
             width: 100%;
-            transition: all 0.3s ease;
-            border: 1px solid #fff;
+            transition: all 0.3s ease; /* Smoother transition for color change */
+            border: 1px solid var(--accent-green);
             cursor: pointer;
+            box-shadow: 0 10px 15px -3px rgba(167, 225, 105, 0.3);
         }
+
+        /* --- UPDATED HOVER STATE --- */
         .btn-primary:hover {
-            background-color: #9dae11;
-            border-color: #9dae11;
-            color: #fff;
+            background-color: var(--hover-red); /* Changes to #ed2939 */
+            border-color: var(--hover-red);
+            color: #ffffff;                     /* Changes text to White */
+            transform: translateY(-1px);
+            /* Updates shadow to be reddish to match */
+            box-shadow: 0 12px 20px -3px rgba(237, 41, 57, 0.4); 
         }
-        
-        .text-accent { color: #9dae11; }
+
+        .btn-primary:active {
+            transform: translateY(1px);
+        }
+
+        /* Links */
+        .link-accent {
+            color: #000;
+            text-decoration: underline;
+            decoration-color: var(--accent-green);
+            text-decoration-thickness: 2px;
+            transition: color 0.2s;
+        }
+        .link-accent:hover {
+            color: #555;
+            decoration-color: var(--hover-red);
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4">
+<body class="min-h-screen flex flex-col">
 
-    <div class="w-full max-w-md animate-fade-in">
-        <!-- Logo -->
-        <div class="text-center mb-8">
-            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png" alt="ART de ONE" class="h-12 w-auto mx-auto mb-4">
-            <h1 class="text-2xl font-bold text-white">Student Portal</h1>
-            <p class="text-gray-400 mt-2 text-sm">Log in to access your courses</p>
-        </div>
-
-        <!-- Login Card -->
-        <div class="login-card">
-            <form id="student-login-form" class="space-y-6">
-                <div>
-                    <label class="form-label">Email Address</label>
-                    <input type="email" id="email" class="form-input" placeholder="student@example.com" required>
-                </div>
-
-                <div>
-                    <label class="form-label">Password</label>
-                    <input type="password" id="password" class="form-input" placeholder="••••••••" required>
-                </div>
-
-                <button type="submit" class="btn-primary">
-                    Log In
-                </button>
-            </form>
+    <!-- Navbar -->
+    <nav class="nav-container w-full fixed top-0 z-50 h-16 flex items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex justify-between items-center">
+            <!-- Logo -->
+            <a href="/index.html" class="flex items-center gap-3">
+                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png" alt="ART de ONE" class="h-10 w-auto">
+            </a>
             
-            <p class="text-center text-sm text-gray-500 mt-6">
-                Having trouble? <a href="#" class="text-accent hover:underline">Contact Support</a>
+            <!-- Back Link -->
+            <a href="/index.html" class="text-sm font-semibold text-gray-600 hover:text-black transition flex items-center gap-2">
+                <i class="fa-solid fa-arrow-left"></i> Back to Home
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex items-center justify-center px-4 pt-20 pb-12">
+        <div class="animate-fade-in w-full flex flex-col items-center">
+            
+            <!-- Header Text -->
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-extrabold text-[#323232]">Student Portal</h1>
+                <p class="text-gray-500 mt-2">Welcome back! Please enter your details.</p>
+            </div>
+
+            <!-- Login Form Card -->
+            <div class="login-card">
+                <form id="student-login-form" class="space-y-6">
+                    <!-- Email Input -->
+                    <div>
+                        <label class="form-label" for="email">Email Address</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                <i class="fa-regular fa-envelope"></i>
+                            </span>
+                            <input 
+                                id="email" 
+                                name="email" 
+                                type="email" 
+                                class="form-input pl-10" 
+                                placeholder="name@example.com" 
+                                required 
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Password Input -->
+                    <div>
+                        <label class="form-label" for="password">Password</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                <i class="fa-solid fa-lock"></i>
+                            </span>
+                            <input 
+                                id="password" 
+                                name="password" 
+                                type="password" 
+                                class="form-input pl-10" 
+                                placeholder="••••••••" 
+                                required 
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn-primary">
+                        Sign In
+                    </button>
+
+                    <!-- Help Text -->
+                    <div class="text-center text-sm text-gray-500 mt-4">
+                        Having trouble? 
+                        <a href="mailto:artdeone.educators@gmail.com?subject=Login Issue&body=Hello ART de ONE, I am having trouble logging in. My email is: " class="link-accent font-semibold">Contact Support</a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Footer Note -->
+            <p class="text-center text-xs text-gray-400 mt-8">
+                &copy; <span id="year">2026</span> ART de ONE. All rights reserved.
             </p>
         </div>
-    </div>
-    
-    <!-- Placeholder Script for Firebase -->
+    </main>
+
+    <!-- Script -->
     <script>
+        // Update Copyright Year automatically
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Login Form Handling (Placeholder)
         document.getElementById('student-login-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            // Firebase Login Logic will go here
-            console.log("Login attempted");
-            // Simulate success for UI demo
-            // window.location.href = 'student-dashboard.html';
+            
+            // Backend logic goes here
+            const email = document.getElementById('email').value;
+            console.log("Login attempted for:", email);
+            
+            alert("Login button clicked! (Backend integration required)");
         });
     </script>
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
-  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyDxGe8syla67VxbV7DlnbPtIbMmIewZurY",
-    authDomain: "art-de-one.firebaseapp.com",
-    projectId: "art-de-one",
-    storageBucket: "art-de-one.firebasestorage.app",
-    messagingSenderId: "843424361824",
-    appId: "1:843424361824:web:d8e645ad12fe5f50be8205",
-    measurementId: "G-1W0PCMKRW7"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-
-  const form = document.getElementById('student-login-form');
-  
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const btn = form.querySelector('button');
-
-    btn.innerText = 'Logging in...';
-    
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.log("Student Logged In");
-        window.location.href = "student-dashboard.html";
-      })
-      .catch((error) => {
-        alert("Login Failed: " + error.message);
-        btn.innerText = 'Log In';
-      });
-  });
-</script>
-
 </body>
 </html>
