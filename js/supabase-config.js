@@ -18,7 +18,7 @@
 // Example: 'https://xyzabcdefgh.supabase.co'
 // ⚠️ '' မေ့မထည့်ပါနဲ့!
 
-const SUPABASE_URL = 'YOUR_PROJECT_URL_HERE';
+const SUPABASE_URL = 'https://supabase.com/dashboard/project/eyhyvlszpfsmsjyzijxg';
 
 
 // =====================================================
@@ -27,7 +27,7 @@ const SUPABASE_URL = 'YOUR_PROJECT_URL_HERE';
 // Example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdX...'
 // ⚠️ အရမ်းရှည်ပါတယ် (200+ characters)
 
-const SUPABASE_ANON_KEY = 'YOUR_ANON_PUBLIC_KEY_HERE';
+const SUPABASE_ANON_KEY = 'sb_publishable_BhPbsTtxI4ZuTNpnWA30uQ_Cfddf7OY';
 
 
 // =====================================================
