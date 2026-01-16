@@ -4,617 +4,1002 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Dashboard - ART de ONE</title>
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768404052/favicon_xfuja2.png">
     
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
     
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     
-    <!-- Supabase JS -->
+    <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
-    <!-- Google Fonts -->
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
-        
-        body {
-            font-family: 'Space Grotesk', sans-serif;
-            background-color: #f3f4f6;
-            color: #323232;
+        :root {
+            --primary-color: #A3E635;
+            --primary-hover: #84cc16;
+            --text-dark: #111827;
+            --text-gray: #6B7280;
+            --bg-light: #F3F4F6;
+            --white: #FFFFFF;
+            --danger: #EF4444;
+            --sidebar-width: 280px;
         }
-        
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Poppins', sans-serif;
-            color: #000;
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Pyidaungsu', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            display: flex;
+            min-height: 100vh;
         }
 
         /* Sidebar Styles */
         .sidebar {
-            transition: all 0.3s ease;
+            width: var(--sidebar-width);
+            background-color: var(--white);
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            border-right: 1px solid #E5E7EB;
+            display: flex;
+            flex-direction: column;
+            z-index: 50;
         }
-        
-        .sidebar-link {
-            transition: all 0.3s ease;
+
+        .brand {
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid #E5E7EB;
         }
-        
-        .sidebar-link:hover, .sidebar-link.active {
-            background-color: #a7e169;
-            color: #000;
+
+        .logo-img {
+            height: 32px;
+            width: auto;
+        }
+
+        .portal-badge {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            font-weight: 500;
+            padding-left: 12px;
+            border-left: 2px solid #E5E7EB;
+            line-height: 1.2;
+        }
+
+        .nav-menu {
+            padding: 24px 16px;
+            flex: 1;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: var(--text-gray);
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 4px;
+            transition: all 0.2s;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .nav-item:hover {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        .nav-item.active {
+            background-color: var(--primary-color);
+            color: var(--text-dark);
             font-weight: 600;
         }
 
-        /* Card Hover */
-        .course-card {
-            transition: all 0.3s ease;
-        }
-        .course-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        .nav-item i {
+            font-size: 1.25rem;
         }
 
-        /* Utilities */
-        .hidden { display: none; }
-        .loading-spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #a7e169;
+        .user-profile {
+            padding: 20px;
+            border-top: 1px solid #E5E7EB;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            background-color: #F3F4F6;
             border-radius: 50%;
-            width: 24px;
-            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .user-info {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .user-email {
+            font-size: 0.8rem;
+            color: var(--text-gray);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .logout-btn {
+            color: var(--text-gray);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 6px;
+            transition: 0.2s;
+        }
+
+        .logout-btn:hover {
+            background-color: #FEE2E2;
+            color: var(--danger);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 32px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+        
+        /* Notification Bell Styles */
+        .notification-wrapper {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .noti-btn {
+            width: 45px;
+            height: 45px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #E5E7EB;
+            transition: 0.2s;
+            color: var(--text-gray);
+            font-size: 1.25rem;
+        }
+
+        .noti-btn:hover {
+            background: #F9FAFB;
+            color: var(--text-dark);
+            border-color: #D1D5DB;
+        }
+
+        .noti-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--danger);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            min-width: 20px;
+            height: 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--bg-light);
+            padding: 0 4px;
+        }
+
+        /* Cards Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 24px;
+            border-radius: 16px;
+            border: 1px solid #E5E7EB;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .stat-info h3 {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .stat-info .value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        /* Sections */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        /* Course Cards */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .course-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #E5E7EB;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .course-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-thumbnail {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            background-color: #E5E7EB;
+        }
+
+        .course-content {
+            padding: 20px;
+        }
+
+        .course-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .course-meta {
+            display: flex;
+            gap: 16px;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+
+        .course-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #F3F4F6;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-color);
+            border-radius: 3px;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 48px;
+            background: white;
+            border-radius: 16px;
+            border: 1px solid #E5E7EB;
+            color: var(--text-gray);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: var(--white);
+            padding: 32px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-gray);
+            padding: 4px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+
+        .close-modal:hover {
+            background: #F3F4F6;
+            color: var(--danger);
+        }
+
+        /* File List Styles */
+        .file-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            background: #F9FAFB;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            transition: 0.2s;
+        }
+
+        .file-item:hover {
+            border-color: var(--primary-color);
+            background: #F0FDF4;
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .file-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: var(--text-gray);
+            border: 1px solid #E5E7EB;
+        }
+
+        .file-details h4 {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .file-details p {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+        }
+
+        .download-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--white);
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .download-btn:hover {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        /* Announcements List Styles */
+        .announcement-item {
+            padding: 20px;
+            background: #F9FAFB;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .announcement-date {
+            font-size: 0.8rem;
+            color: var(--text-gray);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .announcement-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .announcement-content {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .loading-spinner {
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
             animation: spin 1s linear infinite;
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
-
-    <!-- Main Layout -->
-    <div class="flex h-screen overflow-hidden">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="brand">
+            <!-- Logo is here -->
+            <svg class="logo-img" viewBox="0 0 162 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: 28px;">
+                 <path d="M12.9868 28.0933C14.7735 24.16 15.6668 20.3733 15.6668 17.56C15.6668 14.88 15.1468 12.5067 14.0002 10.44C12.3868 7.50666 9.8935 5.25333 6.64016 3.73333C4.52016 2.74666 2.2935 2.25333 0.0801646 2.25333V0C6.0135 0.173333 10.8268 2.06667 14.2802 5.56C17.7468 9.04 19.5335 13.56 19.5335 18.96C19.5335 22.0667 19.0402 25.1067 18.0668 27.9733C17.5868 29.3867 16.9468 30.8267 16.1735 32.2667L8.98683 43.6133H4.40016L12.9868 28.0933Z" fill="black"/>
+                 <path d="M38.2575 32.3998H34.4175L33.0575 36.3198H28.8575L34.3375 21.0798H38.2175L43.7975 36.3198H39.6175L38.2575 32.3998ZM37.2575 29.4798L36.3375 26.7998L35.4175 29.4798H37.2575Z" fill="black"/>
+                 <path d="M51.2464 29.0798H47.8864V36.3198H43.9264V21.0798H51.2464C52.673 21.0798 53.8197 21.3598 54.673 21.9198C55.5397 22.4798 55.9797 23.3332 55.9797 24.4798C55.9797 25.4398 55.673 26.1998 55.033 26.7998C54.4064 27.3865 53.5397 27.7598 52.4197 27.9332L56.713 36.3198H52.4197L48.8197 29.0798H51.1397C51.5264 29.0798 51.813 28.9865 51.9864 28.7998C52.173 28.5998 52.2597 28.3198 52.2597 27.9598C52.2597 27.3332 51.8597 26.9332 51.0864 26.8398L47.8864 26.7998V24.5198H51.0597C51.5797 24.5198 51.8997 24.6398 52.033 24.8598C52.1797 25.0798 52.2597 25.3598 52.2597 25.6598C52.2597 26.0465 51.913 26.4332 51.2464 26.8132V29.0798Z" fill="black"/>
+                 <path d="M68.5305 24.5198H64.0505V36.3198H60.0905V24.5198H55.6105V21.0798H68.5305V24.5198Z" fill="black"/>
+                 <path d="M79.5447 36.3198H75.8247V34.5998C75.3047 35.2132 74.7447 35.6932 74.1447 36.0132C73.558 36.3332 72.8647 36.4932 72.0647 36.4932C70.6114 36.4932 69.4514 35.9598 68.6114 34.8932C67.7714 33.8132 67.358 32.3332 67.358 30.4398C67.358 28.5465 67.8247 27.0532 68.7447 25.9332C69.678 24.8132 70.9314 24.2532 72.4914 24.2532C73.238 24.2532 73.8514 24.4132 74.3447 24.7198C74.838 25.0265 75.2914 25.4398 75.6914 25.9598V21.4132H79.5447V36.3198ZM75.5447 29.3598C75.278 28.7198 74.958 28.2532 74.5714 27.9598C74.1847 27.6532 73.7447 27.4932 73.2247 27.4932C72.398 27.4932 71.8514 27.8132 71.558 28.4532C71.278 29.0798 71.1314 29.8398 71.1314 30.7332C71.1314 32.3998 71.7447 33.2265 72.958 33.2265C73.598 33.2265 74.158 33.0265 74.6247 32.6132C75.1047 32.1865 75.4114 31.5732 75.5447 30.7732V29.3598Z" fill="black"/>
+                 <path d="M89.3707 30.7732H84.1441C84.2241 31.6265 84.5307 32.2532 85.0507 32.6532C85.5841 33.0398 86.2774 33.2265 87.1174 33.2265C87.8241 33.2265 88.4241 33.0932 88.9041 32.8132L89.8774 35.6132C89.0641 36.1998 88.0241 36.4932 86.7574 36.4932C84.7707 36.4932 83.2507 35.9065 82.2107 34.7198C81.1841 33.5332 80.6641 31.9198 80.6641 29.8798C80.6641 28.2532 81.0907 26.9065 81.9574 25.8532C82.8374 24.7865 84.0507 24.2532 85.5974 24.2532C86.9974 24.2532 88.0774 24.7332 88.8507 25.7065C89.6241 26.6798 90.0107 28.0132 90.0107 29.7198V30.7732H89.3707ZM84.2241 28.6932H86.4107C86.3707 27.9065 86.1307 27.4265 85.6774 27.2398C85.2241 27.0532 84.7574 27.1865 84.2907 27.6532C84.2507 27.9198 84.2241 28.2665 84.2241 28.6932Z" fill="black"/>
+                 <path d="M109.805 36.3198H106.085V21.0798H109.805V36.3198Z" fill="black"/>
+            </svg>
+            <span class="portal-badge">Student<br>Portal</span>
+        </div>
         
-        <!-- Sidebar -->
-        <aside class="sidebar w-64 bg-white border-r border-gray-200 hidden md:flex flex-col">
-            <div class="p-6 border-b border-gray-100 flex items-center gap-3">
-                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png" alt="Logo" class="h-8">
-                <span class="font-bold text-lg tracking-tight">Student Portal</span>
+        <nav class="nav-menu">
+            <a onclick="switchTab('dashboard')" class="nav-item active" id="nav-dashboard">
+                <i class="ri-dashboard-line"></i>
+                <span>Dashboard</span>
+            </a>
+            <a onclick="switchTab('courses')" class="nav-item" id="nav-courses">
+                <i class="ri-book-open-line"></i>
+                <span>My Courses</span>
+            </a>
+            <!-- Announcements moved to bell icon -->
+            <a onclick="switchTab('profile')" class="nav-item" id="nav-profile">
+                <i class="ri-user-settings-line"></i>
+                <span>Profile</span>
+            </a>
+        </nav>
+
+        <div class="user-profile">
+            <div class="avatar" id="sidebarAvatar">
+                <!-- Initials via JS -->
+            </div>
+            <div class="user-info">
+                <div class="user-name" id="sidebarName">Loading...</div>
+                <div class="user-email" id="sidebarEmail">...</div>
+            </div>
+            <div class="logout-btn" onclick="handleLogout()" title="Logout">
+                <i class="ri-logout-box-r-line"></i>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header with Bell -->
+        <div class="header">
+            <div>
+                <h1 style="font-size: 1.8rem; font-weight: 700; color: var(--text-dark); margin-bottom: 8px;">
+                    Welcome back, <span id="headerName">Student</span>! 👋
+                </h1>
+                <p style="color: var(--text-gray);">Here's what's happening with your learning journey.</p>
             </div>
             
-            <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
-                <a href="#" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600" data-section="dashboard">
-                    <i class="fa-solid fa-chart-pie w-5"></i>
-                    <span>Dashboard</span>
-                </a>
-                <a href="#" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600" data-section="my-courses">
-                    <i class="fa-solid fa-graduation-cap w-5"></i>
-                    <span>My Courses</span>
-                </a>
-                <a href="#" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600" data-section="announcements">
-                    <i class="fa-solid fa-bullhorn w-5"></i>
-                    <span>Announcements</span>
-                </a>
-                <a href="#" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600" data-section="profile">
-                    <i class="fa-solid fa-user w-5"></i>
-                    <span>Profile</span>
-                </a>
-            </nav>
-
-            <div class="p-4 border-t border-gray-100">
-                <div class="flex items-center gap-3 px-4 py-3">
-                    <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-500">
-                        <i class="fa-solid fa-user"></i>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <p class="text-sm font-semibold text-gray-900 truncate" id="sidebar-user-name">Loading...</p>
-                        <p class="text-xs text-gray-500 truncate" id="sidebar-user-email">...</p>
-                    </div>
-                    <button onclick="logout()" class="text-gray-400 hover:text-red-500 transition-colors" title="Logout">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                    </button>
+            <!-- Notification Bell -->
+            <div class="notification-wrapper" onclick="openAnnouncements()">
+                <div class="noti-btn">
+                    <i class="ri-notification-3-line"></i>
                 </div>
+                <div id="notiBadge" class="noti-badge" style="display: none;">0</div>
             </div>
-        </aside>
+        </div>
 
-        <!-- Mobile Header -->
-        <div class="flex-1 flex flex-col h-full overflow-hidden relative">
-            <header class="md:hidden bg-white border-b border-gray-200 p-4 flex justify-between items-center z-20">
-                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png" alt="Logo" class="h-8">
-                <button id="mobile-menu-btn" class="text-gray-600 focus:outline-none">
-                    <i class="fa-solid fa-bars text-xl"></i>
-                </button>
-            </header>
-
-            <!-- Mobile Sidebar Overlay -->
-            <div id="mobile-sidebar" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden" onclick="toggleMobileMenu()">
-                <div class="w-64 bg-white h-full shadow-xl transform transition-transform duration-300 -translate-x-full" id="mobile-sidebar-content" onclick="event.stopPropagation()">
-                    <!-- Mobile sidebar content cloned here by JS -->
+        <!-- Dashboard View -->
+        <div id="view-dashboard" class="view-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3>Enrolled Courses</h3>
+                        <div class="value" id="statEnrolled">0</div>
+                    </div>
+                    <div class="stat-icon" style="background: #E0F2FE; color: #0284C7;">
+                        <i class="ri-book-mark-line"></i>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3>Active Courses</h3>
+                        <div class="value" id="statActive">0</div>
+                    </div>
+                    <div class="stat-icon" style="background: #DCFCE7; color: #16A34A;">
+                        <i class="ri-play-circle-line"></i>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3>Total Files</h3>
+                        <div class="value" id="statFiles">0</div>
+                    </div>
+                    <div class="stat-icon" style="background: #FEF9C3; color: #CA8A04;">
+                        <i class="ri-file-download-line"></i>
+                    </div>
                 </div>
             </div>
 
-            <!-- Main Content Area -->
-            <main class="flex-1 overflow-y-auto p-4 md:p-8" id="main-content">
-                
-                <!-- Welcome Section -->
-                <div class="mb-8">
-                    <h1 class="text-2xl md:text-3xl font-bold mb-2">Welcome back, <span id="welcome-name">Student</span>! 👋</h1>
-                    <p class="text-gray-500">Here's what's happening with your learning journey.</p>
+            <div class="section-header">
+                <h2 class="section-title">Your Active Courses</h2>
+                <a onclick="switchTab('courses')" style="color: var(--primary-hover); cursor: pointer; font-weight: 500; font-size: 0.9rem;">View All</a>
+            </div>
+
+            <div id="dashboardCourseList" class="courses-grid">
+                <!-- JS will populate -->
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
                 </div>
+            </div>
+        </div>
 
-                <!-- SECTIONS -->
-                
-                <!-- 1. DASHBOARD SECTION -->
-                <div id="dashboard-section" class="section space-y-8">
-                    <!-- Stats Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                            <div class="flex justify-between items-start">
-                                <div>
-                                    <p class="text-gray-500 text-sm font-medium mb-1">Enrolled Courses</p>
-                                    <h3 class="text-3xl font-bold" id="stat-enrolled">0</h3>
-                                </div>
-                                <div class="p-3 bg-blue-50 rounded-xl text-blue-600">
-                                    <i class="fa-solid fa-book-open text-xl"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                            <div class="flex justify-between items-start">
-                                <div>
-                                    <p class="text-gray-500 text-sm font-medium mb-1">Active Courses</p>
-                                    <h3 class="text-3xl font-bold" id="stat-active">0</h3>
-                                </div>
-                                <div class="p-3 bg-green-50 rounded-xl text-green-600">
-                                    <i class="fa-solid fa-circle-play text-xl"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                            <div class="flex justify-between items-start">
-                                <div>
-                                    <p class="text-gray-500 text-sm font-medium mb-1">Total Files</p>
-                                    <h3 class="text-3xl font-bold" id="stat-files">0</h3>
-                                </div>
-                                <div class="p-3 bg-yellow-50 rounded-xl text-yellow-600">
-                                    <i class="fa-solid fa-file-arrow-down text-xl"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <!-- My Courses View -->
+        <div id="view-courses" class="view-section" style="display: none;">
+            <div class="section-header">
+                <h2 class="section-title">My Learning</h2>
+            </div>
+            <div id="allCourseList" class="courses-grid">
+                <!-- JS will populate -->
+            </div>
+        </div>
 
-                    <!-- Recent Courses -->
-                    <div>
-                        <div class="flex justify-between items-end mb-4">
-                            <h2 class="text-xl font-bold">Your Active Courses</h2>
-                            <button onclick="switchSection('my-courses')" class="text-sm text-[#a7e169] hover:underline font-medium">View All</button>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="dashboard-courses-grid">
-                            <!-- Courses injected by JS -->
-                            <div class="col-span-full text-center py-10 text-gray-400 bg-white rounded-xl border border-dashed border-gray-200">
-                                <i class="fa-solid fa-spinner fa-spin text-2xl mb-2"></i>
-                                <p>Loading courses...</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 2. MY COURSES SECTION -->
-                <div id="my-courses-section" class="section hidden space-y-6">
-                    <h2 class="text-2xl font-bold">My Learning Library</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="all-courses-grid">
-                        <!-- All courses list -->
-                    </div>
-                </div>
-
-                <!-- 3. COURSE DETAIL VIEW (Hidden by default) -->
-                <div id="course-detail-view" class="section hidden space-y-6">
-                    <button onclick="backToCourses()" class="flex items-center gap-2 text-gray-500 hover:text-black mb-4 transition-colors">
-                        <i class="fa-solid fa-arrow-left"></i> Back to Courses
-                    </button>
+        <!-- Profile View -->
+        <div id="view-profile" class="view-section" style="display: none;">
+            <div class="stat-card" style="max-width: 600px;">
+                <div style="width: 100%;">
+                    <h2 class="section-title" style="margin-bottom: 24px;">My Profile</h2>
                     
-                    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-                        <div class="p-6 md:p-8 border-b border-gray-100 bg-gray-50">
-                            <div class="flex justify-between items-start flex-wrap gap-4">
-                                <div>
-                                    <span class="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold uppercase tracking-wide mb-3 inline-block" id="detail-course-type">Type</span>
-                                    <h1 class="text-2xl md:text-3xl font-bold mb-2" id="detail-course-title">Course Title</h1>
-                                    <p class="text-gray-600 max-w-2xl" id="detail-course-desc">Course description goes here...</p>
-                                </div>
-                                <div class="text-right">
-                                    <div class="text-sm text-gray-500 mb-1">Status</div>
-                                    <span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm font-medium" id="detail-course-status">Active</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Course Content Tabs/Files -->
-                        <div class="p-6 md:p-8">
-                            <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
-                                <i class="fa-solid fa-folder-open text-[#a7e169]"></i> Course Materials & Files
-                            </h3>
-                            
-                            <div class="space-y-3" id="course-files-list">
-                                <!-- Files list injected here -->
-                                <p class="text-gray-500 text-center py-8">Loading files...</p>
-                            </div>
-                        </div>
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; color: var(--text-gray); margin-bottom: 8px; font-size: 0.9rem;">Full Name</label>
+                        <input type="text" id="profileName" readonly style="width: 100%; padding: 12px; border: 1px solid #E5E7EB; border-radius: 8px; background: #F9FAFB; color: var(--text-dark);">
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; color: var(--text-gray); margin-bottom: 8px; font-size: 0.9rem;">Email Address</label>
+                        <input type="email" id="profileEmail" readonly style="width: 100%; padding: 12px; border: 1px solid #E5E7EB; border-radius: 8px; background: #F9FAFB; color: var(--text-dark);">
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; color: var(--text-gray); margin-bottom: 8px; font-size: 0.9rem;">Student ID</label>
+                        <input type="text" id="profileId" readonly style="width: 100%; padding: 12px; border: 1px solid #E5E7EB; border-radius: 8px; background: #F9FAFB; color: var(--text-dark);">
                     </div>
                 </div>
+            </div>
+        </div>
+    </main>
 
-                <!-- 4. ANNOUNCEMENTS SECTION -->
-                <div id="announcements-section" class="section hidden space-y-6">
-                    <h2 class="text-2xl font-bold">Latest Announcements</h2>
-                    <div class="space-y-4" id="announcements-list">
-                        <!-- Announcements injected here -->
-                    </div>
+    <!-- Course Content Modal -->
+    <div id="courseModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h2 id="modalCourseTitle" style="font-size: 1.5rem; color: var(--text-dark); margin-bottom: 4px;">Course Title</h2>
+                    <p style="color: var(--text-gray); font-size: 0.9rem;">Course Materials & Resources</p>
                 </div>
-
-                <!-- 5. PROFILE SECTION -->
-                <div id="profile-section" class="section hidden space-y-6">
-                    <h2 class="text-2xl font-bold">My Profile</h2>
-                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 max-w-2xl">
-                        <div class="flex items-center gap-6 mb-8">
-                            <div class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center text-gray-400 text-3xl">
-                                <i class="fa-solid fa-user"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-bold" id="profile-name">Student Name</h3>
-                                <p class="text-gray-500" id="profile-email">email@example.com</p>
-                                <span class="px-3 py-1 mt-2 inline-block rounded-full bg-gray-100 text-gray-600 text-xs font-semibold uppercase" id="profile-type">Student</span>
-                            </div>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                                <p class="p-3 bg-gray-50 rounded-lg text-gray-900 border border-gray-200" id="profile-phone">-</p>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Joined Date</label>
-                                <p class="p-3 bg-gray-50 rounded-lg text-gray-900 border border-gray-200" id="profile-joined">-</p>
-                            </div>
-                            <div class="md:col-span-2">
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Address</label>
-                                <p class="p-3 bg-gray-50 rounded-lg text-gray-900 border border-gray-200" id="profile-address">-</p>
-                            </div>
-                        </div>
-                        
-                        <div class="mt-8 pt-6 border-t border-gray-100 flex justify-end">
-                            <button onclick="logout()" class="px-6 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors font-medium">
-                                Logout
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-            </main>
+                <button class="close-modal" onclick="closeModal('courseModal')">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            
+            <div id="modalFileList" class="file-list">
+                <!-- Files will go here -->
+            </div>
         </div>
     </div>
 
-    <!-- Scripts -->
-    <script type="module">
-        // IMPORT CONFIG (Private Folder Path Fix)
-        import { supabase } from '../js/supabase-config.js';
+    <!-- Announcements Modal -->
+    <div id="announcementModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h2 style="font-size: 1.5rem; color: var(--text-dark); margin-bottom: 4px;">Announcements</h2>
+                    <p style="color: var(--text-gray); font-size: 0.9rem;">Updates from your instructors</p>
+                </div>
+                <button class="close-modal" onclick="closeModal('announcementModal')">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            
+            <div id="modalAnnouncementList">
+                <!-- Announcements will go here -->
+            </div>
+        </div>
+    </div>
 
-        // Global State
-        let currentUser = null;
-        let myEnrollments = [];
+    <!-- Load Config -->
+    <script src="../js/supabase-config.js"></script>
 
-        // ============================================
-        // INITIALIZATION
-        // ============================================
-        window.addEventListener('load', async () => {
-            // 1. Check Session
-            const { data: { session }, error } = await supabase.auth.getSession();
-
+    <script>
+        // Check Auth
+        async function checkAuth() {
+            const { data: { session } } = await supabase.auth.getSession();
             if (!session) {
                 window.location.href = 'student-login.html';
                 return;
             }
-
-            // 2. Load User Profile
-            await loadUserProfile(session.user.id);
-
-            // 3. Load Courses
-            await loadMyCourses(session.user.id);
             
-            // 4. Load Announcements
-            loadAnnouncements();
-        });
+            // Get User Details
+            const { data: profile } = await supabase
+                .from('students')
+                .select('*')
+                .eq('email', session.user.email)
+                .single();
 
-        // ============================================
-        // DATA LOADING FUNCTIONS
-        // ============================================
-        
-        async function loadUserProfile(userId) {
-            try {
-                // Fetch student data using ID (Matches RLS Policy)
-                const { data: student, error } = await supabase
-                    .from('students')
-                    .select('*')
-                    .eq('id', userId)
-                    .single();
-
-                if (error) throw error;
-                currentUser = student;
-
-                // Update UI
-                updateProfileUI(student);
-                
-            } catch (error) {
-                console.error('Error loading profile:', error);
-                alert('Error loading profile. Please contact support.');
+            if (profile) {
+                updateProfileUI(profile);
+                loadDashboardData(profile.id);
+                loadAnnouncements(); // Load notifications
             }
         }
 
-        async function loadMyCourses(userId) {
+        function updateProfileUI(user) {
+            // Sidebar & Header
+            document.getElementById('sidebarName').textContent = user.name;
+            document.getElementById('headerName').textContent = user.name.split(' ')[0];
+            document.getElementById('sidebarEmail').textContent = user.email;
+            
+            // Initials
+            const initials = user.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+            document.getElementById('sidebarAvatar').textContent = initials;
+
+            // Profile Tab
+            document.getElementById('profileName').value = user.name;
+            document.getElementById('profileEmail').value = user.email;
+            document.getElementById('profileId').value = user.student_id || 'N/A';
+        }
+
+        // Navigation
+        function switchTab(tabId) {
+            // Update Menu
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            const navItem = document.getElementById(`nav-${tabId}`);
+            if(navItem) navItem.classList.add('active');
+
+            // Hide all views
+            document.querySelectorAll('.view-section').forEach(el => el.style.display = 'none');
+            
+            // Show target view
+            document.getElementById(`view-${tabId}`).style.display = 'block';
+        }
+
+        // Data Loading
+        async function loadDashboardData(studentId) {
             try {
-                // Fetch Enrollments joined with Courses
-                // (Only fetching active enrollments for this student)
+                // 1. Get Enrollments
                 const { data: enrollments, error } = await supabase
                     .from('enrollments')
                     .select(`
-                        *,
+                        course_id,
                         courses (
-                            id, title, description, course_type, level, duration_weeks, status
+                            id,
+                            title,
+                            level,
+                            thumbnail_url,
+                            description
                         )
                     `)
-                    .eq('student_id', userId)
-                    .eq('status', 'active')
-                    .order('enrolled_at', { ascending: false });
+                    .eq('student_id', studentId);
 
                 if (error) throw error;
-                
-                myEnrollments = enrollments;
-                
-                // Update Dashboard & My Courses Grids
-                renderCoursesGrid(enrollments);
-                updateStats(enrollments);
 
-            } catch (error) {
-                console.error('Error loading courses:', error);
-                document.getElementById('dashboard-courses-grid').innerHTML = 
-                    '<p class="col-span-full text-center text-red-500">Failed to load courses.</p>';
-            }
-        }
-
-        async function loadAnnouncements() {
-            try {
-                const { data, error } = await supabase
-                    .from('announcements')
-                    .select('*')
-                    .eq('is_active', true)
-                    .order('published_at', { ascending: false })
-                    .limit(5);
-
-                if (error) throw error;
+                // 2. Count Files for these courses
+                let totalFiles = 0;
+                const courseIds = enrollments.map(e => e.course_id);
                 
-                const container = document.getElementById('announcements-list');
-                if (data.length === 0) {
-                    container.innerHTML = '<p class="text-gray-500 text-center py-4">No new announcements.</p>';
-                    return;
+                if (courseIds.length > 0) {
+                    const { count } = await supabase
+                        .from('course_files')
+                        .select('*', { count: 'exact', head: true })
+                        .in('course_id', courseIds);
+                    totalFiles = count || 0;
                 }
 
-                container.innerHTML = data.map(a => `
-                    <div class="bg-white p-5 rounded-xl border-l-4 ${getPriorityColor(a.priority)} shadow-sm">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="font-bold text-lg">${a.title}</h3>
-                            <span class="text-xs text-gray-400">${new Date(a.published_at).toLocaleDateString()}</span>
-                        </div>
-                        <p class="text-gray-600">${a.content}</p>
-                    </div>
-                `).join('');
-                
-            } catch (error) {
-                console.error('Error loading announcements:', error);
+                // Update Stats
+                document.getElementById('statEnrolled').textContent = enrollments.length;
+                document.getElementById('statActive').textContent = enrollments.length; // Assuming all enrolled are active
+                document.getElementById('statFiles').textContent = totalFiles;
+
+                // Render Courses
+                renderCourses(enrollments);
+
+            } catch (err) {
+                console.error('Error loading data:', err);
             }
         }
 
-        // ============================================
-        // COURSE DETAIL & FILES LOGIC
-        // ============================================
+        function renderCourses(enrollments) {
+            const dashboardContainer = document.getElementById('dashboardCourseList');
+            const allContainer = document.getElementById('allCourseList');
+            
+            if (enrollments.length === 0) {
+                const emptyHTML = `
+                    <div class="empty-state" style="grid-column: 1/-1;">
+                        <i class="ri-book-open-line" style="font-size: 3rem; margin-bottom: 16px; display: block;"></i>
+                        <h3>No courses yet</h3>
+                        <p>You are not enrolled in any courses yet.</p>
+                    </div>
+                `;
+                dashboardContainer.innerHTML = emptyHTML;
+                allContainer.innerHTML = emptyHTML;
+                return;
+            }
 
-        window.openCourse = async function(courseId) {
-            // Find course data from local state
-            const enrollment = myEnrollments.find(e => e.courses.id === courseId);
-            if (!enrollment) return;
-            const course = enrollment.courses;
+            const html = enrollments.map(item => {
+                const course = item.courses;
+                const thumb = course.thumbnail_url || 'https://via.placeholder.com/400x200?text=Course';
+                
+                return `
+                    <div class="course-card" onclick="openCourseModal('${course.id}', '${course.title}')">
+                        <img src="${thumb}" alt="${course.title}" class="course-thumbnail">
+                        <div class="course-content">
+                            <h3 class="course-title">${course.title}</h3>
+                            <div class="course-meta">
+                                <span><i class="ri-bar-chart-fill"></i> ${course.level}</span>
+                                <span><i class="ri-file-list-3-line"></i> Resources</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 0%"></div>
+                            </div>
+                            <div style="margin-top: 8px; font-size: 0.8rem; color: var(--text-gray); text-align: right;">
+                                Click to view files
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
 
-            // Update UI
-            document.getElementById('detail-course-title').textContent = course.title;
-            document.getElementById('detail-course-desc').textContent = course.description || 'No description provided.';
-            document.getElementById('detail-course-type').textContent = course.course_type;
-            document.getElementById('detail-course-status').textContent = enrollment.status;
+            dashboardContainer.innerHTML = html;
+            allContainer.innerHTML = html;
+        }
 
-            // Show Detail View
-            document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
-            document.getElementById('course-detail-view').classList.remove('hidden');
+        // Announcement Notification Logic
+        async function loadAnnouncements() {
+            try {
+                const { data: announcements, error } = await supabase
+                    .from('announcements')
+                    .select('*')
+                    .order('created_at', { ascending: false });
 
-            // Load Files for this Course
-            await loadCourseFiles(courseId);
-        };
+                if (error) throw error;
 
-        async function loadCourseFiles(courseId) {
-            const listContainer = document.getElementById('course-files-list');
-            listContainer.innerHTML = '<div class="text-center py-8"><i class="fa-solid fa-spinner fa-spin text-2xl text-gray-300"></i></div>';
+                // Update Badge
+                const badge = document.getElementById('notiBadge');
+                if (announcements.length > 0) {
+                    badge.style.display = 'flex';
+                    badge.textContent = announcements.length > 9 ? '9+' : announcements.length;
+                } else {
+                    badge.style.display = 'none';
+                }
+
+                // Prepare Modal Content
+                const container = document.getElementById('modalAnnouncementList');
+                if (announcements.length === 0) {
+                    container.innerHTML = '<p style="text-align: center; color: var(--text-gray); padding: 20px;">No announcements yet.</p>';
+                } else {
+                    container.innerHTML = announcements.map(a => `
+                        <div class="announcement-item">
+                            <span class="announcement-date">
+                                ${new Date(a.created_at).toLocaleDateString()} • ${a.priority || 'Normal'} Priority
+                            </span>
+                            <h4 class="announcement-title">${a.title}</h4>
+                            <div class="announcement-content">${a.content}</div>
+                        </div>
+                    `).join('');
+                }
+
+            } catch (err) {
+                console.error("Error loading announcements:", err);
+            }
+        }
+
+        function openAnnouncements() {
+            document.getElementById('announcementModal').classList.add('active');
+            // Optional: Hide badge after opening
+            // document.getElementById('notiBadge').style.display = 'none';
+        }
+
+
+        // Course File Modal Logic
+        async function openCourseModal(courseId, courseTitle) {
+            document.getElementById('modalCourseTitle').textContent = courseTitle;
+            const container = document.getElementById('modalFileList');
+            container.innerHTML = '<div class="loading-spinner"><div class="spinner"></div></div>';
+            
+            document.getElementById('courseModal').classList.add('active');
 
             try {
-                // Fetch files linked to this course
                 const { data: files, error } = await supabase
                     .from('course_files')
                     .select('*')
                     .eq('course_id', courseId)
-                    .order('upload_date', { ascending: false });
+                    .order('created_at', { ascending: false });
 
-                if (error) throw error;
-
-                if (!files || files.length === 0) {
-                    listContainer.innerHTML = `
-                        <div class="text-center py-10 bg-gray-50 rounded-xl border border-dashed border-gray-200">
-                            <i class="fa-regular fa-folder-open text-3xl text-gray-300 mb-2"></i>
-                            <p class="text-gray-500">No files uploaded for this course yet.</p>
+                if (files.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <i class="ri-folder-open-line" style="font-size: 2rem; margin-bottom: 12px;"></i>
+                            <p>No files uploaded for this course yet.</p>
                         </div>
                     `;
                     return;
                 }
 
-                listContainer.innerHTML = files.map(f => `
-                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-white hover:shadow-md transition-all border border-gray-100 group">
-                        <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-lg bg-white flex items-center justify-center text-blue-500 shadow-sm">
-                                <i class="fa-solid ${getFileIcon(f.file_type)}"></i>
+                container.innerHTML = files.map(file => `
+                    <div class="file-item">
+                        <div class="file-info">
+                            <div class="file-icon">
+                                <i class="${getFileIcon(file.file_type)}"></i>
                             </div>
-                            <div>
-                                <h4 class="font-medium text-gray-900">${f.file_name}</h4>
-                                <p class="text-xs text-gray-500">${f.file_description || 'Resource file'} • ${f.file_size_kb ? f.file_size_kb + ' KB' : 'Unknown size'}</p>
+                            <div class="file-details">
+                                <h4>${file.file_description || 'Untitled File'}</h4>
+                                <p>${file.file_type}</p>
                             </div>
                         </div>
-                        <a href="${f.file_url}" target="_blank" download class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-gray-400 hover:text-[#a7e169] hover:bg-gray-50 transition-colors shadow-sm group-hover:scale-110 transform duration-200">
-                            <i class="fa-solid fa-download"></i>
+                        <a href="${file.file_url}" target="_blank" class="download-btn">
+                            <i class="ri-download-line"></i> Download
                         </a>
                     </div>
                 `).join('');
 
-            } catch (error) {
-                console.error('Error loading files:', error);
-                listContainer.innerHTML = '<p class="text-red-500 text-center">Error loading files.</p>';
-            }
-        }
-
-        // ============================================
-        // UI HELPERS
-        // ============================================
-
-        function updateProfileUI(student) {
-            // Sidebar
-            document.getElementById('sidebar-user-name').textContent = student.full_name;
-            document.getElementById('sidebar-user-email').textContent = student.email;
-            
-            // Header
-            document.getElementById('welcome-name').textContent = student.full_name.split(' ')[0]; // First name
-
-            // Profile Section
-            document.getElementById('profile-name').textContent = student.full_name;
-            document.getElementById('profile-email').textContent = student.email;
-            document.getElementById('profile-type').textContent = student.student_type;
-            document.getElementById('profile-phone').textContent = student.phone_number || '-';
-            document.getElementById('profile-address').textContent = student.address || '-';
-            document.getElementById('profile-joined').textContent = new Date(student.created_at).toLocaleDateString();
-        }
-
-        function renderCoursesGrid(enrollments) {
-            const gridHTML = enrollments.length === 0 ? 
-                '<div class="col-span-full text-center py-10 text-gray-500">You are not enrolled in any courses yet.</div>' :
-                enrollments.map(e => `
-                    <div class="course-card bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-full cursor-pointer" onclick="openCourse('${e.courses.id}')">
-                        <div class="h-32 bg-gray-100 relative">
-                            <img src="https://source.unsplash.com/random/800x600/?design,art,${e.courses.id}" class="w-full h-full object-cover opacity-80" alt="Course Cover">
-                            <div class="absolute top-3 right-3 bg-white px-2 py-1 rounded-md text-xs font-bold shadow-sm uppercase tracking-wide">
-                                ${e.courses.course_type}
-                            </div>
-                        </div>
-                        <div class="p-5 flex-1 flex flex-col">
-                            <h3 class="font-bold text-lg mb-2 line-clamp-2">${e.courses.title}</h3>
-                            <p class="text-sm text-gray-500 mb-4 line-clamp-2">${e.courses.description || 'No description'}</p>
-                            
-                            <div class="mt-auto pt-4 border-t border-gray-100 flex justify-between items-center">
-                                <div class="text-xs text-gray-500">
-                                    <i class="fa-regular fa-clock mr-1"></i> ${e.courses.duration_weeks || '-'} Weeks
-                                </div>
-                                <span class="text-[#a7e169] font-medium text-sm group-hover:underline">View Content <i class="fa-solid fa-arrow-right ml-1"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                `).join('');
-
-            // Update both Dashboard and My Courses grids
-            document.getElementById('dashboard-courses-grid').innerHTML = gridHTML;
-            document.getElementById('all-courses-grid').innerHTML = gridHTML;
-        }
-
-        function updateStats(enrollments) {
-            document.getElementById('stat-enrolled').textContent = enrollments.length;
-            document.getElementById('stat-active').textContent = enrollments.filter(e => e.status === 'active').length;
-            // Files count would require another query, simplified for now
-            document.getElementById('stat-files').textContent = '-'; 
-        }
-
-        function getPriorityColor(priority) {
-            switch(priority) {
-                case 'urgent': return 'border-red-500';
-                case 'high': return 'border-orange-500';
-                default: return 'border-blue-500';
+            } catch (err) {
+                console.error(err);
+                container.innerHTML = '<p class="error">Failed to load files</p>';
             }
         }
 
         function getFileIcon(type) {
-            if (type.includes('pdf')) return 'fa-file-pdf';
-            if (type.includes('image')) return 'fa-file-image';
-            if (type.includes('video')) return 'fa-file-video';
-            if (type.includes('zip') || type.includes('rar')) return 'fa-file-zipper';
-            return 'fa-file';
+            if (!type) return 'ri-file-line';
+            const t = type.toLowerCase();
+            if (t.includes('pdf')) return 'ri-file-pdf-line';
+            if (t.includes('video') || t.includes('mp4')) return 'ri-video-line';
+            if (t.includes('image') || t.includes('jpg') || t.includes('png')) return 'ri-image-line';
+            if (t.includes('zip') || t.includes('rar')) return 'ri-file-zip-line';
+            return 'ri-file-text-line';
         }
 
-        // ============================================
-        // NAVIGATION & GLOBAL FUNCTIONS
-        // ============================================
-        
-        window.switchSection = function(sectionId) {
-            document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
-            const activeLink = document.querySelector(`.sidebar-link[data-section="${sectionId}"]`);
-            if(activeLink) activeLink.classList.add('active');
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
 
-            document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
-            document.getElementById(`${sectionId}-section`).classList.remove('hidden');
-        };
-
-        window.backToCourses = function() {
-            switchSection('my-courses');
-        };
-
-        window.logout = async function() {
-            if (confirm('Are you sure you want to logout?')) {
-                await supabase.auth.signOut();
-                window.location.href = 'student-login.html';
+        // Close modal on click outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
             }
-        };
+        }
 
-        // Sidebar Navigation
-        document.querySelectorAll('.sidebar-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const section = link.dataset.section;
-                switchSection(section);
-            });
-        });
+        async function handleLogout() {
+            await supabase.auth.signOut();
+            window.location.href = 'student-login.html';
+        }
 
-        // Mobile Menu Logic
-        window.toggleMobileMenu = function() {
-            const sidebar = document.getElementById('mobile-sidebar');
-            const content = document.getElementById('mobile-sidebar-content');
-            
-            if (sidebar.classList.contains('hidden')) {
-                sidebar.classList.remove('hidden');
-                // Clone sidebar content for mobile
-                if (content.children.length === 0) {
-                    content.innerHTML = document.querySelector('.sidebar').innerHTML;
-                    // Re-attach listeners to cloned links
-                    content.querySelectorAll('.sidebar-link').forEach(link => {
-                        link.addEventListener('click', (e) => {
-                            e.preventDefault();
-                            switchSection(link.dataset.section);
-                            toggleMobileMenu();
-                        });
-                    });
-                }
-                setTimeout(() => content.classList.remove('-translate-x-full'), 10);
-            } else {
-                content.classList.add('-translate-x-full');
-                setTimeout(() => sidebar.classList.add('hidden'), 300);
-            }
-        };
-        
-        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
-
+        // Init
+        checkAuth();
     </script>
 </body>
 </html>
