@@ -279,36 +279,38 @@
         </div>
     </main>
 
-    <!-- Supabase Configuration -->
-    <script>
-        // ⚠️ IMPORTANT: Replace these with your actual Supabase credentials
-        const SUPABASE_URL = 'YOUR_SUPABASE_URL_HERE';
-        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE';
+            <!-- Supabase Logic -->
+    <script type="module">
+        // 1. IMPORT CONFIG
+        import { supabase } from './js/supabase-config.js'; // path ကို သေချာစစ်ပါ (file ရှိတဲ့နေရာပေါ်မူတည်ပြီး ../js/ သို့မဟုတ် ./js/ ဖြစ်နိုင်ပါတယ်)
 
-        // Initialize Supabase client
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    </script>
-
-    <!-- Main Script -->
-    <script>
+        // ============================================
+        // UI INTERACTION (Module Scope)
+        // ============================================
+        
         // Update Copyright Year
-        document.getElementById('year').textContent = new Date().getFullYear();
+        const yearSpan = document.getElementById('year');
+        if(yearSpan) yearSpan.textContent = new Date().getFullYear();
 
         // Password Toggle
         const togglePassword = document.getElementById('toggle-password');
         const passwordInput = document.getElementById('password');
         const eyeIcon = document.getElementById('eye-icon');
 
-        togglePassword.addEventListener('click', function() {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            eyeIcon.classList.toggle('fa-eye');
-            eyeIcon.classList.toggle('fa-eye-slash');
-        });
+        if(togglePassword && passwordInput && eyeIcon) {
+            togglePassword.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                eyeIcon.classList.toggle('fa-eye');
+                eyeIcon.classList.toggle('fa-eye-slash');
+            });
+        }
 
         // Show Alert Function
         function showAlert(message, type = 'error') {
             const alertContainer = document.getElementById('alert-container');
+            if(!alertContainer) return;
+
             const alertClass = type === 'error' ? 'alert-error' : 'alert-success';
             alertContainer.innerHTML = `
                 <div class="alert ${alertClass}">
@@ -323,93 +325,96 @@
             }, 5000);
         }
 
-        // Login Form Handling
-        document.getElementById('student-login-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const rememberMe = document.getElementById('remember-me').checked;
-            const loginBtn = document.getElementById('login-btn');
-            const btnText = document.getElementById('btn-text');
-            const btnSpinner = document.getElementById('btn-spinner');
-
-            // Clear previous alerts
-            document.getElementById('alert-container').innerHTML = '';
-
-            // Disable form
-            loginBtn.disabled = true;
-            btnText.textContent = 'Signing in...';
-            btnSpinner.classList.remove('hidden');
-
-            try {
-                // Attempt login with Supabase
-                const { data, error } = await supabase.auth.signInWithPassword({
-                    email: email,
-                    password: password,
-                });
-
-                if (error) throw error;
-
-                // Check if user exists in students table
-                const { data: studentData, error: studentError } = await supabase
-                    .from('students')
-                    .select('*')
-                    .eq('email', email)
-                    .single();
-
-                if (studentError) {
-                    throw new Error('Student account not found. Please contact support.');
-                }
-
-                if (studentData.status !== 'active') {
-                    throw new Error('Your account is not active. Please contact support.');
-                }
-
-                // Success! Store session info
-                if (rememberMe) {
-                    localStorage.setItem('studentSession', JSON.stringify({
-                        userId: data.user.id,
-                        email: email,
-                        studentId: studentData.id,
-                        name: studentData.full_name
-                    }));
-                } else {
-                    sessionStorage.setItem('studentSession', JSON.stringify({
-                        userId: data.user.id,
-                        email: email,
-                        studentId: studentData.id,
-                        name: studentData.full_name
-                    }));
-                }
-
-                showAlert('Login successful! Redirecting...', 'success');
-
-                // Redirect to dashboard after 1 second
-                setTimeout(() => {
-                    window.location.href = '/student-dashboard.html';
-                }, 1000);
-
-            } catch (error) {
-                console.error('Login error:', error);
-                showAlert(error.message || 'Login failed. Please check your credentials.');
-                
-                // Re-enable form
-                loginBtn.disabled = false;
-                btnText.textContent = 'Sign In';
-                btnSpinner.classList.add('hidden');
-            }
-        });
+        // ============================================
+        // AUTHENTICATION LOGIC
+        // ============================================
 
         // Check if already logged in
         window.addEventListener('load', async () => {
             const { data: { session } } = await supabase.auth.getSession();
             
             if (session) {
-                // User is already logged in, redirect to dashboard
-                window.location.href = '/student-dashboard.html';
+                // User is already logged in
+                // Optional: Check if student is active in DB before redirecting
+                window.location.href = 'student-dashboard.html';
             }
         });
+
+        // Login Form Handling
+        const loginForm = document.getElementById('student-login-form');
+        
+        if(loginForm) {
+            loginForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const loginBtn = document.getElementById('login-btn');
+                const btnText = document.getElementById('btn-text');
+                const btnSpinner = document.getElementById('btn-spinner');
+
+                // Clear previous alerts
+                const alertContainer = document.getElementById('alert-container');
+                if(alertContainer) alertContainer.innerHTML = '';
+
+                // Disable form
+                if(loginBtn) loginBtn.disabled = true;
+                if(btnText) btnText.textContent = 'Signing in...';
+                if(btnSpinner) btnSpinner.classList.remove('hidden');
+
+                try {
+                    // 1. Attempt login with Supabase Auth
+                    const { data, error } = await supabase.auth.signInWithPassword({
+                        email: email,
+                        password: password,
+                    });
+
+                    if (error) throw error;
+
+                    // 2. Check if user exists in students table AND is active
+                    // (Auth ဝင်နိုင်ပေမယ့် Student table မှာ မရှိရင် သို့မဟုတ် Inactive ဖြစ်နေရင် ပေးမဝင်ပါ)
+                    const { data: studentData, error: studentError } = await supabase
+                        .from('students')
+                        .select('*')
+                        .eq('email', email) // email နဲ့ စစ်တာထက် id နဲ့ စစ်တာ ပိုတိကျနိုင်ပါတယ်: .eq('id', data.user.id)
+                        .single();
+
+                    if (studentError && studentError.code !== 'PGRST116') { // PGRST116 is "Row not found"
+                         console.error('DB Error:', studentError);
+                    }
+                    
+                    // Student table မှာ data မရှိရင် (သို့) status မ active ရင် error ပြမယ်
+                    if (!studentData) {
+                         // Optional: Allow login but show warning? Or block?
+                         // For strict mode:
+                         // throw new Error('Student account record not found.');
+                    } else if (studentData.status !== 'active') {
+                        throw new Error('Your account is not active. Please contact support.');
+                    }
+
+                    showAlert('Login successful! Redirecting...', 'success');
+
+                    // Redirect to dashboard after 1 second
+                    setTimeout(() => {
+                        window.location.href = 'student-dashboard.html';
+                    }, 1000);
+
+                } catch (error) {
+                    console.error('Login error:', error);
+                    
+                    // Logout immediately if logic checks failed but auth succeeded
+                    await supabase.auth.signOut();
+
+                    showAlert(error.message || 'Login failed. Please check your credentials.');
+                    
+                    // Re-enable form
+                    if(loginBtn) loginBtn.disabled = false;
+                    if(btnText) btnText.textContent = 'Sign In';
+                    if(btnSpinner) btnSpinner.classList.add('hidden');
+                }
+            });
+        }
     </script>
+
 </body>
 </html>

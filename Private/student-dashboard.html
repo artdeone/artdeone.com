@@ -275,52 +275,75 @@
         </div>
     </div>
 
-    <script>
-        // Supabase Configuration
-        const SUPABASE_URL = 'YOUR_SUPABASE_URL_HERE';
-        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        <!-- Student Dashboard Logic -->
+    <script type="module">
+        // 1. IMPORT CONFIG
+        import { supabase } from '../js/supabase-config.js'; // path ကို သေချာစစ်ပါ
 
-        // Global variables
+        // Global variables within module scope
         let currentStudent = null;
         let enrolledCourses = [];
 
-        // Check authentication on load
+        // ============================================
+        // AUTHENTICATION & INITIALIZATION
+        // ============================================
         window.addEventListener('load', async () => {
-            const session = sessionStorage.getItem('studentSession') || localStorage.getItem('studentSession');
+            // Check Supabase Auth Session
+            const { data: { session }, error } = await supabase.auth.getSession();
             
             if (!session) {
-                window.location.href = '/student-login.html';
+                window.location.href = 'student-login.html'; // No session, redirect to login
                 return;
             }
 
-            currentStudent = JSON.parse(session);
-            await loadStudentData();
+            try {
+                // Get student details from DB using auth ID
+                const { data: student, error: studentError } = await supabase
+                    .from('students')
+                    .select('*')
+                    .eq('id', session.user.id)
+                    .single();
+
+                if (studentError || !student) {
+                    console.error('Student profile error:', studentError);
+                    alert('Error loading student profile. Please contact support.');
+                    return; // Stop execution
+                }
+
+                currentStudent = student;
+                
+                // Initialize Dashboard
+                loadDashboardData();
+
+            } catch (err) {
+                console.error('Init error:', err);
+            }
         });
 
-        // Load student data
-        async function loadStudentData() {
+        async function loadDashboardData() {
             try {
                 // Display student name
-                document.getElementById('student-name').textContent = currentStudent.name;
-                document.getElementById('welcome-name').textContent = currentStudent.name.split(' ')[0];
+                document.getElementById('student-name').textContent = currentStudent.full_name;
+                document.getElementById('welcome-name').textContent = currentStudent.full_name.split(' ')[0];
 
-                // Load enrollments
-                await loadEnrollments();
-                
-                // Load announcements
-                await loadAnnouncements();
-                
-                // Load profile
-                await loadProfile();
+                // Load all sections
+                await Promise.all([
+                    loadEnrollments(),
+                    loadAnnouncements(),
+                    loadProfile()
+                ]);
 
             } catch (error) {
-                console.error('Error loading data:', error);
-                alert('Error loading dashboard data. Please try again.');
+                console.error('Error loading dashboard data:', error);
+                // alert('Error loading dashboard data. Please try again.');
             }
         }
 
-        // Load enrollments and courses
+        // ============================================
+        // DATA LOADING FUNCTIONS
+        // ============================================
+        
+        // 1. Load Enrollments
         async function loadEnrollments() {
             const { data: enrollments, error } = await supabase
                 .from('enrollments')
@@ -328,7 +351,7 @@
                     *,
                     courses (*)
                 `)
-                .eq('student_id', currentStudent.studentId)
+                .eq('student_id', currentStudent.id) // Use loaded student ID
                 .order('enrolled_at', { ascending: false });
 
             if (error) throw error;
@@ -341,17 +364,23 @@
                 ? Math.round(enrollments.reduce((sum, e) => sum + e.progress_percentage, 0) / enrollments.length)
                 : 0;
 
-            document.getElementById('enrolled-count').textContent = enrollments.length;
-            document.getElementById('completed-count').textContent = completed;
-            document.getElementById('overall-progress').textContent = avgProgress + '%';
+            const countEl = document.getElementById('enrolled-count');
+            if(countEl) countEl.textContent = enrollments.length;
+            
+            const completedEl = document.getElementById('completed-count');
+            if(completedEl) completedEl.textContent = completed;
+            
+            const progressEl = document.getElementById('overall-progress');
+            if(progressEl) progressEl.textContent = avgProgress + '%';
 
             // Display courses
             displayCourses(enrollments);
         }
 
-        // Display courses
+        // 2. Display Courses List
         function displayCourses(enrollments) {
             const container = document.getElementById('courses-container');
+            if(!container) return;
             
             if (enrollments.length === 0) {
                 container.innerHTML = `
@@ -372,9 +401,11 @@
                     ? '<span class="badge badge-blue">In Progress</span>'
                     : '<span class="badge badge-yellow">Dropped</span>';
 
+                // NOTE: onclick event won't work with module scope directly.
+                // We add data attributes and use event delegation instead.
                 return `
-                    <div class="border border-gray-200 rounded-lg p-5 mb-4 hover:border-green-400 transition cursor-pointer" 
-                         onclick="openCourseModal('${enrollment.id}')">
+                    <div class="border border-gray-200 rounded-lg p-5 mb-4 hover:border-green-400 transition cursor-pointer course-card" 
+                         data-enrollment-id="${enrollment.id}">
                         <div class="flex justify-between items-start mb-3">
                             <div class="flex-1">
                                 <h3 class="text-lg font-bold text-gray-800 mb-1">${course.title}</h3>
@@ -396,38 +427,53 @@
                                 <i class="fa-solid fa-calendar mr-1"></i>
                                 Enrolled: ${new Date(enrollment.enrolled_at).toLocaleDateString()}
                             </span>
-                            <button class="text-green-600 hover:text-green-800 font-semibold">
+                            <span class="text-green-600 hover:text-green-800 font-semibold">
                                 View Materials <i class="fa-solid fa-arrow-right ml-1"></i>
-                            </button>
+                            </span>
                         </div>
                     </div>
                 `;
             }).join('');
+
+            // Add Event Listeners to generated cards
+            document.querySelectorAll('.course-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    openCourseModal(card.dataset.enrollmentId);
+                });
+            });
         }
 
-        // Open course modal
+        // 3. Course Modal Logic
         async function openCourseModal(enrollmentId) {
             const enrollment = enrolledCourses.find(e => e.id === enrollmentId);
             if (!enrollment) return;
 
             const course = enrollment.courses;
+            const modal = document.getElementById('course-modal');
             
+            // Show loading state inside modal first? Or just wait.
+            modal.classList.remove('hidden'); 
+            
+            // Display static info immediately
+            document.getElementById('modal-course-title').textContent = course.title;
+            const contentDiv = document.getElementById('modal-course-content');
+            contentDiv.innerHTML = '<p class="text-center py-4">Loading materials...</p>';
+
             // Load course files
             const { data: files, error } = await supabase
                 .from('course_files')
                 .select('*')
                 .eq('course_id', course.id)
-                .order('display_order', { ascending: true });
+                .order('created_at', { ascending: false }); // Assuming created_at or display_order
 
             if (error) {
                 console.error('Error loading files:', error);
-                alert('Error loading course materials');
+                contentDiv.innerHTML = '<p class="text-red-500 text-center">Error loading materials</p>';
                 return;
             }
 
-            // Display modal
-            document.getElementById('modal-course-title').textContent = course.title;
-            document.getElementById('modal-course-content').innerHTML = `
+            // Render content
+            contentDiv.innerHTML = `
                 <div class="mb-4">
                     <p class="text-gray-600">${course.description || 'No description available'}</p>
                     <div class="mt-3 flex gap-3">
@@ -444,32 +490,88 @@
                     ${files.length === 0 
                         ? '<p class="text-gray-500 text-center py-4">No materials available yet</p>'
                         : files.map(file => `
-                            <div class="file-item">
-                                <div class="flex items-center gap-3">
-                                    <div class="bg-blue-100 p-2 rounded">
-                                        <i class="fa-solid ${getFileIcon(file.file_type)} text-blue-600"></i>
+                            <div class="file-item mb-3 p-3 border rounded hover:bg-gray-50 transition">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <div class="bg-blue-100 p-2 rounded">
+                                            <i class="fa-solid ${getFileIcon(file.file_type)} text-blue-600"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold text-gray-800">${file.file_name}</p>
+                                            <p class="text-xs text-gray-500">
+                                                ${file.file_description || 'No description'}
+                                                ${file.file_size_kb ? ` • ${(file.file_size_kb / 1024).toFixed(1)} MB` : ''}
+                                            </p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p class="font-semibold text-gray-800">${file.file_name}</p>
-                                        <p class="text-xs text-gray-500">
-                                            ${file.file_description || 'No description'}
-                                            ${file.file_size_kb ? ` • ${(file.file_size_kb / 1024).toFixed(1)} MB` : ''}
-                                        </p>
-                                    </div>
+                                    <button class="btn-primary text-sm px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 download-btn" 
+                                            data-path="${file.file_url}" data-public="${file.is_public}" data-name="${file.file_name}">
+                                        <i class="fa-solid fa-download mr-1"></i>Download
+                                    </button>
                                 </div>
-                                <a href="${file.file_url}" target="_blank" class="btn-primary text-sm">
-                                    <i class="fa-solid fa-download mr-1"></i>Download
-                                </a>
                             </div>
                         `).join('')
                     }
                 </div>
             `;
 
-            document.getElementById('course-modal').classList.remove('hidden');
+            // Add download handlers
+            contentDiv.querySelectorAll('.download-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent modal close or other bubbles
+                    handleDownload(btn.dataset.path, btn.dataset.public === 'true', btn.dataset.name);
+                });
+            });
         }
 
-        // Get file icon based on type
+        // 4. Download Handler
+        async function handleDownload(pathOrUrl, isPublic, fileName) {
+            try {
+                if (isPublic) {
+                    // If it's a full URL already
+                    window.open(pathOrUrl, '_blank');
+                } else {
+                    // Extract path if it's a full URL, or use as is
+                    // Assumption: pathOrUrl is stored as full public URL in DB? 
+                    // If stored as path (e.g., 'folder/file.pdf'), use it directly.
+                    // If stored as URL, we might need to extract the path.
+                    // Let's assume it's the stored path for private files OR we handle download via signed URL.
+                    
+                    // BETTER APPROACH for Private Files: Create a signed URL
+                    // Extract path from URL if needed, or assume 'file_url' column stores the path for private files?
+                    // Let's try downloading via blob (secure method)
+                    
+                    // NOTE: You need to know the bucket name. Let's assume 'course-files'
+                    const bucket = 'course-files'; 
+                    // If pathOrUrl contains the full URL, we need just the path relative to bucket
+                    // E.g., https://.../storage/v1/object/public/course-files/Folder/file.pdf
+                    
+                    // Simple fallback: Just try opening it. If RLS blocks it, we need signed URL.
+                    // window.open(pathOrUrl, '_blank'); 
+
+                    // Correct Secure Download:
+                    const { data, error } = await supabase.storage
+                        .from(bucket)
+                        .download(fileName); // WARNING: This expects just the filename if it's at root, or 'folder/filename'
+
+                    if (error) throw error;
+
+                    const url = window.URL.createObjectURL(data);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = fileName;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                }
+            } catch (err) {
+                console.error('Download failed:', err);
+                alert('Download failed: ' + err.message);
+            }
+        }
+
+        // Helper: File Icons
         function getFileIcon(fileType) {
             const icons = {
                 'outline': 'fa-file-lines',
@@ -481,19 +583,9 @@
             return icons[fileType] || 'fa-file';
         }
 
-        // Close modal
-        document.getElementById('close-modal').addEventListener('click', () => {
-            document.getElementById('course-modal').classList.add('hidden');
-        });
-
-        // Close modal on background click
-        document.getElementById('course-modal').addEventListener('click', (e) => {
-            if (e.target.id === 'course-modal') {
-                document.getElementById('course-modal').classList.add('hidden');
-            }
-        });
-
-        // Load announcements
+        // ============================================
+        // ANNOUNCEMENTS & PROFILE
+        // ============================================
         async function loadAnnouncements() {
             const { data: announcements, error } = await supabase
                 .from('announcements')
@@ -502,13 +594,11 @@
                 .order('published_at', { ascending: false })
                 .limit(10);
 
-            if (error) {
-                console.error('Error loading announcements:', error);
-                return;
-            }
+            if (error) return;
 
             const container = document.getElementById('announcements-container');
-            
+            if(!container) return;
+
             if (announcements.length === 0) {
                 container.innerHTML = `
                     <div class="text-center py-12 text-gray-500">
@@ -544,62 +634,60 @@
             return badges[priority] || badges.normal;
         }
 
-        // Load profile
         async function loadProfile() {
-            const { data: student, error } = await supabase
-                .from('students')
-                .select('*')
-                .eq('id', currentStudent.studentId)
-                .single();
+            // Already loaded in currentStudent, but we can refresh or just render
+            if(!currentStudent) return;
 
-            if (error) {
-                console.error('Error loading profile:', error);
-                return;
-            }
+            const container = document.getElementById('profile-container');
+            if(!container) return;
 
-            document.getElementById('profile-container').innerHTML = `
+            container.innerHTML = `
                 <div class="space-y-4">
                     <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
                         <div class="bg-green-500 text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold">
-                            ${student.full_name.charAt(0)}
+                            ${currentStudent.full_name.charAt(0)}
                         </div>
                         <div>
-                            <h3 class="text-xl font-bold">${student.full_name}</h3>
-                            <p class="text-gray-600">${student.email}</p>
+                            <h3 class="text-xl font-bold">${currentStudent.full_name}</h3>
+                            <p class="text-gray-600">${currentStudent.email}</p>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-2 gap-4">
                         <div class="p-4 bg-gray-50 rounded-lg">
                             <p class="text-sm text-gray-600 mb-1">Student Type</p>
-                            <p class="font-semibold capitalize">${student.student_type}</p>
+                            <p class="font-semibold capitalize">${currentStudent.student_type}</p>
                         </div>
                         <div class="p-4 bg-gray-50 rounded-lg">
                             <p class="text-sm text-gray-600 mb-1">Status</p>
-                            <p class="font-semibold capitalize">${student.status}</p>
+                            <p class="font-semibold capitalize">${currentStudent.status}</p>
                         </div>
                         <div class="p-4 bg-gray-50 rounded-lg">
                             <p class="text-sm text-gray-600 mb-1">Enrolled Since</p>
-                            <p class="font-semibold">${new Date(student.enrolled_date).toLocaleDateString()}</p>
+                            <p class="font-semibold">${new Date(currentStudent.enrolled_date).toLocaleDateString()}</p>
                         </div>
-                        ${student.phone_number ? `
+                        ${currentStudent.phone_number ? `
                         <div class="p-4 bg-gray-50 rounded-lg">
                             <p class="text-sm text-gray-600 mb-1">Phone</p>
-                            <p class="font-semibold">${student.phone_number}</p>
+                            <p class="font-semibold">${currentStudent.phone_number}</p>
                         </div>
                         ` : ''}
                     </div>
 
-                    ${student.address ? `
+                    ${currentStudent.address ? `
                     <div class="p-4 bg-gray-50 rounded-lg">
                         <p class="text-sm text-gray-600 mb-1">Address</p>
-                        <p class="font-semibold">${student.address}</p>
+                        <p class="font-semibold">${currentStudent.address}</p>
                     </div>
                     ` : ''}
                 </div>
             `;
         }
 
+        // ============================================
+        // UI EVENT LISTENERS
+        // ============================================
+        
         // Tab switching
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', () => {
@@ -615,13 +703,34 @@
             });
         });
 
+        // Close modal
+        const closeBtn = document.getElementById('close-modal');
+        if(closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                document.getElementById('course-modal').classList.add('hidden');
+            });
+        }
+
+        // Close modal on background click
+        const courseModal = document.getElementById('course-modal');
+        if(courseModal) {
+            courseModal.addEventListener('click', (e) => {
+                if (e.target.id === 'course-modal') {
+                    courseModal.classList.add('hidden');
+                }
+            });
+        }
+
         // Logout
-        document.getElementById('logout-btn').addEventListener('click', async () => {
-            await supabase.auth.signOut();
-            sessionStorage.removeItem('studentSession');
-            localStorage.removeItem('studentSession');
-            window.location.href = '/student-login.html';
-        });
+        const logoutBtn = document.getElementById('logout-btn');
+        if(logoutBtn) {
+            logoutBtn.addEventListener('click', async () => {
+                await supabase.auth.signOut();
+                window.location.href = 'student-login.html';
+            });
+        }
+
     </script>
+
 </body>
 </html>
