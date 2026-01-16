@@ -34,7 +34,7 @@ const SUPABASE_ANON_KEY = 'sb_publishable_BhPbsTtxI4ZuTNpnWA30uQ_Cfddf7OY';
 // STEP 3: Supabase Client ကို Initialize လုပ်ပါ
 // =====================================================
 // ဒါကို မပြောင်းပါနဲ့ - အလိုလို အလုပ်လုပ်ပါလိမ့်မယ်
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const supabase = window.supabase.createClient('https://supabase.com/dashboard/project/eyhyvlszpfsmsjyzijxg', 'sb_publishable_BhPbsTtxI4ZuTNpnWA30uQ_Cfddf7OY');
 
 
 // =====================================================
