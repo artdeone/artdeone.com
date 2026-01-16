@@ -279,10 +279,11 @@
         </div>
     </main>
 
-            <!-- Supabase Logic -->
-    <script type="module">
+                <script type="module">
         // 1. IMPORT CONFIG
-        import { supabase } from './js/supabase-config.js'; // path ကို သေချာစစ်ပါ (file ရှိတဲ့နေရာပေါ်မူတည်ပြီး ../js/ သို့မဟုတ် ./js/ ဖြစ်နိုင်ပါတယ်)
+        // TODO: သင့်ဖိုင်တည်နေရာပေါ်မူတည်ပြီး Path အမှန်ကို ရွေးပါ (ဥပမာ: ./js/ သို့မဟုတ် ../js/)
+        import { supabase } from './js/supabase-config.js'; 
+
 
         // ============================================
         // UI INTERACTION (Module Scope)
@@ -292,10 +293,12 @@
         const yearSpan = document.getElementById('year');
         if(yearSpan) yearSpan.textContent = new Date().getFullYear();
 
+
         // Password Toggle
         const togglePassword = document.getElementById('toggle-password');
         const passwordInput = document.getElementById('password');
         const eyeIcon = document.getElementById('eye-icon');
+
 
         if(togglePassword && passwordInput && eyeIcon) {
             togglePassword.addEventListener('click', function() {
@@ -306,10 +309,12 @@
             });
         }
 
+
         // Show Alert Function
         function showAlert(message, type = 'error') {
             const alertContainer = document.getElementById('alert-container');
             if(!alertContainer) return;
+
 
             const alertClass = type === 'error' ? 'alert-error' : 'alert-success';
             alertContainer.innerHTML = `
@@ -325,9 +330,11 @@
             }, 5000);
         }
 
+
         // ============================================
         // AUTHENTICATION LOGIC
         // ============================================
+
 
         // Check if already logged in
         window.addEventListener('load', async () => {
@@ -335,10 +342,10 @@
             
             if (session) {
                 // User is already logged in
-                // Optional: Check if student is active in DB before redirecting
                 window.location.href = 'student-dashboard.html';
             }
         });
+
 
         // Login Form Handling
         const loginForm = document.getElementById('student-login-form');
@@ -353,14 +360,17 @@
                 const btnText = document.getElementById('btn-text');
                 const btnSpinner = document.getElementById('btn-spinner');
 
+
                 // Clear previous alerts
                 const alertContainer = document.getElementById('alert-container');
                 if(alertContainer) alertContainer.innerHTML = '';
+
 
                 // Disable form
                 if(loginBtn) loginBtn.disabled = true;
                 if(btnText) btnText.textContent = 'Signing in...';
                 if(btnSpinner) btnSpinner.classList.remove('hidden');
+
 
                 try {
                     // 1. Attempt login with Supabase Auth
@@ -369,41 +379,45 @@
                         password: password,
                     });
 
+
                     if (error) throw error;
 
                     // 2. Check if user exists in students table AND is active
-                    // (Auth ဝင်နိုင်ပေမယ့် Student table မှာ မရှိရင် သို့မဟုတ် Inactive ဖြစ်နေရင် ပေးမဝင်ပါ)
+                    // (UPDATED: Using ID instead of Email for better RLS compatibility)
                     const { data: studentData, error: studentError } = await supabase
                         .from('students')
                         .select('*')
-                        .eq('email', email) // email နဲ့ စစ်တာထက် id နဲ့ စစ်တာ ပိုတိကျနိုင်ပါတယ်: .eq('id', data.user.id)
+                        .eq('id', data.user.id) // ★ ID ဖြင့် စစ်ဆေးခြင်း ★
                         .single();
 
-                    if (studentError && studentError.code !== 'PGRST116') { // PGRST116 is "Row not found"
+                    if (studentError && studentError.code !== 'PGRST116') { 
                          console.error('DB Error:', studentError);
                     }
                     
                     // Student table မှာ data မရှိရင် (သို့) status မ active ရင် error ပြမယ်
                     if (!studentData) {
-                         // Optional: Allow login but show warning? Or block?
-                         // For strict mode:
+                         // Optional: You can choose to throw error or just proceed if you allow access
                          // throw new Error('Student account record not found.');
                     } else if (studentData.status !== 'active') {
                         throw new Error('Your account is not active. Please contact support.');
                     }
 
+
                     showAlert('Login successful! Redirecting...', 'success');
+
 
                     // Redirect to dashboard after 1 second
                     setTimeout(() => {
                         window.location.href = 'student-dashboard.html';
                     }, 1000);
 
+
                 } catch (error) {
                     console.error('Login error:', error);
                     
                     // Logout immediately if logic checks failed but auth succeeded
                     await supabase.auth.signOut();
+
 
                     showAlert(error.message || 'Login failed. Please check your credentials.');
                     
@@ -415,6 +429,7 @@
             });
         }
     </script>
+
 
 </body>
 </html>
