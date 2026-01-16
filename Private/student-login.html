@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Login - ART de ONE</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768404052/favicon_xfuja2.png">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -12,18 +12,19 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
     <style>
-        /* Import Poppins Font to match your Index */
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
-        /* --- THEME VARIABLES --- */
         :root {
             --text-main: #323232;
             --text-muted: #6b7280;
             --bg-white: #ffffff;
-            --accent-green: #a7e169;       /* Your signature green */
+            --accent-green: #a7e169;
             --border-light: #e5e7eb;
-            --hover-red: #ed2939;          /* New Red Hover Color */
+            --hover-red: #ed2939;
         }
 
         body {
@@ -32,14 +33,12 @@
             color: var(--text-main);
         }
 
-        /* Navbar Styling */
         .nav-container {
             background-color: #ffffff;
             border-bottom: 1px solid var(--border-light);
             box-shadow: 0 4px 20px rgba(0,0,0,0.03);
         }
 
-        /* Login Card Styling */
         .login-card {
             background-color: #ffffff;
             border: 1px solid var(--border-light);
@@ -50,7 +49,6 @@
             max-width: 440px;
         }
 
-        /* Input Fields */
         .form-input {
             background-color: #ffffff;
             border: 1px solid #d1d5db;
@@ -68,7 +66,11 @@
             box-shadow: 0 0 0 4px rgba(167, 225, 105, 0.2);
         }
 
-        /* Labels */
+        .form-input:disabled {
+            background-color: #f3f4f6;
+            cursor: not-allowed;
+        }
+
         .form-label {
             color: var(--text-main);
             font-size: 0.9rem;
@@ -77,7 +79,6 @@
             display: block;
         }
 
-        /* Primary Button (Green normally, Red on Hover) */
         .btn-primary {
             background-color: var(--accent-green);
             color: #000000;
@@ -86,27 +87,29 @@
             border-radius: 0.75rem;
             padding: 0.9rem 1.5rem;
             width: 100%;
-            transition: all 0.3s ease; /* Smoother transition for color change */
+            transition: all 0.3s ease;
             border: 1px solid var(--accent-green);
             cursor: pointer;
             box-shadow: 0 10px 15px -3px rgba(167, 225, 105, 0.3);
         }
 
-        /* --- UPDATED HOVER STATE --- */
-        .btn-primary:hover {
-            background-color: var(--hover-red); /* Changes to #ed2939 */
+        .btn-primary:hover:not(:disabled) {
+            background-color: var(--hover-red);
             border-color: var(--hover-red);
-            color: #ffffff;                     /* Changes text to White */
+            color: #ffffff;
             transform: translateY(-1px);
-            /* Updates shadow to be reddish to match */
-            box-shadow: 0 12px 20px -3px rgba(237, 41, 57, 0.4); 
+            box-shadow: 0 12px 20px -3px rgba(237, 41, 57, 0.4);
         }
 
-        .btn-primary:active {
+        .btn-primary:active:not(:disabled) {
             transform: translateY(1px);
         }
 
-        /* Links */
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
         .link-accent {
             color: #000;
             text-decoration: underline;
@@ -114,18 +117,60 @@
             text-decoration-thickness: 2px;
             transition: color 0.2s;
         }
+        
         .link-accent:hover {
             color: #555;
             decoration-color: var(--hover-red);
         }
 
-        /* Animation */
+        /* Alert Messages */
+        .alert {
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .alert-error {
+            background-color: #fee;
+            border: 1px solid #fcc;
+            color: #c00;
+        }
+
+        .alert-success {
+            background-color: #efe;
+            border: 1px solid #cfc;
+            color: #0a0;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--accent-green);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        
         .animate-fade-in {
             animation: fadeInUp 0.5s ease-out forwards;
+        }
+
+        .hidden {
+            display: none !important;
         }
     </style>
 </head>
@@ -134,12 +179,10 @@
     <!-- Navbar -->
     <nav class="nav-container w-full fixed top-0 z-50 h-16 flex items-center">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex justify-between items-center">
-            <!-- Logo -->
             <a href="/index.html" class="flex items-center gap-3">
                 <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png" alt="ART de ONE" class="h-10 w-auto">
             </a>
             
-            <!-- Back Link -->
             <a href="/index.html" class="text-sm font-semibold text-gray-600 hover:text-black transition flex items-center gap-2">
                 <i class="fa-solid fa-arrow-left"></i> Back to Home
             </a>
@@ -158,6 +201,9 @@
 
             <!-- Login Form Card -->
             <div class="login-card">
+                <!-- Alert Message Area -->
+                <div id="alert-container"></div>
+
                 <form id="student-login-form" class="space-y-6">
                     <!-- Email Input -->
                     <div>
@@ -192,18 +238,36 @@
                                 placeholder="••••••••" 
                                 required 
                             >
+                            <button 
+                                type="button"
+                                id="toggle-password"
+                                class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                            >
+                                <i class="fa-solid fa-eye" id="eye-icon"></i>
+                            </button>
                         </div>
                     </div>
 
+                    <!-- Remember Me & Forgot Password -->
+                    <div class="flex items-center justify-between text-sm">
+                        <label class="flex items-center">
+                            <input type="checkbox" id="remember-me" class="mr-2">
+                            <span class="text-gray-600">Remember me</span>
+                        </label>
+                        <a href="#" class="link-accent text-sm">Forgot password?</a>
+                    </div>
+
                     <!-- Submit Button -->
-                    <button type="submit" class="btn-primary">
-                        Sign In
+                    <button type="submit" id="login-btn" class="btn-primary">
+                        <span id="btn-text">Sign In</span>
+                        <span id="btn-spinner" class="spinner hidden"></span>
                     </button>
 
                     <!-- Help Text -->
                     <div class="text-center text-sm text-gray-500 mt-4">
                         Having trouble? 
-                        <a href="mailto:artdeone.educators@gmail.com?subject=Login Issue&body=Hello ART de ONE, I am having trouble logging in. My email is: " class="link-accent font-semibold">Contact Support</a>
+                        <a href="mailto:artdeone.educators@gmail.com?subject=Login Issue&body=Hello ART de ONE, I am having trouble logging in. My email is: " 
+                           class="link-accent font-semibold">Contact Support</a>
                     </div>
                 </form>
             </div>
@@ -215,20 +279,136 @@
         </div>
     </main>
 
-    <!-- Script -->
+    <!-- Supabase Configuration -->
     <script>
-        // Update Copyright Year automatically
+        // ⚠️ IMPORTANT: Replace these with your actual Supabase credentials
+        const SUPABASE_URL = 'YOUR_SUPABASE_URL_HERE';
+        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE';
+
+        // Initialize Supabase client
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    </script>
+
+    <!-- Main Script -->
+    <script>
+        // Update Copyright Year
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Login Form Handling (Placeholder)
-        document.getElementById('student-login-form').addEventListener('submit', function(e) {
+        // Password Toggle
+        const togglePassword = document.getElementById('toggle-password');
+        const passwordInput = document.getElementById('password');
+        const eyeIcon = document.getElementById('eye-icon');
+
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            eyeIcon.classList.toggle('fa-eye');
+            eyeIcon.classList.toggle('fa-eye-slash');
+        });
+
+        // Show Alert Function
+        function showAlert(message, type = 'error') {
+            const alertContainer = document.getElementById('alert-container');
+            const alertClass = type === 'error' ? 'alert-error' : 'alert-success';
+            alertContainer.innerHTML = `
+                <div class="alert ${alertClass}">
+                    <i class="fa-solid ${type === 'error' ? 'fa-circle-exclamation' : 'fa-circle-check'} mr-2"></i>
+                    ${message}
+                </div>
+            `;
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                alertContainer.innerHTML = '';
+            }, 5000);
+        }
+
+        // Login Form Handling
+        document.getElementById('student-login-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Backend logic goes here
             const email = document.getElementById('email').value;
-            console.log("Login attempted for:", email);
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('remember-me').checked;
+            const loginBtn = document.getElementById('login-btn');
+            const btnText = document.getElementById('btn-text');
+            const btnSpinner = document.getElementById('btn-spinner');
+
+            // Clear previous alerts
+            document.getElementById('alert-container').innerHTML = '';
+
+            // Disable form
+            loginBtn.disabled = true;
+            btnText.textContent = 'Signing in...';
+            btnSpinner.classList.remove('hidden');
+
+            try {
+                // Attempt login with Supabase
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email: email,
+                    password: password,
+                });
+
+                if (error) throw error;
+
+                // Check if user exists in students table
+                const { data: studentData, error: studentError } = await supabase
+                    .from('students')
+                    .select('*')
+                    .eq('email', email)
+                    .single();
+
+                if (studentError) {
+                    throw new Error('Student account not found. Please contact support.');
+                }
+
+                if (studentData.status !== 'active') {
+                    throw new Error('Your account is not active. Please contact support.');
+                }
+
+                // Success! Store session info
+                if (rememberMe) {
+                    localStorage.setItem('studentSession', JSON.stringify({
+                        userId: data.user.id,
+                        email: email,
+                        studentId: studentData.id,
+                        name: studentData.full_name
+                    }));
+                } else {
+                    sessionStorage.setItem('studentSession', JSON.stringify({
+                        userId: data.user.id,
+                        email: email,
+                        studentId: studentData.id,
+                        name: studentData.full_name
+                    }));
+                }
+
+                showAlert('Login successful! Redirecting...', 'success');
+
+                // Redirect to dashboard after 1 second
+                setTimeout(() => {
+                    window.location.href = '/student-dashboard.html';
+                }, 1000);
+
+            } catch (error) {
+                console.error('Login error:', error);
+                showAlert(error.message || 'Login failed. Please check your credentials.');
+                
+                // Re-enable form
+                loginBtn.disabled = false;
+                btnText.textContent = 'Sign In';
+                btnSpinner.classList.add('hidden');
+            }
+        });
+
+        // Check if already logged in
+        window.addEventListener('load', async () => {
+            const { data: { session } } = await supabase.auth.getSession();
             
-            alert("Login button clicked! (Backend integration required)");
+            if (session) {
+                // User is already logged in, redirect to dashboard
+                window.location.href = '/student-dashboard.html';
+            }
         });
     </script>
 </body>
