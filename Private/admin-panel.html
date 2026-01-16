@@ -401,7 +401,7 @@
                     type="email" 
                     id="admin-email" 
                     class="login-input" 
-                    placeholder="artdeone.educators@gmail.com" 
+                    placeholder="admin@artdeone.com" 
                     required
                 >
                 
@@ -420,7 +420,7 @@
             </form>
 
             <p style="margin-top: 1.5rem; text-align: center; font-size: 0.875rem; color: #888;">
-                Need help? <a href="mailto:artdeone.educators@gmail.com" style="color: #a7e169; text-decoration: underline;">Contact Support</a>
+                Need help? <a href="/cdn-cgi/l/email-protection#2d4c5f594948424348034849584e4c59425f5e6d4a404c4441034e4240" style="color: #a7e169; text-decoration: underline;">Contact Support</a>
             </p>
         </div>
     </div>
@@ -1485,23 +1485,21 @@
         });
 
         async function deleteFile(id) {
-            if (!confirm('Delete this file?')) return;
+    if (!confirm('Delete this file?')) return;
 
-            try {
-                const { error } = await supabase
-                    .from('course_files')
-                    .delete()
-                    .eq('id', id);
+    try {
+        const { error } = await supabase
+            .from('course_files')
+            .delete()
+            .eq('id', id);
 
-                if (error) throw error;
-                alert('File deleted successfully!');
-                loadFiles();
-                loadDashboardStats();
-            } catch (error) {
-                console.error('Error deleting file:', error);
-                alert('Error: ' + error.message);
-            }
-        }
-    </script>
-</body>
-</html>
+        if (error) throw error;
+        
+        alert('File deleted successfully!');
+        loadFiles();
+        loadDashboardStats();
+    } catch (error) {
+        console.error('Error deleting file:', error);
+        alert('Error: ' + error.message);
+    }
+}
