@@ -719,6 +719,7 @@
     </div>
 
     <!-- Add Course Modal -->
+    <!-- Add Course Modal -->
     <div id="add-course-modal" class="modal">
         <div class="modal-content">
             <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem;">Add New Course</h2>
@@ -726,6 +727,12 @@
             <form id="add-course-form">
                 <label class="form-label">Course Title</label>
                 <input type="text" name="title" class="form-input" required>
+
+                <!-- NEW: Cover Image URL Input -->
+                <label class="form-label">Cover Image URL</label>
+                <input type="text" name="cover_image_url" class="form-input" placeholder="https://example.com/image.jpg">
+                <p style="font-size: 0.8rem; color: #888; margin-bottom: 1rem;">Leave blank to use random cover.</p>
+                <!-- END NEW INPUT -->
 
                 <label class="form-label">Description</label>
                 <textarea name="description" class="form-input" rows="3"></textarea>
@@ -761,6 +768,7 @@
             </form>
         </div>
     </div>
+
 
     <!-- Add Enrollment Modal -->
     <div id="add-enrollment-modal" class="modal">
@@ -1370,7 +1378,8 @@
                     level: data.level || null,
                     duration_weeks: data.duration_weeks || null,
                     price: data.price || null,
-                    status: 'active'
+                    status: 'active',
+                    cover_image_url: data.cover_image_url || null // <--- ဒီလိုင်း ထပ်ထည့်ပါ
                 }]);
 
             if (error) throw error;
