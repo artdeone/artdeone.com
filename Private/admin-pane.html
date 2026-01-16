@@ -11,185 +11,272 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            background: #f5f7fa;
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #f9f9f9;
+            color: #323232;
         }
 
-        /* Login Screen Styles */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            color: #000;
+        }
+
+        /* ==================== LOGIN SCREEN ==================== */
         .login-container {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
         }
 
         .login-card {
             background: white;
             padding: 3rem;
             border-radius: 1rem;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 420px;
+            border: 1px solid #e5e5e5;
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1);
+            max-width: 440px;
             width: 90%;
         }
 
         .login-input {
             width: 100%;
             padding: 1rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 0.5rem;
-            font-size: 1rem;
+            border: 1px solid #e5e5e5;
+            border-radius: 0.75rem;
+            font-size: 0.95rem;
             margin-bottom: 1rem;
             transition: all 0.3s;
+            font-family: 'Space Grotesk', sans-serif;
         }
 
         .login-input:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #a7e169;
+            box-shadow: 0 0 0 3px rgba(167, 225, 105, 0.2);
         }
 
         .login-btn {
             width: 100%;
             padding: 1rem;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 0.5rem;
+            background: #a7e169;
+            color: #000;
+            border: 1px solid #a7e169;
+            border-radius: 2rem;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            font-family: 'Space Grotesk', sans-serif;
         }
 
         .login-btn:hover {
-            background: #5568d3;
+            background: #ed2939;
+            border-color: #ed2939;
+            color: white;
             transform: translateY(-2px);
         }
 
-        /* Main Panel Styles */
+        .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* ==================== NAVIGATION ==================== */
+        .top-nav {
+            background: rgba(255,255,255,0.95);
+            border-bottom: 1px solid #e5e5e5;
+            backdrop-filter: blur(12px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            height: 70px;
+        }
+
         .sidebar {
             width: 260px;
-            height: 100vh;
-            background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
+            height: calc(100vh - 70px);
+            background: #ffffff;
+            border-right: 1px solid #e5e5e5;
             position: fixed;
             left: 0;
-            top: 0;
+            top: 70px;
             padding: 2rem 1rem;
-            color: white;
+            overflow-y: auto;
         }
 
         .sidebar-link {
             padding: 0.875rem 1rem;
             margin: 0.5rem 0;
-            border-radius: 0.5rem;
+            border-radius: 0.75rem;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             gap: 0.75rem;
+            color: #323232;
+            font-weight: 400;
+            border: 1px solid transparent;
         }
 
         .sidebar-link:hover {
-            background: rgba(255,255,255,0.1);
+            background: #f9f9f9;
+            border-color: #e5e5e5;
         }
 
         .sidebar-link.active {
             background: #a7e169;
             color: #000;
             font-weight: 600;
+            border-color: #a7e169;
         }
 
+        .sidebar-link.active:hover {
+            background: #ed2939;
+            border-color: #ed2939;
+            color: white;
+        }
+
+        /* ==================== MAIN CONTENT ==================== */
         .main-content {
             margin-left: 260px;
+            margin-top: 70px;
             padding: 2rem;
-            min-height: 100vh;
+            min-height: calc(100vh - 70px);
         }
 
         .card {
             background: white;
             border-radius: 1rem;
             padding: 1.5rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border: 1px solid #e5e5e5;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
             margin-bottom: 1.5rem;
+            transition: all 0.4s ease;
         }
 
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: #a7e169;
+            box-shadow: 0 10px 15px -3px rgba(167, 225, 105, 0.2);
+        }
+
+        /* ==================== BUTTONS ==================== */
         .btn-primary {
             background: #a7e169;
             color: #000;
             font-weight: 600;
             padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            border: none;
+            border-radius: 2rem;
+            border: 1px solid #a7e169;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Space Grotesk', sans-serif;
         }
 
         .btn-primary:hover {
             background: #ed2939;
+            border-color: #ed2939;
             color: white;
+            transform: translateY(-2px);
         }
 
         .btn-secondary {
-            background: #6c757d;
-            color: white;
+            background: white;
+            color: #323232;
+            font-weight: 600;
+            border: 1px solid #e5e5e5;
             padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            border: none;
+            border-radius: 2rem;
             cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .btn-secondary:hover {
+            background: #000;
+            color: white;
+            border-color: #000;
         }
 
         .btn-danger {
-            background: #dc3545;
+            background: #ed2939;
             color: white;
             padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            border: none;
+            border-radius: 2rem;
+            border: 1px solid #ed2939;
             cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Space Grotesk', sans-serif;
         }
 
+        .btn-danger:hover {
+            background: #c41e2e;
+            border-color: #c41e2e;
+        }
+
+        /* ==================== FORM ELEMENTS ==================== */
         .form-input {
             width: 100%;
             padding: 0.75rem;
-            border: 1px solid #ddd;
-            border-radius: 0.5rem;
+            border: 1px solid #e5e5e5;
+            border-radius: 0.75rem;
             margin-bottom: 1rem;
+            transition: all 0.3s;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #a7e169;
+            box-shadow: 0 0 0 3px rgba(167, 225, 105, 0.2);
         }
 
         .form-label {
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 600;
-            color: #333;
+            color: #323232;
+            font-family: 'Poppins', sans-serif;
         }
 
+        /* ==================== TABLES ==================== */
         table {
             width: 100%;
             border-collapse: collapse;
         }
 
         th {
-            background: #f8f9fa;
+            background: #f9f9f9;
             padding: 1rem;
             text-align: left;
             font-weight: 600;
-            border-bottom: 2px solid #dee2e6;
+            border-bottom: 1px solid #e5e5e5;
+            color: #000;
+            font-family: 'Poppins', sans-serif;
         }
 
         td {
             padding: 1rem;
-            border-bottom: 1px solid #dee2e6;
+            border-bottom: 1px solid #f0f0f0;
         }
 
         tr:hover {
-            background: #f8f9fa;
+            background: #fafafa;
         }
 
+        /* ==================== MODALS ==================== */
         .modal {
             display: none;
             position: fixed;
@@ -197,7 +284,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0,0,0,0.4);
             z-index: 1000;
             align-items: center;
             justify-content: center;
@@ -215,13 +302,17 @@
             width: 90%;
             max-height: 90vh;
             overflow-y: auto;
+            border: 1px solid #e5e5e5;
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.2);
         }
 
+        /* ==================== BADGES ==================== */
         .badge {
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
+            padding: 0.35rem 0.85rem;
+            border-radius: 2rem;
             font-size: 0.75rem;
             font-weight: 600;
+            display: inline-block;
         }
 
         .badge-success { background: #d1fae5; color: #065f46; }
@@ -229,31 +320,65 @@
         .badge-danger { background: #fee2e2; color: #991b1b; }
         .badge-info { background: #dbeafe; color: #1e40af; }
 
+        /* ==================== STAT CARDS ==================== */
         .stat-card {
             background: white;
             padding: 1.5rem;
-            border-radius: 0.75rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border-radius: 1rem;
+            border: 1px solid #e5e5e5;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            transition: all 0.4s ease;
         }
 
-        .hidden { display: none; }
+        .stat-card:hover {
+            transform: translateY(-4px);
+            border-color: #a7e169;
+            box-shadow: 0 10px 15px -3px rgba(167, 225, 105, 0.2);
+        }
 
+        /* ==================== ALERTS ==================== */
         .alert {
             padding: 1rem;
-            border-radius: 0.5rem;
+            border-radius: 0.75rem;
             margin-bottom: 1rem;
+            border: 1px solid;
         }
 
         .alert-error {
             background: #fee;
-            border: 1px solid #fcc;
+            border-color: #fcc;
             color: #c00;
         }
 
         .alert-success {
             background: #efe;
-            border: 1px solid #cfc;
+            border-color: #cfc;
             color: #0a0;
+        }
+
+        /* ==================== UTILITIES ==================== */
+        .hidden { display: none; }
+        
+        .page-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            color: #555;
+            margin-bottom: 2rem;
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .main-content {
+                margin-left: 0;
+            }
         }
     </style>
 </head>
@@ -262,43 +387,70 @@
     <!-- Login Screen -->
     <div id="login-screen" class="login-container">
         <div class="login-card">
-            <div style="text-align: center; margin-bottom: 2rem;">
-                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png" alt="Logo" style="height: 60px; margin-bottom: 1rem;">
-                <h1 style="font-size: 1.75rem; font-weight: bold; margin-bottom: 0.5rem;">Admin Panel</h1>
-                <p style="color: #666;">Enter your admin password</p>
+            <div style="text-align: center; margin-bottom: 2.5rem;">
+                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png" alt="ART de ONE" style="height: 50px; margin-bottom: 1.5rem;">
+                <h1 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 0.5rem; color: #000;">Admin Panel</h1>
+                <p style="color: #555; font-size: 0.95rem;">Enter your credentials to continue</p>
             </div>
 
             <div id="login-alert"></div>
 
             <form id="admin-login-form">
+                <label class="form-label">Email Address</label>
+                <input 
+                    type="email" 
+                    id="admin-email" 
+                    class="login-input" 
+                    placeholder="admin@artdeone.com" 
+                    required
+                >
+                
+                <label class="form-label">Password</label>
                 <input 
                     type="password" 
                     id="admin-password" 
                     class="login-input" 
-                    placeholder="Admin Password" 
+                    placeholder="••••••••" 
                     required
                 >
-                <button type="submit" class="login-btn">
-                    <i class="fa-solid fa-lock mr-2"></i>Login
+                
+                <button type="submit" class="login-btn" id="login-btn">
+                    <span id="login-btn-text">Sign In</span>
                 </button>
             </form>
 
-            <p style="margin-top: 1.5rem; text-align: center; font-size: 0.875rem; color: #666;">
-                Default password: <code style="background: #f0f0f0; padding: 0.25rem 0.5rem; border-radius: 0.25rem;">admin123</code>
+            <p style="margin-top: 1.5rem; text-align: center; font-size: 0.875rem; color: #888;">
+                Need help? <a href="mailto:artdeone.educators@gmail.com" style="color: #a7e169; text-decoration: underline;">Contact Support</a>
             </p>
         </div>
     </div>
 
     <!-- Main Admin Panel -->
     <div id="admin-panel" class="hidden">
+        
+        <!-- Top Navigation -->
+        <nav class="top-nav">
+            <div style="max-width: 100%; padding: 0 2rem; height: 100%; display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png" alt="ART de ONE" style="height: 35px;">
+                    <span style="font-weight: 600; color: #000; font-size: 1.1rem;">Admin Panel</span>
+                </div>
+                
+                <div style="display: flex; align-items: center; gap: 1.5rem;">
+                    <span style="color: #555; font-size: 0.9rem;">
+                        <i class="fa-solid fa-user-circle" style="margin-right: 0.5rem; color: #a7e169;"></i>
+                        <span id="admin-name">Administrator</span>
+                    </span>
+                    <button onclick="logout()" class="btn-secondary" style="padding: 0.5rem 1.25rem;">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </nav>
+
         <!-- Sidebar -->
         <div class="sidebar">
-            <div class="text-center mb-8">
-                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png" alt="Logo" class="h-12 mx-auto mb-3">
-                <h2 class="text-xl font-bold">Admin Panel</h2>
-                <p class="text-sm opacity-75">ART de ONE</p>
-            </div>
-
             <nav>
                 <div class="sidebar-link active" data-section="dashboard">
                     <i class="fa-solid fa-chart-line"></i>
@@ -325,13 +477,6 @@
                     <span>Announcements</span>
                 </div>
             </nav>
-
-            <div style="position: absolute; bottom: 2rem; width: calc(100% - 2rem);">
-                <div class="sidebar-link" id="logout-btn">
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                    <span>Logout</span>
-                </div>
-            </div>
         </div>
 
         <!-- Main Content -->
@@ -339,29 +484,18 @@
             
             <!-- Dashboard Section -->
             <div id="dashboard-section" class="section">
-                <h1 class="text-3xl font-bold mb-6">Dashboard Overview</h1>
+                <h1 class="page-title">Dashboard</h1>
+                <p class="page-subtitle">Welcome back! Here's what's happening with your students.</p>
                 
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
                     <div class="stat-card">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <div>
-                                <p style="color: #6c757d; font-size: 0.875rem; margin-bottom: 0.5rem;">Total Students</p>
-                                <p style="font-size: 2rem; font-weight: bold;" id="stat-students">0</p>
+                                <p style="color: #888; font-size: 0.875rem; margin-bottom: 0.5rem;">Total Students</p>
+                                <p style="font-size: 2.5rem; font-weight: 700; color: #000;" id="stat-students">0</p>
                             </div>
-                            <div style="background: #e3f2fd; padding: 1rem; border-radius: 50%;">
-                                <i class="fa-solid fa-users" style="font-size: 1.5rem; color: #1976d2;"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="stat-card">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <div>
-                                <p style="color: #6c757d; font-size: 0.875rem; margin-bottom: 0.5rem;">Active Courses</p>
-                                <p style="font-size: 2rem; font-weight: bold;" id="stat-courses">0</p>
-                            </div>
-                            <div style="background: #e8f5e9; padding: 1rem; border-radius: 50%;">
-                                <i class="fa-solid fa-book-open" style="font-size: 1.5rem; color: #388e3c;"></i>
+                            <div style="background: #e3f2fd; padding: 1rem; border-radius: 1rem;">
+                                <i class="fa-solid fa-users" style="font-size: 1.75rem; color: #1976d2;"></i>
                             </div>
                         </div>
                     </div>
@@ -369,11 +503,11 @@
                     <div class="stat-card">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <div>
-                                <p style="color: #6c757d; font-size: 0.875rem; margin-bottom: 0.5rem;">Enrollments</p>
-                                <p style="font-size: 2rem; font-weight: bold;" id="stat-enrollments">0</p>
+                                <p style="color: #888; font-size: 0.875rem; margin-bottom: 0.5rem;">Active Courses</p>
+                                <p style="font-size: 2.5rem; font-weight: 700; color: #000;" id="stat-courses">0</p>
                             </div>
-                            <div style="background: #fff3e0; padding: 1rem; border-radius: 50%;">
-                                <i class="fa-solid fa-user-plus" style="font-size: 1.5rem; color: #f57c00;"></i>
+                            <div style="background: #d1fae5; padding: 1rem; border-radius: 1rem;">
+                                <i class="fa-solid fa-book-open" style="font-size: 1.75rem; color: #065f46;"></i>
                             </div>
                         </div>
                     </div>
@@ -381,27 +515,42 @@
                     <div class="stat-card">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <div>
-                                <p style="color: #6c757d; font-size: 0.875rem; margin-bottom: 0.5rem;">Course Files</p>
-                                <p style="font-size: 2rem; font-weight: bold;" id="stat-files">0</p>
+                                <p style="color: #888; font-size: 0.875rem; margin-bottom: 0.5rem;">Enrollments</p>
+                                <p style="font-size: 2.5rem; font-weight: 700; color: #000;" id="stat-enrollments">0</p>
                             </div>
-                            <div style="background: #fce4ec; padding: 1rem; border-radius: 50%;">
-                                <i class="fa-solid fa-folder-open" style="font-size: 1.5rem; color: #c2185b;"></i>
+                            <div style="background: #fef3c7; padding: 1rem; border-radius: 1rem;">
+                                <i class="fa-solid fa-user-plus" style="font-size: 1.75rem; color: #92400e;"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <p style="color: #888; font-size: 0.875rem; margin-bottom: 0.5rem;">Course Files</p>
+                                <p style="font-size: 2.5rem; font-weight: 700; color: #000;" id="stat-files">0</p>
+                            </div>
+                            <div style="background: #fee2e2; padding: 1rem; border-radius: 1rem;">
+                                <i class="fa-solid fa-folder-open" style="font-size: 1.75rem; color: #991b1b;"></i>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="card">
-                    <h2 style="font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem;">Quick Actions</h2>
+                    <h2 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem; color: #000;">Quick Actions</h2>
                     <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
                         <button class="btn-primary" onclick="openModal('add-student')">
-                            <i class="fa-solid fa-user-plus mr-2"></i>Add Student
+                            <i class="fa-solid fa-user-plus"></i>
+                            Add Student
                         </button>
                         <button class="btn-primary" onclick="openModal('add-course')">
-                            <i class="fa-solid fa-book-plus mr-2"></i>Add Course
+                            <i class="fa-solid fa-book-plus"></i>
+                            Add Course
                         </button>
                         <button class="btn-primary" onclick="openModal('add-announcement')">
-                            <i class="fa-solid fa-bullhorn mr-2"></i>New Announcement
+                            <i class="fa-solid fa-bullhorn"></i>
+                            New Announcement
                         </button>
                     </div>
                 </div>
@@ -409,17 +558,21 @@
 
             <!-- Students Section -->
             <div id="students-section" class="section hidden">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                    <h1 class="text-3xl font-bold">Students Management</h1>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <div>
+                        <h1 class="page-title">Students</h1>
+                        <p class="page-subtitle" style="margin: 0;">Manage your student accounts</p>
+                    </div>
                     <button class="btn-primary" onclick="openModal('add-student')">
-                        <i class="fa-solid fa-plus mr-2"></i>Add New Student
+                        <i class="fa-solid fa-plus"></i>
+                        Add New Student
                     </button>
                 </div>
 
                 <div class="card">
-                    <input type="text" id="student-search" placeholder="Search students..." class="form-input" style="margin-bottom: 1rem;" onkeyup="searchStudents()">
+                    <input type="text" id="student-search" placeholder="Search students by name or email..." class="form-input" style="margin-bottom: 1.5rem;" onkeyup="searchStudents()">
                     <div style="overflow-x: auto;">
-                        <table id="students-table">
+                        <table>
                             <thead>
                                 <tr>
                                     <th>Name</th>
@@ -431,7 +584,7 @@
                                 </tr>
                             </thead>
                             <tbody id="students-tbody">
-                                <tr><td colspan="6" style="text-align: center;">Loading...</td></tr>
+                                <tr><td colspan="6" style="text-align: center; padding: 2rem; color: #888;">Loading...</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -440,16 +593,20 @@
 
             <!-- Courses Section -->
             <div id="courses-section" class="section hidden">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                    <h1 class="text-3xl font-bold">Courses Management</h1>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <div>
+                        <h1 class="page-title">Courses</h1>
+                        <p class="page-subtitle" style="margin: 0;">Manage your course catalog</p>
+                    </div>
                     <button class="btn-primary" onclick="openModal('add-course')">
-                        <i class="fa-solid fa-plus mr-2"></i>Add New Course
+                        <i class="fa-solid fa-plus"></i>
+                        Add New Course
                     </button>
                 </div>
 
                 <div class="card">
                     <div style="overflow-x: auto;">
-                        <table id="courses-table">
+                        <table>
                             <thead>
                                 <tr>
                                     <th>Title</th>
@@ -461,7 +618,7 @@
                                 </tr>
                             </thead>
                             <tbody id="courses-tbody">
-                                <tr><td colspan="6" style="text-align: center;">Loading...</td></tr>
+                                <tr><td colspan="6" style="text-align: center; padding: 2rem; color: #888;">Loading...</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -470,56 +627,72 @@
 
             <!-- Enrollments Section -->
             <div id="enrollments-section" class="section hidden">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                    <h1 class="text-3xl font-bold">Enrollments</h1>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <div>
+                        <h1 class="page-title">Enrollments</h1>
+                        <p class="page-subtitle" style="margin: 0;">Track student course enrollments</p>
+                    </div>
                     <button class="btn-primary" onclick="openModal('add-enrollment')">
-                        <i class="fa-solid fa-plus mr-2"></i>Enroll Student
+                        <i class="fa-solid fa-plus"></i>
+                        Enroll Student
                     </button>
                 </div>
 
                 <div class="card" id="enrollments-container">
-                    Loading...
+                    <p style="text-align: center; padding: 2rem; color: #888;">Loading...</p>
                 </div>
             </div>
 
             <!-- Files Section -->
             <div id="files-section" class="section hidden">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                    <h1 class="text-3xl font-bold">Course Files</h1>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <div>
+                        <h1 class="page-title">Course Files</h1>
+                        <p class="page-subtitle" style="margin: 0;">Manage course materials and downloads</p>
+                    </div>
                     <button class="btn-primary" onclick="openModal('upload-file')">
-                        <i class="fa-solid fa-upload mr-2"></i>Upload File
+                        <i class="fa-solid fa-upload"></i>
+                        Upload File
                     </button>
                 </div>
-                <div class="card" id="files-container">Loading...</div>
+                <div class="card" id="files-container">
+                    <p style="text-align: center; padding: 2rem; color: #888;">Loading...</p>
+                </div>
             </div>
 
             <!-- Announcements Section -->
             <div id="announcements-section" class="section hidden">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                    <h1 class="text-3xl font-bold">Announcements</h1>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <div>
+                        <h1 class="page-title">Announcements</h1>
+                        <p class="page-subtitle" style="margin: 0;">Send messages to your students</p>
+                    </div>
                     <button class="btn-primary" onclick="openModal('add-announcement')">
-                        <i class="fa-solid fa-plus mr-2"></i>New Announcement
+                        <i class="fa-solid fa-plus"></i>
+                        New Announcement
                     </button>
                 </div>
-                <div class="card" id="announcements-container">Loading...</div>
+                <div class="card" id="announcements-container">
+                    <p style="text-align: center; padding: 2rem; color: #888;">Loading...</p>
+                </div>
             </div>
+
         </div>
     </div>
 
-    <!-- Modals (same as before but with updated IDs) -->
     <!-- Add Student Modal -->
     <div id="add-student-modal" class="modal">
         <div class="modal-content">
-            <h2 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1.5rem;">Add New Student</h2>
+            <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem;">Add New Student</h2>
             <div id="add-student-alert"></div>
             <form id="add-student-form">
                 <label class="form-label">Full Name</label>
                 <input type="text" name="full_name" class="form-input" required>
 
-                <label class="form-label">Email</label>
+                <label class="form-label">Email Address</label>
                 <input type="email" name="email" class="form-input" required>
 
-                <label class="form-label">Password (temporary)</label>
+                <label class="form-label">Temporary Password</label>
                 <input type="password" name="password" class="form-input" required minlength="6">
 
                 <label class="form-label">Student Type</label>
@@ -528,14 +701,17 @@
                     <option value="group">Group</option>
                 </select>
 
-                <label class="form-label">Phone Number (optional)</label>
+                <label class="form-label">Phone Number (Optional)</label>
                 <input type="tel" name="phone_number" class="form-input">
 
-                <label class="form-label">Address (optional)</label>
+                <label class="form-label">Address (Optional)</label>
                 <textarea name="address" class="form-input" rows="3"></textarea>
 
-                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-                    <button type="submit" class="btn-primary">Add Student</button>
+                <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                    <button type="submit" class="btn-primary">
+                        <i class="fa-solid fa-check"></i>
+                        Add Student
+                    </button>
                     <button type="button" class="btn-secondary" onclick="closeModal('add-student')">Cancel</button>
                 </div>
             </form>
@@ -545,7 +721,7 @@
     <!-- Add Course Modal -->
     <div id="add-course-modal" class="modal">
         <div class="modal-content">
-            <h2 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1.5rem;">Add New Course</h2>
+            <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem;">Add New Course</h2>
             <div id="add-course-alert"></div>
             <form id="add-course-form">
                 <label class="form-label">Course Title</label>
@@ -575,8 +751,11 @@
                 <label class="form-label">Price (MMK)</label>
                 <input type="number" name="price" class="form-input" step="0.01">
 
-                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-                    <button type="submit" class="btn-primary">Add Course</button>
+                <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                    <button type="submit" class="btn-primary">
+                        <i class="fa-solid fa-check"></i>
+                        Add Course
+                    </button>
                     <button type="button" class="btn-secondary" onclick="closeModal('add-course')">Cancel</button>
                 </div>
             </form>
@@ -586,7 +765,7 @@
     <!-- Add Enrollment Modal -->
     <div id="add-enrollment-modal" class="modal">
         <div class="modal-content">
-            <h2 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1.5rem;">Enroll Student in Course</h2>
+            <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem;">Enroll Student in Course</h2>
             <div id="add-enrollment-alert"></div>
             <form id="add-enrollment-form">
                 <label class="form-label">Select Student</label>
@@ -599,8 +778,11 @@
                     <option value="">Loading courses...</option>
                 </select>
 
-                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-                    <button type="submit" class="btn-primary">Enroll Student</button>
+                <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                    <button type="submit" class="btn-primary">
+                        <i class="fa-solid fa-check"></i>
+                        Enroll Student
+                    </button>
                     <button type="button" class="btn-secondary" onclick="closeModal('add-enrollment')">Cancel</button>
                 </div>
             </form>
@@ -610,7 +792,7 @@
     <!-- Upload File Modal -->
     <div id="upload-file-modal" class="modal">
         <div class="modal-content">
-            <h2 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1.5rem;">Upload Course File</h2>
+            <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem;">Upload Course File</h2>
             <div id="upload-file-alert"></div>
             <form id="upload-file-form">
                 <label class="form-label">Select Course</label>
@@ -638,8 +820,11 @@
                     <span>Make publicly accessible</span>
                 </label>
 
-                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-                    <button type="submit" class="btn-primary">Upload</button>
+                <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                    <button type="submit" class="btn-primary">
+                        <i class="fa-solid fa-upload"></i>
+                        Upload
+                    </button>
                     <button type="button" class="btn-secondary" onclick="closeModal('upload-file')">Cancel</button>
                 </div>
             </form>
@@ -649,7 +834,7 @@
     <!-- Add Announcement Modal -->
     <div id="add-announcement-modal" class="modal">
         <div class="modal-content">
-            <h2 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1.5rem;">New Announcement</h2>
+            <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem;">New Announcement</h2>
             <div id="add-announcement-alert"></div>
             <form id="add-announcement-form">
                 <label class="form-label">Title</label>
@@ -673,8 +858,11 @@
                     <option value="low">Low</option>
                 </select>
 
-                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-                    <button type="submit" class="btn-primary">Publish</button>
+                <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                    <button type="submit" class="btn-primary">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        Publish
+                    </button>
                     <button type="button" class="btn-secondary" onclick="closeModal('add-announcement')">Cancel</button>
                 </div>
             </form>
@@ -683,45 +871,66 @@
 
     <script>
         // ⚠️ CONFIGURATION - Replace with your Supabase credentials
-        const SUPABASE_URL = 'https://eyhyvlszpfsmsjyzijxg.supabase.co';  // ✅ မှန်ပါပြီ
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5aHl2bHN6cGZzbXNqeXppanhnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg1Mzc3MDcsImV4cCI6MjA4NDExMzcwN30.rvU2oh0zmdLVaAZFjqgQvKInX1ePCQudK9cBT4hiv80';  // ⚠️ သေချာစစ်ရန်
-
-// ⚠️ ADMIN PASSWORD - Change this to your preferred password!
-const ADMIN_PASSWORD = 'admin123';
-
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-// ↑ ဒါက အပေါ်က variables တွေကို သုံးတယ်
+        const SUPABASE_URL = 'https://eyhyvlszpfsmsjyzijxg.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5aHl2bHN6cGZzbXNqeXppanhnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg1Mzc3MDcsImV4cCI6MjA4NDExMzcwN30.rvU2oh0zmdLVaAZFjqgQvKInX1ePCQudK9cBT4hiv80';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         // Global variables
         let allStudents = [];
         let allCourses = [];
 
-        // Check if already logged in
-        window.addEventListener('load', () => {
-            const isLoggedIn = sessionStorage.getItem('adminLoggedIn');
-            if (isLoggedIn === 'true') {
+        // ============================================
+        // AUTHENTICATION
+        // ============================================
+        window.addEventListener('load', async () => {
+            const { data: { session } } = await supabase.auth.getSession();
+            
+            if (session) {
                 showAdminPanel();
+            } else {
+                document.getElementById('login-screen').classList.remove('hidden');
+                document.getElementById('admin-panel').classList.add('hidden');
             }
         });
 
-        // Admin login handler
-        document.getElementById('admin-login-form').addEventListener('submit', (e) => {
+        document.getElementById('admin-login-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const password = document.getElementById('admin-password').value;
             
-            if (password === ADMIN_PASSWORD) {
-                sessionStorage.setItem('adminLoggedIn', 'true');
-                showAdminPanel();
-            } else {
-                showLoginAlert('Incorrect password. Please try again.', 'error');
-                document.getElementById('admin-password').value = '';
+            const email = document.getElementById('admin-email').value;
+            const password = document.getElementById('admin-password').value;
+            const loginBtn = document.getElementById('login-btn');
+            const btnText = document.getElementById('login-btn-text');
+            
+            loginBtn.disabled = true;
+            btnText.textContent = 'Signing in...';
+            
+            try {
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
+
+                if (error) throw error;
+
+                showLoginAlert('Login successful! Loading dashboard...', 'success');
+                
+                setTimeout(() => {
+                    showAdminPanel();
+                }, 1000);
+
+            } catch (error) {
+                console.error('Login error:', error);
+                showLoginAlert(error.message || 'Login failed. Please check your credentials.', 'error');
+                
+                loginBtn.disabled = false;
+                btnText.textContent = 'Sign In';
             }
         });
 
         function showLoginAlert(message, type) {
             const alertDiv = document.getElementById('login-alert');
             alertDiv.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
-            setTimeout(() => alertDiv.innerHTML = '', 3000);
+            setTimeout(() => alertDiv.innerHTML = '', 5000);
         }
 
         function showAdminPanel() {
@@ -730,15 +939,27 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
             loadDashboardStats();
         }
 
-        // Logout handler
-        document.getElementById('logout-btn').addEventListener('click', () => {
+        async function logout() {
             if (confirm('Are you sure you want to logout?')) {
-                sessionStorage.removeItem('adminLoggedIn');
-                location.reload();
+                try {
+                    await supabase.auth.signOut();
+                    
+                    document.getElementById('admin-panel').classList.add('hidden');
+                    document.getElementById('login-screen').classList.remove('hidden');
+                    
+                    document.getElementById('admin-email').value = '';
+                    document.getElementById('admin-password').value = '';
+                    
+                } catch (error) {
+                    console.error('Logout error:', error);
+                    alert('Error logging out: ' + error.message);
+                }
             }
-        });
+        }
 
-        // Modal functions
+        // ============================================
+        // MODAL FUNCTIONS
+        // ============================================
         function openModal(name) {
             document.getElementById(`${name}-modal`).classList.add('active');
             if (name === 'upload-file') {
@@ -752,7 +973,6 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         function closeModal(name) {
             document.getElementById(`${name}-modal`).classList.remove('active');
-            // Clear alerts
             const alertDiv = document.getElementById(`${name}-alert`);
             if (alertDiv) alertDiv.innerHTML = '';
         }
@@ -765,7 +985,9 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
             }
         }
 
-        // Navigation
+        // ============================================
+        // NAVIGATION
+        // ============================================
         document.querySelectorAll('.sidebar-link[data-section]').forEach(link => {
             link.addEventListener('click', () => {
                 const section = link.dataset.section;
@@ -780,7 +1002,9 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
             });
         });
 
-        // Load dashboard stats
+        // ============================================
+        // DATA LOADING
+        // ============================================
         async function loadDashboardStats() {
             try {
                 const [students, courses, enrollments, files] = await Promise.all([
@@ -799,7 +1023,6 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
             }
         }
 
-        // Load section data
         async function loadSectionData(section) {
             switch(section) {
                 case 'dashboard':
@@ -823,7 +1046,6 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
             }
         }
 
-        // Load students
         async function loadStudents() {
             try {
                 const { data: students, error } = await supabase
@@ -844,19 +1066,21 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         function displayStudents(students) {
             const tbody = document.getElementById('students-tbody');
             if (students.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No students found</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 2rem; color: #888;">No students found</td></tr>';
                 return;
             }
             
             tbody.innerHTML = students.map(s => `
                 <tr>
-                    <td>${s.full_name}</td>
-                    <td>${s.email}</td>
+                    <td style="font-weight: 500;">${s.full_name}</td>
+                    <td style="color: #555;">${s.email}</td>
                     <td><span class="badge badge-info">${s.student_type}</span></td>
                     <td><span class="badge ${s.status === 'active' ? 'badge-success' : 'badge-danger'}">${s.status}</span></td>
-                    <td>${new Date(s.enrolled_date).toLocaleDateString()}</td>
+                    <td style="color: #555;">${new Date(s.enrolled_date).toLocaleDateString()}</td>
                     <td>
-                        <button class="btn-secondary" onclick="viewStudent('${s.id}')">View</button>
+                        <button class="btn-secondary" style="padding: 0.4rem 1rem; font-size: 0.875rem;" onclick="viewStudent('${s.id}')">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
                     </td>
                 </tr>
             `).join('');
@@ -878,7 +1102,6 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
             }
         }
 
-        // Load courses
         async function loadCourses() {
             try {
                 const { data: courses, error } = await supabase
@@ -892,19 +1115,21 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
                 const tbody = document.getElementById('courses-tbody');
                 
                 if (courses.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No courses found</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 2rem; color: #888;">No courses found</td></tr>';
                     return;
                 }
                 
                 tbody.innerHTML = courses.map(c => `
                     <tr>
-                        <td>${c.title}</td>
+                        <td style="font-weight: 500;">${c.title}</td>
                         <td><span class="badge badge-info">${c.course_type}</span></td>
-                        <td>${c.level || 'N/A'}</td>
-                        <td>${c.duration_weeks || 'N/A'} weeks</td>
+                        <td style="color: #555;">${c.level || 'N/A'}</td>
+                        <td style="color: #555;">${c.duration_weeks || 'N/A'} weeks</td>
                         <td><span class="badge ${c.status === 'active' ? 'badge-success' : 'badge-warning'}">${c.status}</span></td>
                         <td>
-                            <button class="btn-secondary" onclick="viewCourse('${c.id}')">View</button>
+                            <button class="btn-secondary" style="padding: 0.4rem 1rem; font-size: 0.875rem;" onclick="viewCourse('${c.id}')">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
                         </td>
                     </tr>
                 `).join('');
@@ -920,7 +1145,6 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
             }
         }
 
-        // Load enrollments
         async function loadEnrollments() {
             try {
                 const { data: enrollments, error } = await supabase
@@ -937,7 +1161,7 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
                 const container = document.getElementById('enrollments-container');
                 
                 if (enrollments.length === 0) {
-                    container.innerHTML = '<p style="text-align: center; padding: 2rem; color: #666;">No enrollments found</p>';
+                    container.innerHTML = '<p style="text-align: center; padding: 2rem; color: #888;">No enrollments found</p>';
                     return;
                 }
                 
@@ -956,11 +1180,14 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
                             <tbody>
                                 ${enrollments.map(e => `
                                     <tr>
-                                        <td>${e.students.full_name}<br><small style="color: #666;">${e.students.email}</small></td>
-                                        <td>${e.courses.title}</td>
-                                        <td>${e.progress_percentage}%</td>
+                                        <td>
+                                            <div style="font-weight: 500;">${e.students.full_name}</div>
+                                            <div style="font-size: 0.875rem; color: #888;">${e.students.email}</div>
+                                        </td>
+                                        <td style="font-weight: 500;">${e.courses.title}</td>
+                                        <td><span class="badge badge-info">${e.progress_percentage}%</span></td>
                                         <td><span class="badge ${e.status === 'active' ? 'badge-success' : e.status === 'completed' ? 'badge-info' : 'badge-warning'}">${e.status}</span></td>
-                                        <td>${new Date(e.enrolled_at).toLocaleDateString()}</td>
+                                        <td style="color: #555;">${new Date(e.enrolled_at).toLocaleDateString()}</td>
                                     </tr>
                                 `).join('')}
                             </tbody>
@@ -972,7 +1199,6 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
             }
         }
 
-        // Load files
         async function loadFiles() {
             try {
                 const { data: files, error } = await supabase
@@ -988,25 +1214,27 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
                 const container = document.getElementById('files-container');
                 
                 if (files.length === 0) {
-                    container.innerHTML = '<p style="text-align: center; padding: 2rem; color: #666;">No files uploaded yet</p>';
+                    container.innerHTML = '<p style="text-align: center; padding: 2rem; color: #888;">No files uploaded yet</p>';
                     return;
                 }
                 
                 container.innerHTML = files.map(f => `
-                    <div style="border: 1px solid #ddd; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem;">
+                    <div style="border: 1px solid #e5e5e5; padding: 1.5rem; border-radius: 0.75rem; margin-bottom: 1rem; transition: all 0.3s;">
                         <div style="display: flex; justify-content: space-between; align-items: start;">
-                            <div>
-                                <h3 style="font-weight: 600; margin-bottom: 0.5rem;">${f.file_name}</h3>
-                                <p style="font-size: 0.875rem; color: #6c757d;">Course: ${f.courses.title}</p>
-                                <p style="font-size: 0.875rem; color: #6c757d;">${f.file_description || 'No description'}</p>
-                                <span class="badge badge-info">${f.file_type}</span>
-                                ${f.is_public ? '<span class="badge badge-success">Public</span>' : ''}
+                            <div style="flex: 1;">
+                                <h3 style="font-weight: 600; margin-bottom: 0.5rem; color: #000;">${f.file_name}</h3>
+                                <p style="font-size: 0.875rem; color: #888; margin-bottom: 0.5rem;">Course: ${f.courses.title}</p>
+                                <p style="font-size: 0.875rem; color: #555; margin-bottom: 0.75rem;">${f.file_description || 'No description'}</p>
+                                <div style="display: flex; gap: 0.5rem;">
+                                    <span class="badge badge-info">${f.file_type}</span>
+                                    ${f.is_public ? '<span class="badge badge-success">Public</span>' : ''}
+                                </div>
                             </div>
-                            <div>
-                                <a href="${f.file_url}" target="_blank" class="btn-primary" style="display: inline-block; margin-right: 0.5rem;">
+                            <div style="display: flex; gap: 0.5rem;">
+                                <a href="${f.file_url}" target="_blank" class="btn-primary" style="text-decoration: none; padding: 0.5rem 1rem;">
                                     <i class="fa-solid fa-download"></i>
                                 </a>
-                                <button class="btn-danger" onclick="deleteFile('${f.id}')">
+                                <button class="btn-danger" onclick="deleteFile('${f.id}')" style="padding: 0.5rem 1rem;">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </div>
@@ -1018,7 +1246,6 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
             }
         }
 
-        // Load announcements
         async function loadAnnouncements() {
             try {
                 const { data: announcements, error } = await supabase
@@ -1031,20 +1258,20 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
                 const container = document.getElementById('announcements-container');
                 
                 if (announcements.length === 0) {
-                    container.innerHTML = '<p style="text-align: center; padding: 2rem; color: #666;">No announcements yet</p>';
+                    container.innerHTML = '<p style="text-align: center; padding: 2rem; color: #888;">No announcements yet</p>';
                     return;
                 }
                 
                 container.innerHTML = announcements.map(a => `
-                    <div style="border-left: 4px solid #a7e169; padding: 1rem; background: #f8f9fa; margin-bottom: 1rem; border-radius: 0.5rem;">
-                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
-                            <h3 style="font-weight: 600;">${a.title}</h3>
+                    <div style="border-left: 4px solid #a7e169; padding: 1.5rem; background: #fafafa; margin-bottom: 1rem; border-radius: 0.5rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.75rem;">
+                            <h3 style="font-weight: 600; color: #000;">${a.title}</h3>
                             <span class="badge ${a.priority === 'urgent' ? 'badge-danger' : a.priority === 'high' ? 'badge-warning' : 'badge-info'}">${a.priority}</span>
                         </div>
-                        <p style="color: #495057; margin-bottom: 0.5rem;">${a.content}</p>
-                        <p style="font-size: 0.75rem; color: #6c757d;">
+                        <p style="color: #555; margin-bottom: 0.75rem;">${a.content}</p>
+                        <p style="font-size: 0.75rem; color: #888;">
                             Target: ${a.target_audience} | ${new Date(a.published_at).toLocaleDateString()}
-                            ${a.is_active ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">Inactive</span>'}
+                            ${a.is_active ? '<span class="badge badge-success" style="margin-left: 0.5rem;">Active</span>' : '<span class="badge badge-danger" style="margin-left: 0.5rem;">Inactive</span>'}
                         </p>
                     </div>
                 `).join('');
@@ -1053,7 +1280,6 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
             }
         }
 
-        // Load students for select dropdown
         async function loadStudentsForSelect() {
             if (allStudents.length === 0) {
                 const { data } = await supabase.from('students').select('id, full_name, email').eq('status', 'active');
@@ -1067,7 +1293,6 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
             `;
         }
 
-        // Load courses for select dropdown
         async function loadCoursesForSelect(selectId) {
             if (allCourses.length === 0) {
                 const { data } = await supabase.from('courses').select('id, title').eq('status', 'active');
@@ -1081,7 +1306,9 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
             `;
         }
 
-        // Form handlers
+        // ============================================
+        // FORM HANDLERS
+        // ============================================
         document.getElementById('add-student-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
@@ -1267,7 +1494,7 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
                     .eq('id', id);
 
                 if (error) throw error;
-                alert('File deleted!');
+                alert('File deleted successfully!');
                 loadFiles();
                 loadDashboardStats();
             } catch (error) {
