@@ -1,116 +1,15 @@
 // =====================================================
 // SUPABASE CONFIGURATION FILE
-// ART de ONE - Student Management System
 // =====================================================
 
-/**
- * IMPORTANT: သင့်ရဲ့ Supabase credentials များကို ဒီ file မှာ သိမ်းဆည်းပါ
- * 
- * ဘယ်မှာရမလဲ?
- * 1. Supabase Dashboard သို့သွားပါ
- * 2. Settings (⚙️) → API
- * 3. Copy these two values:
- */
+// 1. Supabase Client ကို တိုက်ရိုက် Import လုပ်ပါ (Window object ကို မမှီခိုတော့ပါ)
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
 
-// =====================================================
-// STEP 1: သင့်ရဲ့ Project URL ကို ဒီမှာထည့်ပါ
-// =====================================================
-// Example: 'https://xyzabcdefgh.supabase.co'
-// ⚠️ '' မေ့မထည့်ပါနဲ့!
-
+// 2. သင့် Credentials များ
 const SUPABASE_URL = 'https://eyhyvlszpfsmsjyzijxg.supabase.co';
-
-
-// =====================================================
-// STEP 2: သင့်ရဲ့ Anon/Public Key ကို ဒီမှာထည့်ပါ
-// =====================================================
-// Example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdX...'
-// ⚠️ အရမ်းရှည်ပါတယ် (200+ characters)
-
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5aHl2bHN6cGZzbXNqeXppanhnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg1Mzc3MDcsImV4cCI6MjA4NDExMzcwN30.rvU2oh0zmdLVaAZFjqgQvKInX1ePCQudK9cBT4hiv80';
 
+// 3. Initialize & EXPORT (ဒီနေရာမှာ export ပါမှ တခြားဖိုင်က သုံးလို့ရမယ်)
+export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// =====================================================
-// STEP 3: Supabase Client ကို Initialize လုပ်ပါ
-// =====================================================
-// ဒါကို မပြောင်းပါနဲ့ - အလိုလို အလုပ်လုပ်ပါလိမ့်မယ်
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-// ↑ ဒါက အပေါ်က variables တွေကို သုံးတယ်
-
-
-// =====================================================
-// VERIFICATION (Optional)
-// =====================================================
-// သင့် setup မှန်ကန်မှု test လုပ်ချင်ရင် browser console မှာ run ပါ:
-// 
-// console.log('Supabase URL:', SUPABASE_URL);
-// console.log('Key length:', SUPABASE_ANON_KEY.length); // Should be ~200+
-// 
-// supabase.from('students').select('count').then(data => {
-//     console.log('Database connection:', data.error ? 'FAILED' : 'SUCCESS');
-// });
-
-
-// =====================================================
-// COMMON ERRORS & SOLUTIONS
-// =====================================================
-/**
- * ERROR: "Invalid API key"
- * SOLUTION: SUPABASE_ANON_KEY ကို မှန်မှန်ကန်ကန် copy လုပ်ထားမထားစစ်ပါ
- * 
- * ERROR: "Failed to fetch"
- * SOLUTION: SUPABASE_URL ကို https:// ပါအောင် အပြည့်အစုံ ထည့်ပါ
- * 
- * ERROR: "No rows returned"
- * SOLUTION: ဒါက error မဟုတ်ပါ - database က empty ဖြစ်နေလို့ပါ
- * 
- * ERROR: "Row Level Security policy violation"
- * SOLUTION: SQL Editor မှာ policies များ မှန်ကန်စွာ run ထားမထားစစ်ပါ
- */
-
-
-// =====================================================
-// CONFIGURATION COMPLETE!
-// =====================================================
-// သင့် credentials များ သိမ်းဆည်းပြီးပါက:
-// 1. ဒီ file ကို သင့် website folder မှာ သိမ်းပါ
-// 2. သင့် HTML files များ (student-login.html, etc) မှာ သုံးပါ
-// 
-// Example usage in HTML:
-// <script src="supabase-config.js"></script>
-// <script>
-//     // Now you can use 'supabase' object
-//     async function login(email, password) {
-//         const { data, error } = await supabase.auth.signInWithPassword({
-//             email, password
-//         });
-//     }
-// </script>
-
-
-// =====================================================
-// SECURITY NOTES ⚠️
-// =====================================================
-/**
- * ✅ DO:
- * - Keep this file in your website root
- * - Use Environment Variables for production
- * - Enable Row Level Security in Supabase
- * 
- * ❌ DON'T:
- * - Share this file publicly on GitHub/etc
- * - Use service_role key (only use anon/public key)
- * - Disable Row Level Security
- */
-
-// =====================================================
-// BACKUP YOUR CREDENTIALS
-// =====================================================
-// သင့် credentials များကို လုံခြုံသောနေရာတွင် သိမ်းဆည်းပါ:
-// 
-// Project URL: ____________________________________
-// Anon Key:    ____________________________________
-// Database Password: ______________________________
-// 
-// Date: ___________
-// Backed up by: ___________
+// console.log('Supabase Connected:', SUPABASE_URL);

@@ -869,637 +869,651 @@
         </div>
     </div>
 
-    <script>
-        // ⚠️ CONFIGURATION - Replace with your Supabase credentials
-        const SUPABASE_URL = 'https://eyhyvlszpfsmsjyzijxg.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5aHl2bHN6cGZzbXNqeXppanhnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg1Mzc3MDcsImV4cCI6MjA4NDExMzcwN30.rvU2oh0zmdLVaAZFjqgQvKInX1ePCQudK9cBT4hiv80';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    <script type="module">
+    // 1. IMPORTS
+    // Supabase Configuration ကို import လုပ်ခြင်း
+    import { supabase } from '../js/supabase-config.js';
 
-        // Global variables
-        let allStudents = [];
-        let allCourses = [];
+    // Global variables
+    let allStudents = [];
+    let allCourses = [];
 
-        // ============================================
-        // AUTHENTICATION
-        // ============================================
-        window.addEventListener('load', async () => {
-            const { data: { session } } = await supabase.auth.getSession();
+    // ============================================
+    // AUTHENTICATION
+    // ============================================
+    window.addEventListener('load', async () => {
+        const { data: { session } } = await supabase.auth.getSession();
+        
+        if (session) {
+            showAdminPanel();
+        } else {
+            document.getElementById('login-screen').classList.remove('hidden');
+            document.getElementById('admin-panel').classList.add('hidden');
+        }
+    });
+
+    // Login Form Handler
+    document.getElementById('admin-login-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const email = document.getElementById('admin-email').value;
+        const password = document.getElementById('admin-password').value;
+        const loginBtn = document.getElementById('login-btn');
+        const btnText = document.getElementById('login-btn-text');
+        
+        loginBtn.disabled = true;
+        btnText.textContent = 'Signing in...';
+        
+        try {
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email: email,
+                password: password
+            });
+
+            if (error) throw error;
+
+            showLoginAlert('Login successful! Loading dashboard...', 'success');
             
-            if (session) {
+            setTimeout(() => {
                 showAdminPanel();
-            } else {
-                document.getElementById('login-screen').classList.remove('hidden');
-                document.getElementById('admin-panel').classList.add('hidden');
-            }
-        });
+            }, 1000);
 
-        document.getElementById('admin-login-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
+        } catch (error) {
+            console.error('Login error:', error);
+            showLoginAlert(error.message || 'Login failed. Please check your credentials.', 'error');
             
-            const email = document.getElementById('admin-email').value;
-            const password = document.getElementById('admin-password').value;
-            const loginBtn = document.getElementById('login-btn');
-            const btnText = document.getElementById('login-btn-text');
-            
-            loginBtn.disabled = true;
-            btnText.textContent = 'Signing in...';
-            
+            loginBtn.disabled = false;
+            btnText.textContent = 'Sign In';
+        }
+    });
+
+    function showLoginAlert(message, type) {
+        const alertDiv = document.getElementById('login-alert');
+        alertDiv.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+        setTimeout(() => alertDiv.innerHTML = '', 5000);
+    }
+
+    function showAdminPanel() {
+        document.getElementById('login-screen').classList.add('hidden');
+        document.getElementById('admin-panel').classList.remove('hidden');
+        loadDashboardStats();
+    }
+
+    async function logout() {
+        if (confirm('Are you sure you want to logout?')) {
             try {
-                const { data, error } = await supabase.auth.signInWithPassword({
-                    email: email,
-                    password: password
-                });
-
-                if (error) throw error;
-
-                showLoginAlert('Login successful! Loading dashboard...', 'success');
+                await supabase.auth.signOut();
                 
-                setTimeout(() => {
-                    showAdminPanel();
-                }, 1000);
-
+                document.getElementById('admin-panel').classList.add('hidden');
+                document.getElementById('login-screen').classList.remove('hidden');
+                
+                document.getElementById('admin-email').value = '';
+                document.getElementById('admin-password').value = '';
+                
             } catch (error) {
-                console.error('Login error:', error);
-                showLoginAlert(error.message || 'Login failed. Please check your credentials.', 'error');
-                
-                loginBtn.disabled = false;
-                btnText.textContent = 'Sign In';
+                console.error('Logout error:', error);
+                alert('Error logging out: ' + error.message);
             }
-        });
+        }
+    }
 
-        function showLoginAlert(message, type) {
-            const alertDiv = document.getElementById('login-alert');
+    // ============================================
+    // MODAL FUNCTIONS
+    // ============================================
+    function openModal(name) {
+        document.getElementById(`${name}-modal`).classList.add('active');
+        if (name === 'upload-file') {
+            loadCoursesForSelect('file-course-select');
+        }
+        if (name === 'add-enrollment') {
+            loadStudentsForSelect();
+            loadCoursesForSelect('enrollment-course-select');
+        }
+    }
+
+    function closeModal(name) {
+        document.getElementById(`${name}-modal`).classList.remove('active');
+        const alertDiv = document.getElementById(`${name}-alert`);
+        if (alertDiv) alertDiv.innerHTML = '';
+    }
+
+    function showModalAlert(modalName, message, type = 'error') {
+        const alertDiv = document.getElementById(`${modalName}-alert`);
+        if (alertDiv) {
             alertDiv.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
             setTimeout(() => alertDiv.innerHTML = '', 5000);
         }
+    }
 
-        function showAdminPanel() {
-            document.getElementById('login-screen').classList.add('hidden');
-            document.getElementById('admin-panel').classList.remove('hidden');
-            loadDashboardStats();
-        }
-
-        async function logout() {
-            if (confirm('Are you sure you want to logout?')) {
-                try {
-                    await supabase.auth.signOut();
-                    
-                    document.getElementById('admin-panel').classList.add('hidden');
-                    document.getElementById('login-screen').classList.remove('hidden');
-                    
-                    document.getElementById('admin-email').value = '';
-                    document.getElementById('admin-password').value = '';
-                    
-                } catch (error) {
-                    console.error('Logout error:', error);
-                    alert('Error logging out: ' + error.message);
-                }
-            }
-        }
-
-        // ============================================
-        // MODAL FUNCTIONS
-        // ============================================
-        function openModal(name) {
-            document.getElementById(`${name}-modal`).classList.add('active');
-            if (name === 'upload-file') {
-                loadCoursesForSelect('file-course-select');
-            }
-            if (name === 'add-enrollment') {
-                loadStudentsForSelect();
-                loadCoursesForSelect('enrollment-course-select');
-            }
-        }
-
-        function closeModal(name) {
-            document.getElementById(`${name}-modal`).classList.remove('active');
-            const alertDiv = document.getElementById(`${name}-alert`);
-            if (alertDiv) alertDiv.innerHTML = '';
-        }
-
-        function showModalAlert(modalName, message, type = 'error') {
-            const alertDiv = document.getElementById(`${modalName}-alert`);
-            if (alertDiv) {
-                alertDiv.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
-                setTimeout(() => alertDiv.innerHTML = '', 5000);
-            }
-        }
-
-        // ============================================
-        // NAVIGATION
-        // ============================================
-        document.querySelectorAll('.sidebar-link[data-section]').forEach(link => {
-            link.addEventListener('click', () => {
-                const section = link.dataset.section;
-                
-                document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
-                link.classList.add('active');
-                
-                document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
-                document.getElementById(`${section}-section`).classList.remove('hidden');
-                
-                loadSectionData(section);
-            });
+    // ============================================
+    // NAVIGATION
+    // ============================================
+    document.querySelectorAll('.sidebar-link[data-section]').forEach(link => {
+        link.addEventListener('click', () => {
+            const section = link.dataset.section;
+            
+            document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+            
+            document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+            document.getElementById(`${section}-section`).classList.remove('hidden');
+            
+            loadSectionData(section);
         });
+    });
 
-        // ============================================
-        // DATA LOADING
-        // ============================================
-        async function loadDashboardStats() {
-            try {
-                const [students, courses, enrollments, files] = await Promise.all([
-                    supabase.from('students').select('*', { count: 'exact' }),
-                    supabase.from('courses').select('*', { count: 'exact' }).eq('status', 'active'),
-                    supabase.from('enrollments').select('*', { count: 'exact' }),
-                    supabase.from('course_files').select('*', { count: 'exact' })
-                ]);
+    // ============================================
+    // DATA LOADING
+    // ============================================
+    async function loadDashboardStats() {
+        try {
+            const [students, courses, enrollments, files] = await Promise.all([
+                supabase.from('students').select('*', { count: 'exact' }),
+                supabase.from('courses').select('*', { count: 'exact' }).eq('status', 'active'),
+                supabase.from('enrollments').select('*', { count: 'exact' }),
+                supabase.from('course_files').select('*', { count: 'exact' })
+            ]);
 
-                document.getElementById('stat-students').textContent = students.count || 0;
-                document.getElementById('stat-courses').textContent = courses.count || 0;
-                document.getElementById('stat-enrollments').textContent = enrollments.count || 0;
-                document.getElementById('stat-files').textContent = files.count || 0;
-            } catch (error) {
-                console.error('Error loading stats:', error);
-            }
+            document.getElementById('stat-students').textContent = students.count || 0;
+            document.getElementById('stat-courses').textContent = courses.count || 0;
+            document.getElementById('stat-enrollments').textContent = enrollments.count || 0;
+            document.getElementById('stat-files').textContent = files.count || 0;
+        } catch (error) {
+            console.error('Error loading stats:', error);
         }
+    }
 
-        async function loadSectionData(section) {
-            switch(section) {
-                case 'dashboard':
-                    await loadDashboardStats();
-                    break;
-                case 'students':
-                    await loadStudents();
-                    break;
-                case 'courses':
-                    await loadCourses();
-                    break;
-                case 'enrollments':
-                    await loadEnrollments();
-                    break;
-                case 'files':
-                    await loadFiles();
-                    break;
-                case 'announcements':
-                    await loadAnnouncements();
-                    break;
-            }
+    async function loadSectionData(section) {
+        switch(section) {
+            case 'dashboard':
+                await loadDashboardStats();
+                break;
+            case 'students':
+                await loadStudents();
+                break;
+            case 'courses':
+                await loadCourses();
+                break;
+            case 'enrollments':
+                await loadEnrollments();
+                break;
+            case 'files':
+                await loadFiles();
+                break;
+            case 'announcements':
+                await loadAnnouncements();
+                break;
         }
+    }
 
-        async function loadStudents() {
-            try {
-                const { data: students, error } = await supabase
-                    .from('students')
-                    .select('*')
-                    .order('created_at', { ascending: false });
+    async function loadStudents() {
+        try {
+            const { data: students, error } = await supabase
+                .from('students')
+                .select('*')
+                .order('created_at', { ascending: false });
 
-                if (error) throw error;
+            if (error) throw error;
 
-                allStudents = students;
-                displayStudents(students);
-            } catch (error) {
-                console.error('Error loading students:', error);
-                alert('Error loading students: ' + error.message);
-            }
+            allStudents = students;
+            displayStudents(students);
+        } catch (error) {
+            console.error('Error loading students:', error);
+            alert('Error loading students: ' + error.message);
         }
+    }
 
-        function displayStudents(students) {
-            const tbody = document.getElementById('students-tbody');
-            if (students.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 2rem; color: #888;">No students found</td></tr>';
+    function displayStudents(students) {
+        const tbody = document.getElementById('students-tbody');
+        if (students.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 2rem; color: #888;">No students found</td></tr>';
+            return;
+        }
+        
+        tbody.innerHTML = students.map(s => `
+            <tr>
+                <td style="font-weight: 500;">${s.full_name}</td>
+                <td style="color: #555;">${s.email}</td>
+                <td><span class="badge badge-info">${s.student_type}</span></td>
+                <td><span class="badge ${s.status === 'active' ? 'badge-success' : 'badge-danger'}">${s.status}</span></td>
+                <td style="color: #555;">${new Date(s.enrolled_date).toLocaleDateString()}</td>
+                <td>
+                    <button class="btn-secondary" style="padding: 0.4rem 1rem; font-size: 0.875rem;" onclick="viewStudent('${s.id}')">
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    function searchStudents() {
+        const query = document.getElementById('student-search').value.toLowerCase();
+        const filtered = allStudents.filter(s => 
+            s.full_name.toLowerCase().includes(query) ||
+            s.email.toLowerCase().includes(query)
+        );
+        displayStudents(filtered);
+    }
+
+    function viewStudent(id) {
+        const student = allStudents.find(s => s.id === id);
+        if (student) {
+            alert(`Student Details:\n\nName: ${student.full_name}\nEmail: ${student.email}\nType: ${student.student_type}\nStatus: ${student.status}\nPhone: ${student.phone_number || 'N/A'}\nAddress: ${student.address || 'N/A'}`);
+        }
+    }
+
+    async function loadCourses() {
+        try {
+            const { data: courses, error } = await supabase
+                .from('courses')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) throw error;
+
+            allCourses = courses;
+            const tbody = document.getElementById('courses-tbody');
+            
+            if (courses.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 2rem; color: #888;">No courses found</td></tr>';
                 return;
             }
             
-            tbody.innerHTML = students.map(s => `
+            tbody.innerHTML = courses.map(c => `
                 <tr>
-                    <td style="font-weight: 500;">${s.full_name}</td>
-                    <td style="color: #555;">${s.email}</td>
-                    <td><span class="badge badge-info">${s.student_type}</span></td>
-                    <td><span class="badge ${s.status === 'active' ? 'badge-success' : 'badge-danger'}">${s.status}</span></td>
-                    <td style="color: #555;">${new Date(s.enrolled_date).toLocaleDateString()}</td>
+                    <td style="font-weight: 500;">${c.title}</td>
+                    <td><span class="badge badge-info">${c.course_type}</span></td>
+                    <td style="color: #555;">${c.level || 'N/A'}</td>
+                    <td style="color: #555;">${c.duration_weeks || 'N/A'} weeks</td>
+                    <td><span class="badge ${c.status === 'active' ? 'badge-success' : 'badge-warning'}">${c.status}</span></td>
                     <td>
-                        <button class="btn-secondary" style="padding: 0.4rem 1rem; font-size: 0.875rem;" onclick="viewStudent('${s.id}')">
+                        <button class="btn-secondary" style="padding: 0.4rem 1rem; font-size: 0.875rem;" onclick="viewCourse('${c.id}')">
                             <i class="fa-solid fa-eye"></i>
                         </button>
                     </td>
                 </tr>
             `).join('');
+        } catch (error) {
+            console.error('Error loading courses:', error);
         }
-
-        function searchStudents() {
-            const query = document.getElementById('student-search').value.toLowerCase();
-            const filtered = allStudents.filter(s => 
-                s.full_name.toLowerCase().includes(query) ||
-                s.email.toLowerCase().includes(query)
-            );
-            displayStudents(filtered);
-        }
-
-        function viewStudent(id) {
-            const student = allStudents.find(s => s.id === id);
-            if (student) {
-                alert(`Student Details:\n\nName: ${student.full_name}\nEmail: ${student.email}\nType: ${student.student_type}\nStatus: ${student.status}\nPhone: ${student.phone_number || 'N/A'}\nAddress: ${student.address || 'N/A'}`);
-            }
-        }
-
-        async function loadCourses() {
-            try {
-                const { data: courses, error } = await supabase
-                    .from('courses')
-                    .select('*')
-                    .order('created_at', { ascending: false });
-
-                if (error) throw error;
-
-                allCourses = courses;
-                const tbody = document.getElementById('courses-tbody');
-                
-                if (courses.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 2rem; color: #888;">No courses found</td></tr>';
-                    return;
-                }
-                
-                tbody.innerHTML = courses.map(c => `
-                    <tr>
-                        <td style="font-weight: 500;">${c.title}</td>
-                        <td><span class="badge badge-info">${c.course_type}</span></td>
-                        <td style="color: #555;">${c.level || 'N/A'}</td>
-                        <td style="color: #555;">${c.duration_weeks || 'N/A'} weeks</td>
-                        <td><span class="badge ${c.status === 'active' ? 'badge-success' : 'badge-warning'}">${c.status}</span></td>
-                        <td>
-                            <button class="btn-secondary" style="padding: 0.4rem 1rem; font-size: 0.875rem;" onclick="viewCourse('${c.id}')">
-                                <i class="fa-solid fa-eye"></i>
-                            </button>
-                        </td>
-                    </tr>
-                `).join('');
-            } catch (error) {
-                console.error('Error loading courses:', error);
-            }
-        }
-
-        function viewCourse(id) {
-            const course = allCourses.find(c => c.id === id);
-            if (course) {
-                alert(`Course Details:\n\nTitle: ${course.title}\nDescription: ${course.description || 'N/A'}\nType: ${course.course_type}\nLevel: ${course.level || 'N/A'}\nDuration: ${course.duration_weeks || 'N/A'} weeks\nPrice: ${course.price || 'N/A'} MMK`);
-            }
-        }
-
-        async function loadEnrollments() {
-            try {
-                const { data: enrollments, error } = await supabase
-                    .from('enrollments')
-                    .select(`
-                        *,
-                        students (full_name, email),
-                        courses (title)
-                    `)
-                    .order('enrolled_at', { ascending: false });
-
-                if (error) throw error;
-
-                const container = document.getElementById('enrollments-container');
-                
-                if (enrollments.length === 0) {
-                    container.innerHTML = '<p style="text-align: center; padding: 2rem; color: #888;">No enrollments found</p>';
-                    return;
-                }
-                
-                container.innerHTML = `
-                    <div style="overflow-x: auto;">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Student</th>
-                                    <th>Course</th>
-                                    <th>Progress</th>
-                                    <th>Status</th>
-                                    <th>Enrolled</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${enrollments.map(e => `
-                                    <tr>
-                                        <td>
-                                            <div style="font-weight: 500;">${e.students.full_name}</div>
-                                            <div style="font-size: 0.875rem; color: #888;">${e.students.email}</div>
-                                        </td>
-                                        <td style="font-weight: 500;">${e.courses.title}</td>
-                                        <td><span class="badge badge-info">${e.progress_percentage}%</span></td>
-                                        <td><span class="badge ${e.status === 'active' ? 'badge-success' : e.status === 'completed' ? 'badge-info' : 'badge-warning'}">${e.status}</span></td>
-                                        <td style="color: #555;">${new Date(e.enrolled_at).toLocaleDateString()}</td>
-                                    </tr>
-                                `).join('')}
-                            </tbody>
-                        </table>
-                    </div>
-                `;
-            } catch (error) {
-                console.error('Error loading enrollments:', error);
-            }
-        }
-
-        async function loadFiles() {
-            try {
-                const { data: files, error } = await supabase
-                    .from('course_files')
-                    .select(`
-                        *,
-                        courses (title)
-                    `)
-                    .order('upload_date', { ascending: false });
-
-                if (error) throw error;
-
-                const container = document.getElementById('files-container');
-                
-                if (files.length === 0) {
-                    container.innerHTML = '<p style="text-align: center; padding: 2rem; color: #888;">No files uploaded yet</p>';
-                    return;
-                }
-                
-                container.innerHTML = files.map(f => `
-                    <div style="border: 1px solid #e5e5e5; padding: 1.5rem; border-radius: 0.75rem; margin-bottom: 1rem; transition: all 0.3s;">
-                        <div style="display: flex; justify-content: space-between; align-items: start;">
-                            <div style="flex: 1;">
-                                <h3 style="font-weight: 600; margin-bottom: 0.5rem; color: #000;">${f.file_name}</h3>
-                                <p style="font-size: 0.875rem; color: #888; margin-bottom: 0.5rem;">Course: ${f.courses.title}</p>
-                                <p style="font-size: 0.875rem; color: #555; margin-bottom: 0.75rem;">${f.file_description || 'No description'}</p>
-                                <div style="display: flex; gap: 0.5rem;">
-                                    <span class="badge badge-info">${f.file_type}</span>
-                                    ${f.is_public ? '<span class="badge badge-success">Public</span>' : ''}
-                                </div>
-                            </div>
-                            <div style="display: flex; gap: 0.5rem;">
-                                <a href="${f.file_url}" target="_blank" class="btn-primary" style="text-decoration: none; padding: 0.5rem 1rem;">
-                                    <i class="fa-solid fa-download"></i>
-                                </a>
-                                <button class="btn-danger" onclick="deleteFile('${f.id}')" style="padding: 0.5rem 1rem;">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                `).join('');
-            } catch (error) {
-                console.error('Error loading files:', error);
-            }
-        }
-
-        async function loadAnnouncements() {
-            try {
-                const { data: announcements, error } = await supabase
-                    .from('announcements')
-                    .select('*')
-                    .order('published_at', { ascending: false });
-
-                if (error) throw error;
-
-                const container = document.getElementById('announcements-container');
-                
-                if (announcements.length === 0) {
-                    container.innerHTML = '<p style="text-align: center; padding: 2rem; color: #888;">No announcements yet</p>';
-                    return;
-                }
-                
-                container.innerHTML = announcements.map(a => `
-                    <div style="border-left: 4px solid #a7e169; padding: 1.5rem; background: #fafafa; margin-bottom: 1rem; border-radius: 0.5rem;">
-                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.75rem;">
-                            <h3 style="font-weight: 600; color: #000;">${a.title}</h3>
-                            <span class="badge ${a.priority === 'urgent' ? 'badge-danger' : a.priority === 'high' ? 'badge-warning' : 'badge-info'}">${a.priority}</span>
-                        </div>
-                        <p style="color: #555; margin-bottom: 0.75rem;">${a.content}</p>
-                        <p style="font-size: 0.75rem; color: #888;">
-                            Target: ${a.target_audience} | ${new Date(a.published_at).toLocaleDateString()}
-                            ${a.is_active ? '<span class="badge badge-success" style="margin-left: 0.5rem;">Active</span>' : '<span class="badge badge-danger" style="margin-left: 0.5rem;">Inactive</span>'}
-                        </p>
-                    </div>
-                `).join('');
-            } catch (error) {
-                console.error('Error loading announcements:', error);
-            }
-        }
-
-        async function loadStudentsForSelect() {
-            if (allStudents.length === 0) {
-                const { data } = await supabase.from('students').select('id, full_name, email').eq('status', 'active');
-                allStudents = data || [];
-            }
-
-            const select = document.getElementById('enrollment-student-select');
-            select.innerHTML = `
-                <option value="">Select a student</option>
-                ${allStudents.map(s => `<option value="${s.id}">${s.full_name} (${s.email})</option>`).join('')}
-            `;
-        }
-
-        async function loadCoursesForSelect(selectId) {
-            if (allCourses.length === 0) {
-                const { data } = await supabase.from('courses').select('id, title').eq('status', 'active');
-                allCourses = data || [];
-            }
-
-            const select = document.getElementById(selectId);
-            select.innerHTML = `
-                <option value="">Select a course</option>
-                ${allCourses.map(c => `<option value="${c.id}">${c.title}</option>`).join('')}
-            `;
-        }
-
-        // ============================================
-        // FORM HANDLERS
-        // ============================================
-        document.getElementById('add-student-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            const data = Object.fromEntries(formData);
-
-            try {
-                const { data: authData, error: authError } = await supabase.auth.signUp({
-                    email: data.email,
-                    password: data.password,
-                });
-
-                if (authError) throw authError;
-
-                const { error: dbError } = await supabase
-                    .from('students')
-                    .insert([{
-                        id: authData.user.id,
-                        email: data.email,
-                        full_name: data.full_name,
-                        student_type: data.student_type,
-                        phone_number: data.phone_number || null,
-                        address: data.address || null
-                    }]);
-
-                if (dbError) throw dbError;
-
-                showModalAlert('add-student', 'Student added successfully!', 'success');
-                setTimeout(() => {
-                    closeModal('add-student');
-                    e.target.reset();
-                    loadStudents();
-                    loadDashboardStats();
-                }, 1500);
-            } catch (error) {
-                console.error('Error adding student:', error);
-                showModalAlert('add-student', 'Error: ' + error.message);
-            }
-        });
-
-        document.getElementById('add-course-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            const data = Object.fromEntries(formData);
-
-            try {
-                const { error } = await supabase
-                    .from('courses')
-                    .insert([{
-                        title: data.title,
-                        description: data.description,
-                        course_type: data.course_type,
-                        level: data.level || null,
-                        duration_weeks: data.duration_weeks || null,
-                        price: data.price || null,
-                        status: 'active'
-                    }]);
-
-                if (error) throw error;
-
-                showModalAlert('add-course', 'Course added successfully!', 'success');
-                setTimeout(() => {
-                    closeModal('add-course');
-                    e.target.reset();
-                    loadCourses();
-                    loadDashboardStats();
-                }, 1500);
-            } catch (error) {
-                console.error('Error adding course:', error);
-                showModalAlert('add-course', 'Error: ' + error.message);
-            }
-        });
-
-        document.getElementById('add-enrollment-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            const data = Object.fromEntries(formData);
-
-            try {
-                const { error } = await supabase
-                    .from('enrollments')
-                    .insert([{
-                        student_id: data.student_id,
-                        course_id: data.course_id,
-                        status: 'active'
-                    }]);
-
-                if (error) throw error;
-
-                showModalAlert('add-enrollment', 'Student enrolled successfully!', 'success');
-                setTimeout(() => {
-                    closeModal('add-enrollment');
-                    e.target.reset();
-                    loadEnrollments();
-                    loadDashboardStats();
-                }, 1500);
-            } catch (error) {
-                console.error('Error enrolling student:', error);
-                showModalAlert('add-enrollment', 'Error: ' + error.message);
-            }
-        });
-
-        document.getElementById('upload-file-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            const file = formData.get('file');
-
-            try {
-                const fileName = `${Date.now()}_${file.name}`;
-                const { data: uploadData, error: uploadError } = await supabase.storage
-                    .from('course-files')
-                    .upload(fileName, file);
-
-                if (uploadError) throw uploadError;
-
-                const { data: { publicUrl } } = supabase.storage
-                    .from('course-files')
-                    .getPublicUrl(fileName);
-
-                const { error: dbError } = await supabase
-                    .from('course_files')
-                    .insert([{
-                        course_id: formData.get('course_id'),
-                        file_name: file.name,
-                        file_description: formData.get('file_description'),
-                        file_type: formData.get('file_type'),
-                        file_url: publicUrl,
-                        file_size_kb: Math.round(file.size / 1024),
-                        is_public: formData.get('is_public') === 'on'
-                    }]);
-
-                if (dbError) throw dbError;
-
-                showModalAlert('upload-file', 'File uploaded successfully!', 'success');
-                setTimeout(() => {
-                    closeModal('upload-file');
-                    e.target.reset();
-                    loadFiles();
-                    loadDashboardStats();
-                }, 1500);
-            } catch (error) {
-                console.error('Error uploading file:', error);
-                showModalAlert('upload-file', 'Error: ' + error.message);
-            }
-        });
-
-        document.getElementById('add-announcement-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            const data = Object.fromEntries(formData);
-
-            try {
-                const { error } = await supabase
-                    .from('announcements')
-                    .insert([{
-                        title: data.title,
-                        content: data.content,
-                        target_audience: data.target_audience,
-                        priority: data.priority,
-                        is_active: true
-                    }]);
-
-                if (error) throw error;
-
-                showModalAlert('add-announcement', 'Announcement published!', 'success');
-                setTimeout(() => {
-                    closeModal('add-announcement');
-                    e.target.reset();
-                    loadAnnouncements();
-                }, 1500);
-            } catch (error) {
-                console.error('Error adding announcement:', error);
-                showModalAlert('add-announcement', 'Error: ' + error.message);
-            }
-        });
-
-        async function deleteFile(id) {
-    if (!confirm('Delete this file?')) return;
-
-    try {
-        const { error } = await supabase
-            .from('course_files')
-            .delete()
-            .eq('id', id);
-
-        if (error) throw error;
-        
-        alert('File deleted successfully!');
-        loadFiles();
-        loadDashboardStats();
-    } catch (error) {
-        console.error('Error deleting file:', error);
-        alert('Error: ' + error.message);
     }
-}
+
+    function viewCourse(id) {
+        const course = allCourses.find(c => c.id === id);
+        if (course) {
+            alert(`Course Details:\n\nTitle: ${course.title}\nDescription: ${course.description || 'N/A'}\nType: ${course.course_type}\nLevel: ${course.level || 'N/A'}\nDuration: ${course.duration_weeks || 'N/A'} weeks\nPrice: ${course.price || 'N/A'} MMK`);
+        }
+    }
+
+    async function loadEnrollments() {
+        try {
+            const { data: enrollments, error } = await supabase
+                .from('enrollments')
+                .select(`
+                    *,
+                    students (full_name, email),
+                    courses (title)
+                `)
+                .order('enrolled_at', { ascending: false });
+
+            if (error) throw error;
+
+            const container = document.getElementById('enrollments-container');
+            
+            if (enrollments.length === 0) {
+                container.innerHTML = '<p style="text-align: center; padding: 2rem; color: #888;">No enrollments found</p>';
+                return;
+            }
+            
+            container.innerHTML = `
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Course</th>
+                                <th>Progress</th>
+                                <th>Status</th>
+                                <th>Enrolled</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${enrollments.map(e => `
+                                <tr>
+                                    <td>
+                                        <div style="font-weight: 500;">${e.students.full_name}</div>
+                                        <div style="font-size: 0.875rem; color: #888;">${e.students.email}</div>
+                                    </td>
+                                    <td style="font-weight: 500;">${e.courses.title}</td>
+                                    <td><span class="badge badge-info">${e.progress_percentage}%</span></td>
+                                    <td><span class="badge ${e.status === 'active' ? 'badge-success' : e.status === 'completed' ? 'badge-info' : 'badge-warning'}">${e.status}</span></td>
+                                    <td style="color: #555;">${new Date(e.enrolled_at).toLocaleDateString()}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        } catch (error) {
+            console.error('Error loading enrollments:', error);
+        }
+    }
+
+    async function loadFiles() {
+        try {
+            const { data: files, error } = await supabase
+                .from('course_files')
+                .select(`
+                    *,
+                    courses (title)
+                `)
+                .order('upload_date', { ascending: false });
+
+            if (error) throw error;
+
+            const container = document.getElementById('files-container');
+            
+            if (files.length === 0) {
+                container.innerHTML = '<p style="text-align: center; padding: 2rem; color: #888;">No files uploaded yet</p>';
+                return;
+            }
+            
+            container.innerHTML = files.map(f => `
+                <div style="border: 1px solid #e5e5e5; padding: 1.5rem; border-radius: 0.75rem; margin-bottom: 1rem; transition: all 0.3s;">
+                    <div style="display: flex; justify-content: space-between; align-items: start;">
+                        <div style="flex: 1;">
+                            <h3 style="font-weight: 600; margin-bottom: 0.5rem; color: #000;">${f.file_name}</h3>
+                            <p style="font-size: 0.875rem; color: #888; margin-bottom: 0.5rem;">Course: ${f.courses.title}</p>
+                            <p style="font-size: 0.875rem; color: #555; margin-bottom: 0.75rem;">${f.file_description || 'No description'}</p>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <span class="badge badge-info">${f.file_type}</span>
+                                ${f.is_public ? '<span class="badge badge-success">Public</span>' : ''}
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <a href="${f.file_url}" target="_blank" class="btn-primary" style="text-decoration: none; padding: 0.5rem 1rem;">
+                                <i class="fa-solid fa-download"></i>
+                            </a>
+                            <button class="btn-danger" onclick="deleteFile('${f.id}')" style="padding: 0.5rem 1rem;">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        } catch (error) {
+            console.error('Error loading files:', error);
+        }
+    }
+
+    async function loadAnnouncements() {
+        try {
+            const { data: announcements, error } = await supabase
+                .from('announcements')
+                .select('*')
+                .order('published_at', { ascending: false });
+
+            if (error) throw error;
+
+            const container = document.getElementById('announcements-container');
+            
+            if (announcements.length === 0) {
+                container.innerHTML = '<p style="text-align: center; padding: 2rem; color: #888;">No announcements yet</p>';
+                return;
+            }
+            
+            container.innerHTML = announcements.map(a => `
+                <div style="border-left: 4px solid #a7e169; padding: 1.5rem; background: #fafafa; margin-bottom: 1rem; border-radius: 0.5rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.75rem;">
+                        <h3 style="font-weight: 600; color: #000;">${a.title}</h3>
+                        <span class="badge ${a.priority === 'urgent' ? 'badge-danger' : a.priority === 'high' ? 'badge-warning' : 'badge-info'}">${a.priority}</span>
+                    </div>
+                    <p style="color: #555; margin-bottom: 0.75rem;">${a.content}</p>
+                    <p style="font-size: 0.75rem; color: #888;">
+                        Target: ${a.target_audience} | ${new Date(a.published_at).toLocaleDateString()}
+                        ${a.is_active ? '<span class="badge badge-success" style="margin-left: 0.5rem;">Active</span>' : '<span class="badge badge-danger" style="margin-left: 0.5rem;">Inactive</span>'}
+                    </p>
+                </div>
+            `).join('');
+        } catch (error) {
+            console.error('Error loading announcements:', error);
+        }
+    }
+
+    async function loadStudentsForSelect() {
+        if (allStudents.length === 0) {
+            const { data } = await supabase.from('students').select('id, full_name, email').eq('status', 'active');
+            allStudents = data || [];
+        }
+
+        const select = document.getElementById('enrollment-student-select');
+        select.innerHTML = `
+            <option value="">Select a student</option>
+            ${allStudents.map(s => `<option value="${s.id}">${s.full_name} (${s.email})</option>`).join('')}
+        `;
+    }
+
+    async function loadCoursesForSelect(selectId) {
+        if (allCourses.length === 0) {
+            const { data } = await supabase.from('courses').select('id, title').eq('status', 'active');
+            allCourses = data || [];
+        }
+
+        const select = document.getElementById(selectId);
+        select.innerHTML = `
+            <option value="">Select a course</option>
+            ${allCourses.map(c => `<option value="${c.id}">${c.title}</option>`).join('')}
+        `;
+    }
+
+    // ============================================
+    // FORM HANDLERS
+    // ============================================
+    document.getElementById('add-student-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData);
+
+        try {
+            const { data: authData, error: authError } = await supabase.auth.signUp({
+                email: data.email,
+                password: data.password,
+            });
+
+            if (authError) throw authError;
+
+            const { error: dbError } = await supabase
+                .from('students')
+                .insert([{
+                    id: authData.user.id,
+                    email: data.email,
+                    full_name: data.full_name,
+                    student_type: data.student_type,
+                    phone_number: data.phone_number || null,
+                    address: data.address || null
+                }]);
+
+            if (dbError) throw dbError;
+
+            showModalAlert('add-student', 'Student added successfully!', 'success');
+            setTimeout(() => {
+                closeModal('add-student');
+                e.target.reset();
+                loadStudents();
+                loadDashboardStats();
+            }, 1500);
+        } catch (error) {
+            console.error('Error adding student:', error);
+            showModalAlert('add-student', 'Error: ' + error.message);
+        }
+    });
+
+    document.getElementById('add-course-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData);
+
+        try {
+            const { error } = await supabase
+                .from('courses')
+                .insert([{
+                    title: data.title,
+                    description: data.description,
+                    course_type: data.course_type,
+                    level: data.level || null,
+                    duration_weeks: data.duration_weeks || null,
+                    price: data.price || null,
+                    status: 'active'
+                }]);
+
+            if (error) throw error;
+
+            showModalAlert('add-course', 'Course added successfully!', 'success');
+            setTimeout(() => {
+                closeModal('add-course');
+                e.target.reset();
+                loadCourses();
+                loadDashboardStats();
+            }, 1500);
+        } catch (error) {
+            console.error('Error adding course:', error);
+            showModalAlert('add-course', 'Error: ' + error.message);
+        }
+    });
+
+    document.getElementById('add-enrollment-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData);
+
+        try {
+            const { error } = await supabase
+                .from('enrollments')
+                .insert([{
+                    student_id: data.student_id,
+                    course_id: data.course_id,
+                    status: 'active'
+                }]);
+
+            if (error) throw error;
+
+            showModalAlert('add-enrollment', 'Student enrolled successfully!', 'success');
+            setTimeout(() => {
+                closeModal('add-enrollment');
+                e.target.reset();
+                loadEnrollments();
+                loadDashboardStats();
+            }, 1500);
+        } catch (error) {
+            console.error('Error enrolling student:', error);
+            showModalAlert('add-enrollment', 'Error: ' + error.message);
+        }
+    });
+
+    document.getElementById('upload-file-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const file = formData.get('file');
+
+        try {
+            const fileName = `${Date.now()}_${file.name}`;
+            const { data: uploadData, error: uploadError } = await supabase.storage
+                .from('course-files')
+                .upload(fileName, file);
+
+            if (uploadError) throw uploadError;
+
+            const { data: { publicUrl } } = supabase.storage
+                .from('course-files')
+                .getPublicUrl(fileName);
+
+            const { error: dbError } = await supabase
+                .from('course_files')
+                .insert([{
+                    course_id: formData.get('course_id'),
+                    file_name: file.name,
+                    file_description: formData.get('file_description'),
+                    file_type: formData.get('file_type'),
+                    file_url: publicUrl,
+                    file_size_kb: Math.round(file.size / 1024),
+                    is_public: formData.get('is_public') === 'on'
+                }]);
+
+            if (dbError) throw dbError;
+
+            showModalAlert('upload-file', 'File uploaded successfully!', 'success');
+            setTimeout(() => {
+                closeModal('upload-file');
+                e.target.reset();
+                loadFiles();
+                loadDashboardStats();
+            }, 1500);
+        } catch (error) {
+            console.error('Error uploading file:', error);
+            showModalAlert('upload-file', 'Error: ' + error.message);
+        }
+    });
+
+    document.getElementById('add-announcement-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData);
+
+        try {
+            const { error } = await supabase
+                .from('announcements')
+                .insert([{
+                    title: data.title,
+                    content: data.content,
+                    target_audience: data.target_audience,
+                    priority: data.priority,
+                    is_active: true
+                }]);
+
+            if (error) throw error;
+
+            showModalAlert('add-announcement', 'Announcement published!', 'success');
+            setTimeout(() => {
+                closeModal('add-announcement');
+                e.target.reset();
+                loadAnnouncements();
+            }, 1500);
+        } catch (error) {
+            console.error('Error adding announcement:', error);
+            showModalAlert('add-announcement', 'Error: ' + error.message);
+        }
+    });
+
+    async function deleteFile(id) {
+        if (!confirm('Delete this file?')) return;
+
+        try {
+            const { error } = await supabase
+                .from('course_files')
+                .delete()
+                .eq('id', id);
+
+            if (error) throw error;
+            
+            alert('File deleted successfully!');
+            loadFiles();
+            loadDashboardStats();
+        } catch (error) {
+            console.error('Error deleting file:', error);
+            alert('Error: ' + error.message);
+        }
+    }
+
+    // ============================================
+    // EXPORT FUNCTIONS TO WINDOW
+    // Module ဖြစ်သွားသောကြောင့် HTML onclick မှ ခေါ်သုံးနိုင်ရန် window သို့ ထည့်ပေးခြင်း
+    // ============================================
+    window.logout = logout;
+    window.openModal = openModal;
+    window.closeModal = closeModal;
+    window.viewStudent = viewStudent;
+    window.searchStudents = searchStudents;
+    window.viewCourse = viewCourse;
+    window.deleteFile = deleteFile;
+
+</script>
