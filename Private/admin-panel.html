@@ -1309,19 +1309,25 @@
     // ============================================
     // FORM HANDLERS
     // ============================================
-    document.getElementById('add-student-form').addEventListener('submit', async (e) => {
+        document.getElementById('add-student-form').addEventListener('submit', async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData);
 
         try {
+            // Updated signUp with Redirect URL
             const { data: authData, error: authError } = await supabase.auth.signUp({
                 email: data.email,
                 password: data.password,
+                options: {
+                    // ကျောင်းသားက Email Confirm နှိပ်ရင် Dashboard ကို တန်းရောက်သွားပါလိမ့်မယ်
+                    emailRedirectTo: 'https://artdeone.com/student-dashboard.html'
+                }
             });
 
             if (authError) throw authError;
 
+            // Database ထဲသို့ Student အချက်အလက်များ သိမ်းဆည်းခြင်း
             const { error: dbError } = await supabase
                 .from('students')
                 .insert([{
@@ -1347,6 +1353,7 @@
             showModalAlert('add-student', 'Error: ' + error.message);
         }
     });
+
 
     document.getElementById('add-course-form').addEventListener('submit', async (e) => {
         e.preventDefault();
