@@ -625,44 +625,47 @@
     // ============================================
 
     function updateProfileUI(student) {
-        if (!student) return;
+    if (!student) return;
 
-        // 1. Navbar Loading Fix (Top Right Info)
-        // Note: HTML must have <span id="student-name">...</span>
-        const navName = document.getElementById('student-name');
-        const navEmail = document.getElementById('student-email'); 
-        
-        if(navName) navName.textContent = student.name || 'Student';
-        if(navEmail) navEmail.textContent = student.email || ''; // Optional if email span exists
+    // Database က full_name ကို ဦးစားပေးယူမယ်
+    const fullName = student.full_name || student.name || 'Student';
 
-        // 2. Welcome Banner
-        const firstName = student.name ? student.name.split(' ')[0] : 'Student';
-        const welcomeNameEl = document.getElementById('welcome-name');
-        if(welcomeNameEl) welcomeNameEl.textContent = firstName.toUpperCase();
+    // 1. Sidebar Name (Logout ဘေးနား)
+    const navName = document.getElementById('student-name');
+    const navEmail = document.getElementById('student-email'); 
+    
+    if(navName) navName.textContent = fullName;
+    if(navEmail) navEmail.textContent = student.email || '';
 
-        // 3. Student Details Card (Dashboard)
-        setText('detail-full-name', student.name);
-        setText('detail-student-id', student.student_id_text || student.id?.slice(0, 8));
-        setText('detail-phone', student.phone || student.phone_number);
-        setText('detail-email', student.email);
-        setText('detail-address', student.address);
+    // 2. Welcome Banner
+    const firstName = fullName.split(' ')[0];
+    const welcomeNameEl = document.getElementById('welcome-name');
+    if(welcomeNameEl) welcomeNameEl.textContent = firstName.toUpperCase();
 
-        // 4. My Profile Section (Full Page)
-        setText('profile-name', student.name);
-        setText('profile-email', student.email);
-        setText('profile-type', student.student_type || 'Student');
-        setText('profile-phone', student.phone || student.phone_number); 
-        setText('profile-address', student.address);
-        if (student.created_at) {
-            setText('profile-joined', new Date(student.created_at).toLocaleDateString());
-        }
+    // 3. Student Details Card (Dashboard)
+    setText('detail-full-name', fullName);
+    setText('detail-student-id', student.student_id_text || student.id?.slice(0, 8));
+    setText('detail-phone', student.phone || student.phone_number);
+    setText('detail-email', student.email);
+    setText('detail-address', student.address);
 
-        // 5. Attendance Stats
-        setText('stat-attendance-total', (student.total_attendance || 0) + ' Days');
-        setText('stat-attendance-late', (student.late_attendance || 0) + ' Days');
-        setText('stat-attendance-undertime', (student.undertime || 0) + ' Days');
-        setText('stat-attendance-absent', (student.absent_days || 0) + ' Days');
+    // 4. My Profile Section (Full Page)
+    setText('profile-name', fullName);
+    setText('profile-email', student.email);
+    setText('profile-type', student.student_type || 'Student');
+    setText('profile-phone', student.phone || student.phone_number); 
+    setText('profile-address', student.address);
+    if (student.created_at) {
+        setText('profile-joined', new Date(student.created_at).toLocaleDateString());
     }
+
+    // 5. Attendance Stats
+    setText('stat-attendance-total', (student.total_attendance || 0) + ' Days');
+    setText('stat-attendance-late', (student.late_attendance || 0) + ' Days');
+    setText('stat-attendance-undertime', (student.undertime || 0) + ' Days');
+    setText('stat-attendance-absent', (student.absent_days || 0) + ' Days');
+}
+
 
     function renderCoursesGrid(enrollments) {
         const gridHTML = enrollments.length === 0 ? 
