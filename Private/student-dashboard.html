@@ -105,7 +105,7 @@
                         <i class="fa-solid fa-user"></i>
                     </div>
                     <div class="flex-1 min-w-0">
-                        <p class="text-sm font-semibold text-gray-900 truncate" id="sidebar-user-name">Loading...</p>
+                        <span id="student-name" class="text-sm text-gray-600 font-medium">Loading...</span>
                         <p class="text-xs text-gray-500 truncate" id="sidebar-user-email">...</p>
                     </div>
                     <button onclick="logout()" class="text-gray-400 hover:text-red-500 transition-colors" title="Logout">
@@ -472,8 +472,7 @@
     </div>
 
     <script type="module">
-    // 1. IMPORT CONFIG (Private Folder Path Fix)
-    // Make sure 'js/supabase-config.js' path is correct relative to this HTML file
+    // 1. IMPORT CONFIG (Path Correctness Essential)
     import { supabase } from '../js/supabase-config.js';
 
     // Global State
@@ -508,11 +507,10 @@
     
     async function loadUserProfile(userId) {
         try {
-            // Fetch student data using ID
             const { data: student, error } = await supabase
                 .from('students')
                 .select('*')
-                .eq('student_id', userId) // Changed to 'student_id' assuming it links to auth.users.id
+                .eq('student_id', userId)
                 .single();
 
             if (error) throw error;
@@ -523,13 +521,11 @@
             
         } catch (error) {
             console.error('Error loading profile:', error);
-            // alert('Error loading profile. Please contact support.');
         }
     }
 
     async function loadMyCourses(userId) {
         try {
-            // Fetch Enrollments joined with Courses
             const { data: enrollments, error } = await supabase
                 .from('enrollments')
                 .select(`
@@ -592,40 +588,43 @@
     }
 
     // ============================================
-    // UI HELPERS (UPDATED FOR NEW UI)
+    // UI HELPERS (UPDATED)
     // ============================================
 
     function updateProfileUI(student) {
         if (!student) return;
 
-        // 1. Sidebar & Header
-        const firstName = student.name ? student.name.split(' ')[0] : 'Student';
-        setText('sidebar-user-name', student.name);
-        setText('sidebar-user-email', student.email);
+        // 1. Navbar Loading Fix (Top Right Info)
+        // Note: HTML must have <span id="student-name">...</span>
+        const navName = document.getElementById('student-name');
+        const navEmail = document.getElementById('student-email'); 
         
-        // Update Welcome Banner Name
+        if(navName) navName.textContent = student.name || 'Student';
+        if(navEmail) navEmail.textContent = student.email || ''; // Optional if email span exists
+
+        // 2. Welcome Banner
+        const firstName = student.name ? student.name.split(' ')[0] : 'Student';
         const welcomeNameEl = document.getElementById('welcome-name');
         if(welcomeNameEl) welcomeNameEl.textContent = firstName.toUpperCase();
 
-        // 2. Student Details Card (New Layout)
+        // 3. Student Details Card (Dashboard)
         setText('detail-full-name', student.name);
         setText('detail-student-id', student.student_id_text || student.id?.slice(0, 8));
-        setText('detail-phone', student.phone || student.phone_number); // Check both field names
+        setText('detail-phone', student.phone || student.phone_number);
         setText('detail-email', student.email);
         setText('detail-address', student.address);
 
-        // 3. Profile Image
-        if (student.profile_image) {
-            const img = document.getElementById('detail-profile-img');
-            const icon = document.getElementById('detail-profile-icon');
-            if (img && icon) {
-                img.src = student.profile_image;
-                img.classList.remove('hidden');
-                icon.classList.add('hidden');
-            }
+        // 4. My Profile Section (Full Page)
+        setText('profile-name', student.name);
+        setText('profile-email', student.email);
+        setText('profile-type', student.student_type || 'Student');
+        setText('profile-phone', student.phone || student.phone_number); 
+        setText('profile-address', student.address);
+        if (student.created_at) {
+            setText('profile-joined', new Date(student.created_at).toLocaleDateString());
         }
 
-        // 4. Attendance Stats
+        // 5. Attendance Stats
         setText('stat-attendance-total', (student.total_attendance || 0) + ' Days');
         setText('stat-attendance-late', (student.late_attendance || 0) + ' Days');
         setText('stat-attendance-undertime', (student.undertime || 0) + ' Days');
@@ -657,11 +656,9 @@
                 </div>
             `).join('');
 
-        // Update Dashboard Grid
-        const dashGrid = document.getElementById('dashboard-courses-grid'); // Ensure this ID exists in your HTML
+        const dashGrid = document.getElementById('dashboard-courses-grid');
         if(dashGrid) dashGrid.innerHTML = gridHTML;
         
-        // Update All Courses Grid (if exists)
         const allGrid = document.getElementById('all-courses-grid');
         if(allGrid) allGrid.innerHTML = gridHTML;
     }
@@ -669,7 +666,7 @@
     function updateStats(enrollments) {
         setText('stat-enrolled', enrollments.length);
         setText('stat-active', enrollments.filter(e => e.status === 'active').length);
-        setText('stat-files', '-'); // Placeholder
+        setText('stat-files', '-'); 
     }
 
     function getPriorityColor(priority) {
@@ -689,7 +686,6 @@
     // NAVIGATION & LOGOUT
     // ============================================
     
-    // Attach to Window for onclick events in HTML
     window.switchSection = function(sectionId) {
         document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
         const activeLink = document.querySelector(`.sidebar-link[data-section="${sectionId}"]`);
@@ -700,10 +696,79 @@
         if(targetSection) targetSection.classList.remove('hidden');
     };
 
-    window.openCourse = function(courseId) {
-        // Implement Course Detail View Logic Here later
-        alert("Opening course: " + courseId);
+    // --- ALERT FIX ---
+    window.openCourse = async function(courseId) {
+        console.log("Opening course:", courseId);
+        // 1. Find Course
+        const enrollment = myEnrollments.find(e => e.courses.id === courseId);
+        if (!enrollment) return;
+        const course = enrollment.courses;
+
+        // 2. Update Detail UI
+        setText('detail-course-title', course.title);
+        setText('detail-course-desc', course.description || 'No description available.');
+        setText('detail-course-type', course.course_type);
+        setText('detail-course-status', enrollment.status);
+        
+        const coverEl = document.getElementById('detail-course-cover');
+        if (coverEl) coverEl.src = course.cover_image_url || 'https://via.placeholder.com/800x400?text=Course+Cover';
+
+        // 3. Switch View
+        document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+        const detailSection = document.getElementById('course-detail-view');
+        
+        if (detailSection) {
+            detailSection.classList.remove('hidden');
+            window.scrollTo(0, 0);
+            await loadCourseFiles(courseId);
+        } else {
+            console.error("Detail View section not found!");
+        }
     };
+
+    // Helper to load files
+    async function loadCourseFiles(courseId) {
+        const listContainer = document.getElementById('course-files-list');
+        if(!listContainer) return;
+        
+        listContainer.innerHTML = '<div class="text-center py-8"><i class="fa-solid fa-spinner fa-spin text-2xl text-gray-300"></i></div>';
+
+        try {
+            const { data: files, error } = await supabase
+                .from('course_files')
+                .select('*')
+                .eq('course_id', courseId)
+                .order('upload_date', { ascending: false });
+
+            if (error) throw error;
+
+            if (!files || files.length === 0) {
+                listContainer.innerHTML = '<p class="text-gray-500 text-center py-4">No files uploaded yet.</p>';
+                return;
+            }
+
+            listContainer.innerHTML = files.map(f => `
+                <div class="flex items-center justify-between p-4 bg-white border border-gray-100 rounded-xl hover:shadow-sm transition-all mb-3">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center text-blue-500">
+                            <i class="fa-solid fa-file-lines text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-900">${f.file_name}</h4>
+                            <p class="text-xs text-gray-500">${new Date(f.upload_date).toLocaleDateString()}</p>
+                        </div>
+                    </div>
+                    <a href="${f.file_url}" target="_blank" class="px-4 py-2 bg-gray-100 text-gray-600 rounded-lg text-sm hover:bg-gray-200 transition-colors">
+                        <i class="fa-solid fa-download mr-2"></i> Download
+                    </a>
+                </div>
+            `).join('');
+
+        } catch (err) {
+            console.error('Error loading files:', err);
+            listContainer.innerHTML = '<p class="text-red-500 text-center">Failed to load files.</p>';
+        }
+    }
 
     window.logout = function() {
         const modal = document.getElementById('logout-modal');
@@ -744,6 +809,8 @@
     });
 
 </script>
+
+
 
 
         <!-- Logout Confirmation Modal -->
