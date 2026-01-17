@@ -140,6 +140,54 @@
                     <p class="text-gray-500">Here's what's happening with your learning journey.</p>
                 </div>
 
+                <!-- Student Profile Detail Card -->
+<div class="bg-white rounded-3xl p-8 mb-8 shadow-sm border border-gray-100">
+    <h2 class="text-xl font-bold text-gray-800 mb-6">Student Details</h2>
+    
+    <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+        <!-- Profile Image -->
+        <div class="relative">
+            <div class="w-24 h-24 rounded-full bg-blue-50 border-4 border-white shadow-md overflow-hidden flex items-center justify-center">
+                <!-- User Image မရှိရင် Default Icon ပြမယ် -->
+                <i class="fa-solid fa-user text-3xl text-blue-300" id="detail-profile-icon"></i>
+                <img id="detail-profile-img" src="" alt="Profile" class="w-full h-full object-cover hidden">
+            </div>
+        </div>
+
+        <!-- Info Grid -->
+        <div class="flex-1 w-full">
+            <h3 class="text-2xl font-bold text-gray-900 mb-4 text-center md:text-left" id="detail-full-name">Loading...</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- ID -->
+                <div>
+                    <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1">Student ID</p>
+                    <p class="text-sm font-medium text-gray-700" id="detail-student-id">-</p>
+                </div>
+
+                <!-- Phone -->
+                <div>
+                    <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1">Phone Number</p>
+                    <p class="text-sm font-medium text-gray-700" id="detail-phone">-</p>
+                </div>
+
+                <!-- Email -->
+                <div class="lg:col-span-2"> <!-- Email ရှည်နိုင်လို့ နေရာပိုယူခိုင်းထား -->
+                    <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1">Email</p>
+                    <p class="text-sm font-medium text-gray-700 truncate" id="detail-email">-</p>
+                </div>
+
+                <!-- Address -->
+                <div class="lg:col-span-4">
+                    <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1">Address</p>
+                    <p class="text-sm font-medium text-gray-700" id="detail-address">-</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
                 <!-- SECTIONS -->
                 
                 <!-- 1. DASHBOARD SECTION -->
@@ -292,6 +340,28 @@
 
     <!-- Scripts -->
     <script type="module">
+
+function updateProfileUI(student) {
+    // ... (Existing code) ...
+
+    // New Detail Section Updates
+    document.getElementById('detail-full-name').textContent = student.full_name;
+    document.getElementById('detail-student-id').textContent = student.student_id || 'ID: ' + student.id.slice(0, 8); // ID မရှိရင် UUID အစပိုင်းပြ
+    document.getElementById('detail-phone').textContent = student.phone_number || '(Not provided)';
+    document.getElementById('detail-email').textContent = student.email;
+    document.getElementById('detail-address').textContent = student.address || 'No address provided';
+
+    // Profile Image Logic (Optional - Database မှာ column ရှိမှ)
+    if (student.profile_image_url) {
+        const img = document.getElementById('detail-profile-img');
+        const icon = document.getElementById('detail-profile-icon');
+        img.src = student.profile_image_url;
+        img.classList.remove('hidden');
+        icon.classList.add('hidden');
+    }
+}
+
+
         // IMPORT CONFIG (Private Folder Path Fix)
         import { supabase } from '../js/supabase-config.js';
 
