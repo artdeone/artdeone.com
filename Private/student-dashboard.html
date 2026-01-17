@@ -101,9 +101,10 @@
 
             <div class="p-4 border-t border-gray-100">
                 <div class="flex items-center gap-3 px-4 py-3">
-                    <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-500">
-                        <i class="fa-solid fa-user"></i>
-                    </div>
+                    <img id="sidebar-avatar" 
+                        src="https://via.placeholder.com/150" 
+                        class="w-10 h-10 rounded-full object-cover border border-gray-200"
+                        alt="User Avatar">
                     <div class="flex-1 min-w-0">
                         <span id="student-name" class="text-sm text-gray-600 font-medium">Loading...</span>
                         <p class="text-xs text-gray-500 truncate" id="sidebar-user-email">...</p>
@@ -434,9 +435,25 @@
                     <h2 class="text-2xl font-bold">My Profile</h2>
                     <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 max-w-2xl">
                         <div class="flex items-center gap-6 mb-8">
-                            <div class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center text-gray-400 text-3xl">
-                                <i class="fa-solid fa-user"></i>
+                           <div class="relative w-20 h-20">
+                                <!-- Profile Image Preview -->
+                                <img id="profile-avatar" src="https://via.placeholder.com/150" 
+                                    class="w-full h-full rounded-full object-cover border-2 border-gray-200">
+                                
+                                <!-- Camera Icon Button (Click to Upload) -->
+                                <label for="avatar-upload-input" 
+                                    class="absolute bottom-0 right-0 bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-full cursor-pointer shadow-lg transition-colors">
+                                    <i class="fa-solid fa-camera text-xs"></i>
+                                </label>
+                                
+                                <!-- Hidden File Input -->
+                                <input type="file" 
+                                    id="avatar-upload-input" 
+                                    class="hidden" 
+                                    accept="image/*" 
+                                    onchange="uploadAvatar(event)">
                             </div>
+
                             <div>
                                 <h3 class="text-xl font-bold" id="profile-name">Student Name</h3>
                                 <p class="text-gray-500" id="profile-email">email@example.com</p>
@@ -620,6 +637,64 @@
         }
     }
 
+        // ... loadAnnouncements code အဟောင်း ...
+    } // loadAnnouncements အပိတ်ကွင်း
+
+    // === ဒီနေရာမှာ အသစ်ထည့်ပါ ===
+    window.uploadAvatar = async function(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        // 2MB Limit
+        if (file.size > 2 * 1024 * 1024) {
+            alert("File size must be less than 2MB");
+            return;
+        }
+
+        try {
+            // UI Loading...
+            const profileImg = document.getElementById('profile-avatar');
+            if(profileImg) profileImg.src = 'https://media.tenor.com/On7kvXhzml4AAAAj/loading-gif.gif';
+
+            // 1. Upload
+            const fileExt = file.name.split('.').pop();
+            const fileName = `${currentUser.id}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+            const filePath = `${fileName}`;
+
+            const { error: uploadError } = await supabase.storage
+                .from('avatars')
+                .upload(filePath, file);
+
+            if (uploadError) throw uploadError;
+
+            // 2. Get URL
+            const { data: { publicUrl } } = supabase.storage
+                .from('avatars')
+                .getPublicUrl(filePath);
+
+            // 3. Update DB
+            const { error: updateError } = await supabase
+                .from('students')
+                .update({ avatar_url: publicUrl })
+                .eq('id', currentUser.id);
+
+            if (updateError) throw updateError;
+
+            // 4. Update UI
+            if(profileImg) profileImg.src = publicUrl;
+            const sidebarImg = document.getElementById('sidebar-avatar');
+            if(sidebarImg) sidebarImg.src = publicUrl;
+
+            currentUser.avatar_url = publicUrl; // Local state update
+            alert('Profile picture updated!');
+
+        } catch (error) {
+            console.error('Error uploading avatar:', error);
+            alert('Upload failed. Please try again.');
+        }
+    };
+
+
     // ============================================
     // UI HELPERS (UPDATED)
     // ============================================
@@ -627,29 +702,30 @@
     function updateProfileUI(student) {
     if (!student) return;
 
+    // --- 1. NAME & INFO UPDATES ---
     // Database က full_name ကို ဦးစားပေးယူမယ်
     const fullName = student.full_name || student.name || 'Student';
 
-    // 1. Sidebar Name (Logout ဘေးနား)
+    // Sidebar Name (Logout ဘေးနား)
     const navName = document.getElementById('student-name');
-    const navEmail = document.getElementById('student-email'); 
+    const navEmail = document.getElementById('sidebar-user-email') || document.getElementById('student-email'); // ID နှစ်မျိုးလုံး စမ်းကြည့်မယ်
     
     if(navName) navName.textContent = fullName;
     if(navEmail) navEmail.textContent = student.email || '';
 
-    // 2. Welcome Banner
+    // Welcome Banner
     const firstName = fullName.split(' ')[0];
     const welcomeNameEl = document.getElementById('welcome-name');
     if(welcomeNameEl) welcomeNameEl.textContent = firstName.toUpperCase();
 
-    // 3. Student Details Card (Dashboard)
+    // Student Details Card (Dashboard)
     setText('detail-full-name', fullName);
     setText('detail-student-id', student.student_id_text || student.id?.slice(0, 8));
     setText('detail-phone', student.phone || student.phone_number);
     setText('detail-email', student.email);
     setText('detail-address', student.address);
 
-    // 4. My Profile Section (Full Page)
+    // My Profile Section (Full Page)
     setText('profile-name', fullName);
     setText('profile-email', student.email);
     setText('profile-type', student.student_type || 'Student');
@@ -659,12 +735,29 @@
         setText('profile-joined', new Date(student.created_at).toLocaleDateString());
     }
 
-    // 5. Attendance Stats
+    // Attendance Stats
     setText('stat-attendance-total', (student.total_attendance || 0) + ' Days');
     setText('stat-attendance-late', (student.late_attendance || 0) + ' Days');
     setText('stat-attendance-undertime', (student.undertime || 0) + ' Days');
     setText('stat-attendance-absent', (student.absent_days || 0) + ' Days');
+
+
+    // --- 2. PROFILE PICTURE UPDATES (NEW) ---
+    // Default ပုံ (ပုံမတင်ရသေးရင် ပြမယ့်ပုံ)
+    const defaultAvatar = 'https://via.placeholder.com/150'; 
+    
+    // ရှိပြီးသား ပုံ (DB ထဲက avatar_url) သို့မဟုတ် Default ပုံ
+    const avatarUrl = student.avatar_url || defaultAvatar;
+
+    // Profile Page ပုံကို Update လုပ်မယ်
+    const profileImg = document.getElementById('profile-avatar');
+    if (profileImg) profileImg.src = avatarUrl;
+
+    // Sidebar ပုံကို Update လုပ်မယ်
+    const sidebarImg = document.getElementById('sidebar-avatar');
+    if (sidebarImg) sidebarImg.src = avatarUrl;
 }
+
 
 
     function renderCoursesGrid(enrollments) {
