@@ -505,53 +505,86 @@
     // DATA LOADING FUNCTIONS
     // ============================================
     
-    async function loadUserProfile(userId) {
-        try {
-            const { data: student, error } = await supabase
-                .from('students')
-                .select('*')
-                .eq('student_id', userId)
-                .single();
+   async function loadUserProfile(userId) {
+    try {
+        const { data: student, error } = await supabase
+            .from('students')
+            .select('*')
+            .eq('id', userId)  // <--- ဒီနေရာမှာ student_id ကို id သို့ ပြောင်းပါ
+            .maybeSingle();    // <--- single() အစား maybeSingle() သုံးပါ
 
-            if (error) throw error;
-            currentUser = student;
 
-            // Update UI
-            updateProfileUI(student);
-            
-        } catch (error) {
-            console.error('Error loading profile:', error);
+        if (error) throw error;
+        
+        if (!student) {
+            console.warn("Student profile not found for ID:", userId);
+            return;
         }
+
+        currentUser = student;
+
+        // Update UI
+        updateProfileUI(student);
+        
+    } catch (error) {
+        console.error('Error loading profile:', error);
     }
+}
+
 
     async function loadMyCourses(userId) {
-        try {
-            const { data: enrollments, error } = await supabase
-                .from('enrollments')
-                .select(`
-                    *,
-                    courses (
-                        id, title, description, course_type, level, duration_week, status, cover_image_url
-                    )
-                `)
-                .eq('student_id', userId)
-                .eq('status', 'active')
-                .order('enrolled_at', { ascending: false });
+    try {
+        // အဆင့် ၁ - Enrollments ကို အရင်ယူမယ်
+        const { data: enrollments, error: enrollError } = await supabase
+            .from('enrollments')
+            .select('course_id, status, enrolled_at') // လိုအပ်သလောက်ပဲ ယူမယ်
+            .eq('student_id', userId)
+            .eq('status', 'active')
+            .order('enrolled_at', { ascending: false });
 
-            if (error) throw error;
-            
-            myEnrollments = enrollments;
-            
-            // Update Dashboard & My Courses Grids
-            renderCoursesGrid(enrollments);
-            updateStats(enrollments);
+        if (enrollError) throw enrollError;
 
-        } catch (error) {
-            console.error('Error loading courses:', error);
-            const grid = document.getElementById('dashboard-courses-grid');
-            if(grid) grid.innerHTML = '<p class="col-span-full text-center text-red-500">Failed to load courses.</p>';
+        if (!enrollments || enrollments.length === 0) {
+            myEnrollments = [];
+            renderCoursesGrid([]);
+            updateStats([]);
+            return;
         }
+
+        // အဆင့် ၂ - ရလာတဲ့ course_id တွေနဲ့ Courses Table ကို သွားယူမယ်
+        // (ဒါက Join မသုံးဘဲ Manual ယူတာမို့ Error 400 လုံးဝ ကင်းရှင်းပါတယ်)
+        const courseIds = enrollments.map(e => e.course_id);
+        
+        const { data: courses, error: courseError } = await supabase
+            .from('courses')
+            .select('id, title, description, course_type, level, duration_week, status, cover_image_url')
+            .in('id', courseIds);
+
+        if (courseError) throw courseError;
+
+        // အဆင့် ၃ - Data ပြန်ပေါင်းစပ်မယ်
+        // Enrollment တစ်ခုချင်းစီထဲမှာ courses object ပြန်ထည့်ပေးတာပါ
+        const combinedData = enrollments.map(enrollment => {
+            const courseData = courses.find(c => c.id === enrollment.course_id);
+            return {
+                ...enrollment,
+                courses: courseData // UI က e.courses.title လို့ ခေါ်ထားလို့ ဒီနာမည်ပဲ ပေးပါတယ်
+            };
+        });
+        
+        myEnrollments = combinedData;
+        
+        // Update Dashboard & My Courses Grids
+        renderCoursesGrid(combinedData);
+        updateStats(combinedData);
+
+    } catch (error) {
+        console.error('Error loading courses:', error);
+        const grid = document.getElementById('dashboard-courses-grid');
+        if(grid) grid.innerHTML = '<p class="col-span-full text-center text-red-500">Failed to load courses.</p>';
     }
+}
+
 
     async function loadAnnouncements() {
         try {
