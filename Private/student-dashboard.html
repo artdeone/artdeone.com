@@ -134,11 +134,46 @@
             <!-- Main Content Area -->
             <main class="flex-1 overflow-y-auto p-4 md:p-8" id="main-content">
                 
-                <!-- Welcome Section -->
-                <div class="mb-8">
-                    <h1 class="text-2xl md:text-3xl font-bold mb-2">Welcome back, <span id="welcome-name">Student</span>! 👋</h1>
-                    <p class="text-gray-500">Here's what's happening with your learning journey.</p>
-                </div>
+                <!-- Welcome Banner Section -->
+<div class="rounded-3xl p-8 md:p-12 mb-8 relative overflow-hidden flex flex-col md:flex-row items-center justify-between shadow-sm" style="background-color: #a7e169;">
+    
+    <!-- Text Content -->
+    <div class="z-10 relative w-full md:w-2/3">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-black mb-3 tracking-tight">
+            WELCOME BACK! <span id="welcome-name" class="uppercase">STUDENT</span>
+        </h1>
+        <p class="text-black/80 text-sm md:text-base font-medium mb-8 leading-relaxed max-w-lg">
+            You have completed 60% of your goal this week! <br class="hidden md:block">
+            Start a new goal and improve your result.
+        </p>
+        <button class="bg-white text-[#a7e169] hover:bg-gray-50 font-bold py-3 px-8 rounded-xl shadow-md transition-transform transform hover:-translate-y-1">
+            Learn More
+        </button>
+    </div>
+
+    <!-- Decorative Illustration (Right Side) -->
+    <div class="hidden md:flex absolute right-0 bottom-0 h-full w-1/3 items-end justify-center pointer-events-none">
+        <!-- Placeholder Illustration: You can replace this src with your own image -->
+        <img src="https://cdni.iconscout.com/illustration/premium/thumb/man-working-on-laptop-4432766-3683059.png" 
+             alt="Welcome Illustration" 
+             class="h-[90%] object-contain object-bottom drop-shadow-xl transform translate-x-4">
+    </div>
+
+    <!-- Decorative Shapes (Floating Background Elements) -->
+    <div class="absolute top-0 right-0 w-full h-full pointer-events-none overflow-hidden">
+        <!-- Yellow Star -->
+        <div class="absolute top-12 right-[30%] text-yellow-300 text-2xl animate-bounce">
+            <i class="fa-solid fa-star"></i>
+        </div>
+        <!-- Square -->
+        <div class="absolute top-24 right-[40%] w-4 h-4 bg-pink-400 rotate-12 opacity-80 rounded-sm"></div>
+        <!-- Circle -->
+        <div class="absolute bottom-16 right-[25%] w-6 h-6 border-4 border-white/40 rounded-full"></div>
+        <!-- Triangle shape using clip-path -->
+        <div class="absolute top-10 right-[15%] w-6 h-6 bg-blue-400 opacity-60" style="clip-path: polygon(50% 0%, 0% 100%, 100% 100%); transform: rotate(25deg);"></div>
+    </div>
+</div>
+
 
                 <!-- Main Content Grid -->
 <div class="grid grid-cols-1 xl:grid-cols-3 gap-8 mb-8">
