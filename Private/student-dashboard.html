@@ -571,12 +571,45 @@
             switchSection('my-courses');
         };
 
-        window.logout = async function() {
-            if (confirm('Are you sure you want to logout?')) {
-                await supabase.auth.signOut();
+                // ============================================
+        // LOGOUT LOGIC (MODAL)
+        // ============================================
+
+        window.logout = function() {
+            // Browser default confirm box အစား Custom Modal ကို ဖွင့်မယ်
+            const modal = document.getElementById('logout-modal');
+            modal.classList.remove('hidden');
+        };
+
+        window.closeLogoutModal = function() {
+            const modal = document.getElementById('logout-modal');
+            modal.classList.add('hidden');
+        };
+
+        window.confirmLogout = async function() {
+            // Button စာသားကို 'Logging out...' လို့ ပြောင်းပြီး ခလုတ်ပိတ်ထားမယ် (UX အတွက်)
+            const btn = event.target; 
+            const originalText = btn.textContent;
+            btn.textContent = 'Logging out...';
+            btn.disabled = true;
+
+            try {
+                const { error } = await supabase.auth.signOut();
+                if (error) throw error;
+                
+                // အောင်မြင်ရင် Login page ကို ပြန်သွားမယ်
                 window.location.href = 'student-login.html';
+            } catch (error) {
+                console.error('Logout error:', error);
+                alert('Error logging out. Please try again.');
+                
+                // Error ဖြစ်ရင် ခလုတ်ပြန်ဖွင့်ပေးမယ်
+                btn.textContent = originalText;
+                btn.disabled = false;
+                closeLogoutModal();
             }
         };
+
 
         // Sidebar Navigation
         document.querySelectorAll('.sidebar-link').forEach(link => {
@@ -616,5 +649,28 @@
         document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
 
     </script>
+
+        <!-- Logout Confirmation Modal -->
+        <div id="logout-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+            <div class="bg-white rounded-2xl shadow-xl max-w-sm w-full p-6 transform transition-all scale-100">
+                <div class="text-center mb-6">
+                    <div class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa-solid fa-right-from-bracket text-red-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Sign Out?</h3>
+                    <p class="text-gray-500 text-sm">Are you sure you want to end your session?</p>
+                </div>
+                <div class="flex gap-3">
+                    <button onclick="closeLogoutModal()" class="flex-1 px-4 py-2 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors font-medium">
+                        Cancel
+                    </button>
+                    <button onclick="confirmLogout()" class="flex-1 px-4 py-2 bg-red-500 text-white rounded-xl hover:bg-red-600 transition-colors font-medium shadow-sm">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
 </body>
 </html>
