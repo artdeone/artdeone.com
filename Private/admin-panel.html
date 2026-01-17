@@ -1071,28 +1071,43 @@
         }
     }
 
-    function displayStudents(students) {
+        function displayStudents(students) {
         const tbody = document.getElementById('students-tbody');
+        if (!tbody) return;
+
         if (students.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 2rem; color: #888;">No students found</td></tr>';
+            // Column ၇ ခုအတွက် colspan="7" ပြောင်းထားပါတယ်
+            tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 2rem; color: #888;">No students found</td></tr>';
             return;
         }
         
         tbody.innerHTML = students.map(s => `
-            <tr>
-                <td style="font-weight: 500;">${s.full_name}</td>
-                <td style="color: #555;">${s.email}</td>
-                <td><span class="badge badge-info">${s.student_type}</span></td>
-                <td><span class="badge ${s.status === 'active' ? 'badge-success' : 'badge-danger'}">${s.status}</span></td>
-                <td style="color: #555;">${new Date(s.enrolled_date).toLocaleDateString()}</td>
-                <td>
-                    <button class="btn-secondary" style="padding: 0.4rem 1rem; font-size: 0.875rem;" onclick="viewStudent('${s.id}')">
+            <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 1rem; font-weight: 500;">
+                    ${s.name || s.full_name || 'No Name'}
+                </td>
+                <td style="padding: 1rem; color: #555;">${s.email || '-'}</td>
+                <td style="padding: 1rem; color: #555;">${s.phone || s.phone_number || '-'}</td>
+                <td style="padding: 1rem; font-family: monospace; font-size: 0.85rem; color: #666;">
+                    ${s.student_id_text || s.id?.slice(0,8)}
+                </td>
+                <td style="padding: 1rem;">
+                    <span class="badge ${s.status === 'active' ? 'badge-success' : 'badge-danger'}">
+                        ${s.status || 'Active'}
+                    </span>
+                </td>
+                <td style="padding: 1rem; color: #555;">
+                    ${s.created_at ? new Date(s.created_at).toLocaleDateString() : '-'}
+                </td>
+                <td style="padding: 1rem;">
+                    <button class="btn-secondary" onclick="viewStudent('${s.id}')" title="View Details">
                         <i class="fa-solid fa-eye"></i>
                     </button>
                 </td>
             </tr>
         `).join('');
     }
+
 
     function searchStudents() {
         const query = document.getElementById('student-search').value.toLowerCase();
@@ -1177,14 +1192,13 @@
                 <div style="overflow-x: auto;">
                     <table>
                         <tr>
-                            <th>Student Name</th>
-                            <th>ID</th>
+                            <th>Name</th>
                             <th>Email</th>
-                            <th>Phone</th>
-                            <th>Type</th>
+                            <th>Phone</th> <!-- ဒီ Column ပါရဲ့လား? -->
+                            <th>ID</th>
                             <th>Status</th>
-                            <th>Joined Date</th>
-                            <th>Actions</th>
+                            <th>Joined</th> <!-- ဒီ Column ပါရဲ့လား? -->
+                            <th>Action</th>
                         </tr>
                     </thead>
                         <tbody>
