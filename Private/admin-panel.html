@@ -1403,7 +1403,7 @@
                     description: data.description,
                     course_type: data.course_type,
                     level: data.level || null,
-                    duration_weeks: data.duration_weeks || null,
+                    duration_week: data.duration_week || null,
                     price: data.price || null,
                     status: 'active',
                     cover_image_url: data.cover_image_url || null // <--- ဒီလိုင်း ထပ်ထည့်ပါ
@@ -1461,13 +1461,13 @@
         try {
             const fileName = `${Date.now()}_${file.name}`;
             const { data: uploadData, error: uploadError } = await supabase.storage
-                .from('course-files')
+                .from('course_files')
                 .upload(fileName, file);
 
             if (uploadError) throw uploadError;
 
             const { data: { publicUrl } } = supabase.storage
-                .from('course-files')
+                .from('course_files')
                 .getPublicUrl(fileName);
 
             const { error: dbError } = await supabase
@@ -1507,7 +1507,7 @@
                 .from('announcements')
                 .insert([{
                     title: data.title,
-                    content: data.content,
+                    description: data.content,
                     target_audience: data.target_audience,
                     priority: data.priority,
                     is_active: true

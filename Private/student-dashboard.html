@@ -531,7 +531,7 @@
                 .select(`
                     *,
                     courses (
-                        id, title, description, course_type, level, duration_weeks, status, cover_image_url
+                        id, title, description, course_type, level, duration_week, status, cover_image_url
                     )
                 `)
                 .eq('student_id', userId)
@@ -558,8 +558,8 @@
             const { data, error } = await supabase
                 .from('announcements')
                 .select('*')
-                .eq('is_active', true)
-                .order('published_at', { ascending: false })
+                
+                .order('created_at', { ascending: false })
                 .limit(5);
 
             if (error) throw error;
@@ -576,9 +576,9 @@
                 <div class="bg-white p-5 rounded-xl border-l-4 ${getPriorityColor(a.priority)} shadow-sm mb-4">
                     <div class="flex justify-between items-start mb-2">
                         <h3 class="font-bold text-lg text-gray-800">${a.title}</h3>
-                        <span class="text-xs text-gray-400">${new Date(a.published_at).toLocaleDateString()}</span>
+                        <span class="text-xs text-gray-400">${new Date(a.created_at).toLocaleDateString()}</span>
                     </div>
-                    <p class="text-gray-600 text-sm">${a.content}</p>
+                    <p class="text-gray-600 text-sm">${a.description}</p>
                 </div>
             `).join('');
             
@@ -648,7 +648,7 @@
                         
                         <div class="mt-auto pt-4 border-t border-gray-100 flex justify-between items-center">
                             <div class="text-xs text-gray-500">
-                                <i class="fa-regular fa-clock mr-1"></i> ${e.courses.duration_weeks || '-'} Weeks
+                                <i class="fa-regular fa-clock mr-1"></i> ${e.courses.duration_week || '-'} Weeks
                             </div>
                             <span class="text-[#a7e169] font-medium text-sm group-hover:underline">View Content <i class="fa-solid fa-arrow-right ml-1"></i></span>
                         </div>
