@@ -140,93 +140,98 @@
                     <p class="text-gray-500">Here's what's happening with your learning journey.</p>
                 </div>
 
-                <!-- Student Profile & Attendance Card (Responsive Layout) -->
+                <!-- Student Profile & Attendance Card (Horizontal Grid) -->
 <div class="bg-white rounded-3xl p-8 mb-8 shadow-sm border border-gray-100">
     <h2 class="text-xl font-bold text-gray-800 mb-6">Student Details</h2>
     
-    <div class="flex flex-col xl:flex-row gap-8">
+    <!-- Top Row: Profile & Info -->
+    <div class="flex flex-col md:flex-row items-center md:items-start gap-6 mb-8 border-b border-gray-100 pb-8">
         
-        <!-- Left Side: Profile Info -->
-        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6 flex-1 min-w-0">
-            <!-- Profile Image -->
-            <div class="w-24 h-24 rounded-full bg-blue-50 border-4 border-white shadow-md overflow-hidden flex items-center justify-center shrink-0">
-                <i class="fa-solid fa-user text-3xl text-blue-300" id="detail-profile-icon"></i>
-                <img id="detail-profile-img" src="" alt="Profile" class="w-full h-full object-cover hidden">
-            </div>
-
-            <!-- Text Info -->
-            <div class="text-center sm:text-left flex-1">
-                <h3 class="text-2xl font-bold text-gray-900 mb-4" id="detail-full-name">Loading...</h3>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-4">
-                    <div>
-                        <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1">ID</p>
-                        <p class="text-sm font-medium text-gray-800" id="detail-student-id">-</p>
-                    </div>
-                    <div>
-                        <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1">Number</p>
-                        <p class="text-sm font-medium text-gray-800" id="detail-phone">-</p>
-                    </div>
-                    <div class="md:col-span-2">
-                        <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1">Email</p>
-                        <p class="text-sm font-medium text-gray-800 break-all" id="detail-email">-</p>
-                    </div>
-                     <div class="md:col-span-4 mt-2">
-                        <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1">Address</p>
-                        <p class="text-sm font-medium text-gray-800" id="detail-address">-</p>
-                    </div>
-                </div>
-            </div>
+        <!-- Profile Image -->
+        <div class="w-20 h-20 rounded-full bg-blue-50 border-4 border-white shadow-md overflow-hidden flex items-center justify-center shrink-0">
+            <i class="fa-solid fa-user text-2xl text-blue-300" id="detail-profile-icon"></i>
+            <img id="detail-profile-img" src="" alt="Profile" class="w-full h-full object-cover hidden">
         </div>
 
-        <!-- Right Side: Attendance Stats (Bottom on Mobile, Right on Desktop) -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 xl:flex xl:items-center gap-4 mt-6 xl:mt-0 xl:border-l xl:border-gray-100 xl:pl-8">
+        <!-- Info Horizontal Grid -->
+        <div class="flex-1 w-full">
+            <h3 class="text-2xl font-bold text-gray-900 mb-4 text-center md:text-left" id="detail-full-name">Loading...</h3>
             
-            <!-- Total Attendance -->
-            <div class="bg-gray-50 xl:bg-transparent rounded-xl p-4 xl:p-0 flex flex-col xl:flex-row items-center gap-3 min-w-[140px]">
-                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 shrink-0">
-                    <i class="fa-solid fa-user-check text-sm"></i>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- ID -->
+                <div>
+                    <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1">ID</p>
+                    <p class="text-sm font-medium text-gray-800" id="detail-student-id">-</p>
                 </div>
-                <div class="text-center xl:text-left">
-                    <h4 class="text-lg font-bold text-gray-900 leading-none mb-1" id="stat-attendance-total">0 Days</h4>
-                    <p class="text-[10px] text-gray-500 font-medium">Total Attendance</p>
+
+                <!-- Phone -->
+                <div>
+                    <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1">Number</p>
+                    <p class="text-sm font-medium text-gray-800" id="detail-phone">-</p>
+                </div>
+
+                <!-- Email -->
+                <div class="lg:col-span-2">
+                    <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1">Email</p>
+                    <p class="text-sm font-medium text-gray-800 truncate" id="detail-email">-</p>
+                </div>
+
+                <!-- Address (Full Width) -->
+                <div class="col-span-2 lg:col-span-4">
+                    <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1">Address</p>
+                    <p class="text-sm font-medium text-gray-800" id="detail-address">-</p>
                 </div>
             </div>
-
-            <!-- Late -->
-            <div class="bg-gray-50 xl:bg-transparent rounded-xl p-4 xl:p-0 flex flex-col xl:flex-row items-center gap-3 min-w-[140px]">
-                <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 shrink-0">
-                    <i class="fa-solid fa-clock-rotate-left text-sm"></i>
-                </div>
-                <div class="text-center xl:text-left">
-                    <h4 class="text-lg font-bold text-gray-900 leading-none mb-1" id="stat-attendance-late">0 Days</h4>
-                    <p class="text-[10px] text-gray-500 font-medium">Late Attendance</p>
-                </div>
-            </div>
-
-            <!-- Undertime -->
-            <div class="bg-gray-50 xl:bg-transparent rounded-xl p-4 xl:p-0 flex flex-col xl:flex-row items-center gap-3 min-w-[140px]">
-                <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 shrink-0">
-                     <i class="fa-regular fa-clock text-sm"></i>
-                </div>
-                <div class="text-center xl:text-left">
-                    <h4 class="text-lg font-bold text-gray-900 leading-none mb-1" id="stat-attendance-undertime">0 Days</h4>
-                    <p class="text-[10px] text-gray-500 font-medium">Undertime</p>
-                </div>
-            </div>
-
-            <!-- Absent -->
-            <div class="bg-gray-50 xl:bg-transparent rounded-xl p-4 xl:p-0 flex flex-col xl:flex-row items-center gap-3 min-w-[140px]">
-                <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-600 shrink-0">
-                    <i class="fa-solid fa-user-xmark text-sm"></i>
-                </div>
-                <div class="text-center xl:text-left">
-                    <h4 class="text-lg font-bold text-gray-900 leading-none mb-1" id="stat-attendance-absent">0 Days</h4>
-                    <p class="text-[10px] text-gray-500 font-medium">Total Absent</p>
-                </div>
-            </div>
-
         </div>
+    </div>
+
+    <!-- Bottom Row: Attendance Stats with Icons -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <!-- Total Attendance -->
+        <div class="bg-gray-50 rounded-xl p-4 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 shrink-0">
+                <i class="fa-solid fa-user-check text-sm"></i>
+            </div>
+            <div>
+                <h4 class="text-lg font-bold text-gray-900 leading-none mb-1" id="stat-attendance-total">0 Days</h4>
+                <p class="text-[10px] text-gray-500 font-medium uppercase tracking-wide">Total Attendance</p>
+            </div>
+        </div>
+
+        <!-- Late Attendance -->
+        <div class="bg-gray-50 rounded-xl p-4 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 shrink-0">
+                <i class="fa-solid fa-clock-rotate-left text-sm"></i>
+            </div>
+            <div>
+                <h4 class="text-lg font-bold text-gray-900 leading-none mb-1" id="stat-attendance-late">0 Days</h4>
+                <p class="text-[10px] text-gray-500 font-medium uppercase tracking-wide">Late Attendance</p>
+            </div>
+        </div>
+
+        <!-- Undertime -->
+        <div class="bg-gray-50 rounded-xl p-4 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 shrink-0">
+                 <i class="fa-regular fa-clock text-sm"></i>
+            </div>
+            <div>
+                <h4 class="text-lg font-bold text-gray-900 leading-none mb-1" id="stat-attendance-undertime">0 Days</h4>
+                <p class="text-[10px] text-gray-500 font-medium uppercase tracking-wide">Undertime</p>
+            </div>
+        </div>
+
+        <!-- Total Absent -->
+        <div class="bg-gray-50 rounded-xl p-4 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-600 shrink-0">
+                <i class="fa-solid fa-user-xmark text-sm"></i>
+            </div>
+            <div>
+                <h4 class="text-lg font-bold text-gray-900 leading-none mb-1" id="stat-attendance-absent">0 Days</h4>
+                <p class="text-[10px] text-gray-500 font-medium uppercase tracking-wide">Total Absent</p>
+            </div>
+        </div>
+
     </div>
 </div>
 
