@@ -135,7 +135,7 @@
             <!-- Main Content Area -->
             <main class="flex-1 overflow-y-auto p-4 md:p-8" id="main-content">
                 
-                <!-- Welcome Banner Section (Updated) -->
+                <!-- Welcome Banner Section (Happy Monkey Font & White Text) -->
 <div class="rounded-3xl mb-8 relative overflow-hidden shadow-sm h-48 md:h-64 flex items-center justify-center text-center group bg-gray-200">
     
     <!-- Background Image -->
@@ -153,12 +153,13 @@
             WELCOME BACK!
         </h1>
         
-        <!-- STUDENT NAME (Original Case) -->
+        <!-- STUDENT NAME -->
         <h2 class="text-3xl md:text-5xl font-bold tracking-normal" style="font-family: 'Happy Monkey', system-ui;">
             <span id="welcome-name">Student</span>
         </h2>
     </div>
 </div>
+
 
 
 
@@ -718,7 +719,7 @@
     // Welcome Banner
     const firstName = fullName.split(' ')[0];
     const welcomeNameEl = document.getElementById('welcome-name');
-    if(welcomeNameEl) welcomeNameEl.textContent = firstName.toUpperCase();
+    if(welcomeNameEl) welcomeNameEl.textContent = firstName;
 
     // Student Details Card (Dashboard)
     setText('detail-full-name', fullName);
