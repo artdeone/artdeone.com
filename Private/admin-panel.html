@@ -1556,19 +1556,25 @@ window.deleteCourseFromEdit = async function() {
     });
 
 
-    // NEW: Edit Course Form Handler
+    // NEW: Edit Course Form Handler (Updated Version)
 document.getElementById('edit-course-form').addEventListener('submit', async (e) => {
     e.preventDefault();
-    const id = document.getElementById('edit-course-id').value;
+    
+    // ID ကို String အဖြစ် သေချာပြောင်းပြီး trim လုပ်မယ်
+    const id = String(document.getElementById('edit-course-id').value).trim();
     const formData = new FormData(e.target);
     const updates = Object.fromEntries(formData);
+    
+    // Debugging အတွက်
+    console.log("Updating Course ID:", id);
 
     try {
         const { error } = await supabase
             .from('courses')
             .update({
                 title: updates.title,
-                cover_image_url: updates.cover_image_url, 
+                // HTML name ပေါ်မူတည်ပြီး နှစ်မျိုးလုံး စစ်ပေးထားပါတယ်
+                cover_image_url: updates.cover_image_url || updates.coverimageurl, 
                 description: updates.description,
                 status: updates.status
             })
@@ -1577,10 +1583,12 @@ document.getElementById('edit-course-form').addEventListener('submit', async (e)
         if (error) throw error;
 
         showModalAlert('edit-course', 'Course updated successfully!', 'success');
+        
         setTimeout(() => {
             closeModal('edit-course');
-            loadCourses();
+            loadCourses(); 
         }, 1000);
+        
     } catch (error) {
         console.error('Error updating course:', error);
         showModalAlert('edit-course', error.message, 'error');
