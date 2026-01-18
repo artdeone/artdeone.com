@@ -772,17 +772,25 @@
     const sidebarImg = document.getElementById('sidebar-avatar');
     if (sidebarImg) sidebarImg.src = avatarUrl;
 
-        // Dashboard Student Details Card ပုံကို Update လုပ်မယ်
+            // Dashboard Student Details Card ပုံကို Update လုပ်မယ် (Updated Logic)
     const detailImg = document.getElementById('detail-profile-img');
     const detailIcon = document.getElementById('detail-profile-icon');
     
-    if (detailImg) {
-        detailImg.src = avatarUrl;
-        detailImg.classList.remove('hidden'); // ပုံကို ဖော်မည်
+    // ပုံ URL တကယ်ရှိမှသာ လုပ်ဆောင်မည်
+    if (student.avatar_url) {
+        if(detailImg) {
+            detailImg.src = avatarUrl;
+            detailImg.classList.remove('hidden');
+        }
+        if(detailIcon) {
+            detailIcon.classList.add('hidden');
+        }
+    } else {
+        // ပုံမရှိရင် မူလအတိုင်း Icon ပဲ ပြန်ပြထားမယ်
+        if(detailImg) detailImg.classList.add('hidden');
+        if(detailIcon) detailIcon.classList.remove('hidden');
     }
-    if (detailIcon) {
-        detailIcon.classList.add('hidden');   // Icon အပြာလေးကို ဖျောက်မည်
-    }
+
 
 }
 
