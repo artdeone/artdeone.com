@@ -1406,60 +1406,38 @@
     }
 
     async function loadAnnouncements() {
-    try {
-        const { data: announcements, error } = await supabase
-            .from('announcements')
-            .select('*')
-            .order('published_at', { ascending: false });
+        try {
+            const { data: announcements, error } = await supabase
+                .from('announcements')
+                .select('*')
+                .order('published_at', { ascending: false });
 
-        if (error) throw error;
+            if (error) throw error;
 
-        const container = document.getElementById('announcements-container');
-        
-        if (announcements.length === 0) {
-            container.innerHTML = '<p style="text-align: center; padding: 2rem; color: #888;">No announcements yet</p>';
-            return;
+            const container = document.getElementById('announcements-container');
+            
+            if (announcements.length === 0) {
+                container.innerHTML = '<p style="text-align: center; padding: 2rem; color: #888;">No announcements yet</p>';
+                return;
+            }
+            
+            container.innerHTML = announcements.map(a => `
+                <div style="border-left: 4px solid #a7e169; padding: 1.5rem; background: #fafafa; margin-bottom: 1rem; border-radius: 0.5rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.75rem;">
+                        <h3 style="font-weight: 600; color: #000;">${a.title}</h3>
+                        <span class="badge ${a.priority === 'urgent' ? 'badge-danger' : a.priority === 'high' ? 'badge-warning' : 'badge-info'}">${a.priority}</span>
+                    </div>
+                    <p style="color: #555; margin-bottom: 0.75rem;">${a.content}</p>
+                    <p style="font-size: 0.75rem; color: #888;">
+                        Target: ${a.target_audience} | ${new Date(a.published_at).toLocaleDateString()}
+                        ${a.is_active ? '<span class="badge badge-success" style="margin-left: 0.5rem;">Active</span>' : '<span class="badge badge-danger" style="margin-left: 0.5rem;">Inactive</span>'}
+                    </p>
+                </div>
+            `).join('');
+        } catch (error) {
+            console.error('Error loading announcements:', error);
         }
-        
-        container.innerHTML = announcements.map(a => `
-            <div style="border-left: 4px solid #a7e169; padding: 1.5rem; background: #fafafa; margin-bottom: 1rem; border-radius: 0.5rem;">
-                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.75rem;">
-                    <h3 style="font-weight: 600; color: #000;">${a.title}</h3>
-                    <span class="badge ${a.priority === 'urgent' ? 'badge-danger' : a.priority === 'high' ? 'badge-warning' : 'badge-info'}">${a.priority}</span>
-                </div>
-                <p style="color: #555; margin-bottom: 0.75rem;">${a.content}</p>
-                <div style="display: flex; gap: 0.5rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #eee;">
-                    <!-- Status Badge -->
-                    <span class="badge ${a.is_active ? 'badge-success' : 'badge-danger'}">
-                        ${a.is_active ? 'Active' : 'Inactive'}
-                    </span>
-                    
-                    <!-- Status Toggle Button -->
-                    <button class="btn-${a.is_active ? 'danger' : 'success'}" 
-                            style="padding: 0.3rem 0.8rem; font-size: 0.75rem;"
-                            onclick="toggleAnnouncementStatus('${a.id}', '${a.is_active ? 'inactive' : 'active'}')"
-                            title="${a.is_active ? 'Make Inactive' : 'Make Active'}">
-                        <i class="fa-solid ${a.is_active ? 'fa-eye-slash' : 'fa-eye'}"></i>
-                    </button>
-                    
-                    <!-- Delete Button -->
-                    <button class="btn-danger" 
-                            style="padding: 0.3rem 0.8rem; font-size: 0.75rem;"
-                            onclick="deleteAnnouncement('${a.id}')" 
-                            title="Delete Announcement">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
-                </div>
-                <p style="font-size: 0.75rem; color: #888; margin-top: 0.5rem;">
-                    Target: ${a.target_audience} | ${new Date(a.published_at).toLocaleDateString()}
-                </p>
-            </div>
-        `).join('');
-    } catch (error) {
-        console.error('Error loading announcements:', error);
     }
-}
-
 
     async function loadStudentsForSelect() {
         if (allStudents.length === 0) {
@@ -1501,8 +1479,6 @@
     openModal('edit-course');
 };
 
-
-// Course Management Functions
 window.deleteCourseFromEdit = async function() {
     const id = document.getElementById('edit-course-id').value;
     
@@ -1532,9 +1508,6 @@ window.deleteCourseFromEdit = async function() {
         alert('Error: ' + error.message);
     }
 };
-
-
-
 
 
 // ==========================================
@@ -1576,62 +1549,6 @@ window.viewStudent = function(id) {
 
     openModal('view-student');
 };
-
-async function loadAnnouncements() {
-    try {
-        const { data: announcements, error } = await supabase
-            .from('announcements')
-            .select('*')
-            .order('published_at', { ascending: false });
-
-        if (error) throw error;
-
-        const container = document.getElementById('announcements-container');
-        
-        if (announcements.length === 0) {
-            container.innerHTML = '<p style="text-align: center; padding: 2rem; color: #888;">No announcements yet</p>';
-            return;
-        }
-        
-        container.innerHTML = announcements.map(a => `
-            <div style="border-left: 4px solid #a7e169; padding: 1.5rem; background: #fafafa; margin-bottom: 1rem; border-radius: 0.5rem;">
-                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.75rem;">
-                    <h3 style="font-weight: 600; color: #000;">${a.title}</h3>
-                    <span class="badge ${a.priority === 'urgent' ? 'badge-danger' : a.priority === 'high' ? 'badge-warning' : 'badge-info'}">${a.priority}</span>
-                </div>
-                <p style="color: #555; margin-bottom: 0.75rem;">${a.content}</p>
-                <div style="display: flex; gap: 0.5rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #eee;">
-                    <!-- Status Badge -->
-                    <span class="badge ${a.is_active ? 'badge-success' : 'badge-danger'}">
-                        ${a.is_active ? 'Active' : 'Inactive'}
-                    </span>
-                    
-                    <!-- Status Toggle Button -->
-                    <button class="btn-${a.is_active ? 'danger' : 'success'}" 
-                            style="padding: 0.3rem 0.8rem; font-size: 0.75rem;"
-                            onclick="toggleAnnouncementStatus('${a.id}', '${a.is_active ? 'inactive' : 'active'}')"
-                            title="${a.is_active ? 'Make Inactive' : 'Make Active'}">
-                        <i class="fa-solid ${a.is_active ? 'fa-eye-slash' : 'fa-eye'}"></i>
-                    </button>
-                    
-                    <!-- Delete Button -->
-                    <button class="btn-danger" 
-                            style="padding: 0.3rem 0.8rem; font-size: 0.75rem;"
-                            onclick="deleteAnnouncement('${a.id}')" 
-                            title="Delete Announcement">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
-                </div>
-                <p style="font-size: 0.75rem; color: #888; margin-top: 0.5rem;">
-                    Target: ${a.target_audience} | ${new Date(a.published_at).toLocaleDateString()}
-                </p>
-            </div>
-        `).join('');
-    } catch (error) {
-        console.error('Error loading announcements:', error);
-    }
-}
-
 
 // 2. Delete Student Function (Row ထဲက Trash icon / Modal နှစ်မျိုးလုံးက ခေါ်သုံးလို့ရ)
 window.deleteStudent = async function(id) {
