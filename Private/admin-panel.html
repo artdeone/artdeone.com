@@ -1443,20 +1443,34 @@
 
 window.deleteCourseFromEdit = async function() {
     const id = document.getElementById('edit-course-id').value;
+    
+    // Debugging (Console မှာ ID ပေါ်မပေါ် ကြည့်ရန်)
+    console.log("Deleting Course ID:", id);
+
     if (!confirm('Are you sure you want to delete this course? This cannot be undone!')) return;
 
     try {
-        const { error } = await supabase.from('courses').match({ id: String(id) });;
+        // ID ကို String အဖြစ်ပြောင်းပြီး .eq() နဲ့ ဖျက်မယ်
+        const { error } = await supabase
+            .from('courses')
+            .delete()
+            .eq('id', String(id).trim());
+
         if (error) throw error;
+
         alert('Course deleted successfully!');
         closeModal('edit-course');
-        loadCourses();
-        loadDashboardStats();
+        
+        // Data တွေကို ချက်ချင်း Update လုပ်မယ်
+        await loadCourses();
+        await loadDashboardStats();
+        
     } catch (error) {
         console.error('Error deleting course:', error);
         alert('Error: ' + error.message);
     }
 };
+
 
     // ============================================
     // FORM HANDLERS
