@@ -135,37 +135,31 @@
             <!-- Main Content Area -->
             <main class="flex-1 overflow-y-auto p-4 md:p-8" id="main-content">
                 
-                <!-- Welcome Banner Section (Refined Layout) -->
-<div class="rounded-3xl mb-8 relative overflow-hidden shadow-sm h-48 md:h-64 flex items-center bg-gray-200">
+                <!-- Welcome Banner Section (Background Image + Center Text) -->
+<div class="rounded-3xl mb-8 relative overflow-hidden shadow-sm h-48 md:h-64 flex items-center justify-center text-center group bg-gray-200">
     
     <!-- Background Image -->
     <div class="absolute inset-0 z-0">
         <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768710049/student-banner_dadfyn.png" 
              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
              alt="Welcome Banner">
-        <!-- Overlay for better text readability -->
-        <div class="absolute inset-0 bg-black/10"></div>
+        <!-- Overlay for readability -->
+        <div class="absolute inset-0 bg-black/5"></div>
     </div>
 
-    <!-- Content Container (Flex for alignment) -->
-    <div class="z-10 relative w-full h-full flex flex-col items-center justify-center text-center px-4">
+    <!-- Center Content -->
+    <div class="z-10 relative px-4 flex flex-col items-center justify-center">
         
-        <!-- Top Text: Student Portal (Space Grotesk) -->
-        <p class="text-sm md:text-lg font-medium tracking-widest uppercase mb-1 text-white/90 drop-shadow-md" 
-           style="font-family: 'Space Grotesk', sans-serif;">
-            Student Portal
-        </p>
-
-        <!-- Main Heading: WELCOME BACK! (Happy Monkey - Smaller) -->
-        <h1 class="text-lg md:text-2xl font-bold tracking-wide mb-1 text-white drop-shadow-md" 
-            style="font-family: 'Happy Monkey', system-ui; color: white !important;">
-            WELCOME BACK!
+        <!-- STUDENT PORTAL (Big Text) -->
+        <h1 class="text-3xl md:text-5xl font-bold uppercase tracking-wide text-white drop-shadow-md mb-2" 
+            style="font-family: 'Space Grotesk', sans-serif;">
+            STUDENT PORTAL
         </h1>
-        
-        <!-- Student Name (Happy Monkey - Bigger) -->
-        <h2 class="text-3xl md:text-5xl font-bold tracking-normal text-white drop-shadow-md" 
-            style="font-family: 'Happy Monkey', system-ui; color: white !important;">
-            <span id="welcome-name">Student</span>
+
+        <!-- WELCOME BACK! NAME (Smaller Text) -->
+        <h2 class="text-lg md:text-2xl font-medium tracking-wide text-white drop-shadow-md" 
+            style="font-family: 'Happy Monkey', system-ui;">
+            WELCOME BACK! <span id="welcome-name" class="uppercase">CHANNEL</span>
         </h2>
         
     </div>
