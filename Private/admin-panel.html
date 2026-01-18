@@ -720,57 +720,56 @@
 
    
     <!-- Add Course Modal -->
-    <div id="add-course-modal" class="modal">
-        <div class="modal-content">
-            <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem;">Add New Course</h2>
-            <div id="add-course-alert"></div>
-            <form id="add-course-form">
-                <label class="form-label">Course Title</label>
-                <input type="text" name="title" class="form-input" required>
+<div id="add-course-modal" class="modal">
+    <div class="modal-content">
+        <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem;">Add New Course</h2>
+        <div id="add-course-alert"></div>
+        <form id="add-course-form">
+            <label class="form-label">Course Title</label>
+            <input type="text" name="title" class="form-input" required>
 
-                <!-- NEW: Cover Image URL Input -->
-                <label class="form-label">Cover Image URL</label>
-                <input type="text" name="cover_image_url" class="form-input" placeholder="https://example.com/image.jpg">
-                <p style="font-size: 0.8rem; color: #888; margin-bottom: 1rem;">Leave blank to use random cover.</p>
-                <!-- END NEW INPUT -->
+            <!-- NEW: Cover Image URL Input -->
+            <label class="form-label">Cover Image URL</label>
+            <input type="text" name="cover_image_url" class="form-input" placeholder="https://example.com/image.jpg">
+            <p style="font-size: 0.8rem; color: #888; margin-bottom: 1rem;">Leave blank to use random cover.</p>
+            <!-- END NEW INPUT -->
 
-                <label class="form-label">Description</label>
-                <textarea name="description" class="form-input" rows="3"></textarea>
+            <label class="form-label">Description</label>
+            <textarea name="description" class="form-input" rows="3"></textarea>
 
-                <label class="form-label">Course Type</label>
-                <select name="course_type" class="form-input" required>
-                    <option value="individual">Individual</option>
-                    <option value="group">Group</option>
-                    <option value="both">Both</option>
-                </select>
+            <label class="form-label">Course Type</label>
+            <select name="course_type" class="form-input" required>
+                <option value="individual">Individual</option>
+                <option value="group">Group</option>
+                <option value="both">Both</option>
+            </select>
 
-                <label class="form-label">Level</label>
-                <select name="level" class="form-input">
-                    <option value="">Select Level</option>
-                    <option value="beginner">Beginner</option>
-                    <option value="intermediate">Intermediate</option>
-                    <option value="advanced">Advanced</option>
-                </select>
+            <label class="form-label">Level</label>
+            <select name="level" class="form-input">
+                <option value="">Select Level</option>
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+            </select>
 
-                <label class="form-label">Duration (weeks)</label>
-                <input type="number" name="duration_weeks" class="form-input">
+            <label class="form-label">Duration (weeks)</label>
+            <input type="number" name="duration_weeks" class="form-input">
 
-                <label class="form-label">Price (MMK)</label>
-                <input type="number" name="price" class="form-input" step="0.01">
+            <label class="form-label">Price (MMK)</label>
+            <input type="number" name="price" class="form-input" step="0.01">
 
-                <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-                    <button type="submit" class="btn-primary">
-                        <i class="fa-solid fa-check"></i>
-                        Add Course
-                    </button>
-                    <button type="button" class="btn-secondary" onclick="closeModal('add-course')">Cancel</button>
-                </div>
-            </form>
-        </div>
+            <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                <button type="submit" class="btn-primary">
+                    <i class="fa-solid fa-check"></i>
+                    Add Course
+                </button>
+                <button type="button" class="btn-secondary" onclick="closeModal('add-course')">Cancel</button>
+            </div>
+        </form>
     </div>
+</div>
 
-
-    <!-- Edit Course Modal (အသစ်ထပ်ထည့်ရမည့်ဟာ - အောက်မှာ ကပ်လျက်ထည့်ပါ) -->
+<!-- Edit Course Modal (Corrected Version) -->
 <div id="edit-course-modal" class="modal">
     <div class="modal-content">
         <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem;">Edit Course</h2>
@@ -783,13 +782,12 @@
             <input type="text" name="title" id="edit-course-title" class="form-input" required>
 
             <label class="form-label">Cover Image URL</label>
-            <input type="text" name="coverimageurl" id="edit-course-cover" class="form-input">
+            <!-- name="cover_image_url" (with underscore) is crucial for JS handler -->
+            <input type="text" name="cover_image_url" id="edit-course-cover" class="form-input">
 
             <label class="form-label">Description</label>
             <textarea name="description" id="edit-course-description" class="form-input" rows="3"></textarea>
             
-            <!-- Type, Level, Duration တို့လည်း လိုရင် ဒီနေရာမှာ ထည့်လို့ရပါတယ် -->
-
             <label class="form-label">Status</label>
             <select name="status" id="edit-course-status" class="form-input">
                 <option value="active">Active</option>
@@ -806,115 +804,114 @@
     </div>
 </div>
 
-    <!-- Add Enrollment Modal -->
-    <div id="add-enrollment-modal" class="modal">
-        <div class="modal-content">
-            <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem;">Enroll Student in Course</h2>
-            <div id="add-enrollment-alert"></div>
-            <form id="add-enrollment-form">
-                <label class="form-label">Select Student</label>
-                <select name="student_id" id="enrollment-student-select" class="form-input" required>
-                    <option value="">Loading students...</option>
-                </select>
+<!-- Add Enrollment Modal -->
+<div id="add-enrollment-modal" class="modal">
+    <div class="modal-content">
+        <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem;">Enroll Student in Course</h2>
+        <div id="add-enrollment-alert"></div>
+        <form id="add-enrollment-form">
+            <label class="form-label">Select Student</label>
+            <select name="student_id" id="enrollment-student-select" class="form-input" required>
+                <option value="">Loading students...</option>
+            </select>
 
-                <label class="form-label">Select Course</label>
-                <select name="course_id" id="enrollment-course-select" class="form-input" required>
-                    <option value="">Loading courses...</option>
-                </select>
+            <label class="form-label">Select Course</label>
+            <select name="course_id" id="enrollment-course-select" class="form-input" required>
+                <option value="">Loading courses...</option>
+            </select>
 
-                <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-                    <button type="submit" class="btn-primary">
-                        <i class="fa-solid fa-check"></i>
-                        Enroll Student
-                    </button>
-                    <button type="button" class="btn-secondary" onclick="closeModal('add-enrollment')">Cancel</button>
-                </div>
-            </form>
-        </div>
+            <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                <button type="submit" class="btn-primary">
+                    <i class="fa-solid fa-check"></i>
+                    Enroll Student
+                </button>
+                <button type="button" class="btn-secondary" onclick="closeModal('add-enrollment')">Cancel</button>
+            </div>
+        </form>
     </div>
+</div>
 
-    <!-- Upload File Modal -->
-    <div id="upload-file-modal" class="modal">
-        <div class="modal-content">
-            <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem;">Upload Course File</h2>
-            <div id="upload-file-alert"></div>
-            <form id="upload-file-form">
-                <label class="form-label">Select Course</label>
-                <select name="course_id" id="file-course-select" class="form-input" required>
-                    <option value="">Loading courses...</option>
-                </select>
+<!-- Upload File Modal -->
+<div id="upload-file-modal" class="modal">
+    <div class="modal-content">
+        <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem;">Upload Course File</h2>
+        <div id="upload-file-alert"></div>
+        <form id="upload-file-form">
+            <label class="form-label">Select Course</label>
+            <select name="course_id" id="file-course-select" class="form-input" required>
+                <option value="">Loading courses...</option>
+            </select>
 
-                <label class="form-label">File</label>
-                <input type="file" name="file" class="form-input" required>
+            <label class="form-label">File</label>
+            <input type="file" name="file" class="form-input" required>
 
-                <label class="form-label">File Description</label>
-                <input type="text" name="file_description" class="form-input">
+            <label class="form-label">File Description</label>
+            <input type="text" name="file_description" class="form-input">
 
-                <label class="form-label">File Type</label>
-                <select name="file_type" class="form-input" required>
-                    <option value="outline">Course Outline</option>
-                    <option value="worksheet">Worksheet</option>
-                    <option value="reference">Reference Material</option>
-                    <option value="video">Video</option>
-                    <option value="other">Other</option>
-                </select>
+            <label class="form-label">File Type</label>
+            <select name="file_type" class="form-input" required>
+                <option value="outline">Course Outline</option>
+                <option value="worksheet">Worksheet</option>
+                <option value="reference">Reference Material</option>
+                <option value="video">Video</option>
+                <option value="other">Other</option>
+            </select>
 
-                <label style="display: flex; align-items: center; gap: 0.5rem; margin: 1rem 0;">
-                    <input type="checkbox" name="is_public">
-                    <span>Make publicly accessible</span>
-                </label>
+            <label style="display: flex; align-items: center; gap: 0.5rem; margin: 1rem 0;">
+                <input type="checkbox" name="is_public">
+                <span>Make publicly accessible</span>
+            </label>
 
-                <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-                    <button type="submit" class="btn-primary">
-                        <i class="fa-solid fa-upload"></i>
-                        Upload
-                    </button>
-                    <button type="button" class="btn-secondary" onclick="closeModal('upload-file')">Cancel</button>
-                </div>
-            </form>
-        </div>
+            <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                <button type="submit" class="btn-primary">
+                    <i class="fa-solid fa-upload"></i>
+                    Upload
+                </button>
+                <button type="button" class="btn-secondary" onclick="closeModal('upload-file')">Cancel</button>
+            </div>
+        </form>
     </div>
+</div>
 
-    <!-- Add Announcement Modal -->
-    <div id="add-announcement-modal" class="modal">
-        <div class="modal-content">
-            <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem;">New Announcement</h2>
-            <div id="add-announcement-alert"></div>
-            <form id="add-announcement-form">
-                <label class="form-label">Title</label>
-                <input type="text" name="title" class="form-input" required>
+<!-- Add Announcement Modal -->
+<div id="add-announcement-modal" class="modal">
+    <div class="modal-content">
+        <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem;">New Announcement</h2>
+        <div id="add-announcement-alert"></div>
+        <form id="add-announcement-form">
+            <label class="form-label">Title</label>
+            <input type="text" name="title" class="form-input" required>
 
-                <label class="form-label">Content</label>
-                <textarea name="content" class="form-input" rows="4" required></textarea>
+            <label class="form-label">Content</label>
+            <textarea name="content" class="form-input" rows="4" required></textarea>
 
-                <label class="form-label">Target Audience</label>
-                <select name="target_audience" class="form-input">
-                    <option value="all">All Students</option>
-                    <option value="individual">Individual Students Only</option>
-                    <option value="group">Group Students Only</option>
-                </select>
+            <label class="form-label">Target Audience</label>
+            <select name="target_audience" class="form-input">
+                <option value="all">All Students</option>
+                <option value="individual">Individual Students Only</option>
+                <option value="group">Group Students Only</option>
+            </select>
 
-                <label class="form-label">Priority</label>
-                <select name="priority" class="form-input">
-                    <option value="normal">Normal</option>
-                    <option value="high">High</option>
-                    <option value="urgent">Urgent</option>
-                    <option value="low">Low</option>
-                </select>
+            <label class="form-label">Priority</label>
+            <select name="priority" class="form-input">
+                <option value="normal">Normal</option>
+                <option value="high">High</option>
+                <option value="urgent">Urgent</option>
+                <option value="low">Low</option>
+            </select>
 
-                <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-                    <button type="submit" class="btn-primary">
-                        <i class="fa-solid fa-paper-plane"></i>
-                        Publish
-                    </button>
-                    <button type="button" class="btn-secondary" onclick="closeModal('add-announcement')">Cancel</button>
-                </div>
-            </form>
-        </div>
+            <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                <button type="submit" class="btn-primary">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    Publish
+                </button>
+                <button type="button" class="btn-secondary" onclick="closeModal('add-announcement')">Cancel</button>
+            </div>
+        </form>
     </div>
+</div>
 
-
-    <!-- Edit Stats Modal -->
+<!-- Edit Stats Modal -->
 <div id="stats-modal" class="modal">
     <div class="modal-content" style="max-width: 400px;">
         <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem;">Edit Student Stats</h2>
@@ -955,6 +952,7 @@
         </form>
     </div>
 </div>
+
 
 
     <script type="module">
