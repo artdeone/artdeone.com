@@ -854,6 +854,44 @@
         if (el) el.textContent = text || '-';
     }
 
+    // ✅ 1. Mobile Menu Toggle Function (Global Scope)
+    window.toggleMobileMenu = function() {
+        const sidebar = document.getElementById('sidebar'); // Desktop/Tablet Sidebar
+        const mobileSidebar = document.getElementById('mobile-sidebar'); // Mobile Overlay
+        const mobileSidebarContent = document.getElementById('mobile-sidebar-content'); // Sliding Content
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn'); // Hamburger Button
+        
+        // 1. Check if we are using the overlay mobile sidebar (id="mobile-sidebar")
+        if (mobileSidebar) {
+             // Clone sidebar content if empty (First time open)
+            if (mobileSidebarContent.innerHTML.trim() === '') {
+                 const originalSidebarContent = document.getElementById('sidebar').innerHTML;
+                 mobileSidebarContent.innerHTML = originalSidebarContent;
+                 
+                 // Re-attach event listeners to new buttons in mobile sidebar
+                 // (Logout button, etc.)
+            }
+            
+            mobileSidebar.classList.toggle('hidden');
+            setTimeout(() => {
+                mobileSidebarContent.classList.toggle('-translate-x-full');
+            }, 10); // Small delay for animation
+        }
+        
+        // 2. Icon Toggle Logic
+        const icon = mobileMenuBtn.querySelector('i');
+        if (icon) {
+            if (icon.classList.contains('fa-bars')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        }
+    };
+
+
     // ============================================
     // NAVIGATION & LOGOUT
     // ============================================
@@ -994,64 +1032,6 @@
             switchSection(section);
         });
     });
-
-    // Mobile Menu Toggle Function with Icon Animation
-function toggleMobileMenu() {
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('sidebar-overlay');
-    const menuIcon = document.querySelector('button[onclick="toggleMobileMenu()"] i');
-
-    // Toggle Sidebar & Overlay
-    sidebar.classList.toggle('-translate-x-full');
-    overlay.classList.toggle('hidden');
-
-    // Toggle Icon (Hamburger <-> X Mark)
-    if (sidebar.classList.contains('-translate-x-full')) {
-        // Sidebar is closed -> Show Hamburger
-        if(menuIcon) {
-            menuIcon.classList.remove('fa-xmark');
-            menuIcon.classList.add('fa-bars');
-        }
-    } else {
-        // Sidebar is open -> Show X Mark
-        if(menuIcon) {
-            menuIcon.classList.remove('fa-bars');
-            menuIcon.classList.add('fa-xmark');
-        }
-    }
-}
-
-// Switch Section Function with Mobile Auto-Close
-function switchSection(sectionId) {
-    // Hide all sections
-    document.querySelectorAll('.section').forEach(el => el.classList.add('hidden'));
-    
-    // Show selected section
-    const target = document.getElementById(sectionId + '-section');
-    if(target) target.classList.remove('hidden');
-
-    // Update Sidebar Active State
-    document.querySelectorAll('.nav-item').forEach(el => {
-        el.classList.remove('bg-gray-100', 'text-gray-900');
-        el.classList.add('text-gray-500');
-    });
-    
-    const activeBtn = document.querySelector(`button[onclick="switchSection('${sectionId}')"]`);
-    if(activeBtn) {
-        activeBtn.classList.remove('text-gray-500');
-        activeBtn.classList.add('bg-gray-100', 'text-gray-900');
-    }
-
-    // Mobile Menu Auto-Close
-    if (window.innerWidth < 768) { 
-        const sidebar = document.getElementById('sidebar');
-        if (!sidebar.classList.contains('-translate-x-full')) {
-            toggleMobileMenu();
-        }
-    }
-}
-
-
 </script>
 
 
