@@ -856,59 +856,72 @@
         if (el) el.textContent = text || '-';
     }
 
-    // ✅ Correct Mobile Menu Toggle
+    // ✅ Correct Mobile Menu Toggle (Fix Missing Links)
 window.toggleMobileMenu = function() {
     const mobileSidebar = document.getElementById('mobile-sidebar');
     const mobileSidebarContent = document.getElementById('mobile-sidebar-content');
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const icon = mobileMenuBtn ? mobileMenuBtn.querySelector('i') : null;
 
-    // 1. Sidebar ရှိမရှိ စစ်ဆေးခြင်း
     if (!mobileSidebar || !mobileSidebarContent) return;
 
-    // 2. Clone Sidebar Content (ပထမဆုံးအကြိမ် ဖွင့်မှသာ)
+    // 1. Sidebar Content Clone Logic (Modified)
     if (mobileSidebarContent.innerHTML.trim() === '') {
          const originalSidebar = document.getElementById('sidebar');
-         if(originalSidebar) {
-             mobileSidebarContent.innerHTML = originalSidebar.innerHTML;
-             
-             // Mobile Sidebar ထဲက Logout Button ကို ပြန်ချိတ်ဆက်ပေးရမယ် (ရှိရင်)
-             const newLogoutBtn = mobileSidebarContent.querySelector('button[onclick="handleLogout()"]');
-             if(newLogoutBtn) newLogoutBtn.onclick = window.handleLogout;
-         }
+         
+         // Clone Sidebar content
+         const contentToClone = originalSidebar.cloneNode(true);
+         
+         // 🔴 Remove 'hidden' classes to make links visible
+         contentToClone.classList.remove('hidden', 'md:flex');
+         contentToClone.querySelectorAll('.hidden').forEach(el => el.classList.remove('hidden'));
+         
+         // Inject Content
+         mobileSidebarContent.innerHTML = contentToClone.innerHTML;
+         
+         // Add Padding
+         mobileSidebarContent.classList.add('p-4');
+
+         // Re-attach Click Events (Close menu on click)
+         mobileSidebarContent.querySelectorAll('button, a, .sidebar-link').forEach(link => {
+             link.addEventListener('click', () => {
+                 window.toggleMobileMenu(); // Close menu
+                 
+                 // If it's a sidebar link, switch section
+                 if(link.classList.contains('sidebar-link')) {
+                     const section = link.dataset.section;
+                     if(section) window.switchSection(section);
+                 }
+             });
+         });
+         
+         // Re-attach Logout
+         const newLogoutBtn = mobileSidebarContent.querySelector('button[onclick="handleLogout()"]');
+         if(newLogoutBtn) newLogoutBtn.onclick = window.handleLogout;
     }
 
-    // 3. Toggle Open/Close Logic
+    // 2. Toggle Animation Logic
     if (mobileSidebar.classList.contains('hidden')) {
-        // == ဖွင့်မည် (OPEN) ==
         mobileSidebar.classList.remove('hidden');
-        // အနည်းငယ်စောင့်ပြီးမှ Slide ဝင်လာအောင် (Animation အတွက်)
         setTimeout(() => {
             mobileSidebarContent.classList.remove('-translate-x-full');
         }, 10);
-        
-        // Icon -> X ပြောင်း
         if(icon) {
             icon.classList.remove('fa-bars');
             icon.classList.add('fa-xmark');
         }
-        
     } else {
-        // == ပိတ်မည် (CLOSE) ==
         mobileSidebarContent.classList.add('-translate-x-full');
-        
-        // Slide ထွက်သွားပြီးမှ Hidden ပြန်တပ် (Animation ပြီးမှ)
         setTimeout(() => {
             mobileSidebar.classList.add('hidden');
-        }, 300); // 300ms duration နဲ့ ကိုက်ညီအောင်
-        
-        // Icon -> Bars ပြန်ပြောင်း
+        }, 300);
         if(icon) {
             icon.classList.remove('fa-xmark');
             icon.classList.add('fa-bars');
         }
     }
 };
+
 
 
 
