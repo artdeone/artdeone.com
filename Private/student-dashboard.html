@@ -551,7 +551,7 @@
             .from('enrollments')
             .select('course_id, status, enrolled_at, progress_percentage') // လိုအပ်သလောက်ပဲ ယူမယ်
             .eq('student_id', userId)
-            .eq('status', 'active')
+            .in('status', ['active', 'completed', 'dropped'])
             .order('enrolled_at', { ascending: false });
 
         if (enrollError) throw enrollError;
@@ -795,15 +795,33 @@
 
 
     function renderCoursesGrid(enrollments) {
-        const gridHTML = enrollments.length === 0 ? 
-            '<div class="col-span-full text-center py-10 text-gray-500">You are not enrolled in any courses yet.</div>' :
-            enrollments.map(e => `
+    const gridHTML = enrollments.length === 0 ?
+        '<div class="col-span-full text-center py-10 text-gray-500">You are not enrolled in any courses yet.</div>' :
+        enrollments.map(e => {
+            // 1. Status Badge Logic (Left Corner)
+            let statusBadge = '';
+            if (e.status === 'active') {
+                statusBadge = `<div class="absolute top-3 left-3 bg-green-100 text-green-800 px-2 py-1 rounded-md text-xs font-bold shadow-sm uppercase tracking-wide">Active</div>`;
+            } else if (e.status === 'completed') {
+                statusBadge = `<div class="absolute top-3 left-3 bg-blue-100 text-blue-800 px-2 py-1 rounded-md text-xs font-bold shadow-sm uppercase tracking-wide">Completed</div>`;
+            } else if (e.status === 'dropped') {
+                statusBadge = `<div class="absolute top-3 left-3 bg-red-100 text-red-800 px-2 py-1 rounded-md text-xs font-bold shadow-sm uppercase tracking-wide">Dropped</div>`;
+            }
+
+            // 2. Course Type Logic (Right Corner - Existing)
+            // (optional: Group/Individual စာလုံးကြီးဖြစ်အောင် .toUpperCase() ထည့်ထားပါတယ်)
+            let typeBadge = `<div class="absolute top-3 right-3 bg-white px-2 py-1 rounded-md text-xs font-bold shadow-sm uppercase tracking-wide text-gray-700">
+                                ${(e.courses.course_type || '').toUpperCase()}
+                             </div>`;
+
+            return `
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-full cursor-pointer hover:shadow-md transition-shadow" onclick="openCourse('${e.courses.id}')">
                     <div class="h-32 bg-gray-100 relative">
                         <img src="${e.courses.cover_image_url || 'https://via.placeholder.com/800x600?text=Course+Cover'}" class="w-full h-full object-cover" alt="Course Cover">
-                        <div class="absolute top-3 right-3 bg-white px-2 py-1 rounded-md text-xs font-bold shadow-sm uppercase tracking-wide text-gray-700">
-                            ${e.courses.course_type}
-                        </div>
+                        
+                        ${statusBadge}  <!-- Left Status Badge -->
+                        ${typeBadge}    <!-- Right Type Badge -->
+
                     </div>
                     <div class="p-5 flex-1 flex flex-col">
                         <h3 class="font-bold text-lg mb-2 line-clamp-2 text-gray-800">${e.courses.title}</h3>
@@ -817,14 +835,15 @@
                         </div>
                     </div>
                 </div>
-            `).join('');
+            `;
+        }).join('');
 
-        const dashGrid = document.getElementById('dashboard-courses-grid');
-        if(dashGrid) dashGrid.innerHTML = gridHTML;
-        
-        const allGrid = document.getElementById('all-courses-grid');
-        if(allGrid) allGrid.innerHTML = gridHTML;
-    }
+    const dashGrid = document.getElementById('dashboard-courses-grid');
+    if(dashGrid) dashGrid.innerHTML = gridHTML;
+    
+    const allGrid = document.getElementById('all-courses-grid');
+    if(allGrid) allGrid.innerHTML = gridHTML;
+}
 
     function updateStats(enrollments) {
         setText('stat-enrolled', enrollments.length);
