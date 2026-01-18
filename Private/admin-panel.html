@@ -1452,7 +1452,7 @@
                 .from('courses')
                 .insert([{
                     title: data.title,
-                    description: data.description,
+                    content: data.content,
                     course_type: data.course_type,
                     level: data.level || null,
                     duration_week: data.duration_week || null,
@@ -1559,7 +1559,7 @@
                 .from('announcements')
                 .insert([{
                     title: data.title,
-                    description: data.content,
+                    description: data.description,
                     target_audience: data.target_audience,
                     priority: data.priority,
                     is_active: true
