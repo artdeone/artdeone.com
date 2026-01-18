@@ -554,7 +554,7 @@
         // အဆင့် ၁ - Enrollments ကို အရင်ယူမယ်
         const { data: enrollments, error: enrollError } = await supabase
             .from('enrollments')
-            .select('course_id, status, enrolled_at') // လိုအပ်သလောက်ပဲ ယူမယ်
+            .select('course_id, status, enrolled_at, progress_percentage') // လိုအပ်သလောက်ပဲ ယူမယ်
             .eq('student_id', userId)
             .eq('status', 'active')
             .order('enrolled_at', { ascending: false });
