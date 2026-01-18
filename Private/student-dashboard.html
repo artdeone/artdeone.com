@@ -133,7 +133,52 @@
     <div id="mobile-sidebar" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden transition-opacity duration-300" onclick="toggleMobileMenu()">
         <!-- Sidebar Content -->
         <div id="mobile-sidebar-content" class="w-64 bg-white h-full shadow-xl transform -translate-x-full transition-transform duration-300 flex flex-col" onclick="event.stopPropagation()">
-            <!-- Mobile sidebar content cloned here by JS -->
+            
+            <!-- Mobile Sidebar Overlay -->
+            <div id="mobile-sidebar" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden transition-opacity duration-300" onclick="toggleMobileMenu()">
+                
+                <!-- Sidebar Content Box -->
+                <div id="mobile-sidebar-content" class="w-64 bg-white h-full shadow-xl transform -translate-x-full transition-transform duration-300 flex flex-col p-6" onclick="event.stopPropagation()">
+                    
+                    <!-- Logo -->
+                    <div class="flex items-center gap-3 mb-8">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png" alt="Logo" class="h-8">
+                        <span class="text-xl font-bold tracking-tight">ART de ONE</span>
+                    </div>
+
+                    <!-- Links (Manually Added) -->
+                    <nav class="space-y-2 flex-1">
+                        <button onclick="switchSection('dashboard'); toggleMobileMenu()" class="sidebar-link w-full flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-xl transition-all group active" data-section="dashboard">
+                            <i class="fa-solid fa-chart-pie w-5 text-gray-400 group-hover:text-[#a7e169] transition-colors"></i>
+                            <span class="font-medium group-hover:text-gray-900">Dashboard</span>
+                        </button>
+                        
+                        <button onclick="switchSection('my-courses'); toggleMobileMenu()" class="sidebar-link w-full flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-xl transition-all group" data-section="my-courses">
+                            <i class="fa-solid fa-graduation-cap w-5 text-gray-400 group-hover:text-[#a7e169] transition-colors"></i>
+                            <span class="font-medium group-hover:text-gray-900">My Courses</span>
+                        </button>
+                        
+                        <button onclick="switchSection('announcements'); toggleMobileMenu()" class="sidebar-link w-full flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-xl transition-all group" data-section="announcements">
+                            <i class="fa-solid fa-bullhorn w-5 text-gray-400 group-hover:text-[#a7e169] transition-colors"></i>
+                            <span class="font-medium group-hover:text-gray-900">Announcements</span>
+                        </button>
+                        
+                        <button onclick="switchSection('profile'); toggleMobileMenu()" class="sidebar-link w-full flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-xl transition-all group" data-section="profile">
+                            <i class="fa-solid fa-user w-5 text-gray-400 group-hover:text-[#a7e169] transition-colors"></i>
+                            <span class="font-medium group-hover:text-gray-900">Profile</span>
+                        </button>
+                    </nav>
+
+                    <!-- Logout -->
+                    <div class="border-t border-gray-100 pt-4 mt-auto">
+                        <button onclick="handleLogout()" class="w-full flex items-center gap-3 px-4 py-3 text-red-500 hover:bg-red-50 rounded-xl transition-all group">
+                            <i class="fa-solid fa-right-from-bracket w-5"></i>
+                            <span class="font-medium">Logout</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
 
@@ -856,7 +901,7 @@
         if (el) el.textContent = text || '-';
     }
 
-    // ✅ Correct Mobile Menu Toggle (Fix Missing Links)
+    // ✅ Simple & Robust Mobile Menu Toggle
 window.toggleMobileMenu = function() {
     const mobileSidebar = document.getElementById('mobile-sidebar');
     const mobileSidebarContent = document.getElementById('mobile-sidebar-content');
@@ -865,43 +910,9 @@ window.toggleMobileMenu = function() {
 
     if (!mobileSidebar || !mobileSidebarContent) return;
 
-    // 1. Sidebar Content Clone Logic (Modified)
-    if (mobileSidebarContent.innerHTML.trim() === '') {
-         const originalSidebar = document.getElementById('sidebar');
-         
-         // Clone Sidebar content
-         const contentToClone = originalSidebar.cloneNode(true);
-         
-         // 🔴 Remove 'hidden' classes to make links visible
-         contentToClone.classList.remove('hidden', 'md:flex');
-         contentToClone.querySelectorAll('.hidden').forEach(el => el.classList.remove('hidden'));
-         
-         // Inject Content
-         mobileSidebarContent.innerHTML = contentToClone.innerHTML;
-         
-         // Add Padding
-         mobileSidebarContent.classList.add('p-4');
-
-         // Re-attach Click Events (Close menu on click)
-         mobileSidebarContent.querySelectorAll('button, a, .sidebar-link').forEach(link => {
-             link.addEventListener('click', () => {
-                 window.toggleMobileMenu(); // Close menu
-                 
-                 // If it's a sidebar link, switch section
-                 if(link.classList.contains('sidebar-link')) {
-                     const section = link.dataset.section;
-                     if(section) window.switchSection(section);
-                 }
-             });
-         });
-         
-         // Re-attach Logout
-         const newLogoutBtn = mobileSidebarContent.querySelector('button[onclick="handleLogout()"]');
-         if(newLogoutBtn) newLogoutBtn.onclick = window.handleLogout;
-    }
-
-    // 2. Toggle Animation Logic
+    // Toggle Logic
     if (mobileSidebar.classList.contains('hidden')) {
+        // Open
         mobileSidebar.classList.remove('hidden');
         setTimeout(() => {
             mobileSidebarContent.classList.remove('-translate-x-full');
@@ -911,6 +922,7 @@ window.toggleMobileMenu = function() {
             icon.classList.add('fa-xmark');
         }
     } else {
+        // Close
         mobileSidebarContent.classList.add('-translate-x-full');
         setTimeout(() => {
             mobileSidebar.classList.add('hidden');
@@ -921,6 +933,7 @@ window.toggleMobileMenu = function() {
         }
     }
 };
+
 
 
 
