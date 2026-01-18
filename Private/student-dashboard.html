@@ -574,7 +574,7 @@
         
         const { data: courses, error: courseError } = await supabase
             .from('courses')
-            .select('id, title, description, course_type, level, duration_week, status, cover_image_url')
+            .select('id, title, description, course_type, level, duration_weeks, status, cover_image_url')
             .in('id', courseIds);
 
         if (courseError) throw courseError;
@@ -777,7 +777,7 @@
                         
                         <div class="mt-auto pt-4 border-t border-gray-100 flex justify-between items-center">
                             <div class="text-xs text-gray-500">
-                                <i class="fa-regular fa-clock mr-1"></i> ${e.courses.duration_week || '-'} Weeks
+                                <i class="fa-regular fa-clock mr-1"></i> ${e.courses.duration_weeks || '-'} Weeks
                             </div>
                             <span class="text-[#a7e169] font-medium text-sm group-hover:underline">View Content <i class="fa-solid fa-arrow-right ml-1"></i></span>
                         </div>
