@@ -928,6 +928,21 @@
         }
     };
 
+    // ============================================
+    //  MOBILE MENU LOGIC (ဒီနေရာမှာ အသစ်ထည့်ပါ)
+    // ============================================
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const sidebar = document.querySelector('.sidebar');
+
+    if (mobileBtn && sidebar) {
+        mobileBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('hidden');
+            sidebar.classList.toggle('fixed'); 
+            sidebar.classList.toggle('z-50'); 
+            sidebar.classList.toggle('h-full');
+        });
+    }
+
     // Sidebar Event Listeners
     document.querySelectorAll('.sidebar-link').forEach(link => {
         link.addEventListener('click', (e) => {
