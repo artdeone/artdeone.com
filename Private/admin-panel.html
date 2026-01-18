@@ -1920,19 +1920,26 @@ document.getElementById('edit-course-form').addEventListener('submit', async (e)
 
 
     // ============================================
-    // EXPORT FUNCTIONS TO WINDOW
-    // Module ဖြစ်သွားသောကြောင့် HTML onclick မှ ခေါ်သုံးနိုင်ရန် window သို့ ထည့်ပေးခြင်း
-    // ============================================
+// EXPORT FUNCTIONS TO WINDOW
+// Module ဖြစ်သွားသောကြောင့် HTML onclick မှ ခေါ်သုံးနိုင်ရန် window သို့ ထည့်ပေးခြင်း
+// ============================================
     window.logout = logout;
     window.openModal = openModal;
     window.closeModal = closeModal;
     window.viewStudent = viewStudent;
+    window.deleteStudent = deleteStudent; // <--- ဒါလေး ထပ်ဖြည့်ပါ
     window.searchStudents = searchStudents;
-    window.viewCourse = viewCourse;
+    
+    // Course Edit အတွက် လိုအပ်သော Function များ
+    window.openEditCourseModal = openEditCourseModal; // <--- ဒါလေး ထပ်ဖြည့်ပါ
+    window.deleteCourseFromEdit = deleteCourseFromEdit; // <--- ဒါလေး ထပ်ဖြည့်ပါ
+
+    // window.viewCourse = viewCourse; // <--- Edit သုံးမှာမို့ viewCourse ကို ဖျက်လိုက်လဲ ရပါတယ်
     window.deleteFile = deleteFile;
     window.deleteEnrollment = deleteEnrollment;
     window.editEnrollment = editEnrollment;
     window.openStatsModal = openStatsModal;
+
 
 
 </script>
