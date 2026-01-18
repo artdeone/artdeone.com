@@ -1237,8 +1237,9 @@
         }
     }
 
-    async function loadCourses() {
+        async function loadCourses() {
         try {
+            console.log("Loading courses..."); // Debugging
             const { data: courses, error } = await supabase
                 .from('courses')
                 .select('*')
@@ -1249,7 +1250,7 @@
             allCourses = courses;
             const tbody = document.getElementById('courses-tbody');
             
-            if (courses.length === 0) {
+            if (!courses || courses.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 2rem; color: #888;">No courses found</td></tr>';
                 return;
             }
@@ -1262,16 +1263,20 @@
                     <td style="color: #555;">${c.duration_weeks || 'N/A'} weeks</td>
                     <td><span class="badge ${c.status === 'active' ? 'badge-success' : 'badge-warning'}">${c.status}</span></td>
                     <td>
-                        <button class="btn-secondary" style="padding: 0.4rem 1rem; font-size: 0.875rem;" onclick="openEditCourseModal('${c.id}')">
-                            <i class="fa-solid fa-pen"></i>
+                        <button class="btn-secondary" style="padding: 0.4rem 1rem; font-size: 0.875rem;" onclick="openEditCourseModal('${c.id}')" title="Edit Course">
+                            <i class="fa-solid fa-pen-to-square"></i>
                         </button>
                     </td>
                 </tr>
             `).join('');
+            
+            console.log("Courses loaded to table."); // Debugging
+            
         } catch (error) {
             console.error('Error loading courses:', error);
         }
     }
+
 
     function viewCourse(id) {
         const course = allCourses.find(c => c.id === id);
