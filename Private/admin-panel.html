@@ -1550,9 +1550,9 @@ window.viewStudent = function(id) {
     openModal('view-student');
 };
 
-// 2. Delete Student Function (Row ထဲက Trash icon / Modal နှစ်မျိုးလုံးက ခေါ်သုံးလို့ရ)
+// Student Delete Function
 window.deleteStudent = async function(id) {
-    if (!confirm('Are you sure you want to delete this student? This will also remove all their enrollments and data!')) return;
+    if (!confirm('Are you sure you want to delete this student?')) return;
 
     try {
         const { error } = await supabase
@@ -1564,11 +1564,9 @@ window.deleteStudent = async function(id) {
 
         alert('Student deleted successfully!');
 
-        // Modal ဖွင်ထားရင် ပိတ်ချင်ရင် ဒီလို optional နဲ့ ခေါ်လို့ရ
-        try { closeModal('view-student'); } catch(e) {}
-
+        // Table ကို refresh လုပ်မယ်
         await loadStudents();
-        await loadDashboardStats();
+        await loadDashboardStats?.();
     } catch (error) {
         console.error('Error deleting student:', error);
         alert('Error: ' + error.message);
