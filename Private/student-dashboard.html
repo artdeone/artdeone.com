@@ -609,7 +609,7 @@
                 .from('announcements')
                 .select('*')
                 
-                .order('created_at', { ascending: false })
+                .order('published_at', { ascending: false })
                 .limit(5);
 
             if (error) throw error;
