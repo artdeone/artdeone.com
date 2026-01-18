@@ -118,23 +118,25 @@
         </aside>
 
         <!-- Mobile Header -->
-        <div class="flex-1 flex flex-col h-full overflow-hidden relative">
-            <header class="md:hidden bg-white border-b border-gray-200 p-4 flex justify-between items-center z-20">
-                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png" alt="Logo" class="h-8">
-                
-                <!-- 🔴 ပြင်ဆင်ထားသော Button (onclick ပါဝင်သည်) -->
-                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="text-gray-600 focus:outline-none">
-                    <i class="fa-solid fa-bars text-xl"></i>
-                </button>
-            </header>
+<div class="flex-1 flex flex-col h-full overflow-hidden relative">
+    <header class="md:hidden bg-white border-b border-gray-200 p-4 flex justify-between items-center z-20 relative">
+        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png" alt="Logo" class="h-8">
+        
+        <!-- Menu Button (z-50 ထည့်ထားမှ Overlay ပေါ်မှာ ပေါ်နေမယ်) -->
+        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="text-gray-600 focus:outline-none z-50 relative">
+            <i class="fa-solid fa-bars text-xl"></i>
+        </button>
+    </header>
 
+    <!-- Mobile Sidebar Overlay -->
+    <!-- z-40 ထည့်ထားပါတယ် (Header အပေါ်အုပ်မယ်၊ ဒါပေမယ့် Button အောက်မှာနေမယ်) -->
+    <div id="mobile-sidebar" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden transition-opacity duration-300" onclick="toggleMobileMenu()">
+        <!-- Sidebar Content -->
+        <div id="mobile-sidebar-content" class="w-64 bg-white h-full shadow-xl transform -translate-x-full transition-transform duration-300 flex flex-col" onclick="event.stopPropagation()">
+            <!-- Mobile sidebar content cloned here by JS -->
+        </div>
+    </div>
 
-            <!-- Mobile Sidebar Overlay -->
-            <div id="mobile-sidebar" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden" onclick="toggleMobileMenu()">
-                <div class="w-64 bg-white h-full shadow-xl transform transition-transform duration-300 -translate-x-full" id="mobile-sidebar-content" onclick="event.stopPropagation()">
-                    <!-- Mobile sidebar content cloned here by JS -->
-                </div>
-            </div>
 
 
             <!-- Main Content Area -->
@@ -854,42 +856,60 @@
         if (el) el.textContent = text || '-';
     }
 
-    // ✅ 1. Mobile Menu Toggle Function (Global Scope)
-    window.toggleMobileMenu = function() {
-        const sidebar = document.getElementById('sidebar'); // Desktop/Tablet Sidebar
-        const mobileSidebar = document.getElementById('mobile-sidebar'); // Mobile Overlay
-        const mobileSidebarContent = document.getElementById('mobile-sidebar-content'); // Sliding Content
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn'); // Hamburger Button
+    // ✅ Correct Mobile Menu Toggle
+window.toggleMobileMenu = function() {
+    const mobileSidebar = document.getElementById('mobile-sidebar');
+    const mobileSidebarContent = document.getElementById('mobile-sidebar-content');
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const icon = mobileMenuBtn ? mobileMenuBtn.querySelector('i') : null;
+
+    // 1. Sidebar ရှိမရှိ စစ်ဆေးခြင်း
+    if (!mobileSidebar || !mobileSidebarContent) return;
+
+    // 2. Clone Sidebar Content (ပထမဆုံးအကြိမ် ဖွင့်မှသာ)
+    if (mobileSidebarContent.innerHTML.trim() === '') {
+         const originalSidebar = document.getElementById('sidebar');
+         if(originalSidebar) {
+             mobileSidebarContent.innerHTML = originalSidebar.innerHTML;
+             
+             // Mobile Sidebar ထဲက Logout Button ကို ပြန်ချိတ်ဆက်ပေးရမယ် (ရှိရင်)
+             const newLogoutBtn = mobileSidebarContent.querySelector('button[onclick="handleLogout()"]');
+             if(newLogoutBtn) newLogoutBtn.onclick = window.handleLogout;
+         }
+    }
+
+    // 3. Toggle Open/Close Logic
+    if (mobileSidebar.classList.contains('hidden')) {
+        // == ဖွင့်မည် (OPEN) ==
+        mobileSidebar.classList.remove('hidden');
+        // အနည်းငယ်စောင့်ပြီးမှ Slide ဝင်လာအောင် (Animation အတွက်)
+        setTimeout(() => {
+            mobileSidebarContent.classList.remove('-translate-x-full');
+        }, 10);
         
-        // 1. Check if we are using the overlay mobile sidebar (id="mobile-sidebar")
-        if (mobileSidebar) {
-             // Clone sidebar content if empty (First time open)
-            if (mobileSidebarContent.innerHTML.trim() === '') {
-                 const originalSidebarContent = document.getElementById('sidebar').innerHTML;
-                 mobileSidebarContent.innerHTML = originalSidebarContent;
-                 
-                 // Re-attach event listeners to new buttons in mobile sidebar
-                 // (Logout button, etc.)
-            }
-            
-            mobileSidebar.classList.toggle('hidden');
-            setTimeout(() => {
-                mobileSidebarContent.classList.toggle('-translate-x-full');
-            }, 10); // Small delay for animation
+        // Icon -> X ပြောင်း
+        if(icon) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-xmark');
         }
         
-        // 2. Icon Toggle Logic
-        const icon = mobileMenuBtn.querySelector('i');
-        if (icon) {
-            if (icon.classList.contains('fa-bars')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-xmark');
-            } else {
-                icon.classList.remove('fa-xmark');
-                icon.classList.add('fa-bars');
-            }
+    } else {
+        // == ပိတ်မည် (CLOSE) ==
+        mobileSidebarContent.classList.add('-translate-x-full');
+        
+        // Slide ထွက်သွားပြီးမှ Hidden ပြန်တပ် (Animation ပြီးမှ)
+        setTimeout(() => {
+            mobileSidebar.classList.add('hidden');
+        }, 300); // 300ms duration နဲ့ ကိုက်ညီအောင်
+        
+        // Icon -> Bars ပြန်ပြောင်း
+        if(icon) {
+            icon.classList.remove('fa-xmark');
+            icon.classList.add('fa-bars');
         }
-    };
+    }
+};
+
 
 
     // ============================================
@@ -1009,20 +1029,6 @@
         }
     };
 
-    // ============================================
-    //  MOBILE MENU LOGIC (ဒီနေရာမှာ အသစ်ထည့်ပါ)
-    // ============================================
-    const mobileBtn = document.getElementById('mobile-menu-btn');
-    const sidebar = document.querySelector('.sidebar');
-
-    if (mobileBtn && sidebar) {
-        mobileBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('hidden');
-            sidebar.classList.toggle('fixed'); 
-            sidebar.classList.toggle('z-50'); 
-            sidebar.classList.toggle('h-full');
-        });
-    }
 
     // Sidebar Event Listeners
     document.querySelectorAll('.sidebar-link').forEach(link => {
