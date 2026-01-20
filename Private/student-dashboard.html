@@ -507,11 +507,24 @@
         }
     }
 
-    async function loadAnnouncements() {
+        //individual နဲ့ group ခွဲခြားပြီး announcement အပိုင်း
+        async function loadAnnouncements() {
         try {
+            // currentUser မရှိသေးရင် ခဏစောင့်ဖို့ (သို့) default ယူဖို့ လိုနိုင်ပါတယ်
+            // ဒီနေရာမှာတော့ currentUser ရှိမှ ဆက်လုပ်မယ်၊ မရှိရင် individual လို့ ယူဆမယ်
+            const studentType = (currentUser && currentUser.student_type) 
+                                ? currentUser.student_type 
+                                : 'individual';
+
+            // Debugging အတွက် console ထုတ်ကြည့်နိုင်ပါတယ်
+            console.log("Fetching announcements for:", studentType);
+
             const { data, error } = await supabase
                 .from('announcements')
                 .select('*')
+                // Filter: target_audience is 'all' OR matches student's type
+                .or(`target_audience.eq.all,target_audience.eq.${studentType}`) 
+                .eq('is_active', true)
                 .order('published_at', { ascending: false })
                 .limit(5);
 
@@ -529,7 +542,12 @@
             container.innerHTML = data.map(a => `
                 <div class="bg-white p-6 rounded-xl border border-gray-100 hover:border-gray-200 transition-colors">
                     <div class="flex justify-between items-start mb-3">
-                        <h3 class="font-medium text-gray-900">${a.title}</h3>
+                        <div class="flex items-center gap-2">
+                            <h3 class="font-medium text-gray-900">${a.title}</h3>
+                            ${a.target_audience !== 'all' ? 
+                                `<span class="text-[10px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full capitalize border border-blue-100">${a.target_audience} Only</span>` 
+                                : ''}
+                        </div>
                         <span class="text-[10px] text-gray-400 bg-gray-50 px-2 py-1 rounded">${new Date(a.published_at).toLocaleDateString()}</span>
                     </div>
                     <p class="text-gray-500 text-sm font-light leading-relaxed">${a.content || a.description || ''}</p> 
@@ -540,6 +558,8 @@
             console.error('Error loading announcements:', error);
         }
     }
+    // announcements section end
+
 
     // Avatar Upload
     window.uploadAvatar = async function(event) {
