@@ -1404,8 +1404,8 @@
             console.error('Error loading files:', error);
         }
     }
-
-    async function loadAnnouncements() {
+//loadAnnouncements function စတင်
+        async function loadAnnouncements() {
         try {
             const { data: announcements, error } = await supabase
                 .from('announcements')
@@ -1416,28 +1416,63 @@
 
             const container = document.getElementById('announcements-container');
             
-            if (announcements.length === 0) {
+            if (!announcements || announcements.length === 0) {
                 container.innerHTML = '<p style="text-align: center; padding: 2rem; color: #888;">No announcements yet</p>';
                 return;
             }
             
             container.innerHTML = announcements.map(a => `
-                <div style="border-left: 4px solid #a7e169; padding: 1.5rem; background: #fafafa; margin-bottom: 1rem; border-radius: 0.5rem;">
-                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.75rem;">
-                        <h3 style="font-weight: 600; color: #000;">${a.title}</h3>
-                        <span class="badge ${a.priority === 'urgent' ? 'badge-danger' : a.priority === 'high' ? 'badge-warning' : 'badge-info'}">${a.priority}</span>
+                <div style="border-left: 4px solid #a7e169; padding: 1.5rem; background: #fafafa; margin-bottom: 1rem; border-radius: 0.5rem; position: relative;">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.75rem; gap: 10px;">
+                        <h3 style="font-weight: 600; color: #000; flex: 1;">${a.title}</h3>
+                        
+                        <div style="display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0;">
+                            <span class="badge ${a.priority === 'urgent' ? 'badge-danger' : a.priority === 'high' ? 'badge-warning' : 'badge-info'}">
+                                ${a.priority}
+                            </span>
+                            <button onclick="deleteAnnouncement('${a.id}')" 
+                                    style="background: #fee2e2; border: 1px solid #ef4444; color: #dc2626; 
+                                           width: 32px; height: 32px; border-radius: 6px; cursor: pointer; 
+                                           display: flex; align-items: center; justify-content: center;
+                                           transition: background 0.2s;"
+                                    title="Delete Announcement">
+                                <i class="fa-solid fa-trash" style="font-size: 0.9rem;"></i>
+                            </button>
+                        </div>
                     </div>
                     <p style="color: #555; margin-bottom: 0.75rem;">${a.content}</p>
-                    <p style="font-size: 0.75rem; color: #888;">
+                    <div style="font-size: 0.75rem; color: #888;">
                         Target: ${a.target_audience} | ${new Date(a.published_at).toLocaleDateString()}
-                        ${a.is_active ? '<span class="badge badge-success" style="margin-left: 0.5rem;">Active</span>' : '<span class="badge badge-danger" style="margin-left: 0.5rem;">Inactive</span>'}
-                    </p>
+                        ${a.is_active 
+                            ? '<span class="badge badge-success" style="margin-left: 0.5rem;">Active</span>' 
+                            : '<span class="badge badge-danger" style="margin-left: 0.5rem;">Inactive</span>'}
+                    </div>
                 </div>
             `).join('');
         } catch (error) {
             console.error('Error loading announcements:', error);
+            document.getElementById('announcements-container').innerHTML = 
+                `<p style="color: red; text-align: center;">Error: ${error.message}</p>`;
         }
     }
+
+    // ဒီ function က အသစ်ထည့်ရမယ့် အပိုင်းပါ
+    async function deleteAnnouncement(id) {
+        if (!confirm('Are you sure you want to delete this announcement?')) return;
+
+        try {
+            const { error } = await supabase.from('announcements').delete().eq('id', id);
+            if (error) throw error;
+            
+            // Success alert (using standard alert for simplicity, or your modal alert if preferred)
+            alert('Announcement deleted successfully!');
+            loadAnnouncements(); // Refresh list
+        } catch (error) {
+            console.error('Error deleting:', error);
+            alert('Error deleting: ' + error.message);
+        }
+    }
+//load function အဆုံး
 
     async function loadStudentsForSelect() {
         if (allStudents.length === 0) {
@@ -1938,18 +1973,22 @@ document.getElementById('edit-course-form').addEventListener('submit', async (e)
     window.openModal = openModal;
     window.closeModal = closeModal;
     window.viewStudent = viewStudent;
-    window.deleteStudent = deleteStudent; // <--- ဒါလေး ထပ်ဖြည့်ပါ
+    window.deleteStudent = deleteStudent; 
     window.searchStudents = searchStudents;
     
     // Course Edit အတွက် လိုအပ်သော Function များ
-    window.openEditCourseModal = openEditCourseModal; // <--- ဒါလေး ထပ်ဖြည့်ပါ
-    window.deleteCourseFromEdit = deleteCourseFromEdit; // <--- ဒါလေး ထပ်ဖြည့်ပါ
+    window.openEditCourseModal = openEditCourseModal;
+    window.deleteCourseFromEdit = deleteCourseFromEdit; 
 
-    // window.viewCourse = viewCourse; // <--- Edit သုံးမှာမို့ viewCourse ကို ဖျက်လိုက်လဲ ရပါတယ်
+    // window.viewCourse = viewCourse;
     window.deleteFile = deleteFile;
     window.deleteEnrollment = deleteEnrollment;
     window.editEnrollment = editEnrollment;
     window.openStatsModal = openStatsModal;
+
+     // --- Announcement အတွက် အသစ်ထပ်ဖြည့်ရန် ---
+    window.loadAnnouncements = loadAnnouncements;
+    window.deleteAnnouncement = deleteAnnouncement;
 
 
 
