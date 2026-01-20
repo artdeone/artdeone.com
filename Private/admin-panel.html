@@ -984,7 +984,7 @@
     <script type="module">
     // 1. IMPORTS
     // Supabase Configuration ကို import လုပ်ခြင်း
-    import { supabase } from '../js/supabase-config.js';
+    import { supabase, supabaseNoSession } from '../js/supabase-config.js';
 
     // Global variables
     let allStudents = [];
@@ -1611,40 +1611,43 @@ window.deleteStudent = async function(id) {
 
 
 
-    // ============================================
+        // ============================================
     // FORM HANDLERS
     // ============================================
-        document.getElementById('add-student-form').addEventListener('submit', async (e) => {
+    document.getElementById('add-student-form').addEventListener('submit', async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData);
 
         try {
-            // Updated signUp with Redirect URL
-            const { data: authData, error: authError } = await supabase.auth.signUp({
+            // 1. Auth SignUp using 'supabaseNoSession' 
+            // (Admin session ကို မထိခိုက်စေရန် Client အသစ်သုံးသည်)
+            const { data: authData, error: authError } = await supabaseNoSession.auth.signUp({
                 email: data.email,
                 password: data.password,
                 options: {
-                    // ကျောင်းသားက Email Confirm နှိပ်ရင် Dashboard ကို တန်းရောက်သွားပါလိမ့်မယ်
                     emailRedirectTo: 'https://artdeone.com/Private/student-dashboard.html'
                 }
             });
 
             if (authError) throw authError;
 
-            // Database ထဲသို့ Student အချက်အလက်များ သိမ်းဆည်းခြင်း
-            const { error: dbError } = await supabase
-                .from('students')
-                .insert([{
-                    id: authData.user.id,
-                    email: data.email,
-                    full_name: data.full_name,
-                    student_type: data.student_type,
-                    phone_number: data.phone_number || null,
-                    address: data.address || null
-                }]);
+            // 2. Database Insert using normal 'supabase' client (Admin privileges)
+            // (Database ထဲထည့်တာက Admin အနေနဲ့ ထည့်ရမှာမို့ မူလ client ကိုပဲ သုံးပါ)
+            if (authData.user) {
+                 const { error: dbError } = await supabase
+                    .from('students')
+                    .insert([{
+                        id: authData.user.id,
+                        email: data.email,
+                        full_name: data.full_name,
+                        student_type: data.student_type,
+                        phone_number: data.phone_number || null,
+                        address: data.address || null
+                    }]);
 
-            if (dbError) throw dbError;
+                if (dbError) throw dbError;
+            }
 
             showModalAlert('add-student', 'Student added successfully!', 'success');
             setTimeout(() => {
@@ -1653,11 +1656,13 @@ window.deleteStudent = async function(id) {
                 loadStudents();
                 loadDashboardStats();
             }, 1500);
+            
         } catch (error) {
             console.error('Error adding student:', error);
             showModalAlert('add-student', 'Error: ' + error.message);
         }
     });
+
 
 
     document.getElementById('add-course-form').addEventListener('submit', async (e) => {
