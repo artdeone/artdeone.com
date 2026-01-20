@@ -4,505 +4,391 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Dashboard - ART de ONE</title>
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768404052/favicon_xfuja2.png">
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Supabase JS -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
-    <!-- Google Fonts -->
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Happy+Monkey&family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Space+Grotesk:wght@300;400;500;600&display=swap');
         
+        :root {
+            --accent: #a7e169;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --bg-light: #f9fafb;
+        }
+
         body {
-            font-family: 'Space Grotesk', sans-serif;
-            background-color: #f3f4f6;
-            color: #323232;
+            font-family: 'Outfit', sans-serif; /* Cleaner, more minimal font */
+            background-color: var(--bg-light);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
         }
         
         h1, h2, h3, h4, h5, h6 {
-            font-family: 'Poppins', sans-serif;
-            color: #000;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: -0.02em;
         }
 
-        /* Sidebar Styles */
-        .sidebar {
-            transition: all 0.3s ease;
+        /* Minimal Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
         }
-        
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e5e7eb;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d1d5db;
+        }
+
+        /* Animations */
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hover-lift {
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px -10px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Sidebar Link Active State */
         .sidebar-link {
+            position: relative;
             transition: all 0.3s ease;
         }
-        
-        .sidebar-link:hover, .sidebar-link.active {
-            background-color: #a7e169;
-            color: #000;
-            font-weight: 600;
+        .sidebar-link::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 0%;
+            width: 3px;
+            background-color: var(--accent);
+            transition: height 0.3s ease;
+            border-radius: 0 4px 4px 0;
         }
-
-        /* Card Hover */
-        .course-card {
-            transition: all 0.3s ease;
+        .sidebar-link.active::before {
+            height: 60%;
         }
-        .course-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        .sidebar-link.active {
+            color: black;
+            background: linear-gradient(90deg, #f9fafb 0%, #ffffff 100%);
+        }
+        .sidebar-link:hover:not(.active) {
+            color: black;
+            background-color: #f9fafb;
         }
 
         /* Utilities */
         .hidden { display: none; }
-        .loading-spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #a7e169;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .text-thin-custom { font-weight: 300; }
+        .border-thin { border-width: 1px; }
     </style>
 </head>
 <body>
 
-    <!-- Main Layout -->
-    <div class="flex h-screen overflow-hidden">
+    <div class="flex h-screen overflow-hidden bg-white">
         
-        <!-- Sidebar -->
-        <aside class="sidebar w-64 bg-white border-r border-gray-200 hidden md:flex flex-col">
-            <div class="p-6 border-b border-gray-100 flex items-center justify-center">
+        <aside class="sidebar w-72 bg-white border-r border-gray-100 hidden md:flex flex-col z-10">
+            <div class="p-8 flex items-center justify-start">
                 <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png" 
-                    alt="Logo" class="h-10">
+                    alt="Logo" class="h-8 opacity-90 hover:opacity-100 transition-opacity">
             </div>
 
-            
-            <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
-                <a href="#" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600" data-section="dashboard">
-                    <i class="fa-solid fa-chart-pie w-5"></i>
+            <nav class="flex-1 px-6 space-y-1 overflow-y-auto mt-4">
+                <p class="px-4 text-[10px] uppercase tracking-widest text-gray-400 font-medium mb-4">Menu</p>
+                <a href="#" class="sidebar-link active flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-500 text-sm font-medium" data-section="dashboard">
+                    <i class="fa-solid fa-chart-pie w-5 text-center"></i>
                     <span>Dashboard</span>
                 </a>
-                <a href="#" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600" data-section="my-courses">
-                    <i class="fa-solid fa-graduation-cap w-5"></i>
+                <a href="#" class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-500 text-sm font-medium" data-section="my-courses">
+                    <i class="fa-solid fa-graduation-cap w-5 text-center"></i>
                     <span>My Courses</span>
                 </a>
-                <a href="#" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600" data-section="announcements">
-                    <i class="fa-solid fa-bullhorn w-5"></i>
+                <a href="#" class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-500 text-sm font-medium" data-section="announcements">
+                    <i class="fa-solid fa-bullhorn w-5 text-center"></i>
                     <span>Announcements</span>
                 </a>
-                <a href="#" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600" data-section="profile">
-                    <i class="fa-solid fa-user w-5"></i>
+                <a href="#" class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-500 text-sm font-medium" data-section="profile">
+                    <i class="fa-regular fa-user w-5 text-center"></i>
                     <span>Profile</span>
                 </a>
             </nav>
 
-            <div class="p-4 border-t border-gray-100">
-                <div class="flex items-center gap-3 px-4 py-3">
+            <div class="p-6 border-t border-gray-50">
+                <div class="flex items-center gap-3 px-2 py-2 hover:bg-gray-50 rounded-xl transition-colors cursor-pointer group">
                     <img id="sidebar-avatar" 
                         src="https://via.placeholder.com/150" 
-                        class="w-10 h-10 rounded-full object-cover border border-gray-200"
+                        class="w-9 h-9 rounded-full object-cover border border-gray-100"
                         alt="User Avatar">
                     <div class="flex-1 min-w-0">
-                        <span id="student-name" class="text-sm text-gray-600 font-medium">Loading...</span>
-                        <p class="text-xs text-gray-500 truncate" id="sidebar-user-email">...</p>
+                        <span id="student-name" class="block text-sm text-gray-800 font-medium truncate">Loading...</span>
+                        <p class="text-xs text-gray-400 truncate font-light" id="sidebar-user-email">...</p>
                     </div>
-                    <button onclick="logout()" class="text-gray-400 hover:text-red-500 transition-colors" title="Logout">
-                        <img src="https://cdn-icons-png.flaticon.com/512/10309/10309268.png" alt="Logout" class="w-5 h-5 opacity-50 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all">
+                    <button onclick="logout()" class="text-gray-300 hover:text-red-500 transition-colors">
+                        <i class="fa-solid fa-arrow-right-from-bracket text-sm"></i>
                     </button>
                 </div>
             </div>
         </aside>
 
-        <!-- Mobile Header -->
-<div class="flex-1 flex flex-col h-full overflow-hidden relative">
-    <header class="md:hidden bg-white border-b border-gray-200 p-4 flex justify-between items-center z-20 relative">
-        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png" alt="Logo" class="h-8">
-        
-        <!-- Menu Button (z-50 ထည့်ထားမှ Overlay ပေါ်မှာ ပေါ်နေမယ်) -->
-        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="text-gray-600 focus:outline-none z-50 relative">
-            <i class="fa-solid fa-bars text-xl"></i>
-        </button>
-    </header>
+        <div class="flex-1 flex flex-col h-full overflow-hidden relative bg-[#fcfcfc]">
+            <header class="md:hidden bg-white/80 backdrop-blur-md border-b border-gray-100 p-4 flex justify-between items-center z-20 sticky top-0">
+                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png" alt="Logo" class="h-6">
+                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="text-gray-500 focus:outline-none z-50 relative p-2">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </header>
 
-        <!-- Mobile Sidebar Overlay (Correct Structure) -->
-    <div id="mobile-sidebar" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden transition-opacity duration-300" onclick="toggleMobileMenu()">
-        
-        <!-- Sidebar Content Box -->
-        <div id="mobile-sidebar-content" class="w-64 bg-white h-full shadow-xl transform -translate-x-full transition-transform duration-300 flex flex-col p-6" onclick="event.stopPropagation()">
-            
-            <!-- Logo -->
-            <div class="flex items-center gap-3 mb-8">
-                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png" alt="Logo" class="h-8">
-                
+            <div id="mobile-sidebar" class="fixed inset-0 bg-white/90 backdrop-blur-sm z-40 hidden transition-opacity duration-300" onclick="toggleMobileMenu()">
+                <div id="mobile-sidebar-content" class="w-72 bg-white h-full shadow-2xl transform -translate-x-full transition-transform duration-300 flex flex-col p-6 border-r border-gray-100" onclick="event.stopPropagation()">
+                    <div class="flex items-center gap-3 mb-10">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png" alt="Logo" class="h-7">
+                    </div>
+                    <nav class="space-y-1 flex-1">
+                        <button onclick="switchSection('dashboard'); toggleMobileMenu()" class="w-full flex items-center gap-4 px-4 py-4 text-gray-600 hover:bg-gray-50 rounded-xl transition-all text-sm font-medium">
+                            Dashboard
+                        </button>
+                        <button onclick="switchSection('my-courses'); toggleMobileMenu()" class="w-full flex items-center gap-4 px-4 py-4 text-gray-600 hover:bg-gray-50 rounded-xl transition-all text-sm font-medium">
+                            My Courses
+                        </button>
+                        <button onclick="switchSection('announcements'); toggleMobileMenu()" class="w-full flex items-center gap-4 px-4 py-4 text-gray-600 hover:bg-gray-50 rounded-xl transition-all text-sm font-medium">
+                            Announcements
+                        </button>
+                        <button onclick="switchSection('profile'); toggleMobileMenu()" class="w-full flex items-center gap-4 px-4 py-4 text-gray-600 hover:bg-gray-50 rounded-xl transition-all text-sm font-medium">
+                            Profile
+                        </button>
+                    </nav>
+                    <div class="border-t border-gray-100 pt-6 mt-auto">
+                        <button onclick="handleLogout()" class="w-full flex items-center gap-3 px-4 py-3 text-red-500 hover:bg-red-50 rounded-xl transition-all font-medium text-sm">
+                            <i class="fa-solid fa-power-off text-xs"></i> Logout
+                        </button>
+                    </div>
+                </div>
             </div>
 
-            <!-- Manual Links -->
-            <nav class="space-y-2 flex-1">
-                <button onclick="switchSection('dashboard'); toggleMobileMenu()" class="sidebar-link w-full flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-xl transition-all group active" data-section="dashboard">
-                    <i class="fa-solid fa-chart-pie w-5 text-gray-400 group-hover:text-[#a7e169] transition-colors"></i>
-                    <span class="font-medium group-hover:text-gray-900">Dashboard</span>
-                </button>
+            <main class="flex-1 overflow-y-auto p-4 md:p-10 scroll-smooth" id="main-content">
                 
-                <button onclick="switchSection('my-courses'); toggleMobileMenu()" class="sidebar-link w-full flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-xl transition-all group" data-section="my-courses">
-                    <i class="fa-solid fa-graduation-cap w-5 text-gray-400 group-hover:text-[#a7e169] transition-colors"></i>
-                    <span class="font-medium group-hover:text-gray-900">My Courses</span>
-                </button>
-                
-                <button onclick="switchSection('announcements'); toggleMobileMenu()" class="sidebar-link w-full flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-xl transition-all group" data-section="announcements">
-                    <i class="fa-solid fa-bullhorn w-5 text-gray-400 group-hover:text-[#a7e169] transition-colors"></i>
-                    <span class="font-medium group-hover:text-gray-900">Announcements</span>
-                </button>
-                
-                <button onclick="switchSection('profile'); toggleMobileMenu()" class="sidebar-link w-full flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-xl transition-all group" data-section="profile">
-                    <i class="fa-solid fa-user w-5 text-gray-400 group-hover:text-[#a7e169] transition-colors"></i>
-                    <span class="font-medium group-hover:text-gray-900">Profile</span>
-                </button>
-            </nav>
-
-            <!-- Logout -->
-            <div class="border-t border-gray-100 pt-4 mt-auto">
-                <button onclick="handleLogout()" class="w-full flex items-center gap-3 px-4 py-3 text-red-500 hover:bg-red-50 rounded-xl transition-all group">
-                    <i class="fa-solid fa-right-from-bracket w-5"></i>
-                    <span class="font-medium">Logout</span>
-                </button>
-            </div>
-            
-        </div>
-    </div>
-
-
-
-
-            <!-- Main Content Area -->
-                <main class="flex-1 overflow-y-auto p-4 md:p-8" id="main-content">
+                <div id="dashboard-section" class="section space-y-10 max-w-7xl mx-auto fade-in-up">
                     
-                    <!-- 1. DASHBOARD SECTION (အဖွင့်) - </div> မပါရပါ -->
-                    <!-- 1. DASHBOARD SECTION (FULL CODE) -->
-<div id="dashboard-section" class="section space-y-8">
-    
-    <!-- Welcome Banner Section -->
-    <div class="rounded-3xl mb-8 relative overflow-hidden shadow-sm h-48 md:h-64 flex items-center justify-center text-center group bg-gray-200">
-        <!-- Background Image -->
-        <div class="absolute inset-0 z-0">
-            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768710049/student-banner_dadfyn.png" 
-                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
-                 alt="Welcome Banner">
-            <div class="absolute inset-0 bg-black/5"></div>
-        </div>
-
-        <!-- Center Content -->
-        <div class="z-10 relative px-4 flex flex-col items-center justify-center">
-            <h1 class="text-3xl md:text-5xl font-bold uppercase tracking-wide text-white drop-shadow-md mb-2" 
-                style="font-family: 'Space Grotesk', sans-serif;">
-                STUDENT PORTAL
-            </h1>
-            <h2 class="text-lg md:text-2xl font-medium tracking-wide text-white drop-shadow-md" 
-                style="font-family: 'Happy Monkey', system-ui;">
-                Welcome Back! <span id="welcome-name">Student</span>
-            </h2>
-        </div>
-    </div>
-
-    <!-- Main Content Grid (Details + Friends) -->
-    <div class="grid grid-cols-1 xl:grid-cols-3 gap-8 mb-8">
-        
-        <!-- Left Column (Student Details) - 2/3 Space -->
-        <div class="xl:col-span-2">
-            <div class="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 h-full">
-                <h2 class="text-xl font-bold text-gray-800 mb-6">Student Details</h2>
-                
-                <!-- Top Row: Profile & Info -->
-                <div class="flex flex-col md:flex-row items-center md:items-start gap-6 mb-8 border-b border-gray-100 pb-8">
-                    <!-- Profile Image -->
-                    <div class="w-20 h-20 rounded-full bg-blue-50 border-4 border-white shadow-md overflow-hidden flex items-center justify-center shrink-0">
-                        <i class="fa-solid fa-user text-2xl text-blue-300" id="detail-profile-icon"></i>
-                        <img id="detail-profile-img" src="" alt="Profile" class="w-full h-full object-cover hidden">
-                    </div>
-
-                    <!-- Info Grid -->
-                    <div class="flex-1 w-full">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4 text-center md:text-left" id="detail-full-name">Loading...</h3>
-                        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                            <div>
-                                <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1">ID</p>
-                                <p class="text-sm font-medium text-gray-800" id="detail-student-id">-</p>
-                            </div>
-                            <div>
-                                <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1">Number</p>
-                                <p class="text-sm font-medium text-gray-800" id="detail-phone">-</p>
-                            </div>
-                            <div class="lg:col-span-2">
-                                <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1">Email</p>
-                                <p class="text-sm font-medium text-gray-800 truncate" id="detail-email">-</p>
-                            </div>
-                            <div class="col-span-2 lg:col-span-4">
-                                <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1">Address</p>
-                                <p class="text-sm font-medium text-gray-800" id="detail-address">-</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Bottom Row: Attendance Stats -->
-                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div class="bg-gray-50 rounded-xl p-4 flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 shrink-0">
-                            <i class="fa-solid fa-user-check text-sm"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-lg font-bold text-gray-900 leading-none mb-1" id="stat-attendance-total">0 Days</h4>
-                            <p class="text-[10px] text-gray-500 font-medium uppercase tracking-wide">Total Attendance</p>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-gray-50 rounded-xl p-4 flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 shrink-0">
-                            <i class="fa-solid fa-clock-rotate-left text-sm"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-lg font-bold text-gray-900 leading-none mb-1" id="stat-attendance-late">0 Days</h4>
-                            <p class="text-[10px] text-gray-500 font-medium uppercase tracking-wide">Late Attendance</p>
+                    <div class="relative overflow-hidden rounded-2xl bg-black h-48 md:h-56 flex items-center">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768710049/student-banner_dadfyn.png" 
+                             class="absolute inset-0 w-full h-full object-cover opacity-60" 
+                             alt="Banner">
+                        <div class="absolute inset-0 bg-gradient-to-r from-black/80 to-transparent"></div>
+                        <div class="relative z-10 px-8 md:px-12 w-full">
+                            <p class="text-white/70 text-sm tracking-widest uppercase mb-2 font-light">Student Portal</p>
+                            <h1 class="text-3xl md:text-4xl font-light text-white leading-tight">
+                                Welcome back, <br>
+                                <span id="welcome-name" class="font-medium text-[#a7e169]">Student</span>
+                            </h1>
                         </div>
                     </div>
 
-                    <div class="bg-gray-50 rounded-xl p-4 flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 shrink-0">
-                             <i class="fa-regular fa-clock text-sm"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-lg font-bold text-gray-900 leading-none mb-1" id="stat-attendance-undertime">0 Days</h4>
-                            <p class="text-[10px] text-gray-500 font-medium uppercase tracking-wide">Undertime</p>
-                        </div>
-                    </div>
-
-                    <div class="bg-gray-50 rounded-xl p-4 flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-600 shrink-0">
-                            <i class="fa-solid fa-user-xmark text-sm"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-lg font-bold text-gray-900 leading-none mb-1" id="stat-attendance-absent">0 Days</h4>
-                            <p class="text-[10px] text-gray-500 font-medium uppercase tracking-wide">Total Absent</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Right Column (Friends Online) - 1/3 Space -->
-        <div class="space-y-6">
-            <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 h-full flex flex-col">
-                <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-lg font-bold text-gray-800">Friends Online</h3>
-                    <span class="bg-green-100 text-green-600 text-[10px] px-2 py-1 rounded-full font-bold uppercase tracking-wide">4 Active</span>
-                </div>
-
-                <div class="space-y-4 flex-1 overflow-y-auto custom-scrollbar pr-1 max-h-[300px]">
-                    <!-- Friend 1 -->
-                    <div class="flex items-center justify-between group cursor-pointer hover:bg-gray-50 p-2 rounded-xl transition-colors">
-                        <div class="flex items-center gap-3">
-                            <div class="relative">
-                                <img src="https://ui-avatars.com/api/?name=Francis+T&background=random" class="w-10 h-10 rounded-full object-cover">
-                                <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></span>
+                    <div class="bg-white rounded-2xl p-8 border border-gray-100 hover-lift">
+                        <div class="flex flex-col xl:flex-row gap-8 xl:items-center">
+                            
+                            <div class="flex items-center gap-6 xl:w-1/3 xl:border-r border-gray-100 xl:pr-8">
+                                <div class="relative group">
+                                    <div class="w-20 h-20 rounded-full bg-gray-50 border border-gray-100 overflow-hidden flex items-center justify-center">
+                                        <i class="fa-regular fa-user text-2xl text-gray-300" id="detail-profile-icon"></i>
+                                        <img id="detail-profile-img" src="" alt="Profile" class="w-full h-full object-cover hidden transition-transform group-hover:scale-110">
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-semibold text-gray-900 mb-1" id="detail-full-name">Loading...</h3>
+                                    <p class="text-sm text-gray-400 font-light" id="detail-student-id">ID: -</p>
+                                    <p class="text-sm text-gray-500 mt-2 flex items-center gap-2">
+                                        <i class="fa-regular fa-envelope text-xs"></i> <span id="detail-email" class="truncate">-</span>
+                                    </p>
+                                </div>
                             </div>
-                            <div>
-                                <h4 class="text-sm font-bold text-gray-900">Francis Tran</h4>
-                                <p class="text-xs text-gray-500 truncate w-24">Studying...</p>
+
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-6 xl:flex-1">
+                                <div>
+                                    <p class="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Phone</p>
+                                    <p class="text-sm font-medium text-gray-700" id="detail-phone">-</p>
+                                </div>
+                                <div class="col-span-2 md:col-span-2">
+                                    <p class="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Address</p>
+                                    <p class="text-sm font-medium text-gray-700 truncate" id="detail-address">-</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- Friend 2 -->
-                    <div class="flex items-center justify-between group cursor-pointer hover:bg-gray-50 p-2 rounded-xl transition-colors">
-                        <div class="flex items-center gap-3">
-                            <div class="relative">
-                                <img src="https://ui-avatars.com/api/?name=Elliana+P&background=random" class="w-10 h-10 rounded-full object-cover">
-                                <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></span>
+
+                        <div class="mt-8 pt-8 border-t border-gray-50 grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="text-center md:text-left md:pl-4 md:border-l border-transparent">
+                                <span class="block text-2xl font-light text-gray-900" id="stat-attendance-total">0</span>
+                                <span class="text-xs text-gray-400 uppercase tracking-wide">Present</span>
                             </div>
-                            <div>
-                                <h4 class="text-sm font-bold text-gray-900">Elliana P.</h4>
-                                <p class="text-xs text-gray-500">Working...</p>
+                            <div class="text-center md:text-left md:pl-4 md:border-l border-gray-100">
+                                <span class="block text-2xl font-light text-yellow-600" id="stat-attendance-late">0</span>
+                                <span class="text-xs text-gray-400 uppercase tracking-wide">Late</span>
+                            </div>
+                            <div class="text-center md:text-left md:pl-4 md:border-l border-gray-100">
+                                <span class="block text-2xl font-light text-orange-600" id="stat-attendance-undertime">0</span>
+                                <span class="text-xs text-gray-400 uppercase tracking-wide">Undertime</span>
+                            </div>
+                            <div class="text-center md:text-left md:pl-4 md:border-l border-gray-100">
+                                <span class="block text-2xl font-light text-red-500" id="stat-attendance-absent">0</span>
+                                <span class="text-xs text-gray-400 uppercase tracking-wide">Absent</span>
                             </div>
                         </div>
                     </div>
-                     <!-- Friend 3 -->
-                    <div class="flex items-center justify-between group cursor-pointer hover:bg-gray-50 p-2 rounded-xl transition-colors">
-                        <div class="flex items-center gap-3">
-                            <div class="relative">
-                                <img src="https://ui-avatars.com/api/?name=John+D&background=random" class="w-10 h-10 rounded-full object-cover">
-                                <span class="absolute bottom-0 right-0 w-3 h-3 bg-gray-300 border-2 border-white rounded-full"></span>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-white p-6 rounded-2xl border border-gray-100 hover-lift group">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-gray-400 text-xs uppercase tracking-widest font-medium mb-2">Enrolled</p>
+                                    <h3 class="text-3xl font-light text-gray-900 group-hover:text-blue-600 transition-colors" id="stat-enrolled">0</h3>
+                                </div>
+                                <i class="fa-solid fa-book-open text-gray-100 text-3xl group-hover:text-blue-50 transition-colors"></i>
                             </div>
-                            <div>
-                                <h4 class="text-sm font-bold text-gray-900">John Doe</h4>
-                                <p class="text-xs text-gray-500">Offline</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl border border-gray-100 hover-lift group">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-gray-400 text-xs uppercase tracking-widest font-medium mb-2">Active</p>
+                                    <h3 class="text-3xl font-light text-gray-900 group-hover:text-[#a7e169] transition-colors" id="stat-active">0</h3>
+                                </div>
+                                <i class="fa-solid fa-play text-gray-100 text-3xl group-hover:text-[#a7e169]/20 transition-colors"></i>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl border border-gray-100 hover-lift group">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-gray-400 text-xs uppercase tracking-widest font-medium mb-2">Files</p>
+                                    <h3 class="text-3xl font-light text-gray-900 group-hover:text-yellow-500 transition-colors" id="stat-files">0</h3>
+                                </div>
+                                <i class="fa-solid fa-folder text-gray-100 text-3xl group-hover:text-yellow-100 transition-colors"></i>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <button onclick="alert('Chat feature coming soon!')" class="w-full mt-4 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 font-medium py-3 rounded-xl transition-colors text-sm flex items-center justify-center gap-2">
-                    <i class="fa-regular fa-paper-plane"></i> Send Message
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Stats Grid (Enrolled, Active, Files) -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-            <div class="flex justify-between items-start">
-                <div>
-                    <p class="text-gray-500 text-sm font-medium mb-1">Enrolled Courses</p>
-                    <h3 class="text-3xl font-bold" id="stat-enrolled">0</h3>
-                </div>
-                <div class="p-3 bg-blue-50 rounded-xl text-blue-600">
-                    <i class="fa-solid fa-book-open text-xl"></i>
-                </div>
-            </div>
-        </div>
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-            <div class="flex justify-between items-start">
-                <div>
-                    <p class="text-gray-500 text-sm font-medium mb-1">Active Courses</p>
-                    <h3 class="text-3xl font-bold" id="stat-active">0</h3>
-                </div>
-                <div class="p-3 bg-green-50 rounded-xl text-green-600">
-                    <i class="fa-solid fa-circle-play text-xl"></i>
-                </div>
-            </div>
-        </div>
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-            <div class="flex justify-between items-start">
-                <div>
-                    <p class="text-gray-500 text-sm font-medium mb-1">Total Files</p>
-                    <h3 class="text-3xl font-bold" id="stat-files">0</h3>
-                </div>
-                <div class="p-3 bg-yellow-50 rounded-xl text-yellow-600">
-                    <i class="fa-solid fa-file-arrow-down text-xl"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Recent Courses -->
-    <div>
-        <div class="flex justify-between items-end mb-4">
-            <h2 class="text-xl font-bold">Your Active Courses</h2>
-            <button onclick="switchSection('my-courses')" class="text-sm text-[#a7e169] hover:underline font-medium">View All</button>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="dashboard-courses-grid">
-            <!-- Courses injected by JS -->
-            <div class="col-span-full text-center py-10 text-gray-400 bg-white rounded-xl border border-dashed border-gray-200">
-                <i class="fa-solid fa-spinner fa-spin text-2xl mb-2"></i>
-                <p>Loading courses...</p>
-            </div>
-        </div>
-    </div>
-
-</div> <!-- DASHBOARD SECTION END (အားလုံးပြီးပါပြီ) -->
-
-
-                <!-- 2. MY COURSES SECTION -->
-                <div id="my-courses-section" class="section hidden space-y-6">
-                    <h2 class="text-2xl font-bold">My Learning Library</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="all-courses-grid">
-                        <!-- All courses list -->
+                    <div>
+                        <div class="flex justify-between items-end mb-6 px-1">
+                            <h2 class="text-xl font-medium text-gray-900">Active Courses</h2>
+                            <button onclick="switchSection('my-courses')" class="text-xs text-gray-400 hover:text-black transition-colors flex items-center gap-2">
+                                VIEW ALL <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="dashboard-courses-grid">
+                            <div class="col-span-full py-12 text-center text-gray-300 font-light">
+                                <i class="fa-solid fa-circle-notch fa-spin mb-3 text-xl"></i>
+                                <p>Loading courses...</p>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
 
-                <!-- 3. COURSE DETAIL VIEW (Hidden by default) -->
-                <div id="course-detail-view" class="section hidden space-y-6">
-                    <button onclick="switchSection('my-courses'); window.scrollTo(0,0)" class="flex items-center gap-2 text-gray-500 hover:text-black mb-4 transition-colors">
-                        <i class="fa-solid fa-arrow-left"></i> Back to Courses
+                <div id="my-courses-section" class="section hidden space-y-8 max-w-7xl mx-auto fade-in-up">
+                    <h2 class="text-2xl font-light text-gray-900">Learning Library</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="all-courses-grid">
+                        </div>
+                </div>
+
+                <div id="course-detail-view" class="section hidden space-y-6 max-w-5xl mx-auto fade-in-up">
+                    <button onclick="switchSection('my-courses'); window.scrollTo(0,0)" class="group flex items-center gap-2 text-gray-400 hover:text-black mb-6 transition-colors text-sm">
+                        <i class="fa-solid fa-arrow-left transition-transform group-hover:-translate-x-1"></i> Back
                     </button>
                     
-                    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-                        <div class="p-6 md:p-8 border-b border-gray-100 bg-gray-50">
+                    <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+                        <div class="p-8 md:p-10 border-b border-gray-50 bg-white">
                             <div class="flex justify-between items-start flex-wrap gap-4">
-                                <div>
-                                    <span class="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold uppercase tracking-wide mb-3 inline-block" id="detail-course-type">Type</span>
-                                    <h1 class="text-2xl md:text-3xl font-bold mb-2" id="detail-course-title">Course Title</h1>
-                                    <p class="text-gray-600 max-w-2xl" id="detail-course-desc">Course description goes here...</p>
+                                <div class="space-y-4">
+                                    <span class="px-3 py-1 rounded-full border border-gray-200 text-gray-500 text-[10px] font-semibold uppercase tracking-widest inline-block" id="detail-course-type">Type</span>
+                                    <h1 class="text-3xl md:text-4xl font-light text-gray-900" id="detail-course-title">Course Title</h1>
+                                    <p class="text-gray-500 font-light max-w-2xl leading-relaxed" id="detail-course-desc">Course description...</p>
                                 </div>
                                 <div class="text-right">
-                                    <div class="text-sm text-gray-500 mb-1">Status</div>
-                                    <span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm font-medium" id="detail-course-status">Active</span>
+                                    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-50 text-green-700 text-xs font-medium border border-green-100" id="detail-course-status">
+                                        <span class="w-2 h-2 rounded-full bg-green-500"></span> Active
+                                    </span>
                                 </div>
                             </div>
                         </div>
                         
-                        <!-- Course Content Tabs/Files -->
-                        <div class="p-6 md:p-8">
-                            <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
-                                <i class="fa-solid fa-folder-open text-[#a7e169]"></i> Course Materials & Files
+                        <div class="p-8 md:p-10 bg-[#fbfbfb]">
+                            <h3 class="text-sm font-semibold uppercase tracking-widest text-gray-400 mb-6 flex items-center gap-2">
+                                <i class="fa-regular fa-folder-open"></i> Materials
                             </h3>
-                            
                             <div class="space-y-3" id="course-files-list">
-                                <!-- Files list injected here -->
-                                <p class="text-gray-500 text-center py-8">Loading files...</p>
+                                <p class="text-gray-400 text-center font-light text-sm py-8">Loading files...</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 4. ANNOUNCEMENTS SECTION -->
-                <div id="announcements-section" class="section hidden space-y-6">
-                    <h2 class="text-2xl font-bold">Latest Announcements</h2>
-                    <div class="space-y-4" id="announcements-list">
-                        <!-- Announcements injected here -->
-                    </div>
+                <div id="announcements-section" class="section hidden space-y-8 max-w-4xl mx-auto fade-in-up">
+                    <h2 class="text-2xl font-light text-gray-900">Announcements</h2>
+                    <div class="space-y-6" id="announcements-list">
+                        </div>
                 </div>
 
-                <!-- 5. PROFILE SECTION -->
-                <div id="profile-section" class="section hidden space-y-6">
-                    <h2 class="text-2xl font-bold">My Profile</h2>
-                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 max-w-2xl">
-                        <div class="flex items-center gap-6 mb-8">
-                           <div class="relative w-20 h-20">
-                                <!-- Profile Image Preview -->
+                <div id="profile-section" class="section hidden space-y-8 max-w-2xl mx-auto fade-in-up">
+                    <h2 class="text-2xl font-light text-gray-900">My Profile</h2>
+                    <div class="bg-white p-10 rounded-2xl border border-gray-100 relative overflow-hidden">
+                        
+                        <div class="flex items-center gap-8 mb-10 pb-10 border-b border-gray-50">
+                           <div class="relative w-24 h-24 group">
                                 <img id="profile-avatar" src="https://via.placeholder.com/150" 
-                                    class="w-full h-full rounded-full object-cover border-2 border-gray-200">
-                                
-                                <!-- Camera Icon Button (Click to Upload) -->
+                                    class="w-full h-full rounded-full object-cover border-4 border-white shadow-sm">
                                 <label for="avatar-upload-input" 
-                                    class="absolute bottom-0 right-0 bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-full cursor-pointer shadow-lg transition-colors">
+                                    class="absolute bottom-0 right-0 bg-black text-white p-2 rounded-full cursor-pointer hover:bg-gray-800 transition-colors shadow-sm transform group-hover:scale-110">
                                     <i class="fa-solid fa-camera text-xs"></i>
                                 </label>
-                                
-                                <!-- Hidden File Input -->
-                                <input type="file" 
-                                    id="avatar-upload-input" 
-                                    class="hidden" 
-                                    accept="image/*" 
-                                    onchange="uploadAvatar(event)">
+                                <input type="file" id="avatar-upload-input" class="hidden" accept="image/*" onchange="uploadAvatar(event)">
                             </div>
 
                             <div>
-                                <h3 class="text-xl font-bold" id="profile-name">Student Name</h3>
-                                <p class="text-gray-500" id="profile-email">email@example.com</p>
-                                <span class="px-3 py-1 mt-2 inline-block rounded-full bg-gray-100 text-gray-600 text-xs font-semibold uppercase" id="profile-type">Student</span>
+                                <h3 class="text-2xl font-medium text-gray-900" id="profile-name">Student Name</h3>
+                                <p class="text-gray-400 font-light" id="profile-email">email@example.com</p>
+                                <span class="mt-3 inline-block text-[10px] uppercase tracking-widest font-semibold text-[#a7e169]" id="profile-type">Student</span>
                             </div>
                         </div>
                         
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                                <p class="p-3 bg-gray-50 rounded-lg text-gray-900 border border-gray-200" id="profile-phone">-</p>
+                        <div class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-xs uppercase tracking-widest text-gray-400 font-medium mb-2">Phone</label>
+                                    <div class="p-4 bg-gray-50 rounded-xl text-gray-800 text-sm font-medium border border-gray-100" id="profile-phone">-</div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs uppercase tracking-widest text-gray-400 font-medium mb-2">Joined</label>
+                                    <div class="p-4 bg-gray-50 rounded-xl text-gray-800 text-sm font-medium border border-gray-100" id="profile-joined">-</div>
+                                </div>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Joined Date</label>
-                                <p class="p-3 bg-gray-50 rounded-lg text-gray-900 border border-gray-200" id="profile-joined">-</p>
-                            </div>
-                            <div class="md:col-span-2">
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Address</label>
-                                <p class="p-3 bg-gray-50 rounded-lg text-gray-900 border border-gray-200" id="profile-address">-</p>
+                                <label class="block text-xs uppercase tracking-widest text-gray-400 font-medium mb-2">Address</label>
+                                <div class="p-4 bg-gray-50 rounded-xl text-gray-800 text-sm font-medium border border-gray-100" id="profile-address">-</div>
                             </div>
                         </div>
                         
-                        <div class="mt-8 pt-6 border-t border-gray-100 flex justify-end">
-                            <button onclick="logout()" class="px-6 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors font-medium">
+                        <div class="mt-12 pt-6 border-t border-gray-50 flex justify-end">
+                            <button onclick="logout()" class="px-8 py-3 bg-white border border-red-100 text-red-500 rounded-xl hover:bg-red-50 transition-colors text-sm font-medium">
                                 Logout
                             </button>
                         </div>
@@ -513,11 +399,28 @@
         </div>
     </div>
 
+    <div id="logout-modal" class="hidden fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-white/80 backdrop-blur-sm transition-opacity"></div>
+        <div class="flex min-h-full items-center justify-center p-4 text-center">
+            <div class="relative transform overflow-hidden rounded-2xl bg-white border border-gray-100 text-left shadow-2xl transition-all sm:w-full sm:max-w-sm p-8">
+                <div class="text-center">
+                    <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-red-50 mb-4">
+                        <i class="fa-solid fa-power-off text-red-500"></i>
+                    </div>
+                    <h3 class="text-lg font-medium leading-6 text-gray-900" id="modal-title">Sign Out</h3>
+                    <p class="text-sm text-gray-500 mt-2 font-light">Are you sure you want to log out?</p>
+                </div>
+                <div class="mt-8 flex gap-3">
+                    <button type="button" onclick="closeLogoutModal()" class="flex-1 justify-center rounded-xl bg-gray-50 px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors">Cancel</button>
+                    <button type="button" onclick="confirmLogout()" class="flex-1 justify-center rounded-xl bg-black px-4 py-3 text-sm font-medium text-white hover:bg-gray-800 transition-colors">Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script type="module">
-    // 1. IMPORT CONFIG (Path Correctness Essential)
     import { supabase } from '../js/supabase-config.js';
 
-    // Global State
     let currentUser = null;
     let myEnrollments = [];
 
@@ -525,115 +428,90 @@
     // INITIALIZATION
     // ============================================
     window.addEventListener('load', async () => {
-        // 1. Check Session
         const { data: { session }, error } = await supabase.auth.getSession();
-
         if (!session) {
             window.location.href = 'student-login.html';
             return;
         }
-
-        // 2. Load User Profile
         await loadUserProfile(session.user.id);
-
-        // 3. Load Courses
         await loadMyCourses(session.user.id);
-        
-        // 4. Load Announcements
         loadAnnouncements();
     });
 
     // ============================================
-    // DATA LOADING FUNCTIONS
+    // DATA LOADING
     // ============================================
     
-   async function loadUserProfile(userId) {
-    try {
-        const { data: student, error } = await supabase
-            .from('students')
-            .select('*')
-            .eq('id', userId)  // <--- ဒီနေရာမှာ student_id ကို id သို့ ပြောင်းပါ
-            .maybeSingle();    // <--- single() အစား maybeSingle() သုံးပါ
+    async function loadUserProfile(userId) {
+        try {
+            const { data: student, error } = await supabase
+                .from('students')
+                .select('*')
+                .eq('id', userId)
+                .maybeSingle();
 
+            if (error) throw error;
+            
+            if (!student) {
+                console.warn("Student profile not found for ID:", userId);
+                return;
+            }
 
-        if (error) throw error;
-        
-        if (!student) {
-            console.warn("Student profile not found for ID:", userId);
-            return;
+            currentUser = student;
+            updateProfileUI(student);
+            
+        } catch (error) {
+            console.error('Error loading profile:', error);
         }
-
-        currentUser = student;
-
-        // Update UI
-        updateProfileUI(student);
-        
-    } catch (error) {
-        console.error('Error loading profile:', error);
     }
-}
-
 
     async function loadMyCourses(userId) {
-    try {
-        // အဆင့် ၁ - Enrollments ကို အရင်ယူမယ်
-        const { data: enrollments, error: enrollError } = await supabase
-            .from('enrollments')
-            .select('course_id, status, enrolled_at, progress_percentage') // လိုအပ်သလောက်ပဲ ယူမယ်
-            .eq('student_id', userId)
-            .in('status', ['active', 'completed', 'dropped'])
-            .order('enrolled_at', { ascending: false });
+        try {
+            const { data: enrollments, error: enrollError } = await supabase
+                .from('enrollments')
+                .select('course_id, status, enrolled_at, progress_percentage')
+                .eq('student_id', userId)
+                .in('status', ['active', 'completed', 'dropped'])
+                .order('enrolled_at', { ascending: false });
 
-        if (enrollError) throw enrollError;
+            if (enrollError) throw enrollError;
 
-        if (!enrollments || enrollments.length === 0) {
-            myEnrollments = [];
-            renderCoursesGrid([]);
-            updateStats([]);
-            return;
+            if (!enrollments || enrollments.length === 0) {
+                myEnrollments = [];
+                renderCoursesGrid([]);
+                updateStats([]);
+                return;
+            }
+
+            const courseIds = enrollments.map(e => e.course_id);
+            const { data: courses, error: courseError } = await supabase
+                .from('courses')
+                .select('id, title, description, course_type, level, duration_weeks, status, cover_image_url')
+                .in('id', courseIds);
+
+            if (courseError) throw courseError;
+
+            const combinedData = enrollments.map(enrollment => {
+                const courseData = courses.find(c => c.id === enrollment.course_id);
+                return { ...enrollment, courses: courseData };
+            });
+            
+            myEnrollments = combinedData;
+            renderCoursesGrid(combinedData);
+            updateStats(combinedData);
+
+        } catch (error) {
+            console.error('Error loading courses:', error);
+            const grid = document.getElementById('dashboard-courses-grid');
+            if(grid) grid.innerHTML = '<p class="col-span-full text-center text-red-500 font-light">Unable to load courses.</p>';
         }
-
-        // အဆင့် ၂ - ရလာတဲ့ course_id တွေနဲ့ Courses Table ကို သွားယူမယ်
-        // (ဒါက Join မသုံးဘဲ Manual ယူတာမို့ Error 400 လုံးဝ ကင်းရှင်းပါတယ်)
-        const courseIds = enrollments.map(e => e.course_id);
-        
-        const { data: courses, error: courseError } = await supabase
-            .from('courses')
-            .select('id, title, description, course_type, level, duration_weeks, status, cover_image_url')
-            .in('id', courseIds);
-
-        if (courseError) throw courseError;
-
-        // အဆင့် ၃ - Data ပြန်ပေါင်းစပ်မယ်
-        // Enrollment တစ်ခုချင်းစီထဲမှာ courses object ပြန်ထည့်ပေးတာပါ
-        const combinedData = enrollments.map(enrollment => {
-            const courseData = courses.find(c => c.id === enrollment.course_id);
-            return {
-                ...enrollment,
-                courses: courseData // UI က e.courses.title လို့ ခေါ်ထားလို့ ဒီနာမည်ပဲ ပေးပါတယ်
-            };
-        });
-        
-        myEnrollments = combinedData;
-        
-        // Update Dashboard & My Courses Grids
-        renderCoursesGrid(combinedData);
-        updateStats(combinedData);
-
-    } catch (error) {
-        console.error('Error loading courses:', error);
-        const grid = document.getElementById('dashboard-courses-grid');
-        if(grid) grid.innerHTML = '<p class="col-span-full text-center text-red-500">Failed to load courses.</p>';
     }
-}
-
 
     async function loadAnnouncements() {
         try {
             const { data, error } = await supabase
                 .from('announcements')
                 .select('*')
-                
                 .order('published_at', { ascending: false })
                 .limit(5);
 
@@ -643,17 +521,18 @@
             if (!container) return;
 
             if (data.length === 0) {
-                container.innerHTML = '<p class="text-gray-500 text-center py-4">No new announcements.</p>';
+                container.innerHTML = '<p class="text-gray-400 text-center font-light text-sm">No new announcements.</p>';
                 return;
             }
 
+            // Minimalist Announcement Card
             container.innerHTML = data.map(a => `
-                <div class="bg-white p-5 rounded-xl border-l-4 ${getPriorityColor(a.priority)} shadow-sm mb-4">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="font-bold text-lg text-gray-800">${a.title}</h3>
-                        <span class="text-xs text-gray-400">${new Date(a.published_at).toLocaleDateString()}</span>
+                <div class="bg-white p-6 rounded-xl border border-gray-100 hover:border-gray-200 transition-colors">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="font-medium text-gray-900">${a.title}</h3>
+                        <span class="text-[10px] text-gray-400 bg-gray-50 px-2 py-1 rounded">${new Date(a.published_at).toLocaleDateString()}</span>
                     </div>
-                    <p class="text-gray-600 text-sm">${a.content || a.description || ''}</p> 
+                    <p class="text-gray-500 text-sm font-light leading-relaxed">${a.content || a.description || ''}</p> 
                 </div>
             `).join('');
             
@@ -662,42 +541,29 @@
         }
     }
 
-        // ... loadAnnouncements code အဟောင်း ...
-    // loadAnnouncements အပိတ်ကွင်း
-
-    // === ဒီနေရာမှာ အသစ်ထည့်ပါ ===
+    // Avatar Upload
     window.uploadAvatar = async function(event) {
         const file = event.target.files[0];
         if (!file) return;
 
-        // 2MB Limit
         if (file.size > 2 * 1024 * 1024) {
             alert("File size must be less than 2MB");
             return;
         }
 
         try {
-            // UI Loading...
             const profileImg = document.getElementById('profile-avatar');
             if(profileImg) profileImg.src = 'https://media.tenor.com/On7kvXhzml4AAAAj/loading-gif.gif';
 
-            // 1. Upload
             const fileExt = file.name.split('.').pop();
             const fileName = `${currentUser.id}-${Math.random().toString(36).substring(7)}.${fileExt}`;
             const filePath = `${fileName}`;
 
-            const { error: uploadError } = await supabase.storage
-                .from('avatars')
-                .upload(filePath, file);
-
+            const { error: uploadError } = await supabase.storage.from('avatars').upload(filePath, file);
             if (uploadError) throw uploadError;
 
-            // 2. Get URL
-            const { data: { publicUrl } } = supabase.storage
-                .from('avatars')
-                .getPublicUrl(filePath);
+            const { data: { publicUrl } } = supabase.storage.from('avatars').getPublicUrl(filePath);
 
-            // 3. Update DB
             const { error: updateError } = await supabase
                 .from('students')
                 .update({ avatar_url: publicUrl })
@@ -705,175 +571,129 @@
 
             if (updateError) throw updateError;
 
-            // 4. Update UI
-            // Profile Page ပုံပြောင်းမည်
             if(profileImg) profileImg.src = publicUrl;
-
-            // Sidebar ပုံပြောင်းမည်
             const sidebarImg = document.getElementById('sidebar-avatar');
             if(sidebarImg) sidebarImg.src = publicUrl;
 
-            // Dashboard Card ပုံပြောင်းမည် (ဒါက အသစ်ထည့်လိုက်တာပါ)
             const detailImg = document.getElementById('detail-profile-img');
             const detailIcon = document.getElementById('detail-profile-icon');
-            
             if(detailImg) {
                 detailImg.src = publicUrl;
                 detailImg.classList.remove('hidden');
             }
             if(detailIcon) detailIcon.classList.add('hidden');
 
-
-            currentUser.avatar_url = publicUrl; // Local state update
-            alert('Profile picture updated!');
-
+            currentUser.avatar_url = publicUrl;
 
         } catch (error) {
             console.error('Error uploading avatar:', error);
-            alert('Upload failed. Please try again.');
+            alert('Upload failed.');
         }
     };
 
-
     // ============================================
-    // UI HELPERS (UPDATED)
+    // UI HELPERS
     // ============================================
 
     function updateProfileUI(student) {
-    if (!student) return;
+        if (!student) return;
 
-    // --- 1. NAME & INFO UPDATES ---
-    // Database က full_name ကို ဦးစားပေးယူမယ်
-    const fullName = student.full_name || student.name || 'Student';
+        const fullName = student.full_name || student.name || 'Student';
+        const navName = document.getElementById('student-name');
+        const navEmail = document.getElementById('sidebar-user-email');
+        
+        if(navName) navName.textContent = fullName;
+        if(navEmail) navEmail.textContent = student.email || '';
 
-    // Sidebar Name (Logout ဘေးနား)
-    const navName = document.getElementById('student-name');
-    const navEmail = document.getElementById('sidebar-user-email') || document.getElementById('student-email'); // ID နှစ်မျိုးလုံး စမ်းကြည့်မယ်
-    
-    if(navName) navName.textContent = fullName;
-    if(navEmail) navEmail.textContent = student.email || '';
+        const firstName = fullName.split(' ')[0];
+        const welcomeNameEl = document.getElementById('welcome-name');
+        if(welcomeNameEl) welcomeNameEl.textContent = firstName;
 
-    // Welcome Banner
-    const firstName = fullName.split(' ')[0];
-    const welcomeNameEl = document.getElementById('welcome-name');
-    if(welcomeNameEl) welcomeNameEl.textContent = firstName;
+        setText('detail-full-name', fullName);
+        setText('detail-student-id', student.student_id_text || student.id?.slice(0, 8));
+        setText('detail-phone', student.phone || student.phone_number);
+        setText('detail-email', student.email);
+        setText('detail-address', student.address);
 
-    // Student Details Card (Dashboard)
-    setText('detail-full-name', fullName);
-    setText('detail-student-id', student.student_id_text || student.id?.slice(0, 8));
-    setText('detail-phone', student.phone || student.phone_number);
-    setText('detail-email', student.email);
-    setText('detail-address', student.address);
-
-    // My Profile Section (Full Page)
-    setText('profile-name', fullName);
-    setText('profile-email', student.email);
-    setText('profile-type', student.student_type || 'Student');
-    setText('profile-phone', student.phone || student.phone_number); 
-    setText('profile-address', student.address);
-    if (student.created_at) {
-        setText('profile-joined', new Date(student.created_at).toLocaleDateString());
-    }
-
-    // Attendance Stats
-    setText('stat-attendance-total', (student.total_attendance || 0) + ' Days');
-    setText('stat-attendance-late', (student.late_attendance || 0) + ' Days');
-    setText('stat-attendance-undertime', (student.undertime || 0) + ' Days');
-    setText('stat-attendance-absent', (student.absent_days || 0) + ' Days');
-
-
-    // --- 2. PROFILE PICTURE UPDATES (NEW) ---
-    // Default ပုံ (ပုံမတင်ရသေးရင် ပြမယ့်ပုံ)
-    const defaultAvatar = 'https://via.placeholder.com/150'; 
-    
-    // ရှိပြီးသား ပုံ (DB ထဲက avatar_url) သို့မဟုတ် Default ပုံ
-    const avatarUrl = student.avatar_url || defaultAvatar;
-
-    // Profile Page ပုံကို Update လုပ်မယ်
-    const profileImg = document.getElementById('profile-avatar');
-    if (profileImg) profileImg.src = avatarUrl;
-
-        // Sidebar ပုံကို Update လုပ်မယ်
-    const sidebarImg = document.getElementById('sidebar-avatar');
-    if (sidebarImg) sidebarImg.src = avatarUrl;
-
-
-    // ==========================================
-    // Dashboard Card ပုံပြဿနာ ဖြေရှင်းချက်
-    // ==========================================
-    const detailImg = document.getElementById('detail-profile-img');
-    const detailIcon = document.getElementById('detail-profile-icon');
-    
-    // ပုံ URL ရှိရင် ပုံဖော်၊ Icon ဖျောက်
-    if (student.avatar_url) {
-        if(detailImg) {
-            detailImg.src = avatarUrl;
-            detailImg.classList.remove('hidden'); // ပုံကို အတင်းဖော်မည်
+        setText('profile-name', fullName);
+        setText('profile-email', student.email);
+        setText('profile-type', student.student_type || 'Student');
+        setText('profile-phone', student.phone || student.phone_number); 
+        setText('profile-address', student.address);
+        if (student.created_at) {
+            setText('profile-joined', new Date(student.created_at).toLocaleDateString());
         }
-        if(detailIcon) {
-            detailIcon.classList.add('hidden');   // Icon ကို အတင်းဖျောက်မည်
+
+        setText('stat-attendance-total', (student.total_attendance || 0));
+        setText('stat-attendance-late', (student.late_attendance || 0));
+        setText('stat-attendance-undertime', (student.undertime || 0));
+        setText('stat-attendance-absent', (student.absent_days || 0));
+
+        const defaultAvatar = 'https://via.placeholder.com/150'; 
+        const avatarUrl = student.avatar_url || defaultAvatar;
+
+        const profileImg = document.getElementById('profile-avatar');
+        if (profileImg) profileImg.src = avatarUrl;
+        const sidebarImg = document.getElementById('sidebar-avatar');
+        if (sidebarImg) sidebarImg.src = avatarUrl;
+
+        const detailImg = document.getElementById('detail-profile-img');
+        const detailIcon = document.getElementById('detail-profile-icon');
+        
+        if (student.avatar_url) {
+            if(detailImg) {
+                detailImg.src = avatarUrl;
+                detailImg.classList.remove('hidden');
+            }
+            if(detailIcon) detailIcon.classList.add('hidden');
+        } else {
+            if(detailImg) detailImg.classList.add('hidden');
+            if(detailIcon) detailIcon.classList.remove('hidden');
         }
-    } else {
-        // ပုံမရှိရင် ပုံဖျောက်၊ Icon ပြန်ဖော်
-        if(detailImg) detailImg.classList.add('hidden');
-        if(detailIcon) detailIcon.classList.remove('hidden');
     }
-
-} // Function အပိတ်
-
-
-
 
     function renderCoursesGrid(enrollments) {
-    const gridHTML = enrollments.length === 0 ?
-        '<div class="col-span-full text-center py-10 text-gray-500">You are not enrolled in any courses yet.</div>' :
-        enrollments.map(e => {
-            // 1. Status Badge Logic (Left Corner)
-            let statusBadge = '';
-            if (e.status === 'active') {
-                statusBadge = `<div class="absolute top-3 left-3 bg-green-100 text-green-800 px-2 py-1 rounded-md text-xs font-bold shadow-sm uppercase tracking-wide">Active</div>`;
-            } else if (e.status === 'completed') {
-                statusBadge = `<div class="absolute top-3 left-3 bg-blue-100 text-blue-800 px-2 py-1 rounded-md text-xs font-bold shadow-sm uppercase tracking-wide">Completed</div>`;
-            } else if (e.status === 'dropped') {
-                statusBadge = `<div class="absolute top-3 left-3 bg-red-100 text-red-800 px-2 py-1 rounded-md text-xs font-bold shadow-sm uppercase tracking-wide">Dropped</div>`;
-            }
-
-            // 2. Course Type Logic (Right Corner - Existing)
-            // (optional: Group/Individual စာလုံးကြီးဖြစ်အောင် .toUpperCase() ထည့်ထားပါတယ်)
-            let typeBadge = `<div class="absolute top-3 right-3 bg-white px-2 py-1 rounded-md text-xs font-bold shadow-sm uppercase tracking-wide text-gray-700">
-                                ${(e.courses.course_type || '').toUpperCase()}
-                             </div>`;
-
-            return `
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-full cursor-pointer hover:shadow-md transition-shadow" onclick="openCourse('${e.courses.id}')">
-                    <div class="h-32 bg-gray-100 relative">
-                        <img src="${e.courses.cover_image_url || 'https://via.placeholder.com/800x600?text=Course+Cover'}" class="w-full h-full object-cover" alt="Course Cover">
-                        
-                        ${statusBadge}  <!-- Left Status Badge -->
-                        ${typeBadge}    <!-- Right Type Badge -->
-
-                    </div>
-                    <div class="p-5 flex-1 flex flex-col">
-                        <h3 class="font-bold text-lg mb-2 line-clamp-2 text-gray-800">${e.courses.title}</h3>
-                        <p class="text-sm text-gray-500 mb-4 line-clamp-2">${e.courses.description || 'No description'}</p>
-                        
-                        <div class="mt-auto pt-4 border-t border-gray-100 flex justify-between items-center">
-                            <div class="text-xs text-gray-500">
-                                <i class="fa-regular fa-clock mr-1"></i> ${e.courses.duration_weeks || '-'} Weeks
+        const gridHTML = enrollments.length === 0 ?
+            '<div class="col-span-full text-center py-10 text-gray-400 font-light text-sm">You are not enrolled in any courses yet.</div>' :
+            enrollments.map(e => {
+                let statusColor = e.status === 'active' ? 'bg-green-500' : e.status === 'completed' ? 'bg-blue-500' : 'bg-red-500';
+                
+                return `
+                    <div class="group bg-white rounded-2xl border border-gray-100 overflow-hidden flex flex-col h-full cursor-pointer hover-lift transition-all" onclick="openCourse('${e.courses.id}')">
+                        <div class="h-40 bg-gray-50 relative overflow-hidden">
+                            <img src="${e.courses.cover_image_url || 'https://via.placeholder.com/800x600?text=Course'}" 
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale group-hover:grayscale-0" alt="Course">
+                            
+                            <div class="absolute top-3 left-3 flex items-center gap-2">
+                                <span class="px-2 py-1 bg-white/90 backdrop-blur text-[10px] font-bold uppercase tracking-widest rounded-md shadow-sm border border-gray-100">
+                                    <span class="w-1.5 h-1.5 rounded-full ${statusColor} inline-block mr-1"></span> ${e.status}
+                                </span>
                             </div>
-                            <span class="text-[#a7e169] font-medium text-sm group-hover:underline">View Content <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <span class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-2">${(e.courses.course_type || 'Course')}</span>
+                            <h3 class="font-medium text-lg mb-2 text-gray-900 group-hover:text-black line-clamp-2">${e.courses.title}</h3>
+                            <p class="text-sm text-gray-500 font-light mb-4 line-clamp-2 leading-relaxed">${e.courses.description || 'No description'}</p>
+                            
+                            <div class="mt-auto pt-4 border-t border-gray-50 flex justify-between items-center">
+                                <div class="text-xs text-gray-400 font-medium">
+                                    ${e.courses.duration_weeks || '-'} WEEKS
+                                </div>
+                                <span class="w-8 h-8 rounded-full border border-gray-100 flex items-center justify-center text-gray-400 group-hover:bg-black group-hover:text-white transition-colors">
+                                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                                </span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            `;
-        }).join('');
+                `;
+            }).join('');
 
-    const dashGrid = document.getElementById('dashboard-courses-grid');
-    if(dashGrid) dashGrid.innerHTML = gridHTML;
-    
-    const allGrid = document.getElementById('all-courses-grid');
-    if(allGrid) allGrid.innerHTML = gridHTML;
-}
+        const dashGrid = document.getElementById('dashboard-courses-grid');
+        if(dashGrid) dashGrid.innerHTML = gridHTML;
+        
+        const allGrid = document.getElementById('all-courses-grid');
+        if(allGrid) allGrid.innerHTML = gridHTML;
+    }
 
     function updateStats(enrollments) {
         setText('stat-enrolled', enrollments.length);
@@ -881,106 +701,75 @@
         setText('stat-files', '-'); 
     }
 
-    function getPriorityColor(priority) {
-        switch(priority) {
-            case 'urgent': return 'border-red-500';
-            case 'high': return 'border-orange-500';
-            default: return 'border-blue-500';
-        }
-    }
-
     function setText(id, text) {
         const el = document.getElementById(id);
         if (el) el.textContent = text || '-';
     }
 
-    // ✅ Simple & Robust Mobile Menu Toggle
-window.toggleMobileMenu = function() {
-    const mobileSidebar = document.getElementById('mobile-sidebar');
-    const mobileSidebarContent = document.getElementById('mobile-sidebar-content');
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const icon = mobileMenuBtn ? mobileMenuBtn.querySelector('i') : null;
+    window.toggleMobileMenu = function() {
+        const mobileSidebar = document.getElementById('mobile-sidebar');
+        const mobileSidebarContent = document.getElementById('mobile-sidebar-content');
+        
+        if (!mobileSidebar || !mobileSidebarContent) return;
 
-    if (!mobileSidebar || !mobileSidebarContent) return;
-
-    // Toggle Logic
-    if (mobileSidebar.classList.contains('hidden')) {
-        // Open
-        mobileSidebar.classList.remove('hidden');
-        setTimeout(() => {
-            mobileSidebarContent.classList.remove('-translate-x-full');
-        }, 10);
-        if(icon) {
-            icon.classList.remove('fa-bars');
-            icon.classList.add('fa-xmark');
+        if (mobileSidebar.classList.contains('hidden')) {
+            mobileSidebar.classList.remove('hidden');
+            setTimeout(() => {
+                mobileSidebarContent.classList.remove('-translate-x-full');
+            }, 10);
+        } else {
+            mobileSidebarContent.classList.add('-translate-x-full');
+            setTimeout(() => {
+                mobileSidebar.classList.add('hidden');
+            }, 300);
         }
-    } else {
-        // Close
-        mobileSidebarContent.classList.add('-translate-x-full');
-        setTimeout(() => {
-            mobileSidebar.classList.add('hidden');
-        }, 300);
-        if(icon) {
-            icon.classList.remove('fa-xmark');
-            icon.classList.add('fa-bars');
-        }
-    }
-};
+    };
 
-
-
-
-
-    // ============================================
-    // NAVIGATION & LOGOUT
-    // ============================================
-    
     window.switchSection = function(sectionId) {
         document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
         const activeLink = document.querySelector(`.sidebar-link[data-section="${sectionId}"]`);
         if(activeLink) activeLink.classList.add('active');
 
         document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+        
+        // Add fade animation
         const targetSection = document.getElementById(`${sectionId}-section`);
-        if(targetSection) targetSection.classList.remove('hidden');
+        if(targetSection) {
+            targetSection.classList.remove('hidden');
+            targetSection.classList.remove('fade-in-up'); 
+            void targetSection.offsetWidth; // trigger reflow
+            targetSection.classList.add('fade-in-up');
+        }
     };
 
-    // --- ALERT FIX ---
     window.openCourse = async function(courseId) {
-        console.log("Opening course:", courseId);
-        // 1. Find Course
         const enrollment = myEnrollments.find(e => e.courses.id === courseId);
         if (!enrollment) return;
         const course = enrollment.courses;
 
-        // 2. Update Detail UI
         setText('detail-course-title', course.title);
         setText('detail-course-desc', course.description || 'No description available.');
         setText('detail-course-type', course.course_type);
-        setText('detail-course-status', enrollment.status);
         
-        const coverEl = document.getElementById('detail-course-cover');
-        if (coverEl) coverEl.src = course.cover_image_url || 'https://via.placeholder.com/800x400?text=Course+Cover';
+        const statusEl = document.getElementById('detail-course-status');
+        if(statusEl) statusEl.innerHTML = `<span class="w-2 h-2 rounded-full ${enrollment.status === 'active' ? 'bg-green-500' : 'bg-gray-400'}"></span> ${enrollment.status.toUpperCase()}`;
 
-        // 3. Switch View
         document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
         const detailSection = document.getElementById('course-detail-view');
         
         if (detailSection) {
             detailSection.classList.remove('hidden');
+            detailSection.classList.add('fade-in-up');
             window.scrollTo(0, 0);
             await loadCourseFiles(courseId);
-        } else {
-            console.error("Detail View section not found!");
         }
     };
 
-    // Helper to load files
     async function loadCourseFiles(courseId) {
         const listContainer = document.getElementById('course-files-list');
         if(!listContainer) return;
         
-        listContainer.innerHTML = '<div class="text-center py-8"><i class="fa-solid fa-spinner fa-spin text-2xl text-gray-300"></i></div>';
+        listContainer.innerHTML = '<div class="text-center py-8"><i class="fa-solid fa-spinner fa-spin text-gray-300"></i></div>';
 
         try {
             const { data: files, error } = await supabase
@@ -992,30 +781,31 @@ window.toggleMobileMenu = function() {
             if (error) throw error;
 
             if (!files || files.length === 0) {
-                listContainer.innerHTML = '<p class="text-gray-500 text-center py-4">No files uploaded yet.</p>';
+                listContainer.innerHTML = '<p class="text-gray-400 text-center py-6 font-light text-sm">No materials uploaded yet.</p>';
                 return;
             }
 
+            // Minimalist File List
             listContainer.innerHTML = files.map(f => `
-                <div class="flex items-center justify-between p-4 bg-white border border-gray-100 rounded-xl hover:shadow-sm transition-all mb-3">
+                <div class="flex items-center justify-between p-4 bg-white border border-gray-100 rounded-xl hover:border-gray-300 transition-all group">
                     <div class="flex items-center gap-4">
-                        <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center text-blue-500">
-                            <i class="fa-solid fa-file-lines text-xl"></i>
+                        <div class="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-gray-400 group-hover:text-black transition-colors">
+                            <i class="fa-regular fa-file-lines"></i>
                         </div>
                         <div>
-                            <h4 class="font-medium text-gray-900">${f.file_name}</h4>
-                            <p class="text-xs text-gray-500">${new Date(f.upload_date).toLocaleDateString()}</p>
+                            <h4 class="font-medium text-gray-800 text-sm group-hover:text-black">${f.file_name}</h4>
+                            <p class="text-[10px] text-gray-400 uppercase tracking-wide">${new Date(f.upload_date).toLocaleDateString()}</p>
                         </div>
                     </div>
-                    <a href="${f.file_url}" target="_blank" class="px-4 py-2 bg-gray-100 text-gray-600 rounded-lg text-sm hover:bg-gray-200 transition-colors">
-                        <i class="fa-solid fa-download mr-2"></i> Download
+                    <a href="${f.file_url}" target="_blank" class="px-3 py-2 text-gray-400 hover:text-black hover:bg-gray-50 rounded-lg transition-colors text-xs">
+                        <i class="fa-solid fa-download"></i>
                     </a>
                 </div>
             `).join('');
 
         } catch (err) {
             console.error('Error loading files:', err);
-            listContainer.innerHTML = '<p class="text-red-500 text-center">Failed to load files.</p>';
+            listContainer.innerHTML = '<p class="text-red-400 text-center text-sm">Failed to load files.</p>';
         }
     }
 
@@ -1032,7 +822,7 @@ window.toggleMobileMenu = function() {
     window.confirmLogout = async function() {
         const btn = event.target; 
         const originalText = btn.textContent;
-        btn.textContent = 'Logging out...';
+        btn.textContent = '...';
         btn.disabled = true;
 
         try {
@@ -1048,8 +838,6 @@ window.toggleMobileMenu = function() {
         }
     };
 
-
-    // Sidebar Event Listeners
     document.querySelectorAll('.sidebar-link').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
@@ -1057,45 +845,7 @@ window.toggleMobileMenu = function() {
             switchSection(section);
         });
     });
-</script>
-
-
-
-
-        <!-- Logout Confirmation Modal -->
-<div id="logout-modal" class="hidden fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-    <!-- Background backdrop -->
-    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
-
-    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-        <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-            <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                <div class="sm:flex sm:items-start">
-                    
-                    <!-- Icon နေရာ (ပုံ ၂ ကဲ့သို့ အနီရောင်ဝိုင်းလေးဖြစ်အောင် ပြင်ထားပါသည်) -->
-                    <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                        <img src="https://cdn-icons-png.flaticon.com/512/10309/10309268.png" 
-                             alt="Logout" 
-                             class="h-6 w-6">
-                    </div>
-
-                    <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                        <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Logout</h3>
-                        <div class="mt-2">
-                            <p class="text-sm text-gray-500">အကောင့်ထွက်မည်</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                <button type="button" onclick="confirmLogout()" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Logout</button>
-                <button type="button" onclick="closeLogoutModal()" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
+    </script>
 
 </body>
 </html>
