@@ -186,9 +186,6 @@
         .load-more-btn.hidden {
             display: none;
         }
-        html {
-            scroll-behavior: smooth;
-        }
     </style>
 </head>
 <body class="bg-white text-[#323232]">
@@ -241,24 +238,14 @@
     </nav>
 
     <main>
-            <!-- 1. Hero Section: Title & Intro -->
-    <section class="relative min-h-[35vh] flex items-center justify-center overflow-hidden bg-white pt-24 pb-12">
-        <div class="relative z-10 text-center px-4" data-aos="fade-up">
-            <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-6 artdeone-font">
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-black to-[#a7e169]">Prompts Generator</span>
-            </h1>
-            
-            <p class="text-xl md:text-xl text-[#323232] mb-8 max-w-2xl mx-auto font-light tracking-wide leading-relaxed">
-                Explore our collection of AI-generated artworks with ready-to-use prompts
-            </p>
-
-            <!-- New Button: Scrolls to Generator -->
-            <a href="#prompt-generator" class="inline-block px-8 py-3 bg-[#a7e169] text-black font-bold rounded-full hover:bg-[#ed2939] hover:text-white transition-all duration-300 transform hover:-translate-y-1 shadow-md hover:shadow-lg text-sm sm:text-base">
-                Generate Your Prompt
-            </a>
-        </div>
-    </section>
-
+        <section class="relative min-h-[40vh] flex items-center justify-center overflow-hidden bg-white pt-16">
+            <div class="relative z-10 text-center px-4 py-20" data-aos="fade-up">
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-4 artdeone-font">
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-black to-[#a7e169]">AI Prompts Gallery</span>
+                </h1>
+                <p class="text-xl md:text-xl text-[#323232] mb-4 max-w-2xl mx-auto font-light tracking-wide">Explore our collection of AI-generated artworks with ready-to-use prompts</p>
+            </div>
+        </section>
 
         <section class="py-24 section-darker px-4">
             <div class="max-w-7xl mx-auto">
@@ -279,9 +266,11 @@
         <img class="lightbox-content" id="lightbox-img" src="" alt="Full size image">
     </div>
 
-    <!-- Prompt Generator Section - Add this just above the Footer -->
-<section id="prompt-generator" class="py-24 section-darker px-4">
-    <div class="max-w-7xl mx-auto">
+    
+
+        <!-- Prompt Generator Section - Add this just above the Footer -->
+<section class="py-24 section-darker px-4">
+    <div class="max-w-7xl mx-auto"> <!-- Changed from max-w-4xl to max-w-7xl for wider layout -->
         
         <!-- Header (Centered) -->
         <div class="text-center mb-12" data-aos="fade-up">
@@ -301,22 +290,23 @@
                 <!-- Input Section -->
                 <div class="mb-6">
                     <label for="topic-input" class="block text-sm font-semibold text-black mb-3">
-                        Input Text
+                        ခေါင်းစဉ် (သို့) အကြံဉာဏ် ထည့်ပါ
                     </label>
+                    <!-- Stacked input and button for better fit in column -->
                     <div class="flex flex-col gap-4">
-                        <textarea 
+                        <input 
+                            type="text" 
                             id="topic-input" 
-                            rows="3" 
-                            class="w-full px-6 py-4 border-2 border-[#e5e5e5] rounded-2xl text-[#323232] focus:outline-none focus:border-[#a7e169] transition-all duration-300 bg-white resize-none"
+                            class="w-full px-6 py-4 border-2 border-[#e5e5e5] rounded-2xl text-[#323232] focus:outline-none focus:border-[#a7e169] transition-all duration-300 bg-white"
                             placeholder="e.g., a serene forest with magical glowing mushrooms..."
-                        ></textarea>
+                        >
                     </div>
                 </div>
 
                 <!-- Style Options -->
                 <div class="mb-8">
                     <label class="block text-sm font-semibold text-black mb-3">
-                        Art Styles (Optional)
+                        အနုပညာပုံစံ (စိတ်ကြိုက်ရွေးချယ်ရန်)
                     </label>
                     <div class="flex flex-wrap gap-3">
                         <button class="style-btn px-4 py-2 rounded-full border-2 border-[#e5e5e5] text-sm font-medium text-[#323232] hover:border-[#a7e169] hover:bg-[#a7e169] hover:text-black transition-all duration-300" data-style="photorealistic">
@@ -340,7 +330,7 @@
                     </div>
                 </div>
 
-                <!-- Generate Button -->
+                <!-- Generate Button (Moved to bottom of left column) -->
                 <button 
                     id="generate-btn" 
                     class="w-full px-8 py-4 bg-[#a7e169] text-black font-bold rounded-2xl hover:bg-[#ed2939] hover:text-white transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg flex items-center justify-center gap-2"
@@ -359,7 +349,7 @@
             </div>
 
             <!-- RIGHT COLUMN: Output Result -->
-            <div class="h-full min-h-[400px]">
+            <div class="h-full min-h-[400px]"> <!-- Set minimum height for balance -->
                 <!-- Output Container -->
                 <div id="output-container" class="hidden h-full bg-white rounded-2xl p-8 shadow-lg flex flex-col border border-[#e5e5e5]">
                     <label class="block text-sm font-semibold text-black mb-3">
@@ -372,7 +362,7 @@
                             readonly
                         ></textarea>
                         
-                        <!-- Copy Button -->
+                        <!-- Copy Button moved to bottom for better mobile access -->
                         <button 
                             id="copy-generated-btn" 
                             class="w-full px-4 py-3 bg-[#a7e169] text-black font-semibold rounded-xl hover:bg-[#ed2939] hover:text-white transition-all duration-300 flex items-center justify-center gap-2 text-sm"
@@ -383,7 +373,7 @@
                     </div>
                 </div>
 
-                <!-- Placeholder State -->
+                <!-- Placeholder State (To fill space before generation) -->
                 <div id="placeholder-state" class="h-full bg-white rounded-2xl p-8 shadow-lg border-2 border-dashed border-[#e5e5e5] flex flex-col items-center justify-center text-gray-400">
                     <i class="fas fa-magic text-4xl mb-4 opacity-30"></i>
                     <p class="text-sm font-medium">Your generated prompt will appear here</p>
@@ -394,7 +384,7 @@
     </div>
 </section>
 
-<!-- Additional Styles -->
+<!-- Additional Styles for Prompt Generator -->
 <style>
     .style-btn.active {
         border-color: #a7e169;
@@ -427,7 +417,7 @@
         const topicInput = document.getElementById('topic-input');
         const generatedPrompt = document.getElementById('generated-prompt');
         const outputContainer = document.getElementById('output-container');
-        const placeholderState = document.getElementById('placeholder-state');
+        const placeholderState = document.getElementById('placeholder-state'); // Added placeholder ref
         const copyGeneratedBtn = document.getElementById('copy-generated-btn');
         const copyText = document.getElementById('copy-text');
         const btnText = document.getElementById('btn-text');
@@ -446,21 +436,6 @@
             });
         });
 
-        // Typing Animation Function (Smooth Effect)
-        function typeWriter(text, element, speed = 15) {
-            element.value = ''; // Clear previous text
-            let i = 0;
-            function type() {
-                if (i < text.length) {
-                    element.value += text.charAt(i);
-                    element.scrollTop = element.scrollHeight; // Auto-scroll to bottom
-                    i++;
-                    setTimeout(type, speed);
-                }
-            }
-            type();
-        }
-
         // Generate prompt function
         generateBtn.addEventListener('click', async function() {
             const topic = topicInput.value.trim();
@@ -475,18 +450,16 @@
             btnText.textContent = 'Generating...';
             btnSpinner.classList.remove('hidden');
             errorMessage.classList.add('hidden');
+            // outputContainer.classList.add('hidden'); // Optional: Keep hidden or show loading
 
             try {
-                // Fetch the prompt
                 const prompt = await generateAIPrompt(topic, selectedStyle);
+                generatedPrompt.value = prompt;
                 
                 // Show Output & Hide Placeholder
                 outputContainer.classList.remove('hidden');
                 if(placeholderState) placeholderState.classList.add('hidden');
                 
-                // Start Typing Animation!
-                typeWriter(prompt, generatedPrompt);
-
                 // Scroll to output (especially for mobile)
                 if(window.innerWidth < 768) {
                     outputContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -524,7 +497,7 @@
         // Allow Enter key to generate
         topicInput.addEventListener('keypress', function(e) {
             if (e.key === 'Enter' && !generateBtn.disabled) {
-                generateBtn.click(); // Press Enter to generate
+                generateBtn.click();
             }
         });
 
@@ -534,15 +507,21 @@
         }
     });
 
-    // API call to our own Netlify Function
+        // API call to our own Netlify Function
     async function generateAIPrompt(topic, style) {
+        // ဒီလမ်းကြောင်းက ကျွန်တော်တို့ ခုနကဆောက်ခဲ့တဲ့ Netlify Function ကို ညွှန်းတာပါ
         const FUNCTION_URL = '/.netlify/functions/generate-prompt';
 
         try {
             const response = await fetch(FUNCTION_URL, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ topic: topic, style: style })
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    topic: topic,
+                    style: style
+                })
             });
 
             if (!response.ok) {
@@ -562,6 +541,7 @@
             throw new Error('Failed to generate. Please try again.');
         }
     }
+
 </script>
 
 
@@ -1004,4 +984,4 @@
         });
     </script>
 </body>
-</html>
+</html>"
