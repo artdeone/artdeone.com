@@ -8,7 +8,7 @@ exports.handler = async function(event, context) {
 
     // API Configuration
         API_KEY = 'sk-viYHtf-2B2MjDau1OE6fyGNlpS-b8qCPkk9JZLD9kIRoaOrXPCrSRVS_y0b6gJM'; 
-        const MODEL_NAME = 'glm-4.5-air:free'; 
+        const MODEL_NAME = 'deepseek-r1-0528:free'; 
     const TARGET_URL = 'https://api.routeway.ai/v1/chat/completions';
 
     try {
