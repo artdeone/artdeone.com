@@ -250,104 +250,121 @@
         </div>
     </section>
 
-    <!-- 2. AI Prompt Generator Section (Moved Here) -->
-    <section class="py-12 px-4 border-b border-gray-100 bg-gray-50/50">
-        <div class="max-w-7xl mx-auto">
-            
-            <!-- Section Header -->
-            <div class="text-center mb-10" data-aos="fade-up">
-                <h2 class="text-2xl sm:text-3xl font-bold mb-3 artdeone-font text-[#323232]">
-                    Create Your Own Prompt
-                </h2>
-                <p class="text-sm text-gray-500 font-light">
-                    Use our AI tool to generate detailed art prompts in seconds
-                </p>
-            </div>
-
-            <!-- Generator Layout -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start" data-aos="fade-up" data-aos-delay="100">
-                
-                <!-- LEFT COLUMN: Inputs -->
-                <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 h-full">
-                    <!-- Topic Input -->
-                    <div class="mb-6">
-                        <label for="topic-input" class="block text-sm font-bold text-[#323232] mb-3">
-                            ခေါင်းစဉ် (သို့) အကြံဉာဏ် ထည့်ပါ
-                        </label>
-                        <div class="flex flex-col gap-4">
-                            <input 
-                                type="text" 
-                                id="topic-input" 
-                                class="w-full px-5 py-3 border-2 border-[#e5e5e5] rounded-xl text-[#323232] focus:outline-none focus:border-[#a7e169] transition-all duration-300 bg-white placeholder-gray-400"
-                                placeholder="e.g., a cybernetic tiger in a neon forest..."
-                            >
-                        </div>
-                    </div>
-
-                    <!-- Style Options -->
-                    <div class="mb-8">
-                        <label class="block text-sm font-bold text-[#323232] mb-3">
-                            အနုပညာပုံစံ (စိတ်ကြိုက်ရွေးချယ်ရန်)
-                        </label>
-                        <div class="flex flex-wrap gap-2">
-                            <button class="style-btn px-4 py-2 rounded-full border border-[#e5e5e5] text-xs sm:text-sm font-medium text-[#323232] hover:border-[#a7e169] hover:bg-[#a7e169] hover:text-black transition-all duration-300" data-style="photorealistic">Photorealistic</button>
-                            <button class="style-btn px-4 py-2 rounded-full border border-[#e5e5e5] text-xs sm:text-sm font-medium text-[#323232] hover:border-[#a7e169] hover:bg-[#a7e169] hover:text-black transition-all duration-300" data-style="cinematic">Cinematic</button>
-                            <button class="style-btn px-4 py-2 rounded-full border border-[#e5e5e5] text-xs sm:text-sm font-medium text-[#323232] hover:border-[#a7e169] hover:bg-[#a7e169] hover:text-black transition-all duration-300" data-style="fantasy">Fantasy</button>
-                            <button class="style-btn px-4 py-2 rounded-full border border-[#e5e5e5] text-xs sm:text-sm font-medium text-[#323232] hover:border-[#a7e169] hover:bg-[#a7e169] hover:text-black transition-all duration-300" data-style="vintage">Vintage</button>
-                            <button class="style-btn px-4 py-2 rounded-full border border-[#e5e5e5] text-xs sm:text-sm font-medium text-[#323232] hover:border-[#a7e169] hover:bg-[#a7e169] hover:text-black transition-all duration-300" data-style="minimalist">Minimalist</button>
-                            <button class="style-btn px-4 py-2 rounded-full border border-[#e5e5e5] text-xs sm:text-sm font-medium text-[#323232] hover:border-[#a7e169] hover:bg-[#a7e169] hover:text-black transition-all duration-300" data-style="3d-render">3D Render</button>
-                        </div>
-                    </div>
-
-                    <!-- Generate Button -->
-                    <button 
-                        id="generate-btn" 
-                        class="w-full px-8 py-4 bg-[#a7e169] text-black font-bold rounded-xl hover:bg-[#ed2939] hover:text-white transition-all duration-300 transform hover:-translate-y-1 shadow-sm hover:shadow-md flex items-center justify-center gap-2"
-                    >
-                        <span id="btn-text">Generate Prompt</span>
-                        <div id="btn-spinner" class="hidden">
-                            <i class="fas fa-circle-notch fa-spin"></i>
-                        </div>
-                    </button>
-
-                    <!-- Error Message -->
-                    <div id="error-message" class="hidden mt-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm text-center"></div>
-                </div>
-
-                <!-- RIGHT COLUMN: Output -->
-                <div class="h-full min-h-[400px]">
-                    <!-- Output Container -->
-                    <div id="output-container" class="hidden h-full bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 flex flex-col">
-                        <label class="block text-sm font-bold text-[#323232] mb-3">
-                            Generated Result
-                        </label>
-                        <div class="relative flex-grow flex flex-col">
-                            <textarea 
-                                id="generated-prompt" 
-                                class="flex-grow w-full px-5 py-4 border-2 border-[#e5e5e5] rounded-xl text-[#323232] focus:outline-none focus:border-[#a7e169] transition-all duration-300 bg-[#f9f9f9] resize-none font-mono text-sm leading-relaxed mb-4"
-                                readonly
-                            ></textarea>
-                            
-                            <button 
-                                id="copy-generated-btn" 
-                                class="w-full px-4 py-3 bg-[#a7e169] text-black font-semibold rounded-xl hover:bg-[#ed2939] hover:text-white transition-all duration-300 flex items-center justify-center gap-2 text-sm"
-                            >
-                                <i class="fas fa-copy"></i>
-                                <span id="copy-text">Copy Prompt</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Placeholder State -->
-                    <div id="placeholder-state" class="h-full bg-white rounded-2xl p-8 shadow-sm border-2 border-dashed border-[#e5e5e5] flex flex-col items-center justify-center text-gray-400">
-                        <i class="fas fa-magic text-4xl mb-4 opacity-30 text-[#a7e169]"></i>
-                        <p class="text-sm font-medium">Your generated prompt will appear here</p>
-                    </div>
-                </div>
-
-            </div>
+    <section class="py-24 section-darker px-4">
+    <div class="max-w-7xl mx-auto"> <!-- Changed from max-w-4xl to max-w-7xl for wider layout -->
+        
+        <!-- Header (Centered) -->
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 artdeone-font">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-black to-[#a7e169]">AI Prompt Generator</span>
+            </h2>
+            <p class="text-lg text-[#323232] mb-4 max-w-2xl mx-auto font-light tracking-wide">
+                Generate detailed, creative prompts for AI art using our intelligent prompt generator
+            </p>
         </div>
-    </section>
+
+        <!-- Main Content Grid (Left/Right Layout) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start" data-aos="fade-up" data-aos-delay="200">
+            
+            <!-- LEFT COLUMN: Inputs & Controls -->
+            <div class="bg-white rounded-2xl p-8 shadow-lg h-full">
+                <!-- Input Section -->
+                <div class="mb-6">
+                    <label for="topic-input" class="block text-sm font-semibold text-black mb-3">
+                        Input Text
+                    </label>
+                    <!-- Stacked input and button for better fit in column -->
+                    <div class="flex flex-col gap-4">
+                        <textarea 
+                            id="topic-input" 
+                            rows="3" 
+                            class="w-full px-6 py-4 border-2 border-[#e5e5e5] rounded-2xl text-[#323232] focus:outline-none focus:border-[#a7e169] transition-all duration-300 bg-white resize-none"
+                            placeholder="e.g., a serene forest with magical glowing mushrooms..."
+                        ></textarea>
+
+                    </div>
+                </div>
+
+                <!-- Style Options -->
+                <div class="mb-8">
+                    <label class="block text-sm font-semibold text-black mb-3">
+                        Art Styles (Optional)
+                    </label>
+                    <div class="flex flex-wrap gap-3">
+                        <button class="style-btn px-4 py-2 rounded-full border-2 border-[#e5e5e5] text-sm font-medium text-[#323232] hover:border-[#a7e169] hover:bg-[#a7e169] hover:text-black transition-all duration-300" data-style="photorealistic">
+                            Photorealistic
+                        </button>
+                        <button class="style-btn px-4 py-2 rounded-full border-2 border-[#e5e5e5] text-sm font-medium text-[#323232] hover:border-[#a7e169] hover:bg-[#a7e169] hover:text-black transition-all duration-300" data-style="cinematic">
+                            Cinematic
+                        </button>
+                        <button class="style-btn px-4 py-2 rounded-full border-2 border-[#e5e5e5] text-sm font-medium text-[#323232] hover:border-[#a7e169] hover:bg-[#a7e169] hover:text-black transition-all duration-300" data-style="fantasy">
+                            Fantasy
+                        </button>
+                        <button class="style-btn px-4 py-2 rounded-full border-2 border-[#e5e5e5] text-sm font-medium text-[#323232] hover:border-[#a7e169] hover:bg-[#a7e169] hover:text-black transition-all duration-300" data-style="vintage">
+                            Vintage
+                        </button>
+                        <button class="style-btn px-4 py-2 rounded-full border-2 border-[#e5e5e5] text-sm font-medium text-[#323232] hover:border-[#a7e169] hover:bg-[#a7e169] hover:text-black transition-all duration-300" data-style="minimalist">
+                            Minimalist
+                        </button>
+                        <button class="style-btn px-4 py-2 rounded-full border-2 border-[#e5e5e5] text-sm font-medium text-[#323232] hover:border-[#a7e169] hover:bg-[#a7e169] hover:text-black transition-all duration-300" data-style="surreal">
+                            Surreal
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Generate Button (Moved to bottom of left column) -->
+                <button 
+                    id="generate-btn" 
+                    class="w-full px-8 py-4 bg-[#a7e169] text-black font-bold rounded-2xl hover:bg-[#ed2939] hover:text-white transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg flex items-center justify-center gap-2"
+                >
+                    <span id="btn-text">Generate Prompt</span>
+                    <div id="btn-spinner" class="hidden">
+                        <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </div>
+                </button>
+
+                <!-- Error Message -->
+                <div id="error-message" class="hidden mt-4 p-4 bg-red-50 border-2 border-red-200 rounded-xl text-red-600 text-sm"></div>
+            </div>
+
+            <!-- RIGHT COLUMN: Output Result -->
+            <div class="h-full min-h-[400px]"> <!-- Set minimum height for balance -->
+                <!-- Output Container -->
+                <div id="output-container" class="hidden h-full bg-white rounded-2xl p-8 shadow-lg flex flex-col border border-[#e5e5e5]">
+                    <label class="block text-sm font-semibold text-black mb-3">
+                        Generated Prompt
+                    </label>
+                    <div class="relative flex-grow flex flex-col">
+                        <textarea 
+                            id="generated-prompt" 
+                            class="flex-grow w-full px-6 py-4 border-2 border-[#e5e5e5] rounded-2xl text-[#323232] focus:outline-none focus:border-[#a7e169] transition-all duration-300 bg-[#f9f9f9] resize-none font-mono text-sm leading-relaxed mb-4"
+                            readonly
+                        ></textarea>
+                        
+                        <!-- Copy Button moved to bottom for better mobile access -->
+                        <button 
+                            id="copy-generated-btn" 
+                            class="w-full px-4 py-3 bg-[#a7e169] text-black font-semibold rounded-xl hover:bg-[#ed2939] hover:text-white transition-all duration-300 flex items-center justify-center gap-2 text-sm"
+                        >
+                            <i class="fas fa-copy"></i>
+                            <span id="copy-text">Copy Prompt</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Placeholder State (To fill space before generation) -->
+                <div id="placeholder-state" class="h-full bg-white rounded-2xl p-8 shadow-lg border-2 border-dashed border-[#e5e5e5] flex flex-col items-center justify-center text-gray-400">
+                    <i class="fas fa-magic text-4xl mb-4 opacity-30"></i>
+                    <p class="text-sm font-medium">Your generated prompt will appear here</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
 
     <!-- 3. Existing Prompts Gallery (Below Generator) -->
     <section class="py-24 px-4 bg-white">
