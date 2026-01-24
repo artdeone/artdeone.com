@@ -382,6 +382,33 @@
     </div>
 </section>
 
+<!-- Additional Styles for Prompt Generator -->
+<style>
+    .style-btn.active {
+        border-color: #a7e169;
+        background-color: #a7e169;
+        color: #000;
+    }
+
+    .style-btn:hover {
+        transform: translateY(-2px);
+    }
+
+    #topic-input::placeholder {
+        color: #999;
+    }
+
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+    }
+
+    .loading {
+        animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+</style>
+
+
 <!-- JavaScript for Prompt Generator -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
