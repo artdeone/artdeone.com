@@ -186,9 +186,6 @@
         .load-more-btn.hidden {
             display: none;
         }
-        html {
-            scroll-behavior: smooth;
-        }
     </style>
 </head>
 <body class="bg-white text-[#323232]">
@@ -241,11 +238,12 @@
     </nav>
 
     <main>
-            <!-- 1. Hero Section: Title & Intro -->
+    <!-- 1. Hero Section: Title & Intro -->
+        <!-- 1. Hero Section: Title & Intro -->
     <section class="relative min-h-[35vh] flex items-center justify-center overflow-hidden bg-white pt-24 pb-12">
         <div class="relative z-10 text-center px-4" data-aos="fade-up">
             <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-6 artdeone-font">
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-black to-[#a7e169]">Prompts Generator</span>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-black to-[#a7e169]">AI Prompts Gallery</span>
             </h1>
             
             <p class="text-xl md:text-xl text-[#323232] mb-8 max-w-2xl mx-auto font-light tracking-wide leading-relaxed">
@@ -260,28 +258,8 @@
     </section>
 
 
-        <section class="py-0 section-darker px-4">
-            <div class="max-w-7xl mx-auto">
-                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8" id="prompts-gallery">
-                    </div>
-
-                <div class="text-center mt-12">
-                    <button id="load-more-btn" class="load-more-btn">
-                        Load More Prompts
-                    </button>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-        <span class="lightbox-close">&times;</span>
-        <img class="lightbox-content" id="lightbox-img" src="" alt="Full size image">
-    </div>
-
-    <!-- Prompt Generator Section - Add this just above the Footer -->
-<section id="prompt-generator" class="py-24 section-darker px-4">
-    <div class="max-w-7xl mx-auto">
+    <section  class="py-24 section-darker px-4">
+    <div class="max-w-7xl mx-auto"> <!-- Changed from max-w-4xl to max-w-7xl for wider layout -->
         
         <!-- Header (Centered) -->
         <div class="text-center mb-12" data-aos="fade-up">
@@ -303,6 +281,7 @@
                     <label for="topic-input" class="block text-sm font-semibold text-black mb-3">
                         Input Text
                     </label>
+                    <!-- Stacked input and button for better fit in column -->
                     <div class="flex flex-col gap-4">
                         <textarea 
                             id="topic-input" 
@@ -310,6 +289,7 @@
                             class="w-full px-6 py-4 border-2 border-[#e5e5e5] rounded-2xl text-[#323232] focus:outline-none focus:border-[#a7e169] transition-all duration-300 bg-white resize-none"
                             placeholder="e.g., a serene forest with magical glowing mushrooms..."
                         ></textarea>
+
                     </div>
                 </div>
 
@@ -340,10 +320,10 @@
                     </div>
                 </div>
 
-                <!-- Generate Button -->
+                <!-- Generate Button (Moved to bottom of left column) -->
                 <button 
                     id="generate-btn" 
-                    class="w-full px-8 py-4 bg-[#a7e169] text-black font-bold rounded-full hover:bg-[#ed2939] hover:text-white transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg flex items-center justify-center gap-2"
+                    class="w-full px-8 py-4 bg-[#a7e169] text-black font-bold rounded-2xl hover:bg-[#ed2939] hover:text-white transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg flex items-center justify-center gap-2"
                 >
                     <span id="btn-text">Generate Prompt</span>
                     <div id="btn-spinner" class="hidden">
@@ -359,9 +339,9 @@
             </div>
 
             <!-- RIGHT COLUMN: Output Result -->
-            <div class="h-full min-h-[400px]">
+            <div class="h-full min-h-[400px]"> <!-- Set minimum height for balance -->
                 <!-- Output Container -->
-                <div id="output-container" class="hidden h-full bg-white rounded-full p-8 shadow-lg flex flex-col border border-[#e5e5e5]">
+                <div id="output-container" class="hidden h-full bg-white rounded-2xl p-8 shadow-lg flex flex-col border border-[#e5e5e5]">
                     <label class="block text-sm font-semibold text-black mb-3">
                         Generated Prompt
                     </label>
@@ -372,7 +352,7 @@
                             readonly
                         ></textarea>
                         
-                        <!-- Copy Button -->
+                        <!-- Copy Button moved to bottom for better mobile access -->
                         <button 
                             id="copy-generated-btn" 
                             class="w-full px-4 py-3 bg-[#a7e169] text-black font-semibold rounded-xl hover:bg-[#ed2939] hover:text-white transition-all duration-300 flex items-center justify-center gap-2 text-sm"
@@ -383,7 +363,7 @@
                     </div>
                 </div>
 
-                <!-- Placeholder State -->
+                <!-- Placeholder State (To fill space before generation) -->
                 <div id="placeholder-state" class="h-full bg-white rounded-2xl p-8 shadow-lg border-2 border-dashed border-[#e5e5e5] flex flex-col items-center justify-center text-gray-400">
                     <i class="fas fa-magic text-4xl mb-4 opacity-30"></i>
                     <p class="text-sm font-medium">Your generated prompt will appear here</p>
@@ -394,7 +374,37 @@
     </div>
 </section>
 
-<!-- Additional Styles -->
+    <!-- 3. Existing Prompts Gallery (Below Generator) -->
+    <section class="py-24 px-4 bg-white">
+        <div class="max-w-7xl mx-auto">
+            
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl font-bold mb-4 artdeone-font text-[#323232]">Recent Masterpieces</h2>
+                <div class="w-16 h-1 bg-[#a7e169] mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8" id="prompts-gallery">
+                <!-- JS will load prompt cards here -->
+            </div>
+
+            <div class="text-center mt-16" data-aos="fade-up">
+                <button id="load-more-btn" class="load-more-btn px-8 py-3 rounded-full border border-gray-300 hover:border-black hover:bg-black hover:text-white transition-all duration-300 font-medium text-sm">
+                    Load More Prompts
+                </button>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightbox-img" src="" alt="Full size image">
+    </div>
+
+     
+
+<!-- Additional Styles for Prompt Generator -->
 <style>
     .style-btn.active {
         border-color: #a7e169;
@@ -420,15 +430,15 @@
     }
 </style>
 
+
 <!-- JavaScript for Prompt Generator -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // ... (Variable Declarations remain the same) ...
         const generateBtn = document.getElementById('generate-btn');
         const topicInput = document.getElementById('topic-input');
         const generatedPrompt = document.getElementById('generated-prompt');
         const outputContainer = document.getElementById('output-container');
-        const placeholderState = document.getElementById('placeholder-state');
+        const placeholderState = document.getElementById('placeholder-state'); // Added placeholder ref
         const copyGeneratedBtn = document.getElementById('copy-generated-btn');
         const copyText = document.getElementById('copy-text');
         const btnText = document.getElementById('btn-text');
@@ -438,7 +448,7 @@
 
         let selectedStyle = '';
 
-        // ... (Style Button Logic remains the same) ...
+        // Style button selection
         styleBtns.forEach(btn => {
             btn.addEventListener('click', function() {
                 styleBtns.forEach(b => b.classList.remove('active'));
@@ -447,45 +457,7 @@
             });
         });
 
-        // ==========================================
-        //  NATURAL TYPING EFFECT (Variable Speed)
-        // ==========================================
-        function typeWriter(text, element) {
-            element.value = ''; 
-            let i = 0;
-            
-            function type() {
-                if (i < text.length) {
-                    // Add character
-                    element.value += text.charAt(i);
-                    element.scrollTop = element.scrollHeight;
-                    i++;
-
-                    // Calculate Speed based on punctuation (Natural Feel)
-                    let delay = 5; // Base speed (very fast)
-
-                    const char = text.charAt(i - 1);
-                    
-                    // Pause slightly on punctuation marks like AI is "thinking"
-                    if (char === ',' || char === '.') {
-                        delay = 30; 
-                    } else if (Math.random() > 0.9) {
-                        // Random tiny variations to mimic human typing
-                        delay += Math.random() * 15;
-                    }
-
-                    // Ease-Out Logic: Slow down slightly towards the very end
-                    if (i > text.length * 0.9) {
-                        delay += 10;
-                    }
-
-                    setTimeout(type, delay);
-                }
-            }
-            type();
-        }
-
-        // ... (Generate Button Logic remains the same) ...
+        // Generate prompt function
         generateBtn.addEventListener('click', async function() {
             const topic = topicInput.value.trim();
             
@@ -494,20 +466,22 @@
                 return;
             }
 
+            // Show loading state
             generateBtn.disabled = true;
             btnText.textContent = 'Generating...';
             btnSpinner.classList.remove('hidden');
             errorMessage.classList.add('hidden');
+            // outputContainer.classList.add('hidden'); // Optional: Keep hidden or show loading
 
             try {
                 const prompt = await generateAIPrompt(topic, selectedStyle);
+                generatedPrompt.value = prompt;
                 
+                // Show Output & Hide Placeholder
                 outputContainer.classList.remove('hidden');
                 if(placeholderState) placeholderState.classList.add('hidden');
                 
-                // Call the new Natural Typer
-                typeWriter(prompt, generatedPrompt, 5);
-
+                // Scroll to output (especially for mobile)
                 if(window.innerWidth < 768) {
                     outputContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }
@@ -521,7 +495,7 @@
             }
         });
 
-        // ... (Copy Button & API Function remain the same) ...
+        // Copy generated prompt
         copyGeneratedBtn.addEventListener('click', async function() {
             const text = generatedPrompt.value;
             if (text) {
@@ -530,46 +504,66 @@
                     const originalHTML = copyText.textContent;
                     copyText.textContent = 'Copied!';
                     copyGeneratedBtn.classList.add('copied');
+                    
                     setTimeout(() => {
                         copyText.textContent = 'Copy Prompt';
                         copyGeneratedBtn.classList.remove('copied');
                     }, 2000);
-                } catch (err) { console.error(err); }
+                } catch (err) {
+                    console.error('Failed to copy:', err);
+                }
             }
         });
 
+        // Allow Enter key to generate
         topicInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' && !generateBtn.disabled) generateBtn.click();
+            if (e.key === 'Enter' && !generateBtn.disabled) {
+                generateBtn.click();
+            }
         });
 
-        function showError(msg) {
-            errorMessage.textContent = msg;
+        function showError(message) {
+            errorMessage.textContent = message;
             errorMessage.classList.remove('hidden');
         }
     });
 
+        // API call to our own Netlify Function
     async function generateAIPrompt(topic, style) {
+        // ဒီလမ်းကြောင်းက ကျွန်တော်တို့ ခုနကဆောက်ခဲ့တဲ့ Netlify Function ကို ညွှန်းတာပါ
         const FUNCTION_URL = '/.netlify/functions/generate-prompt';
+
         try {
             const response = await fetch(FUNCTION_URL, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ topic: topic, style: style })
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    topic: topic,
+                    style: style
+                })
             });
+
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));
                 throw new Error(errorData.error || `Server Error: ${response.status}`);
             }
+
             const data = await response.json();
-            if (data.choices && data.choices[0]) return data.choices[0].message.content.trim();
-            throw new Error('Invalid response');
+            
+            if (data.choices && data.choices[0] && data.choices[0].message) {
+                return data.choices[0].message.content.trim();
+            } else {
+                throw new Error('Invalid response from server');
+            }
         } catch (error) {
-            throw error;
+            console.error('Generation Error:', error);
+            throw new Error('Failed to generate. Please try again.');
         }
     }
+
 </script>
-
-
 
     <footer class="bg-white text-[#323232] py-12 border-t border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
