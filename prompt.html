@@ -423,6 +423,7 @@
 <!-- JavaScript for Prompt Generator -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // ... (Variable Declarations remain the same) ...
         const generateBtn = document.getElementById('generate-btn');
         const topicInput = document.getElementById('topic-input');
         const generatedPrompt = document.getElementById('generated-prompt');
@@ -437,7 +438,7 @@
 
         let selectedStyle = '';
 
-        // Style button selection
+        // ... (Style Button Logic remains the same) ...
         styleBtns.forEach(btn => {
             btn.addEventListener('click', function() {
                 styleBtns.forEach(b => b.classList.remove('active'));
@@ -446,22 +447,45 @@
             });
         });
 
-        // Typing Animation Function (Smooth Effect)
-        function typeWriter(text, element, speed = 15) {
-            element.value = ''; // Clear previous text
+        // ==========================================
+        //  NATURAL TYPING EFFECT (Variable Speed)
+        // ==========================================
+        function typeWriter(text, element) {
+            element.value = ''; 
             let i = 0;
+            
             function type() {
                 if (i < text.length) {
+                    // Add character
                     element.value += text.charAt(i);
-                    element.scrollTop = element.scrollHeight; // Auto-scroll to bottom
+                    element.scrollTop = element.scrollHeight;
                     i++;
-                    setTimeout(type, speed);
+
+                    // Calculate Speed based on punctuation (Natural Feel)
+                    let delay = 5; // Base speed (very fast)
+
+                    const char = text.charAt(i - 1);
+                    
+                    // Pause slightly on punctuation marks like AI is "thinking"
+                    if (char === ',' || char === '.') {
+                        delay = 30; 
+                    } else if (Math.random() > 0.9) {
+                        // Random tiny variations to mimic human typing
+                        delay += Math.random() * 15;
+                    }
+
+                    // Ease-Out Logic: Slow down slightly towards the very end
+                    if (i > text.length * 0.9) {
+                        delay += 10;
+                    }
+
+                    setTimeout(type, delay);
                 }
             }
             type();
         }
 
-        // Generate prompt function
+        // ... (Generate Button Logic remains the same) ...
         generateBtn.addEventListener('click', async function() {
             const topic = topicInput.value.trim();
             
@@ -470,24 +494,20 @@
                 return;
             }
 
-            // Show loading state
             generateBtn.disabled = true;
             btnText.textContent = 'Generating...';
             btnSpinner.classList.remove('hidden');
             errorMessage.classList.add('hidden');
 
             try {
-                // Fetch the prompt
                 const prompt = await generateAIPrompt(topic, selectedStyle);
                 
-                // Show Output & Hide Placeholder
                 outputContainer.classList.remove('hidden');
                 if(placeholderState) placeholderState.classList.add('hidden');
                 
-                // Start Typing Animation!
-                typeWriter(prompt, generatedPrompt, 5);
+                // Call the new Natural Typer
+                typeWriter(prompt, generatedPrompt);
 
-                // Scroll to output (especially for mobile)
                 if(window.innerWidth < 768) {
                     outputContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }
@@ -501,7 +521,7 @@
             }
         });
 
-        // Copy generated prompt
+        // ... (Copy Button & API Function remain the same) ...
         copyGeneratedBtn.addEventListener('click', async function() {
             const text = generatedPrompt.value;
             if (text) {
@@ -510,58 +530,45 @@
                     const originalHTML = copyText.textContent;
                     copyText.textContent = 'Copied!';
                     copyGeneratedBtn.classList.add('copied');
-                    
                     setTimeout(() => {
                         copyText.textContent = 'Copy Prompt';
                         copyGeneratedBtn.classList.remove('copied');
                     }, 2000);
-                } catch (err) {
-                    console.error('Failed to copy:', err);
-                }
+                } catch (err) { console.error(err); }
             }
         });
 
-        // Allow Enter key to generate
         topicInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' && !generateBtn.disabled) {
-                generateBtn.click(); // Press Enter to generate
-            }
+            if (e.key === 'Enter' && !generateBtn.disabled) generateBtn.click();
         });
 
-        function showError(message) {
-            errorMessage.textContent = message;
+        function showError(msg) {
+            errorMessage.textContent = msg;
             errorMessage.classList.remove('hidden');
         }
     });
 
-    // API call to our own Netlify Function
     async function generateAIPrompt(topic, style) {
         const FUNCTION_URL = '/.netlify/functions/generate-prompt';
-
         try {
             const response = await fetch(FUNCTION_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ topic: topic, style: style })
             });
-
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));
                 throw new Error(errorData.error || `Server Error: ${response.status}`);
             }
-
             const data = await response.json();
-            
-            if (data.choices && data.choices[0] && data.choices[0].message) {
-                return data.choices[0].message.content.trim();
-            } else {
-                throw new Error('Invalid response from server');
-            }
+            if (data.choices && data.choices[0]) return data.choices[0].message.content.trim();
+            throw new Error('Invalid response');
         } catch (error) {
-            console.error('Generation Error:', error);
-            throw new Error('Failed to generate. Please try again.');
+            throw error;
         }
     }
+</script>
+
 </script>
 
 
