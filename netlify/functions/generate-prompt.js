@@ -1,70 +1,78 @@
-// netlify/functions/generate-prompt.js
-
 exports.handler = async function(event, context) {
     // Only allow POST requests
     if (event.httpMethod !== "POST") {
         return { statusCode: 405, body: "Method Not Allowed" };
     }
 
-    // API Configuration
-        API_KEY = 'sk-viYHtf-2B2MjDau1OE6fyGNlpS-b8qCPkk9JZLD9kIRoaOrXPCrSRVS_y0b6gJM'; 
-        const MODEL_NAME = 'devstral-2512:free'; 
-    const TARGET_URL = 'https://api.routeway.ai/v1/chat/completions';
-
     try {
-        const requestBody = JSON.parse(event.body);
-        const { topic, style } = requestBody;
-
-        if (!topic) {
-            return { statusCode: 400, body: JSON.stringify({ error: "Topic is required" }) };
-        }
+        const { topic, style } = JSON.parse(event.body);
+        
+        // 1. OpenRouter API Key
+        // Netlify Env Var ထဲမှာ ထည့်ထားရင် process.env.OPENROUTER_API_KEY
+        // မထည့်ရသေးရင် "sk-or-v1-..." နေရာမှာ တိုက်ရိုက်ထည့်ပါ။
+        const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY || "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"; 
 
         const systemPrompt = `You are an expert AI prompt generator. Create detailed, creative prompts for AI art based on the user's topic.
         Guidelines:
-        1. Vivid, descriptive details (lighting, composition, mood, colors).
-        2. Technical parameters (aspect ratio, camera settings).
-        3. Specific to high-quality results ("high resolution", "8k").
-        4. ${style ? `Focus heavily on this art style: ${style}.` : ''}
+        1. Vivid details (lighting, composition, mood).
+        2. Technical specs (aspect ratio, camera).
+        3. ${style ? `Style Focus: ${style}` : ''}
         Respond with ONLY the prompt text.`;
 
         const userPrompt = `Create a detailed AI image generation prompt for: ${topic}`;
 
-        // Call the external API (Server-side fetch)
-        const response = await fetch(TARGET_URL, {
-            method: 'POST',
+        // 2. Call OpenRouter API
+        const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${API_KEY}`
+                "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
+                "Content-Type": "application/json",
+                // Optional headers for OpenRouter rankings
+                "HTTP-Referer": "https://artdeone.com", 
+                "X-Title": "ART de ONE Prompt Gen" 
             },
             body: JSON.stringify({
-                model: MODEL_NAME,
-                messages: [
-                    { role: 'system', content: systemPrompt },
-                    { role: 'user', content: userPrompt }
+                // 3. Choose a Free or Cheap Text Model
+                // 'google/gemini-2.0-flash-exp:free' is very fast and free
+                // 'meta-llama/llama-3-8b-instruct:free' is also good
+                "model": "google/gemini-2.0-flash-exp:free", 
+                
+                "messages": [
+                    { "role": "system", "content": systemPrompt },
+                    { "role": "user", "content": userPrompt }
                 ],
-                temperature: 0.7
+                "temperature": 0.7,
+                "max_tokens": 1000
             })
         });
 
-        const data = await response.json();
-
         if (!response.ok) {
-            return {
-                statusCode: response.status,
-                body: JSON.stringify({ error: data.error || "API Error" })
-            };
+            const errText = await response.text();
+            throw new Error(`OpenRouter Error: ${response.status} - ${errText}`);
         }
 
+        const data = await response.json();
+        
+        // 4. Extract Content
+        const content = data.choices?.[0]?.message?.content;
+        
+        if (!content) {
+             throw new Error("No content returned from AI");
+        }
+
+        // 5. Return Success Response
         return {
             statusCode: 200,
-            body: JSON.stringify(data)
+            body: JSON.stringify({ 
+                choices: [{ message: { content: content } }] 
+            }) 
         };
 
     } catch (error) {
         console.error("Function Error:", error);
         return {
             statusCode: 500,
-            body: JSON.stringify({ error: "Internal Server Error" })
+            body: JSON.stringify({ error: error.message })
         };
     }
 };
