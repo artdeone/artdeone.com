@@ -936,7 +936,7 @@
 
     let currentBlob = null; 
 
-    async function generateAIImage() {
+        async function generateAIImage() {
         const prompt = document.getElementById('ai-prompt').value;
         const btn = document.getElementById('gen-btn');
         const container = document.getElementById('ai-result-container');
@@ -955,19 +955,14 @@
             </div>`;
 
         try {
-            const response = await fetch(
-                "https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell",
-                {
-                    headers: {
-                        Authorization: `Bearer ${HF_TOKEN}`,
-                        "Content-Type": "application/json",
-                    },
-                    method: "POST",
-                    body: JSON.stringify({ inputs: prompt }),
-                }
-            );
+            // ပြင်ဆင်လိုက်သော နေရာ (Secure Call to Netlify Function)
+            const response = await fetch("/.netlify/functions/generate-image", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ prompt: prompt }),
+            });
 
-            if (!response.ok) throw new Error("Server Busy or Token Invalid");
+            if (!response.ok) throw new Error("Generation Failed. Please try again.");
 
             const blob = await response.blob();
             currentBlob = blob;
