@@ -23,50 +23,49 @@ exports.handler = async (event) => {
     if (!token) return { statusCode: 500, headers, body: "HF_TOKEN missing" };
 
     return await new Promise((resolve) => {
-      // ✅ မှန်ကန်တဲ့ API endpoint
-      const req = https.request(
-        "https://router.huggingface.co/models/black-forest-labs/FLUX.1-schnell",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
+      // ✅ မှန်ကန်တဲ့ Hugging Face Inference API endpoint
+      const options = {
+        hostname: "api-inference.huggingface.co",
+        path: "/models/black-forest-labs/FLUX.1-schnell",
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
-        (res) => {
-          const chunks = [];
-          res.on("data", (d) => chunks.push(d));
-          res.on("end", () => {
-            const buf = Buffer.concat(chunks);
-            
-            // ✅ Error ဖြစ်ရင် အသေးစိတ် ပြန်ပြမယ်
-            if (res.statusCode !== 200) {
-              const errorMsg = buf.toString("utf8");
-              console.error("HF API Error:", errorMsg);
-              resolve({
-                statusCode: res.statusCode || 500,
-                headers,
-                body: JSON.stringify({ 
-                  error: errorMsg,
-                  statusCode: res.statusCode 
-                }),
-              });
-              return;
-            }
+      };
 
-            // ✅ အောင်မြင်ရင် image ပြန်ပြမယ်
+      const req = https.request(options, (res) => {
+        const chunks = [];
+        res.on("data", (d) => chunks.push(d));
+        res.on("end", () => {
+          const buf = Buffer.concat(chunks);
+          
+          if (res.statusCode !== 200) {
+            const errorMsg = buf.toString("utf8");
+            console.error("HF API Error:", res.statusCode, errorMsg);
             resolve({
-              statusCode: 200,
-              headers: { 
-                ...headers,
-                "Content-Type": "image/jpeg" 
-              },
-              body: buf.toString("base64"),
-              isBase64Encoded: true,
+              statusCode: res.statusCode || 500,
+              headers,
+              body: JSON.stringify({ 
+                error: errorMsg,
+                statusCode: res.statusCode 
+              }),
             });
+            return;
+          }
+
+          // ✅ Image ပြန်လာတယ်
+          resolve({
+            statusCode: 200,
+            headers: { 
+              ...headers,
+              "Content-Type": "image/jpeg" 
+            },
+            body: buf.toString("base64"),
+            isBase64Encoded: true,
           });
-        }
-      );
+        });
+      });
 
       req.on("error", (e) => {
         console.error("Request Error:", e.message);
