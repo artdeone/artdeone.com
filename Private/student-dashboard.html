@@ -931,54 +931,59 @@
         });
     });
 
-        // --- AI Studio Logic (Flux.1) ---
-    const HF_TOKEN = "YOUR_HF_TOKEN_HERE"
+       // --- AI Studio Logic (Flux.1) ---
+// const HF_TOKEN = ... (မလိုတော့ပါ၊ ဖျက်လိုက်ပါ)
 
-    let currentBlob = null; 
+let currentBlob = null; 
 
-        async function generateAIImage() {
-        const prompt = document.getElementById('ai-prompt').value;
-        const btn = document.getElementById('gen-btn');
-        const container = document.getElementById('ai-result-container');
-        const saveBtn = document.getElementById('save-ai-btn');
+async function generateAIImage() {
+    const prompt = document.getElementById('ai-prompt').value;
+    const btn = document.getElementById('gen-btn');
+    const container = document.getElementById('ai-result-container');
+    const saveBtn = document.getElementById('save-ai-btn');
 
-        if (!prompt) return alert('Please enter a prompt!');
+    if (!prompt) return alert('Please enter a prompt!');
 
-        // UI Loading
-        btn.disabled = true;
-        btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Generating...`;
-        saveBtn.classList.add('hidden');
-        container.innerHTML = `
-            <div class="flex flex-col items-center animate-pulse">
-                <div class="w-12 h-12 border-4 border-gray-200 border-t-black rounded-full animate-spin mb-4"></div>
-                <p class="text-gray-500 text-sm">Creating with Flux.1 AI...</p>
-            </div>`;
+    // UI Loading
+    btn.disabled = true;
+    btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Generating...`;
+    saveBtn.classList.add('hidden');
+    container.innerHTML = `
+        <div class="flex flex-col items-center animate-pulse">
+            <div class="w-12 h-12 border-4 border-gray-200 border-t-black rounded-full animate-spin mb-4"></div>
+            <p class="text-gray-500 text-sm">Creating with Flux.1 AI...</p>
+        </div>`;
 
-        try {
-            // ပြင်ဆင်လိုက်သော နေရာ (Secure Call to Netlify Function)
-            const response = await fetch("/.netlify/functions/generate-image", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ prompt: prompt }),
-            });
+    try {
+        // Secure Call to Netlify Function
+        const response = await fetch("/.netlify/functions/generate-image", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ prompt: prompt }),
+        });
 
-            if (!response.ok) throw new Error("Generation Failed. Please try again.");
+        if (!response.ok) throw new Error("Generation Failed. Please try again.");
 
-            const blob = await response.blob();
-            currentBlob = blob;
-            const imgUrl = URL.createObjectURL(blob);
+        const blob = await response.blob();
+        currentBlob = blob;
+        const imgUrl = URL.createObjectURL(blob);
 
-            container.innerHTML = `<img src="${imgUrl}" class="w-full h-full object-contain shadow-sm rounded-lg fade-in-up">`;
-            saveBtn.classList.remove('hidden');
+        container.innerHTML = `<img src="${imgUrl}" class="w-full h-full object-contain shadow-sm rounded-lg fade-in-up">`;
+        saveBtn.classList.remove('hidden');
 
-        } catch (error) {
-            console.error(error);
-            container.innerHTML = `<p class="text-red-500 text-sm">Error: ${error.message}. Try again.</p>`;
-        } finally {
-            btn.disabled = false;
-            btn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles"></i> Generate Image`;
-        }
+    } catch (error) {
+        console.error(error);
+        container.innerHTML = `<p class="text-red-500 text-sm">Error: ${error.message}. Try again.</p>`;
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles"></i> Generate Image`;
     }
+} // <--- Function အပိတ်ကွင်း ဒီမှာပါ
+
+// ✅ အမှန်က ဒီနေရာမှာ ရှိရပါမယ် (Function အပြင်ဘက်)
+window.generateAIImage = generateAIImage;
+window.saveToGallery = saveToGallery;
+
 
     // Gallery Save Function (Optional)
     async function saveToGallery() {
