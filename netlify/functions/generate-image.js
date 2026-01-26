@@ -1,20 +1,14 @@
 const https = require("https");
 
 exports.handler = async (event) => {
-  // ✅ 1. CORS Headers (ဘယ်သူမဆို ခေါ်ခွင့်ပြုမည်)
   const headers = {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Headers": "Content-Type",
     "Access-Control-Allow-Methods": "POST, OPTIONS"
   };
 
-  // ✅ 2. Handle Preflight Request (Browser က အရင်စမ်းကြည့်တာကို လက်ခံမည်)
   if (event.httpMethod === "OPTIONS") {
-    return {
-      statusCode: 200,
-      headers,
-      body: "OK"
-    };
+    return { statusCode: 200, headers, body: "OK" };
   }
 
   if (event.httpMethod !== "POST") {
@@ -29,8 +23,9 @@ exports.handler = async (event) => {
     if (!token) return { statusCode: 500, headers, body: "HF_TOKEN missing" };
 
     return await new Promise((resolve) => {
+      // ✅ မှန်ကန်တဲ့ API endpoint
       const req = https.request(
-        "https://router.huggingface.co/models/black-forest-labs/FLUX.1-schnell",
+        "https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell",
         {
           method: "POST",
           headers: {
@@ -44,20 +39,27 @@ exports.handler = async (event) => {
           res.on("end", () => {
             const buf = Buffer.concat(chunks);
             
+            // ✅ Error ဖြစ်ရင် အသေးစိတ် ပြန်ပြမယ်
             if (res.statusCode !== 200) {
+              const errorMsg = buf.toString("utf8");
+              console.error("HF API Error:", errorMsg);
               resolve({
                 statusCode: res.statusCode || 500,
-                headers, // Error တက်ရင်လည်း CORS header ပါရမယ်
-                body: buf.toString("utf8"),
+                headers,
+                body: JSON.stringify({ 
+                  error: errorMsg,
+                  statusCode: res.statusCode 
+                }),
               });
               return;
             }
 
+            // ✅ အောင်မြင်ရင် image ပြန်ပြမယ်
             resolve({
               statusCode: 200,
               headers: { 
-                  ...headers, // CORS header + Content Type
-                  "Content-Type": "image/jpeg" 
+                ...headers,
+                "Content-Type": "image/jpeg" 
               },
               body: buf.toString("base64"),
               isBase64Encoded: true,
@@ -67,13 +69,23 @@ exports.handler = async (event) => {
       );
 
       req.on("error", (e) => {
-        resolve({ statusCode: 500, headers, body: e.message });
+        console.error("Request Error:", e.message);
+        resolve({ 
+          statusCode: 500, 
+          headers, 
+          body: JSON.stringify({ error: e.message })
+        });
       });
 
       req.write(JSON.stringify({ inputs: prompt }));
       req.end();
     });
   } catch (e) {
-    return { statusCode: 500, headers, body: e.message };
+    console.error("Function Error:", e.message);
+    return { 
+      statusCode: 500, 
+      headers, 
+      body: JSON.stringify({ error: e.message })
+    };
   }
 };

@@ -944,7 +944,6 @@ async function generateAIImage() {
 
     if (!prompt) return alert('Please enter a prompt!');
 
-    // UI Loading
     btn.disabled = true;
     btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Generating...`;
     saveBtn.classList.add('hidden');
@@ -955,15 +954,28 @@ async function generateAIImage() {
         </div>`;
 
     try {
-        // Secure Call to Netlify Function
         const response = await fetch("/api/generate-image", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ prompt: prompt }),
         });
 
-        if (!response.ok) throw new Error("Generation Failed. Please try again.");
+        // ✅ Error check ကို သေချာအောင် လုပ်မယ်
+        if (!response.ok) {
+            const contentType = response.headers.get("content-type");
+            let errorMsg = "Generation Failed";
+            
+            if (contentType && contentType.includes("application/json")) {
+                const errorData = await response.json();
+                errorMsg = errorData.error || errorMsg;
+            } else {
+                errorMsg = await response.text();
+            }
+            
+            throw new Error(errorMsg);
+        }
 
+        // ✅ အောင်မြင်ရင်မှ blob ပြောင်းမယ်
         const blob = await response.blob();
         currentBlob = blob;
         const imgUrl = URL.createObjectURL(blob);
@@ -972,13 +984,19 @@ async function generateAIImage() {
         saveBtn.classList.remove('hidden');
 
     } catch (error) {
-        console.error(error);
-        container.innerHTML = `<p class="text-red-500 text-sm">Error: ${error.message}. Try again.</p>`;
+        // ✅ Error ကို user ကို ပြပါမယ်
+        container.innerHTML = `
+            <div class="text-red-600 p-4 bg-red-50 rounded-lg">
+                <i class="fa-solid fa-triangle-exclamation mr-2"></i>
+                <strong>Error:</strong> ${error.message}
+            </div>`;
+        console.error("Image Generation Error:", error);
     } finally {
         btn.disabled = false;
         btn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles"></i> Generate Image`;
     }
-} // <--- Function အပိတ်ကွင်း ဒီမှာပါ
+}
+
 
 // ✅ အမှန်က ဒီနေရာမှာ ရှိရပါမယ် (Function အပြင်ဘက်)
 window.generateAIImage = generateAIImage;
