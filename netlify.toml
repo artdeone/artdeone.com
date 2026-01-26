@@ -1,2 +1,9 @@
 [build]
   functions = "netlify/functions"
+  publish = "Private"  # သို့မဟုတ် ROOT (အစ်ကို့ Folder Structure အတိုင်း)
+
+# ဒီအပိုင်းက အရေးကြီးဆုံးပါ 👇
+[[redirects]]
+  from = "/api/generate-image"
+  to = "/.netlify/functions/generate-image"
+  status = 200
