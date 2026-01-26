@@ -30,7 +30,7 @@ exports.handler = async (event) => {
 
     return await new Promise((resolve) => {
       const req = https.request(
-        "https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell",
+        "https://router.huggingface.co/models/black-forest-labs/FLUX.1-schnell",
         {
           method: "POST",
           headers: {
