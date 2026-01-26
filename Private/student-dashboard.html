@@ -430,34 +430,20 @@
                         <div class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm h-fit">
 
                             <!-- ✅ NEW: AI Model Selector - ဒီနေရာမှာ ထည့်ပါ -->
-                            <!-- AI Model Selector with Tooltips -->
+                            <!-- AI Model Selector (4 Models) -->
                             <div class="mb-6">
                                 <label class="block text-gray-700 text-sm font-medium mb-3">
                                     <i class="fa-solid fa-brain mr-1"></i> AI Model
                                 </label>
                                 
-                                <!-- Custom Radio Buttons with Tooltips -->
                                 <div class="space-y-3">
                                     <!-- FLUX Schnell -->
-                                    <label class="flex items-center p-3 bg-gray-50 border border-gray-200 rounded-xl cursor-pointer hover:border-black transition-all group">
-                                        <input type="radio" name="ai-model" value="flux-schnell" class="mr-3 text-black focus:ring-black">
+                                    <label class="flex items-center p-3 bg-gray-50 border-2 border-black rounded-xl cursor-pointer">
+                                        <input type="radio" name="ai-model" value="flux-schnell" checked class="mr-3 text-black focus:ring-black">
                                         <div class="flex-1">
                                             <div class="font-medium text-sm">⚡ FLUX.1 Schnell</div>
-                                            <div class="text-xs text-gray-500 mt-1">Fast generation (5-10s) • Good quality</div>
+                                            <div class="text-xs text-gray-500 mt-1">Fast (5-10s) • Modern & Sharp</div>
                                         </div>
-                                        <i class="fa-solid fa-info-circle text-gray-400 group-hover:text-black transition-colors" 
-                                        title="Best for quick tests and iterations"></i>
-                                    </label>
-                                    
-                                    <!-- FLUX Dev -->
-                                    <label class="flex items-center p-3 bg-gray-50 border-2 border-black rounded-xl cursor-pointer">
-                                        <input type="radio" name="ai-model" value="flux-dev" checked class="mr-3 text-black focus:ring-black">
-                                        <div class="flex-1">
-                                            <div class="font-medium text-sm">🎨 FLUX.1 Dev</div>
-                                            <div class="text-xs text-gray-500 mt-1">Best quality (15-30s) • Photorealistic</div>
-                                        </div>
-                                        <i class="fa-solid fa-info-circle text-black" 
-                                        title="Highest quality, best for final outputs"></i>
                                     </label>
                                     
                                     <!-- SDXL -->
@@ -465,24 +451,34 @@
                                         <input type="radio" name="ai-model" value="sdxl" class="mr-3 text-black focus:ring-black">
                                         <div class="flex-1">
                                             <div class="font-medium text-sm">🖼️ Stable Diffusion XL</div>
-                                            <div class="text-xs text-gray-500 mt-1">Balanced (10-20s) • Most popular</div>
+                                            <div class="text-xs text-gray-500 mt-1">Balanced (10-20s) • Industry Standard</div>
                                         </div>
-                                        <i class="fa-solid fa-info-circle text-gray-400 group-hover:text-black transition-colors" 
-                                        title="Industry standard, reliable results"></i>
                                     </label>
                                     
-                                    <!-- Playground -->
+                                    <!-- Kandinsky 2.2 -->
                                     <label class="flex items-center p-3 bg-gray-50 border border-gray-200 rounded-xl cursor-pointer hover:border-black transition-all group">
-                                        <input type="radio" name="ai-model" value="playground" class="mr-3 text-black focus:ring-black">
+                                        <input type="radio" name="ai-model" value="kandinsky" class="mr-3 text-black focus:ring-black">
                                         <div class="flex-1">
-                                            <div class="font-medium text-sm">🌈 Playground v2.5</div>
-                                            <div class="text-xs text-gray-500 mt-1">Artistic (10-20s) • Vibrant colors</div>
+                                            <div class="font-medium text-sm">🎨 Kandinsky 2.2</div>
+                                            <div class="text-xs text-gray-500 mt-1">High Quality (10-25s) • Photorealistic</div>
                                         </div>
-                                        <i class="fa-solid fa-info-circle text-gray-400 group-hover:text-black transition-colors" 
-                                        title="Best for artistic and creative work"></i>
+                                    </label>
+                                    
+                                    <!-- Openjourney -->
+                                    <label class="flex items-center p-3 bg-gray-50 border border-gray-200 rounded-xl cursor-pointer hover:border-black transition-all group">
+                                        <input type="radio" name="ai-model" value="openjourney" class="mr-3 text-black focus:ring-black">
+                                        <div class="flex-1">
+                                            <div class="font-medium text-sm">🌈 Openjourney</div>
+                                            <div class="text-xs text-gray-500 mt-1">Artistic (10-20s) • Midjourney Style</div>
+                                        </div>
                                     </label>
                                 </div>
+                                
+                                <p class="text-xs text-gray-500 mt-3">
+                                    <i class="fa-solid fa-check-circle text-green-600"></i> All models are free on Hugging Face
+                                </p>
                             </div>
+
 
                             <!-- ✅ END NEW CODE -->
 

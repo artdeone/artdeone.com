@@ -1,11 +1,11 @@
 const https = require("https");
 
-// ✅ Model paths mapping
+// ✅ 4 Working Free Models (Jan 2026)
 const MODEL_PATHS = {
   "flux-schnell": "/hf-inference/models/black-forest-labs/FLUX.1-schnell",
-  "flux-dev": "/hf-inference/models/black-forest-labs/FLUX.1-dev",
   "sdxl": "/hf-inference/models/stabilityai/stable-diffusion-xl-base-1.0",
-  "playground": "/hf-inference/models/playgroundai/playground-v2.5-1024px-aesthetic"
+  "kandinsky": "/hf-inference/models/kandinsky-community/kandinsky-2-2-decoder",
+  "openjourney": "/hf-inference/models/prompthero/openjourney"
 };
 
 exports.handler = async (event) => {
@@ -24,22 +24,30 @@ exports.handler = async (event) => {
   }
 
   try {
-    const { prompt, model = "flux-dev" } = JSON.parse(event.body || "{}"); // ✅ model ရယ်မယ်
+    const { prompt, model = "flux-schnell" } = JSON.parse(event.body || "{}");
     
     if (!prompt) return { statusCode: 400, headers, body: "Prompt required" };
 
-    // ✅ Model path ရွေးမယ်
-    const modelPath = MODEL_PATHS[model] || MODEL_PATHS["flux-dev"];
+    const modelPath = MODEL_PATHS[model];
+    if (!modelPath) {
+      return { 
+        statusCode: 400, 
+        headers, 
+        body: JSON.stringify({ 
+          error: `Model "${model}" is not supported.`
+        })
+      };
+    }
 
     const token = process.env.HF_TOKEN;
     if (!token) return { statusCode: 500, headers, body: "HF_TOKEN missing" };
 
-    console.log(`Generating with model: ${model}, path: ${modelPath}`); // ✅ Debug log
+    console.log(`Generating with model: ${model}, path: ${modelPath}`);
 
     return await new Promise((resolve) => {
       const options = {
         hostname: "router.huggingface.co",
-        path: modelPath, // ✅ Dynamic path
+        path: modelPath,
         method: "POST",
         headers: {
           "Authorization": `Bearer ${token}`,
