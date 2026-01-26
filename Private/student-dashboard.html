@@ -126,10 +126,16 @@
                     <i class="fa-solid fa-graduation-cap w-5 text-center"></i>
                     <span>My Courses</span>
                 </a>
+                <!-- AI Studio Link -->
+                <a href="#" class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-500 text-sm font-medium" data-section="ai-studio">
+                    <i class="fa-solid fa-wand-magic-sparkles w-5 text-center"></i>
+                    <span>AI Studio</span>
+                </a>
                 <a href="#" class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-500 text-sm font-medium" data-section="announcements">
                     <i class="fa-solid fa-bullhorn w-5 text-center"></i>
                     <span>Announcements</span>
                 </a>
+
                 <a href="#" class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-500 text-sm font-medium" data-section="profile">
                     <i class="fa-regular fa-user w-5 text-center"></i>
                     <span>Profile</span>
@@ -173,6 +179,13 @@
                         <button onclick="switchSection('my-courses'); toggleMobileMenu()" class="w-full flex items-center gap-4 px-4 py-4 text-gray-600 hover:bg-gray-50 rounded-xl transition-all text-sm font-medium">
                             My Courses
                         </button>
+                        <!-- Mobile Menu AI Link -->
+                        <button onclick="switchSection('ai-studio'); toggleMobileMenu()" 
+                            class="w-full flex items-center gap-4 px-4 py-4 text-gray-600 hover:bg-gray-50 rounded-xl transition-all text-sm font-medium">
+                            <i class="fa-solid fa-wand-magic-sparkles w-5 text-center"></i>
+                            AI Studio
+                        </button>
+
                         <button onclick="switchSection('announcements'); toggleMobileMenu()" class="w-full flex items-center gap-4 px-4 py-4 text-gray-600 hover:bg-gray-50 rounded-xl transition-all text-sm font-medium">
                             Announcements
                         </button>
@@ -394,6 +407,58 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- AI Studio Section -->
+                <div id="ai-studio-section" class="section hidden space-y-10 max-w-7xl mx-auto fade-in-up">
+                    
+                    <!-- Header -->
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 tracking-tight">AI Art Studio</h2>
+                            <p class="text-gray-500 text-sm font-light mt-1">Generate high-quality images using Flux.1 AI</p>
+                        </div>
+                        <div class="flex items-center gap-2 px-3 py-1 bg-green-50 border border-green-100 rounded-full">
+                            <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                            <span class="text-xs font-medium text-green-700">Flux.1 Engine Ready</span>
+                        </div>
+                    </div>
+
+                    <!-- Generator UI -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        
+                        <!-- Controls -->
+                        <div class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm h-fit">
+                            <label class="block text-gray-700 text-sm font-medium mb-3">Your Prompt</label>
+                            <textarea id="ai-prompt" rows="6" 
+                                class="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 text-sm text-gray-800 focus:outline-none focus:border-black focus:ring-0 transition-all resize-none placeholder-gray-400"
+                                placeholder="A futuristic student studying in a glass room with neon lights, cyberpunk style, 8k resolution..."></textarea>
+                            
+                            <button onclick="generateAIImage()" id="gen-btn" 
+                                class="w-full mt-6 bg-black text-white font-medium py-3.5 rounded-xl transition-transform active:scale-95 flex items-center justify-center gap-2 hover:bg-gray-800">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                                Generate Image
+                            </button>
+                        </div>
+
+                        <!-- Result Display -->
+                        <div class="lg:col-span-2 bg-gray-50 border border-gray-100 rounded-2xl flex flex-col items-center justify-center min-h-[500px] relative overflow-hidden group">
+                            
+                            <!-- Loading/Empty State -->
+                            <div id="ai-result-container" class="text-center p-8">
+                                <i class="fa-regular fa-image text-4xl text-gray-300 mb-4 block"></i>
+                                <p class="text-gray-400 text-sm font-light">Your generated image will appear here.</p>
+                            </div>
+
+                            <!-- Save Button (Normally Hidden) -->
+                            <button id="save-ai-btn" onclick="saveToGallery()" 
+                                class="hidden absolute bottom-6 right-6 bg-white text-black px-6 py-3 rounded-full font-medium shadow-xl hover:shadow-2xl transition-all border border-gray-100 flex items-center gap-2">
+                                <i class="fa-solid fa-download"></i>
+                                Save to Gallery
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
 
             </main>
         </div>
@@ -865,6 +930,79 @@
             switchSection(section);
         });
     });
+
+        // --- AI Studio Logic (Flux.1) ---
+    const HF_TOKEN = "YOUR_HF_TOKEN_HERE"
+
+    let currentBlob = null; 
+
+    async function generateAIImage() {
+        const prompt = document.getElementById('ai-prompt').value;
+        const btn = document.getElementById('gen-btn');
+        const container = document.getElementById('ai-result-container');
+        const saveBtn = document.getElementById('save-ai-btn');
+
+        if (!prompt) return alert('Please enter a prompt!');
+
+        // UI Loading
+        btn.disabled = true;
+        btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Generating...`;
+        saveBtn.classList.add('hidden');
+        container.innerHTML = `
+            <div class="flex flex-col items-center animate-pulse">
+                <div class="w-12 h-12 border-4 border-gray-200 border-t-black rounded-full animate-spin mb-4"></div>
+                <p class="text-gray-500 text-sm">Creating with Flux.1 AI...</p>
+            </div>`;
+
+        try {
+            const response = await fetch(
+                "https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell",
+                {
+                    headers: {
+                        Authorization: `Bearer ${HF_TOKEN}`,
+                        "Content-Type": "application/json",
+                    },
+                    method: "POST",
+                    body: JSON.stringify({ inputs: prompt }),
+                }
+            );
+
+            if (!response.ok) throw new Error("Server Busy or Token Invalid");
+
+            const blob = await response.blob();
+            currentBlob = blob;
+            const imgUrl = URL.createObjectURL(blob);
+
+            container.innerHTML = `<img src="${imgUrl}" class="w-full h-full object-contain shadow-sm rounded-lg fade-in-up">`;
+            saveBtn.classList.remove('hidden');
+
+        } catch (error) {
+            console.error(error);
+            container.innerHTML = `<p class="text-red-500 text-sm">Error: ${error.message}. Try again.</p>`;
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles"></i> Generate Image`;
+        }
+    }
+
+    // Gallery Save Function (Optional)
+    async function saveToGallery() {
+        if (!currentBlob) return;
+        const btn = document.getElementById('save-ai-btn');
+        
+        // Supabase Code ကို အစ်ကို့ uploadLogic အတိုင်း ပြန်သုံးလို့ရပါတယ်
+        // လောလောဆယ် Download ချပေးမယ့် Code ထည့်ပေးထားပါတယ်
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(currentBlob);
+        a.download = `artdeone-ai-${Date.now()}.jpg`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        
+        btn.innerHTML = `<i class="fa-solid fa-check"></i> Saved!`;
+        setTimeout(() => btn.innerHTML = `<i class="fa-solid fa-download"></i> Save to Gallery`, 2000);
+    }
+
     </script>
 
 </body>
