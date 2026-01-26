@@ -1,45 +1,49 @@
 // netlify/functions/generate-image.js
-export default async (req, context) => {
-  // 1. Only allow POST requests
-  if (req.method !== "POST") {
-    return new Response("Method Not Allowed", { status: 405 });
-  }
+const https = require('https');
 
-  try {
-    // 2. Parse the body to get the prompt
-    const { prompt } = await req.json();
-
-    if (!prompt) {
-      return new Response("Prompt is required", { status: 400 });
+exports.handler = async function(event, context) {
+    if (event.httpMethod !== "POST") {
+        return { statusCode: 405, body: "Method Not Allowed" };
     }
 
-    // 3. Call Hugging Face API securely (Token is hidden here on the server)
-    const response = await fetch(
-      "https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell",
-      {
-        headers: {
-          Authorization: `Bearer ${Netlify.env.get("HF_TOKEN")}`, // Netlify will inject the secret here
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-        body: JSON.stringify({ inputs: prompt }),
-      }
-    );
+    try {
+        const { prompt } = JSON.parse(event.body);
+        if (!prompt) return { statusCode: 400, body: "Prompt required" };
 
-    if (!response.ok) {
-        throw new Error(`HF API Error: ${response.statusText}`);
+        const token = process.env.HF_TOKEN; 
+        if (!token) return { statusCode: 500, body: "Server Error: Token missing" };
+
+        return new Promise((resolve, reject) => {
+            const req = https.request("https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                }
+            }, (res) => {
+                const chunks = [];
+                res.on('data', (d) => chunks.push(d));
+                res.on('end', () => {
+                    if (res.statusCode !== 200) {
+                        resolve({ statusCode: res.statusCode, body: `HF Error: ${Buffer.concat(chunks).toString()}` });
+                    } else {
+                        const buffer = Buffer.concat(chunks);
+                        resolve({
+                            statusCode: 200,
+                            headers: { "Content-Type": "image/jpeg" },
+                            body: buffer.toString('base64'),
+                            isBase64Encoded: true
+                        });
+                    }
+                });
+            });
+
+            req.on('error', (e) => resolve({ statusCode: 500, body: e.message }));
+            req.write(JSON.stringify({ inputs: prompt }));
+            req.end();
+        });
+
+    } catch (error) {
+        return { statusCode: 500, body: JSON.stringify({ error: error.message }) };
     }
-
-    // 4. Return the image blob directly to the frontend
-    const imageBlob = await response.blob();
-    return new Response(imageBlob, {
-      headers: { "Content-Type": "image/jpeg" },
-    });
-
-  } catch (error) {
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" },
-    });
-  }
 };
