@@ -23,10 +23,10 @@ exports.handler = async (event) => {
     if (!token) return { statusCode: 500, headers, body: "HF_TOKEN missing" };
 
     return await new Promise((resolve) => {
-      // ✅ မှန်ကန်တဲ့ Hugging Face Inference API endpoint
+      // ✅ มှန်ကန်တဲ့ HF Inference Providers endpoint
       const options = {
-        hostname: "api-inference.huggingface.co",
-        path: "/models/black-forest-labs/FLUX.1-schnell",
+        hostname: "router.huggingface.co",
+        path: "/hf-inference/models/black-forest-labs/FLUX.1-schnell",
         method: "POST",
         headers: {
           "Authorization": `Bearer ${token}`,
@@ -54,7 +54,7 @@ exports.handler = async (event) => {
             return;
           }
 
-          // ✅ Image ပြန်လာတယ်
+          // ✅ Image ပြန်လာပြီ
           resolve({
             statusCode: 200,
             headers: { 
