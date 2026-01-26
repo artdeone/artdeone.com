@@ -956,7 +956,7 @@ async function generateAIImage() {
 
     try {
         // Secure Call to Netlify Function
-        const response = await fetch("/.netlify/functions/generate-image", {
+        const response = await fetch("https://stupendous-taiyaki-4ce8f4.netlify.app/.netlify/functions/generate-image", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ prompt: prompt }),
