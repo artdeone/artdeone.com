@@ -428,7 +428,67 @@
                         
                         <!-- Controls -->
                         <div class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm h-fit">
+
+                            <!-- ✅ NEW: AI Model Selector - ဒီနေရာမှာ ထည့်ပါ -->
+                            <!-- AI Model Selector with Tooltips -->
+                            <div class="mb-6">
+                                <label class="block text-gray-700 text-sm font-medium mb-3">
+                                    <i class="fa-solid fa-brain mr-1"></i> AI Model
+                                </label>
+                                
+                                <!-- Custom Radio Buttons with Tooltips -->
+                                <div class="space-y-3">
+                                    <!-- FLUX Schnell -->
+                                    <label class="flex items-center p-3 bg-gray-50 border border-gray-200 rounded-xl cursor-pointer hover:border-black transition-all group">
+                                        <input type="radio" name="ai-model" value="flux-schnell" class="mr-3 text-black focus:ring-black">
+                                        <div class="flex-1">
+                                            <div class="font-medium text-sm">⚡ FLUX.1 Schnell</div>
+                                            <div class="text-xs text-gray-500 mt-1">Fast generation (5-10s) • Good quality</div>
+                                        </div>
+                                        <i class="fa-solid fa-info-circle text-gray-400 group-hover:text-black transition-colors" 
+                                        title="Best for quick tests and iterations"></i>
+                                    </label>
+                                    
+                                    <!-- FLUX Dev -->
+                                    <label class="flex items-center p-3 bg-gray-50 border-2 border-black rounded-xl cursor-pointer">
+                                        <input type="radio" name="ai-model" value="flux-dev" checked class="mr-3 text-black focus:ring-black">
+                                        <div class="flex-1">
+                                            <div class="font-medium text-sm">🎨 FLUX.1 Dev</div>
+                                            <div class="text-xs text-gray-500 mt-1">Best quality (15-30s) • Photorealistic</div>
+                                        </div>
+                                        <i class="fa-solid fa-info-circle text-black" 
+                                        title="Highest quality, best for final outputs"></i>
+                                    </label>
+                                    
+                                    <!-- SDXL -->
+                                    <label class="flex items-center p-3 bg-gray-50 border border-gray-200 rounded-xl cursor-pointer hover:border-black transition-all group">
+                                        <input type="radio" name="ai-model" value="sdxl" class="mr-3 text-black focus:ring-black">
+                                        <div class="flex-1">
+                                            <div class="font-medium text-sm">🖼️ Stable Diffusion XL</div>
+                                            <div class="text-xs text-gray-500 mt-1">Balanced (10-20s) • Most popular</div>
+                                        </div>
+                                        <i class="fa-solid fa-info-circle text-gray-400 group-hover:text-black transition-colors" 
+                                        title="Industry standard, reliable results"></i>
+                                    </label>
+                                    
+                                    <!-- Playground -->
+                                    <label class="flex items-center p-3 bg-gray-50 border border-gray-200 rounded-xl cursor-pointer hover:border-black transition-all group">
+                                        <input type="radio" name="ai-model" value="playground" class="mr-3 text-black focus:ring-black">
+                                        <div class="flex-1">
+                                            <div class="font-medium text-sm">🌈 Playground v2.5</div>
+                                            <div class="text-xs text-gray-500 mt-1">Artistic (10-20s) • Vibrant colors</div>
+                                        </div>
+                                        <i class="fa-solid fa-info-circle text-gray-400 group-hover:text-black transition-colors" 
+                                        title="Best for artistic and creative work"></i>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- ✅ END NEW CODE -->
+
+
                             <label class="block text-gray-700 text-sm font-medium mb-3">Your Prompt</label>
+
                             <textarea id="ai-prompt" rows="6" 
                                 class="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 text-sm text-gray-800 focus:outline-none focus:border-black focus:ring-0 transition-all resize-none placeholder-gray-400"
                                 placeholder="A futuristic student studying in a glass room with neon lights, cyberpunk style, 8k resolution..."></textarea>
@@ -938,6 +998,7 @@ let currentBlob = null;
 
 async function generateAIImage() {
     const prompt = document.getElementById('ai-prompt').value;
+    const model = document.querySelector('input[name="ai-model"]:checked').value;
     const btn = document.getElementById('gen-btn');
     const container = document.getElementById('ai-result-container');
     const saveBtn = document.getElementById('save-ai-btn');
@@ -957,7 +1018,10 @@ async function generateAIImage() {
         const response = await fetch("/api/generate-image", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ prompt: prompt }),
+            body: JSON.stringify({ 
+                prompt: prompt,
+                model: model  // ✅ model ပို့မယ်
+            }),
         });
 
         // ✅ Error check ကို သေချာအောင် လုပ်မယ်

@@ -1,5 +1,13 @@
 const https = require("https");
 
+// ✅ Model paths mapping
+const MODEL_PATHS = {
+  "flux-schnell": "/hf-inference/models/black-forest-labs/FLUX.1-schnell",
+  "flux-dev": "/hf-inference/models/black-forest-labs/FLUX.1-dev",
+  "sdxl": "/hf-inference/models/stabilityai/stable-diffusion-xl-base-1.0",
+  "playground": "/hf-inference/models/playgroundai/playground-v2.5-1024px-aesthetic"
+};
+
 exports.handler = async (event) => {
   const headers = {
     "Access-Control-Allow-Origin": "*",
@@ -16,17 +24,22 @@ exports.handler = async (event) => {
   }
 
   try {
-    const { prompt } = JSON.parse(event.body || "{}");
+    const { prompt, model = "flux-dev" } = JSON.parse(event.body || "{}"); // ✅ model ရယ်မယ်
+    
     if (!prompt) return { statusCode: 400, headers, body: "Prompt required" };
+
+    // ✅ Model path ရွေးမယ်
+    const modelPath = MODEL_PATHS[model] || MODEL_PATHS["flux-dev"];
 
     const token = process.env.HF_TOKEN;
     if (!token) return { statusCode: 500, headers, body: "HF_TOKEN missing" };
 
+    console.log(`Generating with model: ${model}, path: ${modelPath}`); // ✅ Debug log
+
     return await new Promise((resolve) => {
-      // ✅ มှန်ကန်တဲ့ HF Inference Providers endpoint
       const options = {
         hostname: "router.huggingface.co",
-        path: "/hf-inference/models/black-forest-labs/FLUX.1-schnell",
+        path: modelPath, // ✅ Dynamic path
         method: "POST",
         headers: {
           "Authorization": `Bearer ${token}`,
@@ -54,7 +67,6 @@ exports.handler = async (event) => {
             return;
           }
 
-          // ✅ Image ပြန်လာပြီ
           resolve({
             statusCode: 200,
             headers: { 
