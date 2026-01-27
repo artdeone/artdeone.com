@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Premium - ART de ONE</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css-and-js/ai-theme.css">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              green: '#a7e169',
+              red: '#ed2939',
+              dark: '#111116',
+              card: '#1a1a20',
+              border: '#2a2a35'
+            }
+          },
+          fontFamily: {
+            sans: ['Space Grotesk', 'sans-serif'],
+            heading: ['Poppins', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { transition: background-color 0.3s ease, color 0.3s ease; }
+    
+    /* Variables */
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #323232;
+      --card-bg: #ffffff;
+      --border-color: #e5e5e5;
+      --section-alt: #f9f9f9;
+    }
+    .dark {
+      --bg-color: #111116;
+      --text-color: #e5e5e5;
+      --card-bg: #1a1a20;
+      --border-color: #2a2a35;
+      --section-alt: #16161c;
+    }
+
+    body { background-color: var(--bg-color); color: var(--text-color); }
+    .bg-alt { background-color: var(--section-alt); }
+
+    /* Cards */
+    .lift-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 1rem;
+      transition: all 0.4s ease;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    }
+    .lift-card:hover {
+      transform: translateY(-8px);
+      border-color: #a7e169;
+      box-shadow: 0 10px 20px -5px rgba(167, 225, 105, 0.2);
+    }
+
+    /* Buttons */
+    .btn-brand {
+      background-color: #a7e169;
+      color: #000;
+      font-weight: 600;
+      border: 1px solid #a7e169;
+      transition: all 0.3s ease;
+    }
+    .btn-brand:hover {
+      background-color: #ed2939;
+      border-color: #ed2939;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-color);
+      transition: 0.3s;
+    }
+    .btn-outline:hover {
+      border-color: #000;
+      background: #000;
+      color: #fff;
+    }
+    .dark .btn-outline:hover {
+      border-color: #fff;
+      background: #fff;
+      color: #000;
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      width: 50px;
+      height: 28px;
+      background: #e5e5e5;
+      border-radius: 999px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding: 3px;
+      transition: 0.3s;
+    }
+    .dark .theme-toggle { background: #2a2a35; }
+    
+    .toggle-thumb {
+      width: 22px;
+      height: 22px;
+      background: white;
+      border-radius: 50%;
+      transform: translateX(0);
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+    }
+    .dark .toggle-thumb {
+      transform: translateX(22px);
+      background: #a7e169;
+    }
+
+    /* Modal */
+    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 9999; backdrop-filter: blur(4px); }
+    .modal.active { display: flex; align-items: center; justify-content: center; }
+    
+    .form-input {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border-radius: 0.5rem;
+      border: 2px solid var(--border-color);
+      background: var(--bg-color);
+      color: inherit;
+    }
+    .form-input:focus {
+      outline: none;
+      border-color: #a7e169;
+    }
+
+    /* Tab Logic (CSS Only) */
+    #tab-time:checked ~ .tabbar label[for="tab-time"],
+    #tab-credit:checked ~ .tabbar label[for="tab-credit"] {
+      background: #a7e169;
+      color: black;
+      border-color: #a7e169;
+      font-weight: 700;
+    }
+    #tab-time:checked ~ .content-time { display: grid; }
+    #tab-credit:checked ~ .content-credit { display: grid; }
+    .content-time, .content-credit { display: none; }
+  </style>
+</head>
+
+<body class="antialiased">
+
+    <nav class="fixed w-full z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 nav-container">
+        <div class="nav-wrapper">
+            <!-- Parent Container needs relative positioning -->
+            <div class="flex justify-between h-16 items-center relative">
+                
+                <!-- 1. LEFT: Logo -->
+                <div class="flex items-center flex-shrink-0">
+                    <a href="index.html#home" class="flex items-center">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png" alt="ART de ONE" class="h-10 w-auto">
+                    </a>
+                </div>
+                
+                <!-- 2. CENTER: Desktop Menu Links (Absolute Center) -->
+                <!-- ဒီအပိုင်းက အလယ်တည့်တည့်မှာ အမြဲရှိနေပါမယ် -->
+                <div class="hidden md:flex items-center space-x-8 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <a href="index.html#home" class="nav-link font-bold">Home</a>
+                    <a href="prompt.html" class="nav-link">Prompts</a>
+                    <a href="blog.html" class="nav-link">Blog</a>
+                    <a href="/resources/resources-collection.html" class="nav-link">Resources</a>
+                    <a href="index.html#contact" class="nav-link">Contact</a>
+                </div>
+                
+                <!-- 3. RIGHT: Desktop Actions (Toggle + Login) -->
+                <div class="hidden md:flex items-center gap-4">
+                    <!-- Theme Toggle -->
+                    <button id="themeToggleDesktop" class="theme-toggle">
+                      <div class="toggle-thumb">
+                        <i class="fas fa-sun text-orange-400 block dark:hidden"></i>
+                        <i class="fas fa-moon text-black hidden dark:block"></i>
+                      </div>
+                    </button>
+                    <!-- Student Login -->
+                    <a href="/Private/student-login.html" class="nav-btn">Student Login</a>
+                </div>
+                
+                <!-- Mobile Actions (Toggle + Menu Button) -->
+                <div class="md:hidden flex items-center gap-4">
+                     <!-- Mobile Toggle -->
+                     <button id="themeToggleMobile" class="theme-toggle">
+                      <div class="toggle-thumb">
+                        <i class="fas fa-sun text-orange-400 block dark:hidden"></i>
+                        <i class="fas fa-moon text-black hidden dark:block"></i>
+                      </div>
+                    </button>
+                    
+                    <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md hover:bg-gray-100 focus:outline-none" id="mobile-menu-button">
+                        <div class="icon-container text-black">
+                            <i data-feather="menu" class="icon-menu"></i>
+                            <i data-feather="x" class="icon-close"></i>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Mobile Menu Dropdown -->
+    <div class="mobile-menu md:hidden hidden" id="mobile-menu">
+        <div class="py-2 px-4 space-y-1">
+            <a href="index.html#home" class="block py-2 mobile-nav-link font-bold">Home</a>
+            <a href="prompt.html" class="block py-2 mobile-nav-link">Prompts</a>
+            <a href="blog.html" class="block py-2 mobile-nav-link">Blog</a>
+            <a href="/resources/resources-collection.html" class="block py-2 mobile-nav-link">Resources</a>
+            <a href="index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
+            <a href="/Private/student-login.html" class="block py-2 mobile-nav-link">Student Login</a>
+        </div>
+    </div>
+</nav>
+
+<main>
+    <!-- Hero -->
+   <section class="pt-32 pb-20 bg-alt relative overflow-hidden">
+      <!-- Background Grid Pattern -->
+      <div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 20px 20px;"></div>
+      
+      <div class="max-w-7xl mx-auto px-4 relative z-10 text-center">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-green/20 text-brand-green mb-6 animate-bounce">
+          <i class="fas fa-crown text-2xl"></i>
+        </div>
+        
+        <h1 class="font-heading text-5xl md:text-6xl font-bold mb-6">
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-green to-green-600 dark:to-white">
+            AI Premium
+          </span>
+        </h1>
+        
+        <p class="text-lg md:text-xl opacity-70 max-w-2xl mx-auto mb-10 leading-relaxed">
+          Unlock unlimited creativity with professional AI models. <br>
+          <span class="text-sm">Premium AI Models သုံးပြီး အရည်အသွေးမြင့် Image တွေကို အလွယ်တကူ generate လုပ်နိုင်ပါတယ်။</span>
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="ai-generator.html" class="btn-brand px-8 py-3 rounded-full inline-flex items-center gap-2">
+            <span>Start Generating</span>
+            <i class="fas fa-arrow-right"></i>
+          </a>
+          <a href="#plans" class="btn-outline px-8 py-3 rounded-full rounded-full">
+            View Plans / Plan ကြည့်မယ်
+          </a>
+        </div>
+      </div>
+    </section>
+
+        <!-- Plans Section -->
+    <section id="plans" class="py-20">
+      <div class="max-w-7xl mx-auto px-4">
+        
+        <div class="text-center mb-12">
+          <h2 class="font-heading text-3xl font-bold mb-4">Choose Your Plan</h2>
+          <p class="opacity-60">Flexible options for every creator</p>
+        </div>
+
+        <!-- Tab Buttons (JS Controlled) -->
+        <div class="flex justify-center gap-4 mb-12">
+          <button onclick="switchTab('time')" id="btn-time" class="px-6 py-2 rounded-full border border-gray-300 dark:border-gray-700 transition font-bold bg-[#a7e169] text-black border-[#a7e169]">
+            Unlimited / အချိန်အလိုက်
+          </button>
+          <button onclick="switchTab('credit')" id="btn-credit" class="px-6 py-2 rounded-full border border-gray-300 dark:border-gray-700 transition hover:border-[#a7e169] text-gray-500 dark:text-gray-400">
+            Credits / အသုံးအနှုန်းအလိုက်
+          </button>
+        </div>
+
+                <!-- Time Based Plans (Default Visible) -->
+        <div id="content-time" class="grid md:grid-cols-3 gap-8">
+          
+          <!-- Starter -->
+          <div class="lift-card p-8 flex flex-col">
+            <h3 class="font-heading text-2xl font-bold mb-2">Starter</h3>
+            <div class="flex items-baseline gap-2 mb-1">
+              <span class="text-4xl font-bold text-brand-green">50,000</span>
+              <span class="text-sm opacity-60">MMK</span>
+            </div>
+            <p class="text-sm opacity-60 mb-6">1 Month / ၁ လ Unlimited</p>
+            
+            <ul class="space-y-4 mb-8 flex-1">
+              <li class="flex items-center gap-3"><i class="fas fa-check text-brand-green"></i> Unlimited Generations</li>
+              <li class="flex items-center gap-3"><i class="fas fa-check text-brand-green"></i> Access to all models</li>
+              <li class="flex items-center gap-3"><i class="fas fa-check text-brand-green"></i> High Speed</li>
+            </ul>
+            
+            <button onclick="openModal('1month')" class="btn-outline w-full py-3 rounded-xl font-bold border-2">Select Plan</button>
+          </div>
+
+          <!-- Professional -->
+          <div class="lift-card p-8 flex flex-col relative border-brand-green shadow-xl shadow-green-500/10">
+            <div class="absolute top-0 right-0 bg-brand-red text-white text-xs font-bold px-3 py-1 rounded-bl-xl rounded-tr-lg">POPULAR</div>
+            <h3 class="font-heading text-2xl font-bold mb-2 text-brand-green">Professional</h3>
+            <div class="flex items-baseline gap-2 mb-1">
+              <span class="text-4xl font-bold text-brand-green">250,000</span>
+              <span class="text-sm opacity-60">MMK</span>
+            </div>
+            <p class="text-sm opacity-60 mb-6">6 Months / ၆ လ (Best Value)</p>
+            
+            <ul class="space-y-4 mb-8 flex-1">
+              <li class="flex items-center gap-3"><i class="fas fa-check text-brand-green"></i> Unlimited Generations</li>
+              <li class="flex items-center gap-3"><i class="fas fa-check text-brand-green"></i> Priority Support</li>
+              <li class="flex items-center gap-3"><i class="fas fa-check text-brand-green"></i> Commercial License</li>
+              <li class="flex items-center gap-3"><i class="fas fa-star text-yellow-500"></i> Save 50,000 MMK</li>
+            </ul>
+            
+            <button onclick="openModal('6month')" class="btn-brand w-full py-3 rounded-xl font-bold shadow-lg shadow-green-500/30">Select Plan</button>
+          </div>
+
+          <!-- Enterprise -->
+          <div class="lift-card p-8 flex flex-col">
+            <h3 class="font-heading text-2xl font-bold mb-2">Enterprise</h3>
+            <div class="flex items-baseline gap-2 mb-1">
+              <span class="text-4xl font-bold text-brand-green">450,000</span>
+              <span class="text-sm opacity-60">MMK</span>
+            </div>
+            <p class="text-sm opacity-60 mb-6">1 Year / ၁ နှစ်စာ (Max Savings)</p>
+            
+            <ul class="space-y-4 mb-8 flex-1">
+              <li class="flex items-center gap-3"><i class="fas fa-check text-brand-green"></i> Everything in Pro</li>
+              <li class="flex items-center gap-3"><i class="fas fa-check text-brand-green"></i> Early Access Features</li>
+              <li class="flex items-center gap-3"><i class="fas fa-check text-brand-green"></i> 1-on-1 Support</li>
+            </ul>
+            
+            <button onclick="openModal('1year')" class="btn-outline w-full py-3 rounded-xl font-bold border-2">Select Plan</button>
+          </div>
+        </div>
+
+
+        <!-- Credit Based Plans (Default Hidden) -->
+        <div id="content-credit" class="hidden max-w-4xl mx-auto">
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="lift-card p-8 flex flex-col">
+              <h3 class="font-heading text-2xl font-bold mb-2">Pay As You Go</h3>
+              <div class="text-4xl font-bold mb-1 text-brand-green">$10</div>
+              <p class="text-sm opacity-60 mb-6">100 Credits</p>
+              <p class="opacity-70 mb-8">For casual users. Credits never expire.</p>
+              <button onclick="openModal('credit_10')" class="btn-outline w-full py-3 rounded-xl font-bold border-2">Select Pack</button>
+            </div>
+
+            <div class="lift-card p-8 flex flex-col border-brand-green/50">
+              <h3 class="font-heading text-2xl font-bold mb-2">Value Pack</h3>
+              <div class="text-4xl font-bold mb-1 text-brand-green">$20</div>
+              <p class="text-sm opacity-60 mb-6">250 Credits (+50 Bonus)</p>
+              <p class="opacity-70 mb-8">Best for specific projects. Includes 50 free credits.</p>
+              <button onclick="openModal('credit_20')" class="btn-brand w-full py-3 rounded-xl font-bold">Select Pack</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- Models Section -->
+    <section class="py-20 bg-alt border-t border-gray-200 dark:border-gray-800">
+      <div class="max-w-7xl mx-auto px-4">
+        <h2 class="font-heading text-3xl font-bold text-center mb-12">Available Models</h2>
+        
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- FLUX 2 -->
+          <div class="lift-card p-6">
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="font-bold text-lg">FLUX.2 Pro</h3>
+              <span class="text-xs bg-brand-green text-black px-2 py-1 rounded font-bold">2 credits</span>
+            </div>
+            <p class="text-sm opacity-70">Latest generation model with exceptional photorealism up to 4MP.</p>
+          </div>
+
+          <!-- FLUX 1 -->
+          <div class="lift-card p-6">
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="font-bold text-lg">FLUX.1 Pro</h3>
+              <span class="text-xs bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded font-bold">1 credit</span>
+            </div>
+            <p class="text-sm opacity-70">Industry-leading quality with enhanced composition.</p>
+          </div>
+
+          <!-- DALL-E -->
+          <div class="lift-card p-6">
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="font-bold text-lg">DALL-E 3</h3>
+              <span class="text-xs bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded font-bold">1 credit</span>
+            </div>
+            <p class="text-sm opacity-70">Great for artistic and conceptual work. High prompt fidelity.</p>
+          </div>
+
+          <!-- SDXL -->
+          <div class="lift-card p-6">
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="font-bold text-lg">SDXL Turbo</h3>
+              <span class="text-xs bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded font-bold">1 credit</span>
+            </div>
+            <p class="text-sm opacity-70">Fast generation, perfect for rapid prototyping.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-white text-[#323232] py-12 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <span class="text-xl font-bold mb-4 block text-black">ART de ONE</span>
+                    <p class="text-gray-500 text-sm">
+                        Freelance Graphic Designer & Illustrator Portfolio, Blog, Resources and Online Courses
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Quick Links</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index.html#home" class="text-gray-500 hover:text-black transition duration-300">Home</a></li>
+                      <!--  <li><a href="courses.html" class="text-gray-500 hover:text-black transition duration-300">Courses</a></li> -->
+                        <li><a href="/prompt.html" class="text-gray-500 hover:text-black transition duration-300">Prompts</a></li>
+                        <li><a href="/blog.html" class="text-gray-500 hover:text-black transition duration-300">Blog</a></li>
+                        <li><a href="/resources/resources-collection.html" class="text-gray-500 hover:text-black transition duration-300">Resources</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Services</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Logo Design</a></li>
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Social Media</a></li>
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Printing</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Contact</h3>
+                    <ul class="space-y-2 text-sm">
+                         <li><a href="/index.html#about" class="text-gray-500 hover:text-black transition duration-300">About</a></li>
+                        <li><a href="/index.html#contact" class="text-gray-500 hover:text-black transition duration-300">Contact</a></li>
+                    </ul>
+                </div> 
+                <!-- <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Classes</h3>
+                    <ul class="space-y-2 text-sm">
+                         <li><a href="courses/basic-illustrator/course-detail-basic.html" class="text-gray-500 hover:text-black transition duration-300">Basic Course</a></li>
+                        <li><a href="courses/intermediate-illustrator/course-detail-intermediate.html" class="text-gray-500 hover:text-black transition duration-300">Intermediate</a></li>
+                        <li><a href="courses/graphic-design/course-detail-graphic-design.html" class="text-gray-500 hover:text-black transition duration-300">Graphic Design</a></li>
+                    </ul>
+                </div> -->
+                
+            </div>
+            <div class="border-t border-gray-200 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">
+                    &copy; 2026 ART de ONE. All rights reserved.
+                </p>
+                <div class="flex space-x-6 text-sm">
+                    <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-behance"></i></a>
+                    <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+  <!-- Modal -->
+  <div id="subscriptionModal" class="modal">
+    <div class="lift-card p-8 max-w-md w-full mx-4 bg-white dark:bg-[#1a1a20] relative">
+      <button onclick="closeModal()" class="absolute top-4 right-4 text-2xl opacity-50 hover:opacity-100">&times;</button>
+      
+      <h2 class="font-heading text-2xl font-bold mb-6">Activate Subscription</h2>
+      <div id="alertBox" class="hidden p-3 rounded bg-red-100 text-red-700 mb-4 text-sm"></div>
+      
+      <form id="subscriptionForm" class="space-y-4">
+        <div>
+          <label class="block text-sm font-bold mb-2 opacity-80">Email Address</label>
+          <input type="email" id="email" class="form-input" placeholder="student@example.com" required>
+        </div>
+        
+        <div>
+          <label class="block text-sm font-bold mb-2 opacity-80">API Key</label>
+          <input type="password" id="apiKey" class="form-input" placeholder="Enter key from instructor" required>
+        </div>
+        
+        <input type="hidden" id="planType" name="planType" value="">
+        
+        <div class="pt-4">
+          <button type="submit" class="btn-brand w-full py-3 rounded-xl font-bold">Activate Now</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+    <script src="css-and-js/mobile-smooth-nav.js"></script>
+  
+  <script>
+        // ==========================================
+    // 1. THEME TOGGLE LOGIC (Updated for Desktop & Mobile)
+    // ==========================================
+    const html = document.documentElement;
+    const toggles = [
+        document.getElementById('themeToggleDesktop'), 
+        document.getElementById('themeToggleMobile')
+    ];
+
+    // Check saved preference
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      html.classList.add('dark');
+    } else {
+      html.classList.remove('dark');
+    }
+
+    // Toggle Function
+    function toggleTheme() {
+        if (html.classList.contains('dark')) {
+            html.classList.remove('dark');
+            localStorage.theme = 'light';
+        } else {
+            html.classList.add('dark');
+            localStorage.theme = 'dark';
+        }
+    }
+
+    // Add event listeners to BOTH buttons
+    toggles.forEach(btn => {
+        if(btn) btn.addEventListener('click', toggleTheme);
+    });
+
+
+    // ==========================================
+    // 2. TAB SWITCHING LOGIC (Unlimited vs Credits)
+    // ==========================================
+    function switchTab(type) {
+        const btnTime = document.getElementById('btn-time');
+        const btnCredit = document.getElementById('btn-credit');
+        const contentTime = document.getElementById('content-time');
+        const contentCredit = document.getElementById('content-credit');
+
+        // Classes for Active State
+        const activeClasses = ['bg-[#a7e169]', 'text-black', 'border-[#a7e169]', 'font-bold'];
+        // Classes for Inactive State
+        const inactiveClasses = ['text-gray-500', 'dark:text-gray-400', 'font-normal'];
+
+        if (type === 'time') {
+            // Show Time, Hide Credit
+            contentTime.classList.remove('hidden');
+            contentCredit.classList.add('hidden');
+
+            // Update Buttons
+            btnTime.classList.add(...activeClasses);
+            btnTime.classList.remove('text-gray-500', 'dark:text-gray-400', 'font-normal');
+            
+            btnCredit.classList.remove(...activeClasses);
+            btnCredit.classList.add('text-gray-500', 'dark:text-gray-400', 'font-normal');
+        } else {
+            // Show Credit, Hide Time
+            contentTime.classList.add('hidden');
+            contentCredit.classList.remove('hidden');
+
+            // Update Buttons
+            btnCredit.classList.add(...activeClasses);
+            btnCredit.classList.remove('text-gray-500', 'dark:text-gray-400', 'font-normal');
+
+            btnTime.classList.remove(...activeClasses);
+            btnTime.classList.add('text-gray-500', 'dark:text-gray-400', 'font-normal');
+        }
+    }
+
+    // ==========================================
+    // 3. MODAL & SUBSCRIPTION LOGIC
+    // ==========================================
+    function openModal(planType) {
+        const modal = document.getElementById('subscriptionModal');
+        const planInput = document.getElementById('planType');
+        const alertBox = document.getElementById('alertBox');
+        
+        if(planInput) planInput.value = planType;
+        if(modal) modal.classList.add('active');
+        if(alertBox) {
+            alertBox.classList.remove('active');
+            alertBox.classList.add('hidden');
+        }
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('subscriptionModal');
+        const form = document.getElementById('subscriptionForm');
+        
+        if(modal) modal.classList.remove('active');
+        if(form) form.reset();
+    }
+
+    function showAlert(message, type) {
+        const alertBox = document.getElementById('alertBox');
+        if(!alertBox) return;
+
+        alertBox.textContent = message;
+        alertBox.className = 'p-3 rounded mb-4 text-sm'; // Reset classes
+        
+        if (type === 'success') {
+            alertBox.classList.add('bg-green-100', 'text-green-700', 'active');
+        } else {
+            alertBox.classList.add('bg-red-100', 'text-red-700', 'active');
+        }
+        alertBox.classList.remove('hidden');
+    }
+
+    // Form Submit Handler
+    const subForm = document.getElementById('subscriptionForm');
+    if(subForm) {
+        subForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerText;
+            submitBtn.innerText = 'Activating...';
+            submitBtn.disabled = true;
+
+            const formData = {
+                email: document.getElementById('email').value,
+                apiKey: document.getElementById('apiKey').value,
+                planType: document.getElementById('planType').value
+            };
+
+            try {
+                const response = await fetch('/.netlify/functions/save-subscription', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    showAlert('✅ Subscription activated successfully! Redirecting...', 'success');
+                    setTimeout(() => {
+                        closeModal();
+                        window.location.href = 'ai-generator.html';
+                    }, 2000);
+                } else {
+                    showAlert(`❌ ${result.error || 'Activation failed. Please contact support.'}`, 'error');
+                    submitBtn.innerText = originalText;
+                    submitBtn.disabled = false;
+                }
+            } catch (error) {
+                showAlert('❌ Network error. Please try again.', 'error');
+                console.error('Error:', error);
+                submitBtn.innerText = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+    }
+
+    // Close modal on outside click
+    const modal = document.getElementById('subscriptionModal');
+    if(modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target.id === 'subscriptionModal') {
+                closeModal();
+            }
+        });
+    }
+
+
+  </script>
+
+
+</body>
+</html>

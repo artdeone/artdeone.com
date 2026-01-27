@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Generator - ART de ONE</title>
+
+  <!-- Tailwind & Icons -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              green: '#a7e169',
+              red: '#ed2939',
+              dark: '#111116', // Dark mode bg
+              card: '#1a1a20', // Dark mode card
+              border: '#2a2a35' // Dark mode border
+            }
+          },
+          fontFamily: {
+            sans: ['Space Grotesk', 'sans-serif'],
+            heading: ['Poppins', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Base Styles */
+    body { 
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    
+    /* Light Mode Variables */
+    :root {
+      --bg-color: #f9f9f9;
+      --text-color: #323232;
+      --card-bg: #ffffff;
+      --border-color: #e5e5e5;
+    }
+
+    /* Dark Mode Variables */
+    .dark {
+      --bg-color: #111116;
+      --text-color: #e5e5e5;
+      --card-bg: #1a1a20;
+      --border-color: #2a2a35;
+    }
+
+    body { background-color: var(--bg-color); color: var(--text-color); }
+
+    /* Custom Classes */
+    .lift-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 1rem;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+      transition: all 0.4s ease;
+    }
+    
+    /* Hover effect works in both modes */
+    .lift-card:hover {
+      transform: translateY(-5px);
+      border-color: #a7e169; /* Always Green on hover */
+      box-shadow: 0 10px 20px -5px rgba(167, 225, 105, 0.2);
+    }
+
+    /* Brand Button - Consistent across modes */
+    .btn-brand {
+      background-color: #a7e169;
+      color: #000;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: 1px solid #a7e169;
+    }
+    .btn-brand:hover {
+      background-color: #ed2939;
+      border-color: #ed2939;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* Form Inputs */
+    .form-input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border-radius: 0.75rem;
+      border: 2px solid var(--border-color);
+      background-color: transparent;
+      transition: all 0.3s ease;
+      color: inherit;
+    }
+    .form-input:focus {
+      outline: none;
+      border-color: #a7e169;
+      background-color: var(--card-bg);
+      box-shadow: 0 0 0 4px rgba(167, 225, 105, 0.1);
+    }
+
+    /* Theme Toggle Switch */
+    .theme-toggle {
+      position: relative;
+      width: 60px;
+      height: 32px;
+      background: #e5e5e5;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      padding: 4px;
+    }
+    .dark .theme-toggle { background: #2a2a35; }
+    
+    .toggle-thumb {
+      width: 24px;
+      height: 24px;
+      background: white;
+      border-radius: 50%;
+      transition: 0.3s;
+      transform: translateX(0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    .dark .toggle-thumb {
+      transform: translateX(28px);
+      background: #a7e169;
+    }
+    
+    .toggle-icon { font-size: 12px; }
+  </style>
+</head>
+
+<body class="antialiased min-h-screen">
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    
+    <!-- Top Bar -->
+    <div class="lift-card p-5 mb-8 flex flex-col sm:flex-row items-center justify-between gap-5">
+      <div class="flex items-center gap-4">
+        <a href="index.html" class="w-10 h-10 rounded-full bg-brand-green flex items-center justify-center text-black hover:bg-brand-red hover:text-white transition shadow-sm">
+          <i class="fas fa-arrow-left"></i>
+        </a>
+        <div>
+          <h1 class="font-heading text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-brand-green to-green-600 dark:from-brand-green dark:to-white">
+            AI Generator
+          </h1>
+          <p class="text-sm opacity-60">Create stunning visuals in seconds</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <!-- Theme Toggle -->
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle Dark Mode">
+          <div class="toggle-thumb">
+            <i class="fas fa-sun text-yellow-500 block dark:hidden toggle-icon"></i>
+            <i class="fas fa-moon text-black hidden dark:block toggle-icon"></i>
+          </div>
+        </button>
+
+        <div class="lift-card px-4 py-2 flex items-center gap-2">
+          <i class="fas fa-coins text-brand-green"></i>
+          <span id="creditsText" class="font-bold text-sm">Loading...</span>
+        </div>
+        
+        <a href="ai-premium.html" class="hidden sm:inline-block px-4 py-2 text-sm font-semibold rounded-full border border-gray-300 dark:border-gray-700 hover:border-brand-green hover:text-brand-green transition">
+          Upgrade
+        </a>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-12 gap-8">
+      
+      <!-- Left Panel: Controls -->
+      <div class="lg:col-span-4 space-y-6">
+        <div class="lift-card p-6">
+          <h2 class="font-heading font-bold text-lg mb-4 flex items-center gap-2">
+            <i class="fas fa-sliders-h text-brand-green"></i> Settings
+          </h2>
+
+          <div id="alertBox" class="alert hidden mb-4 p-3 rounded-lg bg-red-100 text-red-700 text-sm border border-red-200"></div>
+
+          <form id="generatorForm" class="space-y-5">
+            <div>
+              <label class="block text-sm font-semibold mb-2 opacity-80">Email Address</label>
+              <input type="email" id="userEmail" class="form-input" placeholder="student@example.com" required>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold mb-2 opacity-80">Select Model</label>
+              <div class="relative">
+                <select id="modelSelect" class="form-input appearance-none cursor-pointer">
+                  <option value="flux-pro">FLUX.1 Pro (1 credit)</option>
+                  <option value="flux-2-pro">FLUX.2 Pro (2 credits)</option>
+                  <option value="dalle-3">DALL-E 3 (1 credit)</option>
+                  <option value="sdxl-turbo">SDXL Turbo (1 credit)</option>
+                </select>
+                <div class="absolute right-3 top-3 pointer-events-none opacity-50">
+                  <i class="fas fa-chevron-down text-xs"></i>
+                </div>
+              </div>
+              <div id="modelInfo" class="mt-2 text-xs opacity-60 bg-gray-100 dark:bg-gray-800 p-2 rounded border border-gray-200 dark:border-gray-700">
+                Industry-leading quality with enhanced composition.
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold mb-2 opacity-80">Prompt</label>
+              <textarea id="promptInput" class="form-input h-32 resize-none leading-relaxed" placeholder="Describe your imagination here... e.g., 'A futuristic cyberpunk city with neon lights at night'" required></textarea>
+            </div>
+
+            <button type="submit" id="generateBtn" class="btn-brand w-full py-3 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-green-500/20">
+              <i class="fas fa-wand-magic-sparkles"></i>
+              <span>Generate Image</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Tips Card -->
+        <div class="lift-card p-5 bg-gradient-to-br from-transparent to-green-50 dark:to-green-900/10">
+          <h3 class="font-bold text-sm mb-2 opacity-80"><i class="far fa-lightbulb text-brand-green mr-1"></i> Pro Tip</h3>
+          <p class="text-xs opacity-60 leading-relaxed">
+            For best results with FLUX models, describe lighting and camera angles. Example: "Cinematic lighting, low angle shot, 8k resolution".
+          </p>
+        </div>
+      </div>
+
+      <!-- Right Panel: Preview -->
+      <div class="lg:col-span-8">
+        <div class="lift-card h-full min-h-[500px] p-6 flex flex-col relative overflow-hidden">
+          
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="font-heading font-bold text-lg">Result</h2>
+            <div class="flex gap-2">
+              <button class="text-xs opacity-50 hover:opacity-100 transition"><i class="fas fa-expand"></i></button>
+            </div>
+          </div>
+
+          <!-- Content Area -->
+          <div class="flex-1 rounded-xl border-2 border-dashed border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-black/20 flex flex-col items-center justify-center relative overflow-hidden group">
+            
+            <!-- Placeholder -->
+            <div id="placeholder" class="text-center p-8 transition-opacity duration-300">
+              <div class="w-20 h-20 bg-gray-200 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
+                <i class="far fa-image text-3xl opacity-30"></i>
+              </div>
+              <p class="font-medium opacity-50">Your imagination awaits</p>
+              <p class="text-xs opacity-30 mt-1">Enter a prompt to start creating</p>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loading" class="hidden absolute inset-0 bg-white/90 dark:bg-black/90 z-10 flex-col items-center justify-center backdrop-blur-sm">
+              <div class="relative w-20 h-20">
+                <div class="absolute inset-0 border-4 border-gray-200 dark:border-gray-700 rounded-full"></div>
+                <div class="absolute inset-0 border-4 border-brand-green rounded-full border-t-transparent animate-spin"></div>
+                <i class="fas fa-magic absolute inset-0 flex items-center justify-center text-brand-green animate-pulse"></i>
+              </div>
+              <p class="mt-4 font-bold text-brand-green animate-pulse">Creating Magic...</p>
+              <p class="text-xs opacity-50 mt-1">This might take 10-30 seconds</p>
+            </div>
+
+            <!-- Result Image Container -->
+            <div id="imageContainer" class="hidden w-full h-full flex flex-col items-center justify-center bg-black">
+              <img id="generatedImage" class="max-w-full max-h-[600px] object-contain shadow-2xl" alt="Generated Art" />
+            </div>
+
+          </div>
+
+          <!-- Actions Bar (Shows when image is ready) -->
+          <div id="actionButtons" class="hidden mt-4 pt-4 border-t border-gray-100 dark:border-gray-800 flex justify-end gap-3">
+             <button onclick="downloadImage()" class="btn-brand px-6 py-2 rounded-full text-sm flex items-center gap-2">
+               <i class="fas fa-download"></i> Download
+             </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Theme Toggle Script -->
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    
+    // Check saved preference
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      html.classList.add('dark');
+    } else {
+      html.classList.remove('dark');
+    }
+
+    themeToggle.addEventListener('click', () => {
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.theme = 'light';
+      } else {
+        html.classList.add('dark');
+        localStorage.theme = 'dark';
+      }
+    });
+
+    // Handle Image Loading UI
+    const originalGenerateBtn = document.getElementById('generateBtn');
+    // Note: The main logic is handled by your existing script below
+  </script>
+
+    <script>
+        const modelDescriptions = {
+            'flux-pro': 'Industry-leading quality with enhanced composition and lighting. Perfect for commercial projects.',
+            'flux-2-pro': 'Latest generation with exceptional photorealism up to 4MP resolution. Best for professional work.',
+            'dalle-3': 'Excellent prompt understanding and creative outputs from OpenAI. Great for artistic concepts.',
+            'sdxl-turbo': 'Fast and reliable generation with great photorealism. Excellent for batch generation.'
+        };
+
+        // Update model info on selection change
+        document.getElementById('modelSelect').addEventListener('change', (e) => {
+            document.getElementById('modelInfo').textContent = modelDescriptions[e.target.value];
+        });
+
+        // Load user's subscription info
+        async function loadSubscriptionInfo() {
+            const email = localStorage.getItem('userEmail');
+            if (email) {
+                document.getElementById('userEmail').value = email;
+                await checkCredits(email);
+            }
+        }
+
+        async function checkCredits(email) {
+            try {
+                const response = await fetch('/.netlify/functions/validate-subscription', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    const creditsText = data.creditsRemaining !== null 
+                        ? `${data.creditsRemaining} credits remaining`
+                        : 'Unlimited generations';
+                    document.getElementById('creditsText').textContent = creditsText;
+                } else {
+                    document.getElementById('creditsText').textContent = 'Subscription status unknown';
+                }
+            } catch (error) {
+                console.error('Error checking credits:', error);
+                document.getElementById('creditsText').textContent = 'Error loading status';
+            }
+        }
+
+        function showAlert(message) {
+            const alertBox = document.getElementById('alertBox');
+            alertBox.textContent = message;
+            alertBox.classList.add('active');
+        }
+
+        function hideAlert() {
+            document.getElementById('alertBox').classList.remove('active');
+        }
+
+        function downloadImage() {
+            const img = document.getElementById('generatedImage');
+            const link = document.createElement('a');
+            link.href = img.src;
+            link.download = `artdeone-ai-${Date.now()}.png`;
+            link.click();
+        }
+
+        document.getElementById('generatorForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            hideAlert();
+
+            const email = document.getElementById('userEmail').value;
+            const model = document.getElementById('modelSelect').value;
+            const prompt = document.getElementById('promptInput').value;
+
+            // Save email for next time
+            localStorage.setItem('userEmail', email);
+
+            // Show loading
+            document.getElementById('placeholder').style.display = 'none';
+            document.getElementById('imageContainer').classList.remove('active');
+            document.getElementById('loading').classList.add('active');
+            document.getElementById('generateBtn').disabled = true;
+            document.getElementById('generateBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+
+            try {
+                const response = await fetch('/.netlify/functions/generate-premium-image', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, model, prompt })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Generation failed');
+                }
+
+                const result = await response.json();
+
+                // Display image (adjust based on API response format)
+                const imageUrl = result.data?.[0]?.url || result.url || result.image;
+
+                if (!imageUrl) {
+                    throw new Error('No image URL in response');
+                }
+
+                document.getElementById('generatedImage').src = imageUrl;
+
+                document.getElementById('loading').classList.remove('active');
+                document.getElementById('imageContainer').classList.add('active');
+
+                // Refresh credits
+                await checkCredits(email);
+
+            } catch (error) {
+                console.error('Generation error:', error);
+                showAlert(`❌ ${error.message}`);
+                document.getElementById('loading').classList.remove('active');
+                document.getElementById('placeholder').style.display = 'block';
+            } finally {
+                document.getElementById('generateBtn').disabled = false;
+                document.getElementById('generateBtn').innerHTML = '<i class="fas fa-wand-magic-sparkles"></i> Generate Image';
+            }
+        });
+
+        // Load subscription info on page load
+        loadSubscriptionInfo();
+    </script>
+</body>
+</html>

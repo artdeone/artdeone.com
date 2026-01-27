@@ -1,0 +1,227 @@
+/* theme.css */
+
+/* 1. Font Imports */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+/* 2. Theme Tokens (Light default) */
+:root {
+  /* Brand */
+  --brand-green: #a7e169;
+  --brand-red: #ed2939;
+
+  /* Surfaces */
+  --bg: #ffffff;
+  --bg-soft: #f9f9f9;
+  --surface: #ffffff;
+
+  /* Text */
+  --text: #323232;
+  --text-strong: #000000;
+  --text-muted: #555555;
+
+  /* Lines */
+  --border: #e5e5e5;
+
+  /* Nav */
+  --nav-bg: rgba(255, 255, 255, 0.95);
+
+  /* Shadows */
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  --shadow-lift: 0 10px 15px -3px rgba(167, 225, 105, 0.30);
+
+  /* Focus ring */
+  --focus-ring: 0 0 0 2px rgba(167, 225, 105, 0.20);
+}
+
+/* 2.1 Dark Mode Tokens (apply by adding class="dark" to <html> or <body>) */
+.dark {
+  --bg: #111116;          /* your dark bg */
+  --bg-soft: #16161c;     /* section alt */
+  --surface: #1a1a20;     /* cards/nav surface */
+  --text: #e5e5e5;
+  --text-strong: #ffffff;
+  --text-muted: rgba(229,229,229,0.70);
+  --border: #2a2a35;
+  --nav-bg: rgba(17, 17, 22, 0.85); /* blur glass in dark */
+  --shadow-sm: 0 6px 18px rgba(0, 0, 0, 0.35);
+  --shadow-lift: 0 18px 40px rgba(167, 225, 105, 0.18);
+  --focus-ring: 0 0 0 2px rgba(167, 225, 105, 0.25);
+}
+
+/* 3. Global Theme Styles */
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Space Grotesk', sans-serif;
+  overflow-x: hidden;
+  max-width: 100%;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Secondary Font Application */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-strong);
+}
+.artdeone-font, .section-title {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* 4. Navigation Overrides */
+nav {
+  background-color: var(--nav-bg) !important;
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.nav-link {
+  color: var(--text) !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.04em;
+  font-size: 0.9rem !important;
+  transition: color 0.2s ease, font-weight 0.2s ease;
+}
+.nav-link:hover {
+  color: var(--text-strong) !important;
+  font-weight: 600 !important;
+}
+
+.mobile-menu {
+  background-color: var(--surface) !important;
+  border-bottom: 1px solid var(--border);
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+.mobile-nav-link {
+  color: var(--text) !important;
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+.mobile-menu-btn {
+  color: var(--text-strong) !important;
+}
+.mobile-menu-btn:hover {
+  background-color: rgba(0,0,0,0.06);
+}
+.dark .mobile-menu-btn:hover {
+  background-color: rgba(255,255,255,0.08);
+}
+
+/* 5. Sections */
+.section-dark { background-color: var(--bg); }
+.section-darker { background-color: var(--bg-soft); }
+
+.section-title {
+  color: var(--text-strong);
+  font-weight: 700;
+  font-size: 2.25rem;
+  margin-bottom: 1rem;
+}
+.section-subtitle {
+  color: var(--text-muted);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 6. Buttons (Brand colors only) */
+.nav-btn {
+  background-color: var(--brand-green);
+  color: #000;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--brand-green);
+  height: auto;
+  line-height: 1;
+}
+.nav-btn:hover {
+  background-color: var(--brand-red);
+  border-color: var(--brand-red);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background-color: var(--brand-green);
+  color: #000;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  padding: 0.75rem 2rem;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--brand-green);
+}
+.btn-primary:hover {
+  background-color: var(--brand-red);
+  border-color: var(--brand-red);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--text);
+  font-weight: 600;
+  border: 1px solid var(--text);
+  border-radius: 0.75rem;
+  padding: 0.75rem 2rem;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-secondary:hover {
+  background-color: var(--text-strong);
+  color: var(--bg);
+  border-color: var(--text-strong);
+}
+
+/* 7. Cards & Containers */
+.minimalist-card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 2rem;
+  transition: all 0.4s ease;
+  box-shadow: var(--shadow-sm);
+}
+.minimalist-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--brand-green);
+  box-shadow: var(--shadow-lift);
+}
+
+/* Forms */
+.form-input {
+  background-color: var(--bg-soft);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  transition: all 0.3s ease;
+}
+.form-input:focus {
+  border-color: var(--brand-green);
+  background-color: var(--surface);
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* Helpers */
+.hidden { display: none; }
+[data-aos] { transition-duration: 1000ms !important; }
+
+/* 4. Navigation Overrides အောက်မှာ ဒါလေးထပ်ထည့်ပါ */
+
+/* Dark Mode မှာ Logo ကို #a7e169 (Green) ပြောင်းမည့် Code */
+.dark nav img {
+    filter: brightness(0) saturate(100%) invert(86%) sepia(8%) saturate(1487%) hue-rotate(44deg) brightness(98%) contrast(87%);
+}
+
