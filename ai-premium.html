@@ -8,6 +8,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/feather-icons"></script>
+  <link rel="stylesheet" href="/css-and-js/mobile-smooth-nav.css">
   <link rel="stylesheet" href="css-and-js/ai-theme.css">
 
   <script>
@@ -157,6 +159,42 @@
       border-color: #a7e169;
       font-weight: 700;
     }
+
+        /* Dark Mode Mobile Menu Button Override */
+    .dark .mobile-menu-btn .icon-container {
+        color: #ffffff !important; /* Force white icon in dark mode */
+    }
+    
+    /* Ensure icon container centers properly */
+    .icon-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Default Hide Close Icon */
+    .icon-close {
+        display: none;
+    }
+
+        /* Gallery Hover Effects */
+    .gallery-item {
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+    .gallery-item:hover {
+        transform: translateY(-4px);
+    }
+    .gallery-overlay {
+        background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    .gallery-item:hover .gallery-overlay {
+        opacity: 1;
+    }
+
+
     #tab-time:checked ~ .content-time { display: grid; }
     #tab-credit:checked ~ .content-credit { display: grid; }
     .content-time, .content-credit { display: none; }
@@ -372,6 +410,88 @@
 
       </div>
     </section>
+
+    <!-- Gallery Section Start -->
+
+        <!-- AI Showcase Gallery -->
+    <section id="gallery" class="py-20 bg-alt border-t border-gray-200 dark:border-gray-800">
+      <div class="max-w-7xl mx-auto px-4">
+        
+        <div class="text-center mb-12">
+          <h2 class="font-heading text-3xl font-bold mb-4">Community Showcase</h2>
+          <p class="opacity-60">Explore stunning visuals created with our AI models</p>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div id="gallery-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Images will be inserted here by JS -->
+        </div>
+
+        <!-- Load More Button -->
+        <div class="text-center mt-12">
+            <button id="loadMoreBtn" class="btn-outline px-8 py-3 rounded-full font-bold transition hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">
+                Load More Images
+            </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Lightbox Modal (For Image Details) -->
+    <div id="imageModal" class="fixed inset-0 z-[100] hidden bg-black/95 backdrop-blur-sm overflow-y-auto">
+        <div class="min-h-screen flex items-center justify-center p-4">
+            <!-- Close Button -->
+            <button onclick="closeImageModal()" class="fixed top-6 right-6 text-white/50 hover:text-white transition z-[110]">
+                <i class="fas fa-times text-3xl"></i>
+            </button>
+
+            <div class="max-w-6xl w-full grid lg:grid-cols-3 gap-8 bg-[#1a1a20] rounded-2xl overflow-hidden border border-gray-800 shadow-2xl">
+                
+                <!-- Image Side -->
+                <div class="lg:col-span-2 bg-black flex items-center justify-center p-2 relative group">
+                    <img id="modalImage" src="" alt="AI Art" class="max-h-[85vh] object-contain rounded-lg shadow-lg">
+                    <!-- Download Btn inside image area -->
+                     <a id="modalDownload" href="#" download class="absolute bottom-6 right-6 bg-white/10 hover:bg-white/20 backdrop-blur text-white px-4 py-2 rounded-full text-sm font-semibold transition opacity-0 group-hover:opacity-100">
+                        <i class="fas fa-download mr-2"></i> Save
+                    </a>
+                </div>
+
+                <!-- Info Side -->
+                <div class="p-8 lg:p-10 flex flex-col justify-center h-full bg-[#1a1a20]">
+                    <h3 id="modalTitle" class="font-heading text-2xl font-bold text-white mb-6">Title</h3>
+                    
+                    <div class="mb-8">
+                        <label class="text-xs uppercase tracking-wider text-gray-500 font-bold mb-2 block">Prompt</label>
+                        <p id="modalPrompt" class="text-gray-300 leading-relaxed text-sm font-mono bg-black/30 p-4 rounded-lg border border-gray-800">
+                            <!-- Prompt goes here -->
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <label class="text-xs uppercase tracking-wider text-gray-500 font-bold block">Model</label>
+                            <span id="modalModel" class="text-brand-green font-semibold">FLUX.1 Pro</span>
+                        </div>
+                        <div>
+                            <label class="text-xs uppercase tracking-wider text-gray-500 font-bold block">Size</label>
+                            <span class="text-gray-300">1024 x 1024</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-auto pt-8 flex gap-3">
+                         <button class="flex-1 bg-brand-green text-black font-bold py-3 rounded-xl hover:opacity-90 transition">
+                            Remix This
+                         </button>
+                         <button onclick="closeImageModal()" class="flex-1 border border-gray-700 text-white font-bold py-3 rounded-xl hover:bg-gray-800 transition">
+                            Close
+                         </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 
     <!-- Models Section -->
@@ -677,6 +797,136 @@
             }
         });
     }
+
+
+        // ==========================================
+    // 4. MOBILE MENU LOGIC (Add this to existing script)
+    // ==========================================
+    const mobileMenuBtn = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+            // Toggle hidden class
+            mobileMenu.classList.toggle('hidden');
+            
+            // Optional: Toggle Icons (Menu <-> Close)
+            const iconMenu = mobileMenuBtn.querySelector('.icon-menu');
+            const iconClose = mobileMenuBtn.querySelector('.icon-close');
+            
+            if(iconMenu && iconClose) {
+                if (mobileMenu.classList.contains('hidden')) {
+                    // Menu closed -> Show Hamburger
+                    iconMenu.style.display = 'block';
+                    iconClose.style.display = 'none';
+                } else {
+                    // Menu open -> Show X
+                    iconMenu.style.display = 'none';
+                    iconClose.style.display = 'block';
+                }
+            }
+        });
+    }
+
+    // Feather Icons replace (if using feather icons)
+    if (typeof feather !== 'undefined') {
+        feather.replace();
+    }
+
+        // ==========================================
+    // 5. GALLERY LOGIC
+    // ==========================================
+    const galleryGrid = document.getElementById('gallery-grid');
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    
+    // IMAGE DATA (Add as many as you want here)
+    const galleryImages = [
+        {
+            src: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119692/character-2_k2oew1.jpg",
+            title: "Cyberpunk Samurai",
+            prompt: "A futuristic samurai warrior standing in neon-lit Tokyo streets, rain falling, cybernetic armor, glowing katana, cinematic lighting, 8k resolution, photorealistic style --ar 16:9",
+            model: "FLUX.1 Pro"
+        },
+        {
+            src: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119692/social-1_hrn8ul.jpg",
+            title: "Minimalist Brand",
+            prompt: "Clean minimalist logo design on textured paper, golden ratio, professional lighting, soft shadows, premium aesthetic",
+            model: "DALL-E 3"
+        },
+        {
+            src: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119691/client-2_dk6cnq.jpg",
+            title: "Coffee Advertisement",
+            prompt: "Professional product photography of a coffee cup with steam, morning sunlight, cozy atmosphere, depth of field, 85mm lens",
+            model: "FLUX.2 Pro"
+        },
+        // ... Add more image objects here (duplicate for demo) ...
+        // (For testing, I'll repeat these to make 18 images)
+    ];
+    
+    // Duplicate data for demo purposes (Delete this block when you have real data)
+    for(let i=0; i<15; i++) {
+        galleryImages.push({...galleryImages[i % 3], title: galleryImages[i % 3].title + " " + (i+1)});
+    }
+
+    let itemsToShow = 9;
+    let itemsLoaded = 0;
+
+    function renderGallery() {
+        const nextItems = galleryImages.slice(itemsLoaded, itemsLoaded + itemsToShow);
+        
+        nextItems.forEach(img => {
+            const div = document.createElement('div');
+            div.className = 'gallery-item relative rounded-xl overflow-hidden aspect-square group bg-gray-100 dark:bg-gray-800';
+            div.onclick = () => openImageModal(img);
+            
+            div.innerHTML = `
+                <img src="${img.src}" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" loading="lazy">
+                <div class="gallery-overlay absolute inset-0 flex flex-col justify-end p-6">
+                    <h4 class="text-white font-bold text-lg translate-y-4 group-hover:translate-y-0 transition duration-300">${img.title}</h4>
+                    <p class="text-gray-300 text-xs line-clamp-1 translate-y-4 group-hover:translate-y-0 transition duration-300 delay-75">${img.model}</p>
+                </div>
+            `;
+            galleryGrid.appendChild(div);
+        });
+
+        itemsLoaded += nextItems.length;
+
+        // Hide button if all loaded
+        if (itemsLoaded >= galleryImages.length) {
+            loadMoreBtn.style.display = 'none';
+        }
+    }
+
+    // Modal Logic
+    const imageModal = document.getElementById('imageModal');
+    
+    function openImageModal(img) {
+        document.getElementById('modalImage').src = img.src;
+        document.getElementById('modalTitle').innerText = img.title;
+        document.getElementById('modalPrompt').innerText = img.prompt;
+        document.getElementById('modalModel').innerText = img.model;
+        document.getElementById('modalDownload').href = img.src;
+        
+        imageModal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+    }
+
+    function closeImageModal() {
+        imageModal.classList.add('hidden');
+        document.body.style.overflow = 'auto'; // Restore scrolling
+    }
+
+    // Initial Load
+    renderGallery();
+
+    // Load More Click
+    loadMoreBtn.addEventListener('click', renderGallery);
+    
+    // Close modal on outside click
+    imageModal.addEventListener('click', (e) => {
+        if(e.target === imageModal) closeImageModal();
+    });
+
 
 
   </script>
