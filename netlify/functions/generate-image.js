@@ -4,7 +4,7 @@ const https = require("https");
 const MODEL_PATHS = {
   "flux-schnell": "/hf-inference/models/black-forest-labs/FLUX.1-schnell",
   "sdxl": "/hf-inference/models/stabilityai/stable-diffusion-xl-base-1.0",
-  "sd3-medium": "/hf-inference/models/stabilityai/stable-diffusion-3.5-medium",
+  "sd3-medium": "stabilityai/stable-diffusion-3.5-medium",
   "openjourney": "/hf-inference/models/prompthero/openjourney"
 };
 
