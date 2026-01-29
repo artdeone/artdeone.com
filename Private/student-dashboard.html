@@ -1257,11 +1257,11 @@ window.saveToGallery = saveToGallery;
         if(btn) btn.addEventListener('click', toggleTheme);
     });
 
-            // ==========================================
-    // NOTIFICATION BADGE LOGIC (SUPABASE CONNECTED)
+                // ==========================================
+    // NOTIFICATION BADGE LOGIC (TARGET AUDIENCE FILTERED)
     // ==========================================
     
-    // 1. Update UI Function (Badge ဖော်/ပျောက်)
+    // 1. Update UI Function
     function updateNotifications(count) {
         const desktopBadge = document.getElementById('desktop-noti');
         const mobileBadge = document.getElementById('mobile-noti');
@@ -1273,7 +1273,6 @@ window.saveToGallery = saveToGallery;
                     badge.innerText = count;           
                     badge.classList.remove('hidden');  
                     badge.classList.add('inline-flex');
-                    // Animation
                     badge.classList.add('animate-bounce');
                     setTimeout(() => badge.classList.remove('animate-bounce'), 1000);
                 } else {
@@ -1284,20 +1283,41 @@ window.saveToGallery = saveToGallery;
         });
     }
 
-    // 2. Fetch Real Data from Supabase
+    // 2. Fetch Filtered Data
     async function fetchAnnouncementCount() {
         try {
-            // 'announcements' table က row အရေအတွက်ကိုပဲ ယူပါမယ် (head: true)
+            // A. လက်ရှိ Login ဝင်ထားတဲ့ User ကို ရယူမယ်
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) return; // Login မဝင်ထားရင် ဘာမှမလုပ်ဘူး
+
+            // B. ကျောင်းသားရဲ့ Type (Individual/Group) ကို students table ကနေ ယူမယ်
+            // (Note: 'email' or 'id' နဲ့ ချိတ်ဆက်ထားတယ်လို့ ယူဆပါတယ်)
+            const { data: studentData, error: studentError } = await supabase
+                .from('students')
+                .select('student_type') // သင့် Table ထဲက column နာမည် (ဥပမာ: type, category, target_audience)
+                .eq('email', user.email) 
+                .single();
+
+            if (studentError) {
+                console.error('Error fetching student info:', studentError);
+                return;
+            }
+
+            const studentType = studentData?.student_type || 'individual'; // Default to individual if not found
+
+            // C. Announcement တွေကို Filter လုပ်ပြီး ရေတွက်မယ်
+            // Logic: target_audience က 'all' ဖြစ်ရင်သော်လည်းကောင်း၊ ကျောင်းသား Type နဲ့ တူရင်သော်လည်းကောင်း ယူမယ်
             const { count, error } = await supabase
                 .from('announcements')
-                .select('*', { count: 'exact', head: true }); 
+                .select('*', { count: 'exact', head: true })
+                .or(`target_audience.eq.all,target_audience.eq.${studentType}`);
 
             if (error) {
                 console.error('Supabase Error:', error);
                 return;
             }
 
-            console.log("Live Announcement Count:", count);
+            console.log(`Live Count (${studentType}):`, count);
             updateNotifications(count || 0);
 
         } catch (error) {
@@ -1307,10 +1327,8 @@ window.saveToGallery = saveToGallery;
 
     // 3. Initialize & Realtime Update
     document.addEventListener('DOMContentLoaded', () => {
-        // Page Load တာနဲ့ ဆွဲမယ်
         fetchAnnouncementCount();
         
-        // Data အသစ်ဝင်လာရင် Auto တိုးမယ် (Realtime)
         supabase
             .channel('announcement-badge-updates')
             .on('postgres_changes', { event: '*', schema: 'public', table: 'announcements' }, () => {
@@ -1318,6 +1336,7 @@ window.saveToGallery = saveToGallery;
             })
             .subscribe();
     });
+
 
 </script>
 
