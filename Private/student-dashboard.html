@@ -196,6 +196,55 @@
                 filter: brightness(0) saturate(100%) invert(86%) sepia(8%) saturate(1487%) hue-rotate(44deg) brightness(98%) contrast(87%);
             }
 
+                        /* =========================================
+            AI GENERATOR DARK MODE FIXES
+            ========================================= */
+            
+            /* 1. Model Selection Cards Fix */
+            /* Model ရွေးတဲ့ ကတ်တွေကို Dark Mode မှာ အမဲရောင်ပြောင်းမယ် */
+            .dark label.cursor-pointer {
+                background-color: #1a1a20 !important; /* Card အမဲ */
+                border-color: #2a2a35 !important;    /* ဘောင်အရောင် */
+                color: #ffffff !important;           /* စာလုံးအဖြူ */
+            }
+            
+            /* Selected State (Model ရွေးထားရင် ဘောင်အရောင်စိမ်းမယ်) */
+            .dark input[type="radio"]:checked + div {
+                border-color: #a7e169 !important;
+                background-color: #23232a !important;
+            }
+
+            /* 2. Image Placeholder Fix */
+            /* ပုံမပေါ်ခင် နေရာလွတ်ကြီးကို အမဲရောင်ပြောင်းမယ် */
+            .dark #ai-result-container {
+                background-color: #1a1a20 !important;
+                border-color: #2a2a35 !important;
+            }
+
+            /* Placeholder Icon & Text */
+            .dark #ai-result-container i,
+            .dark #ai-result-container p {
+                color: #6b7280 !important; /* Gray-500 equivalent */
+            }
+
+            /* 3. Prompt Input Area Fix */
+            /* စာရိုက်တဲ့ကွက်ကို အမဲရောင်ပြောင်းမယ် */
+            .dark #ai-prompt {
+                background-color: #16161c !important;
+                color: #ffffff !important;
+                border-color: #2a2a35 !important;
+            }
+            .dark #ai-prompt::placeholder {
+                color: #6b7280 !important;
+            }
+
+             /* 4. Section Title Fixes */
+             /* "AI Model", "Your Prompt" စာသားတွေကို အဖြူပြောင်းမယ် */
+             .dark h3.text-sm.font-medium.text-gray-700 {
+                color: #e5e5e5 !important;
+            }
+
+
 
     </style>
 </head>
