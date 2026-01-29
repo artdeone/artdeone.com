@@ -11,6 +11,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+  tailwind.config = {
+    darkMode: 'class', // Enable manual dark mode toggle
+    theme: {
+      extend: {
+        colors: {
+          brand: {
+            green: '#a7e169', // Your brand green
+            dark: '#111116',  // Dark mode bg
+            card: '#1a1a20',  // Dark mode card
+            border: '#2a2a35' // Dark mode border
+          }
+        }
+      }
+    }
+  }
+</script>
+
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Space+Grotesk:wght@300;400;500;600&display=swap');
@@ -104,6 +122,74 @@
         .hidden { display: none; }
         .text-thin-custom { font-weight: 300; }
         .border-thin { border-width: 1px; }
+
+
+            /* =========================================
+            DARK MODE STYLES (ADDITION)
+            ========================================= */
+            
+            /* Default Transition */
+            body, .card, .nav-item, input, select {
+                transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+            }
+
+            /* Dark Mode Variables Override */
+            .dark body {
+                background-color: #111116 !important;
+                color: #e5e5e5 !important;
+            }
+
+            /* Dark Mode Cards */
+            .dark .bg-white {
+                background-color: #1a1a20 !important;
+                border-color: #2a2a35 !important;
+                color: #e5e5e5 !important;
+            }
+
+            /* Dark Mode Text */
+            .dark .text-gray-500, 
+            .dark .text-gray-600, 
+            .dark .text-gray-700 {
+                color: #a0a0a0 !important;
+            }
+            
+            .dark .text-gray-800,
+            .dark .text-gray-900,
+            .dark .text-black {
+                color: #ffffff !important;
+            }
+
+            /* Dark Mode Inputs */
+            .dark input, 
+            .dark select, 
+            .dark textarea {
+                background-color: #16161c !important;
+                border-color: #2a2a35 !important;
+                color: #ffffff !important;
+            }
+
+            /* Theme Toggle Button Style */
+            .theme-toggle {
+                cursor: pointer;
+                padding: 8px;
+                border-radius: 50%;
+                transition: background 0.3s;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 40px;
+                height: 40px;
+            }
+            .dark .theme-toggle {
+                background: rgba(255,255,255,0.1);
+            }
+            .theme-toggle:hover {
+                background: rgba(0,0,0,0.05);
+            }
+            .dark .theme-toggle:hover {
+                background: rgba(255,255,255,0.2);
+            }
+
     </style>
 </head>
 <body>
@@ -142,30 +228,59 @@
                 </a>
             </nav>
 
-            <div class="p-6 border-t border-gray-50">
-                <div class="flex items-center gap-3 px-2 py-2 hover:bg-gray-50 rounded-xl transition-colors cursor-pointer group">
+            <div class="p-6 border-t border-gray-50 dark:border-gray-800 transition-colors">
+                <div class="flex items-center gap-3 px-2 py-2 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-colors cursor-pointer group">
+                    <!-- Avatar Image -->
                     <img id="sidebar-avatar" 
                         src="https://via.placeholder.com/150" 
-                        class="w-9 h-9 rounded-full object-cover border border-gray-100"
+                        class="w-9 h-9 rounded-full object-cover border border-gray-100 dark:border-gray-700"
                         alt="User Avatar">
+                    
+                    <!-- User Info -->
                     <div class="flex-1 min-w-0">
-                        <span id="student-name" class="block text-sm text-gray-800 font-medium truncate">Loading...</span>
+                        <span id="student-name" class="block text-sm text-gray-800 dark:text-gray-200 font-medium truncate">Loading...</span>
                         <p class="text-xs text-gray-400 truncate font-light" id="sidebar-user-email">...</p>
                     </div>
-                    <button onclick="logout()" class="text-gray-300 hover:text-red-500 transition-colors">
+
+                    <!-- Theme Toggle Button (NEW) -->
+                    <button id="themeToggleDesktop" class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 transition mr-1" title="Toggle Dark Mode">
+                         <!-- Sun Icon (Light Mode) -->
+                         <i class="fas fa-sun text-orange-400 block dark:hidden text-sm"></i>
+                         <!-- Moon Icon (Dark Mode) -->
+                         <i class="fas fa-moon text-[#a7e169] hidden dark:block text-sm"></i>
+                    </button>
+
+                    <!-- Logout Button -->
+                    <button onclick="logout()" class="text-gray-300 hover:text-red-500 transition-colors p-1" title="Logout">
                         <i class="fa-solid fa-arrow-right-from-bracket text-sm"></i>
                     </button>
                 </div>
             </div>
+
         </aside>
 
         <div class="flex-1 flex flex-col h-full overflow-hidden relative bg-[#fcfcfc]">
-            <header class="md:hidden bg-white/80 backdrop-blur-md border-b border-gray-100 p-4 flex justify-between items-center z-20 sticky top-0">
+            <header class="md:hidden bg-white/80 dark:bg-[#111116]/90 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 p-4 flex justify-between items-center z-20 sticky top-0 transition-colors">
+                <!-- Logo -->
                 <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png" alt="Logo" class="h-6">
-                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="text-gray-500 focus:outline-none z-50 relative p-2">
-                    <i class="fa-solid fa-bars text-lg"></i>
-                </button>
+                
+                <!-- Right Side Controls -->
+                <div class="flex items-center gap-2">
+                    <!-- Theme Toggle Button (NEW) -->
+                    <button id="themeToggleMobile" class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 transition" title="Toggle Dark Mode">
+                         <!-- Sun Icon (Light Mode) -->
+                         <i class="fas fa-sun text-orange-400 block dark:hidden text-lg"></i>
+                         <!-- Moon Icon (Dark Mode) -->
+                         <i class="fas fa-moon text-[#a7e169] hidden dark:block text-lg"></i>
+                    </button>
+
+                    <!-- Menu Button -->
+                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="text-gray-500 dark:text-gray-400 focus:outline-none z-50 relative p-2 ml-1">
+                        <i class="fa-solid fa-bars text-lg"></i>
+                    </button>
+                </div>
             </header>
+
 
             <div id="mobile-sidebar" class="fixed inset-0 bg-white/90 backdrop-blur-sm z-40 hidden transition-opacity duration-300" onclick="toggleMobileMenu()">
                 <div id="mobile-sidebar-content" class="w-72 bg-white h-full shadow-2xl transform -translate-x-full transition-transform duration-300 flex flex-col p-6 border-r border-gray-100" onclick="event.stopPropagation()">
@@ -1080,6 +1195,40 @@ window.saveToGallery = saveToGallery;
         btn.innerHTML = `<i class="fa-solid fa-check"></i> Saved!`;
         setTimeout(() => btn.innerHTML = `<i class="fa-solid fa-download"></i> Save to Gallery`, 2000);
     }
+
+            // ==========================================
+    // LIGHT/DARK MODE LOGIC (Updated for 2 Buttons)
+    // ==========================================
+    const htmlRoot = document.documentElement;
+    const toggles = [
+        document.getElementById('themeToggleDesktop'),
+        document.getElementById('themeToggleMobile')
+    ];
+
+    // 1. Check Saved Preference
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        htmlRoot.classList.add('dark');
+    } else {
+        htmlRoot.classList.remove('dark');
+    }
+
+    // 2. Toggle Function
+    function toggleTheme() {
+        if (htmlRoot.classList.contains('dark')) {
+            htmlRoot.classList.remove('dark');
+            localStorage.theme = 'light';
+        } else {
+            htmlRoot.classList.add('dark');
+            localStorage.theme = 'dark';
+        }
+    }
+
+    // 3. Add Listeners to Both Buttons
+    toggles.forEach(btn => {
+        if(btn) btn.addEventListener('click', toggleTheme);
+    });
+
+
 
     </script>
 
