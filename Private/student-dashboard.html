@@ -567,29 +567,24 @@
                             </div>
                         </div>
                         
-                                                <div class="space-y-6">
+                        <div class="space-y-6">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label class="block text-xs uppercase tracking-widest text-gray-400 font-medium mb-2">Phone</label>
-                                    <div class="p-4 bg-gray-50 dark:bg-[#1a1a20] rounded-xl text-gray-800 dark:text-gray-200 text-sm font-medium border border-gray-100 dark:border-gray-800 transition-colors" id="profile-phone-div">
-                                        -
-                                    </div>
+                                    <div class="p-4 bg-gray-50 rounded-xl text-gray-800 text-sm font-medium border border-gray-100" id="profile-phone">-</div>
                                 </div>
                                 <div>
                                     <label class="block text-xs uppercase tracking-widest text-gray-400 font-medium mb-2">Joined</label>
-                                    <div class="p-4 bg-gray-50 dark:bg-[#1a1a20] rounded-xl text-gray-800 dark:text-gray-200 text-sm font-medium border border-gray-100 dark:border-gray-800 transition-colors" id="profile-joined-div">
-                                        -
-                                    </div>
+                                    <div class="p-4 bg-gray-50 rounded-xl text-gray-800 text-sm font-medium border border-gray-100" id="profile-joined">-</div>
                                 </div>
                             </div>
                             <div>
                                 <label class="block text-xs uppercase tracking-widest text-gray-400 font-medium mb-2">Address</label>
-                                <div class="p-4 bg-gray-50 dark:bg-[#1a1a20] rounded-xl text-gray-800 dark:text-gray-200 text-sm font-medium border border-gray-100 dark:border-gray-800 transition-colors" id="profile-address-div">
-                                    -
-                                </div>
+                                <div class="p-4 bg-gray-50 rounded-xl text-gray-800 text-sm font-medium border border-gray-100" id="profile-address">-</div>
                             </div>
                         </div>
 
+                        
                         
                         <div class="mt-12 pt-6 border-t border-gray-50 flex justify-end">
                             <button onclick="logout()" class="px-8 py-3 bg-white border border-red-100 text-red-500 rounded-xl hover:bg-red-50 transition-colors text-sm font-medium">
@@ -776,8 +771,6 @@
             console.error('Error loading profile:', error);
         }
     }
-
-    
 
     async function loadMyCourses(userId) {
         try {
@@ -1143,50 +1136,21 @@
         }
     }
 
-        // ==========================================
-    // LOGOUT LOGIC (CONSOLIDATED)
-    // ==========================================
-
-    // 1. Open Logout Modal
     window.logout = function() {
         const modal = document.getElementById('logout-modal');
         if(modal) modal.classList.remove('hidden');
     };
 
-    // 2. Handle Logout from Mobile Sidebar
-    window.handleLogout = function() {
-        // Mobile Sidebar ကိုပိတ်မယ်
-        const mobileSidebar = document.getElementById('mobile-sidebar');
-        if(mobileSidebar && !mobileSidebar.classList.contains('hidden')) {
-             // toggleMobileMenu() function ရှိပြီးသားလို့ ယူဆပါတယ်
-             if(typeof toggleMobileMenu === 'function') toggleMobileMenu();
-             else mobileSidebar.classList.add('hidden'); // Fallback
-        }
-        // Logout Modal ဖွင့်မယ်
-        window.logout();
-    };
-
-    // 3. Close Modal
     window.closeLogoutModal = function() {
         const modal = document.getElementById('logout-modal');
         if(modal) modal.classList.add('hidden');
     };
 
-    // 4. Confirm Logout (Supabase SignOut)
-    // Fixed: Handles cases where event is undefined
-    window.confirmLogout = async function(btnElement) {
-        // Try to find the button: passed element OR event target OR querySelector fallback
-        let btn = btnElement;
-        if (!btn && typeof event !== 'undefined') btn = event.target;
-        if (!btn) btn = document.querySelector('#logout-modal button.bg-black'); // Fallback selector
-
-        let originalText = 'Logout';
-        
-        if (btn) {
-            originalText = btn.textContent;
-            btn.textContent = 'Logging out...';
-            btn.disabled = true;
-        }
+    window.confirmLogout = async function() {
+        const btn = event.target; 
+        const originalText = btn.textContent;
+        btn.textContent = '...';
+        btn.disabled = true;
 
         try {
             const { error } = await supabase.auth.signOut();
@@ -1195,26 +1159,19 @@
         } catch (error) {
             console.error('Logout error:', error);
             alert('Error logging out.');
-            
-            // Restore button state
-            if (btn) {
-                btn.textContent = originalText;
-                btn.disabled = false;
-            }
+            btn.textContent = originalText;
+            btn.disabled = false;
             closeLogoutModal();
         }
     };
 
-    // 5. Sidebar Navigation Listeners
-    // (Only add this ONCE in your script)
     document.querySelectorAll('.sidebar-link').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const section = link.dataset.section;
-            if(typeof switchSection === 'function') switchSection(section);
+            switchSection(section);
         });
     });
-
 
        // --- AI Studio Logic (Flux.1) ---
 // const HF_TOKEN = ... (မလိုတော့ပါ၊ ဖျက်လိုက်ပါ)
