@@ -1257,11 +1257,11 @@ window.saveToGallery = saveToGallery;
         if(btn) btn.addEventListener('click', toggleTheme);
     });
 
-        // ==========================================
-    // NOTIFICATION BADGE LOGIC
+            // ==========================================
+    // NOTIFICATION BADGE LOGIC (SUPABASE CONNECTED)
     // ==========================================
     
-    // 1. Function to Update Badge UI
+    // 1. Update UI Function (Badge ဖော်/ပျောက်)
     function updateNotifications(count) {
         const desktopBadge = document.getElementById('desktop-noti');
         const mobileBadge = document.getElementById('mobile-noti');
@@ -1273,8 +1273,7 @@ window.saveToGallery = saveToGallery;
                     badge.innerText = count;           
                     badge.classList.remove('hidden');  
                     badge.classList.add('inline-flex');
-                    
-                    // Optional: Add bounce animation when new noti arrives
+                    // Animation
                     badge.classList.add('animate-bounce');
                     setTimeout(() => badge.classList.remove('animate-bounce'), 1000);
                 } else {
@@ -1285,23 +1284,42 @@ window.saveToGallery = saveToGallery;
         });
     }
 
-    // 2. Initialize (Simulate Fetching Data)
-    // တကယ့်အစစ်မှာတော့ API ကနေ announcements count ကို ယူပြီး ဒီ function ကို ခေါ်ရပါမယ်
-    document.addEventListener('DOMContentLoaded', () => {
-        
-        // ဥပမာ - Notification 3 ခုရှိတယ်လို့ သတ်မှတ်ခြင်း
-        // နောက်ပိုင်း Database နဲ့ ချိတ်ရင် ဒီနေရာမှာ API fetch လုပ်ပြီး count ကို ထည့်ပါ
-        const mockNotificationCount = 3; 
+    // 2. Fetch Real Data from Supabase
+    async function fetchAnnouncementCount() {
+        try {
+            // 'announcements' table က row အရေအတွက်ကိုပဲ ယူပါမယ် (head: true)
+            const { count, error } = await supabase
+                .from('announcements')
+                .select('*', { count: 'exact', head: true }); 
 
-        setTimeout(() => {
-            updateNotifications(mockNotificationCount);
-        }, 500); // UI load ပြီးမှ နည်းနည်းကြာမှ ပေါ်လာအောင် (Animation effect ရဖို့)
+            if (error) {
+                console.error('Supabase Error:', error);
+                return;
+            }
+
+            console.log("Live Announcement Count:", count);
+            updateNotifications(count || 0);
+
+        } catch (error) {
+            console.error('Error fetching announcements:', error);
+        }
+    }
+
+    // 3. Initialize & Realtime Update
+    document.addEventListener('DOMContentLoaded', () => {
+        // Page Load တာနဲ့ ဆွဲမယ်
+        fetchAnnouncementCount();
+        
+        // Data အသစ်ဝင်လာရင် Auto တိုးမယ် (Realtime)
+        supabase
+            .channel('announcement-badge-updates')
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'announcements' }, () => {
+                fetchAnnouncementCount();
+            })
+            .subscribe();
     });
 
-
-
-
-    </script>
+</script>
 
 </body>
 </html>
