@@ -1178,6 +1178,55 @@
         });
     });
 
+        // ==========================================
+    // LOGOUT LOGIC UPDATE
+    // ==========================================
+    
+    // Existing logout function (Modal ဖွင့်တာ)
+    window.logout = function() {
+        const modal = document.getElementById('logout-modal');
+        if(modal) modal.classList.remove('hidden');
+    };
+
+    // New handleLogout function (Mobile Sidebar အတွက်)
+    // ဒါက Desktop logout နဲ့ အတူတူပဲ Modal ကိုဖွင့်ပေးပါမယ်
+    window.handleLogout = function() {
+        // Mobile Sidebar ကိုပိတ်မယ် (Optional)
+        const mobileSidebar = document.getElementById('mobile-sidebar');
+        if(mobileSidebar && !mobileSidebar.classList.contains('hidden')) {
+             toggleMobileMenu();
+        }
+        
+        // ပြီးရင် Logout Modal ဖွင့်မယ်
+        window.logout();
+    };
+
+    // Modal Close
+    window.closeLogoutModal = function() {
+        const modal = document.getElementById('logout-modal');
+        if(modal) modal.classList.add('hidden');
+    };
+
+    // Confirm Logout (Supabase SignOut)
+    window.confirmLogout = async function(event) {
+        const btn = event.target;
+        const originalText = btn.textContent;
+        btn.textContent = 'Logging out...';
+        btn.disabled = true;
+
+        try {
+            const { error } = await supabase.auth.signOut();
+            if (error) throw error;
+            window.location.href = 'student-login.html';
+        } catch (error) {
+            console.error('Logout error:', error);
+            alert('Error logging out.');
+            btn.textContent = originalText;
+            btn.disabled = false;
+        }
+    };
+
+
        // --- AI Studio Logic (Flux.1) ---
 // const HF_TOKEN = ... (မလိုတော့ပါ၊ ဖျက်လိုက်ပါ)
 
