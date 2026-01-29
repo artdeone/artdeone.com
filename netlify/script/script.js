@@ -1,5 +1,45 @@
 // Prompts Data Array - Add your prompts here
         const promptsData = [
+            {
+                id: 1,
+                title: "Neon Retro",
+                model: "Powerful Ai Model",
+                image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769654195/Neon_Retro-photo_cs1bxd.jpg",
+                fullImage: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769654195/Neon_Retro-photo_cs1bxd.jpg",
+                prompt: "A classic black stovetop moka pot and a small green espresso cup on a counter, bright window with neon green stripes in background, heavy grain texture, noise shading, stipple effect, retro minimalist illustration, vibrant orange and neon green colors, geometric shapes, high contrast, flat perspective --ar 3:4"
+            },
+            {
+                id: 2,
+                title: "Mystic Reading Room",
+                model: "Powerful Ai Model",
+                image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769654195/Mystic_Reading_Room-photo_rnroji.jpg",
+                fullImage: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769654195/Mystic_Reading_Room-photo_rnroji.jpg",
+                prompt: "A person reading a giant ancient book at a wooden desk by candlelight, cozy magical library, tall candlesticks, bookshelf filled with books, view of starry night through window, woodcut or linocut illustration style, grainy texture, stippling shading, risograph print aesthetic, muted pink and deep blue color palette, whimsical and mystical atmosphere --ar 3:4"
+            },
+            {
+                id: 3,
+                title: "Vivid Mythic Fantasy",
+                model: "Powerful Ai Model",
+                image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769654195/Vivid_Mythic_Fantasy-photo_meiscz.jpg",
+                fullImage: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769654195/Vivid_Mythic_Fantasy-photo_meiscz.jpg",
+                prompt: "A majestic Sphinx statue, synthwave aesthetic, low angle shot, vector art style, flat design, vibrant purple and neon pink color palette, sharp geometric shadows, clean lines, minimalist background, retrowave vibe, bold illustration --ar 3:4"
+            },
+            {
+                id: 4,
+                title: "Modern Radiance",
+                model: "Powerful Ai Model",
+                image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769654195/download_y0zxo3.jpg",
+                fullImage: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769654195/download_y0zxo3.jpg",
+                prompt: "Surreal fashion illustration, side profile of a dark-skinned woman with short hair walking, wearing an abstract massive dress that expands into a rigid geometric pleated fan shape behind her, the fan has radial segments of cobalt blue and white, glowing peach and orange gradient rims, heavy grainy noise texture, retro-modern airbrush style, flat vector design with stippled shading, deep blue background, clean lines, editorial art --ar 3:4"
+            },
+            {
+                id: 5,
+                title: "Cozy Urban Play",
+                model: "Powerful Ai Model",
+                image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769654195/download_1_q6aqc3.jpg",
+                fullImage: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769654195/download_1_q6aqc3.jpg",
+                prompt: "A relaxed young woman sitting on the sidewalk leaning against a rust-colored tiled wall, listening to music with green headphones, holding a black smartphone, one hand resting behind her head, short brown bob hair, wearing a white polka-dot t-shirt with yellow striped sleeves and blue jeans, yellow socks, dark sneakers, stylized green trees in background, textured flat illustration, grainy chalk texture, modern indie art style, lo-fi aesthetic, soft afternoon light --ar 3:4"
+            },
 
             {
                 id: 1,
