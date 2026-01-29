@@ -777,6 +777,56 @@
         }
     }
 
+        // ============================================
+    // UI UPDATES (Data ရပြီးမှ UI ပြင်တဲ့အပိုင်း)
+    // ============================================
+
+    function updateProfileUI(student) {
+        if (!student) return;
+
+        // 1. Basic Info
+        const nameEl = document.getElementById('student-name');
+        if (nameEl) nameEl.textContent = student.full_name || 'Student';
+
+        const idEl = document.getElementById('student-id');
+        if (idEl) idEl.textContent = `ID: ${student.student_code || '-'}`;
+
+        // 2. Profile Details (Phone, Address, Joined)
+        // Phone (Database column: phone_number)
+        const phoneDiv = document.getElementById('profile-phone-div');
+        if (phoneDiv) {
+            phoneDiv.textContent = student.phone_number || '-';
+        }
+
+        // Address (Database column: address)
+        const addressDiv = document.getElementById('profile-address-div');
+        if (addressDiv) {
+            addressDiv.textContent = student.address || '-';
+        }
+
+        // Joined Date (Database column: created_at)
+        const joinedDiv = document.getElementById('profile-joined-div');
+        if (joinedDiv) {
+            if (student.created_at) {
+                const date = new Date(student.created_at);
+                joinedDiv.textContent = date.toLocaleDateString('en-GB', {
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric'
+                });
+            } else {
+                joinedDiv.textContent = '-';
+            }
+        }
+
+        // 3. Avatar Update
+        const avatarEl = document.getElementById('student-avatar');
+        if (avatarEl && student.avatar_url) {
+            avatarEl.src = student.avatar_url;
+        }
+    }
+
+
     async function loadMyCourses(userId) {
         try {
             const { data: enrollments, error: enrollError } = await supabase
