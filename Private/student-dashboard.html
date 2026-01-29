@@ -224,10 +224,20 @@
                     <i class="fa-solid fa-wand-magic-sparkles w-5 text-center"></i>
                     <span>AI Studio</span>
                 </a>
-                <a href="#" class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-500 text-sm font-medium" data-section="announcements">
-                    <i class="fa-solid fa-bullhorn w-5 text-center"></i>
-                    <span>Announcements</span>
+                <!-- Announcement Link (Desktop) -->
+                <a href="#" class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-500 text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group" data-section="announcements">
+                    <!-- Icon -->
+                    <i class="fa-solid fa-bullhorn w-5 text-center group-hover:text-gray-900 dark:group-hover:text-white transition-colors"></i>
+                    
+                    <!-- Text (Flex-1 to push badge to right if needed, otherwise standard) -->
+                    <span class="flex-1">Announcements</span>
+                    
+                    <!-- Notification Badge (Red) -->
+                    <span id="desktop-noti" class="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm hidden">
+                        0
+                    </span>
                 </a>
+
 
                 <a href="#" class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-500 text-sm font-medium" data-section="profile">
                     <i class="fa-regular fa-user w-5 text-center"></i>
@@ -309,9 +319,20 @@
                             AI Studio
                         </button>
 
-                        <button onclick="switchSection('announcements'); toggleMobileMenu()" class="w-full flex items-center gap-4 px-4 py-4 text-gray-600 hover:bg-gray-50 rounded-xl transition-all text-sm font-medium">
-                            Announcements
+                        <!-- Announcement Button (Mobile) -->
+                        <button onclick="switchSection('announcements'); toggleMobileMenu()" class="w-full flex items-center gap-4 px-4 py-4 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-all text-sm font-medium group">
+                            <!-- Icon -->
+                            <i class="fa-solid fa-bullhorn w-5 text-center group-hover:text-gray-900 dark:group-hover:text-white transition-colors"></i>
+                            
+                            <!-- Text -->
+                            <span class="flex-1 text-left">Announcements</span>
+
+                            <!-- Notification Badge (Red) -->
+                            <span id="mobile-noti" class="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm hidden">
+                                0
+                            </span>
                         </button>
+
                         <button onclick="switchSection('profile'); toggleMobileMenu()" class="w-full flex items-center gap-4 px-4 py-4 text-gray-600 hover:bg-gray-50 rounded-xl transition-all text-sm font-medium">
                             Profile
                         </button>
@@ -1235,6 +1256,48 @@ window.saveToGallery = saveToGallery;
     toggles.forEach(btn => {
         if(btn) btn.addEventListener('click', toggleTheme);
     });
+
+        // ==========================================
+    // NOTIFICATION BADGE LOGIC
+    // ==========================================
+    
+    // 1. Function to Update Badge UI
+    function updateNotifications(count) {
+        const desktopBadge = document.getElementById('desktop-noti');
+        const mobileBadge = document.getElementById('mobile-noti');
+        const badges = [desktopBadge, mobileBadge];
+
+        badges.forEach(badge => {
+            if (badge) {
+                if (count > 0) {
+                    badge.innerText = count;           
+                    badge.classList.remove('hidden');  
+                    badge.classList.add('inline-flex');
+                    
+                    // Optional: Add bounce animation when new noti arrives
+                    badge.classList.add('animate-bounce');
+                    setTimeout(() => badge.classList.remove('animate-bounce'), 1000);
+                } else {
+                    badge.classList.add('hidden');     
+                    badge.classList.remove('inline-flex');
+                }
+            }
+        });
+    }
+
+    // 2. Initialize (Simulate Fetching Data)
+    // တကယ့်အစစ်မှာတော့ API ကနေ announcements count ကို ယူပြီး ဒီ function ကို ခေါ်ရပါမယ်
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        // ဥပမာ - Notification 3 ခုရှိတယ်လို့ သတ်မှတ်ခြင်း
+        // နောက်ပိုင်း Database နဲ့ ချိတ်ရင် ဒီနေရာမှာ API fetch လုပ်ပြီး count ကို ထည့်ပါ
+        const mockNotificationCount = 3; 
+
+        setTimeout(() => {
+            updateNotifications(mockNotificationCount);
+        }, 500); // UI load ပြီးမှ နည်းနည်းကြာမှ ပေါ်လာအောင် (Animation effect ရဖို့)
+    });
+
 
 
 
