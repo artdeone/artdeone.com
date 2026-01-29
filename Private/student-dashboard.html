@@ -300,50 +300,90 @@
             </header>
 
 
-            <div id="mobile-sidebar" class="fixed inset-0 bg-white/90 backdrop-blur-sm z-40 hidden transition-opacity duration-300" onclick="toggleMobileMenu()">
-                <div id="mobile-sidebar-content" class="w-72 bg-white h-full shadow-2xl transform -translate-x-full transition-transform duration-300 flex flex-col p-6 border-r border-gray-100" onclick="event.stopPropagation()">
-                    <div class="flex items-center gap-3 mb-10">
-                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png" alt="Logo" class="h-7">
-                    </div>
-                    <nav class="space-y-1 flex-1">
-                        <button onclick="switchSection('dashboard'); toggleMobileMenu()" class="w-full flex items-center gap-4 px-4 py-4 text-gray-600 hover:bg-gray-50 rounded-xl transition-all text-sm font-medium">
-                            Dashboard
-                        </button>
-                        <button onclick="switchSection('my-courses'); toggleMobileMenu()" class="w-full flex items-center gap-4 px-4 py-4 text-gray-600 hover:bg-gray-50 rounded-xl transition-all text-sm font-medium">
-                            My Courses
-                        </button>
-                        <!-- Mobile Menu AI Link -->
-                        <button onclick="switchSection('ai-studio'); toggleMobileMenu()" 
-                            class="w-full flex items-center gap-4 px-4 py-4 text-gray-600 hover:bg-gray-50 rounded-xl transition-all text-sm font-medium">
-                            <i class="fa-solid fa-wand-magic-sparkles w-5 text-center"></i>
-                            AI Studio
-                        </button>
+            <!-- Mobile Sidebar Overlay -->
+<div id="mobile-sidebar"
+     class="fixed inset-0 z-40 hidden transition-opacity duration-300 bg-black/40 dark:bg-black/70"
+     onclick="toggleMobileMenu()">
 
-                        <!-- Announcement Button (Mobile) -->
-                        <button onclick="switchSection('announcements'); toggleMobileMenu()" class="w-full flex items-center gap-4 px-4 py-4 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-all text-sm font-medium group">
-                            <!-- Icon -->
-                            <i class="fa-solid fa-bullhorn w-5 text-center group-hover:text-gray-900 dark:group-hover:text-white transition-colors"></i>
-                            
-                            <!-- Text -->
-                            <span class="flex-1 text-left">Announcements</span>
+  <!-- Mobile Sidebar Panel -->
+  <div id="mobile-sidebar-content"
+       class="w-80 max-w-[85vw] h-full shadow-2xl transform -translate-x-full transition-transform duration-300 flex flex-col p-6 border-r border-gray-100 dark:border-gray-800 bg-white dark:bg-[#111116]"
+       onclick="event.stopPropagation()">
 
-                            <!-- Notification Badge (Red) -->
-                            <span id="mobile-noti" class="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm hidden">
-                                0
-                            </span>
-                        </button>
+    <!-- Top Header (Logo + Close) -->
+    <div class="flex items-center justify-between mb-8">
+      <div class="flex items-center gap-3">
+        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png"
+             alt="Logo"
+             class="h-8 w-auto object-contain">
+        <span class="text-xs uppercase tracking-widest text-gray-400 dark:text-gray-500 font-medium">Menu</span>
+      </div>
 
-                        <button onclick="switchSection('profile'); toggleMobileMenu()" class="w-full flex items-center gap-4 px-4 py-4 text-gray-600 hover:bg-gray-50 rounded-xl transition-all text-sm font-medium">
-                            Profile
-                        </button>
-                    </nav>
-                    <div class="border-t border-gray-100 pt-6 mt-auto">
-                        <button onclick="handleLogout()" class="w-full flex items-center gap-3 px-4 py-3 text-red-500 hover:bg-red-50 rounded-xl transition-all font-medium text-sm">
-                            <i class="fa-solid fa-power-off text-xs"></i> Logout
-                        </button>
-                    </div>
-                </div>
-            </div>
+      <button class="w-10 h-10 rounded-full flex items-center justify-center bg-gray-50 hover:bg-gray-100 dark:bg-[#1a1a20] dark:hover:bg-[#22222a] transition"
+              onclick="toggleMobileMenu()"
+              aria-label="Close menu"
+              title="Close">
+        <i class="fa-solid fa-xmark text-gray-500 dark:text-gray-300"></i>
+      </button>
+    </div>
+
+    <!-- Nav Buttons -->
+    <nav class="space-y-2 flex-1">
+      <button onclick="switchSection('dashboard'); toggleMobileMenu()"
+              class="w-full flex items-center gap-4 px-4 py-3.5 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-[#1a1a20] rounded-2xl transition-all text-sm font-medium border border-transparent hover:border-gray-100 dark:hover:border-gray-800">
+        <i class="fa-solid fa-chart-pie w-5 text-center"></i>
+        <span class="flex-1 text-left">Dashboard</span>
+      </button>
+
+      <button onclick="switchSection('my-courses'); toggleMobileMenu()"
+              class="w-full flex items-center gap-4 px-4 py-3.5 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-[#1a1a20] rounded-2xl transition-all text-sm font-medium border border-transparent hover:border-gray-100 dark:hover:border-gray-800">
+        <i class="fa-solid fa-graduation-cap w-5 text-center"></i>
+        <span class="flex-1 text-left">My Courses</span>
+      </button>
+
+      <button onclick="switchSection('ai-studio'); toggleMobileMenu()"
+              class="w-full flex items-center gap-4 px-4 py-3.5 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-[#1a1a20] rounded-2xl transition-all text-sm font-medium border border-transparent hover:border-gray-100 dark:hover:border-gray-800">
+        <i class="fa-solid fa-wand-magic-sparkles w-5 text-center"></i>
+        <span class="flex-1 text-left">AI Studio</span>
+      </button>
+
+      <button onclick="switchSection('announcements'); toggleMobileMenu()"
+              class="w-full flex items-center gap-4 px-4 py-3.5 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-[#1a1a20] rounded-2xl transition-all text-sm font-medium border border-transparent hover:border-gray-100 dark:hover:border-gray-800">
+        <i class="fa-solid fa-bullhorn w-5 text-center"></i>
+        <span class="flex-1 text-left">Announcements</span>
+
+        <!-- Notification Badge -->
+        <span id="mobile-noti" class="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm hidden">
+          0
+        </span>
+      </button>
+
+      <button onclick="switchSection('profile'); toggleMobileMenu()"
+              class="w-full flex items-center gap-4 px-4 py-3.5 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-[#1a1a20] rounded-2xl transition-all text-sm font-medium border border-transparent hover:border-gray-100 dark:hover:border-gray-800">
+        <i class="fa-regular fa-user w-5 text-center"></i>
+        <span class="flex-1 text-left">Profile</span>
+      </button>
+    </nav>
+
+    <!-- Bottom Logout -->
+    <div class="pt-5 mt-6 border-t border-gray-100 dark:border-gray-800">
+      <button onclick="handleLogout()"
+              class="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-2xl font-semibold text-sm transition-all
+                     bg-red-50 text-red-600 hover:bg-red-100
+                     dark:bg-red-500/10 dark:text-red-400 dark:hover:bg-red-500/15
+                     border border-red-100 dark:border-red-500/20">
+        <i class="fa-solid fa-power-off text-xs"></i>
+        Logout
+      </button>
+
+      <p class="mt-4 text-[11px] text-gray-400 dark:text-gray-500 font-light text-center">
+        ART de ONE • Student Portal
+      </p>
+    </div>
+
+  </div>
+</div>
+
 
             <main class="flex-1 overflow-y-auto p-4 md:p-10 scroll-smooth" id="main-content">
                 
