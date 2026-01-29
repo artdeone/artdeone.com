@@ -197,51 +197,71 @@
             }
 
                         /* =========================================
-            AI GENERATOR DARK MODE FIXES
+            DARK MODE MASTER FIXES (UPDATED)
             ========================================= */
             
-            /* 1. Model Selection Cards Fix */
-            /* Model ရွေးတဲ့ ကတ်တွေကို Dark Mode မှာ အမဲရောင်ပြောင်းမယ် */
+            /* 1. Background Fixes */
+            /* အဖြူရောင်ကတ်များအားလုံးကို Dark Mode ပြောင်းမယ် */
+            .dark .bg-white {
+                background-color: #1a1a20 !important; /* Card Background */
+                border-color: #2a2a35 !important;
+                color: #e5e5e5 !important;
+            }
+
+            /* မီးခိုးရောင်ဖျော့ကွက်များ (AI Result Box, Profile Stats) ကို Dark Mode ပြောင်းမယ် */
+            .dark .bg-gray-50 {
+                background-color: #111116 !important; /* Darker Background */
+                border-color: #2a2a35 !important;
+                color: #e5e5e5 !important;
+            }
+
+            /* 2. AI Model Cards Specific Fix */
+            /* Model ရွေးတဲ့ကတ်လေးတွေ */
             .dark label.cursor-pointer {
-                background-color: #1a1a20 !important; /* Card အမဲ */
-                border-color: #2a2a35 !important;    /* ဘောင်အရောင် */
-                color: #ffffff !important;           /* စာလုံးအဖြူ */
+                background-color: #1a1a20 !important; 
+                border-color: #3f3f46 !important;
+            }
+            /* ရွေးထားတဲ့ Model (Selected) */
+            .dark input[type="radio"]:checked + div {
+                background-color: #27272a !important;
+                border-color: #a7e169 !important;
+            }
+
+            /* 3. Text Color Fixes */
+            /* မီးခိုးရောင်စာသားများကို ဖတ်ရလွယ်အောင် ပြုပြင်မယ် */
+            .dark .text-gray-400,
+            .dark .text-gray-500, 
+            .dark .text-gray-600, 
+            .dark .text-gray-700 {
+                color: #9ca3af !important; /* Lighter Gray */
             }
             
-            /* Selected State (Model ရွေးထားရင် ဘောင်အရောင်စိမ်းမယ်) */
-            .dark input[type="radio"]:checked + div {
-                border-color: #a7e169 !important;
-                background-color: #23232a !important;
+            .dark .text-gray-800,
+            .dark .text-gray-900,
+            .dark .text-black {
+                color: #ffffff !important; /* Pure White */
             }
 
-            /* 2. Image Placeholder Fix */
-            /* ပုံမပေါ်ခင် နေရာလွတ်ကြီးကို အမဲရောင်ပြောင်းမယ် */
-            .dark #ai-result-container {
-                background-color: #1a1a20 !important;
-                border-color: #2a2a35 !important;
-            }
-
-            /* Placeholder Icon & Text */
-            .dark #ai-result-container i,
-            .dark #ai-result-container p {
-                color: #6b7280 !important; /* Gray-500 equivalent */
-            }
-
-            /* 3. Prompt Input Area Fix */
-            /* စာရိုက်တဲ့ကွက်ကို အမဲရောင်ပြောင်းမယ် */
-            .dark #ai-prompt {
+            /* 4. Input & Textarea Fix */
+            .dark input, 
+            .dark select, 
+            .dark textarea {
                 background-color: #16161c !important;
-                color: #ffffff !important;
                 border-color: #2a2a35 !important;
+                color: #ffffff !important;
             }
-            .dark #ai-prompt::placeholder {
+            
+            /* Placeholder Text Color */
+            .dark input::placeholder,
+            .dark textarea::placeholder {
                 color: #6b7280 !important;
             }
 
-             /* 4. Section Title Fixes */
-             /* "AI Model", "Your Prompt" စာသားတွေကို အဖြူပြောင်းမယ် */
-             .dark h3.text-sm.font-medium.text-gray-700 {
-                color: #e5e5e5 !important;
+            /* 5. Special Elements */
+            /* AI Result Container အတွင်းက Icon နေရာ */
+            .dark #ai-result-container {
+                background-color: transparent !important; /* အပြင်ကောင်နဲ့ အရောင်တူအောင် */
+                border: none !important;
             }
 
 
