@@ -1147,22 +1147,43 @@
             listContainer.innerHTML = '<p class="text-red-400 text-center text-sm">Failed to load files.</p>';
         }
     }
+    // ==========================================
+    // LOGOUT FUNCTIONS
+    // ==========================================
 
+    // 1. Desktop Logout (Open Modal)
     window.logout = function() {
         const modal = document.getElementById('logout-modal');
         if(modal) modal.classList.remove('hidden');
     };
 
+    // 2. Mobile Sidebar Logout (New Function) <--- ဒီကောင် မရှိလို့ Error တက်နေတာပါ
+    window.handleLogout = function() {
+        // Mobile Sidebar ပိတ်မယ် (ရှိရင်)
+        const sidebar = document.getElementById('mobile-sidebar');
+        if (sidebar && !sidebar.classList.contains('hidden')) {
+            sidebar.classList.add('hidden'); 
+        }
+        // ပြီးရင် Logout Modal ဖွင့်မယ်
+        window.logout();
+    };
+
+    // 3. Close Modal
     window.closeLogoutModal = function() {
         const modal = document.getElementById('logout-modal');
         if(modal) modal.classList.add('hidden');
     };
 
-    window.confirmLogout = async function() {
-        const btn = event.target; 
-        const originalText = btn.textContent;
-        btn.textContent = '...';
-        btn.disabled = true;
+    // 4. Confirm Logout Logic
+    window.confirmLogout = async function(event) { // event parameter ထည့်ပေးထားပါတယ်
+        // event.target က undefined ဖြစ်နိုင်လို့ စစ်ပေးထားပါတယ်
+        let btn = event ? event.target : document.querySelector('#logout-modal button.bg-black');
+        
+        const originalText = btn ? btn.textContent : 'Logout';
+        if(btn) {
+            btn.textContent = 'Logging out...';
+            btn.disabled = true;
+        }
 
         try {
             const { error } = await supabase.auth.signOut();
@@ -1171,11 +1192,14 @@
         } catch (error) {
             console.error('Logout error:', error);
             alert('Error logging out.');
-            btn.textContent = originalText;
-            btn.disabled = false;
+            if(btn) {
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }
             closeLogoutModal();
         }
     };
+
 
     document.querySelectorAll('.sidebar-link').forEach(link => {
         link.addEventListener('click', (e) => {
