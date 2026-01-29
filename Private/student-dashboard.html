@@ -190,6 +190,13 @@
                 background: rgba(255,255,255,0.2);
             }
 
+             /* Dark Mode Logo Filter */
+            /* ဒီ Code က Logo ကို အစိမ်းရောင် #a7e169 ပြောင်းပေးပါမယ် */
+            .dark img[alt="Logo"] {
+                filter: brightness(0) saturate(100%) invert(86%) sepia(8%) saturate(1487%) hue-rotate(44deg) brightness(98%) contrast(87%);
+            }
+
+
     </style>
 </head>
 <body>
@@ -263,7 +270,7 @@
         <div class="flex-1 flex flex-col h-full overflow-hidden relative bg-[#fcfcfc] dark:bg-[#111116] transition-colors">
             <header class="md:hidden bg-white/80 dark:bg-[#111116]/90 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 p-4 flex justify-between items-center z-20 sticky top-0 transition-colors">
                 <!-- Logo -->
-                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png" alt="Logo" class="h-6">
+                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png" alt="Logo" class="h-8">
                 
                 <!-- Right Side Controls -->
                 <div class="flex items-center gap-2">
