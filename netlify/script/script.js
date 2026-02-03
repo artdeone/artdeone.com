@@ -1,5 +1,46 @@
 // Prompts Data Array - Add your prompts here
         const promptsData = [
+{
+                id: 1,
+                title: "Hella Beauty",
+                model: "Powerful Ai Model",
+                image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1770034731/Product-prompt-1_ygf3re.jpg",
+                fullImage: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1770034731/Product-prompt-1_ygf3re.jpg",
+                prompt: "Ultra-realistic skincare product shot, matte white pump bottle labeled hella beauty water bank moisture lotion, centered on layered natural stone. Surrounded by moss, white pom-pom flowers, cream daisies, sage rose. Soft warm beige background. Soft diffused daylight from upper left, shallow depth of field, sharp focus on label. 8k, minimal luxury, cinematic lighting, photorealistic."
+            },
+            {
+                id: 2,
+                title: "Strawberry Mountain",
+                model: "Powerful Ai Model",
+                image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1770035149/ADO_product_jayuu1.jpg",
+                fullImage: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1770035149/ADO_product_jayuu1.jpg",
+                prompt: "Cinematic macro shot, NFC Strawberry Juice bottle with heavy condensation and frost, resting on icy rocks. Snowy mountain background, drifting mist. Fresh strawberries on ice. Soft sunrise light, cold-meets-warm contrast, deep red highlights, premium feel. --ar 9:16"
+            },
+            {
+                id: 3,
+                title: "Product Realistic",
+                model: "Powerful Ai Model",
+                image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1770035389/hold_prodcut_dg1cqk.jpg",
+                fullImage: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1770035389/hold_prodcut_dg1cqk.jpg",
+                prompt: "A majestic Sphinx statue, synthwave aesthetic, low angle shot, vector art style, flat design, vibrant purple and neon pink color palette, sharp geometric shadows, clean lines, minimalist background, retrowave vibe, bold illustration --ar 3:4"
+            },
+            {
+                id: 4,
+                title: "Manipulation Style",
+                model: "Powerful Ai Model",
+                image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1770035599/coffee-1_laoc5l.jpg",
+                fullImage: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1770035599/coffee-1_laoc5l.jpg",
+                prompt: "Aerial surreal photography, giant white foam cup labeled AdO The Art of Intelligence sitting in the middle of Sule Pagoda Road, Yangon. Massive hand pouring steaming coffee from glass press. Background: Golden Sule Pagoda, vintage colonial buildings, red and yellow YBS buses, busy traffic. Warm golden sunset light, long shadows, dreamlike photo manipulation style, hyper-realistic, 8k resolution --ar 16:9"
+            },
+            {
+                id: 5,
+                title: "Gold Luxury Coffee",
+                model: "Powerful Ai Model",
+                image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1770035739/grok-image-bae21072-b2eb-46d7-8eda-62d478241fc7_1_pyirk5.jpg",
+                fullImage: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1770035739/grok-image-bae21072-b2eb-46d7-8eda-62d478241fc7_1_pyirk5.jpg",
+                prompt: "Ultra-cinematic premium coffee advertisement, rich deep red matte bottle labeled ADO BREW in elegant metallic gold typography. Floating upright amidst swirling espresso waves and flying roasted coffee beans. Gold foil accents, steam curling around bottle. Dramatic lighting with warm golden highlights and deep crimson shadows, ruby red color grading. Macro water droplets, cinematic depth of field, photorealistic, 8k, luxury branding aesthetic."
+            },
+
             {
                 id: 1,
                 title: "Neon Retro",

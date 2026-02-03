@@ -28,132 +28,294 @@
             border-radius: 2rem; 
         }
         
-       /* Prompt Card Styles - Matches Blog Lift Effect */
+        /* Masonry Grid Layout */
+        .masonry-grid {
+            column-count: 4;
+            column-gap: 1rem;
+        }
+
+        @media (max-width: 1280px) {
+            .masonry-grid {
+                column-count: 3;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .masonry-grid {
+                column-count: 2;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .masonry-grid {
+                column-count: 1;
+            }
+        }
+
+        /* Prompt Card - Meigen Style */
         .prompt-card {
-            background-color: #ffffff;
-            border: 1px solid #e5e5e5;
-            border-radius: 1rem;
+            break-inside: avoid;
+            margin-bottom: 1rem;
+            position: relative;
             overflow: hidden;
-            /* Use cubic-bezier for the smooth blog-style lift */
-            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
 
         .prompt-card:hover {
-            /* Lift the card up */
-            transform: translateY(-8px);
-            border-color: #a7e169;
-            /* Softer, deeper shadow like the blog cards */
-            box-shadow: 0 20px 40px -20px rgba(167, 225, 105, 0.2) !important;
-        }
-        .prompt-card:hover .copy-btn {
-            background-color: #ed2939;
-            color: #fff;
+            transform: translateY(-4px);
         }
 
         .prompt-card img {
             width: 100%;
-            height: 300px;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-
-        .prompt-card:hover img {
-            transform: scale(1.05);
-        }
-
-        /* Prompt Text Area - Light Theme */
-        .prompt-text {
-            background-color: #f9f9f9;
-            border: 1px solid #e5e5e5;
-            color: #323232;
+            height: auto;
+            display: block;
             border-radius: 0.5rem;
-            padding: 1rem;
+        }
+
+        /* Hover Overlay */
+        .prompt-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+        }
+
+        .prompt-card:hover .prompt-overlay {
+            opacity: 1;
+        }
+
+        .prompt-overlay h3 {
+            color: white;
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .prompt-overlay p {
+            color: rgba(255, 255, 255, 0.9);
             font-size: 0.875rem;
-            line-height: 1.6;
-            font-family: 'Courier New', monospace;
-            resize: none;
-            width: 100%;
-            outline: none;
-        }
-        
-        .prompt-text:focus {
-            border-color: #a7e169;
-            background-color: #fff;
+            font-weight: 500;
         }
 
-        /* Copy Button */
-        .copy-btn {
-            background-color: #a7e169; /* Brand Green */
-            color: #000;
-            font-weight: 600;
-            border-radius: 2rem;
-            padding: 0.5rem 1.5rem;
-            font-size: 0.875rem;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .copy-btn:hover {
-            background-color: #ed2939; /* Hover Red */
-            color: #fff;
-            transform: translateY(-2px);
-        }
-
-        .copy-btn.copied {
-            background-color: #323232;
-            color: #fff;
-        }
-
-        /* Lightbox Styles */
-        .lightbox {
+        /* Modal Styles */
+        .modal {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(255, 255, 255, 0.95); /* Light overlay */
+            background-color: rgba(0, 0, 0, 0.85);
             z-index: 9999;
             align-items: center;
             justify-content: center;
             padding: 2rem;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
         }
 
-        .lightbox.active {
+        .modal.active {
             display: flex;
         }
 
-        .lightbox-content {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            border-radius: 0.5rem;
+        .modal-content {
+            background: white;
+            border-radius: 1rem;
+            max-width: 1400px;
+            width: 100%;
+            max-height: 90vh;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: row;
         }
 
-        .lightbox-close {
+        @media (max-width: 1024px) {
+            .modal-content {
+                flex-direction: column;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+        }
+
+        .modal-close {
             position: absolute;
-            top: 2rem;
-            right: 2rem;
-            color: #000;
-            font-size: 3rem;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            line-height: 1;
+            z-index: 10;
         }
 
-        .lightbox-close:hover {
-            color: #ed2939;
+        .modal-close:hover {
+            background: #ed2939;
             transform: rotate(90deg);
         }
 
-        /* Model Tag */
+        .modal-left {
+            flex: 0 0 50%;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        @media (max-width: 1024px) {
+            .modal-left {
+                flex: none;
+                width: 100%;
+            }
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            max-height: 80vh;
+        }
+
+        .modal-right {
+            flex: 0 0 50%;
+            overflow-y: auto;
+            background: white;
+        }
+
+        @media (max-width: 1024px) {
+            .modal-right {
+                flex: none;
+                width: 100%;
+            }
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        /* Scrollbar for right panel */
+        .modal-right::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-right::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .modal-right::-webkit-scrollbar-thumb {
+            background: #a7e169;
+            border-radius: 4px;
+        }
+
+        .modal-right::-webkit-scrollbar-thumb:hover {
+            background: #8bc74a;
+        }
+
+        .modal-title {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 1rem;
+        }
+
+        .modal-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-section h4 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .prompt-display {
+            background-color: #f9f9f9;
+            border: 1px solid #e5e5e5;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            font-family: 'Courier New', monospace;
+            color: #323232;
+            position: relative;
+        }
+
+        .copy-icon-btn {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: #a7e169;
+            color: #000;
+            border: none;
+            border-radius: 0.375rem;
+            padding: 0.5rem 0.75rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .copy-icon-btn:hover {
+            background: #ed2939;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .copy-icon-btn.copied {
+            background: #323232;
+            color: white;
+        }
+
+        .breakdown-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .breakdown-item {
+            background: #f9f9f9;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border-left: 3px solid #a7e169;
+        }
+
+        .breakdown-item strong {
+            display: block;
+            color: #000;
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .breakdown-item span {
+            color: #666;
+            font-size: 0.875rem;
+        }
+
         .model-tag {
             background-color: #a7e169;
             color: #000;
@@ -186,6 +348,7 @@
         .load-more-btn.hidden {
             display: none;
         }
+
         html {
             scroll-behavior: smooth;
         }
@@ -241,278 +404,290 @@
     </nav>
 
     <main>
-            <!-- 1. Hero Section: Title & Intro -->
-    <section class="relative min-h-[35vh] flex items-center justify-center overflow-hidden bg-transparent pt-24 pb-12">
-        <div class="relative z-10 text-center px-4" data-aos="fade-up">
-            <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-6 artdeone-font">
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-black to-[#a7e169]">Prompts Generator</span>
-            </h1>
-            
-            <p class="text-xl md:text-xl text-[#323232] mb-8 max-w-2xl mx-auto font-light tracking-wide leading-relaxed">
-                Explore our collection of AI-generated artworks with ready-to-use prompts
-            </p>
-
-            <!-- New Button: Scrolls to Generator -->
-            <a href="#prompt-generator" class="inline-block px-8 py-3 bg-[#a7e169] text-black font-bold rounded-full hover:bg-[#ed2939] hover:text-white transition-all duration-300 transform hover:-translate-y-1 shadow-md hover:shadow-lg text-sm sm:text-base">
-                Generate Your Prompt
-            </a>
+    <!-- Hero Section -->
+    <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h1 class="text-4xl md:text-5xl font-bold text-black mb-4">AI Prompts Gallery</h1>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
+                    Discover creative AI prompts for stunning visuals. Click any image to see the full prompt and details.
+                </p>
+                <button 
+                    onclick="openGeneratePanel()" 
+                    class="inline-flex items-center gap-3 bg-gradient-to-r from-[#a7e169] to-[#8bc74a] hover:from-[#ed2939] hover:to-[#d91828] text-black hover:text-white font-bold py-4 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                >
+                    <i class="fas fa-sparkles"></i>
+                    <span>Generate My Prompt</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
         </div>
     </section>
 
-
-        <section class="pt-16 pb-0 section-darker px-4">
-            <div class="max-w-7xl mx-auto">
-                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8" id="prompts-gallery">
-                    </div>
-
-                <div class="text-center mt-12">
-                    <button id="load-more-btn" class="load-more-btn">
-                        Load More Prompts
-                    </button>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-        <span class="lightbox-close">&times;</span>
-        <img class="lightbox-content" id="lightbox-img" src="" alt="Full size image">
+    <!-- Generate Panel Overlay -->
+    <div id="generate-panel-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] opacity-0 invisible transition-all duration-300">
     </div>
 
-    <!-- Prompt Generator Section (With Image + Typing Effect) -->
-<section id="prompt-generator" class="py-24 section-darker px-4">
-    <div class="max-w-7xl mx-auto">
-        
-        <!-- Header -->
-        <div class="text-center mb-12" data-aos="fade-up">
-            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 artdeone-font">
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-black to-[#a7e169]">AI Prompt Generator</span>
-            </h2>
-            <p class="text-lg text-[#323232] mb-4 max-w-2xl mx-auto font-light tracking-wide">
-                Generate detailed prompts and preview images instantly
-            </p>
-        </div>
-
-        <!-- Main Content Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start" data-aos="fade-up" data-aos-delay="200">
-            
-            <!-- LEFT COLUMN: Inputs -->
-            <div class="bg-white rounded-2xl p-8 shadow-lg h-full">
-                <!-- Input Section -->
-                <div class="mb-6">
-                    <label for="topic-input" class="block text-sm font-semibold text-black mb-3">Input Text</label>
-                    <div class="flex flex-col gap-4">
-                        <textarea 
-                            id="topic-input" 
-                            rows="3" 
-                            class="w-full px-6 py-4 border-2 border-[#e5e5e5] rounded-2xl text-[#323232] focus:outline-none focus:border-[#a7e169] transition-all duration-300 bg-white resize-none"
-                            placeholder="e.g., a serene forest with magical glowing mushrooms..."
-                        ></textarea>
-                    </div>
-                </div>
-
-                <!-- Style Options -->
-                <div class="mb-8">
-                    <label class="block text-sm font-semibold text-black mb-3">Art Styles (Optional)</label>
-                    <div class="flex flex-wrap gap-3">
-                        <button class="style-btn px-4 py-2 rounded-full border-2 border-[#e5e5e5] text-sm font-medium text-[#323232] hover:border-[#a7e169] hover:bg-[#a7e169] hover:text-black transition-all duration-300" data-style="photorealistic">Photorealistic</button>
-                        <button class="style-btn px-4 py-2 rounded-full border-2 border-[#e5e5e5] text-sm font-medium text-[#323232] hover:border-[#a7e169] hover:bg-[#a7e169] hover:text-black transition-all duration-300" data-style="cinematic">Cinematic</button>
-                        <button class="style-btn px-4 py-2 rounded-full border-2 border-[#e5e5e5] text-sm font-medium text-[#323232] hover:border-[#a7e169] hover:bg-[#a7e169] hover:text-black transition-all duration-300" data-style="fantasy">Fantasy</button>
-                        <button class="style-btn px-4 py-2 rounded-full border-2 border-[#e5e5e5] text-sm font-medium text-[#323232] hover:border-[#a7e169] hover:bg-[#a7e169] hover:text-black transition-all duration-300" data-style="vintage">Vintage</button>
-                        <button class="style-btn px-4 py-2 rounded-full border-2 border-[#e5e5e5] text-sm font-medium text-[#323232] hover:border-[#a7e169] hover:bg-[#a7e169] hover:text-black transition-all duration-300" data-style="minimalist">Minimalist</button>
-                        <button class="style-btn px-4 py-2 rounded-full border-2 border-[#e5e5e5] text-sm font-medium text-[#323232] hover:border-[#a7e169] hover:bg-[#a7e169] hover:text-black transition-all duration-300" data-style="surreal">Surreal</button>
-                    </div>
-                </div>
-
-                <!-- Generate Button -->
-                <button id="generate-btn" class="w-full px-8 py-4 bg-[#a7e169] text-black font-bold rounded-2xl hover:bg-[#ed2939] hover:text-white transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg flex items-center justify-center gap-2">
-                    <span id="btn-text">Generate Prompt & Image</span>
-                    <div id="btn-spinner" class="hidden">
-                        <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                    </div>
+    <!-- Generate Panel (Slide from Right) -->
+    <div id="generate-panel" class="fixed top-0 right-0 h-full w-full md:w-[600px] bg-white shadow-2xl z-[101] transform translate-x-full transition-transform duration-500 ease-out overflow-y-auto">
+        <div class="relative h-full flex flex-col">
+            <!-- Panel Header -->
+            <div class="flex-shrink-0 border-b border-gray-200 px-8 py-6 flex items-center justify-between">
+                <h2 class="text-3xl font-bold text-black">Generate</h2>
+                <button onclick="closeGeneratePanel()" class="w-10 h-10 flex items-center justify-center hover:bg-gray-100 rounded-lg transition-colors duration-200">
+                    <i class="fas fa-times text-gray-600 text-xl"></i>
                 </button>
-
-                <!-- Error Message -->
-                <div id="error-message" class="hidden mt-4 p-4 bg-red-50 border-2 border-red-200 rounded-xl text-red-600 text-sm"></div>
             </div>
 
-            <!-- RIGHT COLUMN: Output Result -->
-            <div class="h-full min-h-[400px]">
-                <!-- Output Container -->
-                <div id="output-container" class="hidden h-full bg-white rounded-2xl p-8 shadow-lg flex flex-col border border-[#e5e5e5]">
-                    
-                    <!-- 1. PREVIEW IMAGE AREA -->
-                    <div id="image-container" class="mb-6 hidden">
-                        <label class="block text-sm font-semibold text-black mb-2">Preview Image</label>
-                        <div class="relative rounded-2xl overflow-hidden border border-gray-200 bg-gray-50 aspect-square sm:aspect-video flex items-center justify-center">
-                            <!-- Image -->
-                            <img id="generated-image" src="" alt="AI Preview" class="w-full h-full object-cover hidden transition-opacity duration-500">
-                            <!-- Spinner -->
-                            <div id="img-spinner" class="absolute inset-0 flex flex-col items-center justify-center gap-3 text-gray-400">
-                                <svg class="animate-spin h-8 w-8 text-[#a7e169]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                </svg>
-                                <span class="text-xs font-medium">Creating Image...</span>
-                            </div>
+            <!-- Panel Content -->
+            <div class="flex-1 p-8 space-y-8">
+                <!-- What do you want to create? -->
+                <div>
+                    <label for="panel-topic" class="block text-lg font-bold text-black mb-4">
+                        What do you want to create?
+                    </label>
+                    <textarea 
+                        id="panel-topic" 
+                        rows="8"
+                        placeholder="e.g., A futuristic city at sunset with flying cars..." 
+                        class="w-full px-6 py-5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-black focus:bg-white transition-all duration-300 text-gray-800 placeholder-gray-400 text-base resize-none"
+                        required
+                    ></textarea>
+                </div>
+
+                <!-- Style Selector -->
+                <div>
+                    <label for="panel-style" class="block text-lg font-bold text-black mb-4">
+                        Select Your Style
+                    </label>
+                    <div class="relative">
+                        <select 
+                            id="panel-style"
+                            class="w-full px-6 py-5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-black focus:bg-white transition-all duration-300 text-gray-800 appearance-none cursor-pointer text-base"
+                        >
+                            <option value="realistic">Realistic & Photographic</option>
+                            <option value="anime">Anime & Manga</option>
+                            <option value="cartoon">Cartoon & Illustration</option>
+                            <option value="abstract">Abstract & Artistic</option>
+                            <option value="minimalist">Minimalist & Clean</option>
+                            <option value="vintage">Vintage & Retro</option>
+                        </select>
+                        <div class="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none">
+                            <i class="fas fa-chevron-down text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Result Display (Hidden by default) -->
+                <div id="panel-result-container" class="hidden">
+                    <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-base font-bold text-black">Your Generated Prompt</h3>
+                            <button 
+                                onclick="copyPanelPrompt()" 
+                                class="text-sm font-semibold text-black hover:text-gray-600 transition-colors duration-200 flex items-center gap-2"
+                            >
+                                <i class="fas fa-copy"></i>
+                                <span>Copy</span>
+                            </button>
+                        </div>
+                        <div class="bg-white rounded-lg p-5 border border-gray-200">
+                            <p id="panel-generated-prompt" class="text-gray-700 leading-relaxed text-sm"></p>
+                        </div>
+                        <div id="panel-generated-image-container" class="mt-6 hidden">
+                            <img id="panel-generated-image" src="" alt="Generated Image" class="w-full rounded-lg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Generate Button (Sticky Bottom) -->
+            <div class="flex-shrink-0 border-t border-gray-200 p-8">
+                <button 
+                    id="panel-generate-btn"
+                    onclick="generateFromPanel()"
+                    class="w-full bg-[#a7e169] hover:bg-[#ed2939] text-black hover:text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 shadow-md hover:shadow-xl transform hover:-translate-y-1"
+                >
+                    <span>Generate My Prompt</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <!-- Loading State -->
+            <div id="panel-loading" class="hidden absolute inset-0 bg-white/95 backdrop-blur-sm flex items-center justify-center z-20">
+                <div class="text-center">
+                    <div class="w-12 h-12 border-3 border-gray-200 border-t-black rounded-full animate-spin mb-4"></div>
+                    <p class="text-gray-600 font-semibold">Generating your prompt...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Prompts Gallery Section -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div id="prompts-gallery" class="masonry-grid">
+                <!-- Cards will be dynamically inserted here -->
+            </div>
+
+            <div class="text-center mt-12">
+                <button id="load-more-btn" class="load-more-btn">
+                    Load More
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div id="prompt-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-close" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </div>
+            
+            <!-- Left Side - Image -->
+            <div class="modal-left">
+                <img id="modal-image" class="modal-image" src="" alt="">
+            </div>
+
+            <!-- Right Side - Details -->
+            <div class="modal-right">
+                <div class="modal-body">
+                    <div class="flex items-start justify-between mb-2">
+                        <h2 id="modal-title" class="modal-title"></h2>
+                    </div>
+                    <div class="mb-6">
+                        <span id="modal-model" class="model-tag"></span>
+                        <div class="flex items-center gap-2 mt-3 text-sm text-gray-500">
+                            <i class="fas fa-heart"></i>
+                            <span>869</span>
+                            <i class="fas fa-eye ml-4"></i>
+                            <span>312.3K</span>
+                            <span class="ml-4">7d ago</span>
                         </div>
                     </div>
 
-                    <!-- 2. TEXT PROMPT AREA -->
-                    <label class="block text-sm font-semibold text-black mb-3">Generated Prompt</label>
-                    <div class="relative flex-grow flex flex-col">
-                        <textarea 
-                            id="generated-prompt" 
-                            class="flex-grow w-full px-6 py-4 border-2 border-[#e5e5e5] rounded-2xl text-[#323232] focus:outline-none focus:border-[#a7e169] transition-all duration-300 bg-[#f9f9f9] resize-none font-mono text-sm leading-relaxed mb-4 min-h-[150px]"
-                            readonly
-                        ></textarea>
-                        
-                        <button id="copy-generated-btn" class="w-full px-4 py-3 bg-[#a7e169] text-black font-semibold rounded-xl hover:bg-[#ed2939] hover:text-white transition-all duration-300 flex items-center justify-center gap-2 text-sm">
-                            <i class="fas fa-copy"></i>
-                            <span id="copy-text">Copy Prompt</span>
-                        </button>
+                    <div class="modal-section">
+                        <h4>Full Prompt</h4>
+                        <div class="prompt-display">
+                            <button class="copy-icon-btn" onclick="copyModalPrompt()">
+                                <i class="fas fa-copy"></i>
+                                <span>Copy</span>
+                            </button>
+                            <p id="modal-prompt" style="padding-right: 100px;"></p>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Placeholder State -->
-                <div id="placeholder-state" class="h-full bg-white rounded-2xl p-8 shadow-lg border-2 border-dashed border-[#e5e5e5] flex flex-col items-center justify-center text-gray-400">
-                    <i class="fas fa-magic text-4xl mb-4 opacity-30"></i>
-                    <p class="text-sm font-medium">Your generated prompt & image will appear here</p>
+                    <div class="modal-section">
+                        <h4>Prompt Breakdown</h4>
+                        <div id="modal-breakdown" class="breakdown-grid">
+                            <!-- Breakdown items will be inserted here -->
+                        </div>
+                    </div>
+
+                    <div class="modal-section">
+                        <div class="flex gap-3">
+                            <button class="flex-1 bg-black text-white py-3 px-6 rounded-lg font-semibold hover:bg-gray-800 transition duration-300">
+                                <i class="fas fa-code mr-2"></i>
+                                Use as Prompt
+                            </button>
+                            <button class="flex-1 bg-gray-100 text-black py-3 px-6 rounded-lg font-semibold hover:bg-gray-200 transition duration-300">
+                                <i class="fas fa-bookmark mr-2"></i>
+                                Use as Ref
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</section>
 
-<!-- Styles -->
-<style>
-    .style-btn.active { background-color: #a7e169; border-color: #a7e169; color: #000; }
-    .style-btn:hover { transform: translateY(-2px); }
-    #topic-input::placeholder { color: #999; }
-</style>
-
-<!-- JavaScript -->
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const generateBtn = document.getElementById('generate-btn');
-        const topicInput = document.getElementById('topic-input');
-        const generatedPrompt = document.getElementById('generated-prompt');
-        const outputContainer = document.getElementById('output-container');
-        const placeholderState = document.getElementById('placeholder-state');
-        const copyGeneratedBtn = document.getElementById('copy-generated-btn');
-        const copyText = document.getElementById('copy-text');
-        const btnText = document.getElementById('btn-text');
-        const btnSpinner = document.getElementById('btn-spinner');
-        const errorMessage = document.getElementById('error-message');
-        const styleBtns = document.querySelectorAll('.style-btn');
+    <script>
+    // Panel Functions
+    function openGeneratePanel() {
+        const panel = document.getElementById('generate-panel');
+        const overlay = document.getElementById('generate-panel-overlay');
         
-        // Image Elements
-        const imgContainer = document.getElementById('image-container');
-        const imgElement = document.getElementById('generated-image');
-        const imgSpinner = document.getElementById('img-spinner');
+        panel.classList.remove('translate-x-full');
+        overlay.classList.remove('invisible', 'opacity-0');
+        document.body.style.overflow = 'hidden';
+    }
 
-        let selectedStyle = '';
+    function closeGeneratePanel() {
+        const panel = document.getElementById('generate-panel');
+        const overlay = document.getElementById('generate-panel-overlay');
+        
+        panel.classList.add('translate-x-full');
+        overlay.classList.add('invisible', 'opacity-0');
+        document.body.style.overflow = 'auto';
+    }
 
-        styleBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                styleBtns.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                selectedStyle = this.dataset.style;
-            });
-        });
+    // Close panel when clicking overlay
+    document.getElementById('generate-panel-overlay').addEventListener('click', closeGeneratePanel);
 
-        // Typing Effect (Ease-Out)
-        function typeWriter(text, element) {
-            element.value = ''; 
-            let i = 0;
-            function type() {
-                if (i < text.length) {
-                    element.value += text.charAt(i);
-                    element.scrollTop = element.scrollHeight;
-                    i++;
-                    let delay = 5;
-                    const char = text.charAt(i - 1);
-                    if (char === ',' || char === '.') delay = 30; 
-                    else if (Math.random() > 0.9) delay += Math.random() * 15;
-                    if (i > text.length * 0.9) delay += 10;
-                    setTimeout(type, delay);
-                }
-            }
-            type();
-        }
-
-        generateBtn.addEventListener('click', async function() {
-            const topic = topicInput.value.trim();
-            if (!topic) { showError('Please enter a topic.'); return; }
-
-            generateBtn.disabled = true;
-            btnText.textContent = 'Generating...';
-            btnSpinner.classList.remove('hidden');
-            errorMessage.classList.add('hidden');
-            
-            // Reset Image State
-            imgContainer.classList.add('hidden');
-            imgElement.classList.add('hidden');
-
-            try {
-                const data = await generateAIPrompt(topic, selectedStyle);
-                
-                outputContainer.classList.remove('hidden');
-                if(placeholderState) placeholderState.classList.add('hidden');
-                
-                // 1. Type Text
-                typeWriter(data.prompt, generatedPrompt);
-
-                // 2. Load Image
-                if (data.image) {
-                    imgContainer.classList.remove('hidden');
-                    imgSpinner.classList.remove('hidden'); // Show spinner
-                    imgElement.src = data.image;
-
-                    imgElement.onload = function() {
-                        imgSpinner.classList.add('hidden'); // Hide spinner
-                        imgElement.classList.remove('hidden'); // Show image
-                    };
-                }
-
-                if(window.innerWidth < 768) {
-                    outputContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                }
-
-            } catch (error) {
-                showError('Failed to generate: ' + error.message);
-            } finally {
-                generateBtn.disabled = false;
-                btnText.textContent = 'Generate Prompt & Image';
-                btnSpinner.classList.add('hidden');
-            }
-        });
-
-        copyGeneratedBtn.addEventListener('click', async function() {
-            try {
-                await navigator.clipboard.writeText(generatedPrompt.value);
-                const original = copyText.textContent;
-                copyText.textContent = 'Copied!';
-                copyGeneratedBtn.classList.add('bg-black', 'text-white');
-                setTimeout(() => {
-                    copyText.textContent = original;
-                    copyGeneratedBtn.classList.remove('bg-black', 'text-white');
-                }, 2000);
-            } catch (e) {}
-        });
-
-        topicInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' && !generateBtn.disabled) generateBtn.click();
-        });
-
-        function showError(msg) {
-            errorMessage.textContent = msg;
-            errorMessage.classList.remove('hidden');
+    // Close panel on Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeGeneratePanel();
         }
     });
+
+    // Generate from Panel
+    async function generateFromPanel() {
+        const topic = document.getElementById('panel-topic').value;
+        const style = document.getElementById('panel-style').value;
+        const loadingEl = document.getElementById('panel-loading');
+        const resultContainer = document.getElementById('panel-result-container');
+        const generatedPromptEl = document.getElementById('panel-generated-prompt');
+        const generatedImageContainer = document.getElementById('panel-generated-image-container');
+        const generatedImageEl = document.getElementById('panel-generated-image');
+        const btnEl = document.getElementById('panel-generate-btn');
+
+        if (!topic.trim()) {
+            alert('Please enter what you want to create');
+            return;
+        }
+
+        // Hide previous results
+        resultContainer.classList.add('hidden');
+        
+        // Show loading
+        loadingEl.classList.remove('hidden');
+        btnEl.disabled = true;
+
+        try {
+            const result = await generateAIPrompt(topic, style);
+            
+            // Display the generated prompt
+            generatedPromptEl.textContent = result.prompt;
+            
+            // Display image if available
+            if (result.image) {
+                generatedImageEl.src = result.image;
+                generatedImageContainer.classList.remove('hidden');
+            } else {
+                generatedImageContainer.classList.add('hidden');
+            }
+            
+            // Show results
+            resultContainer.classList.remove('hidden');
+        } catch (error) {
+            alert('Error generating prompt. Please try again.');
+            console.error(error);
+        } finally {
+            loadingEl.classList.add('hidden');
+            btnEl.disabled = false;
+        }
+    }
+
+    // Copy prompt from panel
+    function copyPanelPrompt() {
+        const text = document.getElementById('panel-generated-prompt').textContent;
+        navigator.clipboard.writeText(text).then(() => {
+            alert('Prompt copied to clipboard!');
+        }).catch(err => {
+            console.error('Failed to copy text: ', err);
+        });
+    }
 
     async function generateAIPrompt(topic, style) {
         const FUNCTION_URL = '/.netlify/functions/generate-prompt';
@@ -526,15 +701,13 @@
                 const errorData = await response.json().catch(() => ({}));
                 throw new Error(errorData.error || `Server Error: ${response.status}`);
             }
-            return await response.json(); // Returns { prompt: "...", image: "..." }
+            return await response.json();
         } catch (error) {
             throw error;
         }
     }
 </script>
-
-
-
+    </main>
 
     <footer class="bg-white text-[#323232] py-12 border-t border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -549,7 +722,6 @@
                     <h3 class="text-lg font-semibold mb-4 text-black">Quick Links</h3>
                     <ul class="space-y-2 text-sm">
                         <li><a href="index.html#home" class="text-gray-500 hover:text-black transition duration-300">Home</a></li>
-                      <!--  <li><a href="courses.html" class="text-gray-500 hover:text-black transition duration-300">Courses</a></li> -->
                         <li><a href="/prompt.html" class="text-gray-500 hover:text-black transition duration-300">Prompts</a></li>
                         <li><a href="/blog.html" class="text-gray-500 hover:text-black transition duration-300">Blog</a></li>
                         <li><a href="/resources/resources-collection.html" class="text-gray-500 hover:text-black transition duration-300">Resources</a></li>
@@ -571,16 +743,7 @@
                          <li><a href="/index.html#about" class="text-gray-500 hover:text-black transition duration-300">About</a></li>
                         <li><a href="/index.html#contact" class="text-gray-500 hover:text-black transition duration-300">Contact</a></li>
                     </ul>
-                </div> 
-                <!-- <div>
-                    <h3 class="text-lg font-semibold mb-4 text-black">Classes</h3>
-                    <ul class="space-y-2 text-sm">
-                         <li><a href="courses/basic-illustrator/course-detail-basic.html" class="text-gray-500 hover:text-black transition duration-300">Basic Course</a></li>
-                        <li><a href="courses/intermediate-illustrator/course-detail-intermediate.html" class="text-gray-500 hover:text-black transition duration-300">Intermediate</a></li>
-                        <li><a href="courses/graphic-design/course-detail-graphic-design.html" class="text-gray-500 hover:text-black transition duration-300">Graphic Design</a></li>
-                    </ul>
-                </div> -->
-                
+                </div>
             </div>
             <div class="border-t border-gray-200 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
                 <p class="text-gray-500 text-sm mb-4 md:mb-0">
@@ -607,7 +770,7 @@
         let currentIndex = 0;
         const promptsPerPage = 12;
 
-        // Load initial prompts
+        // Load prompts
         function loadPrompts() {
             const gallery = document.getElementById('prompts-gallery');
             const loadMoreBtn = document.getElementById('load-more-btn');
@@ -616,44 +779,33 @@
 
             for (let i = currentIndex; i < endIndex; i++) {
                 const prompt = promptsData[i];
-                const card = createPromptCard(prompt);
+                const card = createPromptCard(prompt, i);
                 gallery.innerHTML += card;
             }
 
             currentIndex = endIndex;
 
-            // Hide button if all prompts are loaded
             if (currentIndex >= promptsData.length) {
                 loadMoreBtn.classList.add('hidden');
             }
 
-            // Reinitialize AOS for new elements
             AOS.refresh();
         }
 
-        // Create prompt card HTML
-        function createPromptCard(prompt) {
-    return `
-        <div data-aos="fade-up"> <div class="prompt-card"> <div class="relative overflow-hidden cursor-pointer" onclick="openLightbox(this)">
-                    <img src="${prompt.image}" alt="${prompt.title}" data-full="${prompt.fullImage}">
-                </div>
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="font-bold text-lg text-black">${prompt.title}</h3>
-                        <span class="model-tag">${prompt.model}</span>
+        // Create card HTML
+        function createPromptCard(prompt, index) {
+            return `
+                <div class="prompt-card" data-aos="fade-up" data-prompt-index="${index}" onclick="openModalByIndex(${index})">
+                    <img src="${prompt.image}" alt="${prompt.title}">
+                    <div class="prompt-overlay">
+                        <h3>${prompt.title}</h3>
+                        <p>ADO Team</p>
                     </div>
-                    <textarea class="prompt-text" rows="4" readonly>${prompt.prompt}</textarea>
-                    <button class="copy-btn mt-4 w-full justify-center" onclick="copyPrompt(this)">
-                        <i class="fas fa-copy"></i>
-                        <span>Copy Prompt</span>
-                    </button>
                 </div>
-            </div>
-        </div>
-    `;
-}
+            `;
+        }
 
-        // Load more button click handler
+        // Load more
         document.getElementById('load-more-btn').addEventListener('click', function() {
             loadPrompts();
         });
@@ -663,51 +815,130 @@
             loadPrompts();
         });
 
-        // Copy Prompt Function
-        function copyPrompt(button) {
-            const card = button.closest('.prompt-card');
-            const textarea = card.querySelector('.prompt-text');
-            const text = textarea.value;
-
-            // Copy to clipboard
-            navigator.clipboard.writeText(text).then(() => {
-                // Change button state
-                const originalHTML = button.innerHTML;
-                button.classList.add('copied');
-                button.innerHTML = '<i class="fas fa-check"></i><span>Copied!</span>';
-
-                // Reset after 2 seconds
-                setTimeout(() => {
-                    button.classList.remove('copied');
-                    button.innerHTML = originalHTML;
-                }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy text: ', err);
-            });
+        // Modal functions
+        function openModalByIndex(index) {
+            const prompt = promptsData[index];
+            openModal(prompt);
         }
 
-        // Lightbox Functions
-        function openLightbox(element) {
-            const img = element.querySelector('img');
-            const fullSrc = img.getAttribute('data-full') || img.src;
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImg = document.getElementById('lightbox-img');
+        function openModal(prompt) {
+            const modal = document.getElementById('prompt-modal');
+            const modalImage = document.getElementById('modal-image');
+            const modalTitle = document.getElementById('modal-title');
+            const modalModel = document.getElementById('modal-model');
+            const modalPrompt = document.getElementById('modal-prompt');
+            const modalBreakdown = document.getElementById('modal-breakdown');
 
-            lightboxImg.src = fullSrc;
-            lightbox.classList.add('active');
+            modalImage.src = prompt.fullImage || prompt.image;
+            modalTitle.textContent = prompt.title;
+            modalModel.textContent = prompt.model;
+            modalPrompt.textContent = prompt.prompt;
+
+            // Generate breakdown
+            const breakdown = generateBreakdown(prompt.prompt);
+            modalBreakdown.innerHTML = breakdown.map(item => `
+                <div class="breakdown-item">
+                    <strong>${item.label}</strong>
+                    <span>${item.value}</span>
+                </div>
+            `).join('');
+
+            modal.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
-        function closeLightbox() {
-            const lightbox = document.getElementById('lightbox');
-            lightbox.classList.remove('active');
+        function closeModal() {
+            const modal = document.getElementById('prompt-modal');
+            modal.classList.remove('active');
             document.body.style.overflow = 'auto';
         }
 
-        // Close lightbox on Escape key
+        function copyModalPrompt() {
+            const text = document.getElementById('modal-prompt').textContent;
+            const btn = event.target.closest('.copy-icon-btn');
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const originalHTML = btn.innerHTML;
+                btn.classList.add('copied');
+                btn.innerHTML = '<i class="fas fa-check"></i><span>Copied!</span>';
+
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    btn.innerHTML = originalHTML;
+                }, 2000);
+            });
+        }
+
+        // Generate breakdown from prompt
+        function generateBreakdown(prompt) {
+            const breakdown = [];
+            const lower = prompt.toLowerCase();
+
+            // Subject
+            const subjectMatch = prompt.match(/^([^,]+)/);
+            if (subjectMatch) {
+                breakdown.push({
+                    label: 'Subject',
+                    value: subjectMatch[1].trim()
+                });
+            }
+
+            // Style
+            if (lower.includes('realistic') || lower.includes('photorealistic') || lower.includes('photo')) {
+                breakdown.push({ label: 'Style', value: 'Photorealistic' });
+            } else if (lower.includes('illustration') || lower.includes('vector') || lower.includes('flat')) {
+                breakdown.push({ label: 'Style', value: 'Illustration' });
+            } else if (lower.includes('cinematic') || lower.includes('dramatic')) {
+                breakdown.push({ label: 'Style', value: 'Cinematic' });
+            } else {
+                breakdown.push({ label: 'Style', value: 'Creative' });
+            }
+
+            // Lighting
+            if (lower.includes('lighting') || lower.includes('light')) {
+                const lightMatch = prompt.match(/([\w\s]+lighting)/i);
+                breakdown.push({
+                    label: 'Lighting',
+                    value: lightMatch ? lightMatch[1] : 'Professional lighting'
+                });
+            }
+
+            // Quality
+            if (lower.includes('8k') || lower.includes('4k') || lower.includes('high resolution')) {
+                breakdown.push({ label: 'Quality', value: 'High resolution' });
+            }
+
+            // Aspect Ratio
+            const arMatch = prompt.match(/--ar\s+([\d:]+)/);
+            if (arMatch) {
+                breakdown.push({
+                    label: 'Aspect Ratio',
+                    value: arMatch[1]
+                });
+            }
+
+            // If we have less than 4 items, add generic ones
+            if (breakdown.length < 4) {
+                breakdown.push({ label: 'Mood', value: 'Professional & Creative' });
+            }
+            if (breakdown.length < 4) {
+                breakdown.push({ label: 'Purpose', value: 'Commercial / Portfolio' });
+            }
+
+            return breakdown.slice(0, 5); // Max 5 items
+        }
+
+        // Close modal on Escape
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
-                closeLightbox();
+                closeModal();
+            }
+        });
+
+        // Close modal on outside click
+        document.getElementById('prompt-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
             }
         });
     </script>
