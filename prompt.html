@@ -495,7 +495,8 @@
                             <p id="panel-generated-prompt" class="text-gray-700 leading-relaxed text-sm"></p>
                         </div>
                         <div id="panel-generated-image-container" class="mt-6 hidden">
-                            <img id="panel-generated-image" src="" alt="Generated Image" class="w-full rounded-lg">
+                            <h4 class="text-base font-bold text-black mb-3">Generated Image</h4>
+                            <img id="panel-generated-image" src="" alt="Generated Image" class="w-full h-auto rounded-lg border border-gray-200">
                         </div>
                     </div>
                 </div>
@@ -657,14 +658,25 @@
         try {
             const result = await generateAIPrompt(topic, style);
             
+            console.log('API Response:', result); // Debug log
+            
             // Display the generated prompt
             generatedPromptEl.textContent = result.prompt;
             
             // Display image if available
-            if (result.image) {
+            if (result.image && result.image.trim() !== '') {
+                console.log('Image URL:', result.image); // Debug log
                 generatedImageEl.src = result.image;
-                generatedImageContainer.classList.remove('hidden');
+                generatedImageEl.onload = function() {
+                    console.log('Image loaded successfully');
+                    generatedImageContainer.classList.remove('hidden');
+                };
+                generatedImageEl.onerror = function() {
+                    console.error('Image failed to load');
+                    generatedImageContainer.classList.add('hidden');
+                };
             } else {
+                console.log('No image in response'); // Debug log
                 generatedImageContainer.classList.add('hidden');
             }
             
