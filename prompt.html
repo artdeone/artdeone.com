@@ -658,25 +658,43 @@
         try {
             const result = await generateAIPrompt(topic, style);
             
-            console.log('API Response:', result); // Debug log
+            console.log('API Response:', result);
             
             // Display the generated prompt
             generatedPromptEl.textContent = result.prompt;
             
             // Display image if available
             if (result.image && result.image.trim() !== '') {
-                console.log('Image URL:', result.image); // Debug log
-                generatedImageEl.src = result.image;
-                generatedImageEl.onload = function() {
+                console.log('Image URL:', result.image);
+                
+                // Create a new image element to test loading
+                const testImg = new Image();
+                testImg.crossOrigin = "anonymous"; // Try to enable CORS
+                
+                testImg.onload = function() {
                     console.log('Image loaded successfully');
+                    generatedImageEl.src = result.image;
                     generatedImageContainer.classList.remove('hidden');
                 };
-                generatedImageEl.onerror = function() {
-                    console.error('Image failed to load');
-                    generatedImageContainer.classList.add('hidden');
+                
+                testImg.onerror = function() {
+                    console.error('Image failed to load - CORS or network issue');
+                    // Show image URL as clickable link instead
+                    const imageLink = document.createElement('a');
+                    imageLink.href = result.image;
+                    imageLink.target = '_blank';
+                    imageLink.className = 'text-blue-600 hover:text-blue-800 underline';
+                    imageLink.textContent = 'Click here to view the generated image';
+                    
+                    const container = document.getElementById('panel-generated-image-container');
+                    container.innerHTML = '<p class="text-sm text-gray-600 mb-2">Image preview not available. </p>';
+                    container.appendChild(imageLink);
+                    container.classList.remove('hidden');
                 };
+                
+                testImg.src = result.image;
             } else {
-                console.log('No image in response'); // Debug log
+                console.log('No image in response');
                 generatedImageContainer.classList.add('hidden');
             }
             
