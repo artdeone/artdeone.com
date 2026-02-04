@@ -429,7 +429,7 @@
     </div>
 
     <!-- Generate Panel (Slide from Right) -->
-    <div id="generate-panel" class="fixed top-0 right-0 h-full w-full md:w-[700px] bg-white shadow-2xl z-[101] transform translate-x-full transition-transform duration-500 ease-out overflow-y-auto">
+    <div id="generate-panel" class="fixed top-0 right-0 h-full w-full md:w-[600px] bg-white shadow-2xl z-[101] transform translate-x-full transition-transform duration-500 ease-out overflow-y-auto">
         <div class="relative h-full flex flex-col">
             <!-- Panel Header -->
             <div class="flex-shrink-0 border-b border-gray-200 px-8 py-6 flex items-center justify-between">
@@ -440,68 +440,64 @@
             </div>
 
             <!-- Panel Content -->
-            <div class="flex-1 p-8 space-y-6">
-                <!-- Input Text -->
+            <div class="flex-1 p-8 space-y-8">
+                <!-- What do you want to create? -->
                 <div>
-                    <label for="panel-topic-input" class="block text-lg font-bold text-black mb-4">
+                    <label for="panel-topic" class="block text-lg font-bold text-black mb-4">
                         What do you want to create?
                     </label>
                     <textarea 
-                        id="panel-topic-input" 
-                        rows="5"
-                        placeholder="e.g., a serene forest with magical glowing mushrooms..." 
+                        id="panel-topic" 
+                        rows="8"
+                        placeholder="e.g., A futuristic city at sunset with flying cars..." 
                         class="w-full px-6 py-5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-black focus:bg-white transition-all duration-300 text-gray-800 placeholder-gray-400 text-base resize-none"
                         required
                     ></textarea>
                 </div>
 
-                <!-- Style Options -->
+                <!-- Style Selector -->
                 <div>
-                    <label class="block text-lg font-bold text-black mb-4">Art Styles (Optional)</label>
-                    <div class="flex flex-wrap gap-3">
-                        <button class="panel-style-btn px-4 py-2 rounded-full border border-gray-200 text-sm font-medium text-gray-700 hover:border-[#a7e169] hover:bg-[#a7e169] hover:text-black transition-all duration-300" data-style="photorealistic">Photorealistic</button>
-                        <button class="panel-style-btn px-4 py-2 rounded-full border border-gray-200 text-sm font-medium text-gray-700 hover:border-[#a7e169] hover:bg-[#a7e169] hover:text-black transition-all duration-300" data-style="cinematic">Cinematic</button>
-                        <button class="panel-style-btn px-4 py-2 rounded-full border border-gray-200 text-sm font-medium text-gray-700 hover:border-[#a7e169] hover:bg-[#a7e169] hover:text-black transition-all duration-300" data-style="fantasy">Fantasy</button>
-                        <button class="panel-style-btn px-4 py-2 rounded-full border border-gray-200 text-sm font-medium text-gray-700 hover:border-[#a7e169] hover:bg-[#a7e169] hover:text-black transition-all duration-300" data-style="vintage">Vintage</button>
-                        <button class="panel-style-btn px-4 py-2 rounded-full border border-gray-200 text-sm font-medium text-gray-700 hover:border-[#a7e169] hover:bg-[#a7e169] hover:text-black transition-all duration-300" data-style="minimalist">Minimalist</button>
-                        <button class="panel-style-btn px-4 py-2 rounded-full border border-gray-200 text-sm font-medium text-gray-700 hover:border-[#a7e169] hover:bg-[#a7e169] hover:text-black transition-all duration-300" data-style="surreal">Surreal</button>
+                    <label for="panel-style" class="block text-lg font-bold text-black mb-4">
+                        Select Your Style
+                    </label>
+                    <div class="relative">
+                        <select 
+                            id="panel-style"
+                            class="w-full px-6 py-5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-black focus:bg-white transition-all duration-300 text-gray-800 appearance-none cursor-pointer text-base"
+                        >
+                            <option value="realistic">Realistic & Photographic</option>
+                            <option value="anime">Anime & Manga</option>
+                            <option value="cartoon">Cartoon & Illustration</option>
+                            <option value="abstract">Abstract & Artistic</option>
+                            <option value="minimalist">Minimalist & Clean</option>
+                            <option value="vintage">Vintage & Retro</option>
+                        </select>
+                        <div class="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none">
+                            <i class="fas fa-chevron-down text-gray-400"></i>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Error Message -->
-                <div id="panel-error-message" class="hidden p-4 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm"></div>
-
-                <!-- Output Container -->
-                <div id="panel-output-container" class="hidden space-y-6">
-                    <!-- Preview Image -->
-                    <div id="panel-image-container" class="hidden">
-                        <label class="block text-base font-bold text-black mb-3">Preview Image</label>
-                        <div class="relative rounded-xl overflow-hidden border border-gray-200 bg-gray-50 aspect-video flex items-center justify-center">
-                            <img id="panel-generated-image" src="" alt="AI Preview" class="w-full h-full object-cover hidden">
-                            <div id="panel-img-spinner" class="absolute inset-0 flex flex-col items-center justify-center gap-3 text-gray-400">
-                                <svg class="animate-spin h-8 w-8 text-[#a7e169]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                </svg>
-                                <span class="text-xs font-medium">Creating Image...</span>
-                            </div>
+                <!-- Result Display (Hidden by default) -->
+                <div id="panel-result-container" class="hidden">
+                    <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-base font-bold text-black">Your Generated Prompt</h3>
+                            <button 
+                                onclick="copyPanelPrompt()" 
+                                class="text-sm font-semibold text-black hover:text-gray-600 transition-colors duration-200 flex items-center gap-2"
+                            >
+                                <i class="fas fa-copy"></i>
+                                <span>Copy</span>
+                            </button>
                         </div>
-                    </div>
-
-                    <!-- Generated Prompt -->
-                    <div>
-                        <label class="block text-base font-bold text-black mb-3">Generated Prompt</label>
-                        <textarea 
-                            id="panel-generated-prompt" 
-                            rows="8"
-                            class="w-full px-5 py-4 border border-gray-200 rounded-xl focus:outline-none focus:border-[#a7e169] bg-gray-50 resize-none font-mono text-sm leading-relaxed text-gray-700"
-                            readonly
-                        ></textarea>
-                        
-                        <button id="panel-copy-btn" class="mt-3 w-full px-4 py-3 bg-[#a7e169] text-black font-semibold rounded-xl hover:bg-[#ed2939] hover:text-white transition-all duration-300 flex items-center justify-center gap-2">
-                            <i class="fas fa-copy"></i>
-                            <span id="panel-copy-text">Copy Prompt</span>
-                        </button>
+                        <div class="bg-white rounded-lg p-5 border border-gray-200">
+                            <p id="panel-generated-prompt" class="text-gray-700 leading-relaxed text-sm"></p>
+                        </div>
+                        <div id="panel-generated-image-container" class="mt-6 hidden">
+                            <h4 class="text-base font-bold text-black mb-3">Generated Image</h4>
+                            <img id="panel-generated-image" src="" alt="Generated Image" class="w-full h-auto rounded-lg border border-gray-200">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -510,28 +506,23 @@
             <div class="flex-shrink-0 border-t border-gray-200 p-8">
                 <button 
                     id="panel-generate-btn"
+                    onclick="generateFromPanel()"
                     class="w-full bg-[#a7e169] hover:bg-[#ed2939] text-black hover:text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 shadow-md hover:shadow-xl transform hover:-translate-y-1"
                 >
-                    <span id="panel-btn-text">Generate My Prompt</span>
-                    <i class="fas fa-arrow-right" id="panel-btn-arrow"></i>
-                    <div id="panel-btn-spinner" class="hidden">
-                        <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                    </div>
+                    <span>Generate My Prompt</span>
+                    <i class="fas fa-arrow-right"></i>
                 </button>
+            </div>
+
+            <!-- Loading State -->
+            <div id="panel-loading" class="hidden absolute inset-0 bg-white/95 backdrop-blur-sm flex items-center justify-center z-20">
+                <div class="text-center">
+                    <div class="w-12 h-12 border-3 border-gray-200 border-t-black rounded-full animate-spin mb-4"></div>
+                    <p class="text-gray-600 font-semibold">Generating your prompt...</p>
+                </div>
             </div>
         </div>
     </div>
-
-    <style>
-        .panel-style-btn.active { 
-            background-color: #a7e169; 
-            border-color: #a7e169; 
-            color: #000; 
-        }
-    </style>
     <!-- Prompts Gallery Section -->
     <section class="py-16 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
@@ -641,143 +632,75 @@
         }
     });
 
-    // Panel Generator Logic
-    document.addEventListener('DOMContentLoaded', function() {
-        const generateBtn = document.getElementById('panel-generate-btn');
-        const topicInput = document.getElementById('panel-topic-input');
-        const generatedPrompt = document.getElementById('panel-generated-prompt');
-        const outputContainer = document.getElementById('panel-output-container');
-        const copyBtn = document.getElementById('panel-copy-btn');
-        const copyText = document.getElementById('panel-copy-text');
-        const btnText = document.getElementById('panel-btn-text');
-        const btnSpinner = document.getElementById('panel-btn-spinner');
-        const btnArrow = document.getElementById('panel-btn-arrow');
-        const errorMessage = document.getElementById('panel-error-message');
-        const styleBtns = document.querySelectorAll('.panel-style-btn');
+    // Generate from Panel
+    async function generateFromPanel() {
+        const topic = document.getElementById('panel-topic').value;
+        const style = document.getElementById('panel-style').value;
+        const loadingEl = document.getElementById('panel-loading');
+        const resultContainer = document.getElementById('panel-result-container');
+        const generatedPromptEl = document.getElementById('panel-generated-prompt');
+        const generatedImageContainer = document.getElementById('panel-generated-image-container');
+        const generatedImageEl = document.getElementById('panel-generated-image');
+        const btnEl = document.getElementById('panel-generate-btn');
+
+        if (!topic.trim()) {
+            alert('Please enter what you want to create');
+            return;
+        }
+
+        // Hide previous results
+        resultContainer.classList.add('hidden');
         
-        // Image Elements
-        const imgContainer = document.getElementById('panel-image-container');
-        const imgElement = document.getElementById('panel-generated-image');
-        const imgSpinner = document.getElementById('panel-img-spinner');
+        // Show loading
+        loadingEl.classList.remove('hidden');
+        btnEl.disabled = true;
 
-        let selectedStyle = '';
-
-        // Style button selection
-        styleBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                styleBtns.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                selectedStyle = this.dataset.style;
-            });
-        });
-
-        // Typing Effect (from original)
-        function typeWriter(text, element) {
-            element.value = ''; 
-            let i = 0;
-            function type() {
-                if (i < text.length) {
-                    element.value += text.charAt(i);
-                    element.scrollTop = element.scrollHeight;
-                    i++;
-                    let delay = 5;
-                    const char = text.charAt(i - 1);
-                    if (char === ',' || char === '.') delay = 30; 
-                    else if (Math.random() > 0.9) delay += Math.random() * 15;
-                    if (i > text.length * 0.9) delay += 10;
-                    setTimeout(type, delay);
-                }
-            }
-            type();
-        }
-
-        // Generate button click
-        generateBtn.addEventListener('click', async function() {
-            const topic = topicInput.value.trim();
-            if (!topic) {
-                showError('Please enter a topic.');
-                return;
-            }
-
-            generateBtn.disabled = true;
-            btnText.textContent = 'Generating...';
-            btnSpinner.classList.remove('hidden');
-            btnArrow.classList.add('hidden');
-            errorMessage.classList.add('hidden');
+        try {
+            const result = await generateAIPrompt(topic, style);
             
-            // Reset Image State
-            imgContainer.classList.add('hidden');
-            imgElement.classList.add('hidden');
-            outputContainer.classList.add('hidden');
-
-            try {
-                const data = await generateAIPrompt(topic, selectedStyle);
-                
-                outputContainer.classList.remove('hidden');
-                
-                // 1. Type Text with animation
-                typeWriter(data.prompt, generatedPrompt);
-
-                // 2. Load Image if available
-                if (data.image) {
-                    imgContainer.classList.remove('hidden');
-                    imgSpinner.classList.remove('hidden');
-                    imgElement.src = data.image;
-
-                    imgElement.onload = function() {
-                        imgSpinner.classList.add('hidden');
-                        imgElement.classList.remove('hidden');
-                    };
-
-                    imgElement.onerror = function() {
-                        console.error('Image failed to load');
-                        imgSpinner.classList.add('hidden');
-                    };
-                }
-
-            } catch (error) {
-                showError('Failed to generate: ' + error.message);
-            } finally {
-                generateBtn.disabled = false;
-                btnText.textContent = 'Generate My Prompt';
-                btnSpinner.classList.add('hidden');
-                btnArrow.classList.remove('hidden');
+            console.log('API Response:', result); // Debug log
+            
+            // Display the generated prompt
+            generatedPromptEl.textContent = result.prompt;
+            
+            // Display image if available
+            if (result.image && result.image.trim() !== '') {
+                console.log('Image URL:', result.image); // Debug log
+                generatedImageEl.src = result.image;
+                generatedImageEl.onload = function() {
+                    console.log('Image loaded successfully');
+                    generatedImageContainer.classList.remove('hidden');
+                };
+                generatedImageEl.onerror = function() {
+                    console.error('Image failed to load');
+                    generatedImageContainer.classList.add('hidden');
+                };
+            } else {
+                console.log('No image in response'); // Debug log
+                generatedImageContainer.classList.add('hidden');
             }
-        });
-
-        // Copy button
-        copyBtn.addEventListener('click', async function() {
-            try {
-                await navigator.clipboard.writeText(generatedPrompt.value);
-                const original = copyText.textContent;
-                copyText.textContent = 'Copied!';
-                copyBtn.classList.add('bg-black', 'text-white');
-                copyBtn.classList.remove('bg-[#a7e169]');
-                setTimeout(() => {
-                    copyText.textContent = original;
-                    copyBtn.classList.remove('bg-black', 'text-white');
-                    copyBtn.classList.add('bg-[#a7e169]');
-                }, 2000);
-            } catch (e) {
-                console.error('Copy failed:', e);
-            }
-        });
-
-        // Enter key to generate
-        topicInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' && !e.shiftKey && !generateBtn.disabled) {
-                e.preventDefault();
-                generateBtn.click();
-            }
-        });
-
-        function showError(msg) {
-            errorMessage.textContent = msg;
-            errorMessage.classList.remove('hidden');
+            
+            // Show results
+            resultContainer.classList.remove('hidden');
+        } catch (error) {
+            alert('Error generating prompt. Please try again.');
+            console.error(error);
+        } finally {
+            loadingEl.classList.add('hidden');
+            btnEl.disabled = false;
         }
-    });
+    }
 
-    // API Function (from original)
+    // Copy prompt from panel
+    function copyPanelPrompt() {
+        const text = document.getElementById('panel-generated-prompt').textContent;
+        navigator.clipboard.writeText(text).then(() => {
+            alert('Prompt copied to clipboard!');
+        }).catch(err => {
+            console.error('Failed to copy text: ', err);
+        });
+    }
+
     async function generateAIPrompt(topic, style) {
         const FUNCTION_URL = '/.netlify/functions/generate-prompt';
         try {
