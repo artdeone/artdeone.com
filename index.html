@@ -23,9 +23,6 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
     <link rel="stylesheet" href="css-and-js/mobile-smooth-nav.css">
     
-    
-
-    
     <style>
         /* Added Space Grotesk to imports */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
@@ -42,9 +39,6 @@
             color: #000000;
         }
 
-        /* Specific override for secondary font where needed, 
-           or you can apply to all headings if preferred. 
-           Here applied to section titles as requested by "Secondary font" usage usually for headers */
         .artdeone-font, .section-title {
             font-family: 'Poppins', sans-serif;
         }
@@ -180,94 +174,70 @@
             box-shadow: 0 10px 15px -3px rgba(167, 225, 105, 0.3);
         }
 
-        /* Portfolio Cards Enhanced */
-        .portfolio-card {
-            background-color: #ffffff;
-            border-radius: 1rem;
-            overflow: hidden;
-            border: 1px solid #e5e5e5;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        /* --- UPDATED PORTFOLIO STYLES (MATCHING REFERENCE) --- */
+        .portfolio-card-clean {
             position: relative;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
         }
         
-        .portfolio-card:hover {
-            transform: translateY(-8px);
-            border-color: #a7e169;
-            box-shadow: 0 20px 40px -10px rgba(167, 225, 105, 0.3); /* Green shadow */
+        .portfolio-image-wrapper {
+            position: relative;
+            border-radius: 1.5rem; /* Rounded 2XL/3XL feel */
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            width: 100%;
+            background-color: #f3f4f6;
         }
         
-        .portfolio-card img {
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        .portfolio-image-wrapper img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        .portfolio-card:hover img {
-            transform: scale(1.1);
+        .portfolio-card-clean:hover .portfolio-image-wrapper img {
+            transform: scale(1.05);
         }
 
-        /* Portfolio Text Area */
-        .portfolio-text-area {
-            background-color: #fff;
-            padding: 1.5rem;
-            border-top: 1px solid #f0f0f0;
-        }
-
-        /* UPDATED: LOW BLACK TRANSPARENT OVERLAY */
-        .portfolio-overlay {
+        /* Overlay Logic for Button */
+        .portfolio-btn-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, 0.4); /* Low black transparent */
-            opacity: 1; 
+            background: rgba(0,0,0,0.2); /* Slight dim on hover */
+            opacity: 0;
             transition: opacity 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        .portfolio-card:hover .portfolio-overlay { opacity: 1; }
 
+        /* Desktop Hover */
         @media (min-width: 768px) {
-            .portfolio-overlay { opacity: 0; }
-            .portfolio-card:hover .portfolio-overlay { opacity: 1; }
-        }
-
-
-        /* Button Animation */
-        .view-project-btn {
-            transform: translateY(0);
-            opacity: 1;
-            background-color: #a7e169;
-            color: #000;
-            font-weight: 600;
-            padding: 0.75rem 1.5rem;
-            border-radius: 2rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-size: 0.875rem;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .view-project-btn:hover {
-            background-color: #ed2939;
-            color: #fff;
-            transform: translateY(-2px) !important;
-        }
-
-        @media (min-width: 768px) {
-            .view-project-btn {
-                transform: translateY(20px);
-                opacity: 0;
-            }
-            .portfolio-card:hover .view-project-btn {
-                transform: translateY(0);
+            .portfolio-card-clean:hover .portfolio-btn-overlay {
                 opacity: 1;
             }
         }
 
+        /* Mobile Always Visible (Custom Logic) */
+        .case-study-btn {
+            background-color: #fff;
+            color: #000;
+            font-weight: 700;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
 
+        .case-study-btn:hover {
+            background-color: #a7e169;
+            transform: scale(1.05);
+        }
 
         /* Tabs */
         .service-tab {
@@ -427,28 +397,23 @@
     </div>
 </nav>
 
-
-
-    <main>
-        <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden bg-white">
-    <div class="absolute inset-0 w-full h-full z-0">
-        <video autoplay muted loop playsinline preload="metadata" class="w-full h-full object-cover opacity-50">
-            <source src="https://res.cloudinary.com/ddkd9lxpr/video/upload/v1768369564/hero-animation_ozxvd5.mp4" type="video/webm">
-            <source src="https://res.cloudinary.com/ddkd9lxpr/video/upload/v1768369564/hero-animation_ozxvd5.mp4" type="video/mp4">
-        </video>
-        <!-- Black overlay (20% opacity) -->
-        <!-- <div class="absolute inset-0 bg-black/20"></div> -->
-        <!-- White gradient overlay (kept from original) -->
-        <div class="absolute inset-0 bg-gradient-to-b from-white/30 via-white/80 to-white"></div>
-    </div>
+<main>
+    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden bg-white">
+        <div class="absolute inset-0 w-full h-full z-0">
+            <video autoplay muted loop playsinline preload="metadata" class="w-full h-full object-cover opacity-50">
+                <source src="https://res.cloudinary.com/ddkd9lxpr/video/upload/v1768369564/hero-animation_ozxvd5.mp4" type="video/webm">
+                <source src="https://res.cloudinary.com/ddkd9lxpr/video/upload/v1768369564/hero-animation_ozxvd5.mp4" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 bg-gradient-to-b from-white/30 via-white/80 to-white"></div>
+        </div>
     <div class="relative z-10 text-center px-4" data-aos="fade-up">
-        <h1 class="text-6xl sm:text-7xl md:text-8xl font-bold leading-tight artdeone-font mb-4">
-    <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#5aa905] to-[#a7e169]">ART de ONE</span>
-</h1>
+                <h1 class="text-6xl sm:text-7xl md:text-8xl font-bold leading-tight artdeone-font mb-4">
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#5aa905] to-[#a7e169]">ART de ONE</span>
+                </h1>
         <p class="text-xl md:text-2xl text-[#323232] mb-10 max-w-2xl mx-auto font-light tracking-wide">The Art of Intelligence</p>
         <div class="flex flex-wrap gap-4 justify-center">
             <a href="blog.html" class="btn-primary">Read Our Blog</a>
-            <a href="/index.html#portfolio" class="btn-secondary">Our Portfolio</a>
+            <a href="#portfolio" class="btn-secondary">Our Portfolio</a>
         </div>
     </div>
 </section>
@@ -496,188 +461,152 @@
             </div>
         </section>
         
+        <!-- NEW UPDATED PORTFOLIO SECTION -->
         <section id="portfolio" class="py-24 section-dark px-4">
-    <div class="max-w-7xl mx-auto">
-        <div class="text-center mb-16" data-aos="fade-up">
-            <h2 class="section-title">Our Portfolio</h2>
-            <p class="section-subtitle">Creative solutions that transform ideas into compelling visual stories.</p>
-        </div>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            <div class="portfolio-card group" data-aos="fade-up">
-                <div class="relative aspect-[4/3] overflow-hidden">
-                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119692/character-2_k2oew1.jpg" alt="Advanced Illustration" class="w-full h-full object-cover">
-                    <div class="portfolio-overlay">
-                        <a href="portfolio/venom-illustration.html" class="view-project-btn hidden md:inline-flex">
-                            View Project
-                        </a>
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <h2 class="section-title">Our Portfolio</h2>
+                    <p class="section-subtitle">Creative solutions that transform ideas into compelling visual stories.</p>
+                </div>
+                
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
+                    
+                    <!-- Item 1 -->
+                    <div class="group portfolio-card-clean" data-aos="fade-up">
+                        <div class="portfolio-image-wrapper">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119692/character-2_k2oew1.jpg" alt="Advanced Illustration">
+                            
+                            <!-- Overlay Button: Desktop (Hover), Mobile (Always Visible at Bottom) -->
+                            <div class="absolute bottom-4 right-4 md:inset-0 md:bg-black/20 md:opacity-0 md:group-hover:opacity-100 md:flex md:items-center md:justify-center transition-all duration-300">
+                                <a href="portfolio/venom-illustration.html" class="case-study-btn">
+                                    View Case Study
+                                </a>
+                            </div>
+                        </div>
+                        <div class="mt-5">
+                            <h3 class="text-xl font-bold text-black group-hover:text-[#a7e169] transition-colors">Advanced Illustration</h3>
+                            <p class="text-gray-500 font-medium mt-1">Vector Art</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="group portfolio-card-clean" data-aos="fade-up" data-aos-delay="100">
+                        <div class="portfolio-image-wrapper">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119692/social-1_hrn8ul.jpg" alt="ONE DAY STUDIO">
+                            <div class="absolute bottom-4 right-4 md:inset-0 md:bg-black/20 md:opacity-0 md:group-hover:opacity-100 md:flex md:items-center md:justify-center transition-all duration-300">
+                                <a href="portfolio/logo-reveal.html" class="case-study-btn">
+                                    View Case Study
+                                </a>
+                            </div>
+                        </div>
+                        <div class="mt-5">
+                            <h3 class="text-xl font-bold text-black group-hover:text-[#a7e169] transition-colors">Brand Identity</h3>
+                            <p class="text-gray-500 font-medium mt-1">Logo Design</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="group portfolio-card-clean" data-aos="fade-up" data-aos-delay="200">
+                        <div class="portfolio-image-wrapper">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119691/client-2_dk6cnq.jpg" alt="Nescafe Ad">
+                            <div class="absolute bottom-4 right-4 md:inset-0 md:bg-black/20 md:opacity-0 md:group-hover:opacity-100 md:flex md:items-center md:justify-center transition-all duration-300">
+                                <a href="portfolio/ads-social.html" class="case-study-btn">
+                                    View Case Study
+                                </a>
+                            </div>
+                        </div>
+                        <div class="mt-5">
+                            <h3 class="text-xl font-bold text-black group-hover:text-[#a7e169] transition-colors">Social Media Ads</h3>
+                            <p class="text-gray-500 font-medium mt-1">Marketing Design</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="group portfolio-card-clean" data-aos="fade-up" data-aos-delay="300">
+                        <div class="portfolio-image-wrapper">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119691/student-1_kylsbc.jpg" alt="Vector Art">
+                            <div class="absolute bottom-4 right-4 md:inset-0 md:bg-black/20 md:opacity-0 md:group-hover:opacity-100 md:flex md:items-center md:justify-center transition-all duration-300">
+                                <a href="portfolio/student-gallery.html" class="case-study-btn">
+                                    View Case Study
+                                </a>
+                            </div>
+                        </div>
+                        <div class="mt-5">
+                            <h3 class="text-xl font-bold text-black group-hover:text-[#a7e169] transition-colors">Student Gallery</h3>
+                            <p class="text-gray-500 font-medium mt-1">Education</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 5 -->
+                    <div class="group portfolio-card-clean" data-aos="fade-up" data-aos-delay="400">
+                        <div class="portfolio-image-wrapper">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119672/custom-thumb_mq1iyv.png" alt="Royal Food">
+                            <div class="absolute bottom-4 right-4 md:inset-0 md:bg-black/20 md:opacity-0 md:group-hover:opacity-100 md:flex md:items-center md:justify-center transition-all duration-300">
+                                <a href="portfolio/custom-typography-FINAL.html" class="case-study-btn">
+                                    View Case Study
+                                </a>
+                            </div>
+                        </div>
+                        <div class="mt-5">
+                            <h3 class="text-xl font-bold text-black group-hover:text-[#a7e169] transition-colors">Typography</h3>
+                            <p class="text-gray-500 font-medium mt-1">Custom Type</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 6 -->
+                    <div class="group portfolio-card-clean" data-aos="fade-up" data-aos-delay="500">
+                        <div class="portfolio-image-wrapper">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119693/client-1_io01hq.jpg" alt="Venucia">
+                            <div class="absolute bottom-4 right-4 md:inset-0 md:bg-black/20 md:opacity-0 md:group-hover:opacity-100 md:flex md:items-center md:justify-center transition-all duration-300">
+                                <a href="#" class="case-study-btn">
+                                    View Case Study
+                                </a>
+                            </div>
+                        </div>
+                        <div class="mt-5">
+                            <h3 class="text-xl font-bold text-black group-hover:text-[#a7e169] transition-colors">Venucia</h3>
+                            <p class="text-gray-500 font-medium mt-1">Commercial</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Tools Minimal Section (Smaller Icons) -->
+                <div class="mt-24 pt-12 border-t border-gray-100" data-aos="fade-up">
+                    <!-- Minimal Heading -->
+                    <p class="text-center text-gray-400 uppercase tracking-[0.15em] text-xs font-bold mb-10">
+                        Powering Creativity With
+                    </p>
+
+                    <!-- Icons Container -->
+                    <div class="flex flex-wrap justify-center items-center gap-12 md:gap-16">
+                        
+                        <!-- Illustrator -->
+                        <div class="group">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg" 
+                                alt="Ai" 
+                                class="w-12 h-12 md:w-14 md:h-14 object-contain filter grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 ease-out transform group-hover:scale-110">
+                        </div>
+
+                        <!-- Photoshop -->
+                        <div class="group">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg" 
+                                alt="Ps" 
+                                class="w-12 h-12 md:w-14 md:h-14 object-contain filter grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 ease-out transform group-hover:scale-110">
+                        </div>
+
+                        <!-- After Effects -->
+                        <div class="group">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Adobe_After_Effects_CC_icon.svg" 
+                                alt="Ae" 
+                                class="w-12 h-12 md:w-14 md:h-14 object-contain filter grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 ease-out transform group-hover:scale-110">
+                        </div>
+
                     </div>
                 </div>
-                <div class="portfolio-text-area flex justify-between items-center">
-                    <div class="pr-2">
-                        <h3 class="font-bold text-lg text-black mb-1 group-hover:text-[#a7e169] transition-colors">Advanced Illustration</h3>
-                        <p class="text-sm text-[#555]">Adobe Illustrator</p>
-                    </div>
-                    <a href="portfolio/venom-illustration.html" class="md:hidden bg-[#a7e169] !text-black text-sm font-bold px-6 py-3 rounded-full whitespace-nowrap hover:bg-[#ed2939] hover:!text-white transition-colors">
-                        View
-                    </a>
-                </div>
+
             </div>
-
-            <div class="portfolio-card group" data-aos="fade-up" data-aos-delay="100">
-                <div class="relative aspect-[4/3] overflow-hidden">
-                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119692/social-1_hrn8ul.jpg" alt="ONE DAY STUDIO" class="w-full h-full object-cover">
-                    <div class="portfolio-overlay">
-                        <a href="portfolio/logo-reveal.html" class="view-project-btn hidden md:inline-flex">
-                            View Project
-                        </a>
-                    </div>
-                </div>
-                <div class="portfolio-text-area flex justify-between items-center">
-                    <div class="pr-2">
-                        <h3 class="font-bold text-lg text-black mb-1 group-hover:text-[#a7e169] transition-colors">Logo Collection</h3>
-                        <p class="text-sm text-[#555]">Brand Identity</p>
-                    </div>
-                    <a href="portfolio/logo-reveal.html" class="md:hidden bg-[#a7e169] !text-black text-sm font-bold px-6 py-3 rounded-full whitespace-nowrap hover:bg-[#ed2939] hover:!text-white transition-colors">
-                        View
-                    </a>
-                </div>
-            </div>
-
-            <div class="portfolio-card group" data-aos="fade-up" data-aos-delay="200">
-                <div class="relative aspect-[4/3] overflow-hidden">
-                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119691/client-2_dk6cnq.jpg" alt="Nescafe Ad" class="w-full h-full object-cover">
-                    <div class="portfolio-overlay">
-                        <a href="portfolio/ads-social.html" class="view-project-btn hidden md:inline-flex">
-                            View Project
-                        </a>
-                    </div>
-                </div>
-                <div class="portfolio-text-area flex justify-between items-center">
-                    <div class="pr-2">
-                        <h3 class="font-bold text-lg text-black mb-1 group-hover:text-[#a7e169] transition-colors">Ads & Social Media</h3>
-                        <p class="text-sm text-[#555]">Ads & Social Media</p>
-                    </div>
-                    <a href="portfolio/ads-social.html" class="md:hidden bg-[#a7e169] !text-black text-sm font-bold px-6 py-3 rounded-full whitespace-nowrap hover:bg-[#ed2939] hover:!text-white transition-colors">
-                        View
-                    </a>
-                </div>
-            </div>
-
-            <div class="portfolio-card group" data-aos="fade-up" data-aos-delay="300">
-                <div class="relative aspect-[4/3] overflow-hidden">
-                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119691/student-1_kylsbc.jpg" alt="Vector Art" class="w-full h-full object-cover">
-                    <div class="portfolio-overlay">
-                        <a href="portfolio/student-gallery.html" class="view-project-btn hidden md:inline-flex">
-                            View Project
-                        </a>
-                    </div>
-                </div>
-                <div class="portfolio-text-area flex justify-between items-center">
-                    <div class="pr-2">
-                        <h3 class="font-bold text-lg text-black mb-1 group-hover:text-[#a7e169] transition-colors">Student Projects</h3>
-                        <p class="text-sm text-[#555]">Student Artworks</p>
-                    </div>
-                    <a href="portfolio/student-gallery.html" class="md:hidden bg-[#a7e169] !text-black text-sm font-bold px-6 py-3 rounded-full whitespace-nowrap hover:bg-[#ed2939] hover:!text-white transition-colors">
-                        View
-                    </a>
-                </div>
-            </div>
-
-            <div class="portfolio-card group" data-aos="fade-up" data-aos-delay="400">
-                <div class="relative aspect-[4/3] overflow-hidden">
-                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119672/custom-thumb_mq1iyv.png" alt="Royal Food" class="w-full h-full object-cover">
-                    <div class="portfolio-overlay">
-                        <a href="portfolio/custom-typography-FINAL.html" class="view-project-btn hidden md:inline-flex">
-                            View Project
-                        </a>
-                    </div>
-                </div>
-                <div class="portfolio-text-area flex justify-between items-center">
-                    <div class="pr-2">
-                        <h3 class="font-bold text-lg text-black mb-1 group-hover:text-[#a7e169] transition-colors">Custom Typography</h3>
-                        <p class="text-sm text-[#555]">Typography</p>
-                    </div>
-                    <a href="portfolio/custom-typography-FINAL.html" class="md:hidden bg-[#a7e169] !text-black text-sm font-bold px-6 py-3 rounded-full whitespace-nowrap hover:bg-[#ed2939] hover:!text-white transition-colors">
-                        View
-                    </a>
-                </div>
-            </div>
-
-            <div class="portfolio-card group" data-aos="fade-up" data-aos-delay="500">
-                <div class="relative aspect-[4/3] overflow-hidden">
-                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119693/client-1_io01hq.jpg" alt="Venucia" class="w-full h-full object-cover">
-                    <div class="portfolio-overlay">
-                        <a href="#" class="view-project-btn hidden md:inline-flex">
-                            View Project
-                        </a>
-                    </div>
-                </div>
-                <div class="portfolio-text-area flex justify-between items-center">
-                    <div class="pr-2">
-                        <h3 class="font-bold text-lg text-black mb-1 group-hover:text-[#a7e169] transition-colors">Various Artworks</h3>
-                        <p class="text-sm text-[#555]">Instructor Works</p>
-                    </div>
-                    <a href="#" class="md:hidden bg-[#a7e169] !text-black text-sm font-bold px-6 py-3 rounded-full whitespace-nowrap hover:bg-[#ed2939] hover:!text-white transition-colors">
-                        View
-                    </a>
-                </div>
-            </div>
-
-        </div>
-        <!-- Learn the Tools Section (With Lift Effect) -->
-<div class="mt-16 border-t border-gray-100 pt-12" data-aos="fade-up">
-  
-  <div class="text-center mb-10">
-    <h3 class="text-2xl font-bold text-black mb-2">Learn the Tools</h3>
-    <p class="text-gray-500 max-w-2xl mx-auto">
-      Master the industry-standard software I use for every project.
-    </p>
-  </div>
-
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-    
-    <!-- Adobe Illustrator Box -->
-    <div class="group bg-white border border-gray-200 rounded-xl p-6 hover:border-[#a7e169] transition-all duration-300 hover:shadow-lg hover:-translate-y-1 flex flex-col items-center text-center">
-      <div class="mb-4 flex items-center justify-center">
-        <!-- IMAGE TAG -->
-        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg" 
-             alt="Adobe Illustrator" 
-             class="w-16 h-16 object-contain">
-      </div>
-      <h4 class="text-lg font-bold text-black group-hover:text-[#a7e169] transition-colors">Adobe Illustrator</h4>
-      <p class="text-sm text-gray-500 mt-2">Vector Art & Branding</p>
-    </div>
-
-    <!-- Adobe Photoshop Box -->
-    <div class="group bg-white border border-gray-200 rounded-xl p-6 hover:border-[#a7e169] transition-all duration-300 hover:shadow-lg hover:-translate-y-1 flex flex-col items-center text-center">
-      <div class="mb-4 flex items-center justify-center">
-        <!-- IMAGE TAG -->
-        <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg" 
-             alt="Adobe Photoshop" 
-             class="w-16 h-16 object-contain">
-      </div>
-      <h4 class="text-lg font-bold text-black group-hover:text-[#a7e169] transition-colors">Adobe Photoshop</h4>
-      <p class="text-sm text-gray-500 mt-2">Photo Editing & Manipulation</p>
-    </div>
-
-    <!-- Adobe After Effects Box -->
-    <div class="group bg-white border border-gray-200 rounded-xl p-6 hover:border-[#a7e169] transition-all duration-300 hover:shadow-lg hover:-translate-y-1 flex flex-col items-center text-center">
-      <div class="mb-4 flex items-center justify-center">
-        <!-- IMAGE TAG -->
-        <img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Adobe_After_Effects_CC_icon.svg" 
-             alt="Adobe After Effects" 
-             class="w-16 h-16 object-contain">
-      </div>
-      <h4 class="text-lg font-bold text-black group-hover:text-[#a7e169] transition-colors">Adobe After Effects</h4>
-      <p class="text-sm text-gray-500 mt-2">Motion Graphics & VFX</p>
-    </div>
-
-  </div>
-</div>
-
-    </div>
-</section>
+        </section>
 
         <section id="freelance" class="py-24 section-darker px-4">
             <div class="max-w-7xl mx-auto">
@@ -686,11 +615,17 @@
                     <p class="section-subtitle">Professional design services tailored to your business needs.</p>
                 </div>
 
-                <div class="flex flex-wrap justify-center gap-4 mb-12" data-aos="fade-up">
-                    <button class="service-tab px-6 py-3 rounded-full text-sm font-semibold active" onclick="switchService('logo')">Logo Design</button>
-                    <button class="service-tab px-6 py-3 rounded-full text-sm font-semibold" onclick="switchService('social')">Social Media</button>
-                    <button class="service-tab px-6 py-3 rounded-full text-sm font-semibold" onclick="switchService('printing')">Printing</button>
-                </div>
+                <!-- Tabs Container (Updated for Horizontal View) -->
+<div class="flex flex-nowrap justify-center gap-2 md:gap-4 mb-12 overflow-x-auto md:overflow-visible pb-2 md:pb-0" data-aos="fade-up">
+    <!-- Button 1 -->
+    <button class="service-tab px-3 md:px-6 py-3 rounded-full text-xs md:text-sm font-semibold active whitespace-nowrap flex-shrink-0" onclick="switchService('logo')">Logo Design</button>
+    
+    <!-- Button 2 -->
+    <button class="service-tab px-3 md:px-6 py-3 rounded-full text-xs md:text-sm font-semibold whitespace-nowrap flex-shrink-0" onclick="switchService('social')">Social Media</button>
+    
+    <!-- Button 3 -->
+    <button class="service-tab px-3 md:px-6 py-3 rounded-full text-xs md:text-sm font-semibold whitespace-nowrap flex-shrink-0" onclick="switchService('printing')">Printing</button>
+</div>
 
                 <div id="logo-panel" class="service-panel block">
                     <div class="minimalist-card flex flex-col md:flex-row gap-8 items-center" data-aos="fade-up">
@@ -1177,5 +1112,362 @@
             menu.classList.toggle('hidden');
         });
     </script>
+
+    <!-- ART de ONE SMART CHATBOT (FIXED RESPONSIVE & ANIMATION) -->
+<div id="artdeone-chatbot-container" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[9999] font-sans flex flex-col items-end gap-4" style="font-family: 'Space Grotesk', sans-serif;">
+    
+    <!-- Chat Window -->
+    <!-- Fixed: Added flex flex-col and layout constraints -->
+    <div id="chat-window" class="hidden flex-col w-[350px] max-w-[calc(100vw-32px)] h-[500px] max-h-[80vh] bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-200 origin-bottom-right transform transition-all duration-300 ease-in-out scale-90 opacity-0 translate-y-4">
+        
+        <!-- Header (Fixed Height, Green) -->
+        <div class="bg-[#a7e169] p-4 flex justify-between items-center text-[#323232] shrink-0 h-16">
+            <div class="flex items-center gap-3">
+                <div class="relative">
+                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769316272/fav-icon_n00lji.png" class="w-8 h-8 rounded-full bg-white p-1 object-cover" alt="Bot">
+                    <!-- Status Dot -->
+                    <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-white rounded-full"></span>
+                </div>
+                <div class="leading-tight">
+                    <h3 class="font-bold text-sm">ART de ONE Assistant</h3>
+                    <p class="text-[10px] opacity-80">Online | Replies instantly</p>
+                </div>
+            </div>
+            <button onclick="toggleChat()" class="text-[#323232] hover:text-white transition-colors p-1">
+                <i data-feather="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+
+        <!-- Messages Area (Flex-1 to fill space) -->
+        <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 scroll-smooth w-full">
+            <!-- Messages will appear here via JS -->
+        </div>
+
+        <!-- Options Area (Auto Height) -->
+        <div id="chat-options" class="p-3 bg-white border-t border-gray-100 min-h-[60px] flex flex-wrap gap-2 justify-center items-center shrink-0 w-full z-10">
+            <!-- Options buttons will appear here -->
+        </div>
+        
+        <!-- Branding Footer -->
+        <div class="bg-gray-50 py-1 text-center border-t border-gray-100 shrink-0">
+            <p class="text-[10px] text-gray-400">Powered by ART de ONE</p>
+        </div>
+    </div>
+
+    <!-- Toggle Button (No Border, Green) -->
+    <button id="chat-toggle-btn" onclick="toggleChat()" class="w-14 h-14 rounded-full bg-[#a7e169] hover:bg-[#ed2939] text-[#323232] hover:text-white shadow-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 group relative z-50">
+        <i data-feather="message-circle" class="w-7 h-7 group-hover:hidden transition-all absolute"></i>
+        <i data-feather="chevron-down" class="w-7 h-7 hidden group-hover:block transition-all absolute"></i>
+    </button>
+</div>
+
+<style>
+    /* Custom Scrollbar */
+    #chat-messages::-webkit-scrollbar { width: 5px; }
+    #chat-messages::-webkit-scrollbar-track { background: transparent; }
+    #chat-messages::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 10px; }
+    #chat-messages::-webkit-scrollbar-thumb:hover { background: #a7e169; }
+
+    /* Animation Classes */
+    .chat-visible {
+        opacity: 1 !important;
+        transform: scale(1) translateY(0) !important;
+        pointer-events: auto !important;
+    }
+
+    /* Message Bubbles */
+    .bot-msg { 
+        background: white; 
+        color: #323232; 
+        border-radius: 12px 12px 12px 2px; 
+        border: 1px solid #e5e5e5; 
+        padding: 10px 14px; 
+        font-size: 0.9rem; 
+        max-width: 85%; 
+        width: fit-content;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05); 
+        animation: slideInLeft 0.3s ease-out; 
+    }
+    
+    .user-msg { 
+        background: #323232; 
+        color: white; 
+        border-radius: 12px 12px 2px 12px; 
+        padding: 10px 14px; 
+        font-size: 0.9rem; 
+        max-width: 85%; 
+        width: fit-content;
+        margin-left: auto; 
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+        animation: slideInRight 0.3s ease-out; 
+    }
+    
+    /* Option Buttons */
+    .chat-opt-btn { 
+        background: white; 
+        border: 1px solid #a7e169; 
+        color: #323232; 
+        padding: 8px 14px; 
+        border-radius: 20px; 
+        font-size: 0.85rem; 
+        font-weight: 500;
+        cursor: pointer; 
+        transition: all 0.2s; 
+        white-space: nowrap; 
+        margin: 2px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+    .chat-opt-btn:hover { 
+        background: #a7e169; 
+        color: black; 
+        transform: translateY(-1px);
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    @keyframes slideInLeft { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes slideInRight { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
+    
+    /* Typing Indicator */
+    .typing-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background-color: #aaa; animation: typing 1.4s infinite ease-in-out both; margin: 0 2px; }
+    .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+    .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+    @keyframes typing { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+</style>
+
+<script>
+    // --- CHATBOT CONFIG --- //
+    const chatWindow = document.getElementById('chat-window');
+    const messagesArea = document.getElementById('chat-messages');
+    const optionsArea = document.getElementById('chat-options');
+    let isChatOpen = false;
+
+    // Data Structure
+    const botData = {
+        start: {
+            msg: "Mingalarpar! 🙏 Welcome to ART de ONE.\nPlease choose your language.",
+            options: [
+                { text: "မြန်မာ 🇲🇲", next: "mm_menu" },
+                { text: "English 🇬🇧", next: "en_menu" }
+            ]
+        },
+        // --- BURMESE FLOW ---
+        mm_menu: {
+            msg: "မင်္ဂလာပါ။ ဘာအကြောင်းအရာကို သိရှိလိုပါသလဲခင်ဗျာ။",
+            options: [
+                { text: "Freelance ဝန်ဆောင်မှုများ", next: "mm_services" },
+                { text: "သင်တန်းအကြောင်း", next: "mm_courses" },
+                { text: "ဆက်သွယ်ရန်", next: "mm_contact" }
+            ]
+        },
+        mm_services: {
+            msg: "ကျွန်တော်တို့ဆီမှာ အောက်ပါ Design ဝန်ဆောင်မှုများ ရရှိနိုင်ပါတယ်။",
+            options: [
+                { text: "Logo Design (3 သိန်း+)", next: "mm_logo" },
+                { text: "Social Media (2.4 သိန်း+)", next: "mm_social" },
+                { text: "အခြားမေးရန်", next: "mm_menu" }
+            ]
+        },
+        mm_logo: {
+            msg: "Logo Design အတွက် 300,000 MMK မှ စတင်ပါတယ်။ Concept ၃ ခု၊ Revision ၂-၃ ကြိမ်နဲ့ Source file အစုံအလင်ရပါမယ်။",
+            options: [
+                { text: "အလုပ်အပ်လိုသည်", next: "mm_contact_action" },
+                { text: "နောက်သို့", next: "mm_services" }
+            ]
+        },
+        mm_social: {
+            msg: "Social Media အတွက် Starter Pack (8 posts) ကို 240,000 MMK ကနေစပါတယ်။ Design သီးသန့်ဖြစ်ပြီး Content ပေးရပါမယ်။",
+            options: [
+                { text: "အလုပ်အပ်လိုသည်", next: "mm_contact_action" },
+                { text: "နောက်သို့", next: "mm_services" }
+            ]
+        },
+        mm_courses: {
+            msg: "Illustrator ကို အခြေခံမှစ၍ ကျွမ်းကျင်သည်အထိ သင်ကြားပေးနေပါတယ်။ Student Login လည်း ရှိပါတယ်။",
+            options: [
+                { text: "Student Login", action: "link", url: "/Private/student-login.html" },
+                { text: "သင်တန်းစုံစမ်းရန်", next: "mm_contact_action" },
+                { text: "ပင်မစာမျက်နှာပြန်သွားရန်", next: "mm_menu" }
+            ]
+        },
+        mm_contact: {
+            msg: "ဖုန်း 09 953 681 497 သို့ ဆက်သွယ်နိုင်သလို Viber/Telegram မှလည်း မေးမြန်းနိုင်ပါတယ်။",
+            options: [
+                { text: "ဖုန်းခေါ်မည်", action: "link", url: "tel:09953681497" },
+                { text: "Email ပို့မည်", action: "link", url: "mailto:artdeone.educators@gmail.com" },
+                { text: "ပင်မစာမျက်နှာပြန်သွားရန်", next: "mm_menu" }
+            ]
+        },
+        mm_contact_action: {
+            msg: "အသေးစိတ်ဆွေးနွေးဖို့ ဖုန်းဆက်လိုက်ပါခင်ဗျာ။",
+            options: [
+                { text: "Call Now: 09953681497", action: "link", url: "tel:09953681497" },
+                { text: "နောက်သို့", next: "mm_menu" }
+            ]
+        },
+
+        // --- ENGLISH FLOW ---
+        en_menu: {
+            msg: "Hello! How can I help you today?",
+            options: [
+                { text: "Freelance Services", next: "en_services" },
+                { text: "About Courses", next: "en_courses" },
+                { text: "Contact Info", next: "en_contact" }
+            ]
+        },
+        en_services: {
+            msg: "We offer professional design services tailored to your needs.",
+            options: [
+                { text: "Logo Design (300k+)", next: "en_logo" },
+                { text: "Social Media (240k+)", next: "en_social" },
+                { text: "Go Back", next: "en_menu" }
+            ]
+        },
+        en_logo: {
+            msg: "Logo packages start at 300,000 MMK. Includes 3 concepts, revisions, and all source files.",
+            options: [
+                { text: "Hire Now", next: "en_contact_action" },
+                { text: "Back", next: "en_services" }
+            ]
+        },
+        en_social: {
+            msg: "Social Media plans start at 240,000 MMK/month (8 posts). Design only service.",
+            options: [
+                { text: "Get Started", next: "en_contact_action" },
+                { text: "Back", next: "en_services" }
+            ]
+        },
+        en_courses: {
+            msg: "We teach Adobe Illustrator from basic to professional level.",
+            options: [
+                { text: "Student Login", action: "link", url: "/Private/student-login.html" },
+                { text: "Inquire Class", next: "en_contact_action" },
+                { text: "Main Menu", next: "en_menu" }
+            ]
+        },
+        en_contact: {
+            msg: "You can reach us at 09 953 681 497 or via email.",
+            options: [
+                { text: "Call Now", action: "link", url: "tel:09953681497" },
+                { text: "Send Email", action: "link", url: "mailto:artdeone.educators@gmail.com" },
+                { text: "Main Menu", next: "en_menu" }
+            ]
+        },
+        en_contact_action: {
+            msg: "Please contact us directly to proceed.",
+            options: [
+                { text: "Call: 09953681497", action: "link", url: "tel:09953681497" },
+                { text: "Back", next: "en_menu" }
+            ]
+        }
+    };
+
+    // Toggle Function - Fixes Animation & Layout
+    function toggleChat() {
+        isChatOpen = !isChatOpen;
+        
+        if (isChatOpen) {
+            // OPEN: Remove hidden first, then apply flex
+            chatWindow.classList.remove('hidden');
+            chatWindow.classList.add('flex');
+            
+            // Tiny delay to allow DOM to paint, then animate in
+            requestAnimationFrame(() => {
+                chatWindow.classList.add('chat-visible');
+            });
+
+            // Start chat if empty
+            if (messagesArea.children.length === 0) {
+                showTyping();
+                setTimeout(() => renderStep('start'), 600);
+            }
+        } else {
+            // CLOSE: Animate out first
+            chatWindow.classList.remove('chat-visible');
+            
+            // Wait for transition (300ms), then hide
+            setTimeout(() => {
+                chatWindow.classList.remove('flex');
+                chatWindow.classList.add('hidden');
+            }, 300);
+        }
+    }
+
+    // Helpers
+    function showTyping() {
+        const id = 'typing-' + Date.now();
+        messagesArea.insertAdjacentHTML('beforeend', `
+            <div id="${id}" class="bot-msg w-fit mb-2">
+                <div class="flex items-center h-4">
+                    <span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>
+                </div>
+            </div>`);
+        scrollToBottom();
+        return id;
+    }
+
+    function removeTyping(id) {
+        const el = document.getElementById(id);
+        if (el) el.remove();
+    }
+
+    function addMessage(text, type) {
+        const div = document.createElement('div');
+        div.className = type === 'bot' ? 'bot-msg mb-2' : 'user-msg mb-2';
+        div.innerHTML = text.replace(/\n/g, '<br>');
+        messagesArea.appendChild(div);
+        scrollToBottom();
+    }
+
+    function scrollToBottom() {
+        messagesArea.scrollTop = messagesArea.scrollHeight;
+    }
+
+    // Render Logic
+    function renderStep(stepKey) {
+        const data = botData[stepKey];
+        if (!data) return;
+
+        addMessage(data.msg, 'bot');
+        optionsArea.innerHTML = '';
+        
+        if (data.options) {
+            data.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'chat-opt-btn';
+                btn.innerText = opt.text;
+                btn.onclick = () => handleOptionClick(opt, stepKey);
+                optionsArea.appendChild(btn);
+            });
+        }
+    }
+
+    function handleOptionClick(opt, currentStep) {
+        addMessage(opt.text, 'user');
+        optionsArea.innerHTML = ''; // Clear options immediately to prevent double click
+
+        if (opt.action === 'link') {
+            const tId = showTyping();
+            setTimeout(() => {
+                removeTyping(tId);
+                addMessage("Opening link...", 'bot');
+                window.open(opt.url, '_blank');
+                setTimeout(() => renderStep(currentStep.includes('mm') ? 'mm_menu' : 'en_menu'), 800);
+            }, 500);
+            return;
+        }
+
+        if (opt.next) {
+            const tId = showTyping();
+            setTimeout(() => {
+                removeTyping(tId);
+                renderStep(opt.next);
+            }, 600);
+        }
+    }
+    
+    // Init Icons
+    if(typeof feather !== 'undefined') { feather.replace(); }
+</script>
+<!-- ART de ONE SMART CHATBOT END -->
 </body>
 </html>
