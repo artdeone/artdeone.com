@@ -658,51 +658,33 @@
         try {
             const result = await generateAIPrompt(topic, style);
             
-            console.log('API Response:', result);
+            console.log('API Response:', result); // Debug log
             
             // Display the generated prompt
             generatedPromptEl.textContent = result.prompt;
             
             // Display image if available
             if (result.image && result.image.trim() !== '') {
-                console.log('Image URL:', result.image);
-                
-                // Create a new image element to test loading
-                const testImg = new Image();
-                testImg.crossOrigin = "anonymous"; // Try to enable CORS
-                
-                testImg.onload = function() {
+                console.log('Image URL:', result.image); // Debug log
+                generatedImageEl.src = result.image;
+                generatedImageEl.onload = function() {
                     console.log('Image loaded successfully');
-                    generatedImageEl.src = result.image;
                     generatedImageContainer.classList.remove('hidden');
                 };
-                
-                testImg.onerror = function() {
-                    console.error('Image failed to load - CORS or network issue');
-                    // Show image URL as clickable link instead
-                    const imageLink = document.createElement('a');
-                    imageLink.href = result.image;
-                    imageLink.target = '_blank';
-                    imageLink.className = 'text-blue-600 hover:text-blue-800 underline';
-                    imageLink.textContent = 'Click here to view the generated image';
-                    
-                    const container = document.getElementById('panel-generated-image-container');
-                    container.innerHTML = '<p class="text-sm text-gray-600 mb-2">Image preview not available. </p>';
-                    container.appendChild(imageLink);
-                    container.classList.remove('hidden');
+                generatedImageEl.onerror = function() {
+                    console.error('Image failed to load');
+                    generatedImageContainer.classList.add('hidden');
                 };
-                
-                testImg.src = result.image;
             } else {
-                console.log('No image in response');
+                console.log('No image in response'); // Debug log
                 generatedImageContainer.classList.add('hidden');
             }
             
             // Show results
             resultContainer.classList.remove('hidden');
         } catch (error) {
-            console.error('Generation Error:', error);
-            alert('Error generating prompt: ' + error.message + '\n\nPlease check:\n1. Netlify function is deployed\n2. Internet connection is stable\n3. API credentials are configured');
+            alert('Error generating prompt. Please try again.');
+            console.error(error);
         } finally {
             loadingEl.classList.add('hidden');
             btnEl.disabled = false;
@@ -721,28 +703,19 @@
 
     async function generateAIPrompt(topic, style) {
         const FUNCTION_URL = '/.netlify/functions/generate-prompt';
-        
         try {
             const response = await fetch(FUNCTION_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ topic, style })
             });
-            
             if (!response.ok) {
-                throw new Error(`Server Error: ${response.status}`);
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.error || `Server Error: ${response.status}`);
             }
-            
             return await response.json();
         } catch (error) {
-            console.error('API Error:', error);
-            
-            // Fallback: Generate mock prompt for testing
-            console.log('Using fallback mock data...');
-            return {
-                prompt: `${style.charAt(0).toUpperCase() + style.slice(1)} style: ${topic}. Professional lighting, high detail, cinematic composition, vibrant colors, sharp focus, trending on artstation, 8k resolution, masterpiece quality.`,
-                image: null // No image in fallback mode
-            };
+            throw error;
         }
     }
 </script>
