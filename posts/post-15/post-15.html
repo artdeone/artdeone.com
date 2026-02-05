@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CZRQ0NPPJ2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-CZRQ0NPPJ2');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design World's Crazy Facts - ART de ONE</title>
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769316272/fav-icon_n00lji.png">
+    
+    <!-- LIBRARIES -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    
+    <!-- CUSTOM STYLES -->
+    <link rel="stylesheet" href="/css-and-js/mobile-smooth-nav.css">
+    <link rel="stylesheet" href="/css-and-js/theme.css">
+    
+    <style>
+        /* --- BASE STYLES --- */
+        body {
+            background-color: #ffffff;
+            color: #323232;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* --- POST SPECIFIC STYLES --- */
+        .post-header {
+            padding-top: 8rem;
+            padding-bottom: 4rem;
+            border-bottom: 1px solid #f3f4f6;
+            transition: border-color 0.3s;
+        }
+        
+        .post-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #323232;
+        }
+        
+        .post-content h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #000000;
+            margin-top: 4rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .post-content h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #000000;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .trend-image-container {
+            width: 100%;
+            aspect-ratio: 4/5;
+            background-color: #f3f4f6;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            margin: 2rem 0;
+            border: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .trend-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* SHARE BUTTON UPDATED (Smaller Size, Red Hover, No Stroke) */
+        .share-btn {
+            width: 36px; /* Smaller size */
+            height: 36px; /* Smaller size */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e5e7eb;
+            color: #6b7280;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .share-btn:hover {
+            background-color: #ed2939 !important; /* Red Hover */
+            color: #fff !important;
+            border-color: #ed2939 !important; /* Removes visible stroke */
+        }
+
+        .text-accent { color: #a7e169; }
+        
+        /* RELATED CARD DEFAULT STYLES */
+        .related-card {
+            background-color: #ffffff;
+            border: 1px solid #e5e5e5;
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        .related-card h3 { color: #000; }
+        .related-card p { color: #9ca3af; }
+        
+        /* --- DARK MODE OVERRIDES --- */
+        body.dark-mode {
+            background-color: #121212 !important;
+            color: #e5e5e5 !important;
+        }
+        
+        /* DARK MODE TEXT CONTRAST FIX */
+        .dark-mode h1, 
+        .dark-mode h2, 
+        .dark-mode h3, 
+        .dark-mode strong, 
+        .dark-mode .text-black {
+            color: #ffffff !important;
+        }
+        
+        /* Intro Paragraph Specific Fix */
+        .dark-mode .post-content p {
+            color: #e5e5e5 !important;
+        }
+        .dark-mode .post-content { color: #e5e5e5 !important; }
+        .dark-mode .text-gray-500 { color: #9ca3af !important; }
+        
+        /* Dark Mode Containers */
+        .dark-mode .post-header { border-color: #333; }
+        .dark-mode .trend-image-container { 
+            background-color: #1e1e1e; 
+            border-color: #333; 
+        }
+        .dark-mode .bg-gray-50 { background-color: #1a1a1a; }
+        
+        /* Dark Mode Border Fix */
+        .dark-mode .border-gray-100, 
+        .dark-mode .border-gray-200 { 
+            border-color: #333 !important; 
+        }
+        
+        /* Share Button Dark Mode Border */
+        .dark-mode .share-btn {
+            border-color: #444;
+            color: #bbb;
+        }
+        
+        /* AUTHOR BOX AD CONTRAST FIX */
+        .dark-mode .w-10.h-10.rounded-full.bg-gray-100 {
+            background-color: #333 !important;
+            color: #fff !important;
+            border-color: #444 !important;
+        }
+
+        /* RELATED CARD DARK MODE */
+        .dark-mode .related-card { 
+            background-color: #1e1e1e !important; 
+            border-color: #333 !important; 
+        }
+        .dark-mode .related-card h3 { color: #ffffff !important; }
+        
+        /* Dark Mode Nav & Mobile Menu */
+        .dark-mode nav { 
+            background-color: rgba(18, 18, 18, 0.95) !important; 
+            border-bottom: 1px solid #333; 
+        }
+        .dark-mode .nav-link { color: #e5e5e5 !important; }
+        .dark-mode .nav-link:hover { color: #fff !important; }
+        
+        /* FIXED MOBILE MENU DARK MODE */
+        .dark-mode .mobile-menu { 
+            background-color: #121212 !important; 
+            border-bottom: 1px solid #333; 
+        }
+        .dark-mode .mobile-nav-link { color: #e5e5e5 !important; }
+        .dark-mode .mobile-menu-btn { color: #fff !important; }
+        .dark-mode .mobile-menu-btn:hover { background-color: #333; }
+        
+        /* FOOTER LINE COLOR FIX */
+        .dark-mode footer { 
+            background-color: #121212; 
+            border-top: 1px solid #333 !important; 
+        }
+        .dark-mode footer p, .dark-mode footer a { color: #9ca3af !important; }
+        .dark-mode footer h3, .dark-mode footer span { color: #fff !important; }
+        .dark-mode footer a:hover { color: #fff !important; }
+        
+        /* Logo Filter for Dark Mode (#a7e169) */
+        .dark-mode nav img, .dark-mode footer img {
+            filter: brightness(0) saturate(100%) invert(84%) sepia(32%) saturate(673%) hue-rotate(36deg) brightness(94%) contrast(89%);
+        }
+
+        /* Toggle Button */
+        .theme-toggle-btn {
+            position: fixed; bottom: 2rem; right: 2rem; z-index: 100;
+            width: 3rem; height: 3rem; border-radius: 50%;
+            background-color: #323232; color: #fff;
+            border: none;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; opacity: 0.3;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .dark-mode .theme-toggle-btn { background-color: #fff; color: #000; }
+        .theme-toggle-btn.active-state, .theme-toggle-btn:hover { opacity: 1; transform: scale(1.1); }
+
+    </style>
+</head>
+<body class="bg-white text-[#323232]">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/95 border-b border-gray-100 backdrop-blur-sm transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 nav-container">
+            <div class="nav-wrapper">
+                <div class="flex justify-between h-16 items-center">
+                    <div class="flex items-center">
+                        <a href="/index.html"><img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png" alt="ART de ONE" class="h-10 w-auto transition-all duration-300"></a>
+                    </div>
+                    
+                    <div class="hidden md:flex items-center space-x-4 nav-center">
+                        <a href="/index.html#home" class="nav-link font-medium hover:font-bold text-black transition-all">Home</a>
+                        <a href="/prompt.html" class="nav-link font-medium hover:font-bold text-black transition-all">Prompts</a>
+                        <a href="/blog.html" class="nav-link font-bold text-black transition-all">Blog</a>
+                        <a href="/resources/resources-collection.html" class="nav-link font-medium hover:font-bold text-black transition-all">Resources</a>
+                        <a href="/index.html#contact" class="nav-link font-medium hover:font-bold text-black transition-all">Contact</a>
+                    </div>
+                    
+                    <div class="hidden md:block">
+                        <a href="/Private/student-login.html" class="nav-btn bg-[#a7e169] text-black font-bold px-5 py-2 rounded-full hover:bg-[#ed2939] hover:text-white transition-all">Student Login</a>
+                    </div>
+                    
+                    <div class="md:hidden flex items-center">
+                        <!-- MOBILE MENU ICON TOGGLE -->
+                        <button type="button" class="mobile-menu-btn p-2 rounded-md text-black hover:bg-gray-100" id="mobile-menu-button">
+                            <i data-feather="menu" id="menu-icon-open"></i>
+                            <i data-feather="x" id="menu-icon-close" class="hidden"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu md:hidden hidden border-b border-gray-100 transition-colors duration-300 bg-white" id="mobile-menu">
+            <div class="py-2 px-4 space-y-1">
+                <a href="/index.html#home" class="block py-2 mobile-nav-link text-black font-medium">Home</a>
+                <a href="/prompt.html" class="block py-2 mobile-nav-link text-black font-medium">Prompts</a>
+                <a href="/blog.html" class="block py-2 mobile-nav-link text-black font-bold">Blog</a>
+                <a href="/resources/resources-collection.html" class="block py-2 mobile-nav-link text-black font-medium">Resources</a>
+                <a href="/index.html#contact" class="block py-2 mobile-nav-link text-black font-medium">Contact</a>
+                <a href="/Private/student-login.html" class="block py-2 mobile-nav-link text-[#a7e169] font-bold">Student Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Dark Mode Toggle -->
+        <button id="theme-toggle" class="theme-toggle-btn">
+            <i data-feather="moon" class="w-5 h-5 dark:hidden"></i>
+            <i data-feather="sun" class="w-5 h-5 hidden dark:block"></i>
+        </button>
+
+        <!-- Post Header -->
+        <section class="post-header bg-transparent">
+            <div class="max-w-3xl mx-auto px-4 text-center" data-aos="fade-up">
+                <div class="flex items-center justify-center gap-4 text-sm text-gray-500 mb-6">
+                    <span class="uppercase tracking-widest text-accent font-bold">Design Knowledge</span>
+                    <span>•</span>
+                    <span>February 5, 2026</span>
+                </div>
+                <h1 class="text-3xl md:text-5xl font-bold text-black mb-8 leading-tight">
+                    အရောင်တစ်ရောင်ကြောင့် စစ်ဖြစ်တဲ့အထိ... <br> (Funny & Interesting Design Facts)
+                </h1>
+                
+                <!-- Author Box -->
+                <div class="flex items-center justify-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-black font-bold text-xs border border-gray-200">AD</div>
+                    <div class="text-left">
+                        <p class="text-black text-sm font-semibold">ART de ONE Team</p>
+                        <p class="text-xs text-gray-500">Author</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Section -->
+        <section class="py-16 px-4 bg-transparent">
+            <div class="max-w-3xl mx-auto">
+                <div class="post-content" data-aos="fade-up">
+                    <p class="text-lg leading-relaxed mb-12 text-[#323232]">
+                        ဒီဇိုင်းလောကမှာ ရယ်စရာကောင်းပြီး စိတ်ဝင်စားဖို့ကောင်းတဲ့ နောက်ကွယ်က သမိုင်းကြောင်းတွေ၊ Psychological Trick တွေ အများကြီးရှိပါတယ်။ Designer တိုင်း သိထားသင့်တဲ့၊ ဒါမှမဟုတ် ဗဟုသုတအနေနဲ့ သိထားရင်ကောင်းမယ့် အချက် (၅) ချက်ကို မျှဝေပေးလိုက်ပါတယ်။
+                    </p>
+
+                    <!-- Point 1 -->
+                    <div class="mb-16">
+                        <h2 class="text-black">1. Vantablack စစ်ပွဲ (The Color War)</h2>
+                        <div class="trend-image-container">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1770282751/1_nzzqch.jpg" alt="Vantablack Anish Kapoor vs Stuart Semple">
+                        </div>
+                        <p>
+                            <strong class="text-black">Anish Kapoor</strong> ဆိုတဲ့ အနုပညာရှင်က ကမ္ဘာ့အမည်းဆုံးအရောင် <strong class="text-black">"Vantablack"</strong> ကို အနုပညာမှာသုံးဖို့ တစ်ဦးတည်းမူပိုင်ခွင့် (Exclusive Right) ဝယ်လိုက်ပါတယ်။ တခြားဘယ် Designer မှ သုံးခွင့်မရှိပါဘူး။
+                        </p>
+                        <p class="mt-4">
+                            ဒါကိုမကျေနပ်တဲ့ <strong class="text-black">Stuart Semple</strong> ဆိုတဲ့ အနုပညာရှင်က မခံချင်စိတ်ဖြစ်ပြီး <strong class="text-black">"Pinkest Pink"</strong> (ကမ္ဘာ့အစိုဆုံး ပန်းရောင်) ကို ဖန်တီးလိုက်ပါတယ်။ ဒီဆေးကို "Anish Kapoor ကလွဲရင် ကမ္ဘာပေါ်က ဘယ်သူမဆို ဝယ်လို့ရတယ်" ဆိုပြီး တရားဝင် ကြေညာရောင်းချခဲ့ပါတယ်။ ဒါဟာ Design လောကရဲ့ အကြီးဆုံး Drama တစ်ခုပါပဲ။
+                        </p>
+                        <p class="mt-2 text-sm text-gray-500 italic">**(အဝါ > Anish Kapoor | အနီ > Stuart Semple)**</p>
+                    </div>
+
+                    <!-- Point 2 -->
+                    <div class="mb-16">
+                        <h2 class="text-black">2. The IKEA Effect</h2>
+                        <div class="trend-image-container">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1770282751/4_kimzcb.jpg" alt="The IKEA Effect">
+                        </div>
+                        <p>
+                            ဒါက Designer တွေအတွက် အရမ်းအရေးကြီးတဲ့ <strong class="text-black">Psychological Trick</strong> ပါ။
+                        </p>
+                        <p class="mt-4">
+                            လူတွေဟာ ကိုယ်တိုင်တိုင်ပင်ပါဝင် ဖန်တီးထားတဲ့အရာကို ပိုပြီး တန်ဖိုးထားတတ်ကြပါတယ်။ ဒါကို <strong class="text-black">"IKEA Effect"</strong> လို့ ခေါ်ပါတယ်။ (IKEA ပရိဘောဂတွေကို ကိုယ်တိုင်တပ်ဆင်ရလို့ ပိုသံယောဇဉ်တွယ်သလိုမျိုးပါ)။
+                        </p>
+                        <h3 class="text-accent">The Trick & Result</h3>
+                        <p>
+                            ဒီဇိုင်းပြတဲ့အခါ အရာအားလုံးကို အပြီးစီး (100% Perfect) လုပ်မသွားပါနဲ့။ ရည်ရွယ်ချက်ရှိရှိနဲ့ Client ရွေးချယ်နိုင်မယ့် အပိုင်း (ဥပမာ - အရောင် ၂ မျိုး ဒါမှမဟုတ် Font ၂ မျိုး) ကို ချန်ထားပေးပါ။
+                        </p>
+                        <p>
+                            Client က "ဒီအရောင်လေး ပြောင်းလိုက်ရင် ကောင်းမယ်" လို့ ပြောပြီး ပြောင်းလိုက်တဲ့အခါ၊ သူတို့က "ဒါ ငါတို့ဝိုင်းလုပ်ထားတဲ့ ဒီဇိုင်း" ဆိုပြီး ခံစားရလို့ အလွယ်တကူ <strong class="text-black">Approve</strong> ပေးတတ်ပါတယ်။
+                        </p>
+                    </div>
+
+                    <!-- Point 3 -->
+                    <div class="mb-16">
+                        <h2 class="text-black">3. The Hairy Arm (Client ကို ကိုင်တွယ်နည်း)</h2>
+                        <div class="trend-image-container">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1770282751/3_tdat4n.jpg" alt="The Hairy Arm Technique">
+                        </div>
+                        <p>
+                            ဒါက Visual Design မဟုတ်ပါဘူး။ Senior Designer တွေရဲ့ လျှို့ဝှက်လက်နက် (Psychological Trick) ပါ။
+                        </p>
+                        <p class="mt-4">
+                            Client တွေက ဒီဇိုင်းပြရင် တစ်ခုခုတော့ အပြစ်ပြောပြီး ပြင်ခိုင်းမှ ကျေနပ်တတ်ကြပါတယ်။ (အကောင်းတိုင်းပြလည်း ပြင်ခိုင်းတတ်ပါတယ် :-D)
+                        </p>
+                        <h3 class="text-accent">The Solution & Result</h3>
+                        <p>
+                            အဲဒီတော့ Designer က ကိုယ့်ဒီဇိုင်းမှာ တမင်သက်သက် သိသာလွန်းတဲ့ အမှားတစ်ခု (ဥပမာ - မဆိုင်တဲ့နေရာမှာ အမည်းစက်ကြီး ထည့်ထားတာမျိုး) ကို ထည့်ပေးလိုက်ပါတယ်။
+                        </p>
+                        <p>
+                            Client က အဲဒီအမှားကို ထောက်ပြီး "ဒါကြီး ဖျက်လိုက်ပါ" လို့ ပြောပါလိမ့်မယ်။ အဲဒါကို ဖျက်ပေးလိုက်ရင် Client က "ငါပြင်ခိုင်းလိုက်လို့ ဒီဇိုင်းက ပြည့်စုံသွားပြီ" ဆိုပြီး ကျေနပ်သွားတတ်ပါတယ်။
+                        </p>
+                    </div>
+
+                    <!-- Point 4 -->
+                    <div class="mb-16">
+                        <h2 class="text-black">4. Italic (စာလုံးစောင်း) မူလရည်ရွယ်ချက်</h2>
+                        <div class="trend-image-container">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1770282751/2_ohq8ac.jpg" alt="Italic History Aldus Manutius">
+                        </div>
+                        <p>
+                            ကျွန်တော်တို့က Italic ကို "အလေးအနက်ထားဖို့" (Emphasis) သုံးကြပါတယ်။ မူရင်းက အဲဒီလို မဟုတ်ပါဘူး။
+                        </p>
+                        <p class="mt-4">
+                            ၁၅၀၀ ပြည့်နှစ်လောက်က <strong class="text-black">Aldus Manutius</strong> ဆိုသူက Italic ကို စထွင်ခဲ့တာပါ။ ရည်ရွယ်ချက်က <strong class="text-black">"စာရွက်ချွေတာဖို့"</strong> ပါ။
+                        </p>
+                        <h3 class="text-accent">The Secret</h3>
+                        <p>
+                            Italic စာလုံးတွေက ရိုးရိုးစာလုံးထက် နေရာပိုကျဉ်း (Condensed) ပါတယ်။ စာအုပ်တစ်အုပ်မှာ စာလုံးစောင်းနဲ့ရိုက်ရင် စာရွက်ကုန်ကျစရိတ် သက်သာလို့ <strong class="text-black">"Cheap Version"</strong> အနေနဲ့ စထွင်ခဲ့တာပါ။ နောက်ပိုင်းမှ Emphasis သဘောမျိုး ပြောင်းသုံးလာကြတာပါ။
+                        </p>
+                    </div>
+
+                    <!-- Point 5 -->
+                    <div class="mb-16">
+                        <h2 class="text-black">5. Kerning (စကားလုံးရဲ့ မူလအစ)</h2>
+                        <div class="trend-image-container">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1770282751/5_frdl7r.jpg" alt="Kerning Metal Type">
+                        </div>
+                        <p>
+                            Kerning ကို Computer ထဲမှာပဲ လုပ်နေကျမို့ မသိခဲ့တဲ့သမိုင်းကြောင်းပါ။
+                        </p>
+                        <p class="mt-4">
+                            ရှေးခေတ် စာပုံနှိပ်တိုက်တွေမှာ ခဲစာလုံး (Metal Type) တွေ သုံးပါတယ်။ စာလုံးတစ်လုံးချင်းစီက လေးထောင့်တုံး (Block) လေးတွေပါ။
+                        </p>
+                        <h3 class="text-accent">The Problem & Meaning</h3>
+                        <p>
+                            'f' လို စာလုံးမျိုးက ခေါင်းကွေးနေတော့ ဘေးကစာလုံးနဲ့ အရမ်းဝေးနေတတ်ပါတယ်။ ဒါကြောင့် ခဲစာလုံးရဲ့ ထောင့်စွန်းလေးကို တံစဉ်းနဲ့ တိုက်စား (Carve/Kern) ပစ်ပြီးမှ ဘေးချင်းကပ်လို့ ရပါတယ်။
+                        </p>
+                        <p>
+                            <strong class="text-black">"Kern"</strong> ဆိုတာ Latin စကား 'Cardo' (Hinge/အချိတ်) သို့မဟုတ် ပြင်သစ်စကား 'Carne' (Corner/ထောင့်စွန်း) က လာတာပါ။
+                        </p>
+                    </div>
+
+                    <!-- Share Section (UPDATED) -->
+                    <div class="border-t border-gray-100 mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center gap-6">
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Share this article</span>
+                        <div class="flex gap-3">
+                            
+                            <!-- Facebook -->
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-15%2Fpost-15.html" 
+                               target="_blank" 
+                               class="share-btn" 
+                               aria-label="Share on Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+
+                            <!-- X (Formerly Twitter) - SVG Logo -->
+                            <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-15%2Fpost-15.html&text=Check%20out%20this%20design%20article%20by%20ART%20de%20ONE" 
+                               target="_blank" 
+                               class="share-btn" 
+                               aria-label="Share on X">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" viewBox="0 0 512 512" fill="currentColor">
+                                    <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/>
+                                </svg>
+                            </a>
+
+                            <!-- LinkedIn -->
+                            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-15%2Fpost-15.html" 
+                               target="_blank" 
+                               class="share-btn" 
+                               aria-label="Share on LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+
+                            <!-- Pinterest (New) -->
+                            <a href="https://pinterest.com/pin/create/button/?url=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-15%2Fpost-15.html&media=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-15%2Fimages%2Fvantablack.jpg&description=Design%20World's%20Crazy%20Facts" 
+                               target="_blank" 
+                               class="share-btn" 
+                               aria-label="Share on Pinterest">
+                                <i class="fab fa-pinterest-p"></i>
+                            </a>
+
+                            <!-- TikTok (Profile Link) -->
+                            <a href="https://www.tiktok.com/@artdeone" 
+                               target="_blank" 
+                               class="share-btn" 
+                               aria-label="Visit TikTok">
+                                <i class="fab fa-tiktok"></i>
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Random Related Articles -->
+        <section class="py-20 bg-gray-50 border-t border-gray-100">
+            <div class="max-w-7xl mx-auto px-4">
+                <h2 class="text-2xl font-bold text-black mb-10 text-center">Related Articles</h2>
+                
+                <div id="random-related-posts" class="grid md:grid-cols-3 gap-8">
+                     <!-- JS will populate this -->
+                </div>
+                
+                <div class="text-center mt-16">
+                    <a href="../../blog.html" class="nav-btn bg-[#a7e169] text-black px-8 py-3 h-auto inline-flex gap-2 rounded-full font-bold hover:bg-[#ed2939] hover:text-white transition-all">
+                        <i data-feather="arrow-left" class="w-4 h-4"></i> Back to All Posts
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer (ORIGINAL POST-14 FOOTER) -->
+    <footer class="bg-white text-[#323232] py-12 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <span class="text-xl font-bold mb-4 block text-black">ART de ONE</span>
+                    <p class="text-gray-500 text-sm">
+                        Freelance Graphic Designer & Illustrator Portfolio, Blog, Resources and Online Courses
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Quick Links</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/index.html#home" class="text-gray-500 hover:text-black transition duration-300">Home</a></li>
+                      <!--  <li><a href="/courses.html" class="nav-link">Courses</a> -->
+                        <li><a href="/prompt.html" class="text-gray-500 hover:text-black transition duration-300">Prompts</a></li>
+                        <li><a href="/blog.html" class="text-gray-500 hover:text-black transition duration-300">Blog</a></li>
+                        <li><a href="/resources/resources-collection.html" class="text-gray-500 hover:text-black transition duration-300">Resources</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Services</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Logo Design</a></li>
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Social Media</a></li>
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Printing</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Contact</h3>
+                    <ul class="space-y-2 text-sm">
+                         <li><a href="/index.html#about" class="text-gray-500 hover:text-black transition duration-300">About</a></li>
+                        <li><a href="/index.html#contact" class="text-gray-500 hover:text-black transition duration-300">Contact</a></li>
+                    </ul>
+                </div> 
+                
+            </div>
+            <div class="border-t border-gray-200 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">
+                    &copy; 2026 ART de ONE. All rights reserved.
+                </p>
+                <div class="flex space-x-6 text-sm">
+                    <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-behance"></i></a>
+                    <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="/css-and-js/mobile-smooth-nav.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+        feather.replace();
+
+        // --- DARK MODE LOGIC ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+        const moonIcon = document.querySelector('.feather-moon');
+        const sunIcon = document.querySelector('.feather-sun');
+        let fadeTimeout;
+
+        if(localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-mode');
+            moonIcon.classList.add('hidden');
+            sunIcon.classList.remove('hidden');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            if(body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                moonIcon.classList.add('hidden');
+                sunIcon.classList.remove('hidden');
+            } else {
+                localStorage.setItem('theme', 'light');
+                moonIcon.classList.remove('hidden');
+                sunIcon.classList.add('hidden');
+            }
+
+            themeToggleBtn.classList.add('active-state');
+            clearTimeout(fadeTimeout);
+            fadeTimeout = setTimeout(() => {
+                themeToggleBtn.classList.remove('active-state');
+            }, 2000);
+        });
+
+        // --- MOBILE MENU LOGIC (X ICON) ---
+        const menuBtn = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIconOpen = document.getElementById('menu-icon-open');
+        const menuIconClose = document.getElementById('menu-icon-close');
+        
+        if(menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', () => {
+                const isHidden = mobileMenu.classList.contains('hidden');
+                
+                if (isHidden) {
+                    // Open Menu
+                    mobileMenu.classList.remove('hidden');
+                    menuIconOpen.classList.add('hidden');
+                    menuIconClose.classList.remove('hidden');
+                } else {
+                    // Close Menu
+                    mobileMenu.classList.add('hidden');
+                    menuIconOpen.classList.remove('hidden');
+                    menuIconClose.classList.add('hidden');
+                }
+            });
+        }
+
+        // --- RANDOM RELATED ARTICLES ---
+        const allPosts = [
+            { title: "2026 Graphic Design Trends", date: "Dec 29, 2025", link: "../post-14/post-14.html", img: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1766720115/dt-cover_vbokgn.jpg" },
+            { title: "Christmas Vibe Fonts", date: "Dec 17, 2025", link: "../post-13/post-13.html", img: "../post-13/images/christmas-3.jpg" },
+            { title: "7 Fonts That Look Like Logo", date: "Dec 04, 2025", link: "../post-12/post-12.html", img: "../post-12/images/gendy.jpg" },
+            { title: "Generative Ai Basics", date: "Nov 10, 2025", link: "../post-11/post-11.html", img: "../post-11/images/yt-thumbnail.jpg" },
+            { title: "Affinity Rebrand", date: "Nov 3, 2025", link: "../featured/featured-post.html", img: "../featured/images/featured-image-5.jpg" },
+            { title: "Free Ai Better than Midjourney", date: "Oct 24, 2025", link: "../post-9/post-9.html", img: "../post-9/images/thumbnail.jpg" },
+            { title: "RGB Theory & Nature", date: "Oct 1, 2025", link: "../post-3/post-3.html", img: "../post-3/images/rgb-1.jpg" },
+            { title: "Design Principles Part 1", date: "Oct 3, 2025", link: "../post-4/post-4.html", img: "../post-4/images/cover.jpg" },
+            { title: "Royal Purple History", date: "Oct 13, 2025", link: "../post-7/post-7.html", img: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1767931276/image-1_iyetw3.jpg" }
+        ];
+
+        const shuffled = allPosts.sort(() => 0.5 - Math.random());
+        const selected = shuffled.slice(0, 3);
+        
+        const relatedContainer = document.getElementById('random-related-posts');
+        if(relatedContainer) {
+            selected.forEach(post => {
+                relatedContainer.innerHTML += `
+                    <a href="${post.link}" class="related-card group block rounded-2xl overflow-hidden hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-lg">
+                        <div class="h-48 overflow-hidden">
+                            <img src="${post.img}" alt="${post.title}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-black mb-2 group-hover:text-[#a7e169] transition-colors">${post.title}</h3>
+                            <p class="text-xs font-bold text-gray-400 uppercase">${post.date}</p>
+                        </div>
+                    </a>
+                `;
+            });
+        }
+    </script>
+</body>
+</html>
