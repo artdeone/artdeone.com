@@ -321,6 +321,19 @@
             0% { background-position: 200% 0; }
             100% { background-position: -200% 0; }
         }
+
+        /* Smooth Image Transition */
+        #modal-image-main {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease;
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        /* Hidden State (When switching) */
+        #modal-image-main.switching {
+            opacity: 0;
+            transform: scale(0.95); /* နည်းနည်းလေး ကျုံ့သွားမယ် */
+        }
     </style>
 </head>
 <body class="bg-white text-[#323232]">
@@ -840,29 +853,55 @@
             const modalPrompt = document.getElementById('modal-prompt');
             const modalBreakdown = document.getElementById('modal-breakdown');
 
-            // --- IMAGE GALLERY LOGIC ---
+            // --- IMAGE GALLERY LOGIC (With Smooth Animation) ---
             const imagesList = prompt.images && prompt.images.length > 0 ? prompt.images : [prompt.image];
+            
+            // Set initial image and reset animation state
             modalImageMain.src = imagesList[0];
+            modalImageMain.classList.remove('switching'); 
+            
             modalThumbnails.innerHTML = '';
 
             if (imagesList.length <= 1) {
                 modalThumbnails.classList.add('hidden');
             } else {
                 modalThumbnails.classList.remove('hidden');
+                
                 imagesList.forEach((imgUrl, index) => {
                     const thumb = document.createElement('img');
                     thumb.src = imgUrl;
                     thumb.className = `w-16 h-16 object-cover rounded-lg cursor-pointer border-2 transition-all duration-200 hover:scale-105 ${index === 0 ? 'border-[#a7e169] opacity-100' : 'border-transparent opacity-60 hover:opacity-100'}`;
                     
+                    // New Click Event with Animation
                     thumb.onclick = function() {
-                        modalImageMain.src = imgUrl;
+                        const mainImg = document.getElementById('modal-image-main');
+                        
+                        // 1. Update Active Border on Thumbnails
                         Array.from(modalThumbnails.children).forEach(child => {
                             child.classList.remove('border-[#a7e169]', 'opacity-100');
                             child.classList.add('border-transparent', 'opacity-60');
                         });
                         this.classList.remove('border-transparent', 'opacity-60');
                         this.classList.add('border-[#a7e169]', 'opacity-100');
+
+                        // 2. Start Fade Out Animation
+                        mainImg.classList.add('switching');
+
+                        // 3. Wait 300ms, Change Image, then Fade In
+                        setTimeout(() => {
+                            mainImg.src = imgUrl;
+                            
+                            // Remove blur class once image is loaded
+                            mainImg.onload = () => {
+                                mainImg.classList.remove('switching');
+                            };
+                            
+                            // Safety fallback
+                            setTimeout(() => mainImg.classList.remove('switching'), 50);
+                            
+                        }, 300);
                     };
+                    
                     modalThumbnails.appendChild(thumb);
                 });
             }
