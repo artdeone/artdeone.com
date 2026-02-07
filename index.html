@@ -152,10 +152,12 @@
             align-items: center;
             justify-content: center;
         }
-        .btn-secondary:hover {
+         .btn-secondary:hover {
             background-color: #a7e169;
             color: #323232;
             border-color: #a7e169;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(167, 225, 105, 0.25);
         }
 
 
@@ -170,7 +172,7 @@
         }
         .minimalist-card:hover {
             transform: translateY(-8px);
-            border-color: #a7e169;
+            /* border-color: #a7e169; */
             box-shadow: 0 10px 15px -3px rgba(167, 225, 105, 0.3);
         }
 
@@ -342,11 +344,36 @@
         .text-accent {
             color: #000; /* Or branding green #a7e169 depending on preference for checks */
         }
+        /* Scroll progress indicator */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #a7e169 0%, #ed2939 100%);
+            z-index: 9999;
+            transition: width 0.2s ease;
+        }
         
-    </style>
+    
+/* Icon Animation */
+@keyframes popIcon {
+    0% { transform: scale(0); opacity: 0; }
+    80% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+.pop-in-icon {
+    display: inline-block;
+    opacity: 0; /* Hidden initially */
+}
+.pop-in-icon.animate {
+    animation: popIcon 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+</style>
 </head>
 <body class="bg-white text-[#323232]">
-    
+    <div class="scroll-indicator" id="scrollIndicator"></div>
     <nav class="fixed w-full z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 nav-container">
         <div class="nav-wrapper">
@@ -407,7 +434,7 @@
             <div class="absolute inset-0 bg-gradient-to-b from-white/30 via-white/80 to-white"></div>
         </div>
     <div class="relative z-10 text-center px-4" data-aos="fade-up">
-                <h1 class="text-6xl sm:text-7xl md:text-8xl font-bold leading-tight artdeone-font mb-4">
+                <h1 class="text-6xl sm:text-7xl md:text-8xl font-bold leading-tight artdeone-font mb-4 transition-transform duration-500 hover:scale-105">
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#5aa905] to-[#a7e169]">ART de ONE</span>
                 </h1>
         <p class="text-xl md:text-2xl text-[#323232] mb-10 max-w-2xl mx-auto font-light tracking-wide">The Art of Intelligence</p>
@@ -425,14 +452,14 @@
                     <p class="section-subtitle">Transforming creative passion into professional skills for students worldwide.</p>
                 </div>
                 <div class="grid md:grid-cols-2 gap-8 mb-16">
-                    <div class="minimalist-card" data-aos="fade-up">
+                    <div class="minimalist-card data-aosfade-up data-aos-delay100">
                         <div class="icon-circle mb-6">
                             <i class="fas fa-bullseye text-xl"></i>
                         </div>
                         <h3 class="text-2xl font-bold text-black mb-4">Our Mission</h3>
                         <p class="text-[#323232] leading-relaxed">To help people discover their passion for digital art and learn professional vector drawing skills. We welcome anyone who loves to draw or wants to explore their creative side.</p>
                     </div>
-                    <div class="minimalist-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="minimalist-card data-aosfade-up data-aos-delay100">
                         <div class="icon-circle mb-6">
                             <i class="fas fa-eye text-xl"></i>
                         </div>
@@ -441,7 +468,7 @@
                     </div>
                 </div>
                 
-                <div class="minimalist-card flex flex-col lg:flex-row gap-12 items-center" data-aos="fade-up">
+                <div class="minimalist-card flex flex-col lg:flex-row gap-12 items-center data-aosfade-up data-aos-delay100">
                     <div class="w-full lg:w-1/3">
                         <div class="rounded-xl overflow-hidden aspect-square">
                             <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119870/instructor-02_a7snby.jpg" alt="Instructor" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500">
@@ -628,7 +655,7 @@
 </div>
 
                 <div id="logo-panel" class="service-panel block">
-                    <div class="minimalist-card flex flex-col md:flex-row gap-8 items-center" data-aos="fade-up">
+                    <div class="minimalist-card flex flex-col md:flex-row gap-8 items-center data-aosfade-up data-aos-delay100">
                         <div class="flex-1">
                             <div class="flex items-center mb-6">
                                 <div class="icon-circle mr-4"><i class="fas fa-pen-nib"></i></div>
@@ -636,14 +663,14 @@
                             </div>
                             <p class="text-[#323232] mb-6">လူကြီးမင်း၏ brand identity နှင့် လုပ်ငန်းကိုယ်စားပြုသော အမှတ်တံဆိပ်ဒီဇိုင်းများ</p>
                             <ul class="space-y-3 mb-8 text-[#555]">
-                                <li class="flex items-center"><i class="fas fa-check text-green-600 mr-3"></i> 3 Premium Concepts</li>
-                                <li class="flex items-center"><i class="fas fa-check text-green-600 mr-3"></i> 2-3 Revisions</li>
-                                <li class="flex items-center"><i class="fas fa-check text-green-600 mr-3"></i> Logo Guideline Book (PDF)</li>
-                                <li class="flex items-center"><i class="fas fa-check text-green-600 mr-3"></i> All Source Files (Ai, EPS, SVG, PNG)</li>
-                                <li class="flex items-center"><i class="fas fa-check text-green-600 mr-3"></i> Color & B/W Variations</li>
-                                <li class="flex items-center"><i class="fas fa-check text-green-600 mr-3"></i> Typography Selection</li>
-                                <li class="flex items-center"><i class="fas fa-check text-green-600 mr-3"></i> 3D Mockups & Social Media Kit</li>
-                                <li class="flex items-center"><i class="fas fa-check text-green-600 mr-3"></i> 3-5 Days Delivery</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i> 3 Premium Concepts</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i> 2-3 Revisions</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i> Logo Guideline Book (PDF)</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i> All Source Files (Ai, EPS, SVG, PNG)</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i> Color & B/W Variations</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i> Typography Selection</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i> 3D Mockups & Social Media Kit</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i> 3-5 Days Delivery</li>
                             </ul>
                         </div>
                         <div class="flex-1 w-full bg-gray-50 p-6 rounded-xl border border-gray-200">
@@ -694,7 +721,7 @@
                     </div>
 
                     <div class="grid md:grid-cols-3 gap-6 mt-8">
-                        <div class="minimalist-card" data-aos="fade-up">
+                        <div class="minimalist-card data-aosfade-up data-aos-delay100">
                             <div class="flex items-center justify-between mb-3">
                                 <h4 class="font-semibold text-black text-lg">Starter Pack</h4>
                                 
@@ -706,23 +733,23 @@
                             
                             <ul class="text-sm text-[#555] space-y-3 mb-6">
                                 <li class="flex items-start">
-                                    <span class="text-green-600 mr-2">✓</span>
+                                    <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
                                     <span>တစ်လလျှင် social media design ၈ ခု</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <span class="text-green-600 mr-2">✓</span>
+                                    <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
                                     <span>Revision ၂ ကြိမ် အခမဲ့ပြင်ဆင်ပေးခြင်း</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <span class="text-green-600 mr-2">✓</span>
+                                    <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
                                     <span>Final graphics (PNG/JPG)</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <span class="text-green-600 mr-2">✓</span>
+                                    <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
                                     <span>Content ကိုယ်တိုင်ရေးပေးရမည်</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <span class="text-green-600 mr-2">✓</span>
+                                    <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
                                     <span>နံနက် ၈:၃၀ - ည ၆း၃၀</span>
                                 </li>
                             </ul>
@@ -754,30 +781,30 @@
                             </div>
                             <ul class="text-sm text-[#555] space-y-3 mb-6">
                                 <li class="flex items-start">
-                                    <span class="text-green-600 mr-2">✓</span>
+                                    <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
                                     <span>တစ်လလျှင် social media design ၁၆ ခု</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <span class="text-green-600 mr-2">✓</span>
+                                    <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
                                     <span>Revision ၂ ကြိမ် အခမဲ့ပြင်ဆင်ပေးခြင်း</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <span class="text-green-600 mr-2">✓</span>
+                                    <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
                                     <span>Final graphics (PNG/JPG)</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <span class="text-green-600 mr-2">✓</span>
+                                    <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
                                     <span>Content ကိုယ်တိုင်ရေးပေးရမည်</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <span class="text-green-600 mr-2">✓</span>
+                                    <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
                                     <span>နံနက် ၈:၃၀ - ည ၆း၃၀</span>
                                 </li>
                             </ul>
                             <a href="#contact" class="btn-primary w-full block text-center">Growth ရွေးမည်</a>
                         </div>
 
-                        <div class="minimalist-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="minimalist-card data-aosfade-up data-aos-delay100">
                             <h4 class="font-semibold text-black text-lg mb-3">Pro Pack</h4>
                             <div class="flex items-baseline gap-2 mb-2">
                                 <span class="text-3xl font-bold text-black">648,000</span>
@@ -789,23 +816,23 @@
                             </div>
                             <ul class="text-sm text-[#555] space-y-3 mb-6">
                                 <li class="flex items-start">
-                                    <span class="text-green-600 mr-2">✓</span>
+                                    <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
                                     <span>တစ်လလျှင် social media design ၂၀ ခု</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <span class="text-green-600 mr-2">✓</span>
+                                    <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
                                     <span>Revision ၂ ကြိမ် အခမဲ့ပြင်ဆင်ပေးခြင်း</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <span class="text-green-600 mr-2">✓</span>
+                                    <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
                                     <span>Final graphics (PNG/JPG)</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <span class="text-green-600 mr-2">✓</span>
+                                    <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
                                     <span>Content ကိုယ်တိုင်ရေးပေးရမည်</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <span class="text-green-600 mr-2">✓</span>
+                                    <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
                                     <span>နံနက် ၈:၃၀ - ည ၉:၃၀</span>
                                 </li>
                             </ul>
@@ -847,7 +874,7 @@
                 </div>
 
                 <div id="printing-panel" class="service-panel hidden">
-                    <div class="minimalist-card flex flex-col md:flex-row gap-8 items-center" data-aos="fade-up">
+                    <div class="minimalist-card flex flex-col md:flex-row gap-8 items-center data-aosfade-up data-aos-delay100">
                         <div class="flex-1">
                             <div class="flex items-center mb-6">
                                 <div class="icon-circle mr-4"><i class="fas fa-print"></i></div>
@@ -855,10 +882,10 @@
                             </div>
                             <p class="text-[#323232] mb-6">ပုံနှိပ်ပစ္စည်းများအတွက် အရည်အသွေးမြင့် ဒီဇိုင်းများ</p>
                             <ul class="space-y-3 mb-8 text-[#555]">
-                                <li class="flex items-center"><i class="fas fa-check text-green-600 mr-3"></i> Business Cards & Stationery</li>
-                                <li class="flex items-center"><i class="fas fa-check text-green-600 mr-3"></i> Flyers & Brochures</li>
-                                <li class="flex items-center"><i class="fas fa-check text-green-600 mr-3"></i> Packaging Design</li>
-                                <li class="flex items-center"><i class="fas fa-check text-green-600 mr-3"></i> VIP Card Design</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i> Business Cards & Stationery</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i> Flyers & Brochures</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i> Packaging Design</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i> VIP Card Design</li>
                             </ul>
                         </div>
                         <div class="flex-1 w-full bg-gray-50 p-6 rounded-xl border border-gray-200">
@@ -881,7 +908,7 @@
                 </div>
                 <div class="grid md:grid-cols-2 gap-8">
 
-                    <div class="minimalist-card" data-aos="fade-up">
+                    <div class="minimalist-card data-aosfade-up data-aos-delay100">
                         <div class="flex text-[#a7e169] mb-4">
                             <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                         </div>
@@ -897,7 +924,7 @@
                         </div>
                     </div>
 
-                    <div class="minimalist-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="minimalist-card data-aosfade-up data-aos-delay100">
                         <div class="flex text-[#a7e169] mb-4">
                             <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                         </div>
@@ -913,7 +940,7 @@
                         </div>
                     </div>
 
-                    <div class="minimalist-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="minimalist-card data-aosfade-up data-aos-delay100">
                         <div class="flex text-[#a7e169] mb-4">
                             <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                         </div>
@@ -929,7 +956,7 @@
                         </div>
                     </div>
 
-                    <div class="minimalist-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="minimalist-card data-aosfade-up data-aos-delay100">
                         <div class="flex text-[#a7e169] mb-4">
                             <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                         </div>
@@ -1094,17 +1121,45 @@
     <script>
         AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
         feather.replace();
+
+        // Init Icon Animation for default panel
+        const defaultPanel = document.querySelector('.service-panel:not(.hidden)');
+        if(defaultPanel) {
+            const icons = defaultPanel.querySelectorAll('.pop-in-icon');
+            icons.forEach((icon, index) => {
+                icon.style.animationDelay = (index * 100) + 'ms';
+                icon.classList.add('animate');
+            });
+        }
+        
+        // Scroll indicator
+        window.addEventListener('scroll', function() {
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            scrollIndicator.style.width = scrolled + '%';
+        });
         
         // Service Switcher
         function switchService(service) {
-            // Reset Tabs
-            document.querySelectorAll('.service-tab').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            // Reset Panels
-            document.querySelectorAll('.service-panel').forEach(panel => panel.classList.add('hidden'));
-            document.getElementById(service + '-panel').classList.remove('hidden');
-        }
+        // Reset Tabs
+        document.querySelectorAll('.service-tab').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+
+        // Reset Panels
+        document.querySelectorAll('.service-panel').forEach(panel => panel.classList.add('hidden'));
+
+        const activePanel = document.getElementById(service + '-panel');
+        activePanel.classList.remove('hidden');
+
+        // Trigger Icon Animation
+        const icons = activePanel.querySelectorAll('.pop-in-icon');
+        icons.forEach((icon, index) => {
+            icon.classList.remove('animate');
+            void icon.offsetWidth; // trigger reflow
+            icon.style.animationDelay = (index * 100) + 'ms';
+            icon.classList.add('animate');
+        });
+    }
         
         // Mobile Menu
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
@@ -1232,6 +1287,21 @@
     .typing-dot:nth-child(1) { animation-delay: -0.32s; }
     .typing-dot:nth-child(2) { animation-delay: -0.16s; }
     @keyframes typing { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+
+/* Icon Animation */
+@keyframes popIcon {
+    0% { transform: scale(0); opacity: 0; }
+    80% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+.pop-in-icon {
+    display: inline-block;
+    opacity: 0; /* Hidden initially */
+}
+.pop-in-icon.animate {
+    animation: popIcon 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
 </style>
 
 <script>
@@ -1466,7 +1536,17 @@
     }
     
     // Init Icons
-    if(typeof feather !== 'undefined') { feather.replace(); }
+    if(typeof feather !== 'undefined') { feather.replace();
+
+        // Init Icon Animation for default panel
+        const defaultPanel = document.querySelector('.service-panel:not(.hidden)');
+        if(defaultPanel) {
+            const icons = defaultPanel.querySelectorAll('.pop-in-icon');
+            icons.forEach((icon, index) => {
+                icon.style.animationDelay = (index * 100) + 'ms';
+                icon.classList.add('animate');
+            });
+        } }
 </script>
 <!-- ART de ONE SMART CHATBOT END -->
 </body>
