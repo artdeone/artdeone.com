@@ -3,116 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Post - ART de ONE</title>
+    <title>Blog Reader - ART de ONE</title>
     <link rel="icon" type="image/png" href="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769316272/fav-icon_n00lji.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Fonts -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Space+Grotesk:wght@300;400;500;600&display=swap');
         
-        :root { --accent: #a7e169; --bg-light: #f9fafb; }
-        body { font-family: 'Outfit', sans-serif; background-color: var(--bg-light); }
+        :root { --accent: #a7e169; }
+        body { font-family: 'Outfit', sans-serif; }
         h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
         
-        /* Dark Mode Support from Dashboard */
-        .dark body { background-color: #111116 !important; color: #e5e5e5; }
-        .dark .bg-white { background-color: #1a1a20 !important; border-color: #2a2a35 !important; }
+        .dark body { background-color: #111116; color: #e5e5e5; }
+        .dark .bg-white { background-color: #1a1a20; border-color: #2a2a35; }
         .dark .text-gray-900 { color: #ffffff !important; }
-        .dark .text-gray-500 { color: #a0a0a0 !important; }
+        .dark .text-gray-600 { color: #a0a0a0 !important; }
+        
+        /* Typography Styles for Blog Content */
+        .prose h3 { font-size: 1.25rem; font-weight: 600; margin-top: 2rem; margin-bottom: 0.75rem; color: inherit; }
+        .prose p { margin-bottom: 1.25rem; line-height: 1.8; }
+        .prose ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.5rem; }
+        .prose li { margin-bottom: 0.5rem; }
     </style>
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: { extend: { colors: { brand: { green: '#a7e169' } } } }
         }
-        // Dark mode check
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark')
-        } else {
-            document.documentElement.classList.remove('dark')
         }
     </script>
 </head>
-<body class="antialiased text-gray-800">
+<body class="bg-gray-50 dark:bg-black antialiased transition-colors duration-300">
 
-    <div class="max-w-4xl mx-auto px-6 py-10">
+    <div class="max-w-4xl mx-auto px-4 md:px-6 py-10">
         
         <!-- Back Button -->
-        <a href="student-dashboard.html" class="inline-flex items-center gap-2 text-gray-400 hover:text-black dark:hover:text-white transition-colors mb-8 group">
+        <a href="student-dashboard.html" class="inline-flex items-center gap-2 text-gray-400 hover:text-black dark:hover:text-white mb-8 transition-colors group">
             <i class="fa-solid fa-arrow-left transition-transform group-hover:-translate-x-1"></i>
             <span>Back to Dashboard</span>
         </a>
 
-        <!-- Blog Content Container -->
-        <article class="bg-white dark:bg-1a1a20 rounded-2xl border border-gray-100 dark:border-gray-800 overflow-hidden shadow-sm">
-            
-            <!-- Cover Image or Video Placeholder -->
-            <div class="w-full aspect-video bg-gray-100 relative group">
-                <!-- Youtube Embed Example (Uncomment to use) -->
-                <!-- <iframe class="w-full h-full" src="https://www.youtube.com/embed/PLAYLIST_ID_HERE" frameborder="0" allowfullscreen></iframe> -->
+        <!-- Content Area -->
+        <div id="blog-content-area" class="hidden animate-fade-in-up">
+            <article class="bg-white dark:bg-1a1a20 rounded-2xl border border-gray-100 dark:border-gray-800 overflow-hidden shadow-sm min-h-[500px]">
                 
-                <!-- Default Image -->
-                <img src="https://images.unsplash.com/photo-1626785774573-4b799312c95d?q=80&w=2070" class="w-full h-full object-cover" alt="Cover">
-                
-                <div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-                    <i class="fa-brands fa-youtube text-5xl text-red-600 drop-shadow-lg"></i>
-                </div>
-            </div>
-
-            <div class="p-8 md:p-12">
-                <!-- Meta Tags -->
-                <div class="flex items-center gap-3 mb-6">
-                    <span class="px-3 py-1 bg-brand-green/10 text-green-700 text-xs font-bold uppercase tracking-widest rounded-full border border-brand-green/20">Tutorial</span>
-                    <span class="text-gray-300">|</span>
-                    <span class="text-gray-400 text-sm">Feb 08, 2026</span>
+                <!-- Media Container -->
+                <div id="post-media-container" class="w-full aspect-video bg-gray-100 dark:bg-gray-800 relative">
+                    <!-- JS will inject Media here -->
                 </div>
 
-                <!-- Title -->
-                <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-                    Mastering Adobe Illustrator Pen Tool in 10 Minutes
-                </h1>
-
-                <!-- Content Body -->
-                <div class="prose prose-lg dark:prose-invert max-w-none text-gray-600 dark:text-gray-300 font-light leading-relaxed space-y-6">
-                    <p>
-                        Pen tool သည် Vector design ရေးဆွဲရာတွင် အရေးပါဆုံးသော tool တစ်ခုဖြစ်သည်။ ဤသင်ခန်းစာတွင် pen tool ၏ အခြေခံသဘောတရားများ၊ anchor point များအသုံးပြုပုံနှင့် handle များထိန်းချုပ်ပုံကို လေ့လာရမည်ဖြစ်သည်။
-                    </p>
-                    
-                    <h3 class="text-xl font-medium text-gray-900 dark:text-white">What you will learn:</h3>
-                    <ul class="list-disc pl-5 space-y-2">
-                        <li>Basic Straight Lines</li>
-                        <li>Curved Paths & Bezier Handles</li>
-                        <li>Complex Shapes Tracing</li>
-                    </ul>
-
-                    <p>
-                        အောက်ပါ Youtube video တွင် အသေးစိတ်ကြည့်ရှုနိုင်ပါသည်။
-                    </p>
-
-                    <!-- Embedded Video Area -->
-                    <div class="my-8 rounded-xl overflow-hidden border border-gray-100 dark:border-gray-700">
-                        <iframe class="w-full aspect-video" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="p-8 md:p-12">
+                    <!-- Meta Tags -->
+                    <div class="flex items-center gap-3 mb-6">
+                        <span id="post-category" class="px-3 py-1 bg-brand-green/10 text-green-700 text-xs font-bold uppercase tracking-widest rounded-full border border-brand-green/20"></span>
+                        <span class="text-gray-300">|</span>
+                        <span id="post-date" class="text-gray-400 text-sm font-light"></span>
                     </div>
 
-                    <p>
-                        လေ့ကျင့်ခန်းဖိုင်များကို အောက်တွင် Download ရယူပါ။
-                    </p>
+                    <!-- Title -->
+                    <h1 id="post-title" class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6 leading-tight"></h1>
 
-                    <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-black dark:bg-white text-white dark:text-black rounded-xl font-medium hover:opacity-80 transition-opacity mt-4">
-                        <i class="fa-solid fa-download"></i>
-                        Download Practice Files
-                    </a>
+                    <!-- Body Content -->
+                    <div id="post-body" class="prose dark:prose-invert max-w-none text-gray-600 dark:text-gray-300 font-light leading-relaxed">
+                        <!-- JS will inject HTML here -->
+                    </div>
                 </div>
-            </div>
-        </article>
-        
-        <!-- Footer -->
-        <div class="text-center mt-10 text-gray-400 text-sm font-light">
-            &copy; 2026 ART de ONE. All rights reserved.
+            </article>
+        </div>
+
+        <!-- 404 Error State -->
+        <div id="not-found" class="hidden text-center py-20">
+            <i class="fa-regular fa-face-frown text-4xl text-gray-300 mb-4"></i>
+            <h2 class="text-2xl text-gray-500 font-light">Content not found</h2>
+            <a href="student-dashboard.html" class="text-brand-green hover:underline mt-4 block text-sm">Return Home</a>
+        </div>
+
+        <div class="text-center mt-12 text-gray-400 text-xs font-light tracking-widest uppercase">
+            &copy; 2026 ART de ONE
         </div>
     </div>
 
+    <!-- SCRIPT -->
+    <script type="module">
+        // Path ပြင်ထားပါသည်: ../js/premium-blog.js
+        import { blogPosts } from '../js/premium-blog.js';
+
+        const params = new URLSearchParams(window.location.search);
+        const postId = parseInt(params.get('id'));
+        const post = blogPosts.find(p => p.id === postId);
+
+        if (post) {
+            document.getElementById('blog-content-area').classList.remove('hidden');
+
+            document.getElementById('post-title').textContent = post.title;
+            document.getElementById('post-category').textContent = post.category;
+            document.getElementById('post-date').textContent = post.date;
+            document.getElementById('post-body').innerHTML = post.content;
+
+            const mediaBox = document.getElementById('post-media-container');
+            
+            if (post.type === 'video' && post.videoId) {
+                mediaBox.innerHTML = `
+                    <iframe class="w-full h-full" 
+                        src="https://www.youtube.com/embed/${post.videoId}" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>`;
+            } else {
+                mediaBox.innerHTML = `
+                    <img src="${post.image}" class="w-full h-full object-cover" alt="${post.title}">
+                `;
+            }
+        } else {
+            document.getElementById('not-found').classList.remove('hidden');
+        }
+    </script>
 </body>
 </html>
