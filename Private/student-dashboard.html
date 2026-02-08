@@ -293,6 +293,14 @@
                     <i class="fa-solid fa-wand-magic-sparkles w-5 text-center"></i>
                     <span>AI Studio</span>
                 </a>
+
+                <!-- Premium Blog Link -->
+                <a href="#" class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-500 text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group" data-section="premium-blog">
+                    <i class="fa-solid fa-layer-group w-5 text-center group-hover:text-gray-900 dark:group-hover:text-white transition-colors"></i>
+                    <span class="flex-1">Premium Blog</span>
+                    <span class="bg-brand-green text-black text-10px font-bold px-2 py-0.5 rounded-full shadow-sm">NEW</span>
+                </a>
+
                 <!-- Announcement Link (Desktop) -->
                 <a href="#" class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-500 text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group" data-section="announcements">
                     <!-- Icon -->
@@ -417,6 +425,12 @@
         <i class="fa-solid fa-wand-magic-sparkles w-5 text-center"></i>
         <span class="flex-1 text-left">AI Studio</span>
       </button>
+
+      <button onclick="switchSection('premium-blog'); toggleMobileMenu()" class="w-full flex items-center gap-4 px-4 py-3.5 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-1a1a20 rounded-2xl transition-all text-sm font-medium border border-transparent hover:border-gray-100 dark:hover:border-gray-800">
+        <i class="fa-solid fa-layer-group w-5 text-center"></i>
+        <span class="flex-1 text-left">Premium Blog</span>
+      </button>
+
 
       <button onclick="switchSection('announcements'); toggleMobileMenu()"
               class="w-full flex items-center gap-4 px-4 py-3.5 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-[#1a1a20] rounded-2xl transition-all text-sm font-medium border border-transparent hover:border-gray-100 dark:hover:border-gray-800">
@@ -783,6 +797,117 @@
                         </div>
                     </div>
                 </div>
+
+
+                <!-- PREMIUM BLOG SECTION -->
+<div id="premium-blog-section" class="section hidden space-y-10 max-w-7xl mx-auto fade-in-up">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">Premium Blog</h2>
+            <p class="text-gray-500 dark:text-gray-400 text-sm font-light mt-1">Exclusive tutorials, resources, and updates for students.</p>
+        </div>
+    </div>
+
+    <!-- Blog Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Blog Post 1: Video Tutorial -->
+        <article class="bg-white dark:bg-1a1a20 border border-gray-100 dark:border-gray-800 rounded-2xl overflow-hidden hover-lift flex flex-col h-full group">
+            <div class="h-48 relative overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1626785774573-4b799312c95d?q=80&w=2070&auto=format&fit=crop" alt="Blog 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <div class="absolute top-3 left-3">
+                    <span class="px-2 py-1 bg-black/70 backdrop-blur text-white text-10px font-bold uppercase tracking-widest rounded-md">
+                        <i class="fa-brands fa-youtube mr-1"></i> Video
+                    </span>
+                </div>
+            </div>
+            <div class="p-6 flex-1 flex flex-col">
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="text-10px text-brand-green font-bold uppercase tracking-widest">Tutorial</span>
+                    <span class="text-gray-300">•</span>
+                    <span class="text-10px text-gray-400 uppercase">Feb 8, 2026</span>
+                </div>
+                <h3 class="text-xl font-medium text-gray-900 dark:text-white mb-3 group-hover:text-brand-green transition-colors line-clamp-2">
+                    Mastering Adobe Illustrator Pen Tool in 10 Minutes
+                </h3>
+                <p class="text-gray-500 dark:text-gray-400 text-sm font-light leading-relaxed mb-6 line-clamp-3">
+                    Pen tool က Design သမားတိုင်းအတွက် မရှိမဖြစ်ပါ။ ဒီ Video မှာတော့ အခြေခံကနေစပြီး complex shape တွေဆွဲတဲ့အထိ လေ့လာရမှာပါ။
+                </p>
+                <div class="mt-auto pt-4 border-t border-gray-50 dark:border-gray-800">
+                    <a href="blog-post-template.html" class="flex items-center justify-between text-sm font-medium text-gray-900 dark:text-white group-hover:text-brand-green transition-colors">
+                        <span>Watch Video</span>
+                        <i class="fa-solid fa-arrow-right -rotate-45 group-hover:rotate-0 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+        </article>
+
+        <!-- Blog Post 2: Text Article -->
+        <article class="bg-white dark:bg-1a1a20 border border-gray-100 dark:border-gray-800 rounded-2xl overflow-hidden hover-lift flex flex-col h-full group">
+            <div class="h-48 relative overflow-hidden bg-gray-100">
+                <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=2000&auto=format&fit=crop" alt="Blog 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <div class="absolute top-3 left-3">
+                    <span class="px-2 py-1 bg-white/90 dark:bg-black/70 backdrop-blur text-gray-900 dark:text-white text-10px font-bold uppercase tracking-widest rounded-md">
+                        <i class="fa-regular fa-file-lines mr-1"></i> Article
+                    </span>
+                </div>
+            </div>
+            <div class="p-6 flex-1 flex flex-col">
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="text-10px text-blue-500 font-bold uppercase tracking-widest">Tips</span>
+                    <span class="text-gray-300">•</span>
+                    <span class="text-10px text-gray-400 uppercase">Feb 5, 2026</span>
+                </div>
+                <h3 class="text-xl font-medium text-gray-900 dark:text-white mb-3 group-hover:text-brand-green transition-colors line-clamp-2">
+                    Top 5 Fonts for Modern Branding in 2026
+                </h3>
+                <p class="text-gray-500 dark:text-gray-400 text-sm font-light leading-relaxed mb-6 line-clamp-3">
+                    2026 ခုနှစ်မှာ လူကြိုက်များလာမယ့် Font တွေကို စုစည်းပေးထားပါတယ်။ Client Projects တွေမှာ သုံးဖို့ အဆင်အပြေဆုံး Font တွေပါ။
+                </p>
+                <div class="mt-auto pt-4 border-t border-gray-50 dark:border-gray-800">
+                    <a href="blog-post-template.html" class="flex items-center justify-between text-sm font-medium text-gray-900 dark:text-white group-hover:text-brand-green transition-colors">
+                        <span>Read Article</span>
+                        <i class="fa-solid fa-arrow-right -rotate-45 group-hover:rotate-0 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+        </article>
+
+        <!-- Blog Post 3: Resource/Mixed -->
+        <article class="bg-white dark:bg-1a1a20 border border-gray-100 dark:border-gray-800 rounded-2xl overflow-hidden hover-lift flex flex-col h-full group">
+            <div class="h-48 relative overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1974&auto=format&fit=crop" alt="Blog 3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                 <div class="absolute top-3 left-3">
+                    <span class="px-2 py-1 bg-purple-100 text-purple-600 text-10px font-bold uppercase tracking-widest rounded-md">
+                        <i class="fa-solid fa-gem mr-1"></i> Premium
+                    </span>
+                </div>
+            </div>
+            <div class="p-6 flex-1 flex flex-col">
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="text-10px text-purple-500 font-bold uppercase tracking-widest">Resources</span>
+                    <span class="text-gray-300">•</span>
+                    <span class="text-10px text-gray-400 uppercase">Jan 28, 2026</span>
+                </div>
+                <h3 class="text-xl font-medium text-gray-900 dark:text-white mb-3 group-hover:text-brand-green transition-colors line-clamp-2">
+                    Free Download: 50+ Custom Brushes for Photoshop
+                </h3>
+                <p class="text-gray-500 dark:text-gray-400 text-sm font-light leading-relaxed mb-6 line-clamp-3">
+                    ကျွန်တော့်ကျောင်းသားတွေအတွက် သီးသန့်ဖန်တီးထားတဲ့ Brush Set လေးကို ဒီမှာ Download ရယူနိုင်ပါပြီ။
+                </p>
+                <div class="mt-auto pt-4 border-t border-gray-50 dark:border-gray-800">
+                    <a href="blog-post-template.html" class="flex items-center justify-between text-sm font-medium text-gray-900 dark:text-white group-hover:text-brand-green transition-colors">
+                        <span>Get Resources</span>
+                        <i class="fa-solid fa-arrow-right -rotate-45 group-hover:rotate-0 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+        </article>
+
+    </div>
+</div>
+
 
 
             </main>
