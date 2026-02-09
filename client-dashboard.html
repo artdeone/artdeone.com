@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="my">
 <head>
+    <!-- Previous <head> content remains the same -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Client Dashboard - ART de ONE</title>
@@ -8,12 +9,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Previous styles remain the same... */
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
             --primary-black: #000000;
             --primary-white: #ffffff;
             --accent-green: #a7e169;
+            --accent-red: #ed2939;
             --gray-50: #f9f9f9;
             --gray-100: #f3f4f6;
             --gray-200: #e5e7eb;
@@ -67,20 +70,31 @@
             color: var(--primary-black);
         }
 
-        .back-link {
-            color: var(--gray-600);
-            text-decoration: none;
-            font-size: 0.9em;
-            padding: 8px 20px;
+        .home-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--gray-50);
             border: 1px solid var(--gray-200);
-            border-radius: 6px;
+            border-radius: 8px;
             transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--gray-600);
         }
 
-        .back-link:hover {
+        .home-icon:hover {
             background: var(--primary-black);
-            color: var(--primary-white);
             border-color: var(--primary-black);
+            color: var(--primary-white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .home-icon svg {
+            width: 20px;
+            height: 20px;
         }
 
         .container {
@@ -136,6 +150,21 @@
             border-radius: 12px;
             margin-bottom: 30px;
             border: 1px solid var(--gray-200);
+            position: relative;
+        }
+
+        .dashboard-badge {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: var(--primary-black);
+            color: var(--primary-white);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
         .dashboard-header h1 {
@@ -201,11 +230,17 @@
             color: var(--accent-green);
         }
 
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
         .form-section {
             background: var(--primary-white);
             padding: 40px;
             border-radius: 12px;
-            margin-bottom: 30px;
             border: 1px solid var(--gray-200);
         }
 
@@ -250,18 +285,18 @@
         }
 
         .form-group textarea {
-            min-height: 120px;
+            min-height: 100px;
             resize: vertical;
         }
 
         .btn {
-            background: var(--primary-black);
-            color: var(--primary-white);
+            background: var(--accent-green);
+            color: var(--primary-black);
             padding: 14px 32px;
             border: none;
             border-radius: 8px;
             font-size: 1em;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             font-family: 'Poppins', sans-serif;
@@ -269,9 +304,10 @@
         }
 
         .btn:hover {
-            background: var(--gray-900);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            background: var(--accent-red);
+            color: var(--primary-white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(237, 41, 57, 0.3);
         }
 
         .btn:disabled {
@@ -288,6 +324,9 @@
 
         .btn-secondary:hover {
             background: var(--gray-50);
+            border-color: var(--gray-400);
+            transform: none;
+            box-shadow: none;
         }
 
         .requests-section {
@@ -295,6 +334,8 @@
             padding: 40px;
             border-radius: 12px;
             border: 1px solid var(--gray-200);
+            max-height: 800px;
+            overflow-y: auto;
         }
 
         .requests-section h2 {
@@ -302,13 +343,18 @@
             font-size: 1.5em;
             color: var(--primary-black);
             margin-bottom: 25px;
+            position: sticky;
+            top: 0;
+            background: var(--primary-white);
+            padding-bottom: 15px;
+            z-index: 10;
         }
 
         .request-item {
             border: 1px solid var(--gray-200);
-            padding: 25px;
+            padding: 20px;
             border-radius: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             transition: all 0.3s ease;
             background: var(--gray-50);
         }
@@ -318,11 +364,17 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
+        .request-item h3 {
+            font-size: 1em;
+            color: var(--primary-black);
+            margin-bottom: 10px;
+        }
+
         .status-badge {
             display: inline-block;
-            padding: 6px 14px;
+            padding: 4px 10px;
             border-radius: 6px;
-            font-size: 0.8em;
+            font-size: 0.75em;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -346,12 +398,95 @@
         .alert-danger { background: #fee2e2; color: #991b1b; border-color: #dc2626; }
         .alert-warning { background: #fef3c7; color: #92400e; border-color: #f59e0b; }
 
-        .hidden { display: none; }
+        .hidden { 
+            display: none !important; 
+        }
 
         .empty-state {
             text-align: center;
             padding: 60px 20px;
             color: var(--gray-400);
+        }
+
+        /* NEW: Announcement Banner Styles */
+        .announcement-banner {
+            background: linear-gradient(135deg, var(--primary-black) 0%, var(--gray-900) 100%);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            border: 1px solid var(--gray-200);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .announcement-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            align-items: center;
+        }
+
+        .announcement-text {
+            padding: 50px;
+            color: var(--primary-white);
+        }
+
+        .announcement-text h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2em;
+            color: var(--accent-green);
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .announcement-text p {
+            font-size: 1.05em;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .announcement-cta {
+            display: inline-block;
+            background: var(--accent-green);
+            color: var(--primary-black);
+            padding: 14px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .announcement-cta:hover {
+            background: var(--accent-red);
+            color: var(--primary-white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(237, 41, 57, 0.4);
+        }
+
+        .announcement-image {
+            height: 100%;
+            min-height: 300px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        @media (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .requests-section {
+                max-height: 600px;
+            }
+
+            .announcement-content {
+                grid-template-columns: 1fr;
+            }
+
+            .announcement-image {
+                min-height: 250px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -361,22 +496,34 @@
             .dashboard-header, .form-section, .requests-section { padding: 25px; }
             .stats { grid-template-columns: 1fr; }
             .logo-section h1 { font-size: 1em; }
+            .dashboard-badge { 
+                position: static; 
+                display: inline-block;
+                margin-top: 10px;
+            }
+            .announcement-text {
+                padding: 30px;
+            }
+            .announcement-text h2 {
+                font-size: 1.5em;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Login Section - remains the same -->
     <div id="loginSection">
         <div class="login-card">
             <div class="login-header">
                 <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png" alt="ART de ONE">
-                <h2>Client Dashboard</h2>
-                <p>Revision Management System</p>
+                <h2>Welcome Back</h2>
+                <p>Client Portal - Revision Management</p>
             </div>
             
-            <form id="loginForm" onsubmit="handleLogin(event)">
+            <form id="loginForm">
                 <div class="form-group">
                     <label>Email Address</label>
-                    <input type="email" id="loginEmail" required placeholder="client@example.com" />
+                    <input type="email" id="loginEmail" required placeholder="client@example.com" value="testclient@gmail.com" />
                 </div>
                 
                 <button type="submit" class="btn">Login</button>
@@ -387,24 +534,31 @@
             </p>
             
             <a href="index.html" class="btn btn-secondary" style="display: block; text-align: center; margin-top: 15px; text-decoration: none; padding: 12px;">
-                ← Home
+                ← Back to Home
             </a>
         </div>
     </div>
 
+    <!-- Dashboard Section -->
     <div id="dashboardSection" class="hidden">
         <nav class="top-nav">
             <div class="nav-container">
                 <div class="logo-section">
                     <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png" alt="ART de ONE">
-                    <h1>Client Dashboard</h1>
+                    <h1>ART de ONE</h1>
                 </div>
-                <a href="index.html" class="back-link">← Home</a>
+                <a href="index.html" class="home-icon" title="Back to Home">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                </a>
             </div>
         </nav>
 
         <div class="container">
             <div class="dashboard-header">
+                <span class="dashboard-badge">Client Dashboard</span>
                 <h1 id="clientName"></h1>
                 <p id="packageInfo"></p>
                 <span class="package-badge" id="packageType"></span>
@@ -425,47 +579,61 @@
                 </div>
             </div>
 
-            <div class="form-section">
-                <h2>Revision အသစ်တောင်းခံမည်</h2>
-                <div id="alertContainer"></div>
-                
-                <form id="revisionForm" onsubmit="handleSubmitRevision(event)">
-                    <div class="form-group">
-                        <label>Project အမည် *</label>
-                        <input type="text" id="projectName" required placeholder="ဥပမာ: Logo Design for Coffee Shop" />
-                    </div>
+            <div class="main-grid">
+                <div class="form-section">
+                    <h2>Revision အသစ်တောင်းခံမည်</h2>
+                    <div id="alertContainer"></div>
+                    
+                    <form id="revisionForm">
+                        <div class="form-group">
+                            <label>Project အမည် *</label>
+                            <input type="text" id="projectName" required placeholder="ဥပမာ: Logo Design for Coffee Shop" />
+                        </div>
 
-                    <div class="form-group">
-                        <label>Revision အမျိုးအစား *</label>
-                        <select id="revisionType" required>
-                            <option value="">ရွေးချယ်ပါ</option>
-                            <option value="alignment">Alignment / Spacing / Size</option>
-                            <option value="color">အရောင်ပြင်ဆင်ခြင်း</option>
-                            <option value="format">Format ပြောင်းလဲခြင်း (PNG, SVG, PDF)</option>
-                            <option value="layout">Layout / Composition</option>
-                            <option value="composition">Brand Color / Variation</option>
-                            <option value="export">Export / File Version</option>
-                            <option value="other">အခြား</option>
-                        </select>
-                    </div>
+                        <div class="form-group">
+                            <label>Revision အမျိုးအစား *</label>
+                            <select id="revisionType" required>
+                                <option value="">ရွေးချယ်ပါ</option>
+                                <option value="alignment">Alignment / Spacing / Size</option>
+                                <option value="color">အရောင်ပြင်ဆင်ခြင်း</option>
+                                <option value="format">Format ပြောင်းလဲခြင်း (PNG, SVG, PDF)</option>
+                                <option value="layout">Layout / Composition</option>
+                                <option value="composition">Brand Color / Variation</option>
+                                <option value="export">Export / File Version</option>
+                                <option value="other">အခြား</option>
+                            </select>
+                        </div>
 
-                    <div class="form-group">
-                        <label>အသေးစိတ်ဖော်ပြချက် *</label>
-                        <textarea id="description" required placeholder="ပြင်ဆင်လိုသောအချက်များကို အသေးစိတ်ရေးပေးပါ..."></textarea>
-                    </div>
+                        <div class="form-group">
+                            <label>အသေးစိတ်ဖော်ပြချက် *</label>
+                            <textarea id="description" required placeholder="ပြင်ဆင်လိုသောအချက်များကို အသေးစိတ်ရေးပေးပါ..."></textarea>
+                        </div>
 
-                    <div class="form-group">
-                        <label>File Link (Cloudinary / Google Drive)</label>
-                        <input type="url" id="fileUrl" placeholder="https://..." />
-                    </div>
+                        <div class="form-group">
+                            <label>File Link (Cloudinary / Google Drive)</label>
+                            <input type="url" id="fileUrl" placeholder="https://..." />
+                        </div>
 
-                    <button type="submit" class="btn">တောင်းခံမည်</button>
-                </form>
+                        <button type="submit" class="btn">တောင်းခံမည်</button>
+                    </form>
+                </div>
+
+                <div class="requests-section">
+                    <h2>Revision မှတ်တမ်းများ</h2>
+                    <div id="requestsList"></div>
+                </div>
             </div>
 
-            <div class="requests-section">
-                <h2>Revision မှတ်တမ်းများ</h2>
-                <div id="requestsList"></div>
+            <!-- NEW: Announcement Banner -->
+            <div class="announcement-banner" id="announcementBanner">
+                <div class="announcement-content">
+                    <div class="announcement-text">
+                        <h2>လေ့လာမယ့်သူတိုင်းအတွက် Special Offer! 🎨</h2>
+                        <p>Adobe Illustrator & Photoshop Course မှာ အခုပဲ Register လုပ်လိုက်ရင် 20% Off ရရှိမှာပါ။ Professional Designer ဖြစ်ဖို့ အခုပဲ စတင်လိုက်ပါ!</p>
+                        <a href="https://www.facebook.com/artdeone" target="_blank" class="announcement-cta">Learn More →</a>
+                    </div>
+                    <div class="announcement-image" style="background-image: url('https://res.cloudinary.com/ddkd9lxpr/image/upload/v1738000000/announcement-banner.jpg');"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -475,12 +643,29 @@
 
         let currentClient = null;
 
-        // Login handler
-        window.handleLogin = async function(event) {
-            event.preventDefault();
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            if (loginForm) {
+                loginForm.addEventListener('submit', async function(event) {
+                    event.preventDefault();
+                    await handleLogin();
+                });
+            }
+
+            const revisionForm = document.getElementById('revisionForm');
+            if (revisionForm) {
+                revisionForm.addEventListener('submit', async function(event) {
+                    event.preventDefault();
+                    await handleSubmitRevision();
+                });
+            }
+
+            // Load announcement banner
+            loadAnnouncement();
+        });
+
+        async function handleLogin() {
             const email = document.getElementById('loginEmail').value.trim();
-            
-            console.log('Attempting login with:', email);
             
             if (!email) {
                 alert('Email ရိုက်ထည့်ပါ');
@@ -494,23 +679,24 @@
                     .eq('email', email)
                     .single();
 
-                console.log('Login response:', { data, error });
-
                 if (error || !data) {
                     alert('Client account မရှိပါ။ Admin ထံဆက်သွယ်ပါ။');
-                    console.error('Login error:', error);
                     return;
                 }
 
                 currentClient = data;
-                console.log('Login successful:', currentClient);
                 
-                document.getElementById('loginSection').classList.add('hidden');
-                document.getElementById('dashboardSection').classList.remove('hidden');
+                const loginSection = document.getElementById('loginSection');
+                const dashboardSection = document.getElementById('dashboardSection');
+                
+                loginSection.style.display = 'none';
+                dashboardSection.classList.remove('hidden');
+                dashboardSection.style.display = 'block';
+                
                 loadDashboard();
             } catch (err) {
-                console.error('Login exception:', err);
-                alert('Login မအောင်မြင်ပါ။ ထပ်မံကြိုးစားပါ။');
+                console.error('Login error:', err);
+                alert('Login မအောင်မြင်ပါ။');
             }
         }
 
@@ -526,7 +712,58 @@
                 const daysLeft = Math.ceil((endDate - new Date()) / (1000 * 60 * 60 * 24));
                 document.getElementById('packageInfo').textContent = `Package သက်တမ်း: ${endDate.toLocaleDateString('my-MM')} (${daysLeft} ရက်ကျန်)`;
             }
+            
+            // Set package badge color dynamically
+            const packageBadge = document.getElementById('packageType');
+            if (packageBadge) {
+                const packageColors = {
+                    essential: { bg: '#a7e169', color: '#000000' },
+                    professional: { bg: '#3b82f6', color: '#ffffff' },
+                    freedom: { bg: '#8b5cf6', color: '#ffffff' }
+                };
+                
+                const colors = packageColors[currentClient.package_type];
+                if (colors) {
+                    packageBadge.style.background = colors.bg;
+                    packageBadge.style.color = colors.color;
+                }
+            }
+            
             loadRequests();
+        }
+
+        async function loadAnnouncement() {
+            // You can fetch announcement data from Supabase here
+            // For now, it uses static content in HTML
+            
+            // Example: Dynamic announcement loading
+            /*
+            try {
+                const { data, error } = await supabaseRevision
+                    .from('announcements')
+                    .select('*')
+                    .eq('is_active', true)
+                    .order('created_at', { ascending: false })
+                    .limit(1)
+                    .single();
+
+                if (data) {
+                    const banner = document.getElementById('announcementBanner');
+                    banner.innerHTML = `
+                        <div class="announcement-content">
+                            <div class="announcement-text">
+                                <h2>${data.title}</h2>
+                                <p>${data.description}</p>
+                                ${data.link ? `<a href="${data.link}" target="_blank" class="announcement-cta">${data.cta_text || 'Learn More →'}</a>` : ''}
+                            </div>
+                            <div class="announcement-image" style="background-image: url('${data.image_url}');"></div>
+                        </div>
+                    `;
+                }
+            } catch (err) {
+                console.error('Announcement load error:', err);
+            }
+            */
         }
 
         async function loadRequests() {
@@ -545,22 +782,22 @@
 
             container.innerHTML = data.map(req => `
                 <div class="request-item">
-                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
-                        <h3 style="font-size: 1.1em; color: var(--primary-black);">${req.project_name}</h3>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <h3>${req.project_name}</h3>
                         <span class="status-badge status-${req.status}">${STATUS_TEXT[req.status]}</span>
                     </div>
-                    <p style="color: var(--gray-600); margin-bottom: 8px;"><strong>အမျိုးအစား:</strong> ${REVISION_TYPES[req.revision_type]}</p>
-                    <p style="color: var(--gray-600); margin-bottom: 12px;">${req.description}</p>
-                    ${req.file_url ? `<p style="margin: 10px 0;"><a href="${req.file_url}" target="_blank" style="color: var(--primary-black); font-weight: 600; text-decoration: none;">📎 File</a></p>` : ''}
-                    ${req.designer_notes ? `<div style="background: var(--gray-100); padding: 15px; border-radius: 8px; margin-top: 12px; border-left: 3px solid var(--primary-black);"><strong>Designer မှတ်ချက်:</strong><p style="color: var(--gray-600); margin-top: 5px;">${req.designer_notes}</p></div>` : ''}
-                    <div style="margin-top: 15px; font-size: 0.85em; color: var(--gray-600);">⏰ ${new Date(req.created_at).toLocaleString('my-MM')}</div>
+                    <p style="color: var(--gray-600); font-size: 0.85em; margin-bottom: 8px;">
+                        <strong>${REVISION_TYPES[req.revision_type]}</strong>
+                    </p>
+                    <p style="color: var(--gray-600); font-size: 0.9em; margin-bottom: 10px;">${req.description}</p>
+                    ${req.file_url ? `<p style="margin: 8px 0;"><a href="${req.file_url}" target="_blank" style="color: var(--primary-black); font-weight: 600; text-decoration: none; font-size: 0.85em;">📎 File</a></p>` : ''}
+                    ${req.designer_notes ? `<div style="background: var(--gray-100); padding: 12px; border-radius: 6px; margin-top: 10px; border-left: 3px solid var(--primary-black);"><strong style="font-size: 0.85em;">Designer မှတ်ချက်:</strong><p style="color: var(--gray-600); margin-top: 5px; font-size: 0.85em;">${req.designer_notes}</p></div>` : ''}
+                    <div style="margin-top: 10px; font-size: 0.8em; color: var(--gray-400);">⏰ ${new Date(req.created_at).toLocaleString('my-MM')}</div>
                 </div>
             `).join('');
         }
 
-        window.handleSubmitRevision = async function(event) {
-            event.preventDefault();
-            
+        async function handleSubmitRevision() {
             if (currentClient.revisions_remaining <= 0) {
                 showAlert('Revision ကုန်သွားပါပြီ။ Package အသစ်ဝယ်ယူရန် admin ကိုဆက်သွယ်ပါ။', 'danger');
                 return;
