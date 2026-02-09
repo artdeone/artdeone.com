@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Connection Test</title>
+</head>
+<body>
+    <h1>Supabase Connection Test</h1>
+    <button onclick="testNow()">Test Now</button>
+    <pre id="result"></pre>
+
+    <script type="module">
+        import { supabaseRevision } from './js/config-revision.js';
+        
+        window.testNow = async function() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = 'Testing...';
+            
+            try {
+                // Test connection
+                const { data, error } = await supabaseRevision
+                    .from('clients')
+                    .select('*')
+                    .eq('email', 'testclient@gmail.com')
+                    .single();
+                
+                if (error) {
+                    resultDiv.textContent = 'ERROR:\n' + JSON.stringify(error, null, 2);
+                } else {
+                    resultDiv.textContent = 'SUCCESS:\n' + JSON.stringify(data, null, 2);
+                }
+            } catch (err) {
+                resultDiv.textContent = 'EXCEPTION:\n' + err.message;
+            }
+        }
+    </script>
+</body>
+</html>
