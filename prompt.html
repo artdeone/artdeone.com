@@ -20,162 +20,188 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/feather-icons"></script>
     <link rel="stylesheet" href="css-and-js/mobile-smooth-nav.css">
-    
     <link rel="stylesheet" href="css-and-js/theme.css">
 
     <style>
-       .nav-btn {
-            border-radius: 2rem; 
-        }
+       .nav-btn { border-radius: 2rem; }
         
         /* Masonry Grid Layout */
-        .masonry-grid {
-            column-count: 4;
-            column-gap: 1rem;
-        }
+        .masonry-grid { column-count: 4; column-gap: 1rem; }
+        @media (max-width: 1280px) { .masonry-grid { column-count: 3; } }
+        @media (max-width: 768px)  { .masonry-grid { column-count: 2; } }
+        @media (max-width: 480px)  { .masonry-grid { column-count: 1; } }
 
-        @media (max-width: 1280px) {
-            .masonry-grid {
-                column-count: 3;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .masonry-grid {
-                column-count: 2;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .masonry-grid {
-                column-count: 1;
-            }
-        }
-
-        /* Prompt Card */
+        /* ====== ENHANCED PROMPT CARD ====== */
         .prompt-card {
             break-inside: avoid;
             margin-bottom: 1rem;
             position: relative;
             overflow: hidden;
-            border-radius: 0.5rem;
+            border-radius: 0.75rem;
             cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: #f3f4f6;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                        box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .prompt-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+            transform: translateY(-10px);
+            box-shadow:
+                0 20px 40px -8px rgba(0,0,0,0.15),
+                0 0 0 1px rgba(167,225,105,0.2);
         }
 
         .prompt-card img {
             width: 100%;
             height: auto;
             display: block;
-            border-radius: 0.5rem;
-            transition: transform 0.4s ease;
+            border-radius: 0.75rem;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .prompt-card:hover img {
-            transform: scale(1.05);
+            transform: scale(1.06);
         }
 
-        /* Hover Overlay */
-        .prompt-overlay {
+        /* Shine Sweep on Hover */
+        .prompt-card::before {
+            content: '';
             position: absolute;
             top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+            left: -80%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(255,255,255,0.25) 50%,
+                transparent 100%
+            );
+            z-index: 25;
+            pointer-events: none;
+            transition: left 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .prompt-card:hover::before {
+            left: 130%;
+        }
+
+        /* Enhanced Overlay - Slide Up */
+        .prompt-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 40%, transparent 100%);
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transform: translateY(8px);
+            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
             padding: 1.5rem;
-            border-radius: 0.5rem;
+            border-radius: 0.75rem;
+            z-index: 20;
         }
-
         .prompt-card:hover .prompt-overlay {
             opacity: 1;
+            transform: translateY(0);
         }
-
         .prompt-overlay h3 {
             color: white;
             font-size: 1.125rem;
             font-weight: 700;
             margin-bottom: 0.25rem;
+            transform: translateY(6px);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.05s;
         }
-
         .prompt-overlay p {
-            color: rgba(255, 255, 255, 0.9);
+            color: rgba(255, 255, 255, 0.85);
             font-size: 0.875rem;
             font-weight: 500;
+            transform: translateY(6px);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+        }
+        .prompt-card:hover .prompt-overlay h3,
+        .prompt-card:hover .prompt-overlay p {
+            transform: translateY(0);
         }
 
-        /* --- JELLY MODAL ANIMATION --- */
+        /* Mobile: Always show overlay hint */
+        @media (max-width: 768px) {
+            .prompt-overlay {
+                opacity: 1;
+                transform: translateY(0);
+                background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 50%);
+            }
+            .prompt-overlay h3,
+            .prompt-overlay p {
+                transform: translateY(0);
+            }
+            .prompt-card::before { display: none; }
+        }
+
+        /* ====== CARD REVEAL ANIMATION ====== */
+        @keyframes cardRevealAnim {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.96);
+                filter: blur(6px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+        .card-reveal {
+            opacity: 0;
+        }
+        .card-reveal.is-visible {
+            animation: cardRevealAnim 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* ====== MODAL ====== */
         .modal {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background-color: rgba(0, 0, 0, 0.85);
             z-index: 9999;
             align-items: center;
             justify-content: center;
             padding: 2rem;
             backdrop-filter: blur(8px);
-            
-            /* Fade Effect */
             opacity: 0;
             transition: opacity 0.3s ease;
         }
+        .modal.active { opacity: 1; }
 
-        .modal.active {
-            opacity: 1;
-        }
-
-        /* Box Animation (Jelly Effect) */
         .modal-content {
             background: white;
             border-radius: 1rem;
             max-width: 1400px;
             width: 100%;
-            height: 90vh; /* Fixed Height for Desktop */
+            height: 90vh;
             overflow: hidden;
             position: relative;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             display: flex;
             flex-direction: row;
-
-            /* Initial State (Shrunk & Down) */
             transform: scale(0.8) translateY(20px);
             opacity: 0;
-            
-            /* Closing Animation (Smooth Shrink) */
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
         }
-
-        /* Active State (Jelly Pop Open) */
         .modal.active .modal-content {
             transform: scale(1) translateY(0);
             opacity: 1;
-            /* The Magic Jelly Curve (Overshoot) */
             transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
         }
 
-        /* Close Button */
         .modal-close {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
+            top: 1rem; right: 1rem;
             background: rgba(0, 0, 0, 0.7);
             color: white;
-            width: 40px;
-            height: 40px;
+            width: 40px; height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -184,54 +210,59 @@
             transition: all 0.3s ease;
             z-index: 20;
         }
-
         .modal-close:hover {
             background: #ed2939;
             transform: rotate(90deg);
         }
 
-        /* Modal Layout & Responsiveness */
+        /* Modal Layout */
         .modal-left {
             flex: 0 0 50%;
             background: #f3f4f6;
             display: flex;
-            flex-direction: row; /* Desktop: Image Left, Thumbs Right */
+            flex-direction: row;
             position: relative;
             height: 100%;
             overflow: hidden;
         }
-
         .modal-right {
             flex: 0 0 50%;
             overflow-y: auto;
             background: white;
         }
-
         .modal-body { padding: 2rem; }
 
-        /* Mobile specific adjustments for Modal */
+        /* ====== MODAL MOBILE RESPONSIVE ====== */
         @media (max-width: 1024px) {
+            .modal {
+                padding: 0.75rem;
+            }
             .modal-content {
                 flex-direction: column;
-                height: 85vh; /* Fixed height on mobile */
-                max-height: 85vh;
+                height: 92vh;
+                max-height: 92vh;
+                border-radius: 0.75rem;
             }
             .modal-left {
-                flex: none; 
+                flex: none;
                 width: 100%;
-                height: 50%; /* Image area takes 50% */
-                min-height: 50%;
-                background-color: #f3f4f6;
+                height: 42%;
+                min-height: 200px;
                 display: flex;
                 flex-direction: column;
             }
             .modal-right {
-                flex: 1; /* Take remaining space */
-                height: 50%;
+                flex: 1;
+                width: 100%;
                 overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
             }
-            
-            /* Center image on mobile */
+            .modal-body {
+                padding: 1.25rem;
+            }
+            .modal-title {
+                font-size: 1.35rem !important;
+            }
             .modal-image-container {
                 flex: 1;
                 width: 100%;
@@ -240,15 +271,81 @@
                 align-items: center;
                 justify-content: center;
                 overflow: hidden;
-                padding: 1rem;
+                padding: 0.75rem;
+            }
+            /* Prompt display mobile fix */
+            .prompt-display {
+                font-size: 0.8rem;
+                padding: 0.875rem;
+                padding-top: 0.875rem;
+            }
+            #modal-prompt {
+                padding-right: 0 !important;
+            }
+            .copy-icon-btn {
+                position: relative !important;
+                top: auto !important;
+                right: auto !important;
+                width: 100%;
+                justify-content: center;
+                margin-top: 0.75rem;
+            }
+            .breakdown-grid {
+                grid-template-columns: 1fr !important;
             }
         }
 
+        @media (max-width: 480px) {
+            .modal {
+                padding: 0.375rem;
+            }
+            .modal-content {
+                height: 96vh;
+                max-height: 96vh;
+                border-radius: 0.5rem;
+            }
+            .modal-left {
+                height: 36%;
+                min-height: 160px;
+            }
+            .modal-close {
+                width: 34px;
+                height: 34px;
+                top: 0.5rem;
+                right: 0.5rem;
+            }
+            .modal-body {
+                padding: 1rem;
+            }
+            .modal-title {
+                font-size: 1.15rem !important;
+                margin-bottom: 0.5rem !important;
+            }
+            .modal-section h4 {
+                font-size: 0.75rem;
+            }
+            .prompt-display {
+                font-size: 0.75rem;
+                line-height: 1.5;
+                padding: 0.75rem;
+                max-height: 200px;
+                overflow-y: auto;
+            }
+            .breakdown-item {
+                padding: 0.75rem;
+            }
+            .breakdown-item strong { font-size: 0.8rem; }
+            .breakdown-item span { font-size: 0.8rem; }
+            .model-tag { font-size: 0.7rem; }
+        }
+
         /* Scrollbar Styling */
-        .modal-right::-webkit-scrollbar { width: 8px; }
+        .modal-right::-webkit-scrollbar { width: 6px; }
         .modal-right::-webkit-scrollbar-track { background: #f1f1f1; }
         .modal-right::-webkit-scrollbar-thumb { background: #a7e169; border-radius: 4px; }
         .modal-right::-webkit-scrollbar-thumb:hover { background: #8bc74a; }
+        .prompt-display::-webkit-scrollbar { width: 4px; }
+        .prompt-display::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
 
         /* Typography & Components */
         .modal-title { font-size: 1.875rem; font-weight: 700; color: #000; margin-bottom: 1rem; }
@@ -257,7 +354,7 @@
         
         .prompt-display { background-color: #f9f9f9; border: 1px solid #e5e5e5; border-radius: 0.5rem; padding: 1rem; font-size: 0.875rem; line-height: 1.6; font-family: 'Courier New', monospace; color: #323232; position: relative; }
         
-        .copy-icon-btn { position: absolute; top: 0.75rem; right: 0.75rem; background: #a7e169; color: #000; border: none; border-radius: 0.375rem; padding: 0.5rem 0.75rem; cursor: pointer; font-size: 0.875rem; font-weight: 600; transition: all 0.3s ease; display: flex; align-items: center; gap: 0.5rem; }
+        .copy-icon-btn { position: absolute; top: 0.75rem; right: 0.75rem; background: #a7e169; color: #000; border: none; border-radius: 0.375rem; padding: 0.5rem 0.75rem; cursor: pointer; font-size: 0.875rem; font-weight: 600; transition: all 0.3s ease; display: flex; align-items: center; gap: 0.5rem; z-index: 5; }
         .copy-icon-btn:hover { background: #ed2939; color: white; transform: translateY(-2px); }
         .copy-icon-btn.copied { background: #323232; color: white; }
 
@@ -275,9 +372,9 @@
 
         /* Animation Blobs */
         @keyframes blob {
-            0% { transform: translate(0px, 0px) scale(1); }
-            33% { transform: translate(30px, -50px) scale(1.1); }
-            66% { transform: translate(-20px, 20px) scale(0.9); }
+            0%   { transform: translate(0px, 0px) scale(1); }
+            33%  { transform: translate(30px, -50px) scale(1.1); }
+            66%  { transform: translate(-20px, 20px) scale(0.9); }
             100% { transform: translate(0px, 0px) scale(1); }
         }
         .animate-blob { animation: blob 7s infinite; }
@@ -288,15 +385,13 @@
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
-
         /* Image Loading Animation */
         .img-loading {
             opacity: 0;
-            transform: scale(0.95);
-            transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-            filter: blur(10px); /* Initially blurred */
+            transform: scale(0.97);
+            transition: opacity 0.5s ease-out, transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.5s ease;
+            filter: blur(8px);
         }
-
         .img-loaded {
             opacity: 1;
             transform: scale(1);
@@ -308,31 +403,24 @@
             background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
             background-size: 200% 100%;
             animation: skeleton-loading 1.5s infinite;
-            width: 100%;
-            height: 100%;
-            min-height: 250px; /* Placeholder height */
+            width: 100%; height: 100%;
+            min-height: 250px;
             position: absolute;
-            top: 0;
-            left: 0;
-            border-radius: 0.5rem;
+            top: 0; left: 0;
+            border-radius: 0.75rem;
         }
-
         @keyframes skeleton-loading {
-            0% { background-position: 200% 0; }
+            0%   { background-position: 200% 0; }
             100% { background-position: -200% 0; }
         }
 
-        /* Smooth Image Transition */
+        /* Modal Image Transition */
         #modal-image-main {
             transition: opacity 0.3s ease-in-out, transform 0.3s ease;
-            opacity: 1;
-            transform: scale(1);
+            opacity: 1; transform: scale(1);
         }
-        
-        /* Hidden State (When switching) */
         #modal-image-main.switching {
-            opacity: 0;
-            transform: scale(0.95); /* နည်းနည်းလေး ကျုံ့သွားမယ် */
+            opacity: 0; transform: scale(0.95);
         }
     </style>
 </head>
@@ -345,19 +433,17 @@
                     <div class="flex items-center">
                         <a href="/index.html"><img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png" alt="ART de ONE" class="h-10 w-auto"></a>
                     </div>
-                    
                     <div class="hidden md:flex items-center space-x-4 nav-center">
                         <a href="/index.html#home" class="nav-link">Home</a>
-                        <a href="/prompt.html" class="nav-link  font-bold text-black" style="color: #000 !important;">Prompts</a>
+                        <a href="/prompt.html" class="nav-link font-bold text-black" style="color: #000 !important;">Prompts</a>
+                        <a href="/shop.html" class="nav-link">Shop</a>
                         <a href="/blog.html" class="nav-link">Blog</a>
                         <a href="/resources/resources-collection.html" class="nav-link">Resources</a>
                         <a href="/index.html#contact" class="nav-link">Contact</a>
                     </div>
-                    
                     <div class="hidden md:block">
                         <a href="/Private/student-login.html" class="nav-btn">Student Login</a>
                     </div>
-                    
                     <div class="md:hidden flex items-center">
                         <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md hover:bg-gray-100 focus:outline-none" id="mobile-menu-button">
                             <div class="icon-container text-black">
@@ -369,11 +455,11 @@
                 </div>
             </div>
         </div>
-        
         <div class="mobile-menu md:hidden hidden" id="mobile-menu">
             <div class="py-2 px-4 space-y-1 bg-white border-b border-gray-100">
                 <a href="/index.html#home" class="block py-2 mobile-nav-link">Home</a>
                 <a href="/prompt.html" class="block py-2 mobile-nav-link font-bold text-black">Prompts</a>
+                <a href="/shop.html" class="block py-2 mobile-nav-link">Shop</a>
                 <a href="/blog.html" class="block py-2 mobile-nav-link">Blog</a>
                 <a href="/resources/resources-collection.html" class="block py-2 mobile-nav-link">Resources</a>
                 <a href="/index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
@@ -383,27 +469,15 @@
     </nav>
 
     <main>
-    <!-- Hero Section -->
+    <!-- Hero Section — CLEANED: No badge, no dots -->
     <section class="relative pt-40 pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        
-        <!-- Background Decoration: Dot Pattern -->
-        <div class="absolute inset-0 z-0 opacity-[0.4]" 
-             style="background-image: radial-gradient(#e5e7eb 1.5px, transparent 1.5px); background-size: 24px 24px;">
-        </div>
 
-        <!-- Floating Abstract Shapes -->
+        <!-- Floating Abstract Shapes (kept) -->
         <div class="absolute top-20 left-10 md:left-20 w-24 h-24 bg-gray-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
         <div class="absolute top-40 right-10 md:right-20 w-32 h-32 bg-[#a7e169] rounded-full mix-blend-multiply filter blur-2xl opacity-20 animate-blob animation-delay-2000"></div>
         <div class="absolute -bottom-8 left-1/3 w-32 h-32 bg-gray-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
 
         <div class="relative z-10 max-w-7xl mx-auto text-center">
-            <!-- Badge -->
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 shadow-sm mb-8" data-aos="fade-down">
-                <span class="w-2 h-2 rounded-full bg-[#a7e169] animate-pulse"></span>
-                <span class="text-xs font-bold uppercase tracking-widest text-gray-500">AI Prompt Library</span>
-            </div>
-
-            <!-- Original Text & Button -->
             <h1 class="text-5xl sm:text-6xl md:text-7xl font-bold leading-tight mb-6 artdeone-font" data-aos="fade-up">
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-black to-[#a7e169]">AI Prompts Gallery</span>
             </h1>
@@ -415,7 +489,7 @@
             <div data-aos="fade-up" data-aos-delay="200">
                 <button 
                     onclick="openGeneratePanel()" 
-                    class="inline-flex items-center gap-3 bg-[#ed2939] text-white border-2 border-gray-100  font-bold py-4 px-10 rounded-full transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-green-100 group"
+                    class="inline-flex items-center gap-3 bg-[#ed2939] text-white border-2 border-gray-100 font-bold py-4 px-10 rounded-full transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-green-100 group"
                 >
                     <i class="fas fa-sparkles text-[#ed2939] group-hover:rotate-12 transition-transform"></i>
                     <span>Generate My Prompt</span>
@@ -426,46 +500,26 @@
     </section>
 
     <!-- Generate Panel Overlay -->
-    <div id="generate-panel-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] opacity-0 invisible transition-all duration-300">
-    </div>
+    <div id="generate-panel-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] opacity-0 invisible transition-all duration-300"></div>
 
     <!-- Generate Panel (Slide from Right) -->
     <div id="generate-panel" class="fixed top-0 right-0 h-full w-full md:w-[600px] bg-white shadow-2xl z-[101] transform translate-x-full transition-transform duration-500 ease-out overflow-y-auto">
         <div class="relative h-full flex flex-col">
-            <!-- Panel Header -->
             <div class="flex-shrink-0 border-b border-gray-200 px-8 py-6 flex items-center justify-between">
                 <h2 class="text-3xl font-bold text-black">Generate</h2>
                 <button onclick="closeGeneratePanel()" class="w-10 h-10 flex items-center justify-center hover:bg-gray-100 rounded-lg transition-colors duration-200">
                     <i class="fas fa-times text-gray-600 text-xl"></i>
                 </button>
             </div>
-
-            <!-- Panel Content -->
             <div class="flex-1 p-8 space-y-8">
-                <!-- What do you want to create? -->
                 <div>
-                    <label for="panel-topic" class="block text-lg font-bold text-black mb-4">
-                        What do you want to create?
-                    </label>
-                    <textarea 
-                        id="panel-topic" 
-                        rows="8"
-                        placeholder="e.g., A futuristic city at sunset with flying cars..." 
-                        class="w-full px-6 py-5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-black focus:bg-white transition-all duration-300 text-gray-800 placeholder-gray-400 text-base resize-none"
-                        required
-                    ></textarea>
+                    <label for="panel-topic" class="block text-lg font-bold text-black mb-4">What do you want to create?</label>
+                    <textarea id="panel-topic" rows="8" placeholder="e.g., A futuristic city at sunset with flying cars..." class="w-full px-6 py-5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-black focus:bg-white transition-all duration-300 text-gray-800 placeholder-gray-400 text-base resize-none" required></textarea>
                 </div>
-
-                <!-- Style Selector -->
                 <div>
-                    <label for="panel-style" class="block text-lg font-bold text-black mb-4">
-                        Select Your Style
-                    </label>
+                    <label for="panel-style" class="block text-lg font-bold text-black mb-4">Select Your Style</label>
                     <div class="relative">
-                        <select 
-                            id="panel-style"
-                            class="w-full px-6 py-5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-black focus:bg-white transition-all duration-300 text-gray-800 appearance-none cursor-pointer text-base"
-                        >
+                        <select id="panel-style" class="w-full px-6 py-5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-black focus:bg-white transition-all duration-300 text-gray-800 appearance-none cursor-pointer text-base">
                             <option value="realistic">Realistic & Photographic</option>
                             <option value="anime">Anime & Manga</option>
                             <option value="cartoon">Cartoon & Illustration</option>
@@ -478,18 +532,12 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Result Display (Hidden by default) -->
                 <div id="panel-result-container" class="hidden">
                     <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="text-base font-bold text-black">Your Generated Prompt</h3>
-                            <button 
-                                onclick="copyPanelPrompt()" 
-                                class="text-sm font-semibold text-black hover:text-gray-600 transition-colors duration-200 flex items-center gap-2"
-                            >
-                                <i class="fas fa-copy"></i>
-                                <span>Copy</span>
+                            <button onclick="copyPanelPrompt()" class="text-sm font-semibold text-black hover:text-gray-600 transition-colors duration-200 flex items-center gap-2">
+                                <i class="fas fa-copy"></i><span>Copy</span>
                             </button>
                         </div>
                         <div class="bg-white rounded-lg p-5 border border-gray-200">
@@ -502,20 +550,12 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Generate Button (Sticky Bottom) -->
             <div class="flex-shrink-0 border-t border-gray-200 p-8">
-                <button 
-                    id="panel-generate-btn"
-                    onclick="generateFromPanel()"
-                    class="w-full bg-[#a7e169] hover:bg-[#ed2939] text-black hover:text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 shadow-md hover:shadow-xl transform hover:-translate-y-1"
-                >
+                <button id="panel-generate-btn" onclick="generateFromPanel()" class="w-full bg-[#a7e169] hover:bg-[#ed2939] text-black hover:text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 shadow-md hover:shadow-xl transform hover:-translate-y-1">
                     <span>Generate My Prompt</span>
                     <i class="fas fa-arrow-right"></i>
                 </button>
             </div>
-
-            <!-- Loading State -->
             <div id="panel-loading" class="hidden absolute inset-0 bg-white/95 backdrop-blur-sm flex items-center justify-center z-20">
                 <div class="text-center">
                     <div class="w-12 h-12 border-3 border-gray-200 border-t-black rounded-full animate-spin mb-4"></div>
@@ -524,47 +564,29 @@
             </div>
         </div>
     </div>
+
     <!-- Prompts Gallery Section -->
     <section class="py-16 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
-            <div id="prompts-gallery" class="masonry-grid">
-                <!-- Cards will be dynamically inserted here -->
-            </div>
-
+            <div id="prompts-gallery" class="masonry-grid"></div>
             <div class="text-center mt-12">
-                <button id="load-more-btn" class="load-more-btn">
-                    Load More
-                </button>
+                <button id="load-more-btn" class="load-more-btn">Load More</button>
             </div>
         </div>
     </section>
 
-    <!-- Modal (Jelly Animation & Layout Fixed) -->
+    <!-- Modal -->
     <div id="prompt-modal" class="modal">
         <div class="modal-content">
             <div class="modal-close" onclick="closeModal()">
                 <i class="fas fa-times"></i>
             </div>
-            
-            <!-- Left Side - Image Gallery -->
             <div class="modal-left relative bg-gray-100 flex flex-col md:flex-row h-full overflow-hidden">
-                
-                <!-- Main Image Area -->
                 <div class="modal-image-container flex-1 w-full h-full flex items-center justify-center p-4 md:p-8 bg-gray-100 relative min-h-0">
-                    <img id="modal-image-main" 
-                         class="max-w-full max-h-full object-contain shadow-lg rounded-3xl mx-auto" 
-                         src="" 
-                         alt="Main Image">
+                    <img id="modal-image-main" class="max-w-full max-h-full object-contain shadow-lg rounded-3xl mx-auto" src="" alt="Main Image">
                 </div>
-
-                <!-- Thumbnails Sidebar -->
-                <div id="modal-thumbnails" class="bg-white md:w-24 w-full flex md:flex-col flex-row gap-3 p-3 overflow-x-auto md:overflow-y-auto md:overflow-x-hidden border-t md:border-t-0 md:border-l border-gray-200 z-10 shrink-0 scrollbar-hide justify-center md:justify-start items-center flex-shrink-0" style="min-height: 80px;">
-                    <!-- Thumbnails will be injected here via JS -->
-                </div>
-
+                <div id="modal-thumbnails" class="bg-white md:w-24 w-full flex md:flex-col flex-row gap-3 p-3 overflow-x-auto md:overflow-y-auto md:overflow-x-hidden border-t md:border-t-0 md:border-l border-gray-200 z-10 shrink-0 scrollbar-hide justify-center md:justify-start items-center flex-shrink-0" style="min-height: 80px;"></div>
             </div>
-
-            <!-- Right Side - Details -->
             <div class="modal-right">
                 <div class="modal-body">
                     <div class="flex items-start justify-between mb-2">
@@ -573,37 +595,29 @@
                     <div class="mb-6">
                         <span id="modal-model" class="model-tag"></span>
                     </div>
-
                     <div class="modal-section">
                         <h4>Full Prompt</h4>
                         <div class="prompt-display">
                             <button class="copy-icon-btn" onclick="copyModalPrompt()">
-                                <i class="fas fa-copy"></i>
-                                <span>Copy</span>
+                                <i class="fas fa-copy"></i><span>Copy</span>
                             </button>
                             <p id="modal-prompt" style="padding-right: 100px;"></p>
                         </div>
                     </div>
-
                     <div class="modal-section">
                         <h4>Prompt Breakdown</h4>
-                        <div id="modal-breakdown" class="breakdown-grid">
-                            <!-- Breakdown items will be inserted here -->
-                        </div>
+                        <div id="modal-breakdown" class="breakdown-grid"></div>
                     </div>
-                    
-                    <!-- Unused Buttons Removed -->
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-    // Panel Functions
+    // Panel Functions (UNCHANGED)
     function openGeneratePanel() {
         const panel = document.getElementById('generate-panel');
         const overlay = document.getElementById('generate-panel-overlay');
-        
         panel.classList.remove('translate-x-full');
         overlay.classList.remove('invisible', 'opacity-0');
         document.body.style.overflow = 'hidden';
@@ -612,23 +626,16 @@
     function closeGeneratePanel() {
         const panel = document.getElementById('generate-panel');
         const overlay = document.getElementById('generate-panel-overlay');
-        
         panel.classList.add('translate-x-full');
         overlay.classList.add('invisible', 'opacity-0');
         document.body.style.overflow = 'auto';
     }
 
-    // Close panel when clicking overlay
     document.getElementById('generate-panel-overlay').addEventListener('click', closeGeneratePanel);
-
-    // Close panel on Escape key
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            closeGeneratePanel();
-        }
+        if (e.key === 'Escape') closeGeneratePanel();
     });
 
-    // Generate from Panel
     async function generateFromPanel() {
         const topic = document.getElementById('panel-topic').value;
         const style = document.getElementById('panel-style').value;
@@ -639,44 +646,25 @@
         const generatedImageEl = document.getElementById('panel-generated-image');
         const btnEl = document.getElementById('panel-generate-btn');
 
-        if (!topic.trim()) {
-            alert('Please enter what you want to create');
-            return;
-        }
+        if (!topic.trim()) { alert('Please enter what you want to create'); return; }
 
-        // Hide previous results
         resultContainer.classList.add('hidden');
-        
-        // Show loading
         loadingEl.classList.remove('hidden');
         btnEl.disabled = true;
 
         try {
             const result = await generateAIPrompt(topic, style);
-            
-            console.log('API Response:', result); // Debug log
-            
-            // Display the generated prompt
+            console.log('API Response:', result);
             generatedPromptEl.textContent = result.prompt;
-            
-            // Display image if available
             if (result.image && result.image.trim() !== '') {
-                console.log('Image URL:', result.image); // Debug log
+                console.log('Image URL:', result.image);
                 generatedImageEl.src = result.image;
-                generatedImageEl.onload = function() {
-                    console.log('Image loaded successfully');
-                    generatedImageContainer.classList.remove('hidden');
-                };
-                generatedImageEl.onerror = function() {
-                    console.error('Image failed to load');
-                    generatedImageContainer.classList.add('hidden');
-                };
+                generatedImageEl.onload = function() { console.log('Image loaded successfully'); generatedImageContainer.classList.remove('hidden'); };
+                generatedImageEl.onerror = function() { console.error('Image failed to load'); generatedImageContainer.classList.add('hidden'); };
             } else {
-                console.log('No image in response'); // Debug log
+                console.log('No image in response');
                 generatedImageContainer.classList.add('hidden');
             }
-            
-            // Show results
             resultContainer.classList.remove('hidden');
         } catch (error) {
             alert('Error generating prompt. Please try again.');
@@ -687,14 +675,9 @@
         }
     }
 
-    // Copy prompt from panel
     function copyPanelPrompt() {
         const text = document.getElementById('panel-generated-prompt').textContent;
-        navigator.clipboard.writeText(text).then(() => {
-            alert('Prompt copied to clipboard!');
-        }).catch(err => {
-            console.error('Failed to copy text: ', err);
-        });
+        navigator.clipboard.writeText(text).then(() => { alert('Prompt copied to clipboard!'); }).catch(err => { console.error('Failed to copy text: ', err); });
     }
 
     async function generateAIPrompt(topic, style) {
@@ -710,11 +693,9 @@
                 throw new Error(errorData.error || `Server Error: ${response.status}`);
             }
             return await response.json();
-        } catch (error) {
-            throw error;
-        }
+        } catch (error) { throw error; }
     }
-</script>
+    </script>
     </main>
 
     <footer class="bg-white text-[#323232] py-12 border-t border-gray-200">
@@ -722,20 +703,18 @@
             <div class="grid md:grid-cols-4 gap-8">
                 <div>
                     <span class="text-xl font-bold mb-4 block text-black">ART de ONE</span>
-                    <p class="text-gray-500 text-sm">
-                        Freelance Graphic Designer & Illustrator Portfolio, Blog, Resources and Online Courses
-                    </p>
+                    <p class="text-gray-500 text-sm">Freelance Graphic Designer & Illustrator Portfolio, Blog, Resources and Online Courses</p>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4 text-black">Quick Links</h3>
                     <ul class="space-y-2 text-sm">
                         <li><a href="index.html#home" class="text-gray-500 hover:text-black transition duration-300">Home</a></li>
                         <li><a href="/prompt.html" class="text-gray-500 hover:text-black transition duration-300">Prompts</a></li>
+                        <li><a href="/shop.html" class="text-gray-500 hover:text-black transition duration-300">Shop</a></li>
                         <li><a href="/blog.html" class="text-gray-500 hover:text-black transition duration-300">Blog</a></li>
                         <li><a href="/resources/resources-collection.html" class="text-gray-500 hover:text-black transition duration-300">Resources</a></li>
                     </ul>
                 </div>
-
                 <div>
                     <h3 class="text-lg font-semibold mb-4 text-black">Services</h3>
                     <ul class="space-y-2 text-sm">
@@ -744,19 +723,16 @@
                         <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Printing</a></li>
                     </ul>
                 </div>
-
                 <div>
                     <h3 class="text-lg font-semibold mb-4 text-black">Contact</h3>
                     <ul class="space-y-2 text-sm">
-                         <li><a href="/index.html#about" class="text-gray-500 hover:text-black transition duration-300">About</a></li>
+                        <li><a href="/index.html#about" class="text-gray-500 hover:text-black transition duration-300">About</a></li>
                         <li><a href="/index.html#contact" class="text-gray-500 hover:text-black transition duration-300">Contact</a></li>
                     </ul>
                 </div>
             </div>
             <div class="border-t border-gray-200 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-500 text-sm mb-4 md:mb-0">
-                    &copy; 2026 ART de ONE. All rights reserved.
-                </p>
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">&copy; 2026 ART de ONE. All rights reserved.</p>
                 <div class="flex space-x-6 text-sm">
                     <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-facebook-f"></i></a>
                     <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-behance"></i></a>
@@ -778,17 +754,16 @@
         let currentIndex = 0;
         const promptsPerPage = 12;
 
-        // Load prompts
+        // ====== ENHANCED: Load prompts with staggered reveal ======
         function loadPrompts() {
             const gallery = document.getElementById('prompts-gallery');
             const loadMoreBtn = document.getElementById('load-more-btn');
-
             const endIndex = Math.min(currentIndex + promptsPerPage, promptsData.length);
 
             for (let i = currentIndex; i < endIndex; i++) {
                 const prompt = promptsData[i];
                 const card = createPromptCard(prompt, i);
-                gallery.innerHTML += card;
+                gallery.insertAdjacentHTML('beforeend', card);
             }
 
             currentIndex = endIndex;
@@ -797,29 +772,41 @@
                 loadMoreBtn.classList.add('hidden');
             }
 
+            // Staggered reveal animation for new cards
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    const unrevealed = gallery.querySelectorAll('.card-reveal:not(.is-visible)');
+                    unrevealed.forEach((card, i) => {
+                        const delay = i * 80;
+                        card.style.animationDelay = delay + 'ms';
+                        card.classList.add('is-visible');
+
+                        // After animation ends, remove animation classes so hover works cleanly
+                        card.addEventListener('animationend', () => {
+                            card.style.animation = 'none';
+                            card.style.opacity = '1';
+                            card.classList.remove('card-reveal', 'is-visible');
+                        }, { once: true });
+                    });
+                });
+            });
+
             AOS.refresh();
         }
 
-        // Create card HTML with Smooth Loading
+        // ====== ENHANCED: Card HTML with reveal class ======
         function createPromptCard(prompt, index) {
             return `
-                <div class="prompt-card group relative bg-gray-100 rounded-lg overflow-hidden" 
-                     data-aos="fade-up" 
+                <div class="prompt-card card-reveal" 
                      data-prompt-index="${index}" 
-                     onclick="openModalByIndex(${index})"
-                     style="min-height: 200px;"> <!-- Min height to prevent layout shift -->
-                    
-                    <!-- Skeleton Loader (Visible initially) -->
+                     onclick="openModalByIndex(${index})">
                     <div class="img-skeleton absolute inset-0 z-0"></div>
-
-                    <!-- Image with onload handler -->
                     <img src="${prompt.image}" 
                          alt="${prompt.title}" 
                          loading="lazy"
-                         class="img-loading relative z-10 w-full h-auto block rounded-lg transition-transform duration-500 group-hover:scale-105"
+                         class="img-loading relative z-10 w-full h-auto block"
                          onload="this.classList.add('img-loaded'); this.previousElementSibling.style.display='none';">
-                    
-                    <div class="prompt-overlay z-20">
+                    <div class="prompt-overlay">
                         <h3>${prompt.title}</h3>
                         <p>ADO Team</p>
                     </div>
@@ -837,7 +824,7 @@
             loadPrompts();
         });
 
-        // Modal functions
+        // ====== MODAL FUNCTIONS (ALL DATA LOGIC UNCHANGED) ======
         function openModalByIndex(index) {
             const prompt = promptsData[index];
             openModal(prompt);
@@ -847,66 +834,44 @@
             const modal = document.getElementById('prompt-modal');
             const modalImageMain = document.getElementById('modal-image-main');
             const modalThumbnails = document.getElementById('modal-thumbnails');
-            
             const modalTitle = document.getElementById('modal-title');
             const modalModel = document.getElementById('modal-model');
             const modalPrompt = document.getElementById('modal-prompt');
             const modalBreakdown = document.getElementById('modal-breakdown');
 
-            // --- IMAGE GALLERY LOGIC (With Smooth Animation) ---
             const imagesList = prompt.images && prompt.images.length > 0 ? prompt.images : [prompt.image];
             
-            // Set initial image and reset animation state
             modalImageMain.src = imagesList[0];
-            modalImageMain.classList.remove('switching'); 
-            
+            modalImageMain.classList.remove('switching');
             modalThumbnails.innerHTML = '';
 
             if (imagesList.length <= 1) {
                 modalThumbnails.classList.add('hidden');
             } else {
                 modalThumbnails.classList.remove('hidden');
-                
                 imagesList.forEach((imgUrl, index) => {
                     const thumb = document.createElement('img');
                     thumb.src = imgUrl;
                     thumb.className = `w-16 h-16 object-cover rounded-lg cursor-pointer border-2 transition-all duration-200 hover:scale-105 ${index === 0 ? 'border-[#a7e169] opacity-100' : 'border-transparent opacity-60 hover:opacity-100'}`;
-                    
-                    // New Click Event with Animation
                     thumb.onclick = function() {
                         const mainImg = document.getElementById('modal-image-main');
-                        
-                        // 1. Update Active Border on Thumbnails
                         Array.from(modalThumbnails.children).forEach(child => {
                             child.classList.remove('border-[#a7e169]', 'opacity-100');
                             child.classList.add('border-transparent', 'opacity-60');
                         });
                         this.classList.remove('border-transparent', 'opacity-60');
                         this.classList.add('border-[#a7e169]', 'opacity-100');
-
-                        // 2. Start Fade Out Animation
                         mainImg.classList.add('switching');
-
-                        // 3. Wait 300ms, Change Image, then Fade In
                         setTimeout(() => {
                             mainImg.src = imgUrl;
-                            
-                            // Remove blur class once image is loaded
-                            mainImg.onload = () => {
-                                mainImg.classList.remove('switching');
-                            };
-                            
-                            // Safety fallback
+                            mainImg.onload = () => { mainImg.classList.remove('switching'); };
                             setTimeout(() => mainImg.classList.remove('switching'), 50);
-                            
                         }, 300);
                     };
-                    
                     modalThumbnails.appendChild(thumb);
                 });
             }
 
-            // --- TEXT LOGIC ---
             modalTitle.textContent = prompt.title;
             modalModel.textContent = prompt.model;
             modalPrompt.textContent = prompt.prompt;
@@ -919,23 +884,14 @@
                 </div>
             `).join('');
 
-            // --- ANIMATION LOGIC (JELLY EFFECT) ---
             modal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
-            
-            // Small delay to trigger CSS transition
-            requestAnimationFrame(() => {
-                modal.classList.add('active');
-            });
+            requestAnimationFrame(() => { modal.classList.add('active'); });
         }
 
         function closeModal() {
             const modal = document.getElementById('prompt-modal');
-            
-            // --- ANIMATION LOGIC (CLOSE) ---
             modal.classList.remove('active');
-            
-            // Wait for animation to finish before hiding
             setTimeout(() => {
                 modal.style.display = 'none';
                 document.body.style.overflow = 'auto';
@@ -945,12 +901,10 @@
         function copyModalPrompt() {
             const text = document.getElementById('modal-prompt').textContent;
             const btn = event.target.closest('.copy-icon-btn');
-            
             navigator.clipboard.writeText(text).then(() => {
                 const originalHTML = btn.innerHTML;
                 btn.classList.add('copied');
                 btn.innerHTML = '<i class="fas fa-check"></i><span>Copied!</span>';
-
                 setTimeout(() => {
                     btn.classList.remove('copied');
                     btn.innerHTML = originalHTML;
@@ -958,21 +912,11 @@
             });
         }
 
-        // Generate breakdown from prompt
         function generateBreakdown(prompt) {
             const breakdown = [];
             const lower = prompt.toLowerCase();
-
-            // Subject
             const subjectMatch = prompt.match(/^([^,]+)/);
-            if (subjectMatch) {
-                breakdown.push({
-                    label: 'Subject',
-                    value: subjectMatch[1].trim()
-                });
-            }
-
-            // Style
+            if (subjectMatch) breakdown.push({ label: 'Subject', value: subjectMatch[1].trim() });
             if (lower.includes('realistic') || lower.includes('photorealistic') || lower.includes('photo')) {
                 breakdown.push({ label: 'Style', value: 'Photorealistic' });
             } else if (lower.includes('illustration') || lower.includes('vector') || lower.includes('flat')) {
@@ -982,56 +926,29 @@
             } else {
                 breakdown.push({ label: 'Style', value: 'Creative' });
             }
-
-            // Lighting
             if (lower.includes('lighting') || lower.includes('light')) {
                 const lightMatch = prompt.match(/([\w\s]+lighting)/i);
-                breakdown.push({
-                    label: 'Lighting',
-                    value: lightMatch ? lightMatch[1] : 'Professional lighting'
-                });
+                breakdown.push({ label: 'Lighting', value: lightMatch ? lightMatch[1] : 'Professional lighting' });
             }
-
-            // Quality
             if (lower.includes('8k') || lower.includes('4k') || lower.includes('high resolution')) {
                 breakdown.push({ label: 'Quality', value: 'High resolution' });
             }
-
-            // Aspect Ratio
             const arMatch = prompt.match(/--ar\s+([\d:]+)/);
-            if (arMatch) {
-                breakdown.push({
-                    label: 'Aspect Ratio',
-                    value: arMatch[1]
-                });
-            }
-
-            // If we have less than 4 items, add generic ones
-            if (breakdown.length < 4) {
-                breakdown.push({ label: 'Mood', value: 'Professional & Creative' });
-            }
-            if (breakdown.length < 4) {
-                breakdown.push({ label: 'Purpose', value: 'Commercial / Portfolio' });
-            }
-
-            return breakdown.slice(0, 5); // Max 5 items
+            if (arMatch) breakdown.push({ label: 'Aspect Ratio', value: arMatch[1] });
+            if (breakdown.length < 4) breakdown.push({ label: 'Mood', value: 'Professional & Creative' });
+            if (breakdown.length < 4) breakdown.push({ label: 'Purpose', value: 'Commercial / Portfolio' });
+            return breakdown.slice(0, 5);
         }
 
-        // Close modal on Escape
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 const modal = document.getElementById('prompt-modal');
-                if (modal.style.display === 'flex') {
-                    closeModal();
-                }
+                if (modal.style.display === 'flex') closeModal();
             }
         });
 
-        // Close modal on outside click
         document.getElementById('prompt-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
+            if (e.target === this) closeModal();
         });
     </script>
 </body>

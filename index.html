@@ -246,12 +246,14 @@
             background-color: transparent;
             color: #555;
             border: 1px solid #ddd;
-            transition: all 0.3s ease;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .service-tab.active {
             background-color: #a7e169;
             color: #000;
             border-color: #a7e169;
+            box-shadow: 0 4px 18px rgba(167, 225, 105, 0.35);
+            transform: scale(1.03);
         }
         .service-tab:hover:not(.active) {
             background-color: #ed2939;
@@ -370,6 +372,80 @@
     animation: popIcon 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
+/* ====== SMOOTH SERVICE PANEL TRANSITIONS ====== */
+.service-panel {
+    will-change: opacity, transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.service-panels-wrapper {
+    position: relative;
+    overflow: hidden;
+    transition: height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Exit animations — panel goes absolute so new panel can measure naturally */
+.panel-exit-left {
+    animation: panelSlideOutLeft 0.3s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+    pointer-events: none;
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+.panel-exit-right {
+    animation: panelSlideOutRight 0.3s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+    pointer-events: none;
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+/* Enter animations */
+.panel-enter-from-right {
+    animation: panelSlideInFromRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    position: relative;
+    z-index: 2;
+}
+.panel-enter-from-left {
+    animation: panelSlideInFromLeft 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes panelSlideOutLeft {
+    0%   { opacity: 1; transform: translateX(0) translateZ(0); }
+    100% { opacity: 0; transform: translateX(-50px) translateZ(0); }
+}
+@keyframes panelSlideOutRight {
+    0%   { opacity: 1; transform: translateX(0) translateZ(0); }
+    100% { opacity: 0; transform: translateX(50px) translateZ(0); }
+}
+@keyframes panelSlideInFromRight {
+    0%   { opacity: 0; transform: translateX(50px) translateZ(0); }
+    100% { opacity: 1; transform: translateX(0) translateZ(0); }
+}
+@keyframes panelSlideInFromLeft {
+    0%   { opacity: 0; transform: translateX(-50px) translateZ(0); }
+    100% { opacity: 1; transform: translateX(0) translateZ(0); }
+}
+
+/* Child stagger reveal */
+@keyframes panelChildReveal {
+    0%   { opacity: 0; transform: translateY(12px) translateZ(0); }
+    100% { opacity: 1; transform: translateY(0) translateZ(0); }
+}
+.panel-child-stagger {
+    opacity: 0;
+}
+.panel-child-stagger.stagger-show {
+    animation: panelChildReveal 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
 </style>
 </head>
 <body class="bg-white text-[#323232]">
@@ -390,6 +466,7 @@
                     <a href="index.html#home" class="nav-link font-bold" style="color: #000 !important;">Home</a>
                     <!-- <a href="courses.html" class="nav-link">Courses</a> --> 
                     <a href="prompt.html" class="nav-link">Prompts</a>
+                    <a href="shop.html" class="nav-link">Shop</a>
                     <a href="blog.html" class="nav-link">Blog</a>
                     <a href="/resources/resources-collection.html" class="nav-link">Resources</a>
                     <a href="index.html#contact" class="nav-link">Contact</a>
@@ -416,6 +493,7 @@
             <a href="index.html#home" class="block py-2 mobile-nav-link text-black font-bold">Home</a>
            <!-- <a href="courses.html" class="block py-2 mobile-nav-link">Courses</a> -->
             <a href="prompt.html" class="block py-2 mobile-nav-link">Prompts</a>
+            <a href="shop.html" class="block py-2 mobile-nav-link">Shop</a>
             <a href="blog.html" class="block py-2 mobile-nav-link">Blog</a>
             <a href="/resources/resources-collection.html" class="block py-2 mobile-nav-link">Resources</a>
             <a href="index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
@@ -644,19 +722,17 @@
 
                 <!-- Tabs Container (Updated for Horizontal View) -->
                 <div class="flex flex-nowrap justify-center gap-2 md:gap-4 mb-12 overflow-x-auto md:overflow-visible pb-2 md:pb-0" data-aos="fade-up">
-                    <!-- Button 1 -->
                     <button class="service-tab px-3 md:px-6 py-3 rounded-full text-xs md:text-sm font-semibold active whitespace-nowrap flex-shrink-0" onclick="switchService('logo')">Logo Design</button>
-                    
-                    <!-- Button 2 -->
                     <button class="service-tab px-3 md:px-6 py-3 rounded-full text-xs md:text-sm font-semibold whitespace-nowrap flex-shrink-0" onclick="switchService('social')">Social Media</button>
-                    
-                    <!-- Button 3 -->
                     <button class="service-tab px-3 md:px-6 py-3 rounded-full text-xs md:text-sm font-semibold whitespace-nowrap flex-shrink-0" onclick="switchService('printing')">Printing</button>
                 </div>
 
+                <!-- SERVICE PANELS WRAPPER -->
+                <div class="service-panels-wrapper">
+
                 <div id="logo-panel" class="service-panel block">
     <!-- MAIN LOGO SERVICE CARD -->
-    <div class="minimalist-card flex flex-col md:flex-row gap-8 items-center data-aos=fade-up data-aos-delay=100">
+    <div class="minimalist-card flex flex-col md:flex-row gap-8 items-center panel-child-stagger" data-aos="fade-up" data-aos-delay="100">
         <div class="flex-1">
             <div class="flex items-center mb-6">
                 <div class="icon-circle mr-4"><i class="fas fa-pen-nib"></i></div>
@@ -700,7 +776,7 @@
     </div>
 
         <!-- REVISION PACKAGES SECTION (3 PACKAGES FIXED) -->
-    <div class="mt-16" data-aos="fade-up">
+    <div class="mt-16 panel-child-stagger" data-aos="fade-up">
         <div class="flex items-center justify-between mb-8">
             <h3 class="text-xl font-bold text-black flex items-center">
                 <i class="fas fa-sync-alt text-[#a7e169] mr-3"></i> Revision & Support Packages
@@ -712,7 +788,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             
             <!-- Package 1: Essential -->
-            <div class="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group flex flex-col">
+            <div class="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group flex flex-col panel-child-stagger">
                 <div class="flex justify-between items-start mb-4">
                     <div>
                         <h4 class="font-bold text-black text-lg group-hover:text-[#a7e169] transition-colors">Essential</h4>
@@ -738,7 +814,7 @@
             </div>
 
             <!-- Package 2: Professional -->
-            <div class="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden flex flex-col">
+            <div class="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden flex flex-col panel-child-stagger">
                 <div class="absolute top-0 right-0 bg-[#a7e169] w-16 h-16 transform translate-x-8 -translate-y-8 rotate-45"></div>
                 
                 <div class="flex justify-between items-start mb-4 relative z-10">
@@ -766,7 +842,7 @@
             </div>
 
             <!-- Package 3: Monthly Unlimited (FIXED ALIGNMENT) -->
-            <div class="bg-white border-2 border-[#a7e169] rounded-xl p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group shadow-md flex flex-col relative">
+            <div class="bg-white border-2 border-[#a7e169] rounded-xl p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group shadow-md flex flex-col relative panel-child-stagger">
                 <!-- Best Value Badge -->
                 <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-[#a7e169] text-black text-xs font-bold px-3 py-1 rounded-full shadow-sm">
                     BEST VALUE
@@ -801,7 +877,7 @@
 
 
     <!-- INFO CARD (EXISTING) -->
-    <div class="mt-8 p-6 bg-white rounded-xl border border-gray-200 shadow-sm" data-aos="fade-up" data-aos-delay="100">
+    <div class="mt-8 p-6 bg-white rounded-xl border border-gray-200 shadow-sm panel-child-stagger" data-aos="fade-up" data-aos-delay="100">
         <h4 class="font-semibold text-black mb-3 flex items-center">
             <i class="fas fa-info-circle text-[#a7e169] mr-3"></i> Logo Design အတွက် လူကြီးမင်းတို့ သိထားသင့်တဲ့အချက်အလက်များ
         </h4>
@@ -836,7 +912,7 @@
 
 
                 <div id="social-panel" class="service-panel hidden">
-                    <div class="mb-6" data-aos="fade-up">
+                    <div class="mb-6 panel-child-stagger" data-aos="fade-up">
                         <div class="flex items-center mb-4">
                             <div class="icon-circle mr-4"><i class="fas fa-hashtag"></i></div>
                             <h3 class="text-2xl font-bold text-black">Social Media Design</h3>
@@ -845,7 +921,7 @@
                     </div>
 
                     <div class="grid md:grid-cols-3 gap-6 mt-8">
-                        <div class="minimalist-card data-aosfade-up data-aos-delay100">
+                        <div class="minimalist-card panel-child-stagger data-aosfade-up data-aos-delay100">
                             <div class="flex items-center justify-between mb-3">
                                 <h4 class="font-semibold text-black text-lg">Starter Pack</h4>
                                 
@@ -880,7 +956,7 @@
                             <a href="#contact" class="btn-primary w-full block text-center">Starter ရွေးမည်</a>
                         </div>
 
-                        <div class="minimalist-card data-aosfade-up data-aos-delay100" style="border: 2px solid #ed2939;">
+                        <div class="minimalist-card panel-child-stagger data-aosfade-up data-aos-delay100" style="border: 2px solid #ed2939;">
 
                             <div class="flex items-center justify-between mb-3">
                                 <h4 class="font-semibold text-black text-lg">Growth Pack</h4>
@@ -928,7 +1004,7 @@
                             <a href="#contact" class="btn-primary w-full block text-center">Growth ရွေးမည်</a>
                         </div>
 
-                        <div class="minimalist-card data-aosfade-up data-aos-delay100">
+                        <div class="minimalist-card panel-child-stagger data-aosfade-up data-aos-delay100">
                             <h4 class="font-semibold text-black text-lg mb-3">Pro Pack</h4>
                             <div class="flex items-baseline gap-2 mb-2">
                                 <span class="text-3xl font-bold text-black">648,000</span>
@@ -964,7 +1040,7 @@
                         </div>
                     </div>
 
-                    <div class="mt-8 p-6 bg-white rounded-xl border border-gray-200 shadow-sm" data-aos="fade-up" data-aos-delay="100">
+                    <div class="mt-8 p-6 bg-white rounded-xl border border-gray-200 shadow-sm panel-child-stagger" data-aos="fade-up" data-aos-delay="100">
                         <h4 class="font-semibold text-black mb-4 flex items-center text-lg">
                             <i class="fas fa-info-circle text-[#a7e169] mr-3"></i> Social Media Design အတွက် သိထားသင့်တဲ့အချက်အလက်များ
                         </h4>
@@ -979,7 +1055,7 @@
                             </li>
                             <li class="flex items-start">
                                 <span class="text-[#a7e169] mr-3 mt-1">→</span>
-                                <span>Package ထက်ကျော်လွန်သောပို့စ် များကို တစ်ပုံစျေးနူန်းဖြင့်ပြုလုပ်ပေးခြင်း</span>
+                                <span>Package ထက်ကျော်လွန်သောပို့စ် များကို တစ်ပုံစျေးနူန်းဖြင့်ပြုလုပ်ပေးခြင်း</span>
                             </li>
                             <li class="flex items-start">
                                 <span class="text-[#a7e169] mr-3 mt-1">→</span>
@@ -998,7 +1074,7 @@
                 </div>
 
                 <div id="printing-panel" class="service-panel hidden">
-                    <div class="minimalist-card flex flex-col md:flex-row gap-8 items-center data-aosfade-up data-aos-delay100">
+                    <div class="minimalist-card flex flex-col md:flex-row gap-8 items-center panel-child-stagger data-aosfade-up data-aos-delay100">
                         <div class="flex-1">
                             <div class="flex items-center mb-6">
                                 <div class="icon-circle mr-4"><i class="fas fa-print"></i></div>
@@ -1021,6 +1097,9 @@
                         </div>
                     </div>
                 </div>
+
+                </div><!-- END service-panels-wrapper -->
+
             </div>
         </section>
 
@@ -1194,6 +1273,7 @@
                         <li><a href="index.html#home" class="text-gray-500 hover:text-black transition duration-300">Home</a></li>
                       <!--  <li><a href="courses.html" class="text-gray-500 hover:text-black transition duration-300">Courses</a></li> -->
                         <li><a href="/prompt.html" class="text-gray-500 hover:text-black transition duration-300">Prompts</a></li>
+                        <li><a href="/shop.html" class="text-gray-500 hover:text-black transition duration-300">Shop</a></li>
                         <li><a href="/blog.html" class="text-gray-500 hover:text-black transition duration-300">Blog</a></li>
                         <li><a href="/resources/resources-collection.html" class="text-gray-500 hover:text-black transition duration-300">Resources</a></li>
                     </ul>
@@ -1215,14 +1295,6 @@
                         <li><a href="/index.html#contact" class="text-gray-500 hover:text-black transition duration-300">Contact</a></li>
                     </ul>
                 </div> 
-                <!-- <div>
-                    <h3 class="text-lg font-semibold mb-4 text-black">Classes</h3>
-                    <ul class="space-y-2 text-sm">
-                         <li><a href="courses/basic-illustrator/course-detail-basic.html" class="text-gray-500 hover:text-black transition duration-300">Basic Course</a></li>
-                        <li><a href="courses/intermediate-illustrator/course-detail-intermediate.html" class="text-gray-500 hover:text-black transition duration-300">Intermediate</a></li>
-                        <li><a href="courses/graphic-design/course-detail-graphic-design.html" class="text-gray-500 hover:text-black transition duration-300">Graphic Design</a></li>
-                    </ul>
-                </div> -->
                 
             </div>
             <div class="border-t border-gray-200 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
@@ -1246,15 +1318,34 @@
         AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
         feather.replace();
 
-        // Init Icon Animation for default panel
-        const defaultPanel = document.querySelector('.service-panel:not(.hidden)');
-        if(defaultPanel) {
-            const icons = defaultPanel.querySelectorAll('.pop-in-icon');
-            icons.forEach((icon, index) => {
-                icon.style.animationDelay = (index * 100) + 'ms';
-                icon.classList.add('animate');
-            });
-        }
+        // ====== SMOOTH SERVICE SWITCHER (Rebuilt for butter-smooth transitions) ======
+        let currentServiceIndex = 0;
+        let isServiceSwitching = false;
+        const serviceOrder = ['logo', 'social', 'printing'];
+        const ANIMATION_CONFIG = {
+            exitDuration: 250,
+            enterDuration: 450,
+            staggerDelay: 60,
+            iconDelay: 40,
+            heightEase: 'cubic-bezier(0.16, 1, 0.3, 1)'
+        };
+
+        // Init: show default panel children immediately
+        (function initDefaultPanel() {
+            const defaultPanel = document.querySelector('.service-panel:not(.hidden)');
+            if (defaultPanel) {
+                const icons = defaultPanel.querySelectorAll('.pop-in-icon');
+                icons.forEach((icon, index) => {
+                    icon.style.animationDelay = (index * 100) + 'ms';
+                    icon.classList.add('animate');
+                });
+                const children = defaultPanel.querySelectorAll('.panel-child-stagger');
+                children.forEach(child => {
+                    child.style.opacity = '1';
+                    child.style.transform = 'none';
+                });
+            }
+        })();
         
         // Scroll indicator
         window.addEventListener('scroll', function() {
@@ -1262,28 +1353,124 @@
             const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
             scrollIndicator.style.width = scrolled + '%';
         });
+
+        // Helper: clean all animation classes from a panel
+        function cleanPanelClasses(panel) {
+            panel.classList.remove(
+                'panel-exit-left', 'panel-exit-right',
+                'panel-enter-from-left', 'panel-enter-from-right'
+            );
+            panel.style.opacity = '';
+            panel.style.transform = '';
+            panel.style.position = '';
+            panel.style.top = '';
+            panel.style.left = '';
+            panel.style.right = '';
+            panel.style.zIndex = '';
+        }
+
+        // Helper: reset stagger children in a panel
+        function resetPanelChildren(panel) {
+            panel.querySelectorAll('.panel-child-stagger').forEach(child => {
+                child.classList.remove('stagger-show');
+                child.style.opacity = '';
+                child.style.transform = '';
+                child.style.animationDelay = '';
+            });
+            panel.querySelectorAll('.pop-in-icon').forEach(icon => {
+                icon.classList.remove('animate');
+                icon.style.animationDelay = '';
+            });
+        }
+
+        // Helper: reveal children with stagger
+        function revealPanelChildren(panel) {
+            const children = panel.querySelectorAll('.panel-child-stagger');
+            children.forEach((child, index) => {
+                child.style.animationDelay = (index * ANIMATION_CONFIG.staggerDelay + 80) + 'ms';
+                child.classList.add('stagger-show');
+            });
+            const icons = panel.querySelectorAll('.pop-in-icon');
+            icons.forEach((icon, index) => {
+                icon.classList.remove('animate');
+                void icon.offsetWidth; // Force reflow
+                icon.style.animationDelay = (index * ANIMATION_CONFIG.iconDelay + 150) + 'ms';
+                icon.classList.add('animate');
+            });
+        }
         
-        // Service Switcher
+        // ====== MAIN SWITCH FUNCTION ======
         function switchService(service) {
-        // Reset Tabs
-        document.querySelectorAll('.service-tab').forEach(btn => btn.classList.remove('active'));
-        event.target.classList.add('active');
+            if (isServiceSwitching) return;
 
-        // Reset Panels
-        document.querySelectorAll('.service-panel').forEach(panel => panel.classList.add('hidden'));
+            const newIndex = serviceOrder.indexOf(service);
+            if (newIndex === currentServiceIndex) return;
 
-        const activePanel = document.getElementById(service + '-panel');
-        activePanel.classList.remove('hidden');
+            isServiceSwitching = true;
 
-        // Trigger Icon Animation
-        const icons = activePanel.querySelectorAll('.pop-in-icon');
-        icons.forEach((icon, index) => {
-            icon.classList.remove('animate');
-            void icon.offsetWidth; // trigger reflow
-            icon.style.animationDelay = (index * 100) + 'ms';
-            icon.classList.add('animate');
-        });
-    }
+            const goingForward = newIndex > currentServiceIndex;
+            const exitClass = goingForward ? 'panel-exit-left' : 'panel-exit-right';
+            const enterClass = goingForward ? 'panel-enter-from-right' : 'panel-enter-from-left';
+
+            // Update tabs
+            document.querySelectorAll('.service-tab').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const wrapper = document.querySelector('.service-panels-wrapper');
+            const currentPanel = document.querySelector('.service-panel:not(.hidden)');
+            const newPanel = document.getElementById(service + '-panel');
+
+            if (!currentPanel || !newPanel) {
+                isServiceSwitching = false;
+                return;
+            }
+
+            // ── STEP 1: Lock wrapper height to prevent layout jump ──
+            const currentHeight = wrapper.offsetHeight;
+            wrapper.style.height = currentHeight + 'px';
+
+            // ── STEP 2: Start exit animation on current panel ──
+            // The CSS class makes it position:absolute so it overlays
+            currentPanel.classList.add(exitClass);
+
+            // ── STEP 3: Prepare & show new panel (hidden by enter animation's opacity:0 start) ──
+            resetPanelChildren(newPanel);
+            newPanel.style.opacity = '0';
+            newPanel.classList.remove('hidden');
+
+            // Measure the new panel's natural height while it's in the DOM
+            const newHeight = newPanel.offsetHeight;
+
+            // ── STEP 4: Start enter animation + height transition (next frame for smoothness) ──
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    newPanel.style.opacity = '';
+                    newPanel.classList.add(enterClass);
+
+                    // Smoothly animate wrapper to new height
+                    wrapper.style.height = newHeight + 'px';
+
+                    // Start staggering children concurrently with the panel slide
+                    revealPanelChildren(newPanel);
+                });
+            });
+
+            // ── STEP 5: Cleanup old panel after its exit animation finishes ──
+            setTimeout(() => {
+                currentPanel.classList.add('hidden');
+                cleanPanelClasses(currentPanel);
+                resetPanelChildren(currentPanel);
+            }, ANIMATION_CONFIG.exitDuration + 50);
+
+            // ── STEP 6: Finalize new panel after its enter animation finishes ──
+            setTimeout(() => {
+                cleanPanelClasses(newPanel);
+                wrapper.style.height = ''; // Release height lock
+
+                currentServiceIndex = newIndex;
+                isServiceSwitching = false;
+            }, ANIMATION_CONFIG.enterDuration + 100);
+        }
         
         // Mobile Menu
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
@@ -1296,7 +1483,6 @@
 <div id="artdeone-chatbot-container" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[9999] font-sans flex flex-col items-end gap-4" style="font-family: 'Space Grotesk', sans-serif;">
     
     <!-- Chat Window -->
-    <!-- Fixed: Added flex flex-col and layout constraints -->
     <div id="chat-window" class="hidden flex-col w-[350px] max-w-[calc(100vw-32px)] h-[500px] max-h-[80vh] bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-200 origin-bottom-right transform transition-all duration-300 ease-in-out scale-90 opacity-0 translate-y-4">
         
         <!-- Header (Fixed Height, Green) -->
