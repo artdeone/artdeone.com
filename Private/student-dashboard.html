@@ -1393,9 +1393,6 @@ async function generateAIImage() {
     btn.disabled = true;
     btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Generating...`;
     saveBtn.classList.add('hidden');
-
-    // Loading state — container ကို flex center ပြန်လုပ်မယ်
-    container.className = 'w-full h-full flex items-center justify-center p-8';
     container.innerHTML = `
         <div class="flex flex-col items-center animate-pulse">
             <div class="w-12 h-12 border-4 border-gray-200 border-t-black rounded-full animate-spin mb-4"></div>
@@ -1428,25 +1425,16 @@ async function generateAIImage() {
 
         const blob = await response.blob();
         currentBlob = blob;
-        const imgUrl = URL.createObjectURL(blob);
 
-        // ✅ ပုံပြတဲ့အခါ container ကို ပြင်မယ်
-        container.className = 'w-full h-full flex items-center justify-center p-4';
-        container.innerHTML = `
-            <img src="${imgUrl}" 
-                 alt="AI Generated Image"
-                 class="max-w-full max-h-[480px] object-contain rounded-lg shadow-sm"
-                 style="opacity: 0; transition: opacity 0.5s ease;"
-                 onload="this.style.opacity='1'"
-            >`;
+        // ✅ FIX: blob ကို data URL ပြောင်းမယ် (CSP က blob: block လုပ်ထားလို့)
+        const dataUrl = await blobToDataURL(blob);
 
+        container.innerHTML = `<img src="${dataUrl}" class="w-full h-full object-contain shadow-sm rounded-lg" style="opacity:0;transition:opacity 0.5s ease;" onload="this.style.opacity='1'">`;
         saveBtn.classList.remove('hidden');
 
     } catch (error) {
-        // Error state
-        container.className = 'w-full h-full flex items-center justify-center p-8';
         container.innerHTML = `
-            <div class="text-red-600 p-4 bg-red-50 rounded-lg max-w-md text-center">
+            <div class="text-red-600 p-4 bg-red-50 rounded-lg">
                 <i class="fa-solid fa-triangle-exclamation mr-2"></i>
                 <strong>Error:</strong> ${error.message}
             </div>`;
@@ -1455,6 +1443,16 @@ async function generateAIImage() {
         btn.disabled = false;
         btn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles"></i> Generate Image`;
     }
+}
+
+// ✅ NEW HELPER: Blob → Data URL converter
+function blobToDataURL(blob) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+    });
 }
 
 
