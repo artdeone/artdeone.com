@@ -7,7 +7,6 @@
     <link rel="icon" type="image/png" href="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769316272/fav-icon_n00lji.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- ===== NEW: Chart.js ===== -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -36,13 +35,11 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* ===== SCROLLBAR ===== */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: var(--gray-200); border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--gray-400); }
 
-        /* ===== NAVBAR ===== */
         .navbar {
             background: rgba(255,255,255,0.92);
             backdrop-filter: blur(16px);
@@ -64,7 +61,6 @@
         .logo img:hover { transform: scale(1.05); }
         .nav-links { display: flex; gap: 4px; align-items: center; }
 
-        /* ===== BUTTONS ===== */
         .btn {
             padding: 8px 18px;
             border-radius: var(--radius-sm);
@@ -120,7 +116,6 @@
         }
         .btn-logout:hover { background: #ffe4e6; }
 
-        /* ===== VIEW CONTAINER ===== */
         .view-container {
             flex: 1;
             overflow-y: auto;
@@ -134,7 +129,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ===== DATA TABLE ===== */
         .data-table { width: 100%; border-collapse: separate; border-spacing: 0; background: white; }
         .data-table th {
             background: var(--gray-50);
@@ -168,7 +162,6 @@
         }
         .data-table tr.inactive:hover { opacity: 0.65; }
 
-        /* ===== ACTION BUTTONS ===== */
         .action-btn {
             padding: 5px 12px;
             margin-right: 4px;
@@ -192,7 +185,6 @@
         .action-btn.yellow { background: #fffbeb; color: #92400e; border: 1px solid rgba(146,64,14,0.08); }
         .action-btn.yellow:hover { background: #fef3c7; }
 
-        /* ===== STATUS BADGES ===== */
         .status-badge {
             display: inline-flex;
             align-items: center;
@@ -224,7 +216,6 @@
         .badge-inactive { background: var(--gray-100); color: #6b7280; }
         .badge-inactive::before { background: #9ca3af; }
 
-        /* ===== FILTER TABS ===== */
         .filter-tabs {
             display: flex;
             gap: 6px;
@@ -258,7 +249,6 @@
         }
         .filter-tab:active { transform: scale(0.96); }
 
-        /* ===== CARD ===== */
         .card {
             background: white;
             border: 1px solid rgba(0,0,0,0.06);
@@ -283,7 +273,6 @@
             border: 1px solid rgba(0,0,0,0.04);
         }
 
-        /* ===== MODAL ===== */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -367,7 +356,6 @@
         textarea.form-input { resize: vertical; min-height: 80px; }
         select.form-input { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
 
-        /* ===== HEADER BAR ===== */
         .header-bar {
             display: flex;
             justify-content: space-between;
@@ -384,7 +372,6 @@
             letter-spacing: -0.02em;
         }
 
-        /* ===== TABLE WRAP ===== */
         .table-wrap {
             background: white;
             border: 1px solid rgba(0,0,0,0.06);
@@ -397,7 +384,6 @@
             -webkit-overflow-scrolling: touch;
         }
 
-        /* ===== DOWNLOAD ITEM ===== */
         .download-item {
             display: flex;
             align-items: center;
@@ -409,10 +395,8 @@
         .download-item:last-child { border: none; }
         .download-item:hover { background: rgba(0,0,0,0.01); margin: 0 -8px; padding-left: 8px; padding-right: 8px; border-radius: var(--radius-sm); }
 
-        /* ===== UTILITIES ===== */
         .hidden { display: none !important; }
 
-        /* ===== LOGIN ===== */
         .login-card {
             position: fixed;
             inset: 0;
@@ -448,7 +432,6 @@
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        /* ===== RESPONSIVE ===== */
         @media (min-width: 769px) {
             .modal-overlay.active { align-items: center; padding: 1rem; }
             .modal-box {
@@ -487,7 +470,6 @@
             .header-bar { gap: 8px; }
         }
 
-        /* ===== ANIMATE ROWS ===== */
         @keyframes rowFadeIn {
             from { opacity: 0; transform: translateX(-8px); }
             to { opacity: 1; transform: translateX(0); }
@@ -514,19 +496,16 @@
             animation: cardFadeIn 0.35s var(--transition) both;
         }
 
-        /* ===== LOADING SKELETON ===== */
         @keyframes shimmer {
             0% { background-position: -400px 0; }
             100% { background-position: 400px 0; }
         }
 
-        /* ===== FOCUS VISIBLE ===== */
         *:focus-visible {
             outline: 2px solid var(--accent-green);
             outline-offset: 2px;
         }
 
-        /* ===== TOOLTIP STYLE CODE ===== */
         code {
             background: var(--gray-100);
             padding: 3px 10px;
@@ -538,24 +517,14 @@
             letter-spacing: 0.05em;
         }
 
-        /* ============================================================
-           ===== NEW: MOBILE TAB BAR & ANALYTICS & NAV OVERRIDES =====
-           ============================================================ */
-
-        /* ----- Mobile Tab Bar ----- */
         .mobile-tab-bar {
             display: none;
         }
 
         @media (max-width: 768px) {
-            /* Hide nav buttons in navbar on mobile */
             .nav-links .btn-nav { display: none !important; }
-
-            /* Always show Exit text on mobile */
             .btn-logout .logout-text { display: inline !important; }
             .btn-logout { margin-left: 0; }
-
-            /* Show mobile tab bar */
             .mobile-tab-bar {
                 display: flex;
                 gap: 6px;
@@ -569,7 +538,6 @@
                 flex-shrink: 0;
             }
             .mobile-tab-bar::-webkit-scrollbar { display: none; }
-
             .mob-tab {
                 padding: 8px 18px;
                 border-radius: 2rem;
@@ -597,7 +565,6 @@
             .mob-tab:active { transform: scale(0.96); }
         }
 
-        /* ----- Analytics Summary Cards ----- */
         .analytics-summary {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -644,7 +611,6 @@
             letter-spacing: 0.05em;
         }
 
-        /* ----- Analytics Charts ----- */
         .analytics-charts {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -677,7 +643,6 @@
             max-height: 300px;
         }
 
-        /* ----- Analytics Section Title ----- */
         .analytics-section-title {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 1.05em;
@@ -687,7 +652,6 @@
             letter-spacing: -0.01em;
         }
 
-        /* ----- Analytics Responsive ----- */
         @media (max-width: 992px) {
             .analytics-summary { grid-template-columns: repeat(2, 1fr); }
             .analytics-charts { grid-template-columns: 1fr; }
@@ -699,6 +663,90 @@
             .summary-label { font-size: 0.65em; }
             .chart-card { padding: 18px 14px; }
             .chart-card h4 { font-size: 0.9em; }
+        }
+
+        /* ========== LESSON MANAGER STYLES ========== */
+        .lesson-card {
+            background: #fff;
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            transition: all 0.2s var(--transition);
+        }
+        .lesson-card:hover {
+            border-color: var(--accent-green);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .lesson-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 16px;
+            cursor: pointer;
+            gap: 12px;
+        }
+        .lesson-header:hover { background: var(--gray-50); }
+        .lesson-num {
+            background: var(--primary-black);
+            color: var(--accent-green);
+            width: 30px; height: 30px;
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Space Grotesk', monospace;
+            font-weight: 700; font-size: 0.8em; flex-shrink: 0;
+        }
+        .lesson-info { flex: 1; min-width: 0; }
+        .lesson-info h4 {
+            margin: 0; font-size: 0.9em; font-weight: 600;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .lesson-info small { color: var(--gray-400); font-size: 0.75em; }
+        .lesson-actions { display: flex; gap: 4px; flex-shrink: 0; }
+        .lesson-body {
+            border-top: 1px solid var(--gray-100);
+            padding: 14px 16px; background: var(--gray-50);
+        }
+        .material-item {
+            display: flex; align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px; background: #fff;
+            border: 1px solid var(--gray-200); border-radius: 8px;
+            margin-bottom: 6px; gap: 10px;
+            transition: all 0.2s var(--transition);
+        }
+        .material-item:hover { border-color: #3b82f6; }
+        .material-icon-box {
+            width: 36px; height: 36px; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .material-icon-box.pdf  { background: #fef2f2; color: #dc2626; }
+        .material-icon-box.zip  { background: #fefce8; color: #ca8a04; }
+        .material-icon-box.doc  { background: #eff6ff; color: #2563eb; }
+        .material-icon-box.xls  { background: #f0fdf4; color: #16a34a; }
+        .material-icon-box.ppt  { background: #fdf4ff; color: #c026d3; }
+        .material-icon-box.png, .material-icon-box.jpg  { background: #ecfeff; color: #0891b2; }
+        .material-icon-box.mp3  { background: #fdf2f8; color: #db2777; }
+        .material-icon-box.mp4  { background: #fff7ed; color: #ea580c; }
+        .material-icon-box.code { background: #f5f3ff; color: #7c3aed; }
+        .material-icon-box.other { background: var(--gray-100); color: #6b7280; }
+        .material-info { flex: 1; min-width: 0; }
+        .material-info strong {
+            display: block; font-size: 0.82em;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .material-info small { color: var(--gray-400); font-size: 0.72em; }
+        .material-actions { display: flex; gap: 4px; flex-shrink: 0; }
+
+        .lesson-manager-wide {
+            max-width: 780px !important;
+        }
+
+        @media (max-width: 600px) {
+            .lesson-header { padding: 12px; gap: 8px; }
+            .lesson-actions { flex-wrap: wrap; }
+            .material-item { flex-wrap: wrap; }
         }
     </style>
 </head>
@@ -726,14 +774,12 @@
                     <button onclick="switchView('customers')" id="nav-customers" class="btn btn-nav active">Customers</button>
                     <button onclick="switchView('orders')" id="nav-orders" class="btn btn-nav">Orders</button>
                     <button onclick="switchView('products')" id="nav-products" class="btn btn-nav">Products</button>
-                    <!-- NEW: Analytics nav button (desktop) -->
                     <button onclick="switchView('analytics')" id="nav-analytics" class="btn btn-nav">Analytics</button>
                     <button onclick="logout()" class="btn btn-logout"><span class="logout-text">Exit</span><span style="display:none;">✕</span></button>
                 </div>
             </div>
         </nav>
 
-        <!-- NEW: Mobile Tab Bar -->
         <div class="mobile-tab-bar" id="mobileTabBar">
             <button class="mob-tab active" data-view="customers">Customers</button>
             <button class="mob-tab" data-view="orders">Orders</button>
@@ -808,15 +854,13 @@
             </div>
         </div>
 
-        <!-- NEW: ANALYTICS VIEW -->
+        <!-- ANALYTICS VIEW -->
         <div id="view-analytics" class="view-container hidden">
             <div>
                 <div class="header-bar">
                     <h3>Analytics</h3>
                     <button onclick="loadAnalytics()" class="btn btn-green" style="font-size:0.8em;">Refresh</button>
                 </div>
-
-                <!-- Summary Cards -->
                 <div class="analytics-summary">
                     <div class="summary-card">
                         <div class="summary-icon">💰</div>
@@ -839,8 +883,6 @@
                         <div class="summary-label">Orders</div>
                     </div>
                 </div>
-
-                <!-- Charts -->
                 <div class="analytics-charts">
                     <div class="chart-card">
                         <h4>Revenue by Product</h4>
@@ -851,46 +893,21 @@
                         <canvas id="ordersByStatusChart"></canvas>
                     </div>
                 </div>
-
-                <!-- Revenue Table -->
                 <h4 class="analytics-section-title">Product Revenue Breakdown</h4>
                 <div class="table-wrap">
                     <div class="table-scroll">
                         <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Product</th>
-                                    <th>Category</th>
-                                    <th>Units Sold</th>
-                                    <th>Revenue (MMK)</th>
-                                </tr>
-                            </thead>
-                            <tbody id="revenueTableBody">
-                                <tr><td colspan="5" style="text-align:center; color:#999; padding:40px;">Loading analytics...</td></tr>
-                            </tbody>
+                            <thead><tr><th>#</th><th>Product</th><th>Category</th><th>Units Sold</th><th>Revenue (MMK)</th></tr></thead>
+                            <tbody id="revenueTableBody"><tr><td colspan="5" style="text-align:center; color:#999; padding:40px;">Loading analytics...</td></tr></tbody>
                         </table>
                     </div>
                 </div>
-
-                <!-- Customer Spend Table -->
                 <h4 class="analytics-section-title">Customer Spending Overview</h4>
                 <div class="table-wrap" style="margin-bottom: 24px;">
                     <div class="table-scroll">
                         <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Customer</th>
-                                    <th>Email</th>
-                                    <th>Orders</th>
-                                    <th>Total Spent (MMK)</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody id="customerSpendTableBody">
-                                <tr><td colspan="6" style="text-align:center; color:#999; padding:40px;">Loading analytics...</td></tr>
-                            </tbody>
+                            <thead><tr><th>#</th><th>Customer</th><th>Email</th><th>Orders</th><th>Total Spent (MMK)</th><th>Status</th></tr></thead>
+                            <tbody id="customerSpendTableBody"><tr><td colspan="6" style="text-align:center; color:#999; padding:40px;">Loading analytics...</td></tr></tbody>
                         </table>
                     </div>
                 </div>
@@ -915,7 +932,7 @@
                     </div>
                 </div>
                 <button type="submit" class="btn btn-green" style="width:100%; padding:14px; margin-top:12px; border-radius: 12px; font-size: 0.95em;">Save Customer</button>
-                <button type="button" onclick="closeCustomerModal()" style="width:100%; padding:12px; background:none; border:none; cursor:pointer; color:#999; margin-top:4px; font-family: 'Poppins'; font-size: 0.9em; transition: color 0.2s;">Cancel</button>
+                <button type="button" onclick="closeCustomerModal()" style="width:100%; padding:12px; background:none; border:none; cursor:pointer; color:#999; margin-top:4px; font-family: 'Poppins'; font-size: 0.9em;">Cancel</button>
             </form>
         </div>
     </div>
@@ -943,7 +960,8 @@
                 </div>
                 <div class="form-group"><label>Price (MMK)</label><input type="number" id="pPrice" class="form-input" required></div>
                 <div class="form-group"><label>Thumbnail URL</label><input type="url" id="pThumbnail" class="form-input"></div>
-                <div class="form-group"><label>Download URL</label><input type="url" id="pDownloadUrl" class="form-input"></div>
+                <div class="form-group"><label>Download / Video URL</label><input type="url" id="pDownloadUrl" class="form-input"></div>
+                <div class="form-group"><label>Preview Video URL <span style="font-size:0.85em; color:#bbb;">(Courses only)</span></label><input type="url" id="pPreviewVideo" class="form-input" placeholder="Trailer / Preview video URL"></div>
                 <div class="form-group" style="display:flex; align-items:center; gap:10px; padding: 8px 0;">
                     <input type="checkbox" id="pActive" checked style="width:18px; height:18px; accent-color: var(--accent-green); cursor: pointer;">
                     <label style="margin:0; text-transform: none; letter-spacing: 0; font-size: 0.88em; color: var(--gray-600); cursor: pointer;" for="pActive">Active (visible in shop)</label>
@@ -992,13 +1010,126 @@
         </div>
     </div>
 
+    <!-- Lesson Manager Modal -->
+    <div class="modal-overlay" id="lessonManagerModal">
+        <div class="modal-box lesson-manager-wide">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                <h3 id="lessonManagerTitle" style="margin:0; display:flex; align-items:center; gap:8px;">
+                    <i class="fas fa-book-open" style="font-size:0.85em;"></i>
+                    Manage Lessons
+                </h3>
+                <button onclick="closeLessonManager()" style="background:none; border:none; font-size:1.4em; cursor:pointer; color:#999; padding:4px;">&times;</button>
+            </div>
+
+            <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:12px; padding:16px; margin-bottom:16px;">
+                <h4 style="margin:0 0 12px; font-size:0.85em; color:#065f46; display:flex; align-items:center; gap:6px;">
+                    <i class="fas fa-plus" style="font-size:0.75em;"></i> Add New Lesson
+                </h4>
+                <form id="addLessonForm" style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                    <input type="hidden" id="lessonProductId">
+                    <div>
+                        <label class="form-group label" style="font-size:0.72em; font-weight:600; color:var(--gray-400); display:block; margin-bottom:4px;">LESSON TITLE *</label>
+                        <input type="text" id="alTitle" class="form-input" placeholder="e.g. HTML Basics" required>
+                    </div>
+                    <div>
+                        <label style="font-size:0.72em; font-weight:600; color:var(--gray-400); display:block; margin-bottom:4px;">VIDEO URL</label>
+                        <input type="url" id="alVideoUrl" class="form-input" placeholder="https://...">
+                    </div>
+                    <div>
+                        <label style="font-size:0.72em; font-weight:600; color:var(--gray-400); display:block; margin-bottom:4px;">DURATION</label>
+                        <input type="text" id="alDuration" class="form-input" placeholder="12:30">
+                    </div>
+                    <div>
+                        <label style="font-size:0.72em; font-weight:600; color:var(--gray-400); display:block; margin-bottom:4px;">SORT ORDER</label>
+                        <input type="number" id="alSort" class="form-input" value="0">
+                    </div>
+                    <div style="grid-column:1/-1;">
+                        <label style="font-size:0.72em; font-weight:600; color:var(--gray-400); display:block; margin-bottom:4px;">DESCRIPTION</label>
+                        <textarea id="alDesc" class="form-input" rows="2" placeholder="Lesson description..." style="resize:vertical; min-height:50px;"></textarea>
+                    </div>
+                    <div style="grid-column:1/-1; display:flex; gap:8px; align-items:center;">
+                        <label style="font-size:0.82em; display:flex; align-items:center; gap:6px; cursor:pointer;">
+                            <input type="checkbox" id="alPreview" style="accent-color:var(--accent-green);"> Free Preview
+                        </label>
+                        <button type="submit" class="btn btn-green" style="margin-left:auto;">Add Lesson</button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="lessonsContainer">
+                <p style="text-align:center; color:#999; padding:20px;">Loading lessons...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Material Modal -->
+    <div class="modal-overlay" id="materialModal">
+        <div class="modal-box" style="max-width:480px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                <h3 id="materialModalTitle" style="margin:0; display:flex; align-items:center; gap:8px;">
+                    <i class="fas fa-paperclip" style="font-size:0.85em;"></i> Add Material
+                </h3>
+                <button onclick="closeMaterialModal()" style="background:none; border:none; font-size:1.4em; cursor:pointer; color:#999; padding:4px;">&times;</button>
+            </div>
+            <form id="materialForm">
+                <input type="hidden" id="matLessonId">
+                <input type="hidden" id="matProductId">
+                <input type="hidden" id="matId">
+                <div class="form-group">
+                    <label>File Title</label>
+                    <input type="text" id="matTitle" class="form-input" placeholder="e.g. Lecture Notes" required>
+                </div>
+                <div class="form-group">
+                    <label>File URL</label>
+                    <input type="url" id="matFileUrl" class="form-input" placeholder="https://drive.google.com/..." required>
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                    <div class="form-group">
+                        <label>File Type</label>
+                        <select id="matFileType" class="form-input">
+                            <option value="pdf">PDF</option>
+                            <option value="zip">ZIP Archive</option>
+                            <option value="doc">DOC / DOCX</option>
+                            <option value="xls">XLS / XLSX</option>
+                            <option value="ppt">PPT / PPTX</option>
+                            <option value="png">Image — PNG</option>
+                            <option value="jpg">Image — JPG</option>
+                            <option value="mp3">Audio — MP3</option>
+                            <option value="mp4">Video — MP4</option>
+                            <option value="code">Source Code</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>File Size</label>
+                        <input type="text" id="matFileSize" class="form-input" placeholder="e.g. 2.5 MB">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Sort Order</label>
+                    <input type="number" id="matSort" class="form-input" value="0">
+                </div>
+                <button type="submit" class="btn btn-green" style="width:100%; padding:14px; margin-top:8px; border-radius:12px; font-size:0.95em;">Save Material</button>
+            </form>
+        </div>
+    </div>
+
     <script type="module">
         import { supabaseShop, PRODUCT_CATEGORIES, ORDER_STATUS, verifyAdminCode } from './js/config-shop.js';
 
         let customers = [], products = [], orders = [];
         let customerFilter = 'all', orderFilter = 'all';
 
-        // Auth
+        // ========== SVG ICONS ==========
+        const IC = {
+            file: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg>',
+            clip: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>',
+            edit: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>',
+            trash: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',
+            eye: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>',
+        };
+
+        // ========== AUTH ==========
         window.handleLogin = async () => {
             const code = document.getElementById('accessCode').value;
             const btn = document.querySelector('.login-box .btn-green');
@@ -1026,26 +1157,46 @@
         document.getElementById('accessCode').addEventListener('keydown', e => { if (e.key === 'Enter') handleLogin(); });
         window.logout = () => location.reload();
 
-        // Add shake animation
         const shakeStyle = document.createElement('style');
         shakeStyle.textContent = `@keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)} 40%{transform:translateX(8px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} }`;
         document.head.appendChild(shakeStyle);
 
-        // Navigation
+        // ========== NAVIGATION ==========
         window.switchView = (view) => {
             ['customers','orders','products'].forEach(v => {
                 document.getElementById(`view-${v}`).classList.add('hidden');
                 document.getElementById(`nav-${v}`).classList.remove('active');
             });
-            const el = document.getElementById(`view-${view}`);
-            el.classList.remove('hidden');
-            el.style.animation = 'none';
-            el.offsetHeight;
-            el.style.animation = 'viewFadeIn 0.4s cubic-bezier(0.4,0,0.2,1)';
-            document.getElementById(`nav-${view}`).classList.add('active');
+            const analyticsView = document.getElementById('view-analytics');
+            const analyticsNav = document.getElementById('nav-analytics');
+
+            if (view === 'analytics') {
+                analyticsView.classList.remove('hidden');
+                analyticsView.style.animation = 'none';
+                analyticsView.offsetHeight;
+                analyticsView.style.animation = 'viewFadeIn 0.4s cubic-bezier(0.4,0,0.2,1)';
+                if (analyticsNav) analyticsNav.classList.add('active');
+                loadAnalytics();
+            } else {
+                const el = document.getElementById(`view-${view}`);
+                el.classList.remove('hidden');
+                el.style.animation = 'none';
+                el.offsetHeight;
+                el.style.animation = 'viewFadeIn 0.4s cubic-bezier(0.4,0,0.2,1)';
+                document.getElementById(`nav-${view}`).classList.add('active');
+                analyticsView.classList.add('hidden');
+                if (analyticsNav) analyticsNav.classList.remove('active');
+            }
+
+            document.querySelectorAll('.mob-tab').forEach(t => {
+                t.classList.toggle('active', t.dataset.view === view);
+            });
         };
 
-        // Generate access code
+        document.querySelectorAll('.mob-tab').forEach(btn => {
+            btn.addEventListener('click', () => switchView(btn.dataset.view));
+        });
+
         window.generateCode = () => {
             const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
             let code = 'ADO-';
@@ -1065,7 +1216,6 @@
             let filtered = customers;
             if (customerFilter === 'active') filtered = customers.filter(c => c.is_active);
             if (customerFilter === 'inactive') filtered = customers.filter(c => !c.is_active);
-
             if (filtered.length === 0) {
                 document.getElementById('customerTableBody').innerHTML = '<tr><td colspan="6" style="text-align:center; color:#999; padding:40px;">No customers found</td></tr>';
                 return;
@@ -1146,10 +1296,8 @@
         window.openDownloadAccess = async (customerId) => {
             const c = customers.find(x => x.id === customerId);
             document.getElementById('downloadCustomerName').textContent = `Customer: ${c.name}`;
-
             const { data: grants } = await supabaseShop.from('shop_customer_downloads').select('product_id').eq('customer_id', customerId).eq('is_active', true);
             const grantedIds = (grants || []).map(g => g.product_id);
-
             document.getElementById('downloadProductList').innerHTML = products.length ? products.map(p => {
                 const granted = grantedIds.includes(p.id);
                 return `<div class="download-item">
@@ -1160,7 +1308,6 @@
                     <button onclick="toggleDownload('${customerId}','${p.id}', ${!granted})" class="action-btn ${granted ? 'red' : 'green'}">${granted ? 'Revoke' : 'Grant'}</button>
                 </div>`;
             }).join('') : '<p style="text-align:center; color:#999;">No products available</p>';
-
             document.getElementById('downloadModal').classList.add('active');
         };
         window.closeDownloadModal = () => document.getElementById('downloadModal').classList.remove('active');
@@ -1179,6 +1326,15 @@
             openDownloadAccess(customerId);
         };
 
+        async function grantDownloadAccess(customerId, productId) {
+            const { data: existing } = await supabaseShop.from('shop_customer_downloads').select('id').eq('customer_id', customerId).eq('product_id', productId).single();
+            if (existing) {
+                await supabaseShop.from('shop_customer_downloads').update({ is_active: true, granted_at: new Date().toISOString() }).eq('id', existing.id);
+            } else {
+                await supabaseShop.from('shop_customer_downloads').insert([{ customer_id: customerId, product_id: productId, is_active: true }]);
+            }
+        }
+
         // ========== ORDERS ==========
         window.loadOrders = async () => {
             const { data } = await supabaseShop.from('shop_orders').select('*, shop_customers(name), shop_products(name)').order('created_at', { ascending: false });
@@ -1189,7 +1345,6 @@
         function renderOrders() {
             let filtered = orders;
             if (orderFilter !== 'all') filtered = orders.filter(o => o.status === orderFilter);
-
             if (filtered.length === 0) {
                 document.getElementById('ordersList').innerHTML = '<div style="text-align:center; color:#999; padding:40px;">No orders found</div>';
                 return;
@@ -1206,7 +1361,7 @@
                         <span class="status-badge badge-${o.status}" style="margin-top:4px;">${o.status}</span>
                     </div>
                     <div style="display:flex; gap:4px; flex-wrap:wrap;">
-                        ${o.status === 'pending' ? `<button onclick="updateOrder('${o.id}','confirmed')" class="action-btn green">Confirm</button>` : ''}
+                        ${o.status === 'pending' ? `<button onclick="acceptOrder('${o.id}','${o.customer_id}','${o.product_id}')" class="action-btn green">Accept</button>` : ''}
                         ${o.status === 'confirmed' ? `<button onclick="updateOrder('${o.id}','delivered')" class="action-btn blue">Deliver</button>` : ''}
                         ${o.status !== 'cancelled' && o.status !== 'delivered' ? `<button onclick="updateOrder('${o.id}','cancelled')" class="action-btn red">Cancel</button>` : ''}
                         ${o.status === 'delivered' ? '<span style="color:#3b82f6; font-size:0.8em;">✓ Done</span>' : ''}
@@ -1220,6 +1375,14 @@
             document.querySelectorAll('#orderFilters .filter-tab').forEach(t => t.classList.remove('active'));
             btn.classList.add('active');
             renderOrders();
+        };
+
+        window.acceptOrder = async (orderId, customerId, productId) => {
+            if (!confirm('Accept this order and grant download/watch access?')) return;
+            await supabaseShop.from('shop_orders').update({ status: 'confirmed' }).eq('id', orderId);
+            await grantDownloadAccess(customerId, productId);
+            alert('Order accepted! Customer now has access to the product.');
+            loadOrders();
         };
 
         window.updateOrder = async (id, status) => {
@@ -1274,12 +1437,15 @@
             document.getElementById('productTableBody').innerHTML = products.map(p => `
                 <tr class="${p.is_active ? '' : 'inactive'}">
                     <td>${p.thumbnail_url ? `<img src="${p.thumbnail_url}" class="product-thumb" alt="">` : '<div class="product-thumb" style="background:#eee;"></div>'}</td>
-                    <td style="font-weight:500;">${p.name}</td>
+                    <td style="font-weight:500;">${p.name} ${p.category === 'course' ? '<span style="font-size:0.7em; background:#fef2f2; color:#991b1b; padding:2px 8px; border-radius:10px; margin-left:6px;">Course</span>' : ''}</td>
                     <td><span style="font-size:0.8em;">${PRODUCT_CATEGORIES[p.category] || p.category}</span></td>
                     <td style="font-family:'Space Grotesk'; font-weight:600;">${Number(p.price).toLocaleString()} MMK</td>
                     <td><span class="status-badge ${p.is_active ? 'badge-active' : 'badge-inactive'}">${p.is_active ? 'Active' : 'Hidden'}</span></td>
                     <td>
                         <button onclick="editProduct('${p.id}')" class="action-btn">Edit</button>
+                        <button onclick="openLessonManager('${p.id}')" class="action-btn blue" style="display:inline-flex; align-items:center; gap:3px;">
+                            <i class="fas fa-book-open" style="font-size:0.8em;"></i> Lessons
+                        </button>
                         <button onclick="deleteProduct('${p.id}')" class="action-btn red">Delete</button>
                     </td>
                 </tr>
@@ -1305,6 +1471,7 @@
             document.getElementById('pPrice').value = p.price;
             document.getElementById('pThumbnail').value = p.thumbnail_url || '';
             document.getElementById('pDownloadUrl').value = p.download_url || '';
+            document.getElementById('pPreviewVideo').value = p.preview_video_url || '';
             document.getElementById('pActive').checked = p.is_active;
             document.getElementById('productModalTitle').textContent = 'Edit Product';
             document.getElementById('productModal').classList.add('active');
@@ -1320,6 +1487,7 @@
                 price: parseInt(document.getElementById('pPrice').value),
                 thumbnail_url: document.getElementById('pThumbnail').value,
                 download_url: document.getElementById('pDownloadUrl').value,
+                preview_video_url: document.getElementById('pPreviewVideo').value,
                 is_active: document.getElementById('pActive').checked
             };
             if (id) {
@@ -1340,72 +1508,204 @@
             loadProducts();
         };
 
-        // ========== CLOSE MODAL ON OVERLAY CLICK ==========
+        // ========== LESSON MANAGER ==========
+        let currentLessons = [];
+        let currentMaterials = {};
+
+        window.openLessonManager = async (productId) => {
+            const product = products.find(p => p.id === productId);
+            document.getElementById('lessonManagerTitle').innerHTML = `<i class="fas fa-book-open" style="font-size:0.85em;"></i> ${product?.name || 'Course'} — Lessons`;
+            document.getElementById('lessonProductId').value = productId;
+            document.getElementById('lessonManagerModal').classList.add('active');
+            await loadLessonsAdmin(productId);
+        };
+        window.closeLessonManager = () => document.getElementById('lessonManagerModal').classList.remove('active');
+
+        async function loadLessonsAdmin(productId) {
+            const { data } = await supabaseShop.from('shop_course_lessons').select('*').eq('product_id', productId).order('sort_order', { ascending: true });
+            currentLessons = data || [];
+            currentMaterials = {};
+            if (currentLessons.length > 0) {
+                const lessonIds = currentLessons.map(l => l.id);
+                const { data: mats } = await supabaseShop.from('shop_lesson_materials').select('*').in('lesson_id', lessonIds).order('sort_order', { ascending: true });
+                (mats || []).forEach(m => {
+                    if (!currentMaterials[m.lesson_id]) currentMaterials[m.lesson_id] = [];
+                    currentMaterials[m.lesson_id].push(m);
+                });
+            }
+            renderLessonsAdmin();
+        }
+
+        function renderLessonsAdmin() {
+            const container = document.getElementById('lessonsContainer');
+            if (currentLessons.length === 0) {
+                container.innerHTML = '<div style="text-align:center; color:#999; padding:40px;">No lessons yet. Add your first lesson above.</div>';
+                return;
+            }
+            container.innerHTML = currentLessons.map((lesson, i) => {
+                const materials = currentMaterials[lesson.id] || [];
+                return `
+                <div class="lesson-card">
+                    <div class="lesson-header" onclick="toggleLessonBody('${lesson.id}')">
+                        <span class="lesson-num">${i + 1}</span>
+                        <div class="lesson-info">
+                            <h4>${lesson.title}</h4>
+                            <small>${lesson.duration || 'No duration'}${lesson.is_preview ? ' · Free Preview' : ''} · ${materials.length} file${materials.length !== 1 ? 's' : ''}</small>
+                        </div>
+                        <div class="lesson-actions">
+                            <button onclick="event.stopPropagation(); openAddMaterial('${lesson.id}','${lesson.product_id}')" class="action-btn green" title="Add Material" style="display:inline-flex; align-items:center; gap:3px;">
+                                ${IC.clip} Add
+                            </button>
+                            <button onclick="event.stopPropagation(); editLesson('${lesson.id}')" class="action-btn" title="Edit">${IC.edit}</button>
+                            <button onclick="event.stopPropagation(); deleteLesson('${lesson.id}','${lesson.product_id}')" class="action-btn red" title="Delete">${IC.trash}</button>
+                        </div>
+                    </div>
+                    <div class="lesson-body" id="lessonBody-${lesson.id}" style="display:none;">
+                        ${materials.length === 0
+                            ? '<p style="text-align:center; color:#bbb; font-size:0.82em; margin:8px 0;">No materials yet</p>'
+                            : materials.map(m => `
+                                <div class="material-item">
+                                    <div class="material-icon-box ${m.file_type || 'other'}">
+                                        ${IC.file}
+                                    </div>
+                                    <div class="material-info">
+                                        <strong>${m.title}</strong>
+                                        <small>${(m.file_type || 'file').toUpperCase()}${m.file_size ? ' · ' + m.file_size : ''}</small>
+                                    </div>
+                                    <div class="material-actions">
+                                        <a href="${m.file_url}" target="_blank" class="action-btn blue" title="Preview">${IC.eye}</a>
+                                        <button onclick="editMaterial('${m.id}')" class="action-btn" title="Edit">${IC.edit}</button>
+                                        <button onclick="deleteMaterial('${m.id}','${lesson.product_id}')" class="action-btn red" title="Delete">${IC.trash}</button>
+                                    </div>
+                                </div>
+                            `).join('')
+                        }
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        window.toggleLessonBody = (lessonId) => {
+            const body = document.getElementById(`lessonBody-${lessonId}`);
+            body.style.display = body.style.display === 'none' ? 'block' : 'none';
+        };
+
+        document.getElementById('addLessonForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const productId = document.getElementById('lessonProductId').value;
+            const { error } = await supabaseShop.from('shop_course_lessons').insert([{
+                product_id: productId,
+                title: document.getElementById('alTitle').value,
+                description: document.getElementById('alDesc').value,
+                video_url: document.getElementById('alVideoUrl').value,
+                duration: document.getElementById('alDuration').value,
+                sort_order: parseInt(document.getElementById('alSort').value) || 0,
+                is_preview: document.getElementById('alPreview').checked
+            }]);
+            if (error) { alert('Error: ' + error.message); return; }
+            document.getElementById('addLessonForm').reset();
+            document.getElementById('lessonProductId').value = productId;
+            document.getElementById('alSort').value = currentLessons.length + 1;
+            await loadLessonsAdmin(productId);
+        });
+
+        window.editLesson = async (lessonId) => {
+            const lesson = currentLessons.find(l => l.id === lessonId);
+            if (!lesson) return;
+            const newTitle = prompt('Lesson Title:', lesson.title);
+            if (newTitle === null) return;
+            const newVideoUrl = prompt('Video URL:', lesson.video_url || '');
+            const newDuration = prompt('Duration:', lesson.duration || '');
+            const newSort = prompt('Sort Order:', lesson.sort_order);
+            await supabaseShop.from('shop_course_lessons').update({
+                title: newTitle, video_url: newVideoUrl, duration: newDuration,
+                sort_order: parseInt(newSort) || 0
+            }).eq('id', lessonId);
+            await loadLessonsAdmin(lesson.product_id);
+        };
+
+        window.deleteLesson = async (lessonId, productId) => {
+            if (!confirm('Delete this lesson and ALL its materials?')) return;
+            await supabaseShop.from('shop_course_lessons').delete().eq('id', lessonId);
+            await loadLessonsAdmin(productId);
+        };
+
+        // ========== MATERIALS ==========
+        window.openAddMaterial = (lessonId, productId) => {
+            document.getElementById('materialForm').reset();
+            document.getElementById('matId').value = '';
+            document.getElementById('matLessonId').value = lessonId;
+            document.getElementById('matProductId').value = productId;
+            document.getElementById('matSort').value = (currentMaterials[lessonId]?.length || 0) + 1;
+            document.getElementById('materialModalTitle').innerHTML = '<i class="fas fa-paperclip" style="font-size:0.85em;"></i> Add Material';
+            document.getElementById('materialModal').classList.add('active');
+        };
+        window.closeMaterialModal = () => document.getElementById('materialModal').classList.remove('active');
+
+        window.editMaterial = (matId) => {
+            let mat = null;
+            Object.values(currentMaterials).forEach(mats => {
+                const found = mats.find(m => m.id === matId);
+                if (found) mat = found;
+            });
+            if (!mat) return;
+            document.getElementById('matId').value = mat.id;
+            document.getElementById('matLessonId').value = mat.lesson_id;
+            document.getElementById('matProductId').value = mat.product_id;
+            document.getElementById('matTitle').value = mat.title;
+            document.getElementById('matFileUrl').value = mat.file_url;
+            document.getElementById('matFileType').value = mat.file_type || 'pdf';
+            document.getElementById('matFileSize').value = mat.file_size || '';
+            document.getElementById('matSort').value = mat.sort_order || 0;
+            document.getElementById('materialModalTitle').innerHTML = '<i class="fas fa-paperclip" style="font-size:0.85em;"></i> Edit Material';
+            document.getElementById('materialModal').classList.add('active');
+        };
+
+        document.getElementById('materialForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const matId = document.getElementById('matId').value;
+            const productId = document.getElementById('matProductId').value;
+            const data = {
+                lesson_id: document.getElementById('matLessonId').value,
+                product_id: productId,
+                title: document.getElementById('matTitle').value,
+                file_url: document.getElementById('matFileUrl').value,
+                file_type: document.getElementById('matFileType').value,
+                file_size: document.getElementById('matFileSize').value,
+                sort_order: parseInt(document.getElementById('matSort').value) || 0
+            };
+            if (matId) {
+                const { error } = await supabaseShop.from('shop_lesson_materials').update(data).eq('id', matId);
+                if (error) { alert('Error: ' + error.message); return; }
+            } else {
+                const { error } = await supabaseShop.from('shop_lesson_materials').insert([data]);
+                if (error) { alert('Error: ' + error.message); return; }
+            }
+            closeMaterialModal();
+            await loadLessonsAdmin(productId);
+        });
+
+        window.deleteMaterial = async (matId, productId) => {
+            if (!confirm('Delete this material?')) return;
+            await supabaseShop.from('shop_lesson_materials').delete().eq('id', matId);
+            await loadLessonsAdmin(productId);
+        };
+
+        // ========== CLOSE MODALS ==========
         document.querySelectorAll('.modal-overlay').forEach(overlay => {
             overlay.addEventListener('click', (e) => {
                 if (e.target === overlay) overlay.classList.remove('active');
             });
         });
-
-        // ========== CLOSE MODAL ON ESC ==========
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
-            }
+            if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
         });
 
-        // ===========================================================
-        // ===== NEW CODE: Analytics + Mobile Tabs + Extended Nav =====
-        // ===========================================================
-
-        // ----- Extend switchView to handle 'analytics' -----
-        const _originalSwitchView = window.switchView;
-        window.switchView = (view) => {
-            // Hide analytics view for non-analytics switches
-            const analyticsView = document.getElementById('view-analytics');
-            const analyticsNav = document.getElementById('nav-analytics');
-
-            if (view === 'analytics') {
-                // Hide the 3 original views
-                ['customers','orders','products'].forEach(v => {
-                    document.getElementById(`view-${v}`).classList.add('hidden');
-                    document.getElementById(`nav-${v}`).classList.remove('active');
-                });
-                // Show analytics
-                analyticsView.classList.remove('hidden');
-                analyticsView.style.animation = 'none';
-                analyticsView.offsetHeight;
-                analyticsView.style.animation = 'viewFadeIn 0.4s cubic-bezier(0.4,0,0.2,1)';
-                if (analyticsNav) analyticsNav.classList.add('active');
-                loadAnalytics();
-            } else {
-                // Use original for customers/orders/products
-                _originalSwitchView(view);
-                // Also hide analytics
-                analyticsView.classList.add('hidden');
-                if (analyticsNav) analyticsNav.classList.remove('active');
-            }
-
-            // Sync mobile tabs
-            document.querySelectorAll('.mob-tab').forEach(t => {
-                t.classList.toggle('active', t.dataset.view === view);
-            });
-        };
-
-        // ----- Mobile Tab Bar click handlers -----
-        document.querySelectorAll('.mob-tab').forEach(btn => {
-            btn.addEventListener('click', () => {
-                switchView(btn.dataset.view);
-            });
-        });
-
-        // ----- Chart instances (for cleanup on re-render) -----
+        // ========== ANALYTICS ==========
         let revenueChartInstance = null;
         let ordersChartInstance = null;
 
-        // ----- Load Analytics -----
         window.loadAnalytics = async () => {
-            // Use already loaded data if available, otherwise fetch
             if (!customers.length) {
                 const { data } = await supabaseShop.from('shop_customers').select('*').order('created_at', { ascending: false });
                 customers = data || [];
@@ -1419,14 +1719,11 @@
                 orders = data || [];
             }
 
-            // Also fresh-fetch orders for accurate analytics
             const { data: freshOrders } = await supabaseShop.from('shop_orders').select('*, shop_customers(name, email, is_active), shop_products(name, category)').order('created_at', { ascending: false });
             const allOrders = freshOrders || orders;
-
             const { data: freshCustomers } = await supabaseShop.from('shop_customers').select('*');
             const allCustomers = freshCustomers || customers;
 
-            // ---- Summary stats ----
             const confirmedOrders = allOrders.filter(o => o.status === 'confirmed' || o.status === 'delivered');
             const totalRevenue = confirmedOrders.reduce((sum, o) => sum + Number(o.amount || 0), 0);
 
@@ -1435,189 +1732,64 @@
             document.getElementById('statProducts').textContent = products.length;
             document.getElementById('statOrders').textContent = allOrders.length;
 
-            // ---- Revenue by Product (chart + table) ----
             const productRevenueMap = {};
             confirmedOrders.forEach(o => {
                 const pName = o.shop_products?.name || 'Unknown';
                 const pCat = o.shop_products?.category || 'other';
-                if (!productRevenueMap[pName]) {
-                    productRevenueMap[pName] = { revenue: 0, units: 0, category: pCat };
-                }
+                if (!productRevenueMap[pName]) productRevenueMap[pName] = { revenue: 0, units: 0, category: pCat };
                 productRevenueMap[pName].revenue += Number(o.amount || 0);
                 productRevenueMap[pName].units += 1;
             });
 
             const productNames = Object.keys(productRevenueMap);
             const productRevenues = productNames.map(n => productRevenueMap[n].revenue);
+            const chartColors = ['#a7e169','#ed2939','#3b82f6','#f59e0b','#8b5cf6','#06b6d4','#ec4899','#14b8a6','#f97316','#6366f1'];
 
-            // Chart colors
-            const chartColors = [
-                '#a7e169', '#ed2939', '#3b82f6', '#f59e0b', '#8b5cf6',
-                '#06b6d4', '#ec4899', '#14b8a6', '#f97316', '#6366f1'
-            ];
-
-            // Destroy old charts
             if (revenueChartInstance) revenueChartInstance.destroy();
             if (ordersChartInstance) ordersChartInstance.destroy();
 
-            // Revenue by product bar chart
             const revCtx = document.getElementById('revenueByProductChart');
             if (revCtx && typeof Chart !== 'undefined') {
                 revenueChartInstance = new Chart(revCtx, {
                     type: 'bar',
-                    data: {
-                        labels: productNames.length ? productNames : ['No data'],
-                        datasets: [{
-                            label: 'Revenue (MMK)',
-                            data: productRevenues.length ? productRevenues : [0],
-                            backgroundColor: chartColors.slice(0, productNames.length || 1),
-                            borderRadius: 8,
-                            borderSkipped: false,
-                            maxBarThickness: 50,
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: true,
-                        plugins: {
-                            legend: { display: false },
-                            tooltip: {
-                                backgroundColor: '#1a1a1a',
-                                titleFont: { family: 'Poppins', weight: '600' },
-                                bodyFont: { family: 'Space Grotesk' },
-                                padding: 12,
-                                cornerRadius: 10,
-                                callbacks: {
-                                    label: ctx => `${Number(ctx.raw).toLocaleString()} MMK`
-                                }
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                grid: { color: 'rgba(0,0,0,0.04)' },
-                                ticks: {
-                                    font: { family: 'Space Grotesk', size: 11 },
-                                    callback: v => Number(v).toLocaleString()
-                                }
-                            },
-                            x: {
-                                grid: { display: false },
-                                ticks: { font: { family: 'Poppins', size: 11 } }
-                            }
-                        }
-                    }
+                    data: { labels: productNames.length ? productNames : ['No data'], datasets: [{ label: 'Revenue (MMK)', data: productRevenues.length ? productRevenues : [0], backgroundColor: chartColors.slice(0, productNames.length || 1), borderRadius: 8, borderSkipped: false, maxBarThickness: 50 }] },
+                    options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { display: false }, tooltip: { backgroundColor: '#1a1a1a', titleFont: { family: 'Poppins', weight: '600' }, bodyFont: { family: 'Space Grotesk' }, padding: 12, cornerRadius: 10, callbacks: { label: ctx => `${Number(ctx.raw).toLocaleString()} MMK` } } }, scales: { y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { font: { family: 'Space Grotesk', size: 11 }, callback: v => Number(v).toLocaleString() } }, x: { grid: { display: false }, ticks: { font: { family: 'Poppins', size: 11 } } } } }
                 });
             }
 
-            // Orders by status doughnut chart
             const statusCounts = { pending: 0, confirmed: 0, delivered: 0, cancelled: 0 };
-            allOrders.forEach(o => {
-                if (statusCounts.hasOwnProperty(o.status)) statusCounts[o.status]++;
-            });
-            const statusLabels = Object.keys(statusCounts);
-            const statusValues = Object.values(statusCounts);
-            const statusColors = ['#f59e0b', '#10b981', '#3b82f6', '#ef4444'];
+            allOrders.forEach(o => { if (statusCounts.hasOwnProperty(o.status)) statusCounts[o.status]++; });
+            const statusColors = ['#f59e0b','#10b981','#3b82f6','#ef4444'];
 
             const ordCtx = document.getElementById('ordersByStatusChart');
             if (ordCtx && typeof Chart !== 'undefined') {
                 ordersChartInstance = new Chart(ordCtx, {
                     type: 'doughnut',
-                    data: {
-                        labels: statusLabels.map(s => s.charAt(0).toUpperCase() + s.slice(1)),
-                        datasets: [{
-                            data: statusValues,
-                            backgroundColor: statusColors,
-                            borderWidth: 0,
-                            hoverOffset: 6,
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: true,
-                        cutout: '65%',
-                        plugins: {
-                            legend: {
-                                position: 'bottom',
-                                labels: {
-                                    padding: 16,
-                                    usePointStyle: true,
-                                    pointStyleWidth: 10,
-                                    font: { family: 'Poppins', size: 12, weight: '500' }
-                                }
-                            },
-                            tooltip: {
-                                backgroundColor: '#1a1a1a',
-                                titleFont: { family: 'Poppins', weight: '600' },
-                                bodyFont: { family: 'Space Grotesk' },
-                                padding: 12,
-                                cornerRadius: 10,
-                            }
-                        }
-                    }
+                    data: { labels: Object.keys(statusCounts).map(s => s.charAt(0).toUpperCase() + s.slice(1)), datasets: [{ data: Object.values(statusCounts), backgroundColor: statusColors, borderWidth: 0, hoverOffset: 6 }] },
+                    options: { responsive: true, maintainAspectRatio: true, cutout: '65%', plugins: { legend: { position: 'bottom', labels: { padding: 16, usePointStyle: true, pointStyleWidth: 10, font: { family: 'Poppins', size: 12, weight: '500' } } }, tooltip: { backgroundColor: '#1a1a1a', titleFont: { family: 'Poppins', weight: '600' }, bodyFont: { family: 'Space Grotesk' }, padding: 12, cornerRadius: 10 } } }
                 });
             }
 
-            // ---- Revenue Table ----
-            const sortedProducts = productNames
-                .map(n => ({ name: n, ...productRevenueMap[n] }))
-                .sort((a, b) => b.revenue - a.revenue);
-
+            const sortedProducts = productNames.map(n => ({ name: n, ...productRevenueMap[n] })).sort((a, b) => b.revenue - a.revenue);
             const revTableBody = document.getElementById('revenueTableBody');
-            if (sortedProducts.length === 0) {
-                revTableBody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#999; padding:40px;">No sales data yet</td></tr>';
-            } else {
-                revTableBody.innerHTML = sortedProducts.map((p, i) => `
-                    <tr>
-                        <td style="color:#999; font-size:0.8em;">${i + 1}</td>
-                        <td style="font-weight:500;">${p.name}</td>
-                        <td><span style="font-size:0.8em;">${PRODUCT_CATEGORIES[p.category] || p.category}</span></td>
-                        <td style="font-family:'Space Grotesk'; font-weight:600;">${p.units}</td>
-                        <td style="font-family:'Space Grotesk'; font-weight:700; color:#065f46;">${p.revenue.toLocaleString()} MMK</td>
-                    </tr>
-                `).join('');
-            }
+            revTableBody.innerHTML = sortedProducts.length === 0
+                ? '<tr><td colspan="5" style="text-align:center; color:#999; padding:40px;">No sales data yet</td></tr>'
+                : sortedProducts.map((p, i) => `<tr><td style="color:#999; font-size:0.8em;">${i+1}</td><td style="font-weight:500;">${p.name}</td><td><span style="font-size:0.8em;">${PRODUCT_CATEGORIES[p.category] || p.category}</span></td><td style="font-family:'Space Grotesk'; font-weight:600;">${p.units}</td><td style="font-family:'Space Grotesk'; font-weight:700; color:#065f46;">${p.revenue.toLocaleString()} MMK</td></tr>`).join('');
 
-            // ---- Customer Spend Table ----
             const customerSpendMap = {};
             allOrders.forEach(o => {
-                const cName = o.shop_customers?.name || 'Unknown';
-                const cEmail = o.shop_customers?.email || '-';
-                const cActive = o.shop_customers?.is_active ?? true;
                 const cId = o.customer_id;
-                if (!customerSpendMap[cId]) {
-                    customerSpendMap[cId] = { name: cName, email: cEmail, is_active: cActive, orders: 0, spent: 0 };
-                }
+                if (!customerSpendMap[cId]) customerSpendMap[cId] = { name: o.shop_customers?.name || 'Unknown', email: o.shop_customers?.email || '-', is_active: o.shop_customers?.is_active ?? true, orders: 0, spent: 0 };
                 customerSpendMap[cId].orders += 1;
-                if (o.status === 'confirmed' || o.status === 'delivered') {
-                    customerSpendMap[cId].spent += Number(o.amount || 0);
-                }
+                if (o.status === 'confirmed' || o.status === 'delivered') customerSpendMap[cId].spent += Number(o.amount || 0);
             });
-
-            // Also include customers with 0 orders
-            allCustomers.forEach(c => {
-                if (!customerSpendMap[c.id]) {
-                    customerSpendMap[c.id] = { name: c.name, email: c.email, is_active: c.is_active, orders: 0, spent: 0 };
-                }
-            });
+            allCustomers.forEach(c => { if (!customerSpendMap[c.id]) customerSpendMap[c.id] = { name: c.name, email: c.email, is_active: c.is_active, orders: 0, spent: 0 }; });
 
             const sortedCustomerSpend = Object.values(customerSpendMap).sort((a, b) => b.spent - a.spent);
             const custTableBody = document.getElementById('customerSpendTableBody');
-
-            if (sortedCustomerSpend.length === 0) {
-                custTableBody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#999; padding:40px;">No customers yet</td></tr>';
-            } else {
-                custTableBody.innerHTML = sortedCustomerSpend.map((c, i) => `
-                    <tr class="${c.is_active ? '' : 'inactive'}">
-                        <td style="color:#999; font-size:0.8em;">${i + 1}</td>
-                        <td style="font-weight:500;">${c.name}</td>
-                        <td>${c.email}</td>
-                        <td style="font-family:'Space Grotesk'; font-weight:600;">${c.orders}</td>
-                        <td style="font-family:'Space Grotesk'; font-weight:700; color:#065f46;">${c.spent.toLocaleString()} MMK</td>
-                        <td><span class="status-badge ${c.is_active ? 'badge-active' : 'badge-inactive'}">${c.is_active ? 'Active' : 'Inactive'}</span></td>
-                    </tr>
-                `).join('');
-            }
+            custTableBody.innerHTML = sortedCustomerSpend.length === 0
+                ? '<tr><td colspan="6" style="text-align:center; color:#999; padding:40px;">No customers yet</td></tr>'
+                : sortedCustomerSpend.map((c, i) => `<tr class="${c.is_active ? '' : 'inactive'}"><td style="color:#999; font-size:0.8em;">${i+1}</td><td style="font-weight:500;">${c.name}</td><td>${c.email}</td><td style="font-family:'Space Grotesk'; font-weight:600;">${c.orders}</td><td style="font-family:'Space Grotesk'; font-weight:700; color:#065f46;">${c.spent.toLocaleString()} MMK</td><td><span class="status-badge ${c.is_active ? 'badge-active' : 'badge-inactive'}">${c.is_active ? 'Active' : 'Inactive'}</span></td></tr>`).join('');
         };
     </script>
 </body>

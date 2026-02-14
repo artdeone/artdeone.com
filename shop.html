@@ -53,32 +53,27 @@
 
         .icon-circle { background-color: #ed2939; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; width: 3rem; height: 3rem; }
 
-        /* Alert Banner */
         .shop-alert { background: linear-gradient(135deg, #f0fbe4 0%, #e8f5d6 100%); border: 1px solid #c5e89a; border-radius: 0.75rem; transition: all 0.4s ease; }
         .shop-alert.hiding { opacity: 0; transform: translateY(-20px); max-height: 0; padding: 0; margin: 0; border: 0; overflow: hidden; }
 
-        /* Category Tabs */
         .cat-tab { background-color: transparent; color: #555; border: 1px solid #ddd; padding: 0.5rem 1.25rem; border-radius: 2rem; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: all 0.3s ease; white-space: nowrap; }
         .cat-tab.active { background-color: #a7e169; color: #000; border-color: #a7e169; }
         .cat-tab:hover:not(.active) { background-color: #ed2939; border-color: #ed2939; color: #fff; }
 
-        /* Product Card */
         .product-card-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; background: #f3f4f6; }
         .product-card-body { padding: 1.25rem; }
         .category-badge { display: inline-block; background: #f0fbe4; color: #5a8c1e; font-size: 0.7rem; font-weight: 600; padding: 0.25rem 0.75rem; border-radius: 2rem; text-transform: uppercase; letter-spacing: 0.05em; }
         .price-tag { font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem; font-weight: 700; color: #000; }
         .price-unit { font-size: 0.8rem; color: #999; font-weight: 400; }
 
-        /* Search */
         .search-input { background: #f9f9f9; border: 1px solid #e5e5e5; border-radius: 2rem; padding: 0.75rem 1.25rem 0.75rem 3rem; width: 100%; font-family: 'Space Grotesk'; transition: all 0.3s ease; }
         .search-input:focus { outline: none; border-color: #a7e169; background: #fff; box-shadow: 0 0 0 3px rgba(167, 225, 105, 0.15); }
 
-        /* Modal */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; display: none; align-items: center; justify-content: center; padding: 1rem; backdrop-filter: blur(4px); }
         .modal-overlay.active { display: flex; }
-        .modal-box { background: #fff; border-radius: 1rem; max-width: 550px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 25px 50px rgba(0,0,0,0.15); }
+        .modal-box { background: #fff; border-radius: 1rem; max-width: 550px; width: 100%; max-height: 90vh; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.15); }
+        .modal-box #modalContent { max-height: 90vh; overflow-y: auto; }
 
-        /* How it works */
         .step-number { width: 3rem; height: 3rem; border-radius: 50%; background: #a7e169; color: #000; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem; flex-shrink: 0; }
         .step-connector { width: 2px; height: 2rem; background: #e5e5e5; margin-left: 1.45rem; }
 
@@ -87,11 +82,6 @@
         .icon-menu { opacity: 1; transform: rotate(0deg) scale(1); }
         .icon-close { opacity: 0; transform: rotate(-90deg) scale(0.5); }
 
-        /* ====================================================
-           ===== NEW ADDITIONS — requested changes only =====
-           ==================================================== */
-
-        /* [FIX 1] Center alert text */
         .shop-alert-centered {
             text-align: center;
             position: relative;
@@ -103,10 +93,8 @@
             transform: translateY(-50%);
         }
 
-        /* [FIX 2] Smooth scroll */
         html { scroll-behavior: smooth; }
 
-        /* [FIX 3] Enhanced product card hover */
         .minimalist-card {
             transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.45s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease;
         }
@@ -130,7 +118,6 @@
             background: #fefffe;
         }
 
-        /* [FIX 4 & 5] Modern modal animations */
         .modal-overlay {
             display: flex !important;
             opacity: 0;
@@ -171,12 +158,10 @@
             opacity: 1;
         }
 
-        /* Product modal scrollbar */
         .modal-box::-webkit-scrollbar { width: 4px; }
         .modal-box::-webkit-scrollbar-track { background: transparent; }
         .modal-box::-webkit-scrollbar-thumb { background: #e5e5e5; border-radius: 10px; }
 
-        /* [FIX 4] Image Gallery */
         .gallery-main-img {
             width: 100%;
             aspect-ratio: 16/10;
@@ -216,7 +201,6 @@
             box-shadow: 0 2px 8px rgba(167,225,105,0.25);
         }
 
-        /* Modal detail body */
         .modal-detail-body {
             padding: 24px;
         }
@@ -287,7 +271,6 @@
         }
         .modal-close-btn:hover { color: #555; }
 
-        /* [FIX 5] Contact Modal */
         .contact-modal-overlay {
             position: fixed;
             inset: 0;
@@ -421,6 +404,81 @@
             .gallery-thumbs { padding: 10px 14px; gap: 6px; }
             .gallery-thumb { width: 48px; height: 36px; }
         }
+
+        /* ===== NEW: Video Course Styles ===== */
+        .video-play-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.25);
+            transition: background 0.3s ease;
+            pointer-events: none;
+        }
+        .minimalist-card:hover .video-play-overlay {
+            background: rgba(0,0,0,0.4);
+        }
+        .video-play-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+        }
+        .minimalist-card:hover .video-play-icon {
+            transform: scale(1.1);
+        }
+        .video-play-icon i {
+            color: #ed2939;
+            font-size: 1.2rem;
+            margin-left: 3px;
+        }
+        .course-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: #ed2939;
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 2rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            z-index: 2;
+            box-shadow: 0 2px 8px rgba(237,41,57,0.3);
+        }
+        .modal-video-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+            border-radius: 1.25rem 1.25rem 0 0;
+            overflow: hidden;
+        }
+        .modal-video-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .modal-preview-label {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(237,41,57,0.9);
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 2rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
     </style>
 </head>
 <body class="bg-white text-[#323232]">
@@ -473,7 +531,7 @@
     </nav>
 
     <main>
-        <!-- Alert Banner — FIX 1: centered text -->
+        <!-- Alert Banner -->
         <div class="pt-20 px-4" id="alertWrapper">
             <div class="shop-alert shop-alert-centered max-w-7xl mx-auto px-12 py-4" id="shopAlert">
                 <p class="text-sm text-[#323232] leading-relaxed">
@@ -506,13 +564,11 @@
                     <p class="section-subtitle">Download premium design resources crafted with care.</p>
                 </div>
 
-                <!-- Search -->
                 <div class="max-w-md mx-auto mb-8 relative" data-aos="fade-up">
                     <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
                     <input type="text" class="search-input" placeholder="Search products..." id="searchInput" oninput="filterProducts()">
                 </div>
 
-                <!-- Category Tabs -->
                 <div class="flex flex-wrap gap-2 justify-center mb-12" data-aos="fade-up">
                     <button class="cat-tab active" onclick="setCategory('all', this)">All</button>
                     <button class="cat-tab" onclick="setCategory('template', this)">Templates</button>
@@ -524,11 +580,8 @@
                     <button class="cat-tab" onclick="setCategory('ebook', this)">E-Books</button>
                 </div>
 
-                <!-- Product Grid -->
-                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8" id="productGrid">
-                </div>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8" id="productGrid"></div>
 
-                <!-- Empty State -->
                 <div class="text-center py-16 hidden" id="emptyState">
                     <i class="fas fa-box-open text-4xl text-gray-300 mb-4"></i>
                     <p class="text-gray-400">ရှာဖွေမှု နှင့် ကိုက်ညီသော ပစ္စည်းမတွေ့ပါ</p>
@@ -557,7 +610,7 @@
                         <div class="step-number">2</div>
                         <div class="pt-1">
                             <h4 class="font-bold text-black text-lg mb-1">ငွေလွှဲပြီး အတည်ပြုပါ</h4>
-                            <p class="text-[#555] text-sm">Payment & Confirm - KBZ Pay / Wave / CB Pay ဖြင့် ငွေလွှဲပြီး screenshot ပို့ပေးပါ</p>
+                            <p class="text-[#555] text-sm">Payment & Confirm - KBZ Pay / Wave / Bank Transfer ဖြင့် ငွေလွှဲပြီး screenshot ပို့ပေးပါ</p>
                         </div>
                     </div>
                     <div class="step-connector"></div>
@@ -578,7 +631,6 @@
                     </div>
                 </div>
 
-                <!-- FIX 5: Changed from <a href="tel:"> to button that opens contact modal -->
                 <div class="text-center mt-12" data-aos="fade-up">
                     <button onclick="openContactModal()" class="btn-primary cursor-pointer"><i class="fas fa-phone mr-2"></i>ဆက်သွယ်ရန် - 09953681497</button>
                 </div>
@@ -605,7 +657,7 @@
         </div>
     </div>
 
-    <!-- NEW: Contact Modal -->
+    <!-- Contact Modal -->
     <div class="contact-modal-overlay" id="contactModal">
         <div class="contact-modal-box">
             <div class="contact-modal-icon">
@@ -695,13 +747,11 @@
         AOS.init({ duration: 800, once: true });
         feather.replace();
 
-        // Mobile menu
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
             document.getElementById('mobile-menu').classList.toggle('open');
             this.classList.toggle('open');
         });
 
-        // Alert dismiss
         function dismissAlert() {
             const alert = document.getElementById('shopAlert');
             alert.classList.add('hiding');
@@ -716,95 +766,77 @@
         const products = [
             {
                 id: 1,
-                name: 'Social Media Template Pack',
-                category: 'template',
-                price: 15000,
-                image: 'https://placehold.co/600x400/f3f4f6/323232?text=Social+Media+Templates',
-                description: 'Professional social media design templates for Instagram, Facebook, and more. Fully editable in Adobe Illustrator.',
-                features: ['Instagram Post & Story Templates', 'Facebook Cover & Post', 'Fully Editable AI Files', 'Free Fonts Included']
+                name: 'ART de ONE - Stipple & Shader Brushes',
+                category: 'brush',
+                price: 35700,
+                image: 'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1770978188/1_zkggfq.jpg',
+                images: [
+                    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1770978188/1_zkggfq.jpg',
+                    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771038658/2_sfzrlp.jpg',
+                    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771038658/4_htkyno.jpg',
+                    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771038658/3_pue5x8.jpg'
+                ],
+                description: 'Illustrator နဲ့ ပုံဆွဲတဲ့အခါ Retro Style နဲ့ Vintage Texture လှလှလေးတွေကို လက်နဲ့တစ်စက်ချင်း ချနေစရာမလိုဘဲ အချိန်ကုန်သက်သာစေမယ့် Brush set လေးပါ။',
+                features: ['Natural Texture: လက်နဲ့ဆွဲထားသလို သဘာဝကျတဲ့ အစက်အပြောက် (Stippling) နဲ့ အရိပ် (Shading) တွေကို ဖန်တီးပေးနိုင်ပါတယ်။', 'Vector Quality: Illustrator သီးသန့်ဖြစ်လို့ ဘယ်လောက်ချဲ့ချဲ့ ပုံမပျက်ဘဲ ကြည်လင်နေမှာပါ။', 'User Friendly: အရောင်ပြောင်းရတာ လွယ်ကူပြီး ကိုယ့်စိတ်ကြိုက် လိုသလို Adjust လုပ်နိုင်ပါတယ်။'],
+                note: '💻 အသုံးပြုရန်လိုအပ်ချက်\nSoftware: Adobe Illustrator\n\nRecommended RAM: ဆွဲရတာအဆင်ပြေချောမွေ့ဖို့အတွက် 4GB နှင့်အထက် ရှိရန် လိုအပ်ပါတယ်။\n\nမှတ်ချက်: Adobe Illustrator သီးသန့်ဖြစ်ပြီး Photoshop တွင် အသုံးပြု၍မရပါ။',
+                closing: 'Illustration တွေကို အရည်အသွေးတစ်ဆင့် မြှင့်တင်ချင်တဲ့သူတွေအတွက် ART de ONE ရဲ့ ဒီ Brush set လေးက တကယ်ကို လက်စွဲတော် ဖြစ်မှာပါခင်ဗျ။'
             },
             {
                 id: 2,
-                name: 'Illustrator Brush Collection',
-                category: 'brush',
-                price: 12000,
-                image: 'https://placehold.co/600x400/f3f4f6/323232?text=Brush+Collection',
-                description: 'Hand-crafted brush set for Adobe Illustrator. Perfect for illustrations, lettering, and texture work.',
-                features: ['50+ Custom Brushes', 'Scatter & Art Brushes', 'Pattern Brushes', 'Installation Guide']
+                name: '101-Font Collection',
+                category: 'font',
+                price: 5500,
+                image: 'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771049887/101_cover_lnd3tp.jpg',
+                images: [
+                    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771049887/101_cover_lnd3tp.jpg',
+                    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771051320/101-2_df2hzn.jpg',
+                    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771051321/101-3_ik4yim.jpg',
+                    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771051513/101-1_oqysjn.jpg'
+                ],
+                description: 'Design တစ်ခုရဲ့ အသက်ဟာ Font ပါပဲ။ ဘယ်လို Project မျိုးအတွက်မဆို အဆင်သင့်သုံးလို့ရမယ့် Quality မြင့် Font ပေါင်း (၁၀၁) ခုကို တစ်စုတစ်စည်းတည်း တင်ပေးလိုက်ပါပြီ။',
+                features: ['Modern & Luxury: အဆင့်မြင့်ပြီး သေသပ်တဲ့ Branding နဲ့ Logo တွေအတွက်။', 'Vintage & Retro: ဟိုးရှေးခင်ကလို Classic ဆန်ဆန် Design တွေအတွက်။', 'Cute & Playful: ချစ်စရာကောင်းပြီး လူငယ်ဆန်တဲ့ Content တွေအတွက်။', 'Professional Logo Styles: Logo ဆွဲတဲ့အခါ အသင့်သုံးရုံပဲမို့ အချိန်ကုန်သက်သာစေမှာပါ။'],
+                note: 'ဘာကြောင့် ဝယ်သင့်တာလဲ?\nVariety: Style ပေါင်းစုံပါလို့ Project တိုင်းအတွက် Font အသစ် ထပ်ရှာနေစရာ မလိုတော့ဘူး။\n\nEasy to Install: ကွန်ပျူတာထဲမှာ အလွယ်တကူ Install လုပ်ပြီး ဆော့ဖ်ဝဲလ်တိုင်းမှာ အသုံးပြုနိုင်ပါတယ်။',
+                closing: 'ဘယ်လို Project မျိုးမှာမဆို Professional ကျကျ အသုံးပြုနိုင်ဖို့ ART de ONE ရဲ့ ဒီ Font Collection လေးကို လက်လွတ်မခံဘဲ အခုပဲ ဆောင်ထားလိုက်ပါခင်ဗျ။'
             },
+
+            /* ===== NEW: Video Course Product Example ===== */
             {
                 id: 3,
-                name: 'Color Palette Presets',
-                category: 'preset',
-                price: 8000,
-                image: 'https://placehold.co/600x400/f3f4f6/323232?text=Color+Presets',
-                description: 'Curated color palette collection for modern design projects. Ready to use in Illustrator and Photoshop.',
-                features: ['30 Curated Palettes', 'ASE & ACO Formats', 'Trend-Based Colors', 'Print & Digital Ready']
-            },
-            {
-                id: 4,
-                name: 'Myanmar Display Font',
-                category: 'font',
-                price: 25000,
-                image: 'https://placehold.co/600x400/f3f4f6/323232?text=Myanmar+Font',
-                description: 'Custom designed Myanmar Unicode display font. Perfect for headings, logos, and brand identity.',
-                features: ['OTF & TTF Formats', 'Myanmar Unicode Support', 'Multiple Weights', 'Commercial License']
-            },
-            {
-                id: 5,
-                name: 'Product Mockup Bundle',
-                category: 'mockup',
-                price: 18000,
-                image: 'https://placehold.co/600x400/f3f4f6/323232?text=Mockup+Bundle',
-                description: 'Realistic product mockups for presentations and portfolios. Smart object layers for easy editing.',
-                features: ['15 PSD Mockups', 'Smart Object Layers', '4K Resolution', 'Multiple Angles']
-            },
-            {
-                id: 6,
-                name: 'Design Fundamentals E-Book',
-                category: 'ebook',
-                price: 10000,
-                image: 'https://placehold.co/600x400/f3f4f6/323232?text=Design+E-Book',
-                description: 'Comprehensive guide to graphic design fundamentals in Myanmar language. Learn color theory, typography, and layout.',
-                features: ['120+ Pages PDF', 'Myanmar Language', 'Practice Exercises', 'Resource Links']
-            },
-            {
-                id: 7,
-                name: 'Logo Template Collection',
-                category: 'template',
-                price: 20000,
-                image: 'https://placehold.co/600x400/f3f4f6/323232?text=Logo+Templates',
-                description: 'Minimalist logo templates for startups and small businesses. Fully editable vector files.',
-                features: ['25 Logo Templates', 'AI & EPS Files', 'Editable Text & Colors', 'Brand Guide Template']
-            },
-            {
-                id: 8,
-                name: 'Illustrator Online Course',
+                name: 'Graphic Design Fundamentals - Video Course',
                 category: 'course',
-                price: 45000,
-                image: 'https://placehold.co/600x400/f3f4f6/323232?text=Illustrator+Course',
-                description: 'Complete Adobe Illustrator course from basic to advanced. Learn vector illustration with practical projects.',
-                features: ['30+ Video Lessons', 'Practice Files Included', 'Certificate of Completion', 'Lifetime Access']
-            },
-            {
-                id: 9,
-                name: 'Texture Overlay Pack',
-                category: 'brush',
-                price: 10000,
-                image: 'https://placehold.co/600x400/f3f4f6/323232?text=Texture+Pack',
-                description: 'High-resolution texture overlays for adding depth and character to your designs.',
-                features: ['40 Texture Files', 'PNG & JPG Formats', '4000x4000px Resolution', 'Seamless Patterns']
+                price: 25000,
+                image: 'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1770978188/1_zkggfq.jpg',
+                /* ↑ ကိုယ့် course thumbnail URL ကိုပြောင်းထည့်ပါ */
+                images: [
+                    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1770978188/1_zkggfq.jpg'
+                    /* ↑ Preview ပုံတွေထပ်ထည့်နိုင်ပါတယ် */
+                ],
+                previewVideo: 'https://res.cloudinary.com/ddkd9lxpr/video/upload/v1771041087/thank-you_olmg32.mp4',
+                /* ↑ ကိုယ့် preview/trailer video URL ကိုပြောင်းထည့်ပါ */
+                description: 'Graphic Design အခြေခံကနေ Advanced အထိ လေ့လာနိုင်မယ့် Video Course ဖြစ်ပါတယ်။ ၀ယ်ယူပြီးရင် Customer Dashboard ကနေ တိုက်ရိုက်ကြည့်ရှုနိုင်ပါတယ်။',
+                features: [
+                    'Design Principles အခြေခံ Theory များ',
+                    'Typography & Color Theory',
+                    'Layout & Composition နည်းစနစ်များ',
+                    'Real-world Project Walkthrough များ',
+                    'Lifetime Access - တစ်ခါ၀ယ် အမြဲကြည့်ရှုနိုင်'
+                ],
+                note: '🎬 Video Course ဖြစ်ပါတယ်\n\n၀ယ်ယူပြီးပါက Customer Dashboard မှ တိုက်ရိုက် ကြည့်ရှုနိုင်ပါတယ်။\nDownload လုပ်စရာမလိုပါ။',
+                closing: 'Design ကို Professional ကျကျ လေ့လာချင်သူတိုင်းအတွက် ဒီ Course က အကောင်းဆုံး ရွေးချယ်မှုပါ။'
             }
         ];
 
         const categoryLabels = {
             template: 'Templates',
             brush: 'Brushes & Assets',
+            universal_brushes: 'Brushes (PS / CSP / Procreate)',
             preset: 'Presets',
             font: 'Fonts',
             mockup: 'Mockups',
             course: 'Courses',
-            ebook: 'E-Books'
+            ebook: 'E-Books',
+            premiere: 'Premiere Pro Assets',
+            after_effects: 'After Effects Templates'
         };
 
         let activeCategory = 'all';
@@ -830,6 +862,7 @@
             return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         }
 
+        /* ===== MODIFIED: renderProducts — video course play overlay ===== */
         function renderProducts(list) {
             const grid = document.getElementById('productGrid');
             const empty = document.getElementById('emptyState');
@@ -840,9 +873,15 @@
                 return;
             }
             empty.classList.add('hidden');
-            grid.innerHTML = list.map(p => `
+            grid.innerHTML = list.map(p => {
+                const isCourse = p.category === 'course' && p.previewVideo;
+                return `
                 <div class="minimalist-card" data-aos="fade-up">
-                    <img src="${p.image}" alt="${p.name}" class="product-card-img" loading="lazy">
+                    <div style="position:relative; overflow:hidden;">
+                        ${isCourse ? `<span class="course-badge"><i class="fas fa-play-circle" style="margin-right:4px;"></i>Video Course</span>` : ''}
+                        <img src="${p.image}" alt="${p.name}" class="product-card-img" loading="lazy">
+                        ${isCourse ? `<div class="video-play-overlay"><div class="video-play-icon"><i class="fas fa-play"></i></div></div>` : ''}
+                    </div>
                     <div class="product-card-body">
                         <span class="category-badge mb-3">${categoryLabels[p.category]}</span>
                         <h3 class="font-bold text-black text-lg mt-2 mb-2">${p.name}</h3>
@@ -855,33 +894,54 @@
                             <button onclick="openModal(${p.id})" class="btn-primary text-sm" style="padding: 0.5rem 1.25rem;">View Details</button>
                         </div>
                     </div>
-                </div>
-            `).join('');
+                </div>`;
+            }).join('');
         }
 
-        // FIX 4: Redesigned openModal with image gallery + modern layout
+        /* ===== MODIFIED: openModal — video preview for courses ===== */
         function openModal(id) {
             const p = products.find(x => x.id === id);
             if (!p) return;
 
-            // Generate 6 gallery images (replace with real images later)
-            const bgColors = ['f3f4f6', 'e8f5d6', 'eff6ff', 'fef3c7', 'fce7f3', 'f0fdf4'];
-            const galleryLabels = ['Main', 'Preview 2', 'Preview 3', 'Preview 4', 'Preview 5', 'Preview 6'];
-            const galleryImages = bgColors.map((c, i) =>
-                i === 0 ? p.image : `https://placehold.co/600x400/${c}/555555?text=${encodeURIComponent(p.name + ' ' + galleryLabels[i])}`
-            );
+            const galleryImages = p.images && p.images.length > 0 ? p.images : [p.image];
+            const isCourse = p.category === 'course' && p.previewVideo;
+
+            let mediaSection = '';
+            if (isCourse) {
+                // Video preview for courses
+                mediaSection = `
+                    <div class="modal-video-wrapper">
+                        <video controls playsinline poster="${p.image}">
+                            <source src="${p.previewVideo}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <span class="modal-preview-label"><i class="fas fa-eye" style="margin-right:4px;"></i>Preview</span>
+                    </div>
+                    ${galleryImages.length > 1 ? `<div class="gallery-thumbs">
+                        ${galleryImages.map((img, i) => `
+                            <img src="${img}" alt="Preview ${i+1}" class="gallery-thumb ${i === 0 ? 'active' : ''}" onclick="switchGalleryImage('${img}', this)">
+                        `).join('')}
+                    </div>` : ''}
+                `;
+            } else {
+                // Original image gallery
+                mediaSection = `
+                    <div style="position:relative; overflow:hidden; border-radius:1.25rem 1.25rem 0 0;">
+                        <img src="${galleryImages[0]}" alt="${p.name}" class="gallery-main-img" id="galleryMainImg">
+                    </div>
+                    ${galleryImages.length > 1 ? `<div class="gallery-thumbs">
+                        ${galleryImages.map((img, i) => `
+                            <img src="${img}" alt="Preview ${i+1}" class="gallery-thumb ${i === 0 ? 'active' : ''}" onclick="switchGalleryImage('${img}', this)">
+                        `).join('')}
+                    </div>` : ''}
+                `;
+            }
 
             document.getElementById('modalContent').innerHTML = `
-                <div style="position:relative; overflow:hidden; border-radius:1.25rem 1.25rem 0 0;">
-                    <img src="${galleryImages[0]}" alt="${p.name}" class="gallery-main-img" id="galleryMainImg">
-                </div>
-                <div class="gallery-thumbs">
-                    ${galleryImages.map((img, i) => `
-                        <img src="${img}" alt="Preview ${i+1}" class="gallery-thumb ${i === 0 ? 'active' : ''}" onclick="switchGalleryImage('${img}', this)">
-                    `).join('')}
-                </div>
+                ${mediaSection}
                 <div class="modal-detail-body">
                     <span class="category-badge">${categoryLabels[p.category]}</span>
+                    ${isCourse ? '<span class="category-badge" style="background:#fef2f2; color:#991b1b; margin-left:6px;"><i class="fas fa-play-circle" style="margin-right:4px;"></i>Video Course</span>' : ''}
                     <h2>${p.name}</h2>
                     <p class="desc">${p.description}</p>
                     <div class="modal-features">
@@ -890,6 +950,8 @@
                             ${p.features.map(f => `<li><i class="fas fa-check-circle"></i>${f}</li>`).join('')}
                         </ul>
                     </div>
+                    ${p.note ? `<div style="background:#fff8f0; border:1px solid #f0e0cc; border-radius:12px; padding:18px 20px; margin-bottom:20px; font-size:0.88rem; color:#555; line-height:1.8; white-space:pre-line;">${p.note}</div>` : ''}
+                    ${p.closing ? `<p style="font-size:0.9rem; color:#323232; line-height:1.8; margin-bottom:20px; font-style:italic;">${p.closing}</p>` : ''}
                     <div class="modal-price-bar">
                         <div>
                             <span class="price-tag" style="font-size:1.6rem;">${formatPrice(p.price)}</span>
@@ -906,19 +968,23 @@
             document.body.style.overflow = 'hidden';
         }
 
-        // Gallery image switching
         function switchGalleryImage(src, thumbEl) {
             const mainImg = document.getElementById('galleryMainImg');
-            mainImg.style.opacity = '0';
-            setTimeout(() => {
-                mainImg.src = src;
-                mainImg.style.opacity = '1';
-            }, 200);
+            if (mainImg) {
+                mainImg.style.opacity = '0';
+                setTimeout(() => {
+                    mainImg.src = src;
+                    mainImg.style.opacity = '1';
+                }, 200);
+            }
             document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
             thumbEl.classList.add('active');
         }
 
         function closeModal() {
+            // Pause any playing video
+            const vid = document.querySelector('#modalContent video');
+            if (vid) vid.pause();
             document.getElementById('productModal').classList.remove('active');
             document.body.style.overflow = '';
         }
@@ -933,14 +999,12 @@
             }
         });
 
-        // FIX 5: Contact Modal functions
         function openContactModal() {
             document.getElementById('contactModal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
         function closeContactModal() {
             document.getElementById('contactModal').classList.remove('active');
-            // Only restore scroll if product modal is also closed
             if (!document.getElementById('productModal').classList.contains('active')) {
                 document.body.style.overflow = '';
             }
@@ -949,7 +1013,6 @@
             if (e.target === this) closeContactModal();
         });
 
-        // Initial render
         renderProducts(products);
     </script>
 </body>
