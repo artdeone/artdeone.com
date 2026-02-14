@@ -783,9 +783,11 @@
                         <div class="lg:col-span-2 bg-gray-50 border border-gray-100 rounded-2xl flex flex-col items-center justify-center min-h-[500px] relative overflow-hidden group">
                             
                             <!-- Loading/Empty State -->
-                            <div id="ai-result-container" class="text-center p-8">
-                                <i class="fa-regular fa-image text-4xl text-gray-300 mb-4 block"></i>
-                                <p class="text-gray-400 text-sm font-light">Your generated image will appear here.</p>
+                            <div id="ai-result-container" class="text-center p-8 w-full h-full flex items-center justify-center">
+                                <div>
+                                    <i class="fa-regular fa-image text-4xl text-gray-300 mb-4 block"></i>
+                                    <p class="text-gray-400 text-sm font-light">Your generated image will appear here.</p>
+                                </div>
                             </div>
 
                             <!-- Save Button (Normally Hidden) -->
@@ -1391,10 +1393,13 @@ async function generateAIImage() {
     btn.disabled = true;
     btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Generating...`;
     saveBtn.classList.add('hidden');
+
+    // Loading state — container ကို flex center ပြန်လုပ်မယ်
+    container.className = 'w-full h-full flex items-center justify-center p-8';
     container.innerHTML = `
         <div class="flex flex-col items-center animate-pulse">
             <div class="w-12 h-12 border-4 border-gray-200 border-t-black rounded-full animate-spin mb-4"></div>
-            <p class="text-gray-500 text-sm">Creating with Flux.1 AI...</p>
+            <p class="text-gray-500 text-sm">Creating with AI...</p>
         </div>`;
 
     try {
@@ -1403,11 +1408,10 @@ async function generateAIImage() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ 
                 prompt: prompt,
-                model: model  // ✅ model ပို့မယ်
+                model: model
             }),
         });
 
-        // ✅ Error check ကို သေချာအောင် လုပ်မယ်
         if (!response.ok) {
             const contentType = response.headers.get("content-type");
             let errorMsg = "Generation Failed";
@@ -1422,18 +1426,27 @@ async function generateAIImage() {
             throw new Error(errorMsg);
         }
 
-        // ✅ အောင်မြင်ရင်မှ blob ပြောင်းမယ်
         const blob = await response.blob();
         currentBlob = blob;
         const imgUrl = URL.createObjectURL(blob);
 
-        container.innerHTML = `<img src="${imgUrl}" class="w-full h-full object-contain shadow-sm rounded-lg fade-in-up">`;
+        // ✅ ပုံပြတဲ့အခါ container ကို ပြင်မယ်
+        container.className = 'w-full h-full flex items-center justify-center p-4';
+        container.innerHTML = `
+            <img src="${imgUrl}" 
+                 alt="AI Generated Image"
+                 class="max-w-full max-h-[480px] object-contain rounded-lg shadow-sm"
+                 style="opacity: 0; transition: opacity 0.5s ease;"
+                 onload="this.style.opacity='1'"
+            >`;
+
         saveBtn.classList.remove('hidden');
 
     } catch (error) {
-        // ✅ Error ကို user ကို ပြပါမယ်
+        // Error state
+        container.className = 'w-full h-full flex items-center justify-center p-8';
         container.innerHTML = `
-            <div class="text-red-600 p-4 bg-red-50 rounded-lg">
+            <div class="text-red-600 p-4 bg-red-50 rounded-lg max-w-md text-center">
                 <i class="fa-solid fa-triangle-exclamation mr-2"></i>
                 <strong>Error:</strong> ${error.message}
             </div>`;
