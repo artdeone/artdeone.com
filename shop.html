@@ -885,7 +885,7 @@
                 images: [
                     'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1770978188/1_zkggfq.jpg'
                 ],
-                previewVideo: 'https://youtu.be/4Csc-b8Z93I',
+                previewVideo: 'https://www.youtube.com/embed/4Csc-b8Z93I',
                 description: 'Graphic Design အခြေခံကနေ Advanced အထိ လေ့လာနိုင်မယ့် Video Course ဖြစ်ပါတယ်။ ၀ယ်ယူပြီးရင် Customer Dashboard ကနေ တိုက်ရိုက်ကြည့်ရှုနိုင်ပါတယ်။',
                 features: [
                     'Design Principles အခြေခံ Theory များ',
@@ -999,10 +999,10 @@
 
             let mediaSection = '';
             if (isCourse) {
-                // ✅ YouTube embed for courses
+                // YouTube embed for courses
                 const ytVideoId = extractYouTubeId(p.previewVideo);
                 const embedUrl = ytVideoId
-                    ? 'https://www.youtube.com/embed/' + ytVideoId + '?rel=0&modestbranding=1'
+                    ? 'https://www.youtube-nocookie.com/embed/' + ytVideoId + '?rel=0&modestbranding=1&autoplay=0'
                     : p.previewVideo;
 
                 mediaSection = `
@@ -1010,8 +1010,9 @@
                         <iframe
                             id="coursePreviewIframe"
                             src="${embedUrl}"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen>
+                            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                            loading="lazy">
                         </iframe>
                         <span class="modal-preview-label"><i class="fas fa-eye" style="margin-right:4px;"></i>Preview</span>
                     </div>
@@ -1083,13 +1084,9 @@
         // ✅ CHANGED: closeModal — iframe src clear
         // ==========================================
         function closeModal() {
-            // Stop YouTube iframe by clearing src
+            // Stop YouTube by clearing iframe src
             const iframe = document.querySelector('#modalContent iframe');
             if (iframe) iframe.src = '';
-
-            // Also pause any regular video (if exists)
-            const vid = document.querySelector('#modalContent video');
-            if (vid) vid.pause();
 
             document.getElementById('productModal').classList.remove('active');
             document.body.style.overflow = '';
