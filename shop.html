@@ -406,7 +406,7 @@
             .gallery-thumb { width: 48px; height: 36px; }
         }
 
-        /* ===== NEW: Video Course Styles ===== */
+        /* ===== Video Course Styles ===== */
         .video-play-overlay {
             position: absolute;
             inset: 0;
@@ -462,10 +462,13 @@
             border-radius: 1.25rem 1.25rem 0 0;
             overflow: hidden;
         }
-        .modal-video-wrapper video {
+        /* ✅ CHANGED: video + iframe support */
+        .modal-video-wrapper video,
+        .modal-video-wrapper iframe {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            border: none;
         }
         .modal-preview-label {
             position: absolute;
@@ -833,7 +836,9 @@
             document.getElementById('alertWrapper').style.display = 'none';
         }
 
+        // ==========================================
         // Product Data
+        // ==========================================
         const products = [
             {
                 id: 1,
@@ -870,20 +875,17 @@
                 closing: 'ဘယ်လို Project မျိုးမှာမဆို Professional ကျကျ အသုံးပြုနိုင်ဖို့ ART de ONE ရဲ့ ဒီ Font Collection လေးကို လက်လွတ်မခံဘဲ အခုပဲ ဆောင်ထားလိုက်ပါခင်ဗျ။'
             },
 
-            /* ===== NEW: Video Course Product Example ===== */
+            /* ✅ CHANGED: YouTube URL ထည့်ပြီး */
             {
                 id: 3,
                 name: 'Graphic Design Fundamentals - Video Course',
                 category: 'course',
                 price: 25000,
                 image: 'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1770978188/1_zkggfq.jpg',
-                /* ↑ ကိုယ့် course thumbnail URL ကိုပြောင်းထည့်ပါ */
                 images: [
                     'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1770978188/1_zkggfq.jpg'
-                    /* ↑ Preview ပုံတွေထပ်ထည့်နိုင်ပါတယ် */
                 ],
-                previewVideo: 'https://res.cloudinary.com/ddkd9lxpr/video/upload/v1771041087/thank-you_olmg32.mp4',
-                /* ↑ ကိုယ့် preview/trailer video URL ကိုပြောင်းထည့်ပါ */
+                previewVideo: 'https://youtu.be/4Csc-b8Z93I',
                 description: 'Graphic Design အခြေခံကနေ Advanced အထိ လေ့လာနိုင်မယ့် Video Course ဖြစ်ပါတယ်။ ၀ယ်ယူပြီးရင် Customer Dashboard ကနေ တိုက်ရိုက်ကြည့်ရှုနိုင်ပါတယ်။',
                 features: [
                     'Design Principles အခြေခံ Theory များ',
@@ -933,7 +935,6 @@
             return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         }
 
-        /* ===== MODIFIED: renderProducts — video course play overlay ===== */
         function renderProducts(list) {
             const grid = document.getElementById('productGrid');
             const empty = document.getElementById('emptyState');
@@ -969,7 +970,26 @@
             }).join('');
         }
 
-        /* ===== MODIFIED: openModal — video preview for courses ===== */
+        // ==========================================
+        // ✅ NEW: YouTube URL ကနေ Video ID ထုတ်ယူ
+        // ==========================================
+        function extractYouTubeId(url) {
+            if (!url) return null;
+            const patterns = [
+                /youtube\.com\/embed\/([^?&#]+)/,
+                /youtube\.com\/watch\?v=([^&#]+)/,
+                /youtu\.be\/([^?&#]+)/
+            ];
+            for (let pattern of patterns) {
+                const match = url.match(pattern);
+                if (match) return match[1];
+            }
+            return null;
+        }
+
+        // ==========================================
+        // ✅ CHANGED: openModal — YouTube iframe
+        // ==========================================
         function openModal(id) {
             const p = products.find(x => x.id === id);
             if (!p) return;
@@ -979,13 +999,20 @@
 
             let mediaSection = '';
             if (isCourse) {
-                // Video preview for courses
+                // ✅ YouTube embed for courses
+                const ytVideoId = extractYouTubeId(p.previewVideo);
+                const embedUrl = ytVideoId
+                    ? 'https://www.youtube.com/embed/' + ytVideoId + '?rel=0&modestbranding=1'
+                    : p.previewVideo;
+
                 mediaSection = `
                     <div class="modal-video-wrapper">
-                        <video controls playsinline poster="${p.image}">
-                            <source src="${p.previewVideo}" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
+                        <iframe
+                            id="coursePreviewIframe"
+                            src="${embedUrl}"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
                         <span class="modal-preview-label"><i class="fas fa-eye" style="margin-right:4px;"></i>Preview</span>
                     </div>
                     ${galleryImages.length > 1 ? `<div class="gallery-thumbs">
@@ -1052,10 +1079,18 @@
             thumbEl.classList.add('active');
         }
 
+        // ==========================================
+        // ✅ CHANGED: closeModal — iframe src clear
+        // ==========================================
         function closeModal() {
-            // Pause any playing video
+            // Stop YouTube iframe by clearing src
+            const iframe = document.querySelector('#modalContent iframe');
+            if (iframe) iframe.src = '';
+
+            // Also pause any regular video (if exists)
             const vid = document.querySelector('#modalContent video');
             if (vid) vid.pause();
+
             document.getElementById('productModal').classList.remove('active');
             document.body.style.overflow = '';
         }
