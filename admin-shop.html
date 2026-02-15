@@ -421,11 +421,12 @@
             overflow: hidden;
         }
         .login-box::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent-green), var(--accent-red));
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--accent-green), var(--accent-red));
+        display: none;
         }
         @keyframes loginEntry {
             from { opacity: 0; transform: translateY(20px) scale(0.98); }
