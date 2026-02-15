@@ -1790,7 +1790,12 @@
                     </div>`;
                 }).join('')}</div>`;
             } else {
-                browseSection.style.display = 'none';
+                browseSection.style.display = 'block';
+                browseContainer.innerHTML = `
+                    <div style="text-align:center; padding:50px 24px; background:var(--primary-white); border-radius:var(--radius-lg); border:1px solid rgba(0,0,0,0.05); box-shadow:var(--shadow-sm);">
+                        <div style="font-size:2.8em; margin-bottom:14px; opacity:0.2;">🎉</div>
+                        <p style="color:#bbb; font-size:0.88em; line-height:1.9; max-width:340px; margin:0 auto;">Product အားလုံးကို ဝယ်ယူပြီးပါပြီ။<br>Product အသစ်များ ထပ်တိုးလာပါက ဤနေရာတွင် ပေါ်လာပါမည်။</p>
+                    </div>`;
             }
         }
 
@@ -1854,7 +1859,7 @@
         };
         window.closeCart = closeCart;
 
-        window.placeOrder = async () => {
+                window.placeOrder = async () => {
             if (cart.length === 0) return;
             const orderBtn = document.getElementById('orderBtn');
             orderBtn.disabled = true;

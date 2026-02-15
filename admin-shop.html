@@ -421,12 +421,12 @@
             overflow: hidden;
         }
         .login-box::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, var(--accent-green), var(--accent-red));
-        display: none;
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-green), var(--accent-red));
+            display: none;
         }
         @keyframes loginEntry {
             from { opacity: 0; transform: translateY(20px) scale(0.98); }
@@ -1364,7 +1364,7 @@
                     <div style="display:flex; gap:4px; flex-wrap:wrap;">
                         ${o.status === 'pending' ? `<button onclick="acceptOrder('${o.id}','${o.customer_id}','${o.product_id}')" class="action-btn green">Accept</button>` : ''}
                         ${o.status === 'confirmed' ? `<button onclick="updateOrder('${o.id}','delivered')" class="action-btn blue">Deliver</button>` : ''}
-                        ${o.status !== 'cancelled' && o.status !== 'delivered' ? `<button onclick="updateOrder('${o.id}','cancelled')" class="action-btn red">Cancel</button>` : ''}
+                        ${o.status !== 'cancelled' && o.status !== 'delivered' ? `<button onclick="updateOrder('${o.id}','cancelled','${o.customer_id}','${o.product_id}')" class="action-btn red">Cancel</button>` : ''}
                         ${o.status === 'delivered' ? '<span style="color:#3b82f6; font-size:0.8em;">✓ Done</span>' : ''}
                     </div>
                 </div>
@@ -1386,9 +1386,12 @@
             loadOrders();
         };
 
-        window.updateOrder = async (id, status) => {
+        window.updateOrder = async (id, status, customerId, productId) => {
             if (!confirm(`Update order to "${status}"?`)) return;
             await supabaseShop.from('shop_orders').update({ status }).eq('id', id);
+            if (status === 'cancelled' && customerId && productId) {
+                await supabaseShop.from('shop_customer_downloads').update({ is_active: false }).eq('customer_id', customerId).eq('product_id', productId);
+            }
             loadOrders();
         };
 
