@@ -1002,8 +1002,8 @@
                 // YouTube embed for courses
                 const ytVideoId = extractYouTubeId(p.previewVideo);
                 const embedUrl = ytVideoId
-                    ? 'https://www.youtube-nocookie.com/embed/' + ytVideoId + '?rel=0&modestbranding=1&autoplay=0'
-                    : p.previewVideo;
+                ? 'https://www.youtube.com/embed/' + ytVideoId + '?rel=0&modestbranding=1&autoplay=0&origin=' + window.location.origin
+                : p.previewVideo;
 
                 mediaSection = `
                     <div class="modal-video-wrapper">
