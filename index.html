@@ -544,7 +544,24 @@ a.trust-badge {
     }
 }
 
-</style>
+
+    /* DMCA Badge Styling to match SSL badge */
+    .dmca-official-wrapper {
+        padding: 0.35rem 0.5rem !important;
+    }
+
+    .dmca-official-wrapper a.dmca-badge {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        line-height: 1;
+    }
+
+    .dmca-official-wrapper:hover {
+        transform: translateY(-1px);
+    }
+
+    </style>
 </head>
 <body class="bg-white text-[#323232]">
     <div class="scroll-indicator" id="scrollIndicator"></div>
@@ -1418,20 +1435,16 @@ a.trust-badge {
             </div>
             
             <!-- Badge 2: DMCA Protected -->
-            <!-- Badge 2: DMCA Protected (ပထမပုံစံ - custom style) -->
-    <a href="https://www.dmca.com/Protection/Status.aspx?ID=04063fb7-27c9-4e80-86e5-bc851bcd5935" 
-       target="_blank" 
-       rel="noopener noreferrer" 
-       class="trust-badge group" 
-       title="DMCA Protected">
-        <div class="badge-icon badge-icon-blue">
-            <i class="fas fa-shield-alt text-xs"></i>
+        <div class="trust-badge group dmca-official-wrapper" title="DMCA.com Protection Status">
+            <a href="//www.dmca.com/Protection/Status.aspx?ID=04063fb7-27c9-4e80-86e5-bc851bcd5935" 
+               title="DMCA.com Protection Status" 
+               class="dmca-badge">
+                <img src="https://images.dmca.com/Badges/dmca-badge-w100-2x1-02.png?ID=04063fb7-27c9-4e80-86e5-bc851bcd5935" 
+                     alt="DMCA.com Protection Status" 
+                     style="height: 20px; width: auto; display: block;" />
+            </a>
+            <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
         </div>
-        <div class="badge-text">
-            <span class="badge-label">DMCA</span>
-            <span class="badge-value">Protected</span>
-        </div>
-    </a>
             
             <!-- Badge 3: Verified Professional -->
             <div class="trust-badge group" title="9+ Years Professional Experience">
@@ -1772,7 +1785,24 @@ a.trust-badge {
     animation: popIcon 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
-</style>
+
+    /* DMCA Badge Styling to match SSL badge */
+    .dmca-official-wrapper {
+        padding: 0.35rem 0.5rem !important;
+    }
+
+    .dmca-official-wrapper a.dmca-badge {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        line-height: 1;
+    }
+
+    .dmca-official-wrapper:hover {
+        transform: translateY(-1px);
+    }
+
+    </style>
 
 <script>
     // --- CHATBOT CONFIG --- //
