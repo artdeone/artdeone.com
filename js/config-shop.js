@@ -36,3 +36,80 @@ export async function verifyAdminCode(code) {
         .single();
     return !!data;
 }
+
+// =====================================================
+// 🔐 GOOGLE AUTH FUNCTIONS (Customer Dashboard)
+// =====================================================
+
+export async function signInWithGoogle() {
+    const { data, error } = await supabaseShop.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+            redirectTo: window.location.origin + '/customer-dashboard.html'
+        }
+    });
+    return { data, error };
+}
+
+export async function signOutCustomer() {
+    const { error } = await supabaseShop.auth.signOut();
+    return { error };
+}
+
+export async function getAuthSession() {
+    const { data: { session } } = await supabaseShop.auth.getSession();
+    return session;
+}
+
+export function onAuthChange(callback) {
+    return supabaseShop.auth.onAuthStateChange(callback);
+}
+
+export async function findOrCreateCustomer(user) {
+    // 1. Check existing customer by email
+    const { data: existing } = await supabaseShop
+        .from('shop_customers')
+        .select('*')
+        .eq('email', user.email)
+        .maybeSingle();
+
+    if (existing) {
+        // Update auth info if first Google login
+        if (existing.auth_provider !== 'google') {
+            await supabaseShop
+                .from('shop_customers')
+                .update({
+                    auth_provider: 'google',
+                    auth_uid: user.id,
+                    avatar_url: user.user_metadata?.avatar_url || null
+                })
+                .eq('id', existing.id);
+            existing.auth_provider = 'google';
+            existing.avatar_url = user.user_metadata?.avatar_url || null;
+        }
+        return existing;
+    }
+
+    // 2. Auto-create new customer
+    const autoCode = 'G-' + Math.random().toString(36).substr(2, 6).toUpperCase();
+    const { data: newCustomer, error } = await supabaseShop
+        .from('shop_customers')
+        .insert([{
+            name: user.user_metadata?.full_name || user.email.split('@')[0],
+            email: user.email,
+            phone: user.phone || '',
+            access_code: autoCode,
+            is_active: true,
+            auth_provider: 'google',
+            auth_uid: user.id,
+            avatar_url: user.user_metadata?.avatar_url || null
+        }])
+        .select()
+        .single();
+
+    if (error) {
+        console.error('Create customer error:', error);
+        throw error;
+    }
+    return newCustomer;
+}

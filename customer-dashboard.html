@@ -115,6 +115,7 @@
         }
         .btn-logout:hover { background: #ffe4e6; }
 
+        /* ========== GOOGLE LOGIN STYLES ========== */
         .login-section { display: flex; min-height: 100vh; }
         .login-left {
             flex: 1;
@@ -141,11 +142,10 @@
             background: var(--primary-white);
         }
         .login-card {
-            max-width: 380px;
+            max-width: 400px;
             width: 100%;
             animation: loginCardIn 0.6s var(--ease) both;
         }
-        .login-card::before { display: none; }
         @keyframes loginCardIn {
             from { opacity: 0; transform: translateY(24px) scale(0.97); }
             to { opacity: 1; transform: translateY(0) scale(1); }
@@ -154,48 +154,100 @@
         .login-card .logo-wrap img { height: 40px; }
         .login-card h2 {
             text-align: center;
-            margin-bottom: 28px;
+            margin-bottom: 12px;
             font-family: 'Space Grotesk', sans-serif;
             font-size: 1.4em;
             font-weight: 700;
             letter-spacing: -0.02em;
             color: var(--primary-black);
         }
-        .form-group { margin-bottom: 18px; }
-        .form-group label {
-            display: block;
-            margin-bottom: 7px;
-            font-weight: 600;
-            font-size: 0.78em;
+        .login-card .login-subtitle {
+            text-align: center;
             color: #999;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
+            font-size: 0.88em;
+            margin-bottom: 32px;
+            line-height: 1.6;
         }
-        .form-input {
+
+        /* Google Sign-In Button */
+        .google-signin-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
             width: 100%;
-            padding: 13px 16px;
-            border: 1.5px solid var(--gray-200);
-            border-radius: var(--radius-sm);
+            padding: 15px 24px;
+            background: var(--primary-white);
+            border: 2px solid var(--gray-200);
+            border-radius: 14px;
             font-family: 'Poppins', sans-serif;
             font-size: 0.95em;
-            outline: none;
-            transition: all 0.25s var(--ease);
-            background: var(--gray-50);
+            font-weight: 600;
             color: var(--gray-900);
+            cursor: pointer;
+            transition: all 0.3s var(--ease);
+            position: relative;
+            overflow: hidden;
         }
-        .form-input:hover { border-color: #ccc; }
-        .form-input:focus {
+        .google-signin-btn:hover {
             border-color: var(--accent-green);
-            box-shadow: 0 0 0 4px rgba(167,225,105,0.1);
-            background: var(--primary-white);
+            box-shadow: 0 6px 24px rgba(167,225,105,0.18);
+            transform: translateY(-2px);
         }
-        .login-card .btn-primary {
-            width: 100%;
-            padding: 14px;
-            font-size: 0.95em;
-            border-radius: 12px;
-            margin-top: 4px;
+        .google-signin-btn:active {
+            transform: scale(0.98) translateY(0);
         }
+        .google-signin-btn svg {
+            width: 22px;
+            height: 22px;
+            flex-shrink: 0;
+        }
+        .google-signin-btn .btn-loading {
+            display: none;
+        }
+        .google-signin-btn.loading .btn-text { display: none; }
+        .google-signin-btn.loading .btn-loading {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .login-divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 24px 0;
+            color: #ccc;
+            font-size: 0.78em;
+        }
+        .login-divider::before,
+        .login-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--gray-200);
+        }
+
+        .login-features {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 0;
+        }
+        .login-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.82em;
+            color: #777;
+        }
+        .login-feature i {
+            color: var(--accent-green);
+            font-size: 0.85em;
+            width: 18px;
+            text-align: center;
+        }
+
         .login-error {
             color: var(--accent-red);
             font-size: 0.82em;
@@ -208,6 +260,25 @@
             border-radius: 8px;
             border: 1px solid rgba(237,41,57,0.08);
         }
+        .login-loading-state {
+            text-align: center;
+            padding: 40px 20px;
+            display: none;
+        }
+        .login-loading-state .spinner {
+            width: 36px;
+            height: 36px;
+            border: 3px solid var(--gray-200);
+            border-top-color: var(--accent-green);
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            margin: 0 auto 16px;
+        }
+        .login-loading-state p {
+            color: #999;
+            font-size: 0.88em;
+        }
+
         @keyframes errorShake {
             0%, 100% { transform: translateX(0); }
             20% { transform: translateX(-6px); }
@@ -215,6 +286,7 @@
             60% { transform: translateX(-3px); }
             80% { transform: translateX(3px); }
         }
+        @keyframes spin { to { transform: rotate(360deg); } }
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
             20% { transform: translateX(-8px); }
@@ -259,6 +331,33 @@
             font-size: 0.88em;
             margin-top: 5px;
             font-weight: 400;
+        }
+        .welcome-avatar {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+        .welcome-avatar img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-green);
+        }
+        .welcome-avatar .avatar-fallback {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--primary-black);
+            color: var(--accent-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.1em;
+            border: 2px solid var(--accent-green);
         }
         .badge {
             display: inline-flex;
@@ -322,13 +421,6 @@
         .thank-you-letter p strong {
             color: var(--primary-black);
         }
-        @media (max-width: 600px) {
-            .thank-you-letter {
-                padding: 22px 20px;
-                border-radius: var(--radius-md);
-            }
-            .thank-you-letter p { font-size: 0.84em; }
-        }
 
         .section-title {
             font-family: 'Space Grotesk', sans-serif;
@@ -390,12 +482,8 @@
             background: var(--gray-50);
             transition: transform 0.5s var(--ease);
         }
-        .product-card:hover .thumb {
-            transform: scale(1.04);
-        }
-        .product-card .card-body {
-            padding: 20px 22px 22px;
-        }
+        .product-card:hover .thumb { transform: scale(1.04); }
+        .product-card .card-body { padding: 20px 22px 22px; }
         .product-card .product-name {
             font-family: 'Space Grotesk', sans-serif;
             font-weight: 600;
@@ -454,11 +542,7 @@
             transform: translateY(-1px);
         }
         .btn-download:active { transform: scale(0.97) translateY(0); }
-        .btn-download svg {
-            width: 16px;
-            height: 16px;
-            flex-shrink: 0;
-        }
+        .btn-download svg { width: 16px; height: 16px; flex-shrink: 0; }
 
         .empty-state {
             text-align: center;
@@ -480,13 +564,7 @@
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-8px); }
         }
-        .empty-state p {
-            color: #aaa;
-            font-size: 0.92em;
-            line-height: 1.8;
-            max-width: 320px;
-            margin: 0 auto;
-        }
+        .empty-state p { color: #aaa; font-size: 0.92em; line-height: 1.8; max-width: 320px; margin: 0 auto; }
 
         .loading-spinner {
             text-align: center;
@@ -506,44 +584,26 @@
             border-radius: 50%;
             animation: spin 0.7s linear infinite;
         }
-        @keyframes spin { to { transform: rotate(360deg); } }
 
         @keyframes fadeSlideUp {
             from { opacity: 0; transform: translateY(14px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
 
         .dashboard-enter { animation: dashboardFadeIn 0.5s var(--ease) both; }
-        @keyframes dashboardFadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        @keyframes dashboardFadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        *:focus-visible {
-            outline: 2px solid var(--accent-green);
-            outline-offset: 2px;
-        }
+        *:focus-visible { outline: 2px solid var(--accent-green); outline-offset: 2px; }
 
         @media (max-width: 600px) {
             .nav-container { padding: 0 16px; height: 54px; }
             .nav-logo img { height: 26px; }
             .btn { padding: 8px 14px; font-size: 0.78em; }
             .container { padding: 20px 16px; }
-            .welcome-header {
-                padding: 24px 22px;
-                border-radius: var(--radius-md);
-            }
+            .welcome-header { padding: 24px 22px; border-radius: var(--radius-md); }
             .welcome-header h1 { font-size: 1.2em; }
             .welcome-header .email-text { font-size: 0.82em; }
-            .badge {
-                position: static;
-                margin-top: 12px;
-                display: inline-flex;
-            }
+            .badge { position: static; margin-top: 12px; display: inline-flex; }
             .section-title { font-size: 1.08em; margin-bottom: 18px; }
             .product-card .card-body { padding: 16px 18px 18px; }
             .product-card .product-name { font-size: 0.95em; }
@@ -553,6 +613,8 @@
             .login-card { max-width: 100%; }
             .login-card h2 { font-size: 1.25em; }
             .empty-state { padding: 50px 20px; }
+            .thank-you-letter { padding: 22px 20px; border-radius: var(--radius-md); }
+            .thank-you-letter p { font-size: 0.84em; }
         }
 
         @media (max-width: 380px) {
@@ -561,16 +623,12 @@
         }
 
         @media (hover: none) {
-            .product-card:hover {
-                transform: none;
-                box-shadow: var(--shadow-xs);
-                border-color: rgba(0,0,0,0.05);
-            }
+            .product-card:hover { transform: none; box-shadow: var(--shadow-xs); border-color: rgba(0,0,0,0.05); }
             .product-card:hover .thumb { transform: none; }
             .btn-download:hover { transform: none; }
-            .btn-primary:hover { transform: none; }
         }
 
+        /* ========== CART STYLES ========== */
         .btn-cart {
             background: var(--primary-white);
             color: var(--gray-900);
@@ -597,823 +655,236 @@
             animation: cartPop 0.3s var(--ease-spring);
         }
         .cart-count.hidden-count { display: none; }
-        @keyframes cartPop {
-            from { transform: scale(0); }
-            to { transform: scale(1); }
-        }
+        @keyframes cartPop { from { transform: scale(0); } to { transform: scale(1); } }
 
         .cart-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0);
-            z-index: 199;
-            pointer-events: none;
-            transition: background 0.35s var(--ease);
+            position: fixed; inset: 0; background: rgba(0,0,0,0); z-index: 199;
+            pointer-events: none; transition: background 0.35s var(--ease);
         }
         .cart-overlay.active {
-            background: rgba(0,0,0,0.35);
-            pointer-events: auto;
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
+            background: rgba(0,0,0,0.35); pointer-events: auto;
+            backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
         }
         .cart-slidein {
-            position: fixed;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            width: 380px;
-            max-width: 90vw;
-            background: var(--primary-white);
-            z-index: 200;
-            box-shadow: -8px 0 40px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
-            transform: translateX(100%);
-            transition: transform 0.4s var(--ease);
+            position: fixed; top: 0; right: 0; bottom: 0; width: 380px; max-width: 90vw;
+            background: var(--primary-white); z-index: 200; box-shadow: -8px 0 40px rgba(0,0,0,0.1);
+            display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.4s var(--ease);
         }
         .cart-slidein.active { transform: translateX(0); }
         .cart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 24px;
-            border-bottom: 1px solid rgba(0,0,0,0.06);
-            flex-shrink: 0;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 24px; border-bottom: 1px solid rgba(0,0,0,0.06); flex-shrink: 0;
         }
-        .cart-header h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.15em;
-            font-weight: 700;
-        }
-        .cart-header button {
-            background: none;
-            border: none;
-            font-size: 1.2em;
-            cursor: pointer;
-            color: #999;
-            padding: 4px;
-            transition: color 0.2s;
-        }
+        .cart-header h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.15em; font-weight: 700; }
+        .cart-header button { background: none; border: none; font-size: 1.2em; cursor: pointer; color: #999; padding: 4px; transition: color 0.2s; }
         .cart-header button:hover { color: #333; }
-        .cart-items {
-            flex: 1;
-            overflow-y: auto;
-            padding: 16px 24px;
-        }
+        .cart-items { flex: 1; overflow-y: auto; padding: 16px 24px; }
         .cart-item {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 14px 0;
-            border-bottom: 1px solid rgba(0,0,0,0.04);
-            animation: fadeSlideUp 0.3s var(--ease) both;
+            display: flex; align-items: center; gap: 14px; padding: 14px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.04); animation: fadeSlideUp 0.3s var(--ease) both;
         }
         .cart-item:last-child { border-bottom: none; }
-        .cart-item-img {
-            width: 60px;
-            height: 45px;
-            object-fit: cover;
-            border-radius: 8px;
-            background: var(--gray-50);
-            flex-shrink: 0;
-        }
+        .cart-item-img { width: 60px; height: 45px; object-fit: cover; border-radius: 8px; background: var(--gray-50); flex-shrink: 0; }
         .cart-item-info { flex: 1; min-width: 0; }
-        .cart-item-name {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.88em;
-            font-weight: 600;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .cart-item-price {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.78em;
-            color: #999;
-            font-weight: 500;
-        }
+        .cart-item-name { font-family: 'Space Grotesk', sans-serif; font-size: 0.88em; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .cart-item-price { font-family: 'Space Grotesk', sans-serif; font-size: 0.78em; color: #999; font-weight: 500; }
         .cart-item-remove {
-            background: #fef2f2;
-            border: none;
-            color: #991b1b;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 0.7em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-            flex-shrink: 0;
+            background: #fef2f2; border: none; color: #991b1b; width: 28px; height: 28px;
+            border-radius: 50%; cursor: pointer; font-size: 0.7em; display: flex;
+            align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0;
         }
         .cart-item-remove:hover { background: #fee2e2; transform: scale(1.1); }
-        .cart-empty {
-            text-align: center;
-            padding: 40px 0;
-            color: #ccc;
-        }
+        .cart-empty { text-align: center; padding: 40px 0; color: #ccc; }
         .cart-empty i { font-size: 2em; margin-bottom: 12px; display: block; opacity: 0.4; }
-        .cart-footer {
-            padding: 20px 24px;
-            border-top: 1px solid rgba(0,0,0,0.06);
-            flex-shrink: 0;
-        }
-        .cart-total {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-            font-family: 'Space Grotesk', sans-serif;
-        }
+        .cart-footer { padding: 20px 24px; border-top: 1px solid rgba(0,0,0,0.06); flex-shrink: 0; }
+        .cart-total { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-family: 'Space Grotesk', sans-serif; }
         .cart-total-label { font-size: 0.85em; color: #999; font-weight: 500; }
         .cart-total-value { font-size: 1.2em; font-weight: 700; color: var(--primary-black); }
-        .cart-footer .btn {
-            width: 100%;
-            padding: 13px;
-            border-radius: 12px;
-            font-size: 0.92em;
-            margin-bottom: 8px;
-        }
-        .btn-order {
-            background: var(--accent-green);
-            color: var(--primary-black);
-            box-shadow: 0 2px 10px rgba(167,225,105,0.2);
-        }
-        .btn-order:hover {
-            background: #96d158;
-            box-shadow: 0 4px 18px rgba(167,225,105,0.3);
-        }
-        .btn-cancel-cart {
-            background: var(--gray-50);
-            color: #999;
-            border: 1px solid var(--gray-200);
-        }
+        .cart-footer .btn { width: 100%; padding: 13px; border-radius: 12px; font-size: 0.92em; margin-bottom: 8px; }
+        .btn-order { background: var(--accent-green); color: var(--primary-black); box-shadow: 0 2px 10px rgba(167,225,105,0.2); }
+        .btn-order:hover { background: #96d158; box-shadow: 0 4px 18px rgba(167,225,105,0.3); }
+        .btn-cancel-cart { background: var(--gray-50); color: #999; border: 1px solid var(--gray-200); }
         .btn-cancel-cart:hover { background: var(--gray-200); color: #555; }
 
         /* ========== PROFILE STYLES ========== */
         .btn-profile {
-            background: var(--primary-white);
-            color: var(--gray-900);
-            border: 1px solid var(--gray-200);
-            padding: 9px 14px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            background: var(--primary-white); color: var(--gray-900);
+            border: 1px solid var(--gray-200); padding: 9px 14px;
+            display: flex; align-items: center; gap: 6px;
         }
         .btn-profile:hover { background: var(--gray-50); border-color: var(--accent-green); }
         .btn-profile .profile-avatar-sm {
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            background: var(--primary-black);
-            color: var(--accent-green);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.65em;
-            font-weight: 700;
-            font-family: 'Space Grotesk', sans-serif;
+            width: 22px; height: 22px; border-radius: 50%;
+            background: var(--primary-black); color: var(--accent-green);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.65em; font-weight: 700; font-family: 'Space Grotesk', sans-serif;
+            overflow: hidden;
+        }
+        .btn-profile .profile-avatar-sm img {
+            width: 100%; height: 100%; object-fit: cover;
         }
 
         .profile-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0);
-            z-index: 199;
-            pointer-events: none;
-            transition: background 0.35s var(--ease);
+            position: fixed; inset: 0; background: rgba(0,0,0,0); z-index: 199;
+            pointer-events: none; transition: background 0.35s var(--ease);
         }
         .profile-overlay.active {
-            background: rgba(0,0,0,0.35);
-            pointer-events: auto;
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
+            background: rgba(0,0,0,0.35); pointer-events: auto;
+            backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
         }
         .profile-slidein {
-            position: fixed;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            width: 400px;
-            max-width: 90vw;
-            background: var(--primary-white);
-            z-index: 200;
-            box-shadow: -8px 0 40px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
-            transform: translateX(100%);
-            transition: transform 0.4s var(--ease);
+            position: fixed; top: 0; right: 0; bottom: 0; width: 400px; max-width: 90vw;
+            background: var(--primary-white); z-index: 200; box-shadow: -8px 0 40px rgba(0,0,0,0.1);
+            display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.4s var(--ease);
         }
         .profile-slidein.active { transform: translateX(0); }
-
-        .profile-header {
-            padding: 28px 28px 0;
-            flex-shrink: 0;
-        }
-        .profile-header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-        .profile-header-top h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.15em;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .profile-header-top button {
-            background: none;
-            border: none;
-            font-size: 1.2em;
-            cursor: pointer;
-            color: #999;
-            padding: 4px;
-            transition: color 0.2s;
-        }
+        .profile-header { padding: 28px 28px 0; flex-shrink: 0; }
+        .profile-header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        .profile-header-top h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.15em; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+        .profile-header-top button { background: none; border: none; font-size: 1.2em; cursor: pointer; color: #999; padding: 4px; transition: color 0.2s; }
         .profile-header-top button:hover { color: #333; }
-
-        .profile-avatar-wrap {
-            text-align: center;
-            margin-bottom: 24px;
-        }
+        .profile-avatar-wrap { text-align: center; margin-bottom: 24px; }
         .profile-avatar {
-            width: 72px;
-            height: 72px;
-            border-radius: 50%;
-            background: var(--primary-black);
-            color: var(--accent-green);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6em;
-            font-weight: 700;
-            font-family: 'Space Grotesk', sans-serif;
-            margin: 0 auto 12px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            width: 72px; height: 72px; border-radius: 50%;
+            background: var(--primary-black); color: var(--accent-green);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.6em; font-weight: 700; font-family: 'Space Grotesk', sans-serif;
+            margin: 0 auto 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.12); overflow: hidden;
         }
-        .profile-avatar-wrap .profile-name {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.15em;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
+        .profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .profile-avatar-wrap .profile-name { font-family: 'Space Grotesk', sans-serif; font-size: 1.15em; font-weight: 700; margin-bottom: 4px; }
         .profile-avatar-wrap .profile-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 0.72em;
-            font-weight: 600;
-            color: #16a34a;
-            background: #f0fdf4;
-            padding: 3px 12px;
-            border-radius: 20px;
+            display: inline-flex; align-items: center; gap: 5px;
+            font-size: 0.72em; font-weight: 600; color: #16a34a;
+            background: #f0fdf4; padding: 3px 12px; border-radius: 20px;
         }
-        .profile-avatar-wrap .profile-status::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: #16a34a;
-        }
-
-        .profile-content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 0 28px 28px;
-        }
-
-        .profile-info-section {
-            margin-bottom: 24px;
-        }
-        .profile-info-label {
-            font-size: 0.7em;
-            font-weight: 600;
-            color: #999;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            margin-bottom: 14px;
-        }
-        .profile-info-card {
-            background: var(--gray-50);
-            border: 1px solid rgba(0,0,0,0.05);
-            border-radius: var(--radius-sm);
-            overflow: hidden;
-        }
-        .profile-info-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 14px 16px;
-            border-bottom: 1px solid rgba(0,0,0,0.04);
-        }
+        .profile-avatar-wrap .profile-status::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #16a34a; }
+        .profile-content { flex: 1; overflow-y: auto; padding: 0 28px 28px; }
+        .profile-info-section { margin-bottom: 24px; }
+        .profile-info-label { font-size: 0.7em; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px; }
+        .profile-info-card { background: var(--gray-50); border: 1px solid rgba(0,0,0,0.05); border-radius: var(--radius-sm); overflow: hidden; }
+        .profile-info-row { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-bottom: 1px solid rgba(0,0,0,0.04); }
         .profile-info-row:last-child { border-bottom: none; }
-        .profile-info-row .info-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.85em;
-            flex-shrink: 0;
-        }
+        .profile-info-row .info-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.85em; flex-shrink: 0; }
         .profile-info-row .info-icon.email-icon { background: #eff6ff; color: #2563eb; }
         .profile-info-row .info-icon.phone-icon { background: #f0fdf4; color: #16a34a; }
         .profile-info-row .info-icon.date-icon { background: #fefce8; color: #ca8a04; }
-        .profile-info-row .info-icon.key-icon { background: #fdf4ff; color: #c026d3; }
+        .profile-info-row .info-icon.google-icon { background: #fef2f2; color: #dc2626; }
         .profile-info-row .info-detail { flex: 1; min-width: 0; }
-        .profile-info-row .info-detail .info-title {
-            font-size: 0.72em;
-            color: #999;
-            font-weight: 500;
-            margin-bottom: 2px;
-        }
-        .profile-info-row .info-detail .info-value {
-            font-size: 0.88em;
-            font-weight: 600;
-            color: var(--gray-900);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .profile-stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 24px;
-        }
-        .profile-stat-card {
-            background: var(--gray-50);
-            border: 1px solid rgba(0,0,0,0.05);
-            border-radius: var(--radius-sm);
-            padding: 16px;
-            text-align: center;
-        }
-        .profile-stat-card .stat-value {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.5em;
-            font-weight: 700;
-            color: var(--primary-black);
-            margin-bottom: 2px;
-        }
-        .profile-stat-card .stat-label {
-            font-size: 0.72em;
-            color: #999;
-            font-weight: 500;
-        }
-
+        .profile-info-row .info-detail .info-title { font-size: 0.72em; color: #999; font-weight: 500; margin-bottom: 2px; }
+        .profile-info-row .info-detail .info-value { font-size: 0.88em; font-weight: 600; color: var(--gray-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .profile-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 24px; }
+        .profile-stat-card { background: var(--gray-50); border: 1px solid rgba(0,0,0,0.05); border-radius: var(--radius-sm); padding: 16px; text-align: center; }
+        .profile-stat-card .stat-value { font-family: 'Space Grotesk', sans-serif; font-size: 1.5em; font-weight: 700; color: var(--primary-black); margin-bottom: 2px; }
+        .profile-stat-card .stat-label { font-size: 0.72em; color: #999; font-weight: 500; }
         .profile-orders-section { margin-bottom: 12px; }
         .profile-order-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 14px;
-            background: var(--gray-50);
-            border: 1px solid rgba(0,0,0,0.05);
-            border-radius: var(--radius-sm);
-            margin-bottom: 8px;
-            transition: all 0.2s var(--ease);
+            display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+            background: var(--gray-50); border: 1px solid rgba(0,0,0,0.05);
+            border-radius: var(--radius-sm); margin-bottom: 8px; transition: all 0.2s var(--ease);
         }
-        .profile-order-item:hover {
-            background: #f0fdf4;
-            border-color: var(--accent-green);
-        }
-        .profile-order-item .order-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8em;
-            flex-shrink: 0;
-        }
+        .profile-order-item:hover { background: #f0fdf4; border-color: var(--accent-green); }
+        .profile-order-item .order-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.8em; flex-shrink: 0; }
         .profile-order-item .order-icon.pending { background: #fefce8; color: #ca8a04; }
         .profile-order-item .order-icon.confirmed { background: #f0fdf4; color: #16a34a; }
         .profile-order-item .order-icon.delivered { background: #eff6ff; color: #2563eb; }
         .profile-order-item .order-icon.cancelled { background: #fef2f2; color: #dc2626; }
         .profile-order-item .order-detail { flex: 1; min-width: 0; }
-        .profile-order-item .order-name {
-            font-size: 0.85em;
-            font-weight: 600;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .profile-order-item .order-meta {
-            font-size: 0.72em;
-            color: #999;
-            margin-top: 2px;
-        }
-        .profile-order-item .order-status-badge {
-            font-size: 0.65em;
-            font-weight: 700;
-            padding: 3px 10px;
-            border-radius: 20px;
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
-            flex-shrink: 0;
-        }
+        .profile-order-item .order-name { font-size: 0.85em; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .profile-order-item .order-meta { font-size: 0.72em; color: #999; margin-top: 2px; }
+        .profile-order-item .order-status-badge { font-size: 0.65em; font-weight: 700; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.03em; flex-shrink: 0; }
         .profile-order-item .order-status-badge.pending { background: #fefce8; color: #a16207; }
         .profile-order-item .order-status-badge.confirmed { background: #f0fdf4; color: #15803d; }
         .profile-order-item .order-status-badge.delivered { background: #eff6ff; color: #1d4ed8; }
         .profile-order-item .order-status-badge.cancelled { background: #fef2f2; color: #b91c1c; }
-
-        .profile-orders-empty {
-            text-align: center;
-            padding: 28px 0;
-            color: #ccc;
-            font-size: 0.85em;
-        }
+        .profile-orders-empty { text-align: center; padding: 28px 0; color: #ccc; font-size: 0.85em; }
         .profile-orders-empty i { display: block; font-size: 1.5em; margin-bottom: 8px; opacity: 0.4; }
 
         @media (max-width: 600px) {
             .profile-slidein { width: 100%; max-width: 100%; }
-            .profile-stats { grid-template-columns: 1fr 1fr; }
+            .cart-slidein { width: 100%; max-width: 100%; }
             .btn-profile span { display: none; }
             .btn-profile { padding: 9px 12px; }
         }
 
-        .browse-section {
-            margin-top: 48px;
-            animation: fadeSlideUp 0.5s var(--ease) 0.2s both;
-        }
-        .browse-section .section-title {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .browse-section .section-title i {
-            color: var(--accent-red);
-            font-size: 0.85em;
-        }
-        .browse-card .card-body {
-            display: flex;
-            flex-direction: column;
-        }
-        .browse-price {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: 1.1em;
-            color: var(--primary-black);
-            margin-bottom: 12px;
-        }
-        .browse-price span {
-            font-size: 0.7em;
-            font-weight: 400;
-            color: #999;
-        }
+        /* ========== BROWSE SECTION ========== */
+        .browse-section { margin-top: 48px; animation: fadeSlideUp 0.5s var(--ease) 0.2s both; }
+        .browse-section .section-title { display: flex; align-items: center; gap: 10px; }
+        .browse-section .section-title i { color: var(--accent-red); font-size: 0.85em; }
+        .browse-card .card-body { display: flex; flex-direction: column; }
+        .browse-price { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1em; color: var(--primary-black); margin-bottom: 12px; }
+        .browse-price span { font-size: 0.7em; font-weight: 400; color: #999; }
         .btn-buy {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            width: 100%;
-            padding: 11px 20px;
-            border-radius: 50px;
-            background: var(--accent-red);
-            color: var(--primary-white);
-            font-weight: 600;
-            font-size: 0.85em;
-            font-family: 'Poppins', sans-serif;
-            transition: all 0.3s var(--ease);
-            border: none;
-            cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            width: 100%; padding: 11px 20px; border-radius: 50px;
+            background: var(--accent-red); color: var(--primary-white);
+            font-weight: 600; font-size: 0.85em; font-family: 'Poppins', sans-serif;
+            transition: all 0.3s var(--ease); border: none; cursor: pointer;
             box-shadow: 0 2px 10px rgba(237,41,57,0.15);
         }
-        .btn-buy:hover {
-            background: var(--accent-green);
-            color: var(--primary-black);
-            box-shadow: 0 4px 16px rgba(167,225,105,0.3);
-            transform: translateY(-1px);
-        }
+        .btn-buy:hover { background: var(--accent-green); color: var(--primary-black); box-shadow: 0 4px 16px rgba(167,225,105,0.3); transform: translateY(-1px); }
         .btn-buy:active { transform: scale(0.97); }
-        .btn-buy.added {
-            background: #e5e5e5;
-            color: #999;
-            box-shadow: none;
-            pointer-events: none;
-        }
-
-        .video-modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0);
-            z-index: 300;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-            transition: all 0.35s var(--ease);
-        }
-        .video-modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
-        .video-modal-box {
-            background: #000;
-            border-radius: var(--radius-md);
-            max-width: 900px;
-            width: 100%;
-            overflow: hidden;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
-            transform: scale(0.9);
-            opacity: 0;
-            transition: all 0.4s var(--ease-spring);
-        }
-        .video-modal-overlay.active .video-modal-box {
-            transform: scale(1);
-            opacity: 1;
-        }
-        .video-modal-box video {
-            width: 100%;
-            display: block;
-            max-height: 80vh;
-        }
-        .video-modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 20px;
-            background: #111;
-        }
-        .video-modal-header h3 {
-            color: #fff;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.95em;
-            font-weight: 600;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .video-modal-close {
-            background: rgba(255,255,255,0.1);
-            border: none;
-            color: #fff;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.2s;
-            flex-shrink: 0;
-        }
-        .video-modal-close:hover { background: rgba(255,255,255,0.2); }
+        .btn-buy.added { background: #e5e5e5; color: #999; box-shadow: none; pointer-events: none; }
 
         .course-card-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: var(--accent-red);
-            color: #fff;
-            font-size: 0.62em;
-            font-weight: 700;
-            padding: 3px 10px;
-            border-radius: 2rem;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            z-index: 2;
+            position: absolute; top: 10px; left: 10px; background: var(--accent-red);
+            color: #fff; font-size: 0.62em; font-weight: 700; padding: 3px 10px;
+            border-radius: 2rem; letter-spacing: 0.04em; text-transform: uppercase; z-index: 2;
         }
 
         .toast {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
+            position: fixed; bottom: 30px; left: 50%;
             transform: translateX(-50%) translateY(100px);
-            background: var(--primary-black);
-            color: #fff;
-            padding: 14px 28px;
-            border-radius: 12px;
-            font-size: 0.88em;
-            font-weight: 500;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-            z-index: 500;
+            background: var(--primary-black); color: #fff; padding: 14px 28px;
+            border-radius: 12px; font-size: 0.88em; font-weight: 500;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2); z-index: 500;
             transition: transform 0.4s var(--ease-spring);
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            display: flex; align-items: center; gap: 10px;
         }
         .toast.show { transform: translateX(-50%) translateY(0); }
         .toast i { color: var(--accent-green); }
 
-        @media (max-width: 600px) {
-            .cart-slidein { width: 100%; max-width: 100%; }
-            .video-modal-overlay { padding: 0; }
-            .video-modal-box { border-radius: 0; max-height: 100vh; }
-        }
-
         /* ========== COURSE PLAYER STYLES ========== */
-        .course-player-wrap {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        .back-btn {
-            background: none; border: none; color: #666;
-            cursor: pointer; font-size: 0.9em; margin-bottom: 16px;
-            display: flex; align-items: center; gap: 6px;
-            font-family: 'Poppins', sans-serif; padding: 0;
-            transition: color 0.2s;
-        }
+        .course-player-wrap { max-width: 900px; margin: 0 auto; }
+        .back-btn { background: none; border: none; color: #666; cursor: pointer; font-size: 0.9em; margin-bottom: 16px; display: flex; align-items: center; gap: 6px; font-family: 'Poppins', sans-serif; padding: 0; transition: color 0.2s; }
         .back-btn:hover { color: var(--primary-black); }
-        .video-container {
-            background: #000; border-radius: var(--radius-md);
-            overflow: hidden; aspect-ratio: 16/9;
-            margin-bottom: 20px;
-        }
-        .video-container iframe {
-            width: 100%; height: 100%; border: none;
-        }
-        .video-placeholder {
-            width: 100%; height: 100%;
-            display: flex; align-items: center; justify-content: center;
-            color: #555; font-size: 0.9em;
-        }
-
-        .materials-section {
-            background: var(--primary-white); border: 1px solid rgba(0,0,0,0.05);
-            border-radius: var(--radius-md); padding: 20px 24px;
-            margin-bottom: 20px;
-        }
-        .materials-header {
-            display: flex; align-items: center;
-            justify-content: space-between; margin-bottom: 14px;
-        }
-        .materials-header h3 {
-            margin: 0; font-size: 1em;
-            display: flex; align-items: center; gap: 8px;
-            font-family: 'Space Grotesk', sans-serif;
-        }
-        .mat-count-badge {
-            background: #e0f2fe; color: #0284c7;
-            font-size: 0.72em; padding: 2px 8px;
-            border-radius: 10px; font-weight: 600;
-        }
-        .download-all-btn {
-            background: var(--primary-black); color: var(--accent-green);
-            border: none; padding: 7px 16px; border-radius: 8px;
-            font-size: 0.78em; cursor: pointer; font-weight: 600;
-            display: flex; align-items: center; gap: 6px;
-            font-family: 'Poppins', sans-serif;
-            transition: all 0.2s var(--ease);
-        }
-        .download-all-btn:hover {
-            background: #065f46; transform: scale(1.03);
-        }
-
-        .material-download-card {
-            display: flex; align-items: center; gap: 12px;
-            padding: 12px 14px; background: var(--gray-50);
-            border: 1px solid rgba(0,0,0,0.05); border-radius: var(--radius-sm);
-            margin-bottom: 8px; transition: all 0.2s var(--ease);
-        }
-        .material-download-card:hover {
-            background: #f0fdf4; border-color: var(--accent-green);
-            transform: translateY(-1px);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        }
-        .mat-icon {
-            width: 44px; height: 44px; border-radius: var(--radius-sm);
-            display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0;
-        }
-        .mat-icon.pdf  { background: #fef2f2; color: #dc2626; }
-        .mat-icon.zip  { background: #fefce8; color: #ca8a04; }
-        .mat-icon.doc  { background: #eff6ff; color: #2563eb; }
-        .mat-icon.xls  { background: #f0fdf4; color: #16a34a; }
-        .mat-icon.ppt  { background: #fdf4ff; color: #c026d3; }
-        .mat-icon.png, .mat-icon.jpg  { background: #ecfeff; color: #0891b2; }
-        .mat-icon.mp3  { background: #fdf2f8; color: #db2777; }
-        .mat-icon.mp4  { background: #fff7ed; color: #ea580c; }
-        .mat-icon.code { background: #f5f3ff; color: #7c3aed; }
-        .mat-icon.other { background: #f3f4f6; color: #6b7280; }
+        .video-container { background: #000; border-radius: var(--radius-md); overflow: hidden; aspect-ratio: 16/9; margin-bottom: 20px; }
+        .video-container iframe { width: 100%; height: 100%; border: none; }
+        .materials-section { background: var(--primary-white); border: 1px solid rgba(0,0,0,0.05); border-radius: var(--radius-md); padding: 20px 24px; margin-bottom: 20px; }
+        .materials-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+        .materials-header h3 { margin: 0; font-size: 1em; display: flex; align-items: center; gap: 8px; font-family: 'Space Grotesk', sans-serif; }
+        .mat-count-badge { background: #e0f2fe; color: #0284c7; font-size: 0.72em; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+        .download-all-btn { background: var(--primary-black); color: var(--accent-green); border: none; padding: 7px 16px; border-radius: 8px; font-size: 0.78em; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 6px; font-family: 'Poppins', sans-serif; transition: all 0.2s var(--ease); }
+        .download-all-btn:hover { background: #065f46; transform: scale(1.03); }
+        .material-download-card { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: var(--gray-50); border: 1px solid rgba(0,0,0,0.05); border-radius: var(--radius-sm); margin-bottom: 8px; transition: all 0.2s var(--ease); }
+        .material-download-card:hover { background: #f0fdf4; border-color: var(--accent-green); transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .mat-icon { width: 44px; height: 44px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .mat-icon.pdf { background: #fef2f2; color: #dc2626; } .mat-icon.zip { background: #fefce8; color: #ca8a04; }
+        .mat-icon.doc { background: #eff6ff; color: #2563eb; } .mat-icon.xls { background: #f0fdf4; color: #16a34a; }
+        .mat-icon.ppt { background: #fdf4ff; color: #c026d3; } .mat-icon.png, .mat-icon.jpg { background: #ecfeff; color: #0891b2; }
+        .mat-icon.mp3 { background: #fdf2f8; color: #db2777; } .mat-icon.mp4 { background: #fff7ed; color: #ea580c; }
+        .mat-icon.code { background: #f5f3ff; color: #7c3aed; } .mat-icon.other { background: #f3f4f6; color: #6b7280; }
         .mat-icon svg { width: 20px; height: 20px; }
         .mat-details { flex: 1; min-width: 0; }
-        .mat-details .mat-name {
-            font-weight: 600; font-size: 0.88em; margin: 0;
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-        }
-        .mat-details .mat-meta {
-            font-size: 0.72em; color: #999; margin-top: 2px;
-        }
-        .mat-download-btn {
-            background: var(--primary-black); color: #fff; border: none;
-            padding: 8px 16px; border-radius: 8px; font-size: 0.78em;
-            font-weight: 600; cursor: pointer;
-            display: flex; align-items: center; gap: 6px;
-            transition: all 0.2s var(--ease); flex-shrink: 0;
-            font-family: 'Poppins', sans-serif;
-        }
-        .mat-download-btn:hover {
-            background: #065f46; color: var(--accent-green); transform: scale(1.03);
-        }
-
-        .lessons-sidebar {
-            background: var(--primary-white); border: 1px solid rgba(0,0,0,0.05);
-            border-radius: var(--radius-md); padding: 20px 24px;
-        }
-        .lessons-sidebar h3 {
-            margin: 0 0 14px; font-size: 1em;
-            font-family: 'Space Grotesk', sans-serif;
-            display: flex; align-items: center; gap: 8px;
-        }
-        .lesson-list-item {
-            display: flex; align-items: center; gap: 12px;
-            padding: 12px; border-radius: var(--radius-sm);
-            cursor: pointer; transition: all 0.2s var(--ease);
-            margin-bottom: 4px; border: 1px solid transparent;
-        }
+        .mat-details .mat-name { font-weight: 600; font-size: 0.88em; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .mat-details .mat-meta { font-size: 0.72em; color: #999; margin-top: 2px; }
+        .mat-download-btn { background: var(--primary-black); color: #fff; border: none; padding: 8px 16px; border-radius: 8px; font-size: 0.78em; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s var(--ease); flex-shrink: 0; font-family: 'Poppins', sans-serif; }
+        .mat-download-btn:hover { background: #065f46; color: var(--accent-green); transform: scale(1.03); }
+        .lessons-sidebar { background: var(--primary-white); border: 1px solid rgba(0,0,0,0.05); border-radius: var(--radius-md); padding: 20px 24px; }
+        .lessons-sidebar h3 { margin: 0 0 14px; font-size: 1em; font-family: 'Space Grotesk', sans-serif; display: flex; align-items: center; gap: 8px; }
+        .lesson-list-item { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: var(--radius-sm); cursor: pointer; transition: all 0.2s var(--ease); margin-bottom: 4px; border: 1px solid transparent; }
         .lesson-list-item:hover { background: #f3f4f6; }
-        .lesson-list-item.active {
-            background: #f0fdf4; border-color: var(--accent-green);
-        }
-        .lesson-idx {
-            width: 30px; height: 30px; border-radius: 8px;
-            background: var(--gray-200);
-            display: flex; align-items: center; justify-content: center;
-            font-family: 'Space Grotesk', monospace;
-            font-weight: 700; font-size: 0.8em; flex-shrink: 0;
-        }
-        .lesson-list-item.active .lesson-idx {
-            background: var(--primary-black); color: var(--accent-green);
-        }
-        .lesson-title-text {
-            flex: 1; font-size: 0.86em; font-weight: 500;
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-        }
-        .lesson-duration {
-            font-size: 0.72em; color: #999; flex-shrink: 0;
-        }
-        .lesson-mat-badge {
-            background: #dbeafe; color: #1d4ed8;
-            font-size: 0.68em; padding: 2px 7px;
-            border-radius: 6px; flex-shrink: 0;
-            font-weight: 600;
-            display: inline-flex; align-items: center; gap: 3px;
-        }
-
-        @media (max-width: 600px) {
-            .material-download-card { flex-wrap: wrap; }
-            .mat-download-btn { width: 100%; justify-content: center; }
-            .lesson-list-item { padding: 10px 8px; }
-        }
-
-        /* ==========================================
-           🔘 BUTTON — BORDER INNER GLOW + GRAIN
-           ========================================== */
-        .btn-primary, .btn-secondary {
-            position: relative;
-            overflow: hidden;
-            isolation: isolate;
-        }
-
-        .btn-primary {
-            box-shadow: inset 0 0 12px 3px rgba(255, 255, 255, 0.40), inset 0 0 28px 6px rgba(255, 255, 255, 0.12), 0 0 18px 4px rgba(167, 225, 105, 0.12);
-        }
-        .btn-primary:hover {
-            box-shadow: inset 0 0 14px 4px rgba(255, 255, 255, 0.45), inset 0 0 32px 8px rgba(255, 255, 255, 0.15), 0 0 25px 6px rgba(237, 41, 57, 0.15);
-        }
-
-        .btn-secondary {
-            box-shadow: inset 0 0 12px 3px rgba(255, 255, 255, 0.35), inset 0 0 28px 6px rgba(255, 255, 255, 0.10), 0 0 18px 4px rgba(237, 41, 57, 0.10);
-        }
-        .btn-secondary:hover {
-            box-shadow: inset 0 0 14px 4px rgba(255, 255, 255, 0.45), inset 0 0 32px 8px rgba(255, 255, 255, 0.15), 0 0 25px 6px rgba(167, 225, 105, 0.18);
-        }
-
-        .btn-primary::after, .btn-secondary::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            z-index: 1;
-            pointer-events: none;
-            border-radius: inherit;
-            opacity: 0.07;
-            mix-blend-mode: overlay;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
-            background-size: 128px 128px;
-        }
-        .btn-primary:hover::after, .btn-secondary:hover::after {
-            opacity: 0.10;
-        }
+        .lesson-list-item.active { background: #f0fdf4; border-color: var(--accent-green); }
+        .lesson-idx { width: 30px; height: 30px; border-radius: 8px; background: var(--gray-200); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', monospace; font-weight: 700; font-size: 0.8em; flex-shrink: 0; }
+        .lesson-list-item.active .lesson-idx { background: var(--primary-black); color: var(--accent-green); }
+        .lesson-title-text { flex: 1; font-size: 0.86em; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .lesson-duration { font-size: 0.72em; color: #999; flex-shrink: 0; }
+        .lesson-mat-badge { background: #dbeafe; color: #1d4ed8; font-size: 0.68em; padding: 2px 7px; border-radius: 6px; flex-shrink: 0; font-weight: 600; display: inline-flex; align-items: center; gap: 3px; }
+        @media (max-width: 600px) { .material-download-card { flex-wrap: wrap; } .mat-download-btn { width: 100%; justify-content: center; } }
     </style>
 </head>
 <body>
-    <!-- Login -->
+    <!-- ========== LOGIN SECTION (GOOGLE) ========== -->
     <div id="loginSection" class="login-section">
         <div class="login-left">
             <video autoplay muted loop playsinline>
@@ -1421,20 +892,52 @@
             </video>
         </div>
         <div class="login-right">
-            <div class="login-card">
+            <div class="login-card" id="loginCard">
                 <div class="logo-wrap">
                     <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png" alt="ART de ONE">
-                    <p style="font-size:0.78em; color:#999; margin-top:10px; line-height:1.6;">သင့်လုပ်ငန်းအတွက် စိတ်ချရတဲ့ Quality မြင့် Digital Products များ</p>
                 </div>
-                <h2>Customer Login</h2>
-                <form id="loginForm">
-                    <div class="form-group">
-                        <label>Access Code</label>
-                        <input type="text" id="loginAccessCode" class="form-input" required placeholder="Enter your access code" autocomplete="off" />
+                <h2>Customer Dashboard</h2>
+                <p class="login-subtitle">Google အကောင့်ဖြင့် လွယ်ကူစွာ Login ဝင်ပြီး<br>Digital Products များကို ဝယ်ယူရယူနိုင်ပါသည်</p>
+
+                <!-- Google Sign-In Button -->
+                <button onclick="loginWithGoogle()" class="google-signin-btn" id="googleBtn">
+                    <svg viewBox="0 0 24 24" width="22" height="22">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                    </svg>
+                    <span class="btn-text">Sign in with Google</span>
+                    <span class="btn-loading">
+                        <i class="fas fa-spinner fa-spin"></i> Connecting...
+                    </span>
+                </button>
+
+                <p class="login-error" id="loginError">Login မအောင်မြင်ပါ။ ထပ်မံကြိုးစားပါ။</p>
+
+                <!-- Loading State (shown after redirect back) -->
+                <div class="login-loading-state" id="loginLoading">
+                    <div class="spinner"></div>
+                    <p>Verifying your account...</p>
+                </div>
+
+                <div class="login-divider">or</div>
+
+                <div class="login-features">
+                    <div class="login-feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Google ဖြင့် လုံခြုံစွာ Login ဝင်ပါ</span>
                     </div>
-                    <button type="submit" class="btn btn-primary">Login</button>
-                </form>
-                <p class="login-error" id="loginError">Access code is invalid or inactive.</p>
+                    <div class="login-feature">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span>Products များကို Browse & Order လုပ်ပါ</span>
+                    </div>
+                    <div class="login-feature">
+                        <i class="fas fa-download"></i>
+                        <span>Admin အတည်ပြုပြီးပါက Download ရယူပါ</span>
+                    </div>
+                </div>
+
                 <div style="margin-top:24px; padding-top:20px; border-top:1px solid #f0f0f0; text-align:center; font-size:0.78em; color:#999; line-height:1.8;">
                     Contact us : <a href="mailto:artdeone.educators@gmail.com" style="color:#323232; font-weight:600; text-decoration:none;">artdeone.educators@gmail.com</a><br>
                     Phone : <a href="tel:09953681497" style="color:#323232; font-weight:600; text-decoration:none;">09953681497</a>
@@ -1443,7 +946,7 @@
         </div>
     </div>
 
-    <!-- Dashboard -->
+    <!-- ========== DASHBOARD ========== -->
     <div id="dashboardSection" class="hidden">
         <nav class="top-nav" id="topNav">
             <div class="nav-container">
@@ -1468,6 +971,9 @@
         <div class="container">
             <div class="welcome-header">
                 <span class="badge">Shop Customer</span>
+                <div class="welcome-avatar" id="welcomeAvatarWrap">
+                    <!-- Avatar will be inserted by JS -->
+                </div>
                 <h1 id="customerName">Welcome</h1>
                 <p class="email-text" id="customerEmail"></p>
             </div>
@@ -1477,55 +983,37 @@
                 <p id="thankYouText"></p>
             </div>
 
-            <!-- My Products Section -->
             <div id="myProductsSection">
                 <h2 class="section-title">My Products</h2>
                 <div id="productsContainer">
                     <div class="loading-spinner">Loading...</div>
                 </div>
-
                 <div class="browse-section" id="browseSection" style="display:none;">
                     <h2 class="section-title"><i class="fas fa-fire"></i> Browse More Products</h2>
                     <div id="browseContainer"></div>
                 </div>
             </div>
 
-            <!-- Course Player Section (hidden by default) -->
             <div id="coursePlayerSection" class="hidden">
                 <div class="course-player-wrap">
                     <button onclick="backToCourses()" class="back-btn">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
                         Back to My Products
                     </button>
-
-                    <div class="video-container" id="videoContainer">
-                        <iframe id="courseVideoPlayer" allowfullscreen></iframe>
-                    </div>
-
+                    <div class="video-container" id="videoContainer"><iframe id="courseVideoPlayer" allowfullscreen></iframe></div>
                     <div style="background:var(--primary-white); padding:22px 26px; border-radius:var(--radius-md); margin-bottom:20px; border:1px solid rgba(0,0,0,0.05); box-shadow:var(--shadow-xs);">
                         <h2 id="currentLessonTitle" style="margin:0 0 4px; font-size:1.15em; font-family:'Space Grotesk',sans-serif;"></h2>
                         <p id="currentLessonDesc" style="margin:0; color:#666; font-size:0.88em; line-height:1.6;"></p>
                     </div>
-
                     <div id="lessonMaterialsSection" class="materials-section" style="display:none;">
                         <div class="materials-header">
-                            <h3>
-                                <i class="fas fa-paperclip" style="font-size:0.85em;"></i>
-                                Lesson Materials
-                                <span id="materialCount" class="mat-count-badge"></span>
-                            </h3>
-                            <button onclick="downloadAllMaterials()" id="downloadAllBtn" class="download-all-btn">
-                                <i class="fas fa-download" style="font-size:0.85em;"></i> Download All
-                            </button>
+                            <h3><i class="fas fa-paperclip" style="font-size:0.85em;"></i> Lesson Materials <span id="materialCount" class="mat-count-badge"></span></h3>
+                            <button onclick="downloadAllMaterials()" id="downloadAllBtn" class="download-all-btn"><i class="fas fa-download" style="font-size:0.85em;"></i> Download All</button>
                         </div>
                         <div id="materialsList"></div>
                     </div>
-
                     <div class="lessons-sidebar">
-                        <h3>
-                            <i class="fas fa-book-open" style="font-size:0.85em;"></i>
-                            All Lessons
-                        </h3>
+                        <h3><i class="fas fa-book-open" style="font-size:0.85em;"></i> All Lessons</h3>
                         <div id="lessonsList"></div>
                     </div>
                 </div>
@@ -1533,7 +1021,7 @@
         </div>
     </div>
 
-    <!-- Cart -->
+    <!-- Cart Slide-in -->
     <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
     <div class="cart-slidein" id="cartSlidein">
         <div class="cart-header">
@@ -1541,19 +1029,14 @@
             <button onclick="closeCart()">✕</button>
         </div>
         <div class="cart-items" id="cartItems">
-            <div class="cart-empty">
-                <i class="fas fa-shopping-bag"></i>
-                <p style="font-size:0.85em;">စျေးခြင်းထဲမှာ ဘာမှမရှိသေးပါ</p>
-            </div>
+            <div class="cart-empty"><i class="fas fa-shopping-bag"></i><p style="font-size:0.85em;">စျေးခြင်းထဲမှာ ဘာမှမရှိသေးပါ</p></div>
         </div>
         <div class="cart-footer">
             <div class="cart-total">
                 <span class="cart-total-label">Total</span>
                 <span class="cart-total-value" id="cartTotal">0 MMK</span>
             </div>
-            <button onclick="placeOrder()" class="btn btn-order" id="orderBtn">
-                <i class="fas fa-paper-plane" style="margin-right:6px;"></i>Order
-            </button>
+            <button onclick="placeOrder()" class="btn btn-order" id="orderBtn"><i class="fas fa-paper-plane" style="margin-right:6px;"></i>Order</button>
             <button onclick="closeCart()" class="btn btn-cancel-cart">Cancel</button>
         </div>
     </div>
@@ -1574,137 +1057,119 @@
         </div>
         <div class="profile-content">
             <div class="profile-stats" id="profileStats">
-                <div class="profile-stat-card">
-                    <div class="stat-value" id="statProducts">0</div>
-                    <div class="stat-label">Products</div>
-                </div>
-                <div class="profile-stat-card">
-                    <div class="stat-value" id="statOrders">0</div>
-                    <div class="stat-label">Orders</div>
-                </div>
+                <div class="profile-stat-card"><div class="stat-value" id="statProducts">0</div><div class="stat-label">Products</div></div>
+                <div class="profile-stat-card"><div class="stat-value" id="statOrders">0</div><div class="stat-label">Orders</div></div>
             </div>
-
             <div class="profile-info-section">
                 <div class="profile-info-label">Account Information</div>
                 <div class="profile-info-card">
                     <div class="profile-info-row">
                         <div class="info-icon email-icon"><i class="fas fa-envelope"></i></div>
-                        <div class="info-detail">
-                            <div class="info-title">Email</div>
-                            <div class="info-value" id="profileEmail">-</div>
-                        </div>
+                        <div class="info-detail"><div class="info-title">Email</div><div class="info-value" id="profileEmail">-</div></div>
                     </div>
                     <div class="profile-info-row">
                         <div class="info-icon phone-icon"><i class="fas fa-phone"></i></div>
-                        <div class="info-detail">
-                            <div class="info-title">Phone</div>
-                            <div class="info-value" id="profilePhone">-</div>
-                        </div>
+                        <div class="info-detail"><div class="info-title">Phone</div><div class="info-value" id="profilePhone">-</div></div>
                     </div>
                     <div class="profile-info-row">
                         <div class="info-icon date-icon"><i class="fas fa-calendar-alt"></i></div>
-                        <div class="info-detail">
-                            <div class="info-title">Member Since</div>
-                            <div class="info-value" id="profileDate">-</div>
-                        </div>
+                        <div class="info-detail"><div class="info-title">Member Since</div><div class="info-value" id="profileDate">-</div></div>
                     </div>
                     <div class="profile-info-row">
-                        <div class="info-icon key-icon"><i class="fas fa-key"></i></div>
-                        <div class="info-detail">
-                            <div class="info-title">Access Code</div>
-                            <div class="info-value" id="profileAccessCode">-</div>
-                        </div>
+                        <div class="info-icon google-icon"><i class="fab fa-google"></i></div>
+                        <div class="info-detail"><div class="info-title">Login Method</div><div class="info-value">Google Account</div></div>
                     </div>
                 </div>
             </div>
-
             <div class="profile-orders-section">
                 <div class="profile-info-label">Order History</div>
-                <div id="profileOrdersList">
-                    <div class="profile-orders-empty">
-                        <i class="fas fa-receipt"></i>
-                        <p>No orders yet</p>
-                    </div>
-                </div>
+                <div id="profileOrdersList"><div class="profile-orders-empty"><i class="fas fa-receipt"></i><p>No orders yet</p></div></div>
             </div>
-        </div>
-    </div>
-
-    <!-- Video Modal (for preview videos) -->
-    <div class="video-modal-overlay" id="videoModal">
-        <div class="video-modal-box">
-            <div class="video-modal-header">
-                <h3 id="videoModalTitle">Video Course</h3>
-                <button class="video-modal-close" onclick="closeVideoModal()"><i class="fas fa-times"></i></button>
-            </div>
-            <video controls id="videoPlayer">
-                <source src="" type="video/mp4">
-            </video>
         </div>
     </div>
 
     <!-- Toast -->
-    <div class="toast" id="toast">
-        <i class="fas fa-check-circle"></i>
-        <span id="toastMsg">Order placed!</span>
-    </div>
+    <div class="toast" id="toast"><i class="fas fa-check-circle"></i><span id="toastMsg">Order placed!</span></div>
 
+    <!-- ========== MAIN SCRIPT ========== -->
     <script type="module">
-        import { supabaseShop, PRODUCT_CATEGORIES } from './js/config-shop.js';
+        import {
+            supabaseShop,
+            PRODUCT_CATEGORIES,
+            signInWithGoogle,
+            signOutCustomer,
+            getAuthSession,
+            onAuthChange,
+            findOrCreateCustomer
+        } from './js/config-shop.js';
 
         let currentCustomer = null;
         let allProducts = [];
         let purchasedProductIds = [];
         let cart = [];
 
-        // ========== FILE SVG ICON ==========
         const FILE_SVG = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg>`;
 
-        // Navbar scroll shadow
+        // Navbar scroll
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('topNav');
             if (nav) nav.classList.toggle('scrolled', window.scrollY > 8);
         }, { passive: true });
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const code = sessionStorage.getItem('customer_access_code');
-            if (code) handleLogin(code);
-            document.getElementById('loginForm').addEventListener('submit', (e) => {
-                e.preventDefault();
-                handleLogin(document.getElementById('loginAccessCode').value.trim());
-            });
-        });
-
-        window.logout = () => { sessionStorage.clear(); location.reload(); };
-
-        window.refreshDashboard = () => {
-            if (currentCustomer) {
-                const btn = document.querySelector('.btn-refresh');
-                btn.style.opacity = '0.6';
-                btn.textContent = '...';
-                loadProducts().then(() => {
-                    btn.style.opacity = '1';
-                    btn.textContent = 'Refresh';
-                });
+        // ========== GOOGLE AUTH FLOW ==========
+        window.loginWithGoogle = async () => {
+            const btn = document.getElementById('googleBtn');
+            btn.classList.add('loading');
+            btn.disabled = true;
+            const { error } = await signInWithGoogle();
+            if (error) {
+                btn.classList.remove('loading');
+                btn.disabled = false;
+                document.getElementById('loginError').style.display = 'block';
+                console.error('Google sign-in error:', error);
             }
+            // If success, page will redirect to Google OAuth
         };
 
-        async function handleLogin(accessCode) {
-            const errorEl = document.getElementById('loginError');
-            errorEl.style.display = 'none';
-            const btn = document.querySelector('.login-card .btn-primary');
-            const originalText = btn.textContent;
-            btn.textContent = 'Verifying...';
-            btn.style.opacity = '0.7';
-            btn.disabled = true;
+        // Check session on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            const session = await getAuthSession();
+            if (session?.user) {
+                showLoginLoading();
+                await initDashboard(session.user);
+            }
+        });
 
-            const { data } = await supabaseShop.from('shop_customers').select('*').eq('access_code', accessCode).eq('is_active', true).single();
+        // Listen for auth state changes (handles redirect callback)
+        onAuthChange(async (event, session) => {
+            if (event === 'SIGNED_IN' && session?.user && !currentCustomer) {
+                showLoginLoading();
+                await initDashboard(session.user);
+            }
+        });
 
-            if (data) {
-                currentCustomer = data;
-                sessionStorage.setItem('customer_access_code', accessCode);
+        function showLoginLoading() {
+            document.getElementById('loginCard').querySelectorAll('.google-signin-btn, .login-divider, .login-features, .login-error').forEach(el => el.style.display = 'none');
+            document.getElementById('loginLoading').style.display = 'block';
+        }
+
+        async function initDashboard(authUser) {
+            try {
+                currentCustomer = await findOrCreateCustomer(authUser);
+
+                if (!currentCustomer.is_active) {
+                    document.getElementById('loginLoading').style.display = 'none';
+                    document.getElementById('loginError').textContent = 'သင့်အကောင့်ကို ပိတ်ထားပါသည်။ Admin ကို ဆက်သွယ်ပါ။';
+                    document.getElementById('loginError').style.display = 'block';
+                    await signOutCustomer();
+                    return;
+                }
+
+                // Store avatar URL from Google
+                currentCustomer._avatarUrl = authUser.user_metadata?.avatar_url || currentCustomer.avatar_url || null;
+
                 const loginSection = document.getElementById('loginSection');
-                loginSection.style.transition = 'opacity 0.4s cubic-bezier(0.4,0,0.2,1), transform 0.4s cubic-bezier(0.4,0,0.2,1)';
+                loginSection.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
                 loginSection.style.opacity = '0';
                 loginSection.style.transform = 'scale(1.02)';
                 setTimeout(() => {
@@ -1712,24 +1177,31 @@
                     const dash = document.getElementById('dashboardSection');
                     dash.classList.remove('hidden');
                     dash.classList.add('dashboard-enter');
-                    dash.style.display = 'block';
                     renderHeader();
                     loadProducts();
                 }, 380);
-            } else {
-                btn.textContent = originalText;
-                btn.style.opacity = '1';
-                btn.disabled = false;
-                const card = document.querySelector('.login-card');
-                card.style.animation = 'shake 0.45s ease';
-                setTimeout(() => card.style.animation = '', 500);
-                errorEl.style.display = 'block';
-                errorEl.style.animation = 'none';
-                errorEl.offsetHeight;
-                errorEl.style.animation = 'errorShake 0.4s ease';
+            } catch (err) {
+                console.error('Init dashboard error:', err);
+                document.getElementById('loginLoading').style.display = 'none';
+                document.getElementById('loginError').textContent = 'Error: ' + err.message;
+                document.getElementById('loginError').style.display = 'block';
             }
         }
 
+        window.logout = async () => {
+            await signOutCustomer();
+            location.reload();
+        };
+
+        window.refreshDashboard = () => {
+            if (currentCustomer) {
+                const btn = document.querySelector('.btn-refresh');
+                btn.style.opacity = '0.6'; btn.textContent = '...';
+                loadProducts().then(() => { btn.style.opacity = '1'; btn.textContent = 'Refresh'; });
+            }
+        };
+
+        // ========== HEADER ==========
         function getInitials(name) {
             return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
         }
@@ -1738,7 +1210,23 @@
             document.getElementById('customerName').innerText = `Welcome, ${currentCustomer.name}`;
             document.getElementById('customerEmail').innerText = currentCustomer.email;
             const initials = getInitials(currentCustomer.name);
-            document.getElementById('navAvatarInitial').textContent = initials;
+            const avatarUrl = currentCustomer._avatarUrl;
+
+            // Nav avatar
+            const navAvatar = document.getElementById('navAvatarInitial');
+            if (avatarUrl) {
+                navAvatar.innerHTML = `<img src="${avatarUrl}" alt="">`;
+            } else {
+                navAvatar.textContent = initials;
+            }
+
+            // Welcome avatar
+            const welcomeWrap = document.getElementById('welcomeAvatarWrap');
+            if (avatarUrl) {
+                welcomeWrap.innerHTML = `<img src="${avatarUrl}" alt="" style="width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid var(--accent-green);">`;
+            } else {
+                welcomeWrap.innerHTML = `<div class="avatar-fallback" style="width:48px;height:48px;border-radius:50%;background:var(--primary-black);color:var(--accent-green);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.1em;border:2px solid var(--accent-green);">${initials}</div>`;
+            }
 
             const firstName = currentCustomer.name.split(' ')[0];
             document.getElementById('thankYouText').innerHTML =
@@ -1749,61 +1237,26 @@
                 `ချစ်ခင်လေးစားလျက်,<br><strong>ART de ONE Team</strong> 💚`;
         }
 
+        // ========== PRODUCTS (same as before) ==========
         async function loadProducts() {
             const container = document.getElementById('productsContainer');
             container.innerHTML = '<div class="loading-spinner">Loading...</div>';
-
             const { data: downloads } = await supabaseShop.from('shop_customer_downloads').select('product_id').eq('customer_id', currentCustomer.id).eq('is_active', true);
             purchasedProductIds = (downloads || []).map(d => d.product_id);
-
             const { data: products } = await supabaseShop.from('shop_products').select('*').eq('is_active', true);
             allProducts = products || [];
-
             const purchasedProducts = allProducts.filter(p => purchasedProductIds.includes(p.id));
             const unpurchasedProducts = allProducts.filter(p => !purchasedProductIds.includes(p.id));
 
-            // Render purchased products
             if (purchasedProducts.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <div class="icon">📦</div>
-                        <p>သင့်အတွက် ပစ္စည်းများ မရှိသေးပါ။<br>အောက်ဘက်မှ ၀ယ်ယူပြီးပါက ဤနေရာတွင် ပေါ်လာပါမည်။</p>
-                    </div>`;
+                container.innerHTML = `<div class="empty-state"><div class="icon">📦</div><p>သင့်အတွက် ပစ္စည်းများ မရှိသေးပါ။<br>အောက်ဘက်မှ ၀ယ်ယူပြီးပါက ဤနေရာတွင် ပေါ်လာပါမည်။</p></div>`;
             } else {
                 container.innerHTML = `<div class="product-grid">${purchasedProducts.map(p => {
                     const isCourse = p.category === 'course';
-                    return `
-                    <div class="product-card">
-                        <div class="thumb-wrapper">
-                            ${isCourse ? '<span class="course-card-badge"><i class="fas fa-play-circle" style="margin-right:3px;"></i>Course</span>' : ''}
-                            <img class="thumb" src="${p.thumbnail_url || ''}" alt="${p.name}" onerror="this.style.display='none'" loading="lazy" />
-                        </div>
-                        <div class="card-body">
-                            <div class="product-name">${p.name}</div>
-                            <span class="category-badge">${PRODUCT_CATEGORIES[p.category] || p.category}</span>
-                            ${isCourse ? `
-                                <button onclick="openCourse('${p.id}')" class="btn-download" style="background: var(--primary-black); color: var(--accent-green);">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
-                                        <polygon points="5 3 19 12 5 21 5 3"/>
-                                    </svg>
-                                    Start Learning
-                                </button>
-                            ` : `
-                                <a href="${p.download_url}" target="_blank" rel="noopener noreferrer" class="btn-download">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                        <polyline points="7 10 12 15 17 10"/>
-                                        <line x1="12" y1="15" x2="12" y2="3"/>
-                                    </svg>
-                                    Download
-                                </a>
-                            `}
-                        </div>
-                    </div>`;
+                    return `<div class="product-card"><div class="thumb-wrapper">${isCourse ? '<span class="course-card-badge"><i class="fas fa-play-circle" style="margin-right:3px;"></i>Course</span>' : ''}<img class="thumb" src="${p.thumbnail_url || ''}" alt="${p.name}" onerror="this.style.display='none'" loading="lazy" /></div><div class="card-body"><div class="product-name">${p.name}</div><span class="category-badge">${PRODUCT_CATEGORIES[p.category] || p.category}</span>${isCourse ? `<button onclick="openCourse('${p.id}')" class="btn-download" style="background:var(--primary-black);color:var(--accent-green);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polygon points="5 3 19 12 5 21 5 3"/></svg>Start Learning</button>` : `<a href="${p.download_url}" target="_blank" rel="noopener noreferrer" class="btn-download"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download</a>`}</div></div>`;
                 }).join('')}</div>`;
             }
 
-            // Render browse products
             const browseSection = document.getElementById('browseSection');
             const browseContainer = document.getElementById('browseContainer');
             if (unpurchasedProducts.length > 0) {
@@ -1811,30 +1264,11 @@
                 browseContainer.innerHTML = `<div class="product-grid">${unpurchasedProducts.map(p => {
                     const isCourse = p.category === 'course';
                     const inCart = cart.some(c => c.id === p.id);
-                    return `
-                    <div class="product-card browse-card">
-                        <div class="thumb-wrapper">
-                            ${isCourse ? '<span class="course-card-badge"><i class="fas fa-play-circle" style="margin-right:3px;"></i>Course</span>' : ''}
-                            <img class="thumb" src="${p.thumbnail_url || ''}" alt="${p.name}" onerror="this.style.display='none'" loading="lazy" />
-                        </div>
-                        <div class="card-body">
-                            <div class="product-name">${p.name}</div>
-                            <span class="category-badge">${PRODUCT_CATEGORIES[p.category] || p.category}</span>
-                            <div class="browse-price">${Number(p.price).toLocaleString()} <span>MMK</span></div>
-                            <button onclick="addToCart('${p.id}')" class="btn-buy ${inCart ? 'added' : ''}" id="buy-${p.id}">
-                                <i class="fas ${inCart ? 'fa-check' : 'fa-shopping-bag'}"></i>
-                                ${inCart ? 'စျေးခြင်းထဲ ထည့်ပြီး' : '၀ယ်မည်'}
-                            </button>
-                        </div>
-                    </div>`;
+                    return `<div class="product-card browse-card"><div class="thumb-wrapper">${isCourse ? '<span class="course-card-badge"><i class="fas fa-play-circle" style="margin-right:3px;"></i>Course</span>' : ''}<img class="thumb" src="${p.thumbnail_url || ''}" alt="${p.name}" onerror="this.style.display='none'" loading="lazy" /></div><div class="card-body"><div class="product-name">${p.name}</div><span class="category-badge">${PRODUCT_CATEGORIES[p.category] || p.category}</span><div class="browse-price">${Number(p.price).toLocaleString()} <span>MMK</span></div><button onclick="addToCart('${p.id}')" class="btn-buy ${inCart ? 'added' : ''}" id="buy-${p.id}"><i class="fas ${inCart ? 'fa-check' : 'fa-shopping-bag'}"></i>${inCart ? 'စျေးခြင်းထဲ ထည့်ပြီး' : '၀ယ်မည်'}</button></div></div>`;
                 }).join('')}</div>`;
             } else {
                 browseSection.style.display = 'block';
-                browseContainer.innerHTML = `
-                    <div style="text-align:center; padding:50px 24px; background:var(--primary-white); border-radius:var(--radius-lg); border:1px solid rgba(0,0,0,0.05); box-shadow:var(--shadow-sm);">
-                        <div style="font-size:2.8em; margin-bottom:14px; opacity:0.2;">🎉</div>
-                        <p style="color:#bbb; font-size:0.88em; line-height:1.9; max-width:340px; margin:0 auto;">Product အားလုံးကို ဝယ်ယူပြီးပါပြီ။<br>Product အသစ်များ ထပ်တိုးလာပါက ဤနေရာတွင် ပေါ်လာပါမည်။</p>
-                    </div>`;
+                browseContainer.innerHTML = `<div style="text-align:center;padding:50px 24px;background:var(--primary-white);border-radius:var(--radius-lg);border:1px solid rgba(0,0,0,0.05);box-shadow:var(--shadow-sm);"><div style="font-size:2.8em;margin-bottom:14px;opacity:0.2;">🎉</div><p style="color:#bbb;font-size:0.88em;line-height:1.9;max-width:340px;margin:0 auto;">Product အားလုံးကို ဝယ်ယူပြီးပါပြီ။</p></div>`;
             }
         }
 
@@ -1848,57 +1282,30 @@
             if (btn) { btn.classList.add('added'); btn.innerHTML = '<i class="fas fa-check"></i> စျေးခြင်းထဲ ထည့်ပြီး'; }
             openCart();
         };
-
         window.removeFromCart = (productId) => {
             cart = cart.filter(c => c.id !== productId);
             updateCartUI();
             const btn = document.getElementById(`buy-${productId}`);
             if (btn) { btn.classList.remove('added'); btn.innerHTML = '<i class="fas fa-shopping-bag"></i> ၀ယ်မည်'; }
         };
-
         function updateCartUI() {
             const countEl = document.getElementById('cartCount');
             if (cart.length > 0) { countEl.textContent = cart.length; countEl.classList.remove('hidden-count'); }
             else { countEl.classList.add('hidden-count'); }
-
             const itemsEl = document.getElementById('cartItems');
-            if (cart.length === 0) {
-                itemsEl.innerHTML = `<div class="cart-empty"><i class="fas fa-shopping-bag"></i><p style="font-size:0.85em;">စျေးခြင်းထဲမှာ ဘာမှမရှိသေးပါ</p></div>`;
-            } else {
-                itemsEl.innerHTML = cart.map(p => `
-                    <div class="cart-item">
-                        <img src="${p.thumbnail_url || ''}" alt="${p.name}" class="cart-item-img" onerror="this.style.background='#eee'">
-                        <div class="cart-item-info">
-                            <div class="cart-item-name">${p.name}</div>
-                            <div class="cart-item-price">${Number(p.price).toLocaleString()} MMK</div>
-                        </div>
-                        <button onclick="removeFromCart('${p.id}')" class="cart-item-remove"><i class="fas fa-times"></i></button>
-                    </div>
-                `).join('');
-            }
+            if (cart.length === 0) { itemsEl.innerHTML = `<div class="cart-empty"><i class="fas fa-shopping-bag"></i><p style="font-size:0.85em;">စျေးခြင်းထဲမှာ ဘာမှမရှိသေးပါ</p></div>`; }
+            else { itemsEl.innerHTML = cart.map(p => `<div class="cart-item"><img src="${p.thumbnail_url || ''}" alt="${p.name}" class="cart-item-img" onerror="this.style.background='#eee'"><div class="cart-item-info"><div class="cart-item-name">${p.name}</div><div class="cart-item-price">${Number(p.price).toLocaleString()} MMK</div></div><button onclick="removeFromCart('${p.id}')" class="cart-item-remove"><i class="fas fa-times"></i></button></div>`).join(''); }
             const total = cart.reduce((sum, p) => sum + Number(p.price), 0);
             document.getElementById('cartTotal').textContent = total.toLocaleString() + ' MMK';
             document.getElementById('orderBtn').disabled = cart.length === 0;
             document.getElementById('orderBtn').style.opacity = cart.length === 0 ? '0.5' : '1';
         }
-
-        function openCart() {
-            document.getElementById('cartOverlay').classList.add('active');
-            document.getElementById('cartSlidein').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeCart() {
-            document.getElementById('cartOverlay').classList.remove('active');
-            document.getElementById('cartSlidein').classList.remove('active');
-            document.body.style.overflow = '';
-        }
-        window.toggleCart = () => {
-            const slidein = document.getElementById('cartSlidein');
-            slidein.classList.contains('active') ? closeCart() : openCart();
-        };
+        function openCart() { document.getElementById('cartOverlay').classList.add('active'); document.getElementById('cartSlidein').classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeCart() { document.getElementById('cartOverlay').classList.remove('active'); document.getElementById('cartSlidein').classList.remove('active'); document.body.style.overflow = ''; }
+        window.toggleCart = () => { document.getElementById('cartSlidein').classList.contains('active') ? closeCart() : openCart(); };
         window.closeCart = closeCart;
 
-                window.placeOrder = async () => {
+        window.placeOrder = async () => {
             if (cart.length === 0) return;
             const orderBtn = document.getElementById('orderBtn');
             orderBtn.disabled = true;
@@ -1907,9 +1314,7 @@
                 const orderData = cart.map(p => ({ customer_id: currentCustomer.id, product_id: p.id, amount: Number(p.price), status: 'pending' }));
                 const { error } = await supabaseShop.from('shop_orders').insert(orderData);
                 if (error) { alert('Order Error: ' + error.message); orderBtn.disabled = false; orderBtn.innerHTML = '<i class="fas fa-paper-plane" style="margin-right:6px;"></i>Order'; return; }
-                cart = [];
-                updateCartUI();
-                closeCart();
+                cart = []; updateCartUI(); closeCart();
                 showToast('Order placed! Admin ကအတည်ပြုပြီးပါက ရယူနိုင်ပါမည်။');
                 await loadProducts();
             } catch (err) { alert('Error: ' + err.message); }
@@ -1917,167 +1322,74 @@
             orderBtn.innerHTML = '<i class="fas fa-paper-plane" style="margin-right:6px;"></i>Order';
         };
 
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toastMsg').textContent = msg;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 4000);
-        }
-
-        // ========== VIDEO MODAL (for preview) ==========
-        window.openVideoModal = (productId) => {
-            const product = allProducts.find(p => p.id === productId);
-            if (!product) return;
-            document.getElementById('videoModalTitle').textContent = product.name;
-            const videoPlayer = document.getElementById('videoPlayer');
-            videoPlayer.src = product.download_url || '';
-            videoPlayer.load();
-            document.getElementById('videoModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        };
-        window.closeVideoModal = () => {
-            const videoPlayer = document.getElementById('videoPlayer');
-            videoPlayer.pause();
-            videoPlayer.src = '';
-            document.getElementById('videoModal').classList.remove('active');
-            document.body.style.overflow = '';
-        };
-        document.getElementById('videoModal').addEventListener('click', (e) => {
-            if (e.target === document.getElementById('videoModal')) closeVideoModal();
-        });
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') { closeVideoModal(); closeCart(); closeProfile(); }
-        });
+        function showToast(msg) { const t = document.getElementById('toast'); document.getElementById('toastMsg').textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 4000); }
 
         // ========== PROFILE ==========
         let customerOrders = [];
-
-        function openProfile() {
-            renderProfile();
-            loadOrderHistory();
-            document.getElementById('profileOverlay').classList.add('active');
-            document.getElementById('profileSlidein').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeProfile() {
-            document.getElementById('profileOverlay').classList.remove('active');
-            document.getElementById('profileSlidein').classList.remove('active');
-            document.body.style.overflow = '';
-        }
-        window.toggleProfile = () => {
-            const slidein = document.getElementById('profileSlidein');
-            slidein.classList.contains('active') ? closeProfile() : openProfile();
-        };
+        function openProfile() { renderProfile(); loadOrderHistory(); document.getElementById('profileOverlay').classList.add('active'); document.getElementById('profileSlidein').classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeProfile() { document.getElementById('profileOverlay').classList.remove('active'); document.getElementById('profileSlidein').classList.remove('active'); document.body.style.overflow = ''; }
+        window.toggleProfile = () => { document.getElementById('profileSlidein').classList.contains('active') ? closeProfile() : openProfile(); };
         window.closeProfile = closeProfile;
 
         function renderProfile() {
             if (!currentCustomer) return;
             const initials = getInitials(currentCustomer.name);
-            document.getElementById('profileAvatar').textContent = initials;
+            const avatarUrl = currentCustomer._avatarUrl;
+            const avatarEl = document.getElementById('profileAvatar');
+            if (avatarUrl) { avatarEl.innerHTML = `<img src="${avatarUrl}" alt="">`; }
+            else { avatarEl.textContent = initials; }
             document.getElementById('profileName').textContent = currentCustomer.name;
             document.getElementById('profileEmail').textContent = currentCustomer.email || '-';
             document.getElementById('profilePhone').textContent = currentCustomer.phone || '-';
-            document.getElementById('profileAccessCode').textContent = currentCustomer.access_code || '-';
             document.getElementById('statProducts').textContent = purchasedProductIds.length;
-
             if (currentCustomer.created_at) {
                 const d = new Date(currentCustomer.created_at);
                 document.getElementById('profileDate').textContent = d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-            } else {
-                document.getElementById('profileDate').textContent = '-';
             }
         }
 
         async function loadOrderHistory() {
-            const { data: orders } = await supabaseShop
-                .from('shop_orders')
-                .select('*, shop_products(name)')
-                .eq('customer_id', currentCustomer.id)
-                .order('created_at', { ascending: false });
-
+            const { data: orders } = await supabaseShop.from('shop_orders').select('*, shop_products(name)').eq('customer_id', currentCustomer.id).order('created_at', { ascending: false });
             customerOrders = orders || [];
             document.getElementById('statOrders').textContent = customerOrders.length;
-
             const container = document.getElementById('profileOrdersList');
-            if (customerOrders.length === 0) {
-                container.innerHTML = `<div class="profile-orders-empty"><i class="fas fa-receipt"></i><p>Order မရှိသေးပါ</p></div>`;
-                return;
-            }
-
+            if (customerOrders.length === 0) { container.innerHTML = `<div class="profile-orders-empty"><i class="fas fa-receipt"></i><p>Order မရှိသေးပါ</p></div>`; return; }
             const statusIcons = { pending: 'fa-clock', confirmed: 'fa-check-circle', delivered: 'fa-box-open', cancelled: 'fa-times-circle' };
             const statusLabels = { pending: 'Pending', confirmed: 'Confirmed', delivered: 'Delivered', cancelled: 'Cancelled' };
-
             container.innerHTML = customerOrders.map(o => {
                 const status = o.status || 'pending';
                 const date = new Date(o.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-                return `
-                <div class="profile-order-item">
-                    <div class="order-icon ${status}"><i class="fas ${statusIcons[status] || 'fa-receipt'}"></i></div>
-                    <div class="order-detail">
-                        <div class="order-name">${o.shop_products?.name || 'Product'}</div>
-                        <div class="order-meta">${date} · ${Number(o.amount).toLocaleString()} MMK</div>
-                    </div>
-                    <span class="order-status-badge ${status}">${statusLabels[status] || status}</span>
-                </div>`;
+                return `<div class="profile-order-item"><div class="order-icon ${status}"><i class="fas ${statusIcons[status] || 'fa-receipt'}"></i></div><div class="order-detail"><div class="order-name">${o.shop_products?.name || 'Product'}</div><div class="order-meta">${date} · ${Number(o.amount).toLocaleString()} MMK</div></div><span class="order-status-badge ${status}">${statusLabels[status] || status}</span></div>`;
             }).join('');
         }
 
         // ========== COURSE PLAYER ==========
-        let courseLessons = [];
-        let lessonMaterialsMap = {};
-        let currentLessonId = null;
-        let currentCourseId = null;
+        let courseLessons = [], lessonMaterialsMap = {}, currentLessonId = null, currentCourseId = null;
 
         window.openCourse = async (productId) => {
             currentCourseId = productId;
             document.getElementById('myProductsSection').classList.add('hidden');
             document.getElementById('coursePlayerSection').classList.remove('hidden');
-
-            // Load lessons
             const { data: lessons } = await supabaseShop.from('shop_course_lessons').select('*').eq('product_id', productId).order('sort_order', { ascending: true });
             courseLessons = lessons || [];
-
-            // Load materials
             lessonMaterialsMap = {};
             if (courseLessons.length > 0) {
                 const lessonIds = courseLessons.map(l => l.id);
                 const { data: materials } = await supabaseShop.from('shop_lesson_materials').select('*').in('lesson_id', lessonIds).order('sort_order', { ascending: true });
-                (materials || []).forEach(m => {
-                    if (!lessonMaterialsMap[m.lesson_id]) lessonMaterialsMap[m.lesson_id] = [];
-                    lessonMaterialsMap[m.lesson_id].push(m);
-                });
+                (materials || []).forEach(m => { if (!lessonMaterialsMap[m.lesson_id]) lessonMaterialsMap[m.lesson_id] = []; lessonMaterialsMap[m.lesson_id].push(m); });
             }
-
             renderLessonList();
-            if (courseLessons.length > 0) {
-                selectLesson(courseLessons[0].id);
-            } else {
-                document.getElementById('lessonsList').innerHTML = '<p style="text-align:center; color:#999; padding:20px;">No lessons available yet.</p>';
-                document.getElementById('currentLessonTitle').textContent = 'No lessons yet';
-                document.getElementById('currentLessonDesc').textContent = '';
-                document.getElementById('courseVideoPlayer').src = '';
-                document.getElementById('lessonMaterialsSection').style.display = 'none';
-            }
-
+            if (courseLessons.length > 0) selectLesson(courseLessons[0].id);
+            else { document.getElementById('lessonsList').innerHTML = '<p style="text-align:center;color:#999;padding:20px;">No lessons available yet.</p>'; document.getElementById('currentLessonTitle').textContent = 'No lessons yet'; document.getElementById('currentLessonDesc').textContent = ''; document.getElementById('courseVideoPlayer').src = ''; document.getElementById('lessonMaterialsSection').style.display = 'none'; }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
 
         function renderLessonList() {
             const container = document.getElementById('lessonsList');
-            if (courseLessons.length === 0) {
-                container.innerHTML = '<p style="text-align:center; color:#999;">No lessons available yet.</p>';
-                return;
-            }
-            container.innerHTML = courseLessons.map((lesson, i) => {
-                const mats = lessonMaterialsMap[lesson.id] || [];
-                const isActive = lesson.id === currentLessonId;
-                return `
-                <div class="lesson-list-item ${isActive ? 'active' : ''}" onclick="selectLesson('${lesson.id}')">
-                    <span class="lesson-idx">${i + 1}</span>
-                    <span class="lesson-title-text">${lesson.title}</span>
-                    ${mats.length > 0 ? `<span class="lesson-mat-badge"><i class="fas fa-paperclip" style="font-size:0.7em;"></i> ${mats.length}</span>` : ''}
-                    <span class="lesson-duration">${lesson.duration || ''}</span>
-                </div>`;
+            if (courseLessons.length === 0) { container.innerHTML = '<p style="text-align:center;color:#999;">No lessons.</p>'; return; }
+            container.innerHTML = courseLessons.map((l, i) => {
+                const mats = lessonMaterialsMap[l.id] || [];
+                return `<div class="lesson-list-item ${l.id === currentLessonId ? 'active' : ''}" onclick="selectLesson('${l.id}')"><span class="lesson-idx">${i+1}</span><span class="lesson-title-text">${l.title}</span>${mats.length > 0 ? `<span class="lesson-mat-badge"><i class="fas fa-paperclip" style="font-size:0.7em;"></i> ${mats.length}</span>` : ''}<span class="lesson-duration">${l.duration || ''}</span></div>`;
             }).join('');
         }
 
@@ -2085,105 +1397,39 @@
             currentLessonId = lessonId;
             const lesson = courseLessons.find(l => l.id === lessonId);
             if (!lesson) return;
-
-            const player = document.getElementById('courseVideoPlayer');
-            if (lesson.video_url) {
-                player.src = convertToEmbedUrl(lesson.video_url);
-            } else {
-                player.src = '';
-            }
-
+            document.getElementById('courseVideoPlayer').src = lesson.video_url ? convertToEmbedUrl(lesson.video_url) : '';
             document.getElementById('currentLessonTitle').textContent = lesson.title;
             document.getElementById('currentLessonDesc').textContent = lesson.description || '';
-
             renderLessonMaterials(lessonId);
             renderLessonList();
-
-            document.querySelector('.video-container')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         };
 
         function renderLessonMaterials(lessonId) {
             const materials = lessonMaterialsMap[lessonId] || [];
             const section = document.getElementById('lessonMaterialsSection');
-            const list = document.getElementById('materialsList');
-            const countBadge = document.getElementById('materialCount');
-            const downloadAllBtn = document.getElementById('downloadAllBtn');
-
-            if (materials.length === 0) {
-                section.style.display = 'none';
-                return;
-            }
-
+            if (materials.length === 0) { section.style.display = 'none'; return; }
             section.style.display = 'block';
-            countBadge.textContent = `${materials.length} file${materials.length !== 1 ? 's' : ''}`;
-            downloadAllBtn.style.display = materials.length > 1 ? 'flex' : 'none';
-
-            list.innerHTML = materials.map(mat => `
-                <div class="material-download-card">
-                    <div class="mat-icon ${mat.file_type || 'other'}">
-                        ${FILE_SVG}
-                    </div>
-                    <div class="mat-details">
-                        <p class="mat-name">${mat.title}</p>
-                        <span class="mat-meta">
-                            ${(mat.file_type || 'file').toUpperCase()}
-                            ${mat.file_size ? ' · ' + mat.file_size : ''}
-                        </span>
-                    </div>
-                    <button onclick="downloadMaterial('${mat.file_url}', '${mat.title.replace(/'/g, "\\'")}')" class="mat-download-btn">
-                        <i class="fas fa-download" style="font-size:0.8em;"></i>
-                        Download
-                    </button>
-                </div>
-            `).join('');
-
-            section.style.animation = 'none';
-            section.offsetHeight;
-            section.style.animation = 'fadeSlideUp 0.3s ease';
+            document.getElementById('materialCount').textContent = `${materials.length} file${materials.length !== 1 ? 's' : ''}`;
+            document.getElementById('downloadAllBtn').style.display = materials.length > 1 ? 'flex' : 'none';
+            document.getElementById('materialsList').innerHTML = materials.map(m => `<div class="material-download-card"><div class="mat-icon ${m.file_type || 'other'}">${FILE_SVG}</div><div class="mat-details"><p class="mat-name">${m.title}</p><span class="mat-meta">${(m.file_type || 'file').toUpperCase()}${m.file_size ? ' · ' + m.file_size : ''}</span></div><button onclick="downloadMaterial('${m.file_url}','${m.title.replace(/'/g, "\\'")}')" class="mat-download-btn"><i class="fas fa-download" style="font-size:0.8em;"></i>Download</button></div>`).join('');
         }
 
-        window.downloadMaterial = (url, title) => {
-            const a = document.createElement('a');
-            a.href = url;
-            a.target = '_blank';
-            a.rel = 'noopener noreferrer';
-            if (url.match(/\.(pdf|zip|doc|docx|xls|xlsx|ppt|pptx|png|jpg|mp3|mp4)$/i)) {
-                a.download = title || 'download';
-            }
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        };
-
-        window.downloadAllMaterials = () => {
-            const materials = lessonMaterialsMap[currentLessonId] || [];
-            if (materials.length === 0) return;
-            if (!confirm(`Download all ${materials.length} files?`)) return;
-            materials.forEach((mat, i) => {
-                setTimeout(() => downloadMaterial(mat.file_url, mat.title), i * 500);
-            });
-        };
+        window.downloadMaterial = (url, title) => { const a = document.createElement('a'); a.href = url; a.target = '_blank'; a.rel = 'noopener noreferrer'; document.body.appendChild(a); a.click(); document.body.removeChild(a); };
+        window.downloadAllMaterials = () => { const mats = lessonMaterialsMap[currentLessonId] || []; if (!mats.length || !confirm(`Download all ${mats.length} files?`)) return; mats.forEach((m, i) => setTimeout(() => downloadMaterial(m.file_url, m.title), i * 500)); };
 
         function convertToEmbedUrl(url) {
             if (!url) return '';
-            const ytMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?#]+)/);
-            if (ytMatch) return `https://www.youtube.com/embed/${ytMatch[1]}`;
-            const vimeoMatch = url.match(/vimeo\.com\/(\d+)/);
-            if (vimeoMatch) return `https://player.vimeo.com/video/${vimeoMatch[1]}`;
-            if (url.includes('drive.google.com')) {
-                const fileId = url.match(/\/d\/([^/]+)/);
-                if (fileId) return `https://drive.google.com/file/d/${fileId[1]}/preview`;
-            }
+            const yt = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?#]+)/);
+            if (yt) return `https://www.youtube.com/embed/${yt[1]}`;
+            const vim = url.match(/vimeo\.com\/(\d+)/);
+            if (vim) return `https://player.vimeo.com/video/${vim[1]}`;
+            if (url.includes('drive.google.com')) { const fid = url.match(/\/d\/([^/]+)/); if (fid) return `https://drive.google.com/file/d/${fid[1]}/preview`; }
             return url;
         }
 
-        window.backToCourses = () => {
-            document.getElementById('coursePlayerSection').classList.add('hidden');
-            document.getElementById('myProductsSection').classList.remove('hidden');
-            currentLessonId = null;
-            currentCourseId = null;
-            document.getElementById('courseVideoPlayer').src = '';
-        };
+        window.backToCourses = () => { document.getElementById('coursePlayerSection').classList.add('hidden'); document.getElementById('myProductsSection').classList.remove('hidden'); currentLessonId = null; currentCourseId = null; document.getElementById('courseVideoPlayer').src = ''; };
+
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeCart(); closeProfile(); } });
     </script>
 </body>
 </html>
