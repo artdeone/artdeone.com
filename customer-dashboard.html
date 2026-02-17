@@ -1148,9 +1148,22 @@
             }
         });
 
+        let loginLoadingTimer = null;
         function showLoginLoading() {
             document.getElementById('loginCard').querySelectorAll('.google-signin-btn, .login-divider, .login-features, .login-error').forEach(el => el.style.display = 'none');
             document.getElementById('loginLoading').style.display = 'block';
+            // Fallback: if stuck for 10s, reset to login screen
+            clearTimeout(loginLoadingTimer);
+            loginLoadingTimer = setTimeout(() => {
+                if (document.getElementById('loginLoading').style.display === 'block' && !currentCustomer) {
+                    document.getElementById('loginLoading').style.display = 'none';
+                    document.getElementById('loginCard').querySelectorAll('.google-signin-btn, .login-divider, .login-features').forEach(el => el.style.display = '');
+                    const err = document.getElementById('loginError');
+                    err.textContent = 'Connection timed out. Please try again.';
+                    err.style.display = 'block';
+                    signOutCustomer();
+                }
+            }, 10000);
         }
 
         async function initDashboard(authUser) {
