@@ -51,7 +51,14 @@
         .pkg-card:hover { border-color: black; background: #fafafa; }
 
         .hidden { display: none !important; }
-        .login-card { max-width: 400px; margin: 100px auto; padding: 40px; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .login-wrapper { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .login-card { max-width: 420px; width: 100%; padding: 40px; background: white; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .login-logo { display: block; height: 48px; margin: 0 auto 24px; }
+        .login-contact { text-align: center; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--gray-200); font-size: 0.8em; color: var(--gray-400); line-height: 1.8; }
+        .login-contact a { color: var(--gray-900); text-decoration: none; font-weight: 500; }
+        .login-contact a:hover { color: var(--accent-green); }
+        .login-alert { display: none; background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; padding: 14px 16px; border-radius: 10px; margin-bottom: 16px; font-size: 0.85em; line-height: 1.6; }
+        .login-alert.show { display: block; }
         
         @media (max-width: 768px) { .main-grid { grid-template-columns: 1fr; } }
 
@@ -97,9 +104,12 @@
 </head>
 <body>
     <!-- Login -->
-    <div id="loginSection">
+    <div id="loginSection" class="login-wrapper">
         <div class="login-card">
-            <h2 style="text-align:center; margin-bottom:20px;">Client Login</h2>
+            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379715/logo_ohh8dl.png" alt="ART de ONE" class="login-logo">
+            <h2 style="text-align:center; margin-bottom:6px; font-size:1.2em;">Client Login</h2>
+            <p style="text-align:center; color:var(--gray-400); font-size:0.85em; margin-bottom:24px;">သင့် email ဖြင့် ဝင်ရောက်ပါ</p>
+            <div id="loginAlert" class="login-alert"></div>
             <form id="loginForm">
                 <div class="form-group">
                     <label>Email</label>
@@ -107,6 +117,11 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Login</button>
             </form>
+            <div class="login-contact">
+                <p>Package ဝယ်ယူလိုပါက ဆက်သွယ်ပါ</p>
+                <p>📧 <a href="mailto:artdeone.educators@gmail.com">artdeone.educators@gmail.com</a></p>
+                <p>📞 <a href="tel:09953681497">09 953 681 497</a></p>
+            </div>
         </div>
     </div>
 
@@ -215,7 +230,9 @@
                 document.getElementById('dashboardSection').style.display = 'block';
                 loadDashboard();
             } else {
-                alert('Login failed');
+                const alertBox = document.getElementById('loginAlert');
+                alertBox.innerHTML = 'ဤ email ဖြင့် active package တစ်ခုမှ မတွေ့ရှိပါ။ Package ဝယ်ယူရန် ART de ONE သို့ ဆက်သွယ်ပါ။<br><br>📧 <a href="mailto:artdeone.educators@gmail.com" style="color:#991b1b;font-weight:600;">artdeone.educators@gmail.com</a><br>📞 <a href="tel:09953681497" style="color:#991b1b;font-weight:600;">09 953 681 497</a>';
+                alertBox.classList.add('show');
             }
         }
 
