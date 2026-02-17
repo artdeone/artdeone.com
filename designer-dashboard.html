@@ -193,17 +193,25 @@
     </div>
 
     <script type="module">
-        import { supabaseRevision, DESIGNER_ACCESS_CODE } from './js/config-revision.js';
+        import { supabaseRevision, verifyDesignerCode } from './js/config-revision.js';
         let requests = [], clients = [], renewRequests = [];
         let clientFilter = 'all';
 
         // Auth
-        window.handleLogin = () => {
-            if(document.getElementById('accessCode').value === DESIGNER_ACCESS_CODE) {
+        window.handleLogin = async () => {
+            const btn = event.target;
+            btn.disabled = true;
+            btn.textContent = 'Verifying...';
+            const valid = await verifyDesignerCode(document.getElementById('accessCode').value);
+            if (valid) {
                 document.getElementById('loginSection').style.display='none';
                 document.getElementById('appSection').classList.remove('hidden');
                 loadData(); loadClients(); loadRenewals();
-            } else alert('Invalid');
+            } else {
+                alert('Invalid access code');
+                btn.disabled = false;
+                btn.textContent = 'Login';
+            }
         };
         window.logout = () => location.reload();
 

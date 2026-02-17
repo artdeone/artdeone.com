@@ -59,5 +59,13 @@ export const STATUS_TEXT = {
   completed: 'ပြီးစီးပြီ'
 };
 
-// Designer Access Code
-export const DESIGNER_ACCESS_CODE = 'artdeone2024';
+// Designer Access Code — verified via Supabase
+export async function verifyDesignerCode(code) {
+    const { data } = await supabaseRevision
+        .from('admin_auth')
+        .select('role')
+        .eq('role', 'designer')
+        .eq('access_code', code)
+        .single();
+    return !!data;
+}
