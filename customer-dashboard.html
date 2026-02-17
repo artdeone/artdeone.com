@@ -1168,9 +1168,12 @@
 
         async function initDashboard(authUser) {
             try {
+                console.log('🔑 initDashboard called, user:', authUser.email);
                 currentCustomer = await findOrCreateCustomer(authUser);
+                console.log('✅ Customer found/created:', currentCustomer);
+                clearTimeout(loginLoadingTimer);
 
-                if (!currentCustomer.is_active) {
+                if (!currentCustomer || !currentCustomer.is_active) {
                     document.getElementById('loginLoading').style.display = 'none';
                     document.getElementById('loginError').textContent = 'သင့်အကောင့်ကို ပိတ်ထားပါသည်။ Admin ကို ဆက်သွယ်ပါ။';
                     document.getElementById('loginError').style.display = 'block';

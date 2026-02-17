@@ -66,12 +66,18 @@ export function onAuthChange(callback) {
 }
 
 export async function findOrCreateCustomer(user) {
+    console.log('🔍 findOrCreateCustomer called for:', user.email);
     // 1. Check existing customer by email
-    const { data: existing } = await supabaseShop
+    const { data: existing, error: fetchError } = await supabaseShop
         .from('shop_customers')
         .select('*')
         .eq('email', user.email)
         .maybeSingle();
+    
+    if (fetchError) {
+        console.error('❌ Fetch customer error:', fetchError);
+        throw fetchError;
+    }
 
     if (existing) {
         // Update auth info if first Google login
