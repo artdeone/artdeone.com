@@ -645,8 +645,9 @@
     };
 
     let initInProgress = false;
-    document.addEventListener('DOMContentLoaded', async () => { const s = await getAuthSession(); if (s?.user && !currentCustomer && !initInProgress) { showLoginLoading(); await initDashboard(s.user); } });
-    onAuthChange(async (event, session) => { if (event === 'SIGNED_IN' && session?.user && !currentCustomer && !initInProgress) { showLoginLoading(); await initDashboard(session.user); } });
+    // Module scripts run after DOMContentLoaded, so check session immediately
+    (async () => { const s = await getAuthSession(); if (s?.user && !currentCustomer && !initInProgress) { showLoginLoading(); await initDashboard(s.user); } })();
+    onAuthChange(async (event, session) => { if ((event === 'SIGNED_IN' || event === 'INITIAL_SESSION') && session?.user && !currentCustomer && !initInProgress) { showLoginLoading(); await initDashboard(session.user); } });
 
     let loginLoadingTimer = null;
     function showLoginLoading() {
