@@ -15,7 +15,7 @@ export const supabaseRevision = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
         autoRefreshToken: true,        // ✅ Token auto refresh
         persistSession: true,          // ✅ Session ကို localStorage မှာ သိမ်းမယ်
         detectSessionInUrl: true,      // ✅ OAuth callback URL က session ဖတ်မယ်
-        flowType: 'pkce'               // ✅ Secure OAuth flow (Google Auth အတွက်)
+        flowType: 'implicit'               // ✅ Secure OAuth flow (Google Auth အတွက်)
     }
 });
 

@@ -46,9 +46,8 @@
 
     <script type="module">
         import { supabaseShop, findOrCreateCustomer } from '/js/config-shop.js';
-        // ✅ ဒီ 3 lines ထပ်ထည့်ပါ — အပေါ်ဆုံးမှာ
+
         console.log('📍 Full URL:', window.location.href);
-        console.log('📍 Search params:', window.location.search);
         console.log('📍 Hash:', window.location.hash);
 
         async function handleCallback() {
@@ -57,44 +56,21 @@
 
             try {
                 /* ──────────────────────────────────────
-                   Step 1: PKCE flow — ?code= စစ်ပါ
-                ────────────────────────────────────── */
-                const params = new URLSearchParams(window.location.search);
-                const code   = params.get('code');
-
-                if (code) {
-                    statusText.textContent = 'Exchanging code...';
-                    console.log('🔑 PKCE code found, exchanging...');
-
-                    const { data, error } =
-                        await supabaseShop.auth.exchangeCodeForSession(code);
-
-                    if (error) {
-                        console.error('Exchange error:', error);
-                        throw error;
-                    }
-
-                    if (data?.session?.user) {
-                        console.log('✅ Session from PKCE:', data.session.user.email);
-                        await setupAndRedirect(data.session);
-                        return;
-                    }
-                }
-
-                /* ──────────────────────────────────────
-                   Step 2: Hash fragment flow — #access_token= စစ်ပါ
+                   Step 1: Hash fragment စစ်ပါ (Implicit Flow)
+                   Google က #access_token=xxx ပြန်ပေးမယ်
+                   Supabase (detectSessionInUrl: true) က auto-process လုပ်မယ်
                 ────────────────────────────────────── */
                 const hash = window.location.hash;
+
                 if (hash && hash.includes('access_token')) {
                     statusText.textContent = 'Processing token...';
-                    console.log('🔑 Hash fragment found');
-
-                    // Supabase auto-detects hash, just wait a bit
-                    await new Promise(r => setTimeout(r, 1000));
+                    console.log('🔑 Access token found in hash, waiting for Supabase...');
+                    // Supabase needs a moment to process the hash
+                    await new Promise(r => setTimeout(r, 1500));
                 }
 
                 /* ──────────────────────────────────────
-                   Step 3: getSession စစ်ပါ
+                   Step 2: getSession စစ်ပါ
                 ────────────────────────────────────── */
                 statusText.textContent = 'Verifying session...';
                 const { data: { session }, error: sessionError } =
@@ -109,7 +85,7 @@
                 }
 
                 /* ──────────────────────────────────────
-                   Step 4: Wait for auth state change
+                   Step 3: Wait for auth state change (fallback)
                 ────────────────────────────────────── */
                 statusText.textContent = 'Waiting for authentication...';
                 console.log('⏳ Waiting for onAuthStateChange...');
@@ -119,13 +95,16 @@
                         () => reject(new Error('Auth timeout — no session received')),
                         10000
                     );
-                    supabaseShop.auth.onAuthStateChange((event, sess) => {
-                        console.log('🔔 Auth event:', event);
-                        if (event === 'SIGNED_IN' && sess) {
-                            clearTimeout(timer);
-                            resolve(sess);
-                        }
-                    });
+
+                    const { data: { subscription } } =
+                        supabaseShop.auth.onAuthStateChange((event, sess) => {
+                            console.log('🔔 Auth event:', event);
+                            if (event === 'SIGNED_IN' && sess) {
+                                clearTimeout(timer);
+                                subscription.unsubscribe();
+                                resolve(sess);
+                            }
+                        });
                 });
 
                 if (waitedSession?.user) {
@@ -149,7 +128,6 @@
 
         async function setupAndRedirect(session) {
             const statusText = document.getElementById('statusText');
-
             statusText.textContent = 'Setting up account...';
             console.log('👤 Setting up customer for:', session.user.email);
 
@@ -166,7 +144,6 @@
 
             } catch (dbErr) {
                 console.error('DB error:', dbErr);
-                // DB error ဖြစ်ရင်လည်း session ရှိရင် redirect လုပ်
                 localStorage.setItem('user_email', session.user.email);
                 localStorage.setItem('user_name',
                     session.user.user_metadata?.full_name || '');
