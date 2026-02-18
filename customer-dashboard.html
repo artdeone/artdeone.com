@@ -646,25 +646,8 @@
 
     let initInProgress = false;
 
-    // Auth initialization — try getSession first, then listen for auth changes
-    (async () => {
-        console.log('🔍 [Auth] Checking existing session...');
-        try {
-            const s = await getAuthSession();
-            console.log('🔍 [Auth] getAuthSession result:', s ? s.user?.email : 'null');
-            if (s?.user && !currentCustomer && !initInProgress) {
-                showLoginLoading();
-                await initDashboard(s.user);
-                return;
-            }
-        } catch (e) {
-            console.error('🔍 [Auth] getAuthSession error:', e);
-        }
-        console.log('🔍 [Auth] No immediate session, waiting for onAuthChange...');
-    })();
-
+    // Auth initialization — use onAuthChange as single entry point
     onAuthChange(async (event, session) => {
-        console.log('🔔 [Auth] onAuthChange:', event, session?.user?.email || 'no-user');
         if ((event === 'SIGNED_IN' || event === 'INITIAL_SESSION' || event === 'TOKEN_REFRESHED') && session?.user && !currentCustomer && !initInProgress) {
             showLoginLoading();
             await initDashboard(session.user);
@@ -677,23 +660,19 @@
         document.getElementById('loginError').style.display = 'none';
         document.getElementById('loginLoading').style.display = 'block';
         clearTimeout(loginLoadingTimer);
-        loginLoadingTimer = setTimeout(() => { if (document.getElementById('loginLoading').style.display === 'block' && !currentCustomer) { document.getElementById('loginLoading').style.display = 'none'; showLogin(); const e = document.getElementById('loginError'); e.textContent = 'Connection timed out. Please try again.'; e.style.display = 'block'; signOutCustomer(); } }, 25000);
+        loginLoadingTimer = setTimeout(() => { if (document.getElementById('loginLoading').style.display === 'block' && !currentCustomer) { document.getElementById('loginLoading').style.display = 'none'; showLogin(); const e = document.getElementById('loginError'); e.textContent = 'Connection timed out. Please try again.'; e.style.display = 'block'; signOutCustomer(); } }, 45000);
     }
 
     async function initDashboard(authUser) {
         initInProgress = true;
-        console.log('🚀 [Dashboard] initDashboard called for:', authUser.email);
         try {
-            console.log('🚀 [Dashboard] Calling findOrCreateCustomer...');
-            const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('findOrCreateCustomer took too long (15s)')), 15000));
-            currentCustomer = await Promise.race([findOrCreateCustomer(authUser), timeoutPromise]);
-            console.log('🚀 [Dashboard] findOrCreateCustomer result:', currentCustomer?.email || 'null');
+            currentCustomer = await findOrCreateCustomer(authUser);
             clearTimeout(loginLoadingTimer);
             if (!currentCustomer || !currentCustomer.is_active) { document.getElementById('loginLoading').style.display = 'none'; showLogin(); document.getElementById('loginError').textContent = 'သင့်အကောင့်ကို ပိတ်ထားပါသည်။ Admin ကို ဆက်သွယ်ပါ။'; document.getElementById('loginError').style.display = 'block'; await signOutCustomer(); return; }
             currentCustomer._avatarUrl = authUser.user_metadata?.avatar_url || currentCustomer.avatar_url || null;
             const ls = document.getElementById('loginSection'); ls.style.transition = 'opacity .4s ease, transform .4s ease'; ls.style.opacity = '0'; ls.style.transform = 'scale(1.02)';
             setTimeout(() => { ls.style.display = 'none'; const d = document.getElementById('dashboardSection'); d.classList.remove('hidden'); d.classList.add('dashboard-enter'); renderHeader(); loadProducts(); }, 380);
-        } catch (err) { console.error('❌ [Dashboard] initDashboard error:', err); initInProgress = false; document.getElementById('loginLoading').style.display = 'none'; showLogin(); document.getElementById('loginError').textContent = 'Error: ' + err.message; document.getElementById('loginError').style.display = 'block'; }
+        } catch (err) { initInProgress = false; document.getElementById('loginLoading').style.display = 'none'; showLogin(); document.getElementById('loginError').textContent = 'Error: ' + err.message; document.getElementById('loginError').style.display = 'block'; }
     }
 
     window.logout = async () => { await signOutCustomer(); location.reload(); };
