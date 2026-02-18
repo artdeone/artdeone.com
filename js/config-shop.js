@@ -93,7 +93,7 @@ export async function signInWithEmail(email, password) {
 
 export async function resetPassword(email) {
     const { data, error } = await supabaseShop.auth.resetPasswordForEmail(email, {
-        redirectTo: window.location.origin + '/reset-password'
+        redirectTo: window.location.origin + 'reset-password.html'
     });
     return { data, error };
 }
