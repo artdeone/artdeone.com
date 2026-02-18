@@ -679,8 +679,16 @@
                         <a href="/resources/resources-collection.html" class="nav-link">Resources</a>
                         <a href="index.html#contact" class="nav-link">Contact</a>
                     </div>
-                    <div class="hidden md:block">
-                        <a href="customer-dashboard.html" class="nav-btn">Customer Login</a>
+                    <div class="hidden md:flex items-center gap-3" id="desktopAuth">
+                        <!-- Not logged in: show Sign in link -->
+                        <a href="customer-dashboard.html" class="nav-btn" id="btnLoginDesktop">Sign in</a>
+
+                        <!-- Logged in: show name + Dashboard + Sign out -->
+                        <div id="userInfoDesktop" style="display:none;" class="flex items-center gap-3">
+                            <span class="text-sm text-[#323232] font-medium" id="userNameDesktop"></span>
+                            <a href="customer-dashboard.html" class="nav-btn" style="font-size:0.75rem; padding:0.4rem 1rem;">Dashboard</a>
+                            <button onclick="logout()" class="text-xs text-gray-400 hover:text-black transition-colors" style="font-family:'Space Grotesk';">Sign out</button>
+                        </div>
                     </div>
                     <div class="md:hidden flex items-center">
                         <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md hover:bg-gray-100 focus:outline-none" id="mobile-menu-button">
@@ -701,7 +709,18 @@
                 <a href="blog.html" class="block py-2 mobile-nav-link">Blog</a>
                 <a href="/resources/resources-collection.html" class="block py-2 mobile-nav-link">Resources</a>
                 <a href="index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
-                <a href="customer-dashboard.html" class="block py-2 mobile-nav-link">Customer Login</a>
+                <div id="mobileAuth">
+                    <!-- Not logged in -->
+                    <a href="customer-dashboard.html" class="block py-2 mobile-nav-link" id="btnLoginMobile">Sign in</a>
+
+                    <!-- Logged in -->
+                    <div id="userInfoMobile" style="display:none;">
+                        <span class="block py-2 mobile-nav-link text-black font-medium" id="userNameMobile"></span>
+                        <a href="customer-dashboard.html" class="block py-2 mobile-nav-link">Dashboard</a>
+                        <button onclick="logout()" class="block py-2 mobile-nav-link text-gray-400">Sign out</button>
+                    </div>
+                </div>
+            </div>
             </div>
         </div>
     </nav>
@@ -768,64 +787,60 @@
         </section>
 
         <!-- How It Works -->
-        <section id="how-it-works" class="py-20 section-dark px-4">
-            <div class="max-w-3xl mx-auto">
-                <div class="text-center mb-16" data-aos="fade-up">
-                    <h2 class="section-title">How It Works</h2>
-                    <p class="section-subtitle">ရိုးရှင်းတဲ့ အဆင့် ၄ ဆင့်နဲ့ သင့်ပစ္စည်းများကို ရယူပါ</p>
-                </div>
+<section id="how-it-works" class="py-20 section-dark px-4">
+    <div class="max-w-3xl mx-auto">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">ရိုးရှင်းတဲ့ အဆင့် ၄ ဆင့်နဲ့ သင့်ပစ္စည်းများကို ရယူပါ</p>
+        </div>
 
-                <div data-aos="fade-up">
-                    <div class="flex items-start gap-5">
-                        <div class="step-number">1</div>
-                        <div class="pt-1">
-                            <h4 class="font-bold text-black text-lg mb-1">ပစ္စည်းရွေးချယ်ပါ</h4>
-                            <p class="text-[#555] text-sm">Browse & Choose - သင်ကြိုက်နှစ်သက်ရာ digital product ကို ရွေးချယ်ပါ</p>
-                        </div>
-                    </div>
-                    <div class="step-connector"></div>
-                    <div class="flex items-start gap-5">
-                        <div class="step-number">2</div>
-                        <div class="pt-1">
-                            <h4 class="font-bold text-black text-lg mb-1">ငွေလွှဲပြီး အတည်ပြုပါ</h4>
-                            <p class="text-[#555] text-sm">Payment & Confirm - KBZ Pay / Wave / Bank Transfer ဖြင့် ငွေလွှဲပြီး screenshot ပို့ပေးပါ</p>
-                        </div>
-                    </div>
-                    <div class="step-connector"></div>
-                    <div class="flex items-start gap-5">
-                        <div class="step-number">3</div>
-                        <div class="pt-1">
-                            <h4 class="font-bold text-black text-lg mb-1">Login Code ရယူပါ</h4>
-                            <p class="text-[#555] text-sm">Get Access Code - Payment Confirmed ဖြစ်ပါက Login Access Code ပေးပါမည်</p>
-                        </div>
-                    </div>
-                    <div class="step-connector"></div>
-                    <div class="flex items-start gap-5">
-                        <div class="step-number">4</div>
-                        <div class="pt-1">
-                            <h4 class="font-bold text-black text-lg mb-1">Download ရယူပါ</h4>
-                            <p class="text-[#555] text-sm">Download Your Products - Customer Dashboard ကနေ သင့်ပစ္စည်းများကို download ရယူပါ</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="text-center mt-12" data-aos="fade-up">
-                    <button onclick="openContactModal()" class="btn-primary cursor-pointer"><i class="fas fa-phone mr-2"></i>ဆက်သွယ်ရန် - 09953681497</button>
+        <div data-aos="fade-up">
+            <div class="flex items-start gap-5">
+                <div class="step-number">1</div>
+                <div class="pt-1">
+                    <h4 class="font-bold text-black text-lg mb-1">Account ဖွင့်ပါ</h4>
+                    <p class="text-[#555] text-sm">Google Account သို့မဟုတ် Email/Password ဖြင့် အလွယ်တကူ Register/Login ၀င်ပါ</p>
                 </div>
             </div>
-        </section>
-
-        <!-- CTA -->
-        <section class="py-20 section-darker px-4">
-            <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
-                <h2 class="section-title mb-4">Ready to level up your designs?</h2>
-                <p class="section-subtitle mb-8">Premium digital products ကို ယခုပဲရယူလိုက်ပါ</p>
-                <div class="flex flex-wrap gap-4 justify-center">
-                    <a href="#products" class="btn-primary">Browse Shop</a>
-                    <a href="customer-dashboard.html" class="btn-secondary"><i class="fas fa-download mr-2"></i>Customer Login</a>
+            <div class="step-connector"></div>
+            <div class="flex items-start gap-5">
+                <div class="step-number">2</div>
+                <div class="pt-1">
+                    <h4 class="font-bold text-black text-lg mb-1">Product ရွေးပြီး Order တင်ပါ</h4>
+                    <p class="text-[#555] text-sm">Dashboard ထဲမှာ ကြိုက်နှစ်သက်ရာ Products ကို Cart ထဲထည့်ပြီး Order တင်ပါ</p>
                 </div>
             </div>
-        </section>
+            <div class="step-connector"></div>
+            <div class="flex items-start gap-5">
+                <div class="step-number">3</div>
+                <div class="pt-1">
+                    <h4 class="font-bold text-black text-lg mb-1">ငွေလွှဲပါ</h4>
+                    <p class="text-[#555] text-sm">KBZ Pay / Wave / Bank Transfer ဖြင့် ငွေလွှဲပြီး Admin ကို Screenshot ပို့ပေးပါ</p>
+                </div>
+            </div>
+            <div class="step-connector"></div>
+            <div class="flex items-start gap-5">
+                <div class="step-number">4</div>
+                <div class="pt-1">
+                    <h4 class="font-bold text-black text-lg mb-1">Download / Watch ရယူပါ</h4>
+                    <p class="text-[#555] text-sm">Admin အတည်ပြုပြီးပါက Customer Dashboard ကနေ Download ရယူ သို့မဟုတ် Course ကြည့်ရှုနိုင်ပါပြီ</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-12" data-aos="fade-up">
+            <div class="flex flex-wrap gap-3 justify-center">
+                <button onclick="handleAuthAction()" class="btn-primary" id="btnHowItWorks">
+                    <i class="fas fa-user-plus mr-2"></i>Register / Login
+                </button>
+                <button onclick="openContactModal()" class="btn-secondary cursor-pointer"><i class="fas fa-phone mr-2"></i>ဆက်သွယ်ရန်</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+        
     </main>
 
     <!-- Product Detail Modal -->
@@ -1259,5 +1274,85 @@
 
         renderProducts(products);
     </script>
+    <script type="module">
+    import { supabaseShop } from './js/config-shop.js';
+
+    // ==========================================
+    // Auth UI Update
+    // ==========================================
+    function updateAuthUI(session) {
+        const btnLoginDesktop  = document.getElementById('btnLoginDesktop');
+        const userInfoDesktop  = document.getElementById('userInfoDesktop');
+        const userNameDesktop  = document.getElementById('userNameDesktop');
+        const btnLoginMobile   = document.getElementById('btnLoginMobile');
+        const userInfoMobile   = document.getElementById('userInfoMobile');
+        const userNameMobile   = document.getElementById('userNameMobile');
+        const btnHowItWorks    = document.getElementById('btnHowItWorks');
+
+        if (session && session.user) {
+            const name = session.user.user_metadata?.full_name
+                      || session.user.email.split('@')[0];
+
+            // Desktop
+            btnLoginDesktop.style.display = 'none';
+            userInfoDesktop.style.display = 'flex';
+            userNameDesktop.textContent   = name;
+
+            // Mobile
+            btnLoginMobile.style.display  = 'none';
+            userInfoMobile.style.display  = 'block';
+            userNameMobile.textContent    = name;
+
+            // How It Works button
+            if (btnHowItWorks) {
+                btnHowItWorks.innerHTML = '<i class="fas fa-th-large mr-2"></i>Go to Dashboard';
+            }
+        } else {
+            // Desktop
+            btnLoginDesktop.style.display = 'inline-flex';
+            userInfoDesktop.style.display = 'none';
+
+            // Mobile
+            btnLoginMobile.style.display  = 'block';
+            userInfoMobile.style.display  = 'none';
+
+            // How It Works button
+            if (btnHowItWorks) {
+                btnHowItWorks.innerHTML = '<i class="fas fa-user-plus mr-2"></i>Register / Login';
+            }
+        }
+    }
+
+    // ==========================================
+    // Logout — shop.html ကနေ Sign out
+    // ==========================================
+    window.logout = async function () {
+        await supabaseShop.auth.signOut();
+        localStorage.removeItem('customer');
+        localStorage.removeItem('user_email');
+        localStorage.removeItem('user_name');
+        updateAuthUI(null);
+    };
+
+    // ==========================================
+    // How It Works button action
+    // ==========================================
+    window.handleAuthAction = function () {
+        // Both logged-in and not-logged-in → go to dashboard
+        // Dashboard page handles login form + showing dashboard
+        window.location.href = 'customer-dashboard.html';
+    };
+
+    // ==========================================
+    // Check session on page load
+    // ==========================================
+    const { data: { session } } = await supabaseShop.auth.getSession();
+    updateAuthUI(session);
+
+    // Listen for auth state changes
+    supabaseShop.auth.onAuthStateChange((_event, session) => {
+        updateAuthUI(session);
+    });
+</script>
 </body>
 </html>

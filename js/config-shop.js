@@ -45,7 +45,7 @@ export async function signInWithGoogle() {
     const { data, error } = await supabaseShop.auth.signInWithOAuth({
         provider: 'google',
         options: {
-            redirectTo: window.location.origin + '/customer-dashboard.html'
+            redirectTo: window.location.origin + '/auth/callback'
         }
     });
     return { data, error };
@@ -65,39 +65,77 @@ export function onAuthChange(callback) {
     return supabaseShop.auth.onAuthStateChange(callback);
 }
 
+// =====================================================
+// 📧 EMAIL/PASSWORD AUTH FUNCTIONS
+// =====================================================
+
+export async function signUpWithEmail(email, password, fullName) {
+    const { data, error } = await supabaseShop.auth.signUp({
+        email,
+        password,
+        options: {
+            data: {
+                full_name: fullName
+            },
+            emailRedirectTo: window.location.origin + '/auth/callback'
+        }
+    });
+    return { data, error };
+}
+
+export async function signInWithEmail(email, password) {
+    const { data, error } = await supabaseShop.auth.signInWithPassword({
+        email,
+        password
+    });
+    return { data, error };
+}
+
+export async function resetPassword(email) {
+    const { data, error } = await supabaseShop.auth.resetPasswordForEmail(email, {
+        redirectTo: window.location.origin + '/reset-password'
+    });
+    return { data, error };
+}
+
+// =====================================================
+// 👤 FIND OR CREATE CUSTOMER (Google + Email support)
+// =====================================================
+
 export async function findOrCreateCustomer(user) {
     console.log('🔍 findOrCreateCustomer called for:', user.email);
-    // 1. Check existing customer by email
+
+    const provider = user.app_metadata?.provider || 'email';
+
     const { data: existing, error: fetchError } = await supabaseShop
         .from('shop_customers')
         .select('*')
         .eq('email', user.email)
         .maybeSingle();
-    
+
     if (fetchError) {
         console.error('❌ Fetch customer error:', fetchError);
         throw fetchError;
     }
 
     if (existing) {
-        // Update auth info if first Google login
-        if (existing.auth_provider !== 'google') {
+        if (existing.auth_provider !== provider) {
             await supabaseShop
                 .from('shop_customers')
                 .update({
-                    auth_provider: 'google',
+                    auth_provider: provider,
                     auth_uid: user.id,
-                    avatar_url: user.user_metadata?.avatar_url || null
+                    avatar_url: user.user_metadata?.avatar_url || existing.avatar_url || null
                 })
                 .eq('id', existing.id);
-            existing.auth_provider = 'google';
-            existing.avatar_url = user.user_metadata?.avatar_url || null;
+            existing.auth_provider = provider;
+            existing.avatar_url = user.user_metadata?.avatar_url || existing.avatar_url || null;
         }
         return existing;
     }
 
-    // 2. Auto-create new customer
-    const autoCode = 'G-' + Math.random().toString(36).substr(2, 6).toUpperCase();
+    const prefix = provider === 'google' ? 'G-' : 'E-';
+    const autoCode = prefix + Math.random().toString(36).substr(2, 6).toUpperCase();
     const { data: newCustomer, error } = await supabaseShop
         .from('shop_customers')
         .insert([{
@@ -106,7 +144,7 @@ export async function findOrCreateCustomer(user) {
             phone: user.phone || '',
             access_code: autoCode,
             is_active: true,
-            auth_provider: 'google',
+            auth_provider: provider,
             auth_uid: user.id,
             avatar_url: user.user_metadata?.avatar_url || null
         }])

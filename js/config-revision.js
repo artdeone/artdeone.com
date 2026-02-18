@@ -11,52 +11,56 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 export const supabaseRevision = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
     auth: {
         lock: false,
-        storageKey: 'sb-artdeone-auth'
+        storageKey: 'sb-artdeone-auth',
+        autoRefreshToken: true,        // ✅ Token auto refresh
+        persistSession: true,          // ✅ Session ကို localStorage မှာ သိမ်းမယ်
+        detectSessionInUrl: true,      // ✅ OAuth callback URL က session ဖတ်မယ်
+        flowType: 'pkce'               // ✅ Secure OAuth flow (Google Auth အတွက်)
     }
 });
 
 // Package Configuration
 export const PACKAGES = {
-  essential: {
-    name: 'Essential',
-    name_mm: 'အခြေခံ',
-    price: 150000,
-    revisions: 5,
-    duration_days: 30
-  },
-  professional: {
-    name: 'Professional',
-    name_mm: 'ပရော်ဖက်ရှင်နယ်',
-    price: 450000,
-    revisions: 15,
-    duration_days: 60
-  },
-  freedom: {
-    name: 'Freedom',
-    name_mm: 'လွတ်လပ်စွာ',
-    price: 900000,
-    revisions: 35,
-    duration_days: 30
-  }
+    essential: {
+        name: 'Essential',
+        name_mm: 'အခြေခံ',
+        price: 150000,
+        revisions: 5,
+        duration_days: 30
+    },
+    professional: {
+        name: 'Professional',
+        name_mm: 'ပရော်ဖက်ရှင်နယ်',
+        price: 450000,
+        revisions: 15,
+        duration_days: 60
+    },
+    freedom: {
+        name: 'Freedom',
+        name_mm: 'လွတ်လပ်စွာ',
+        price: 900000,
+        revisions: 35,
+        duration_days: 30
+    }
 };
 
 // Revision Types
 export const REVISION_TYPES = {
-  alignment: 'Alignment / Spacing / Size',
-  color: 'အရောင်ပြင်ဆင်ခြင်း',
-  format: 'Format ပြောင်းလဲခြင်း (PNG, SVG, PDF)',
-  layout: 'Layout / Composition',
-  composition: 'Brand Color / Variation',
-  export: 'Export / File Version',
-  other: 'အခြား'
+    alignment: 'Alignment / Spacing / Size',
+    color: 'အရောင်ပြင်ဆင်ခြင်း',
+    format: 'Format ပြောင်းလဲခြင်း (PNG, SVG, PDF)',
+    layout: 'Layout / Composition',
+    composition: 'Brand Color / Variation',
+    export: 'Export / File Version',
+    other: 'အခြား'
 };
 
 // Status Text
 export const STATUS_TEXT = {
-  pending: 'စောင့်ဆိုင်းဆဲ',
-  approved: 'လက်ခံပြီး',
-  rejected: 'ငြင်းပယ်ခဲ့',
-  completed: 'ပြီးစီးပြီ'
+    pending: 'စောင့်ဆိုင်းဆဲ',
+    approved: 'လက်ခံပြီး',
+    rejected: 'ငြင်းပယ်ခဲ့',
+    completed: 'ပြီးစီးပြီ'
 };
 
 // Designer Access Code — verified via Supabase

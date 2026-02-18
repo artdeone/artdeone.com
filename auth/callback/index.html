@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logging in — ART de ONE</title>
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769316272/fav-icon_n00lji.png">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; background: #fafafa;
+            font-family: 'Space Grotesk', Arial, sans-serif;
+        }
+        .container { text-align: center; }
+        .logo { width: 120px; margin-bottom: 40px; }
+        .bar-wrapper {
+            width: 200px; height: 2px; background: #e0e0e0;
+            margin: 0 auto 24px; border-radius: 2px; overflow: hidden;
+        }
+        .bar {
+            width: 40%; height: 100%; background: #222;
+            border-radius: 2px;
+            animation: slide 1.2s ease-in-out infinite;
+        }
+        @keyframes slide {
+            0%   { transform: translateX(-100%); }
+            100% { transform: translateX(350%); }
+        }
+        .text { font-size: 14px; color: #888; }
+        .error {
+            display: none; margin-top: 20px;
+            font-size: 13px; color: #c0392b;
+            max-width: 300px; margin: 20px auto 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png"
+             alt="ART de ONE" class="logo">
+        <div class="bar-wrapper"><div class="bar"></div></div>
+        <p class="text" id="statusText">Logging in</p>
+        <p class="error" id="errorMsg"></p>
+    </div>
+
+    <script type="module">
+        import { supabaseShop, findOrCreateCustomer } from '/js/config-shop.js';
+        // ✅ ဒီ 3 lines ထပ်ထည့်ပါ — အပေါ်ဆုံးမှာ
+        console.log('📍 Full URL:', window.location.href);
+        console.log('📍 Search params:', window.location.search);
+        console.log('📍 Hash:', window.location.hash);
+
+        async function handleCallback() {
+            const statusText = document.getElementById('statusText');
+            const errorMsg   = document.getElementById('errorMsg');
+
+            try {
+                /* ──────────────────────────────────────
+                   Step 1: PKCE flow — ?code= စစ်ပါ
+                ────────────────────────────────────── */
+                const params = new URLSearchParams(window.location.search);
+                const code   = params.get('code');
+
+                if (code) {
+                    statusText.textContent = 'Exchanging code...';
+                    console.log('🔑 PKCE code found, exchanging...');
+
+                    const { data, error } =
+                        await supabaseShop.auth.exchangeCodeForSession(code);
+
+                    if (error) {
+                        console.error('Exchange error:', error);
+                        throw error;
+                    }
+
+                    if (data?.session?.user) {
+                        console.log('✅ Session from PKCE:', data.session.user.email);
+                        await setupAndRedirect(data.session);
+                        return;
+                    }
+                }
+
+                /* ──────────────────────────────────────
+                   Step 2: Hash fragment flow — #access_token= စစ်ပါ
+                ────────────────────────────────────── */
+                const hash = window.location.hash;
+                if (hash && hash.includes('access_token')) {
+                    statusText.textContent = 'Processing token...';
+                    console.log('🔑 Hash fragment found');
+
+                    // Supabase auto-detects hash, just wait a bit
+                    await new Promise(r => setTimeout(r, 1000));
+                }
+
+                /* ──────────────────────────────────────
+                   Step 3: getSession စစ်ပါ
+                ────────────────────────────────────── */
+                statusText.textContent = 'Verifying session...';
+                const { data: { session }, error: sessionError } =
+                    await supabaseShop.auth.getSession();
+
+                if (sessionError) throw sessionError;
+
+                if (session?.user) {
+                    console.log('✅ Session found:', session.user.email);
+                    await setupAndRedirect(session);
+                    return;
+                }
+
+                /* ──────────────────────────────────────
+                   Step 4: Wait for auth state change
+                ────────────────────────────────────── */
+                statusText.textContent = 'Waiting for authentication...';
+                console.log('⏳ Waiting for onAuthStateChange...');
+
+                const waitedSession = await new Promise((resolve, reject) => {
+                    const timer = setTimeout(
+                        () => reject(new Error('Auth timeout — no session received')),
+                        10000
+                    );
+                    supabaseShop.auth.onAuthStateChange((event, sess) => {
+                        console.log('🔔 Auth event:', event);
+                        if (event === 'SIGNED_IN' && sess) {
+                            clearTimeout(timer);
+                            resolve(sess);
+                        }
+                    });
+                });
+
+                if (waitedSession?.user) {
+                    await setupAndRedirect(waitedSession);
+                    return;
+                }
+
+                throw new Error('No session found after all attempts');
+
+            } catch (err) {
+                console.error('❌ Callback error:', err);
+                statusText.style.display = 'none';
+                document.querySelector('.bar-wrapper').style.display = 'none';
+                errorMsg.textContent = err.message || 'Unable to sign in. Redirecting...';
+                errorMsg.style.display = 'block';
+                setTimeout(() => {
+                    window.location.href = '/customer-dashboard.html';
+                }, 3000);
+            }
+        }
+
+        async function setupAndRedirect(session) {
+            const statusText = document.getElementById('statusText');
+
+            statusText.textContent = 'Setting up account...';
+            console.log('👤 Setting up customer for:', session.user.email);
+
+            try {
+                const customer = await findOrCreateCustomer(session.user);
+                localStorage.setItem('customer',   JSON.stringify(customer));
+                localStorage.setItem('user_email',  session.user.email);
+                localStorage.setItem('user_name',
+                    session.user.user_metadata?.full_name || '');
+
+                console.log('✅ Customer ready, redirecting...');
+                statusText.textContent = 'Redirecting...';
+                window.location.href = '/customer-dashboard.html';
+
+            } catch (dbErr) {
+                console.error('DB error:', dbErr);
+                // DB error ဖြစ်ရင်လည်း session ရှိရင် redirect လုပ်
+                localStorage.setItem('user_email', session.user.email);
+                localStorage.setItem('user_name',
+                    session.user.user_metadata?.full_name || '');
+                window.location.href = '/customer-dashboard.html';
+            }
+        }
+
+        handleCallback();
+    </script>
+</body>
+</html>
