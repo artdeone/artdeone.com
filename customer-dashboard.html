@@ -605,6 +605,7 @@
             err.style.display = 'block'; err.style.animation = 'none'; err.offsetHeight; err.style.animation = 'errorShake .4s var(--ease)'; return;
         }
         showLoginLoading();
+        if (data?.session?.user) await initDashboard(data.session.user);
     };
 
     window.registerWithEmail = async () => {
@@ -646,9 +647,10 @@
 
     let initInProgress = false;
 
-    // Auth initialization — use onAuthChange as single entry point
+    // Auth initialization — only use INITIAL_SESSION (fires when Supabase client is fully ready)
+    // Email login calls initDashboard directly after signInWithEmail succeeds
     onAuthChange(async (event, session) => {
-        if ((event === 'SIGNED_IN' || event === 'INITIAL_SESSION' || event === 'TOKEN_REFRESHED') && session?.user && !currentCustomer && !initInProgress) {
+        if (event === 'INITIAL_SESSION' && session?.user && !currentCustomer && !initInProgress) {
             showLoginLoading();
             await initDashboard(session.user);
         }
