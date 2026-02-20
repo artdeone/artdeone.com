@@ -147,6 +147,17 @@
         .auth-links{display:flex;justify-content:center;gap:20px;margin-top:16px}
         .auth-link{background:none;border:none;color:#999;font-size:.8em;cursor:pointer;font-family:'Poppins',sans-serif;transition:color .2s;padding:0}
         .auth-link:hover{color:var(--primary-black);text-decoration:underline}
+        .auth-link-create{color:var(--accent-red)}
+        .auth-link-create:hover{color:#c41f2f}
+
+        /* ── Trust Badges ── */
+        .trust-badges{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:22px;padding-top:18px;border-top:1px solid var(--gray-200)}
+        .trust-badge-item{display:flex;align-items:center;gap:5px;font-size:.68em;color:#999;font-weight:500;letter-spacing:.02em}
+        .trust-badge-item i{font-size:.9em}
+        .trust-badge-item .tb-ssl{color:#16a34a}
+        .trust-badge-item .tb-dmca{color:#2563eb}
+        .trust-badge-item .tb-verified{color:#ca8a04}
+        .trust-badge-item .tb-safe{color:#16a34a}
         .password-hint{font-size:.72em;color:#bbb;margin-top:4px;margin-bottom:12px;padding-left:2px}
 
         /* ── Auth States ── */
@@ -166,6 +177,8 @@
         @keyframes errorShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-3px)}80%{transform:translateX(3px)}}
         @keyframes spin{to{transform:rotate(360deg)}}
         @keyframes fadeSlideUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes authViewIn{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+        .auth-view-animate{animation:authViewIn .5s var(--ease) both}
 
         .hidden{display:none!important}
         .container{max-width:1200px;margin:0 auto;padding:32px 28px}
@@ -419,8 +432,8 @@
                         <span class="btn-loading"><i class="fas fa-spinner fa-spin"></i> Signing in...</span>
                     </button>
                     <div class="auth-links">
-                        <button onclick="showForgotPassword()" class="auth-link">Forgot password?</button>
-                        <button onclick="showRegister()" class="auth-link">Create account</button>
+                        <button onclick="showForgotWithLoading()" class="auth-link">Forgot password?</button>
+                        <button onclick="showRegisterWithLoading()" class="auth-link auth-link-create">Create account</button>
                     </div>
                 </div>
 
@@ -475,6 +488,15 @@
                 <div class="login-loading-state" id="loginLoading">
                     <div class="spinner"></div>
                     <p>Verifying your account...</p>
+                </div>
+
+                <!-- ===== TRUST BADGES ===== -->
+                <div class="trust-badges">
+                    <span class="trust-badge-item"><i class="fas fa-lock tb-ssl"></i> SSL Secured</span>
+                    <span class="trust-badge-item"><i class="fas fa-shield-alt tb-dmca"></i> DMCA.com</span>
+                    <span class="trust-badge-item"><i class="fas fa-check-circle tb-verified"></i> Verified Professional</span>
+                    <span class="trust-badge-item"><i class="fas fa-user-shield tb-safe"></i> Google Safe</span>
+                    <a href="https://g.page/r/Cb6j-IdtRRWLEAE/review" target="_blank" class="trust-badge-item" style="text-decoration:none;cursor:pointer"><i class="fa-brands fa-google" style="color:#4285F4"></i> Google Business</a>
                 </div>
 
                 <div style="margin-top:24px;padding-top:20px;border-top:1px solid #f0f0f0;text-align:center;font-size:.78em;color:#999;line-height:1.8;">
@@ -587,9 +609,13 @@
         ['loginFormView','registerFormView','forgotPasswordView','authSuccessView'].forEach(id => { const e = document.getElementById(id); if (e) e.style.display = 'none'; });
         document.getElementById('loginError').style.display = 'none';
     }
-    window.showLogin = () => { hideAllAuthViews(); document.getElementById('loginFormView').style.display = 'block'; document.querySelector('.login-card h2').textContent = 'Customer Dashboard'; document.querySelector('.login-subtitle').textContent = 'Login ၀င်ပြီး Products များကို ရယူပါ'; };
-    window.showRegister = () => { hideAllAuthViews(); document.getElementById('registerFormView').style.display = 'block'; document.querySelector('.login-card h2').textContent = 'Create Account'; document.querySelector('.login-subtitle').textContent = 'အကောင့်အသစ် ဖန်တီးပါ'; };
-    window.showForgotPassword = () => { hideAllAuthViews(); document.getElementById('forgotPasswordView').style.display = 'block'; document.querySelector('.login-card h2').textContent = 'Reset Password'; document.querySelector('.login-subtitle').textContent = 'Password မေ့နေပါသလား?'; };
+    function animateAuthView(el) { el.classList.remove('auth-view-animate'); void el.offsetHeight; el.classList.add('auth-view-animate'); }
+    window.showLogin = () => { hideAllAuthViews(); const v = document.getElementById('loginFormView'); v.style.display = 'block'; animateAuthView(v); document.querySelector('.login-card h2').textContent = 'Customer Dashboard'; document.querySelector('.login-subtitle').textContent = 'Login ၀င်ပြီး Products များကို ရယူပါ'; };
+    window.showRegister = () => { hideAllAuthViews(); const v = document.getElementById('registerFormView'); v.style.display = 'block'; animateAuthView(v); document.querySelector('.login-card h2').textContent = 'Create Account'; document.querySelector('.login-subtitle').textContent = 'အကောင့်အသစ် ဖန်တီးပါ'; };
+    window.showForgotPassword = () => { hideAllAuthViews(); const v = document.getElementById('forgotPasswordView'); v.style.display = 'block'; animateAuthView(v); document.querySelector('.login-card h2').textContent = 'Reset Password'; document.querySelector('.login-subtitle').textContent = 'Password မေ့နေပါသလား?'; };
+
+    window.showRegisterWithLoading = () => { hideAllAuthViews(); document.getElementById('loginLoading').style.display = 'block'; setTimeout(() => { document.getElementById('loginLoading').style.display = 'none'; showRegister(); }, 2000); };
+    window.showForgotWithLoading = () => { hideAllAuthViews(); document.getElementById('loginLoading').style.display = 'block'; setTimeout(() => { document.getElementById('loginLoading').style.display = 'none'; showForgotPassword(); }, 2000); };
     function showAuthSuccess(t, m) { hideAllAuthViews(); document.getElementById('authSuccessView').style.display = 'block'; document.getElementById('authSuccessTitle').textContent = t; document.getElementById('authSuccessText').textContent = m; document.querySelector('.login-card h2').textContent = t; document.querySelector('.login-subtitle').textContent = ''; }
 
     // ========== EMAIL AUTH ==========
