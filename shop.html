@@ -75,8 +75,8 @@
 
         .icon-circle { background-color: #ed2939; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; width: 3rem; height: 3rem; }
 
-        .shop-alert { background: linear-gradient(135deg, #f0fbe4 0%, #e8f5d6 100%); border: 1px solid #c5e89a; border-radius: 0.75rem; transition: all 0.4s ease; }
-        .shop-alert.hiding { opacity: 0; transform: translateY(-20px); max-height: 0; padding: 0; margin: 0; border: 0; overflow: hidden; }
+        .shop-alert { background: linear-gradient(135deg, #fde8ea 0%, #fdd5d9 100%); border: 1px solid #f5a3ab; border-radius: 0.75rem; overflow: hidden; max-height: 200px; opacity: 1; transform: translateY(0); transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease, transform 0.4s ease, padding 0.5s ease, margin 0.5s ease, border 0.4s ease; }
+        .shop-alert.hiding { opacity: 0; transform: translateY(-12px); max-height: 0; padding-top: 0; padding-bottom: 0; margin: 0; border-color: transparent; }
 
         .cat-tab { background-color: transparent; color: #555; border: 1px solid #ddd; padding: 0.5rem 1.25rem; border-radius: 2rem; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: all 0.3s ease; white-space: nowrap; }
         .cat-tab.active { background-color: #a7e169; color: #000; border-color: #a7e169; }
@@ -702,7 +702,7 @@
                     </div>
                     <div class="hidden md:flex items-center gap-3" id="desktopAuth">
                         <!-- Not logged in: show Sign in link -->
-                        <a href="customer-dashboard.html" class="nav-btn" id="btnLoginDesktop">Sign in</a>
+                        <a href="customer-dashboard.html" class="nav-btn" id="btnLoginDesktop"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
 
                         <!-- Logged in: show name + Dashboard + Sign out -->
                         <div id="userInfoDesktop" style="display:none;" class="flex items-center gap-3">
@@ -751,17 +751,20 @@
         <div class="pt-20 px-4" id="alertWrapper">
             <div class="shop-alert shop-alert-centered max-w-7xl mx-auto px-12 py-4" id="shopAlert">
                 <p class="text-sm text-[#323232] leading-relaxed">
-                    <i class="fas fa-info-circle text-[#5a8c1e] mr-2"></i>
-                    အခုလောလောဆယ်တော့ ၀ယ်ယူမည်ဆိုပါက ART de ONE ရဲ့ ဖုန်း - <strong>09953681497</strong> သို့မဟုတ် <strong>Viber</strong> ကနေဆက်သွယ်ပေးပါခင်ဗျ
+                    <i class="fas fa-gift text-[#ed2939] mr-2"></i>
+                    <strong>Free Products</strong> များကို Sign in ဝင်ရောက်ပြီး အခမဲ့ Download ရယူနိုင်ပါတယ်။
                 </p>
-                <button onclick="dismissAlert()" class="alert-dismiss text-[#5a8c1e] hover:text-[#000] transition-colors">
-                    <i class="fas fa-times"></i>
+                <button onclick="toggleAlert()" class="alert-dismiss text-[#ed2939] hover:text-[#000] transition-colors">
+                    <i class="fas fa-chevron-up"></i>
                 </button>
             </div>
+            <button id="alertToggleBtn" onclick="toggleAlert()" style="display:none; margin:0.5rem auto 0; background:#ed2939; color:#fff; border:none; border-radius:2rem; padding:0.35rem 1rem; font-size:0.75rem; font-weight:600; cursor:pointer; transition:all 0.3s ease;" class="max-w-7xl">
+                <i class="fas fa-gift mr-1"></i> Notice
+            </button>
         </div>
 
         <!-- Hero -->
-        <section class="relative overflow-hidden py-20 md:py-28 section-dark px-4">
+        <section class="relative overflow-hidden pt-10 pb-16 md:pt-14 md:pb-20 section-dark px-4">
 
             <!-- Header Glow Orbs -->
             <div class="absolute rounded-full pointer-events-none" style="width:550px;height:550px;bottom:-250px;left:-50px;background:radial-gradient(circle at center,rgba(167,225,105,0.25) 0%,rgba(167,225,105,0.12) 30%,rgba(167,225,105,0.04) 55%,transparent 75%);filter:blur(60px);animation:orbDrift1 12s ease-in-out infinite;z-index:0"></div>
@@ -772,8 +775,7 @@
                 <h1 class="text-5xl sm:text-6xl md:text-7xl font-bold leading-tight mb-6 artdeone-font">
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-black to-[#a7e169]">Digital Shop</span>
                 </h1>
-                <p class="section-subtitle text-lg md:text-xl mb-8">Premium digital products for designers and creators</p>
-                <div class="flex flex-wrap gap-3 justify-center">
+                <div class="flex flex-wrap gap-3 justify-center mt-6">
                     <a href="#products" class="btn-primary">Browse Products</a>
                     <a href="#how-it-works" class="btn-secondary">How It Works</a>
                 </div>
@@ -781,13 +783,8 @@
         </section>
 
         <!-- Products Section -->
-        <section id="products" class="py-20 section-darker px-4">
+        <section id="products" class="py-10 section-darker px-4">
             <div class="max-w-7xl mx-auto">
-                <div class="text-center mb-12" data-aos="fade-up">
-                    <h2 class="section-title">Our Products</h2>
-                    <p class="section-subtitle">Download premium design resources crafted with care.</p>
-                </div>
-
                 <div class="max-w-md mx-auto mb-8 relative" data-aos="fade-up">
                     <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
                     <input type="text" class="search-input" placeholder="Search products..." id="searchInput" oninput="filterProducts()">
@@ -1023,14 +1020,19 @@
             this.classList.toggle('open');
         });
 
-        function dismissAlert() {
+        let alertHidden = false;
+        function toggleAlert() {
             const alert = document.getElementById('shopAlert');
-            alert.classList.add('hiding');
-            sessionStorage.setItem('shop_alert_dismissed', 'true');
-            setTimeout(() => { document.getElementById('alertWrapper').style.display = 'none'; }, 400);
-        }
-        if (sessionStorage.getItem('shop_alert_dismissed') === 'true') {
-            document.getElementById('alertWrapper').style.display = 'none';
+            const toggleBtn = document.getElementById('alertToggleBtn');
+            if (!alertHidden) {
+                alert.classList.add('hiding');
+                alertHidden = true;
+                setTimeout(() => { toggleBtn.style.display = 'block'; }, 500);
+            } else {
+                toggleBtn.style.display = 'none';
+                alert.classList.remove('hiding');
+                alertHidden = false;
+            }
         }
 
         // ==========================================
@@ -1112,6 +1114,28 @@
                 note: '💻 အသုံးပြုရန်လိုအပ်ချက်\nSoftware: Adobe Illustrator\nRecommended RAM: အဆွဲရချောမွေ့ဖို့အတွက် 4GB နှင့်အထက် ရှိရန် လိုအပ်ပါတယ်။',
                 closing: 'ကိုယ့်ရဲ့ Design တွေကို ခိုင်မာတဲ့ အနုပညာရသတစ်ခုအဖြစ် ပြောင်းလဲပစ်ဖို့ ဒီ Antique Print Brushes က တကယ်ကို လက်စွဲတော် ဖြစ်မှာပါခင်ဗျ။'
             },
+
+            {
+                id: 4,
+                name: 'High Quality Padauk Flower PNGs',
+                category: 'template',
+                price: 0,
+                image: 'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771858821/pk-cover_hiblyn.jpg',
+                images: [
+                    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771858821/pk-cover_hiblyn.jpg',
+                    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771858821/pk_fiobab.jpg',
+                    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771858821/pk-b_a_nrcown.jpg',
+                    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771858821/pk-4_jeyxfe.jpg'
+                ],
+                description: 'မြန်မာ့သင်္ကြန်နဲ့ နှစ်သစ်ကူးအတွက် မရှိမဖြစ်လိုအပ်တဲ့ High Quality ပိတောက်ပန်း PNG ဖိုင်များ ဖြစ်ပါတယ်။ Background ဖျောက်ပြီးသားဖြစ်လို့ ကိုယ့် Design ထဲမှာ တိုက်ရိုက်ထည့်သုံးလို့ရပါတယ်။',
+                features: [
+                    'High Resolution PNG ဖိုင်များ — Print & Digital နှစ်မျိုးလုံးအတွက် သင့်တော်',
+                    'Transparent Background — ကိုယ့် Design ထဲ တိုက်ရိုက်ထည့်သုံးနိုင်',
+                    'သင်္ကြန်ပိုစတာ၊ ကဒ်ပြား၊ Social Media Post များအတွက် အသင့်သုံးနိုင်',
+                    'Commercial & Personal Use နှစ်မျိုးလုံး အသုံးပြုနိုင်'
+                ],
+                closing: 'သင်္ကြန်နားနီးနေပြီဆိုတော့ ကိုယ့်လုပ်ငန်းအတွက် ပိတောက်ပန်းတွေ ရှာရမခက်အောင် Share ပေးလိုက်ပါတယ်ခင်ဗျ။'
+            },
         ];
 
         const categoryLabels = {
@@ -1175,8 +1199,7 @@
                         <p class="text-sm text-[#555] mb-4 line-clamp-2">${p.description}</p>
                         <div class="flex items-center justify-between">
                             <div>
-                                <span class="price-tag">${formatPrice(p.price)}</span>
-                                <span class="price-unit">MMK</span>
+                                ${p.price === 0 ? '<span class="price-tag" style="color:#16a34a;">Free</span>' : `<span class="price-tag">${formatPrice(p.price)}</span><span class="price-unit">MMK</span>`}
                             </div>
                             <button onclick="openModal(${p.id})" class="btn-primary text-sm" style="padding: 0.5rem 1.25rem;">View Details</button>
                         </div>
@@ -1268,12 +1291,11 @@
                     ${p.closing ? `<p style="font-size:0.9rem; color:#323232; line-height:1.8; margin-bottom:20px; font-style:italic;">${p.closing}</p>` : ''}
                     <div class="modal-price-bar">
                         <div>
-                            <span class="price-tag" style="font-size:1.6rem;">${formatPrice(p.price)}</span>
-                            <span class="price-unit">MMK</span>
+                            ${p.price === 0 ? '<span class="price-tag" style="font-size:1.6rem; color:#16a34a;">Free</span>' : `<span class="price-tag" style="font-size:1.6rem;">${formatPrice(p.price)}</span><span class="price-unit">MMK</span>`}
                         </div>
-                        <button onclick="openContactModal()" class="btn-primary" style="padding: 0.6rem 1.5rem; font-size: 0.9rem; cursor:pointer;">
-                            <i class="fas fa-phone mr-2"></i>ဆက်သွယ်ရန်
-                        </button>
+                        <a href="customer-dashboard.html" class="btn-primary" style="padding: 0.6rem 1.5rem; font-size: 0.9rem; cursor:pointer; text-decoration:none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in
+                        </a>
                     </div>
                     <button onclick="closeModal()" class="modal-close-btn">ပိတ်မည်</button>
                 </div>

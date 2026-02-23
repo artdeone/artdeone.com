@@ -502,6 +502,8 @@
 
                 <div style="margin-top:24px;padding-top:20px;border-top:1px solid #f0f0f0;text-align:center;font-size:.78em;color:#999;line-height:1.8;">
                     Contact : <a href="mailto:artdeone.educators@gmail.com" style="color:#323232;font-weight:600;text-decoration:none;">artdeone.educators@gmail.com</a>
+                    <br>
+                    Support phone : <a href="tel:09953681497" style="color:#323232;font-weight:600;text-decoration:none;">09 953 681 497</a>
                 </div>
             </div>
         </div>
@@ -723,7 +725,8 @@
         purchasedProductIds = (dl || []).map(d => d.product_id);
         const { data: pr } = await supabaseShop.from('shop_products').select('*').eq('is_active', true);
         allProducts = pr || [];
-        const pp = allProducts.filter(p => purchasedProductIds.includes(p.id)), up = allProducts.filter(p => !purchasedProductIds.includes(p.id));
+        const isFree = p => !p.price || Number(p.price) <= 0;
+        const pp = allProducts.filter(p => purchasedProductIds.includes(p.id) || isFree(p)), up = allProducts.filter(p => !purchasedProductIds.includes(p.id) && !isFree(p));
         if (pp.length === 0) { c.innerHTML = `<div class="empty-state"><div class="icon">📦</div><p>သင့်အတွက် ပစ္စည်းများ မရှိသေးပါ။<br>အောက်ဘက်မှ ၀ယ်ယူပြီးပါက ဤနေရာတွင် ပေါ်လာပါမည်။</p></div>`; }
         else { c.innerHTML = `<div class="product-grid">${pp.map(p => { const ic = p.category === 'course'; return `<div class="product-card"><div class="thumb-wrapper">${ic ? '<span class="course-card-badge"><i class="fas fa-play-circle" style="margin-right:3px;"></i>Course</span>' : ''}<img class="thumb" src="${p.thumbnail_url || ''}" alt="${p.name}" onerror="this.style.display='none'" loading="lazy" /></div><div class="card-body"><div class="product-name">${p.name}</div><span class="category-badge">${PRODUCT_CATEGORIES[p.category] || p.category}</span>${ic ? `<button onclick="openCourse('${p.id}')" class="btn-download" style="background:var(--primary-black);color:var(--accent-green);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polygon points="5 3 19 12 5 21 5 3"/></svg>Start Learning</button>` : `<a href="${p.download_url}" target="_blank" rel="noopener noreferrer" class="btn-download"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download</a>`}</div></div>`; }).join('')}</div>`; }
         const bs = document.getElementById('browseSection'), bc = document.getElementById('browseContainer');
