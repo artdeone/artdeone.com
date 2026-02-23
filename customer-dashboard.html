@@ -202,6 +202,8 @@
         .thank-you-letter .letter-icon{font-size:1.6em;margin-bottom:10px}
         .thank-you-letter p{font-size:.88em;line-height:1.9;color:#555}
         .thank-you-letter p strong{color:var(--primary-black)}
+        .thank-you-letter .typewriter-cursor{display:inline-block;width:2px;height:1em;background:var(--accent-green);margin-left:2px;vertical-align:text-bottom;animation:cursorBlink .6s ease-in-out infinite}
+        @keyframes cursorBlink{0%,100%{opacity:1}50%{opacity:0}}
 
         .section-title{font-family:'Space Grotesk',sans-serif;font-size:1.2em;font-weight:700;margin-bottom:22px;letter-spacing:-.01em;color:var(--primary-black);animation:fadeSlideUp .5s var(--ease) .1s both}
 
@@ -716,7 +718,31 @@
         const i = getInitials(currentCustomer.name), a = currentCustomer._avatarUrl;
         const nav = document.getElementById('navAvatarInitial'); if (a) nav.innerHTML = `<img src="${a}" alt="">`; else nav.textContent = i;
         const w = document.getElementById('welcomeAvatarWrap'); if (a) w.innerHTML = `<img src="${a}" alt="" style="width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid var(--accent-green);">`; else w.innerHTML = `<div class="avatar-fallback">${i}</div>`;
-        document.getElementById('thankYouText').innerHTML = `Dear <strong>${currentCustomer.name}</strong>,<br><br>ART de ONE ကို ယုံကြည်စိတ်ချစွာ ရွေးချယ်အသုံးပြုပေးတဲ့အတွက် အထူးကျေးဇူးတင်ရှိပါတယ်။ ${currentCustomer.name.split(' ')[0]} ရဲ့ လုပ်ငန်းတွေ၊ ဖန်တီးမှုတွေအတွက် ကျွန်တော်တို့ရဲ့ Products တွေက အကူအညီဖြစ်ပါစေလို့ ဆုမွန်ကောင်းတောင်းပါတယ်။ ဘာအခက်အခဲပဲ ရှိရှိ ကျွန်တော်တို့ကို အချိန်မရွေး ဆက်သွယ်နိုင်ပါတယ်နော်။<br><br>ချစ်ခင်လေးစားလျက်,<br><strong>ART de ONE Team</strong> 💚`;
+        typewriterHTML(document.getElementById('thankYouText'), `Dear <strong>${currentCustomer.name}</strong>,<br><br>ART de ONE ကို ယုံကြည်စိတ်ချစွာ ရွေးချယ်အသုံးပြုပေးတဲ့အတွက် အထူးကျေးဇူးတင်ရှိပါတယ်။ ${currentCustomer.name.split(' ')[0]} ရဲ့ လုပ်ငန်းတွေ၊ ဖန်တီးမှုတွေအတွက် ကျွန်တော်တို့ရဲ့ Products တွေက အကူအညီဖြစ်ပါစေလို့ ဆုမွန်ကောင်းတောင်းပါတယ်။ ဘာအခက်အခဲပဲ ရှိရှိ ကျွန်တော်တို့ကို အချိန်မရွေး ဆက်သွယ်နိုင်ပါတယ်နော်။<br><br>ချစ်ခင်လေးစားလျက်,<br><strong>ART de ONE Team</strong> 💚`);
+    }
+
+    function typewriterHTML(el, html, speed = 18) {
+        el.innerHTML = '<span class="typewriter-cursor"></span>';
+        const temp = document.createElement('div'); temp.innerHTML = html;
+        const chars = []; 
+        function extract(node) {
+            if (node.nodeType === 3) { for (const ch of node.textContent) chars.push({ type: 'char', ch }); }
+            else if (node.nodeName === 'BR') chars.push({ type: 'br' });
+            else { chars.push({ type: 'open', tag: node.nodeName.toLowerCase(), node: node.cloneNode(false) }); node.childNodes.forEach(c => extract(c)); chars.push({ type: 'close' }); }
+        }
+        temp.childNodes.forEach(c => extract(c));
+        let i = 0; const stack = [el];
+        function tick() {
+            if (i >= chars.length) { const cur = el.querySelector('.typewriter-cursor'); if (cur) setTimeout(() => cur.remove(), 1500); return; }
+            const c = chars[i++], parent = stack[stack.length - 1];
+            if (c.type === 'char') { const cur = el.querySelector('.typewriter-cursor'); const t = document.createTextNode(c.ch); parent.insertBefore(t, cur && parent.contains(cur) ? cur : null); }
+            else if (c.type === 'br') { const cur = el.querySelector('.typewriter-cursor'); parent.insertBefore(document.createElement('br'), cur && parent.contains(cur) ? cur : null); }
+            else if (c.type === 'open') { const n = c.node; const cur = el.querySelector('.typewriter-cursor'); parent.insertBefore(n, cur && parent.contains(cur) ? cur : null); stack.push(n); }
+            else if (c.type === 'close') { const closed = stack.pop(); const cur = el.querySelector('.typewriter-cursor'); if (cur && closed.contains(cur)) { closed.parentNode.insertBefore(cur, closed.nextSibling); } }
+            const delay = c.type === 'br' ? 200 : speed;
+            setTimeout(tick, delay);
+        }
+        setTimeout(tick, 600);
     }
 
     async function loadProducts() {
