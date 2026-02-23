@@ -58,6 +58,8 @@
         .login-section{display:flex;min-height:100vh}
         .login-left{flex:1;background:#000;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
         .login-left video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+        .go-to-shop-btn{position:absolute;bottom:28px;left:28px;z-index:10;display:inline-flex;align-items:center;gap:8px;padding:10px 22px;background:rgba(255,255,255,.15);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.25);border-radius:2rem;color:#fff;font-family:'Poppins',sans-serif;font-size:.82em;font-weight:600;text-decoration:none;transition:all .3s ease;letter-spacing:.02em}
+        .go-to-shop-btn:hover{background:var(--accent-green);border-color:var(--accent-green);color:#000;transform:translateY(-2px);box-shadow:0 8px 24px rgba(167,225,105,.3)}
         .login-right{flex:1;display:flex;align-items:center;justify-content:center;padding:40px;background:var(--primary-white)}
         .login-card{max-width:420px;width:100%;animation:loginCardIn .6s var(--ease) both}
         @keyframes loginCardIn{from{opacity:0;transform:translateY(24px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
@@ -185,7 +187,7 @@
         .container{max-width:1200px;margin:0 auto;padding:32px 28px}
 
         /* ========== WELCOME HEADER ========== */
-        .welcome-header{background:var(--primary-white);padding:32px 34px;border-radius:var(--radius-lg);margin-bottom:36px;border:1px solid rgba(0,0,0,.05);position:relative;overflow:hidden;box-shadow:var(--shadow-sm);animation:fadeSlideUp .5s var(--ease) both}
+        .welcome-header{background:var(--primary-white);padding:32px 34px;border-radius:var(--radius-lg);margin-top:16px;margin-bottom:36px;border:1px solid rgba(0,0,0,.05);position:relative;overflow:hidden;box-shadow:var(--shadow-sm);animation:fadeSlideUp .5s var(--ease) both}
         .welcome-header::after{content:'';position:absolute;top:0;right:0;width:200px;height:200px;background:radial-gradient(circle at top right,rgba(167,225,105,.08) 0%,transparent 70%);pointer-events:none}
         .welcome-header h1{font-family:'Space Grotesk',sans-serif;font-size:1.55em;font-weight:700;letter-spacing:-.02em;line-height:1.3}
         .welcome-header .email-text{color:#999;font-size:.88em;margin-top:5px;font-weight:400}
@@ -386,6 +388,7 @@
             .section-title{font-size:1.08em;margin-bottom:18px}
             .product-card .card-body{padding:16px 18px 18px}.product-card .product-name{font-size:.95em}
             .login-section{flex-direction:column}.login-left{flex:none;height:35vh;min-height:200px}
+            .go-to-shop-btn{bottom:16px;left:16px;padding:8px 18px;font-size:.75em}
             .login-right{flex:1;padding:32px 24px}.login-card{max-width:100%}.login-card h2{font-size:1.25em}
             .empty-state{padding:50px 20px}
             .thank-you-letter{padding:22px 20px;border-radius:var(--radius-md)}.thank-you-letter p{font-size:.84em}
@@ -405,6 +408,7 @@
             <video autoplay muted loop playsinline>
                 <source src="https://res.cloudinary.com/ddkd9lxpr/video/upload/v1771041087/thank-you_olmg32.mp4" type="video/mp4">
             </video>
+            <a href="shop.html" class="go-to-shop-btn"><i class="fas fa-store"></i> Go to Shop</a>
         </div>
         <div class="login-right">
             <div class="login-card" id="loginCard">
