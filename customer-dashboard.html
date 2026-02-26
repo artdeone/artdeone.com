@@ -348,8 +348,8 @@
         .toast.show{transform:translateX(-50%) translateY(0)}.toast i{color:var(--accent-green)}
 
         /* ========== PAYMENT GUIDE BUTTON ========== */
-        .btn-pay-guide{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:20px;background:var(--primary-black);color:var(--accent-green);font-size:.75em;font-weight:700;font-family:'Poppins',sans-serif;border:none;cursor:pointer;transition:all .25s var(--ease);letter-spacing:.01em;white-space:nowrap;flex-shrink:0}
-        .btn-pay-guide:hover{background:var(--accent-green);color:var(--primary-black);transform:translateY(-1px);box-shadow:0 4px 14px rgba(167,225,105,.3)}
+        .btn-pay-guide{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;border-radius:20px;background:#ed2939;color:#fff;font-size:.75em;font-weight:700;font-family:'Poppins',sans-serif;border:none;cursor:pointer;transition:all .25s var(--ease);letter-spacing:.01em;white-space:nowrap;flex-shrink:0}
+        .btn-pay-guide:hover{background:#a7e169;color:#000;transform:translateY(-1px);box-shadow:0 4px 14px rgba(167,225,105,.3)}
         .btn-pay-guide:active{transform:scale(.96)}
         .btn-pay-guide i{font-size:.85em}
 
@@ -920,18 +920,48 @@
     window.openPayGuide = () => {
         // Reset state
         payScreenshotFile = null;
-        document.getElementById('payUploadIcon').className = 'fas fa-cloud-upload-alt';
-        document.getElementById('payUploadText').innerHTML = 'Screenshot ကို ဒီနေရာတွင် နှိပ်၍ Upload လုပ်ပါ<br><span style="font-size:.9em;opacity:.7;">JPG, PNG — Max 5MB</span>';
-        document.getElementById('payPreviewImg').className = 'pay-preview-img';
-        document.getElementById('payPreviewImg').src = '';
-        document.getElementById('payUploadArea').classList.remove('has-file');
-        document.getElementById('paySubmitBtn').disabled = true;
-        document.getElementById('paySubmitBtn').innerHTML = '<i class="fas fa-paper-plane"></i> Admin ထံ ပေးပို့မည်';
-        const body = document.getElementById('payGuideBody');
-        // Restore full guide body if it was replaced by success message
-        if (!document.getElementById('payUploadArea')) {
-            body.innerHTML = getPayGuideBodyHTML();
-        }
+
+        // Always restore full body HTML (handles re-open after success message)
+        document.getElementById('payGuideBody').innerHTML = `
+            <div class="pay-step">
+                <div class="pay-step-num">1</div>
+                <div class="pay-step-content">
+                    <p><strong>Cart ထည့်ပါ</strong><br>ဝယ်ချင်သော product ၏ <strong>Buy</strong> ခလုတ်နှိပ်၍ Cart ထဲသို့ ထည့်ပါ၊ ထို့နောက် <strong>Order</strong> ခလုတ်နှိပ်ပါ။</p>
+                </div>
+            </div>
+            <div class="pay-step">
+                <div class="pay-step-num">2</div>
+                <div class="pay-step-content">
+                    <p><strong>KBZ Pay ဖြင့် ငွေပေးချေပါ</strong><br>အောက်ဖော်ပြပါ QR Code ကို KBZ Pay App မှ Scan ပြုလုပ်၍ ငွေပေးချေပါ။</p>
+                    <div class="pay-qr-wrap">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772078379/kbz-pay_fwm6be.jpg" alt="KBZ Pay QR" onerror="this.src='https://placehold.co/200x200?text=QR+Code'" style="width:200px;height:200px;object-fit:cover;border-radius:10px;display:block;margin:0 auto 10px;">
+                        <div class="pay-kbz-info">
+                            <span class="kbz-label">KBZ Pay Number</span>
+                            <span class="kbz-value">09 953 681 497</span>
+                            <span class="kbz-label" style="margin-top:6px;">Name</span>
+                            <span class="kbz-value">Phyo Min Zaw</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pay-step">
+                <div class="pay-step-num">3</div>
+                <div class="pay-step-content">
+                    <p><strong>Screenshot ရိုက်ပြီး Admin ထံ ပေးပို့ပါ</strong><br>ငွေပေးချေပြီးပါက KBZ Pay payment screenshot ကို ဒီမှာ Upload လုပ်ပြီး Admin ထံ ပေးပို့ပါ။</p>
+                    <div class="pay-divider"></div>
+                    <div class="pay-upload-area" id="payUploadArea" onclick="document.getElementById('payScreenshotFile').click()">
+                        <input type="file" id="payScreenshotFile" accept="image/*" onchange="handleScreenshotSelect(event)" style="display:none">
+                        <i class="fas fa-cloud-upload-alt" id="payUploadIcon"></i>
+                        <p id="payUploadText">Screenshot ကို ဒီနေရာတွင် နှိပ်၍ Upload လုပ်ပါ<br><span style="font-size:.9em;opacity:.7;">JPG, PNG — Max 5MB</span></p>
+                        <img id="payPreviewImg" class="pay-preview-img" alt="Preview">
+                    </div>
+                    <button class="pay-submit-btn grain-btn" id="paySubmitBtn" onclick="submitPaymentScreenshot()" disabled>
+                        <i class="fas fa-paper-plane"></i> Admin ထံ ပေးပို့မည်
+                    </button>
+                </div>
+            </div>
+        `;
+
         document.getElementById('payGuideOverlay').classList.add('active');
         document.getElementById('payGuideModal').classList.add('active');
         document.body.style.overflow = 'hidden';
