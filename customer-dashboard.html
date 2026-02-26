@@ -168,6 +168,15 @@
         }
         .btn-logout:hover { background:rgba(237,41,57,.15); }
 
+        /* Go to Shop button */
+        .btn-go-shop {
+            background:var(--surface); color:var(--text-primary);
+            border:1px solid var(--border); text-decoration:none;
+            display:flex; align-items:center; gap:6px;
+        }
+        .btn-go-shop:hover { border-color:var(--accent-green); color:var(--accent-green); background:var(--surface-2); }
+        .btn-go-shop i { font-size:.85em; }
+
         /* Profile button */
         .btn-profile {
             background: var(--surface); color:var(--text-primary);
@@ -910,7 +919,7 @@
             .nav-container { height:56px; padding:0 16px; }
             .nav-logo img { height:24px; }
             .btn { padding:7px 13px; font-size:.76em; }
-            .btn-refresh span, .btn-logout span { display:none; }
+            .btn-refresh span, .btn-logout span, .btn-go-shop span { display:none; }
             .container { padding:20px 16px; }
         }
 
@@ -1069,6 +1078,7 @@
                     <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png" alt="ART de ONE" id="navLogoImg">
                 </div>
                 <div class="nav-actions">
+                    <a href="shop.html" class="btn btn-go-shop"><i class="fas fa-store"></i> <span>Shop</span></a>
                     <button onclick="toggleProfile()" class="btn btn-profile" id="profileBtn">
                         <span class="profile-avatar-sm" id="navAvatarInitial"></span>
                         <span>Profile</span>
