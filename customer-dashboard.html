@@ -200,14 +200,20 @@
         }
         .cart-count.hidden-count { display:none; }
 
-        /* Dark mode toggle */
-        .btn-theme {
-            background: var(--surface-2); color:var(--text-secondary);
-            border:1px solid var(--border); padding:8px 11px; border-radius:10px;
-            cursor:pointer; font-size:.95em; transition:all .22s var(--ease);
+        /* Floating Dark mode toggle */
+        .theme-toggle-float {
+            position:fixed; bottom:2rem; right:2rem; z-index:100;
+            width:3rem; height:3rem; border-radius:50%;
+            background:#323232; color:#fff;
+            border:none;
             display:flex; align-items:center; justify-content:center;
+            cursor:pointer; opacity:.3;
+            transition:all .3s var(--ease);
+            box-shadow:0 4px 10px rgba(0,0,0,.1);
+            font-size:1em;
         }
-        .btn-theme:hover { border-color:var(--accent-green); color:var(--accent-green); }
+        [data-theme="dark"] .theme-toggle-float { background:#fff; color:#000; }
+        .theme-toggle-float:hover { opacity:1; transform:scale(1.1); }
 
         /* =====================================================
            LOGIN PAGE
@@ -938,7 +944,7 @@
         @media(max-width:380px) {
             .nav-actions { gap:4px; }
             .btn { padding:6px 10px; font-size:.72em; }
-            .btn-theme { padding:7px 9px; }
+            .theme-toggle-float { bottom:1.2rem; right:1.2rem; width:2.6rem; height:2.6rem; }
         }
 
         @media(hover:none) {
@@ -1071,9 +1077,6 @@
                     <button onclick="refreshDashboard()" class="btn btn-refresh">
                         <i class="fas fa-rotate-right"></i> <span>Refresh</span>
                     </button>
-                    <button class="btn-theme" id="themeToggleBtn" onclick="toggleTheme()" title="Toggle Dark Mode">
-                        <i class="fas fa-moon" id="themeIcon"></i>
-                    </button>
                     <button onclick="logout()" class="btn btn-logout">Logout</button>
                 </div>
             </div>
@@ -1093,7 +1096,10 @@
                     <p class="email-text" id="customerEmail"></p>
                     <span class="badge">Shop Customer</span>
                 </div>
-                <a href="shop.html" class="btn-back-shop"><i class="fas fa-store"></i> Go to Shop</a>
+                <button onclick="openPayGuide()" class="btn-back-shop grain-btn">
+                    <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:14px;height:14px;flex-shrink:0;"><rect x="1" y="3" width="12" height="8" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M1 6h12" stroke="currentColor" stroke-width="1.4"/><circle cx="4" cy="9" r="0.7" fill="currentColor"/><circle cx="6.5" cy="9" r="0.7" fill="currentColor"/></svg>
+                    Product ဝယ်ရန်လမ်းညွှန်
+                </button>
             </div>
 
             <!-- Thank You Letter -->
@@ -1114,7 +1120,7 @@
                             <span>KBZ Pay ဖြင့် ငွေပေးချေပြီးပါက Screenshot ကို Admin ထံ ပေးပို့ပါ။<br>Admin က အတည်ပြုပြီးမှ Product ရယူနိုင်ပါမည်။</span>
                         </div>
                     </div>
-                    <button class="pending-notice-btn grain-btn" onclick="openPayGuide()">
+                    <button class="pending-notice-btn grain-btn" onclick="openScreenshotUpload()">
                         <i class="fas fa-image"></i> Screenshot ပို့မည်
                     </button>
                 </div>
@@ -1122,12 +1128,8 @@
                 <div id="productsContainer"><div class="loading-spinner">Loading...</div></div>
 
                 <div class="browse-section" id="browseSection" style="display:none;">
-                    <h2 class="section-title" style="display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px;">
-                        <span style="display:flex;align-items:center;gap:8px;"><i class="fas fa-fire" style="color:var(--accent-red);font-size:.85em;"></i> Browse More Products</span>
-                        <button onclick="openPayGuide()" class="btn-pay-guide grain-btn">
-                            <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="3" width="12" height="8" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M1 6h12" stroke="currentColor" stroke-width="1.4"/><circle cx="4" cy="9" r="0.7" fill="currentColor"/><circle cx="6.5" cy="9" r="0.7" fill="currentColor"/></svg>
-                            Product ဝယ်ရန်လမ်းညွှန်
-                        </button>
+                    <h2 class="section-title" style="display:flex;align-items:center;gap:8px;margin-bottom:20px;">
+                        <i class="fas fa-fire" style="color:var(--accent-red);font-size:.85em;"></i> Browse More Products
                     </h2>
                     <div id="browseContainer"></div>
                 </div>
@@ -1266,6 +1268,11 @@
     </div>
 
     <div class="toast" id="toast"><i class="fas fa-check-circle"></i><span id="toastMsg">Done!</span></div>
+
+    <!-- Floating Dark Mode Toggle -->
+    <button id="themeToggleBtn" class="theme-toggle-float" onclick="toggleTheme()" title="Toggle Dark Mode">
+        <i class="fas fa-moon" id="themeIcon"></i>
+    </button>
 
     <!-- Dark Mode Toggle Script (inline, runs before module) -->
     <script>
@@ -1572,6 +1579,25 @@
         document.getElementById('payGuideOverlay').classList.remove('active');
         document.getElementById('payGuideModal').classList.remove('active');
         document.body.style.overflow = '';
+    };
+
+    window.openScreenshotUpload = () => {
+        payScreenshotFile = null;
+        document.getElementById('payGuideBody').innerHTML = `
+            <div class="pay-upload-area" id="payUploadArea" onclick="document.getElementById('payScreenshotFile').click()">
+                <input type="file" id="payScreenshotFile" accept="image/*" onchange="handleScreenshotSelect(event)" style="display:none">
+                <i class="fas fa-cloud-upload-alt" id="payUploadIcon"></i>
+                <p id="payUploadText">Screenshot ကို ဒီနေရာတွင် နှိပ်၍ Upload လုပ်ပါ<br><span style="font-size:.9em;opacity:.7;">JPG, PNG — Max 5MB</span></p>
+                <img id="payPreviewImg" class="pay-preview-img" alt="Preview">
+            </div>
+            <button class="pay-submit-btn grain-btn" id="paySubmitBtn" onclick="submitPaymentScreenshot()" disabled>
+                <i class="fas fa-paper-plane"></i> Admin ထံ ပေးပို့မည်
+            </button>
+        `;
+        document.querySelector('#payGuideModal .pay-modal-header h3').innerHTML = '<i class="fas fa-image" style="color:var(--accent-green);"></i> Screenshot ပို့မည်';
+        document.getElementById('payGuideOverlay').classList.add('active');
+        document.getElementById('payGuideModal').classList.add('active');
+        document.body.style.overflow = 'hidden';
     };
 
     window.handleScreenshotSelect = (event) => {
