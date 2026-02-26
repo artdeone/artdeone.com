@@ -836,7 +836,7 @@
         .pay-step-content p { margin:0; font-size:.86em; color:var(--text-secondary); line-height:1.65; }
         .pay-step-content strong { font-weight:700; color:var(--text-primary); }
         .pay-qr-wrap { background:var(--surface-2); border:1px solid var(--border); border-radius:var(--radius-md); padding:18px; text-align:center; margin:8px 0 10px; }
-        .pay-qr-wrap img { width:180px; height:180px; object-fit:cover; border-radius:10px; display:block; margin:0 auto 12px; }
+        .pay-qr-wrap img, .pay-qr-img { width:180px; height:180px; object-fit:cover; border-radius:10px; display:block; margin:0 auto 12px; }
         .pay-kbz-info { background:var(--text-primary); color:var(--surface); border-radius:var(--radius-sm); padding:14px 18px; display:flex; flex-direction:column; align-items:flex-start; gap:4px; width:100%; }
         .pay-kbz-info .kbz-label { font-size:.66em; color:var(--accent-green); font-weight:700; letter-spacing:.07em; text-transform:uppercase; }
         .pay-kbz-info .kbz-value { font-size:.96em; font-weight:700; font-family:'Space Grotesk',sans-serif; letter-spacing:.02em; }
@@ -950,7 +950,7 @@
             .pay-step-num { width:24px; height:24px; font-size:.72em; }
             .pay-step-content p { font-size:.8em; line-height:1.55; }
             .pay-qr-wrap { padding:12px; }
-            .pay-qr-wrap img { width:140px; height:140px; }
+            .pay-qr-wrap img, .pay-qr-img { width:140px; height:140px; }
             .pay-kbz-info { padding:10px 14px; }
             .pay-kbz-info .kbz-value { font-size:.86em; }
             .pay-upload-area { padding:16px; }
@@ -1639,7 +1639,7 @@
                 <div class="pay-step-content">
                     <p><strong>KBZ Pay ဖြင့် ငွေပေးချေပါ</strong><br>အောက်ဖော်ပြပါ QR Code ကို KBZ Pay App မှ Scan ပြုလုပ်၍ ငွေပေးချေပါ။</p>
                     <div class="pay-qr-wrap">
-                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772078379/kbz-pay_fwm6be.jpg" alt="KBZ Pay QR" onerror="this.src='https://placehold.co/200x200?text=QR+Code'" style="width:200px;height:200px;object-fit:cover;border-radius:10px;display:block;margin:0 auto 10px;">
+                        <img class="pay-qr-img" src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772078379/kbz-pay_fwm6be.jpg" alt="KBZ Pay QR" onerror="this.src='https://placehold.co/200x200?text=QR+Code'">
                         <div class="pay-kbz-info">
                             <span class="kbz-label">KBZ Pay Number</span>
                             <span class="kbz-value">09 953 681 497</span>
