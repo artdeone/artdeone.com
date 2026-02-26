@@ -347,7 +347,16 @@
         .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--primary-black);color:#fff;padding:14px 28px;border-radius:12px;font-size:.88em;font-weight:500;box-shadow:0 8px 30px rgba(0,0,0,.2);z-index:500;transition:transform .4s var(--ease-spring);display:flex;align-items:center;gap:10px}
         .toast.show{transform:translateX(-50%) translateY(0)}.toast i{color:var(--accent-green)}
 
-        /* ========== PAYMENT GUIDE BUTTON ========== */
+        /* ========== PENDING ORDER NOTICE ========== */
+        .pending-notice{display:none;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;background:linear-gradient(135deg,#fff7ed 0%,#fef3c7 100%);border:1.5px solid #fbbf24;border-radius:var(--radius-md);padding:16px 20px;margin-bottom:20px;animation:fadeSlideUp .4s var(--ease) both}
+        .pending-notice.show{display:flex}
+        .pending-notice-left{display:flex;align-items:center;gap:12px}
+        .pending-notice-icon{width:38px;height:38px;border-radius:10px;background:#fef08a;display:flex;align-items:center;justify-content:center;font-size:1.1em;flex-shrink:0}
+        .pending-notice-text strong{display:block;font-size:.9em;font-weight:700;color:#92400e;margin-bottom:2px}
+        .pending-notice-text span{font-size:.78em;color:#a16207;line-height:1.5}
+        .pending-notice-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:20px;background:#ed2939;color:#fff;font-size:.78em;font-weight:700;font-family:'Poppins',sans-serif;border:none;cursor:pointer;transition:all .25s var(--ease);white-space:nowrap;flex-shrink:0}
+        .pending-notice-btn:hover{background:#a7e169;color:#000;transform:translateY(-1px)}
+        .pending-notice-btn:active{transform:scale(.96)}
         .btn-pay-guide{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;border-radius:20px;background:#ed2939;color:#fff;font-size:.75em;font-weight:700;font-family:'Poppins',sans-serif;border:none;cursor:pointer;transition:all .25s var(--ease);letter-spacing:.01em;white-space:nowrap;flex-shrink:0}
         .btn-pay-guide:hover{background:#a7e169;color:#000;transform:translateY(-1px);box-shadow:0 4px 14px rgba(167,225,105,.3)}
         .btn-pay-guide:active{transform:scale(.96)}
@@ -587,6 +596,21 @@
             </div>
             <div id="myProductsSection">
                 <h2 class="section-title">My Products</h2>
+
+                <!-- Pending Order Notice -->
+                <div class="pending-notice" id="pendingNotice">
+                    <div class="pending-notice-left">
+                        <div class="pending-notice-icon">⏳</div>
+                        <div class="pending-notice-text">
+                            <strong>Pending Order ရှိနေပါသည်</strong>
+                            <span>KBZ Pay ဖြင့် ငွေပေးချေပြီးပါက Screenshot ကို Admin ထံ ပေးပို့ပါ။<br>Admin က အတည်ပြုပြီးမှ Product ရယူနိုင်ပါမည်။</span>
+                        </div>
+                    </div>
+                    <button class="pending-notice-btn grain-btn" onclick="openPayGuide()">
+                        <i class="fas fa-image"></i> Screenshot ပို့မည်
+                    </button>
+                </div>
+
                 <div id="productsContainer"><div class="loading-spinner">Loading...</div></div>
                 <div class="browse-section" id="browseSection" style="display:none;">
                     <h2 class="section-title" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
@@ -862,6 +886,7 @@
         const bs = document.getElementById('browseSection'), bc = document.getElementById('browseContainer');
         if (up.length > 0) { bs.style.display = 'block'; bc.innerHTML = `<div class="product-grid">${up.map(p => { const ic = p.category === 'course', inC = cart.some(x => x.id === p.id); return `<div class="product-card browse-card"><div class="thumb-wrapper">${ic ? '<span class="course-card-badge"><i class="fas fa-play-circle" style="margin-right:3px;"></i>Course</span>' : ''}<img class="thumb" src="${p.thumbnail_url || ''}" alt="${p.name}" onerror="this.style.display='none'" loading="lazy" /></div><div class="card-body"><div class="product-name">${p.name}</div><span class="category-badge">${PRODUCT_CATEGORIES[p.category] || p.category}</span><div class="browse-price">${Number(p.price).toLocaleString()} <span>MMK</span></div><button onclick="addToCart('${p.id}')" class="btn-buy ${inC ? 'added' : ''}" id="buy-${p.id}"><i class="fas ${inC ? 'fa-check' : 'fa-shopping-bag'}"></i>${inC ? 'Added' : 'Buy'}</button></div></div>`; }).join('')}</div>`; }
         else { bs.style.display = 'block'; bc.innerHTML = `<div style="text-align:center;padding:50px 24px;background:var(--primary-white);border-radius:var(--radius-lg);border:1px solid rgba(0,0,0,.05);box-shadow:var(--shadow-sm);"><div style="font-size:2.8em;margin-bottom:14px;opacity:.2;">🎉</div><p style="color:#bbb;font-size:.88em;line-height:1.9;max-width:340px;margin:0 auto;">All products purchased!</p></div>`; }
+        checkPendingOrders();
     }
 
     // ========== CART ==========
@@ -874,6 +899,22 @@
     window.closeCart = closeCart;
     window.placeOrder = async () => { if (cart.length === 0) return; const ob = document.getElementById('orderBtn'); ob.disabled = true; ob.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right:6px;"></i>Processing...'; try { const od = cart.map(p => ({ customer_id: currentCustomer.id, product_id: p.id, amount: Number(p.price), status: 'pending' })); const { error } = await supabaseShop.from('shop_orders').insert(od); if (error) { alert('Order Error: ' + error.message); ob.disabled = false; ob.innerHTML = '<i class="fas fa-paper-plane" style="margin-right:6px;"></i>Order'; return; } cart = []; updateCartUI(); closeCart(); showToast('Order placed! Admin ကအတည်ပြုပြီးပါက ရယူနိုင်ပါမည်။'); await loadProducts(); } catch (e) { alert('Error: ' + e.message); } ob.disabled = false; ob.innerHTML = '<i class="fas fa-paper-plane" style="margin-right:6px;"></i>Order'; };
     function showToast(m) { const t = document.getElementById('toast'); document.getElementById('toastMsg').textContent = m; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 4000); }
+
+    // ========== PENDING ORDER NOTICE ==========
+    async function checkPendingOrders() {
+        if (!currentCustomer) return;
+        const { data } = await supabaseShop
+            .from('shop_orders')
+            .select('id')
+            .eq('customer_id', currentCustomer.id)
+            .eq('status', 'pending');
+        const notice = document.getElementById('pendingNotice');
+        if (data && data.length > 0) {
+            notice.classList.add('show');
+        } else {
+            notice.classList.remove('show');
+        }
+    }
 
     // ========== PROFILE ==========
     let customerOrders = [];
@@ -1046,6 +1087,7 @@
             }
 
             // Show success
+            document.getElementById('pendingNotice').classList.remove('show');
             document.getElementById('payGuideBody').innerHTML = `
                 <div class="pay-success-box">
                     <span class="success-emoji">🎉</span>
