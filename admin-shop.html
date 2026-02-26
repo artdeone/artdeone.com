@@ -1358,6 +1358,7 @@
                         <strong>${o.shop_customers?.name || 'Unknown'}</strong>
                         <div style="font-size:0.85em; color:#666;">${o.shop_products?.name || 'Unknown Product'}</div>
                         <div style="font-size:0.75em; color:#999; margin-top:2px;">${new Date(o.created_at).toLocaleDateString()}</div>
+                        ${o.payment_screenshot_url ? `<button onclick="viewPaymentScreenshot('${o.payment_screenshot_url}')" style="margin-top:6px;display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:6px;background:#fefce8;border:1px solid #fbbf24;color:#92400e;font-size:0.72em;font-weight:700;cursor:pointer;font-family:'Poppins',sans-serif;transition:all .2s;" onmouseover="this.style.background='#fef08a'" onmouseout="this.style.background='#fefce8'"><i class="fas fa-image"></i> KBZ Pay Screenshot</button>` : ''}
                     </div>
                     <div style="text-align:right;">
                         <div style="font-weight:700; font-family:'Space Grotesk';">${Number(o.amount).toLocaleString()} MMK</div>
@@ -1378,6 +1379,23 @@
             document.querySelectorAll('#orderFilters .filter-tab').forEach(t => t.classList.remove('active'));
             btn.classList.add('active');
             renderOrders();
+        };
+
+        // ── Payment Screenshot Lightbox ──
+        window.viewPaymentScreenshot = (url) => {
+            const existing = document.getElementById('screenshotLightbox');
+            if (existing) existing.remove();
+            const lb = document.createElement('div');
+            lb.id = 'screenshotLightbox';
+            lb.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:9999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);animation:fadeIn .2s ease;';
+            lb.innerHTML = `
+                <div style="position:relative;max-width:90vw;max-height:90vh;text-align:center;">
+                    <img src="${url}" style="max-width:100%;max-height:85vh;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.5);display:block;" onerror="this.alt='Image load failed'">
+                    <button onclick="document.getElementById('screenshotLightbox').remove()" style="position:absolute;top:-14px;right:-14px;width:36px;height:36px;border-radius:50%;background:#fff;border:none;font-size:1.1em;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2);display:flex;align-items:center;justify-content:center;font-weight:700;">✕</button>
+                    <a href="${url}" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:8px 20px;background:var(--accent-green);color:#000;border-radius:20px;text-decoration:none;font-size:0.82em;font-weight:700;font-family:'Poppins',sans-serif;"><i class="fas fa-external-link-alt"></i> Full Size ဖွင့်မည်</a>
+                </div>`;
+            lb.addEventListener('click', (e) => { if (e.target === lb) lb.remove(); });
+            document.body.appendChild(lb);
         };
 
         window.acceptOrder = async (orderId, customerId, productId) => {

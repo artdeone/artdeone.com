@@ -347,6 +347,52 @@
         .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--primary-black);color:#fff;padding:14px 28px;border-radius:12px;font-size:.88em;font-weight:500;box-shadow:0 8px 30px rgba(0,0,0,.2);z-index:500;transition:transform .4s var(--ease-spring);display:flex;align-items:center;gap:10px}
         .toast.show{transform:translateX(-50%) translateY(0)}.toast i{color:var(--accent-green)}
 
+        /* ========== PAYMENT GUIDE BUTTON ========== */
+        .btn-pay-guide{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:20px;background:var(--primary-black);color:var(--accent-green);font-size:.75em;font-weight:700;font-family:'Poppins',sans-serif;border:none;cursor:pointer;transition:all .25s var(--ease);letter-spacing:.01em;white-space:nowrap;flex-shrink:0}
+        .btn-pay-guide:hover{background:var(--accent-green);color:var(--primary-black);transform:translateY(-1px);box-shadow:0 4px 14px rgba(167,225,105,.3)}
+        .btn-pay-guide:active{transform:scale(.96)}
+        .btn-pay-guide i{font-size:.85em}
+
+        /* ========== PAYMENT GUIDE MODAL ========== */
+        .pay-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:400;opacity:0;pointer-events:none;transition:opacity .3s var(--ease)}
+        .pay-modal-overlay.active{opacity:1;pointer-events:all}
+        .pay-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-44%) scale(.95);background:var(--primary-white);border-radius:var(--radius-lg);width:90%;max-width:460px;max-height:90vh;overflow-y:auto;z-index:401;box-shadow:0 24px 64px rgba(0,0,0,.18);transition:all .35s var(--ease-spring);padding:0}
+        .pay-modal.active{transform:translate(-50%,-50%) scale(1)}
+        .pay-modal-header{padding:22px 24px 16px;border-bottom:1px solid rgba(0,0,0,.06);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--primary-white);border-radius:var(--radius-lg) var(--radius-lg) 0 0;z-index:1}
+        .pay-modal-header h3{margin:0;font-size:1.05em;font-family:'Space Grotesk',sans-serif;font-weight:700;display:flex;align-items:center;gap:8px}
+        .pay-modal-close{background:none;border:none;font-size:1.2em;cursor:pointer;color:#999;padding:4px;line-height:1;transition:color .2s}
+        .pay-modal-close:hover{color:var(--primary-black)}
+        .pay-modal-body{padding:20px 24px 28px}
+        .pay-step{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start}
+        .pay-step-num{width:28px;height:28px;border-radius:50%;background:var(--primary-black);color:var(--accent-green);font-weight:700;font-size:.82em;font-family:'Space Grotesk',sans-serif;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+        .pay-step-content{flex:1}
+        .pay-step-content p{margin:0;font-size:.88em;color:#444;line-height:1.6}
+        .pay-step-content strong{font-weight:700;color:var(--primary-black)}
+        .pay-qr-wrap{background:#f3f6fb;border-radius:var(--radius-md);padding:18px;text-align:center;margin:4px 0 10px}
+        .pay-qr-wrap img{width:200px;height:200px;object-fit:cover;border-radius:10px;display:block;margin:0 auto 10px}
+        .pay-kbz-info{background:var(--primary-black);color:var(--primary-white);border-radius:var(--radius-sm);padding:12px 18px;display:inline-flex;flex-direction:column;align-items:flex-start;gap:4px;min-width:220px}
+        .pay-kbz-info .kbz-label{font-size:.68em;color:var(--accent-green);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+        .pay-kbz-info .kbz-value{font-size:.95em;font-weight:700;font-family:'Space Grotesk',sans-serif;letter-spacing:.02em}
+        .pay-divider{height:1px;background:rgba(0,0,0,.07);margin:18px 0}
+        .pay-upload-area{border:2px dashed var(--gray-200);border-radius:var(--radius-md);padding:22px;text-align:center;cursor:pointer;transition:all .25s var(--ease);position:relative;background:var(--gray-50)}
+        .pay-upload-area:hover{border-color:var(--accent-green);background:#f4fce9}
+        .pay-upload-area.has-file{border-color:var(--accent-green);background:#f0fdf4}
+        .pay-upload-area input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+        .pay-upload-area i{font-size:1.6em;color:#ccc;margin-bottom:8px;display:block}
+        .pay-upload-area.has-file i{color:var(--accent-green)}
+        .pay-upload-area p{margin:0;font-size:.82em;color:#999;line-height:1.6}
+        .pay-upload-area.has-file p{color:#2d8a50;font-weight:600}
+        .pay-preview-img{width:100%;max-height:140px;object-fit:contain;border-radius:8px;margin-top:10px;display:none}
+        .pay-preview-img.show{display:block}
+        .pay-submit-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px 20px;border-radius:50px;background:var(--accent-green);color:var(--primary-black);font-weight:700;font-size:.88em;font-family:'Poppins',sans-serif;border:none;cursor:pointer;transition:all .3s var(--ease);margin-top:16px;box-shadow:0 2px 10px rgba(167,225,105,.25)}
+        .pay-submit-btn:hover{background:#96d158;transform:translateY(-1px);box-shadow:0 4px 16px rgba(167,225,105,.35)}
+        .pay-submit-btn:active{transform:scale(.97)}
+        .pay-submit-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+        .pay-success-box{text-align:center;padding:20px 0 8px}
+        .pay-success-box .success-emoji{font-size:2.4em;display:block;margin-bottom:10px}
+        .pay-success-box h4{font-family:'Space Grotesk',sans-serif;font-size:1.1em;margin:0 0 6px}
+        .pay-success-box p{font-size:.85em;color:#666;line-height:1.6;margin:0}
+
         /* ========== COURSE PLAYER ========== */
         .course-player-wrap{max-width:900px;margin:0 auto}
         .back-btn{background:none;border:none;color:#666;cursor:pointer;font-size:.9em;margin-bottom:16px;display:flex;align-items:center;gap:6px;font-family:'Poppins',sans-serif;padding:0;transition:color .2s}
@@ -507,7 +553,7 @@
                 </div>
 
                 <div style="margin-top:24px;padding-top:20px;border-top:1px solid #f0f0f0;text-align:center;font-size:.78em;color:#999;line-height:1.8;">
-                    Contact : <a href="mailto:artdeone.educators@gmail.com" style="color:#323232;font-weight:600;text-decoration:none;">artdeone.educators@gmail.com</a>
+                    Contact : <a href="/cdn-cgi/l/email-protection#2e4f5c5a4a4b41404b004b4a5b4d4f5a415c5d6e49434f4742004d4143" style="color:#323232;font-weight:600;text-decoration:none;"><span class="__cf_email__" data-cfemail="a3c2d1d7c7c6cccdc68dc6c7d6c0c2d7ccd1d0e3c4cec2cacf8dc0ccce">[email&#160;protected]</span></a>
                     <br>
                     Support phone : <a href="tel:09953681497" style="color:#323232;font-weight:600;text-decoration:none;">09 953 681 497</a>
                 </div>
@@ -543,7 +589,10 @@
                 <h2 class="section-title">My Products</h2>
                 <div id="productsContainer"><div class="loading-spinner">Loading...</div></div>
                 <div class="browse-section" id="browseSection" style="display:none;">
-                    <h2 class="section-title"><i class="fas fa-fire"></i> Browse More Products</h2>
+                    <h2 class="section-title" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+                        <span style="display:flex;align-items:center;gap:10px;"><i class="fas fa-fire"></i> Browse More Products</span>
+                        <button onclick="openPayGuide()" class="btn-pay-guide grain-btn"><i class="fas fa-wallet"></i> Product ဝယ်ရန်လမ်းညွှန်</button>
+                    </h2>
                     <div id="browseContainer"></div>
                 </div>
             </div>
@@ -560,6 +609,57 @@
                         <div id="materialsList"></div>
                     </div>
                     <div class="lessons-sidebar"><h3><i class="fas fa-book-open" style="font-size:.85em;"></i> All Lessons</h3><div id="lessonsList"></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== PAYMENT GUIDE MODAL ========== -->
+    <div class="pay-modal-overlay" id="payGuideOverlay" onclick="closePayGuide()"></div>
+    <div class="pay-modal" id="payGuideModal">
+        <div class="pay-modal-header">
+            <h3><i class="fas fa-wallet" style="color:var(--accent-green);"></i> Product ဝယ်ရန်လမ်းညွှန်</h3>
+            <button class="pay-modal-close" onclick="closePayGuide()">✕</button>
+        </div>
+        <div class="pay-modal-body" id="payGuideBody">
+            <!-- Step 1 -->
+            <div class="pay-step">
+                <div class="pay-step-num">1</div>
+                <div class="pay-step-content">
+                    <p><strong>Cart ထည့်ပါ</strong><br>ဝယ်ချင်သော product ၏ <strong>Buy</strong> ခလုတ်နှိပ်၍ Cart ထဲသို့ ထည့်ပါ၊ ထို့နောက် <strong>Order</strong> ခလုတ်နှိပ်ပါ။</p>
+                </div>
+            </div>
+            <!-- Step 2 -->
+            <div class="pay-step">
+                <div class="pay-step-num">2</div>
+                <div class="pay-step-content">
+                    <p><strong>KBZ Pay ဖြင့် ငွေပေးချေပါ</strong><br>အောက်ဖော်ပြပါ QR Code ကို KBZ Pay App မှ Scan ပြုလုပ်၍ ငွေပေးချေပါ။</p>
+                    <div class="pay-qr-wrap">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772078379/kbz-pay_fwm6be.jpg" alt="KBZ Pay QR" onerror="this.src='https://placehold.co/200x200?text=QR+Code'">
+                        <div class="pay-kbz-info">
+                            <span class="kbz-label">KBZ Pay Number</span>
+                            <span class="kbz-value">09 953 681 497</span>
+                            <span class="kbz-label" style="margin-top:6px;">Name</span>
+                            <span class="kbz-value">Phyo Min Zaw</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Step 3 -->
+            <div class="pay-step">
+                <div class="pay-step-num">3</div>
+                <div class="pay-step-content">
+                    <p><strong>Screenshot ရိုက်ပြီး Admin ထံ ပေးပို့ပါ</strong><br>ငွေပေးချေပြီးပါက KBZ Pay payment screenshot ကို ဒီမှာ Upload လုပ်ပြီး Admin ထံ ပေးပို့ပါ။</p>
+                    <div class="pay-divider"></div>
+                    <div class="pay-upload-area" id="payUploadArea" onclick="document.getElementById('payScreenshotFile').click()">
+                        <input type="file" id="payScreenshotFile" accept="image/*" onchange="handleScreenshotSelect(event)" style="display:none">
+                        <i class="fas fa-cloud-upload-alt" id="payUploadIcon"></i>
+                        <p id="payUploadText">Screenshot ကို ဒီနေရာတွင် နှိပ်၍ Upload လုပ်ပါ<br><span style="font-size:.9em;opacity:.7;">JPG, PNG — Max 5MB</span></p>
+                        <img id="payPreviewImg" class="pay-preview-img" alt="Preview">
+                    </div>
+                    <button class="pay-submit-btn grain-btn" id="paySubmitBtn" onclick="submitPaymentScreenshot()" disabled>
+                        <i class="fas fa-paper-plane"></i> Admin ထံ ပေးပို့မည်
+                    </button>
                 </div>
             </div>
         </div>
@@ -605,7 +705,7 @@
     <div class="toast" id="toast"><i class="fas fa-check-circle"></i><span id="toastMsg">Done!</span></div>
 
     <!-- ========== SCRIPT ========== -->
-    <script type="module">
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module">
     import { supabaseShop, PRODUCT_CATEGORIES, signInWithGoogle, signOutCustomer, getAuthSession, onAuthChange, findOrCreateCustomer, signUpWithEmail, signInWithEmail, resetPassword } from './js/config-shop.js';
 
     let currentCustomer = null, allProducts = [], purchasedProductIds = [], cart = [];
@@ -812,8 +912,123 @@
     window.downloadMaterial = (u, t) => { const a = document.createElement('a'); a.href = u; a.target = '_blank'; a.rel = 'noopener noreferrer'; document.body.appendChild(a); a.click(); document.body.removeChild(a); };
     window.downloadAllMaterials = () => { const m = lessonMaterialsMap[currentLessonId] || []; if (!m.length || !confirm(`Download all ${m.length} files?`)) return; m.forEach((x, i) => setTimeout(() => downloadMaterial(x.file_url, x.title), i * 500)); };
     function convertToEmbedUrl(u) { if (!u) return ''; const yt = u.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?#]+)/); if (yt) return `https://www.youtube.com/embed/${yt[1]}`; const v = u.match(/vimeo\.com\/(\d+)/); if (v) return `https://player.vimeo.com/video/${v[1]}`; if (u.includes('drive.google.com')) { const f = u.match(/\/d\/([^/]+)/); if (f) return `https://drive.google.com/file/d/${f[1]}/preview`; } return u; }
-    window.backToCourses = () => { document.getElementById('coursePlayerSection').classList.add('hidden'); document.getElementById('myProductsSection').classList.remove('hidden'); currentLessonId = null; currentCourseId = null; document.getElementById('courseVideoPlayer').src = ''; };
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeCart(); closeProfile(); } });
+    window.backToCourses = () => { document.getElementById('coursePlayerSection').classList.add('hidden'); document.getElementById('myProductsSection').classList.remove('hidden'); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+
+    // ========== PAYMENT GUIDE MODAL ==========
+    let payScreenshotFile = null;
+
+    window.openPayGuide = () => {
+        // Reset state
+        payScreenshotFile = null;
+        document.getElementById('payUploadIcon').className = 'fas fa-cloud-upload-alt';
+        document.getElementById('payUploadText').innerHTML = 'Screenshot ကို ဒီနေရာတွင် နှိပ်၍ Upload လုပ်ပါ<br><span style="font-size:.9em;opacity:.7;">JPG, PNG — Max 5MB</span>';
+        document.getElementById('payPreviewImg').className = 'pay-preview-img';
+        document.getElementById('payPreviewImg').src = '';
+        document.getElementById('payUploadArea').classList.remove('has-file');
+        document.getElementById('paySubmitBtn').disabled = true;
+        document.getElementById('paySubmitBtn').innerHTML = '<i class="fas fa-paper-plane"></i> Admin ထံ ပေးပို့မည်';
+        const body = document.getElementById('payGuideBody');
+        // Restore full guide body if it was replaced by success message
+        if (!document.getElementById('payUploadArea')) {
+            body.innerHTML = getPayGuideBodyHTML();
+        }
+        document.getElementById('payGuideOverlay').classList.add('active');
+        document.getElementById('payGuideModal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    };
+
+    window.closePayGuide = () => {
+        document.getElementById('payGuideOverlay').classList.remove('active');
+        document.getElementById('payGuideModal').classList.remove('active');
+        document.body.style.overflow = '';
+    };
+
+    window.handleScreenshotSelect = (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+        if (file.size > 5 * 1024 * 1024) {
+            alert('File size 5MB ထက်မကျော်ပါနှင့်!');
+            return;
+        }
+        payScreenshotFile = file;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const preview = document.getElementById('payPreviewImg');
+            preview.src = e.target.result;
+            preview.className = 'pay-preview-img show';
+            document.getElementById('payUploadIcon').className = 'fas fa-check-circle';
+            document.getElementById('payUploadText').textContent = file.name;
+            document.getElementById('payUploadArea').classList.add('has-file');
+            document.getElementById('paySubmitBtn').disabled = false;
+        };
+        reader.readAsDataURL(file);
+    };
+
+    window.submitPaymentScreenshot = async () => {
+        if (!payScreenshotFile || !currentCustomer) return;
+        const btn = document.getElementById('paySubmitBtn');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ပို့နေသည်...';
+
+        try {
+            // Upload to Supabase Storage bucket 'payment-screenshots'
+            const fileName = `pay_${currentCustomer.id}_${Date.now()}.${payScreenshotFile.name.split('.').pop()}`;
+            const { data: uploadData, error: uploadError } = await supabaseShop.storage
+                .from('payment-screenshots')
+                .upload(fileName, payScreenshotFile, { cacheControl: '3600', upsert: false });
+
+            if (uploadError) throw new Error('Upload မအောင်မြင်ပါ: ' + uploadError.message);
+
+            // Get public URL
+            const { data: urlData } = supabaseShop.storage
+                .from('payment-screenshots')
+                .getPublicUrl(fileName);
+            const screenshotUrl = urlData.publicUrl;
+
+            // Find latest pending order of this customer and update screenshot URL
+            // OR insert a payment notification record
+            const { data: pendingOrders } = await supabaseShop
+                .from('shop_orders')
+                .select('id')
+                .eq('customer_id', currentCustomer.id)
+                .eq('status', 'pending')
+                .order('created_at', { ascending: false })
+                .limit(1);
+
+            if (pendingOrders && pendingOrders.length > 0) {
+                await supabaseShop
+                    .from('shop_orders')
+                    .update({ payment_screenshot_url: screenshotUrl })
+                    .eq('id', pendingOrders[0].id);
+            } else {
+                // No pending order - still save as a standalone payment record
+                await supabaseShop.from('shop_orders').insert({
+                    customer_id: currentCustomer.id,
+                    product_id: null,
+                    amount: 0,
+                    status: 'pending',
+                    payment_screenshot_url: screenshotUrl
+                });
+            }
+
+            // Show success in modal
+            document.getElementById('payGuideBody').innerHTML = `
+                <div class="pay-success-box">
+                    <span class="success-emoji">🎉</span>
+                    <h4>ပေးပို့ပြီးပါပြီ!</h4>
+                    <p>Payment screenshot ကို Admin ထံ သို့ ပေးပို့ပြီးပါပြီ။<br>Admin က အတည်ပြုပြီးသည့်နောက် Product ကို ရယူနိုင်ပါမည်။</p>
+                    <button onclick="closePayGuide()" style="margin-top:18px;padding:10px 28px;border-radius:50px;background:var(--primary-black);color:var(--accent-green);border:none;font-weight:700;font-family:'Poppins',sans-serif;cursor:pointer;font-size:.88em;">ပိတ်မည်</button>
+                </div>
+            `;
+            showToast('Screenshot ပေးပို့ပြီးပါပြီ! Admin ကအတည်ပြုပါမည်။');
+
+        } catch (e) {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-paper-plane"></i> Admin ထံ ပေးပို့မည်';
+            alert('Error: ' + e.message);
+        }
+    };
+
     </script>
 </body>
 </html>
