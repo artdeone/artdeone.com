@@ -676,6 +676,95 @@
         .btn-primary:hover::after, .btn-secondary:hover::after, .nav-btn:hover::after, .cat-tab:hover::after {
             opacity: 0.10;
         }
+
+                /* ===== Shop Nav Avatar ===== */
+        .shop-nav-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #323232;
+            color: #a7e169;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+            overflow: hidden;
+            border: 2px solid #a7e169;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .shop-nav-avatar:hover {
+            border-color: #ed2939;
+            transform: scale(1.08);
+        }
+        .shop-nav-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ===== Sign Out Button (Grain + #ed2939) ===== */
+        .nav-btn-signout {
+            background: #ed2939;
+            color: #fff;
+            font-weight: 600;
+            border-radius: 2rem;
+            padding: 0.4rem 1.25rem;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ed2939;
+            cursor: pointer;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 0.02em;
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+            box-shadow: inset 0 0 12px 3px rgba(255,255,255,0.35),
+                        inset 0 0 28px 6px rgba(255,255,255,0.10),
+                        0 0 18px 4px rgba(237,41,57,0.10);
+        }
+        .nav-btn-signout:hover {
+            background: #a7e169;
+            border-color: #a7e169;
+            color: #000;
+            transform: translateY(-1px);
+            box-shadow: inset 0 0 14px 4px rgba(255,255,255,0.45),
+                        inset 0 0 32px 8px rgba(255,255,255,0.15),
+                        0 0 25px 6px rgba(167,225,105,0.18);
+        }
+        .nav-btn-signout::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            border-radius: inherit;
+            opacity: 0.07;
+            mix-blend-mode: overlay;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+            background-size: 128px 128px;
+        }
+        .nav-btn-signout:hover::after {
+            opacity: 0.10;
+        }
+
+        /* ===== Mobile Nav: Logged-in Profile Row ===== */
+        .mobile-profile-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+        }
+        .mobile-profile-row .shop-nav-avatar {
+            width: 32px;
+            height: 32px;
+            font-size: 0.7rem;
+        }
     </style>
 </head>
 <body class="bg-white text-[#323232]">
@@ -704,11 +793,13 @@
                         <!-- Not logged in: show Sign in link -->
                         <a href="customer-dashboard.html" class="nav-btn" id="btnLoginDesktop"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
 
-                        <!-- Logged in: show name + Dashboard + Sign out -->
+                        <!-- Logged in: show avatar + Dashboard + Sign out -->
                         <div id="userInfoDesktop" style="display:none;" class="flex items-center gap-3">
-                            <span class="text-sm text-[#323232] font-medium" id="userNameDesktop"></span>
+                            <a href="customer-dashboard.html" title="Profile" style="text-decoration:none; display:flex; align-items:center;">
+                                <span class="shop-nav-avatar" id="avatarDesktop"></span>
+                            </a>
                             <a href="customer-dashboard.html" class="nav-btn" style="font-size:0.75rem; padding:0.4rem 1rem;">Dashboard</a>
-                            <button onclick="logout()" class="text-xs text-gray-400 hover:text-black transition-colors" style="font-family:'Space Grotesk';">Sign out</button>
+                            <button onclick="logout()" class="nav-btn-signout">Sign out</button>
                         </div>
                     </div>
                     <div class="md:hidden flex items-center">
@@ -736,9 +827,11 @@
 
                     <!-- Logged in -->
                     <div id="userInfoMobile" style="display:none;">
-                        <span class="block py-2 mobile-nav-link text-black font-medium" id="userNameMobile"></span>
-                        <a href="customer-dashboard.html" class="block py-2 mobile-nav-link">Dashboard</a>
-                        <button onclick="logout()" class="block py-2 mobile-nav-link text-gray-400">Sign out</button>
+                        <a href="customer-dashboard.html" class="mobile-profile-row" style="text-decoration:none;">
+                            <span class="shop-nav-avatar" id="avatarMobile"></span>
+                            <span class="mobile-nav-link text-black font-medium" style="padding:0;">Dashboard</span>
+                        </a>
+                        <button onclick="logout()" class="nav-btn-signout" style="width:100%; margin-top:4px; margin-bottom:8px; font-size:0.8rem; padding:0.5rem 1rem;">Sign out</button>
                     </div>
                 </div>
             </div>
@@ -1361,28 +1454,46 @@
     // ==========================================
     // Auth UI Update
     // ==========================================
-    function updateAuthUI(session) {
+        function updateAuthUI(session) {
         const btnLoginDesktop  = document.getElementById('btnLoginDesktop');
         const userInfoDesktop  = document.getElementById('userInfoDesktop');
-        const userNameDesktop  = document.getElementById('userNameDesktop');
         const btnLoginMobile   = document.getElementById('btnLoginMobile');
         const userInfoMobile   = document.getElementById('userInfoMobile');
-        const userNameMobile   = document.getElementById('userNameMobile');
         const btnHowItWorks    = document.getElementById('btnHowItWorks');
 
         if (session && session.user) {
             const name = session.user.user_metadata?.full_name
                       || session.user.email.split('@')[0];
+            const avatarUrl = session.user.user_metadata?.avatar_url || null;
+            const initials = name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
 
             // Desktop
             btnLoginDesktop.style.display = 'none';
             userInfoDesktop.style.display = 'flex';
-            userNameDesktop.textContent   = name;
+
+            // Desktop avatar
+            const avatarDesktop = document.getElementById('avatarDesktop');
+            if (avatarDesktop) {
+                if (avatarUrl) {
+                    avatarDesktop.innerHTML = '<img src="' + avatarUrl + '" alt="' + name + '">';
+                } else {
+                    avatarDesktop.textContent = initials;
+                }
+            }
 
             // Mobile
             btnLoginMobile.style.display  = 'none';
             userInfoMobile.style.display  = 'block';
-            userNameMobile.textContent    = name;
+
+            // Mobile avatar
+            const avatarMobile = document.getElementById('avatarMobile');
+            if (avatarMobile) {
+                if (avatarUrl) {
+                    avatarMobile.innerHTML = '<img src="' + avatarUrl + '" alt="' + name + '">';
+                } else {
+                    avatarMobile.textContent = initials;
+                }
+            }
 
             // How It Works button
             if (btnHowItWorks) {
