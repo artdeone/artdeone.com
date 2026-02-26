@@ -54,9 +54,9 @@
            DESIGN TOKENS — Dark Mode
         ===================================================== */
         [data-theme="dark"] {
-            --bg: #0e1117;
-            --surface: #161b27;
-            --surface-2: #1c2235;
+            --bg: #151713;
+            --surface: #1c1f1a;
+            --surface-2: #242822;
             --border: rgba(255,255,255,.07);
             --border-strong: rgba(255,255,255,.13);
             --text-primary: #edf0f5;
@@ -66,7 +66,7 @@
             --shadow-sm: 0 2px 12px rgba(0,0,0,.3);
             --shadow-md: 0 8px 32px rgba(0,0,0,.35);
             --shadow-lg: 0 20px 60px rgba(0,0,0,.45);
-            --nav-bg: rgba(22,27,39,.92);
+            --nav-bg: rgba(21,23,19,.92);
             --card-hover-shadow: 0 16px 40px rgba(167,225,105,.08), 0 4px 16px rgba(0,0,0,.3);
             --green-subtle: rgba(167,225,105,.08);
             --red-subtle: rgba(237,41,57,.12);
@@ -118,6 +118,8 @@
         @keyframes errorShake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-6px)} 40%{transform:translateX(6px)} 60%{transform:translateX(-3px)} 80%{transform:translateX(3px)} }
         @keyframes dashboardFadeIn { from{opacity:0} to{opacity:1} }
         @keyframes emptyFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+        @keyframes blob { 0%{transform:translate(0,0) scale(1)} 33%{transform:translate(30px,-50px) scale(1.1)} 66%{transform:translate(-20px,20px) scale(.9)} 100%{transform:translate(0,0) scale(1)} }
+        @keyframes orgPulse { 0%,100%{opacity:.5;transform:scale(1)} 50%{opacity:.8;transform:scale(1.05)} }
         @keyframes loginCardIn { from{opacity:0;transform:translateY(24px) scale(.97)} to{opacity:1;transform:translateY(0) scale(1)} }
         @keyframes shimmer { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
 
@@ -396,6 +398,35 @@
             pointer-events:none;
         }
         [data-theme="dark"] .welcome-header::before { background:radial-gradient(circle at top right, rgba(167,225,105,.07) 0%, transparent 65%); }
+        .welcome-header .org-blob {
+            position:absolute; border-radius:50%; filter:blur(40px); pointer-events:none; z-index:0;
+        }
+        .welcome-header .org-blob-1 {
+            width:120px; height:120px; background:rgba(167,225,105,.15);
+            top:-20px; right:60px; animation:blob 7s infinite;
+        }
+        .welcome-header .org-blob-2 {
+            width:80px; height:80px; background:rgba(237,41,57,.1);
+            bottom:-10px; left:30%; animation:blob 7s infinite 2s;
+        }
+        .welcome-header .org-blob-3 {
+            width:100px; height:100px; background:rgba(167,225,105,.08);
+            top:50%; left:-20px; animation:blob 7s infinite 4s;
+        }
+        [data-theme="dark"] .welcome-header .org-blob-1 { background:rgba(167,225,105,.08); }
+        [data-theme="dark"] .welcome-header .org-blob-2 { background:rgba(237,41,57,.06); }
+        [data-theme="dark"] .welcome-header .org-blob-3 { background:rgba(167,225,105,.05); }
+        .btn-back-shop {
+            display:inline-flex; align-items:center; gap:7px;
+            padding:9px 20px; border-radius:2rem;
+            background:var(--text-primary); color:var(--accent-green);
+            font-size:.78em; font-weight:600; font-family:'Poppins',sans-serif;
+            text-decoration:none; transition:all .25s var(--ease);
+            border:none; cursor:pointer; flex-shrink:0; letter-spacing:.01em; z-index:1;
+        }
+        .btn-back-shop:hover { background:var(--accent-green); color:#000; transform:translateY(-2px); box-shadow:0 4px 14px rgba(167,225,105,.3); }
+        .btn-back-shop:active { transform:scale(.96); }
+        .btn-back-shop i { font-size:.9em; }
         .welcome-avatar-wrap-main { flex-shrink:0; position:relative; }
         .welcome-avatar-wrap-main .avatar-ring {
             width:60px; height:60px; border-radius:50%;
@@ -743,21 +774,23 @@
             position:fixed; inset:0; background:rgba(0,0,0,.55);
             backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
             z-index:400; opacity:0; pointer-events:none;
-            transition:opacity .3s var(--ease); display:none;
+            transition:opacity .35s var(--ease);
+            visibility:hidden;
         }
-        .pay-modal-overlay.active { opacity:1; pointer-events:all; display:block; }
+        .pay-modal-overlay.active { opacity:1; pointer-events:all; visibility:visible; }
         .pay-modal {
             position:fixed; top:50%; left:50%;
-            transform:translate(-50%,-44%) scale(.95);
+            transform:translate(-50%,-44%) scale(.92);
             background:var(--surface); border-radius:var(--radius-xl);
             width:92%; max-width:480px; max-height:88vh;
             overflow:hidden; display:flex; flex-direction:column;
             z-index:401; box-shadow:var(--shadow-lg);
-            transition:all .35s var(--ease-spring);
+            transition:transform .45s var(--ease-spring), opacity .35s var(--ease);
             border:1px solid var(--border);
-            padding:0; display:none; opacity:0;
+            padding:0; opacity:0;
+            visibility:hidden; pointer-events:none;
         }
-        .pay-modal.active { transform:translate(-50%,-50%) scale(1); display:flex; opacity:1; }
+        .pay-modal.active { transform:translate(-50%,-50%) scale(1); opacity:1; visibility:visible; pointer-events:auto; }
         .pay-modal-header {
             padding:20px 24px 16px; border-bottom:1px solid var(--border);
             display:flex; align-items:center; justify-content:space-between;
@@ -885,8 +918,9 @@
             .btn-profile { padding:7px 11px; }
             .btn-refresh { padding:7px 11px; }
             .btn-refresh span { display:none; }
-            .welcome-header { padding:22px 20px; border-radius:var(--radius-lg); }
+            .welcome-header { padding:22px 20px; border-radius:var(--radius-lg); flex-wrap:wrap; }
             .welcome-header h1 { font-size:1.2em; }
+            .btn-back-shop { width:100%; justify-content:center; margin-top:4px; }
             .thank-you-letter { padding:20px; }
             .thank-you-letter p { font-size:.84em; }
             .empty-state { padding:48px 20px; }
@@ -1048,6 +1082,9 @@
         <div class="container">
             <!-- Welcome Header -->
             <div class="welcome-header">
+                <div class="org-blob org-blob-1"></div>
+                <div class="org-blob org-blob-2"></div>
+                <div class="org-blob org-blob-3"></div>
                 <div class="welcome-avatar-wrap-main">
                     <div class="avatar-ring" id="welcomeAvatarWrap"></div>
                 </div>
@@ -1056,6 +1093,7 @@
                     <p class="email-text" id="customerEmail"></p>
                     <span class="badge">Shop Customer</span>
                 </div>
+                <a href="shop.html" class="btn-back-shop"><i class="fas fa-store"></i> Go to Shop</a>
             </div>
 
             <!-- Thank You Letter -->
