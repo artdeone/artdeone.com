@@ -1001,15 +1001,18 @@
                     .eq('id', pendingOrders[0].id);
                 if (error) throw new Error(error.message);
             } else {
-                // No pending order yet — save as standalone record
-                const { error } = await supabaseShop.from('shop_orders').insert({
-                    customer_id: currentCustomer.id,
-                    product_id: null,
-                    amount: 0,
-                    status: 'pending',
-                    payment_screenshot_url: finalBase64
-                });
-                if (error) throw new Error(error.message);
+                // No pending order — ask customer to place order first
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-paper-plane"></i> Admin ထံ ပေးပို့မည်';
+                document.getElementById('payGuideBody').innerHTML = `
+                    <div class="pay-success-box">
+                        <span class="success-emoji">⚠️</span>
+                        <h4>Order ဦးစွာ တင်ပါ</h4>
+                        <p>Screenshot မပို့မီ ဝယ်ယူလိုသော Product ၏ <strong>Buy → Order</strong> ကို ဦးစွာ နှိပ်ပြီး Order တင်ပါ။<br><br>Order တင်ပြီးမှ ဒီနေရာမှ Screenshot ပြန်ပို့ပါ။</p>
+                        <button onclick="closePayGuide()" style="margin-top:18px;padding:10px 28px;border-radius:50px;background:var(--primary-black);color:var(--accent-green);border:none;font-weight:700;font-family:'Poppins',sans-serif;cursor:pointer;font-size:.88em;"><i class="fas fa-arrow-left" style="margin-right:6px;"></i>ပြန်သွားမည်</button>
+                    </div>
+                `;
+                return;
             }
 
             // Show success
