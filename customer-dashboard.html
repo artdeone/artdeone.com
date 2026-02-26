@@ -425,14 +425,17 @@
         .btn-back-shop {
             display:inline-flex; align-items:center; gap:7px;
             padding:9px 20px; border-radius:2rem;
-            background:var(--text-primary); color:var(--accent-green);
+            background:var(--accent-green); color:#000;
             font-size:.78em; font-weight:600; font-family:'Poppins',sans-serif;
             text-decoration:none; transition:all .25s var(--ease);
             border:none; cursor:pointer; flex-shrink:0; letter-spacing:.01em; z-index:1;
+            box-shadow:0 2px 8px rgba(167,225,105,.2);
         }
-        .btn-back-shop:hover { background:var(--accent-green); color:#000; transform:translateY(-2px); box-shadow:0 4px 14px rgba(167,225,105,.3); }
+        .btn-back-shop:hover { background:var(--accent-red); color:#fff; transform:translateY(-2px); box-shadow:0 4px 14px rgba(237,41,57,.3); }
         .btn-back-shop:active { transform:scale(.96); }
         .btn-back-shop i { font-size:.9em; }
+        [data-theme="dark"] .btn-back-shop { background:var(--accent-red); color:#fff; box-shadow:0 2px 8px rgba(237,41,57,.2); }
+        [data-theme="dark"] .btn-back-shop:hover { background:var(--accent-green); color:#000; box-shadow:0 4px 14px rgba(167,225,105,.3); }
         .welcome-avatar-wrap-main { flex-shrink:0; position:relative; }
         .welcome-avatar-wrap-main .avatar-ring {
             width:60px; height:60px; border-radius:50%;
