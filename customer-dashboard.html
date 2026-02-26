@@ -964,6 +964,62 @@
             .product-card:hover .thumb { transform:none; }
             .btn-download:hover { transform:none; }
         }
+
+        /* =====================================================
+           MOBILE HAMBURGER MENU
+        ===================================================== */
+        .nav-burger {
+            display:none; background:none; border:1px solid var(--border);
+            border-radius:10px; padding:7px 9px; cursor:pointer;
+            color:var(--text-primary); transition:all .3s var(--ease);
+        }
+        .nav-burger:hover { border-color:var(--accent-green); color:var(--accent-green); }
+        .nav-burger .burger-icon {
+            position:relative; width:20px; height:20px;
+        }
+        .nav-burger .burger-icon i {
+            position:absolute; top:0; left:0; width:20px; height:20px;
+            font-size:1.1em; display:flex; align-items:center; justify-content:center;
+            transition:all .4s cubic-bezier(.4,0,.2,1);
+        }
+        .nav-burger .icon-bars { opacity:1; transform:rotate(0) scale(1); }
+        .nav-burger .icon-x { opacity:0; transform:rotate(-90deg) scale(.5); }
+        .nav-burger.open { transform:rotate(90deg) scale(1.05); }
+        .nav-burger.open .icon-bars { opacity:0; transform:rotate(90deg) scale(.5); }
+        .nav-burger.open .icon-x { opacity:1; transform:rotate(0) scale(1); }
+
+        .mobile-dropdown {
+            display:none; position:absolute; top:100%; left:0; right:0;
+            background:var(--surface); border-bottom:1px solid var(--border);
+            box-shadow:var(--shadow-md); overflow:hidden;
+            max-height:0; opacity:0;
+            transition:max-height .45s cubic-bezier(.4,0,.2,1), opacity .35s var(--ease);
+        }
+        .mobile-dropdown.open { max-height:300px; opacity:1; }
+        .mobile-dropdown-inner { padding:10px 16px 14px; display:flex; flex-direction:column; gap:4px; }
+        .mobile-menu-item {
+            display:flex; align-items:center; gap:10px;
+            padding:12px 14px; border-radius:var(--radius-sm);
+            font-family:'Poppins',sans-serif; font-size:.84em; font-weight:500;
+            color:var(--text-primary); text-decoration:none;
+            background:transparent; border:none; cursor:pointer; width:100%; text-align:left;
+            transition:all .25s var(--ease);
+            opacity:0; transform:translateY(-8px);
+        }
+        .mobile-dropdown.open .mobile-menu-item { opacity:1; transform:translateY(0); }
+        .mobile-dropdown.open .mobile-menu-item:nth-child(1) { transition-delay:.08s; }
+        .mobile-dropdown.open .mobile-menu-item:nth-child(2) { transition-delay:.13s; }
+        .mobile-dropdown.open .mobile-menu-item:nth-child(3) { transition-delay:.18s; }
+        .mobile-menu-item:hover { background:var(--surface-2); }
+        .mobile-menu-item i { width:18px; text-align:center; font-size:.9em; color:var(--text-muted); }
+        .mobile-menu-item.menu-logout { color:var(--accent-red); }
+        .mobile-menu-item.menu-logout i { color:var(--accent-red); }
+
+        @media(max-width:600px) {
+            .nav-burger { display:flex; align-items:center; justify-content:center; }
+            .nav-hide-mobile { display:none !important; }
+            .mobile-dropdown { display:block; }
+        }
     </style>
 </head>
 <body>
@@ -1078,8 +1134,8 @@
                     <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png" alt="ART de ONE" id="navLogoImg">
                 </div>
                 <div class="nav-actions">
-                    <a href="shop.html" class="btn btn-go-shop"><i class="fas fa-store"></i> <span>Shop</span></a>
-                    <button onclick="toggleProfile()" class="btn btn-profile" id="profileBtn">
+                    <a href="shop.html" class="btn btn-go-shop nav-hide-mobile"><i class="fas fa-store"></i> <span>Shop</span></a>
+                    <button onclick="toggleProfile()" class="btn btn-profile nav-hide-mobile" id="profileBtn">
                         <span class="profile-avatar-sm" id="navAvatarInitial"></span>
                         <span>Profile</span>
                     </button>
@@ -1090,7 +1146,20 @@
                     <button onclick="refreshDashboard()" class="btn btn-refresh">
                         <i class="fas fa-rotate-right"></i> <span>Refresh</span>
                     </button>
-                    <button onclick="logout()" class="btn btn-logout">Logout</button>
+                    <button onclick="logout()" class="btn btn-logout nav-hide-mobile">Logout</button>
+                    <button class="nav-burger" id="navBurgerBtn" onclick="toggleMobileMenu()">
+                        <div class="burger-icon">
+                            <i class="fas fa-bars icon-bars"></i>
+                            <i class="fas fa-xmark icon-x"></i>
+                        </div>
+                    </button>
+                </div>
+            </div>
+            <div class="mobile-dropdown" id="mobileDropdown">
+                <div class="mobile-dropdown-inner">
+                    <a href="shop.html" class="mobile-menu-item"><i class="fas fa-store"></i> Go to Shop</a>
+                    <button onclick="toggleProfile();toggleMobileMenu();" class="mobile-menu-item"><i class="fas fa-user"></i> Profile</button>
+                    <button onclick="logout()" class="mobile-menu-item menu-logout"><i class="fas fa-right-from-bracket"></i> Logout</button>
                 </div>
             </div>
         </nav>
@@ -1305,6 +1374,10 @@
             localStorage.setItem('ado-theme', next);
             const icon = document.getElementById('themeIcon');
             if(icon) icon.className = next === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        };
+        window.toggleMobileMenu = function() {
+            document.getElementById('navBurgerBtn').classList.toggle('open');
+            document.getElementById('mobileDropdown').classList.toggle('open');
         };
     </script>
 
