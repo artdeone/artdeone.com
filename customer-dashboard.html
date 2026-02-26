@@ -357,23 +357,24 @@
         .pending-notice-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:20px;background:#ed2939;color:#fff;font-size:.78em;font-weight:700;font-family:'Poppins',sans-serif;border:none;cursor:pointer;transition:all .25s var(--ease);white-space:nowrap;flex-shrink:0}
         .pending-notice-btn:hover{background:#a7e169;color:#000;transform:translateY(-1px)}
         .pending-notice-btn:active{transform:scale(.96)}
-        .btn-pay-guide{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;border-radius:20px;background:#ed2939;color:#fff;font-size:.75em;font-weight:700;font-family:'Poppins',sans-serif;border:none;cursor:pointer;transition:all .25s var(--ease);letter-spacing:.01em;white-space:nowrap;flex-shrink:0}
+        .btn-pay-guide{display:inline-flex;align-items:center;gap:7px;padding:7px 16px;border-radius:20px;background:#ed2939;color:#fff;font-size:.75em;font-weight:700;font-family:'Poppins',sans-serif;border:none;cursor:pointer;transition:all .25s var(--ease);letter-spacing:.02em;white-space:nowrap;flex-shrink:0;vertical-align:middle}
         .btn-pay-guide:hover{background:#a7e169;color:#000;transform:translateY(-1px);box-shadow:0 4px 14px rgba(167,225,105,.3)}
         .btn-pay-guide:active{transform:scale(.96)}
-        .btn-pay-guide i{font-size:.85em}
+        .btn-pay-guide svg{width:13px;height:13px;flex-shrink:0}
 
         /* ========== PAYMENT GUIDE MODAL ========== */
         .pay-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:400;opacity:0;pointer-events:none;transition:opacity .3s var(--ease);display:none}
         .pay-modal-overlay.active{opacity:1;pointer-events:all;display:block}
-        .pay-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-44%) scale(.95);background:var(--primary-white);border-radius:var(--radius-lg);width:90%;max-width:460px;max-height:90vh;overflow-y:auto;z-index:401;box-shadow:0 24px 64px rgba(0,0,0,.18);transition:all .35s var(--ease-spring);padding:0;display:none;opacity:0}
-        .pay-modal.active{transform:translate(-50%,-50%) scale(1);display:block;opacity:1}
+        .pay-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-44%) scale(.95);background:var(--primary-white);border-radius:var(--radius-lg);width:92%;max-width:480px;max-height:88vh;overflow:hidden;display:flex;flex-direction:column;z-index:401;box-shadow:0 24px 64px rgba(0,0,0,.18);transition:all .35s var(--ease-spring);padding:0;display:none;opacity:0}
+        .pay-modal.active{transform:translate(-50%,-50%) scale(1);display:flex;opacity:1}
         .pay-modal-header{padding:22px 24px 16px;border-bottom:1px solid rgba(0,0,0,.06);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--primary-white);border-radius:var(--radius-lg) var(--radius-lg) 0 0;z-index:1}
         .pay-modal-header h3{margin:0;font-size:1.05em;font-family:'Space Grotesk',sans-serif;font-weight:700;display:flex;align-items:center;gap:8px}
         .pay-modal-close{background:none;border:none;font-size:1.2em;cursor:pointer;color:#999;padding:4px;line-height:1;transition:color .2s}
         .pay-modal-close:hover{color:var(--primary-black)}
-        .pay-modal-body{padding:20px 24px 28px}
+        .pay-modal-body{padding:20px 24px 28px;overflow-y:auto;flex:1;scrollbar-width:thin;scrollbar-color:var(--gray-200) transparent}
+        .pay-modal-body::-webkit-scrollbar{width:4px}.pay-modal-body::-webkit-scrollbar-track{background:transparent}.pay-modal-body::-webkit-scrollbar-thumb{background:var(--gray-200);border-radius:10px}
         .pay-step{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start}
-        .pay-step-num{width:28px;height:28px;border-radius:50%;background:var(--primary-black);color:var(--accent-green);font-weight:700;font-size:.82em;font-family:'Space Grotesk',sans-serif;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+        .pay-step-num{width:28px;height:28px;border-radius:50%;background:#a7e169;color:#000;font-weight:700;font-size:.82em;font-family:'Space Grotesk',sans-serif;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
         .pay-step-content{flex:1}
         .pay-step-content p{margin:0;font-size:.88em;color:#444;line-height:1.6}
         .pay-step-content strong{font-weight:700;color:var(--primary-black)}
@@ -435,6 +436,11 @@
         /* ========== RESPONSIVE ========== */
         @media(max-width:992px){.product-grid{grid-template-columns:repeat(2,1fr)}}
         @media(max-width:600px){
+            .pay-modal{width:96%;max-width:100%;max-height:92vh;border-radius:var(--radius-md)}
+            .pay-modal-body{padding:16px 18px 24px}
+            .pay-modal-header{padding:16px 18px 12px}
+            .pay-qr-wrap img{width:160px;height:160px}
+            .pay-kbz-info{min-width:unset;width:100%}
             .product-grid{grid-template-columns:1fr;gap:16px}
             .nav-container{padding:0 16px;height:54px}.nav-logo img{height:26px}
             .btn{padding:8px 14px;font-size:.78em}.container{padding:20px 16px}
@@ -613,9 +619,9 @@
 
                 <div id="productsContainer"><div class="loading-spinner">Loading...</div></div>
                 <div class="browse-section" id="browseSection" style="display:none;">
-                    <h2 class="section-title" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
-                        <span style="display:flex;align-items:center;gap:10px;"><i class="fas fa-fire"></i> Browse More Products</span>
-                        <button onclick="openPayGuide()" class="btn-pay-guide grain-btn"><i class="fas fa-wallet"></i> Product ဝယ်ရန်လမ်းညွှန်</button>
+                    <h2 class="section-title" style="display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:18px;">
+                        <i class="fas fa-fire"></i> Browse More Products
+                        <button onclick="openPayGuide()" class="btn-pay-guide grain-btn"><svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="3" width="12" height="8" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M1 6h12" stroke="currentColor" stroke-width="1.4"/><circle cx="4" cy="9" r="0.7" fill="currentColor"/><circle cx="6.5" cy="9" r="0.7" fill="currentColor"/></svg> Product ဝယ်ရန်လမ်းညွှန်</button>
                     </h2>
                     <div id="browseContainer"></div>
                 </div>
