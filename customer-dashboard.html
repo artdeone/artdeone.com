@@ -1424,7 +1424,7 @@
         const temp = document.createElement('div'); temp.innerHTML = html;
         const chars = []; 
         function extract(node) {
-            if (node.nodeType === 3) { for (const ch of node.textContent) chars.push({ type: 'char', ch }); }
+            if (node.nodeType === 3) { if (typeof Intl !== 'undefined' && Intl.Segmenter) { const seg = new Intl.Segmenter(undefined, { granularity: 'grapheme' }); for (const s of seg.segment(node.textContent)) chars.push({ type: 'char', ch: s.segment }); } else { for (const ch of node.textContent) chars.push({ type: 'char', ch }); } }
             else if (node.nodeName === 'BR') chars.push({ type: 'br' });
             else { chars.push({ type: 'open', tag: node.nodeName.toLowerCase(), node: node.cloneNode(false) }); node.childNodes.forEach(c => extract(c)); chars.push({ type: 'close' }); }
         }
