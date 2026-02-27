@@ -93,8 +93,7 @@
 
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; display: none; align-items: center; justify-content: center; padding: 1rem; backdrop-filter: blur(4px); }
         .modal-overlay.active { display: flex; }
-        .modal-box { background: #fff; border-radius: 1rem; max-width: 550px; width: 100%; max-height: 90vh; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.15); }
-        .modal-box #modalContent { max-height: 90vh; overflow-y: auto; }
+        .modal-box { background: #fff; border-radius: 1rem; max-width: 550px; width: 100%; max-height: 90vh; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; box-shadow: 0 25px 50px rgba(0,0,0,0.15); }
 
         .step-number { width: 3rem; height: 3rem; border-radius: 50%; background: #a7e169; color: #000; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem; flex-shrink: 0; }
         .step-connector { width: 2px; height: 2rem; background: #e5e5e5; margin-left: 1.45rem; }
@@ -551,7 +550,7 @@
             content: '';
             position: fixed;
             inset: 0;
-            z-index: 9998;
+            z-index: 1;
             pointer-events: none;
             opacity: 0.03;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
