@@ -1,5 +1,37 @@
 // Prompts Data Array
 const promptsData = [
+
+    {
+        id: 1,
+        title: "Post-Apocalyptic Desert Relic",
+        model: "Grok, Nano or Powerful Ai Model",
+        // Main Image for Card
+        image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772300237/madmax1_zweddy.jpg",
+        fullImage: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772300237/madmax1_zweddy.jpg",
+        // ADDED: Gallery Images (ပုံ ၂-၃ ပုံ ပြချင်ရင် ဒီလို images: [] ထဲမှာ coma ခံပြီးထည့်ရပါတယ်)
+        images: [
+            "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772300237/madmax1_zweddy.jpg",
+            "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772300236/madmax3_jsdgh1.jpg", 
+            "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772300238/madmax2_oe1oy6.jpg"
+        ],
+        prompt: "Cinematic wide-angle 8k photograph, golden hour lighting. A gigantic, rusted Monster Energy can half-buried in sweeping red sand dunes like a fallen titan from a forgotten era. Peeling paint, heavy corrosion, and sand cascading over the rim. Scavengers in steampunk gear and dusty, modified off-road buggies gathered around the base to emphasize massive scale. Swirling dust particles in the air, dramatic long shadows, ultra-detailed post-apocalyptic realism, Mad Max aesthetic, aspect ratio 2:3"
+    },
+
+    {
+        id: 2,
+        title: "Ancient Jungle Temple",
+        model: "Grok, Nano or Powerful Ai Model",
+        // Main Image for Card
+        image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772300777/jungle3_c0guxp.jpg",
+        fullImage: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772300777/jungle3_c0guxp.jpg",
+        // ADDED: Gallery Images (ပုံ ၂-၃ ပုံ ပြချင်ရင် ဒီလို images: [] ထဲမှာ coma ခံပြီးထည့်ရပါတယ်)
+        images: [
+            "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772300777/jungle3_c0guxp.jpg",
+            "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772300777/jungle2_iwreu7.jpg", 
+            "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772300777/jungle1_nmkfgt.jpg"
+        ],
+        prompt: "Epic cinematic 8k photograph, atmospheric mist. A massive, ancient Monster Energy can acting as a forgotten monolithic temple deep within a dense tropical jungle. Thick green vines, glowing bioluminescent mushrooms, and moss completely covering the weathered metallic surface. The iconic claw logo glowing faintly with mysterious ancient energy. Explorers with flaming torches standing at the giant base to emphasize scale. God rays piercing through the lush canopy, ultra-detailed overgrown textures, National Geographic style, aspect ratio 2:3"
+    },
     {
         id: 1,
         title: "Hella Beauty",
@@ -358,6 +390,8 @@ const promptsData = [
         fullImage: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1766129698/fashion-editorial_r0okqj.jpg",
         prompt: "Fashion editorial shot of a stylish woman with a short bob haircut wearing an oversized beige blazer and linen trousers, standing behind a blurred wire fence on a sandy hill. Soft morning sunlight casting gentle diagonal shadows. Minimalist composition, muted neutral color palette of cream, sand, and pale blue sky. Dreamy, nostalgic atmosphere, low angle shot, 35mm film grain aesthetic, high fashion magazine style --ar 3:4 --style raw --v 6"
     },
+
+    
     
     // Add more prompts here as needed - the system will handle pagination automatically
 ];
