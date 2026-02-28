@@ -143,7 +143,7 @@
             padding:0 24px;
             display:flex; justify-content:space-between; align-items:center; height:62px;
         }
-        .nav-logo img { height:42px; display:block; transition:transform .3s var(--ease); }
+        .nav-logo img { height:36px; display:block; transition:transform .3s var(--ease); }
         .nav-logo img:hover { transform:scale(1.04); }
         .nav-actions { display:flex; gap:6px; align-items:center; }
 
@@ -447,10 +447,9 @@
         [data-theme="dark"] .btn-back-shop:hover { background:var(--accent-green); color:#000; box-shadow:0 4px 14px rgba(167,225,105,.3); }
         .welcome-avatar-wrap-main { flex-shrink:0; position:relative; }
         .welcome-avatar-wrap-main .avatar-ring {
-            width:52px; height:52px; border-radius:50%;
+            width:60px; height:60px; border-radius:50%;
             border:2.5px solid var(--accent-green);
-            padding:0;
-            overflow:hidden;
+            padding:3px;
             background:var(--surface-2);
         }
         .welcome-avatar-wrap-main .avatar-ring img,
@@ -918,7 +917,7 @@
         @media(max-width:768px) {
             .welcome-header { flex-direction:column; align-items:flex-start; gap:12px; }
             .nav-container { height:56px; padding:0 16px; }
-            .nav-logo img { height:34px; }
+            .nav-logo img { height:30px; }
             .btn { padding:7px 13px; font-size:.76em; }
             .btn-refresh span, .btn-logout span, .btn-go-shop span { display:none; }
             .container { padding:20px 16px; }
@@ -1031,321 +1030,6 @@
             .nav-burger { display:flex; align-items:center; justify-content:center; }
             .nav-hide-mobile { display:none !important; }
             .mobile-dropdown { display:block; }
-        }
-
-        /* =====================================================
-           DASHBOARD UI OVERRIDE — Modern Minimalist
-           (Login form CSS above is untouched)
-        ===================================================== */
-
-        /* ── NAV ── */
-        .top-nav { backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); }
-        .top-nav.scrolled { box-shadow:0 1px 0 var(--border-strong); }
-        .nav-container { max-width:1160px; height:58px; padding:0 28px; }
-        .nav-logo img { height:36px; opacity:.9; }
-        .nav-logo img:hover { opacity:1; transform:none; }
-
-        .btn { padding:7px 15px; border-radius:8px; font-weight:500; font-size:.78em; }
-        .btn-refresh { box-shadow:none; }
-        .btn-refresh:hover { box-shadow:none; }
-        .btn-logout { background:transparent; color:var(--text-secondary); border:1px solid var(--border); }
-        .btn-logout:hover { background:var(--red-subtle); color:var(--accent-red); border-color:rgba(237,41,57,.15); }
-        .btn-go-shop { background:transparent; color:var(--text-secondary); }
-        .btn-go-shop:hover { background:var(--green-subtle); color:var(--accent-green); }
-        .btn-profile { background:transparent; color:var(--text-secondary); padding:6px 12px; }
-        .btn-profile:hover { background:var(--surface-2); color:var(--text-primary); border-color:var(--border-strong); }
-        .btn-cart { background:transparent; color:var(--text-secondary); padding:7px 11px; }
-        .btn-cart:hover { background:var(--green-subtle); color:var(--accent-green); }
-
-        /* ── CONTAINER ── */
-        .container { max-width:1160px; padding:28px 28px; }
-
-        /* ── WELCOME HEADER ── */
-        .welcome-header {
-            border-radius:14px;
-            padding:22px 26px;
-            margin-bottom:16px;
-            box-shadow:none;
-            gap:16px;
-        }
-        .welcome-header::before {
-            width:200px; height:100%;
-            background:radial-gradient(ellipse at 100% 50%, rgba(167,225,105,.08) 0%, transparent 65%);
-        }
-        [data-theme="dark"] .welcome-header::before {
-            background:radial-gradient(ellipse at 100% 50%, rgba(167,225,105,.05) 0%, transparent 65%);
-        }
-        /* Hide animated blobs — too distracting */
-        .welcome-header .org-blob { display:none !important; }
-
-        .welcome-avatar-wrap-main .avatar-ring {
-            width:52px; height:52px;
-            border-width:0 !important;
-            padding:0 !important;
-            overflow:hidden;
-            box-shadow:0 0 0 2.5px var(--accent-green), 0 0 0 4.5px var(--bg);
-        }
-        .welcome-header h1 { font-size:1.2em; }
-        .welcome-header .email-text { font-size:.78em; margin-top:2px; }
-
-        .badge {
-            background:var(--green-subtle);
-            color:#4a7c1a;
-            border:1px solid rgba(167,225,105,.2);
-            padding:3px 10px; border-radius:6px;
-            font-size:.64em; margin-top:7px;
-        }
-        [data-theme="dark"] .badge {
-            background:rgba(167,225,105,.1); color:var(--accent-green);
-            border-color:rgba(167,225,105,.18);
-        }
-        .badge::before { width:5px; height:5px; }
-
-        .btn-back-shop {
-            padding:8px 16px; border-radius:8px;
-            background:var(--surface-2); color:var(--text-secondary);
-            border:1px solid var(--border);
-            box-shadow:none;
-            font-weight:500; font-size:.76em;
-        }
-        .btn-back-shop:hover {
-            background:var(--accent-green); color:#000;
-            border-color:var(--accent-green);
-            box-shadow:none; transform:none;
-        }
-        [data-theme="dark"] .btn-back-shop {
-            background:rgba(167,225,105,.08); color:var(--accent-green);
-            border-color:rgba(167,225,105,.15);
-            box-shadow:none;
-        }
-        [data-theme="dark"] .btn-back-shop:hover {
-            background:var(--accent-green); color:#000;
-        }
-
-        /* ── THANK YOU LETTER ── */
-        .thank-you-letter {
-            border-radius:12px;
-            padding:18px 24px;
-            margin-bottom:22px;
-            box-shadow:none;
-        }
-        .thank-you-letter::after {
-            width:48px; height:2px;
-            background:linear-gradient(90deg, var(--accent-green), transparent);
-            opacity:1;
-        }
-        .thank-you-letter .letter-icon { font-size:1.2em; margin-bottom:5px; }
-        .thank-you-letter p { font-size:.85em; line-height:1.85; }
-
-        /* ── SECTION TITLE ── */
-        .section-title {
-            font-size:1em; font-weight:700;
-            margin-bottom:14px; color:var(--text-primary);
-            letter-spacing:-.01em;
-        }
-
-        /* ── PRODUCT GRID ── */
-        .product-grid { gap:14px; }
-
-        .product-card {
-            border-radius:12px;
-            box-shadow:none;
-            transition:border-color .2s var(--ease), transform .2s var(--ease), box-shadow .2s var(--ease);
-        }
-        .product-card:hover {
-            transform:translateY(-3px);
-            box-shadow:var(--card-hover-shadow);
-            border-color:rgba(167,225,105,.2);
-        }
-        .product-card .card-body { padding:14px 16px 16px; }
-        .product-card .product-name { font-size:.92em; margin-bottom:8px; }
-        .product-card .thumb { aspect-ratio:16/10; }
-        .product-card:hover .thumb { transform:scale(1.03); }
-
-        .category-badge {
-            padding:3px 9px; border-radius:5px;
-            font-size:.67em; margin-bottom:10px;
-            border:1px solid rgba(167,225,105,.15);
-        }
-
-        .btn-download {
-            padding:10px 16px; border-radius:8px;
-            font-size:.79em; font-weight:600;
-            box-shadow:none;
-        }
-        .btn-download:hover {
-            background:#96d158; color:#000;
-            box-shadow:none; transform:translateY(-1px);
-        }
-
-        .course-card-badge { border-radius:6px; }
-
-        /* ── EMPTY / LOADING ── */
-        .empty-state {
-            border-radius:12px; padding:52px 24px;
-            box-shadow:none;
-        }
-        .empty-state .icon { font-size:2.4em; opacity:.15; margin-bottom:12px; }
-        .empty-state p { font-size:.86em; }
-
-        .loading-spinner::before {
-            width:22px; height:22px; border-width:2px;
-        }
-
-        /* ── BROWSE SECTION ── */
-        .browse-section { margin-top:32px; }
-        .browse-price { font-size:1em; margin-bottom:10px; }
-        .btn-buy {
-            padding:10px 16px; border-radius:8px;
-            font-size:.79em; font-weight:600;
-            box-shadow:none;
-        }
-        .btn-buy:hover { box-shadow:none; transform:translateY(-1px); }
-
-        .btn-pay-guide {
-            padding:6px 13px; border-radius:7px;
-            font-size:.72em; font-weight:600;
-            letter-spacing:0;
-        }
-        .btn-pay-guide:hover { transform:none; box-shadow:none; }
-
-        /* ── PENDING NOTICE ── */
-        .pending-notice {
-            background:rgba(254,243,199,.45);
-            border:1px solid rgba(251,191,36,.3);
-            border-radius:10px;
-            padding:13px 16px; margin-bottom:14px;
-        }
-        [data-theme="dark"] .pending-notice {
-            background:rgba(100,70,0,.15);
-            border-color:rgba(251,191,36,.18);
-        }
-        .pending-notice-icon { width:34px; height:34px; border-radius:8px; }
-        .pending-notice-btn { padding:6px 13px; border-radius:7px; font-weight:600; }
-        .pending-notice-btn:hover { transform:none; }
-
-        /* ── TOAST ── */
-        .toast {
-            padding:10px 20px; border-radius:8px;
-            font-size:.81em; bottom:22px;
-            border:none; box-shadow:0 4px 20px rgba(0,0,0,.18);
-        }
-
-        /* ── CART SLIDEIN ── */
-        .cart-slidein { width:360px; box-shadow:-2px 0 20px rgba(0,0,0,.1); }
-        .cart-header { padding:18px 20px 14px; }
-        .cart-header h3 { font-size:.96em; }
-        .cart-items { padding:12px; }
-        .cart-item { padding:10px; border-radius:8px; margin-bottom:7px; gap:10px; }
-        .cart-item-img { width:46px; height:46px; border-radius:7px; }
-        .cart-item-name { font-size:.81em; }
-        .cart-footer { padding:12px 16px; }
-        .cart-footer .btn { padding:10px; border-radius:8px; font-size:.84em; margin-bottom:6px; }
-        .btn-order { box-shadow:none; }
-        .btn-order:hover { box-shadow:none; }
-
-        /* ── PROFILE SLIDEIN ── */
-        .profile-slidein { width:380px; box-shadow:-2px 0 20px rgba(0,0,0,.1); }
-        .profile-header { padding:18px 20px 0; }
-        .profile-header-top { margin-bottom:16px; }
-        .profile-header-top h3 { font-size:.96em; }
-        .profile-avatar-wrap { padding-bottom:16px; }
-        .profile-avatar { width:66px; height:66px; border-width:2px; box-shadow:none; }
-        .profile-avatar-wrap .profile-name { font-size:1em; }
-        .profile-avatar-wrap .profile-status { border-radius:6px; font-size:.66em; padding:3px 9px; }
-        .profile-content { padding:16px 20px 20px; }
-        .profile-stats { gap:8px; margin-bottom:16px; }
-        .profile-stat-card { padding:13px; border-radius:8px; }
-        .profile-stat-card .stat-value { font-size:1.45em; }
-        .profile-info-section { margin-bottom:16px; }
-        .profile-info-row { padding:10px 13px; gap:10px; }
-        .profile-info-row .info-icon { width:30px; height:30px; border-radius:7px; }
-        .profile-order-item { padding:9px 11px; border-radius:8px; margin-bottom:6px; gap:9px; }
-        .profile-order-item .order-icon { width:30px; height:30px; border-radius:7px; }
-        .profile-order-item .order-name { font-size:.81em; }
-        .profile-order-item .order-status-badge { border-radius:5px; font-size:.6em; padding:2px 7px; }
-        .profile-order-item:hover { border-color:rgba(167,225,105,.2); }
-
-        /* ── PAYMENT MODAL ── */
-        .pay-modal {
-            border-radius:16px; max-width:460px;
-            transform:translate(-50%,-46%) scale(.95);
-        }
-        .pay-modal.active { transform:translate(-50%,-50%) scale(1); }
-        .pay-modal-header { padding:16px 20px 13px; border-radius:16px 16px 0 0; }
-        .pay-modal-header h3 { font-size:.94em; }
-        .pay-modal-close { border-radius:7px; width:28px; height:28px; }
-        .pay-modal-body { padding:16px 20px 24px; }
-        .pay-step { gap:11px; margin-bottom:16px; }
-        .pay-step-num { border-radius:6px; width:25px; height:25px; font-size:.75em; }
-        .pay-step-content p { font-size:.84em; }
-        .pay-qr-wrap { border-radius:10px; padding:14px; }
-        .pay-qr-wrap img, .pay-qr-img { width:160px; height:160px; border-radius:8px; }
-        .pay-upload-area { border-radius:10px; border-width:1.5px; padding:18px; }
-        .pay-submit-btn {
-            border-radius:8px; padding:11px 18px;
-            font-size:.83em; box-shadow:none; margin-top:11px;
-        }
-        .pay-submit-btn:hover { box-shadow:none; transform:translateY(-1px); }
-
-        /* ── COURSE PLAYER ── */
-        .course-player-wrap { max-width:880px; }
-        .video-container { border-radius:12px; margin-bottom:16px; }
-        .materials-section { border-radius:12px; padding:16px 20px; margin-bottom:14px; }
-        .materials-header { margin-bottom:12px; }
-        .materials-header h3 { font-size:.92em; }
-        .download-all-btn { border-radius:7px; padding:6px 13px; font-size:.74em; }
-        .download-all-btn:hover { transform:none; }
-        .material-download-card { padding:9px 12px; border-radius:8px; margin-bottom:6px; gap:10px; }
-        .material-download-card:hover { transform:none; border-color:rgba(167,225,105,.2); box-shadow:none; }
-        .mat-icon { width:38px; height:38px; }
-        .mat-download-btn { border-radius:7px; padding:7px 13px; font-size:.74em; }
-        .mat-download-btn:hover { transform:none; }
-        .lessons-sidebar { border-radius:12px; padding:16px 20px; }
-        .lessons-sidebar h3 { margin-bottom:12px; font-size:.92em; }
-        .lesson-list-item { padding:9px 10px; border-radius:8px; gap:9px; }
-        .lesson-idx { width:27px; height:27px; border-radius:7px; font-size:.76em; }
-        .lesson-title-text { font-size:.82em; }
-
-        /* ── MOBILE BURGER ── */
-        .nav-burger { border-radius:8px; padding:6px 8px; color:var(--text-secondary); }
-        .nav-burger:hover { color:var(--accent-green); }
-        .mobile-dropdown-inner { padding:8px 12px 12px; gap:2px; }
-        .mobile-menu-item { padding:10px 12px; border-radius:8px; font-size:.82em; }
-
-        /* ── BUTTONS — Full Rounded ── */
-        .btn,
-        .btn-download,
-        .btn-buy,
-        .btn-back-shop,
-        .btn-pay-guide,
-        .pending-notice-btn,
-        .pay-submit-btn,
-        .download-all-btn,
-        .mat-download-btn,
-        .login-signin-btn,
-        .login-create-btn,
-        .login-back-btn,
-        .login-google-btn,
-        .cart-footer .btn,
-        .btn-order,
-        .btn-cancel-cart { border-radius:999px !important; }
-
-        /* ── RESPONSIVE OVERRIDE ── */
-        @media(max-width:768px) {
-            .nav-container { height:52px; padding:0 16px; }
-            .nav-logo img { height:30px; }
-            .container { padding:18px 16px; }
-            .welcome-header { padding:18px 18px; border-radius:10px; }
-            .welcome-header h1 { font-size:1.1em; }
-        }
-        @media(max-width:600px) {
-            .product-grid { gap:11px; }
-            .welcome-header { padding:16px; border-radius:10px; }
-            .btn-back-shop { width:100%; justify-content:center; }
-            .thank-you-letter { padding:14px 16px; }
-            .cart-slidein, .profile-slidein { width:100%; max-width:100%; }
-            .pay-modal { width:95%; border-radius:12px; }
         }
     </style>
 </head>
@@ -1684,7 +1368,7 @@
     </button>
 
     <!-- Dark Mode Toggle Script (inline, runs before module) -->
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         (function(){
             const saved = localStorage.getItem('ado-theme') || 'light';
             document.documentElement.setAttribute('data-theme', saved);
@@ -1825,7 +1509,7 @@
         document.getElementById('customerEmail').innerText = currentCustomer.email;
         const i = getInitials(currentCustomer.name), a = currentCustomer._avatarUrl;
         const nav = document.getElementById('navAvatarInitial'); if (a) nav.innerHTML = `<img src="${a}" alt="">`; else nav.textContent = i;
-        const w = document.getElementById('welcomeAvatarWrap'); if (a) w.innerHTML = `<img src="${a}" alt="" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">`; else w.innerHTML = `<div class="avatar-fallback">${i}</div>`;
+        const w = document.getElementById('welcomeAvatarWrap'); if (a) w.innerHTML = `<img src="${a}" alt="" style="width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid var(--accent-green);">`; else w.innerHTML = `<div class="avatar-fallback">${i}</div>`;
         typewriterHTML(document.getElementById('thankYouText'), `Dear <strong>${currentCustomer.name}</strong>,<br><br>ART de ONE ကို ယုံကြည်စိတ်ချစွာ ရွေးချယ်အသုံးပြုပေးတဲ့အတွက် အထူးကျေးဇူးတင်ရှိပါတယ်။ ${currentCustomer.name.split(' ')[0]} ရဲ့ လုပ်ငန်းတွေ၊ ဖန်တီးမှုတွေအတွက် ကျွန်တော်တို့ရဲ့ Products တွေက အကူအညီဖြစ်ပါစေလို့ ဆုမွန်ကောင်းတောင်းပါတယ်။ ဘာအခက်အခဲပဲ ရှိရှိ ကျွန်တော်တို့ကို အချိန်မရွေး ဆက်သွယ်နိုင်ပါတယ်နော်။<br><br>ချစ်ခင်လေးစားလျက်,<br><strong>ART de ONE Team</strong> 💚`);
     }
 
@@ -2116,17 +1800,14 @@
                     if (w > h) { h = Math.round(h * MAX / w); w = MAX; }
                     else { w = Math.round(w * MAX / h); h = MAX; }
                 }
-                                canvas.width = w;
-                canvas.height = h;
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0, w, h);
+                canvas.width = w; canvas.height = h;
+                canvas.getContext('2d').drawImage(img, 0, 0, w, h);
                 resolve(canvas.toDataURL('image/jpeg', quality));
             };
             img.src = base64;
         });
     }
 
-
-</script>
+    </script>
 </body>
 </html>
