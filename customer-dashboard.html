@@ -185,13 +185,25 @@
         }
         .btn-profile:hover { border-color:var(--accent-green); background:var(--surface-2); }
         .btn-profile .profile-avatar-sm {
-            width:24px; height:24px; border-radius:50%;
-            background: var(--text-primary); color:var(--accent-green);
-            display:flex; align-items:center; justify-content:center;
-            font-size:.62em; font-weight:700; font-family:'Space Grotesk',sans-serif; overflow:hidden;
+            width:24px !important; 
+            height:24px !important; 
+            border-radius:50% !important;
+            /* ✨ အစိမ်းရောင်နောက်ခံ၊ အမည်းရောင်စာသား ✨ */
+            background: var(--accent-green) !important; 
+            color: var(--bg) !important; 
+            border: 1.5px solid var(--accent-green) !important;
+            box-sizing: border-box !important;
+            display:flex !important; 
+            align-items:center !important; 
+            justify-content:center !important;
+            font-size:.62em !important; 
+            font-weight:700 !important; 
+            font-family:'Space Grotesk',sans-serif !important; 
+            overflow:hidden !important;
         }
         .btn-profile .profile-avatar-sm img { width:100%; height:100%; object-fit:cover; }
         .btn-profile span { font-size:.8em; }
+
 
         /* Cart button */
         .btn-cart {
@@ -445,21 +457,36 @@
         .btn-back-shop i { font-size:.9em; }
         [data-theme="dark"] .btn-back-shop { background:var(--accent-red); color:#fff; box-shadow:0 2px 8px rgba(237,41,57,.2); }
         [data-theme="dark"] .btn-back-shop:hover { background:var(--accent-green); color:#000; box-shadow:0 4px 14px rgba(167,225,105,.3); }
-        .welcome-avatar-wrap-main { flex-shrink:0; position:relative; }
-        .welcome-avatar-wrap-main .avatar-ring {
-            width:52px; height:52px; border-radius:50%;
-            border:2.5px solid var(--accent-green);
-            padding:0;
-            overflow:hidden;
-            background:var(--surface-2);
+       .welcome-avatar-wrap-main .avatar-ring {
+            width: 52px !important; 
+            height: 52px !important; 
+            border-radius: 50% !important;
+            border: 2.5px solid var(--accent-green) !important;
+            padding: 0 !important;
+            overflow: hidden !important;
+            /* ✨ အစိမ်းရောင်နောက်ခံ ✨ */
+            background: var(--accent-green) !important; 
+            box-shadow: none !important;
+            box-sizing: border-box !important;
         }
+        
         .welcome-avatar-wrap-main .avatar-ring img,
         .welcome-avatar-wrap-main .avatar-ring .avatar-fallback {
-            width:100%; height:100%; border-radius:50%; object-fit:cover;
-            display:flex; align-items:center; justify-content:center;
-            font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.1em;
-            background:var(--text-primary); color:var(--accent-green);
+            width: 100% !important; 
+            height: 100% !important; 
+            border-radius: 50% !important; 
+            object-fit: cover !important;
+            display: flex !important; 
+            align-items: center !important; 
+            justify-content: center !important;
+            font-family: 'Space Grotesk',sans-serif !important; 
+            font-weight: 700 !important; 
+            font-size: 1.1em !important;
+            /* ✨ အစိမ်းရောင်နောက်ခံ၊ အမည်းရောင်စာသား ✨ */
+            background: var(--accent-green) !important; 
+            color: var(--bg) !important;
         }
+
         .welcome-text-wrap { flex:1; min-width:0; }
         .welcome-header h1 {
             font-family:'Space Grotesk',sans-serif; font-size:1.4em; font-weight:700;
@@ -474,6 +501,213 @@
         }
         [data-theme="dark"] .badge { background:rgba(167,225,105,.15); color:var(--accent-green); border:1px solid rgba(167,225,105,.2); }
         .badge::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--accent-green); animation:badgePulse 2s ease-in-out infinite; }
+
+        /* ========================================= */
+/* DASHBOARD SKETCH ILLUSTRATION (WELCOME HEADER) */
+/* ========================================= */
+
+.welcome-header {
+    /* လက်ရှိ welcome-header ရဲ့ အပြင်ဘက်ကို ကျော်မထွက်အောင် */
+    position: relative;
+    overflow: hidden;
+}
+
+/* ညာဘက်မှာ နေရာချမည့် Container */
+.welcome-illustration {
+    position: absolute;
+    right: -20px; /* ညာဘက်ကို နည်းနည်းကပ်ထားရန် */
+    bottom: -10px; /* အောက်ခြေကို နည်းနည်းကပ်ထားရန် */
+    width: 250px;
+    height: 180px;
+    z-index: 1;
+    pointer-events: none; /* စာတွေကို select မှတ်လို့ရအောင် */
+    opacity: 0.8; /* နည်းနည်းမှိန်ထားမယ် (လိုသလို ပြင်နိုင်သည်) */
+    transform: scale(0.85); /* ပုံကို နည်းနည်းသေးထားသည် */
+    transform-origin: bottom right;
+}
+
+/* Dark mode မှာ ပိုလင်းအောင် */
+[data-theme='dark'] .welcome-illustration {
+    opacity: 0.9;
+}
+
+/* Animation တွေ */
+@keyframes float-gentle {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-4px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes float-delay-1 {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes float-delay-2 {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-3px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Base shape */
+.dash-shape {
+    position: absolute;
+    bottom: 0;
+    overflow: hidden;
+}
+
+/* Texture Effect */
+.dash-shape::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    opacity: 0.15;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+}
+
+/* Character 1 (Left/Tall) - Purple/Green theme */
+.dash-shape-1 {
+    width: 60px;
+    height: 140px;
+    left: 20px;
+    background: radial-gradient(circle at 50% 50%, #a7e169 30%, #d9f2c2 80%, #ffffff 100%);
+    box-shadow: inset 0px 8px 15px rgba(255, 255, 255, 0.9), inset -4px 0px 10px rgba(255, 255, 255, 0.7), inset 4px 0px 10px rgba(255, 255, 255, 0.7);
+    border-radius: 12px 12px 0 0;
+    animation: float-gentle 4s ease-in-out infinite;
+    z-index: 1;
+}
+
+/* Character 2 (Middle) - Black theme */
+.dash-shape-2 {
+    width: 50px;
+    height: 90px;
+    left: 85px;
+    background: radial-gradient(circle at 50% 50%, #111318 40%, #374151 85%, #9ca3af 100%);
+    box-shadow: inset 0px 10px 20px rgba(255, 255, 255, 0.5), inset -3px 0px 8px rgba(255, 255, 255, 0.3), inset 3px 0px 8px rgba(255, 255, 255, 0.3);
+    border-radius: 8px 8px 0 0;
+    animation: float-delay-1 3.5s ease-in-out infinite 0.5s;
+    z-index: 2;
+}
+
+/* Character 3 (Right) - Red theme */
+.dash-shape-3 {
+    width: 70px;
+    height: 110px;
+    left: 140px;
+    background: radial-gradient(circle at 50% 50%, #ed2939 30%, #fca5a5 85%, #fee2e2 100%);
+    box-shadow: inset 0px 8px 15px rgba(255, 255, 255, 0.8), inset -4px 0px 10px rgba(255, 255, 255, 0.5), inset 4px 0px 10px rgba(255, 255, 255, 0.5);
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    animation: float-delay-2 4.5s ease-in-out infinite 1s;
+    z-index: 3;
+}
+
+/* Character 4 (Bottom/Fat) - Orange/Yellow theme */
+.dash-shape-4 {
+    width: 140px;
+    height: 65px;
+    left: -10px;
+    bottom: -5px; /* နည်းနည်း မြုပ်နေအောင် */
+    background: radial-gradient(circle at 50% 100%, #F59E0B 20%, #fcd34d 90%, #fffbeb 100%);
+    box-shadow: inset 0px 8px 15px rgba(255, 255, 255, 0.8), inset 0px -4px 10px rgba(245, 158, 11, 0.4);
+    border-top-left-radius: 70px;
+    border-top-right-radius: 70px;
+    animation: float-gentle 4s ease-in-out infinite 0.2s;
+    z-index: 4;
+}
+
+/* Eyes & Mouths */
+.dash-eye {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    overflow: hidden;
+}
+
+.dash-pupil {
+    width: 50%;
+    height: 50%;
+    background: #000;
+    border-radius: 50%;
+}
+
+/* Dash 1 Faces */
+.dash-shape-1 .dash-eye { width: 14px; height: 14px; top: 30px; }
+.dash-shape-1 .dash-eye.left { left: 12px; }
+.dash-shape-1 .dash-eye.right { right: 12px; }
+.dash-shape-1 .dash-mouth {
+    position: absolute;
+    width: 14px;
+    height: 8px;
+    border: 2px solid #000;
+    border-top: none;
+    border-radius: 0 0 14px 14px;
+    top: 50px;
+    left: 23px;
+    z-index: 5;
+}
+
+/* Dash 2 Faces */
+.dash-shape-2 .dash-eye { width: 12px; height: 12px; top: 25px; }
+.dash-shape-2 .dash-eye.left { left: 10px; }
+.dash-shape-2 .dash-eye.right { right: 10px; }
+.dash-shape-2 .dash-mouth {
+    position: absolute;
+    width: 12px;
+    height: 8px;
+    border: 2px solid #fff;
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    top: 42px;
+    left: 19px;
+    z-index: 5;
+}
+
+/* Dash 3 Faces */
+.dash-shape-3 .dash-eye { width: 14px; height: 14px; top: 40px; right: 20px; }
+.dash-shape-3 .dash-mouth {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #000;
+    border-radius: 50%;
+    top: 58px;
+    right: 22px;
+    z-index: 5;
+}
+
+/* Dash 4 Faces */
+.dash-shape-4 .dash-eye { width: 16px; height: 16px; top: 20px; }
+.dash-shape-4 .dash-eye.left { left: 40px; }
+.dash-shape-4 .dash-eye.right { right: 40px; }
+.dash-shape-4 .dash-mouth {
+    position: absolute;
+    width: 12px;
+    height: 6px;
+    border: 2.5px solid #000;
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    top: 35px;
+    left: 64px;
+    z-index: 5;
+}
+
+
+
+/* Mobile View adjustments */
+@media(max-width: 768px) {
+    .welcome-illustration {
+        display: none; /* ဖုန်းမှာ နေရာကျပ်မှာဆိုးလို့ ဖျောက်ထားသည်၊ ပြချင်ရင် block ပြောင်းပါ */
+    }
+}
+
 
         /* =====================================================
            THANK YOU LETTER
@@ -1348,6 +1582,8 @@
             .pay-modal { width:95%; border-radius:12px; }
         }
 
+        
+
         /* Container Background & Layout */
 .login-left {
   flex: 1;
@@ -1431,6 +1667,8 @@
   transform: translate(calc(var(--mouseX, 0px) * 0.3), calc(var(--mouseY, 0px) * 0.3));
   transition: transform 0.1s ease-out;
 }
+
+
 
 /* =================================================================
    Characters with Inner Glow & Gradients
@@ -1522,6 +1760,129 @@
 @media (max-width: 600px) {
   .login-left { min-height: 250px; background: #103f00 !important; }
   .illustration-container { transform: translate(-50%, -50%) scale(1.1); top: 60%; }
+}
+
+/* ========================================= */
+/* THANK YOU LETTER SKETCH ILLUSTRATION (Large) */
+/* ========================================= */
+
+.thank-you-letter {
+    position: relative;
+    /* ပုံကြီးသွားတဲ့အတွက် စာသားနဲ့မထပ်အောင် ညာဘက်ကို နေရာပိုချန်ထားပါမယ် */
+    padding-right: 320px !important; 
+    min-height: 180px; /* Box အမြင့်ကို နည်းနည်းတိုးထားသည် */
+}
+
+/* ညာဘက်မှာ နေရာချမည့် Container */
+.wish-illustration {
+    position: absolute;
+    right: 15px; 
+    bottom: -5px; 
+    width: 250px;
+    height: 180px;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.85; /* နည်းနည်း ပိုလင်းအောင်လုပ်ထားသည် */
+    
+    /* ✨ အရွယ်အစားကို ဒီနေရာမှာ ကြီးလိုက်ပါပြီ ✨ */
+    transform: scale(1.25); /* မူလက 0.85 ပါ၊ အခု 1.25 သို့ ပြောင်းထားသည် */
+    transform-origin: bottom right;
+}
+
+[data-theme='dark'] .wish-illustration {
+    opacity: 1;
+}
+
+/* Animations */
+@keyframes float-gentle {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-4px); }
+    100% { transform: translateY(0px); }
+}
+@keyframes float-delay-1 {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0px); }
+}
+@keyframes float-delay-2 {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-3px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Base shape */
+.dash-shape {
+    position: absolute;
+    bottom: 0;
+    overflow: hidden;
+}
+
+/* Texture Effect */
+.dash-shape::after {
+    content: ''; position: absolute; inset: 0; z-index: 2; opacity: 0.15;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+}
+
+/* Character 1 (Left/Tall) */
+.dash-shape-1 {
+    width: 60px; height: 140px; left: 20px;
+    background: radial-gradient(circle at 50% 50%, #a7e169 30%, #d9f2c2 80%, #ffffff 100%);
+    box-shadow: inset 0px 8px 15px rgba(255, 255, 255, 0.9), inset -4px 0px 10px rgba(255, 255, 255, 0.7), inset 4px 0px 10px rgba(255, 255, 255, 0.7);
+    border-radius: 12px 12px 0 0;
+    animation: float-gentle 4s ease-in-out infinite; z-index: 1;
+}
+
+/* Character 2 (Middle) */
+.dash-shape-2 {
+    width: 50px; height: 90px; left: 85px;
+    background: radial-gradient(circle at 50% 50%, #111318 40%, #374151 85%, #9ca3af 100%);
+    box-shadow: inset 0px 10px 20px rgba(255, 255, 255, 0.5), inset -3px 0px 8px rgba(255, 255, 255, 0.3), inset 3px 0px 8px rgba(255, 255, 255, 0.3);
+    border-radius: 8px 8px 0 0;
+    animation: float-delay-1 3.5s ease-in-out infinite 0.5s; z-index: 2;
+}
+
+/* Character 3 (Right) */
+.dash-shape-3 {
+    width: 70px; height: 110px; left: 140px;
+    background: radial-gradient(circle at 50% 50%, #ed2939 30%, #fca5a5 85%, #fee2e2 100%);
+    box-shadow: inset 0px 8px 15px rgba(255, 255, 255, 0.8), inset -4px 0px 10px rgba(255, 255, 255, 0.5), inset 4px 0px 10px rgba(255, 255, 255, 0.5);
+    border-top-left-radius: 40px; border-top-right-radius: 40px;
+    animation: float-delay-2 4.5s ease-in-out infinite 1s; z-index: 3;
+}
+
+/* Character 4 (Bottom/Fat) */
+.dash-shape-4 {
+    width: 140px; height: 65px; left: -10px; bottom: -5px;
+    background: radial-gradient(circle at 50% 100%, #F59E0B 20%, #fcd34d 90%, #fffbeb 100%);
+    box-shadow: inset 0px 8px 15px rgba(255, 255, 255, 0.8), inset 0px -4px 10px rgba(245, 158, 11, 0.4);
+    border-top-left-radius: 70px; border-top-right-radius: 70px;
+    animation: float-gentle 4s ease-in-out infinite 0.2s; z-index: 4;
+}
+
+/* Eyes & Mouths */
+.dash-eye { position: absolute; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 5; overflow: hidden; }
+.dash-pupil { width: 50%; height: 50%; background: #000; border-radius: 50%; }
+
+.dash-shape-1 .dash-eye { width: 14px; height: 14px; top: 30px; }
+.dash-shape-1 .dash-eye.left { left: 12px; } .dash-shape-1 .dash-eye.right { right: 12px; }
+.dash-shape-1 .dash-mouth { position: absolute; width: 14px; height: 8px; border: 2px solid #000; border-top: none; border-radius: 0 0 14px 14px; top: 50px; left: 23px; z-index: 5; }
+
+.dash-shape-2 .dash-eye { width: 12px; height: 12px; top: 25px; }
+.dash-shape-2 .dash-eye.left { left: 10px; } .dash-shape-2 .dash-eye.right { right: 10px; }
+.dash-shape-2 .dash-mouth { position: absolute; width: 12px; height: 8px; border: 2px solid #fff; border-top: none; border-radius: 0 0 12px 12px; top: 42px; left: 19px; z-index: 5; }
+
+.dash-shape-3 .dash-eye { width: 14px; height: 14px; top: 40px; right: 20px; }
+.dash-shape-3 .dash-mouth { position: absolute; width: 10px; height: 10px; background: #000; border-radius: 50%; top: 58px; right: 22px; z-index: 5; }
+
+.dash-shape-4 .dash-eye { width: 16px; height: 16px; top: 20px; }
+.dash-shape-4 .dash-eye.left { left: 40px; } .dash-shape-4 .dash-eye.right { right: 40px; }
+.dash-shape-4 .dash-mouth { position: absolute; width: 12px; height: 6px; border: 2.5px solid #000; border-top: none; border-radius: 0 0 12px 12px; top: 35px; left: 64px; z-index: 5; }
+
+/* Mobile View (ဖုန်းမှာ နေရာကျပ်ရင် ဖျောက်ထားမည်) */
+@media(max-width: 768px) {
+    .thank-you-letter { padding-right: 24px !important; }
+    .wish-illustration { display: none; }
 }
 
 
@@ -1722,13 +2083,43 @@
                     <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:14px;height:14px;flex-shrink:0;"><rect x="1" y="3" width="12" height="8" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M1 6h12" stroke="currentColor" stroke-width="1.4"/><circle cx="4" cy="9" r="0.7" fill="currentColor"/><circle cx="6.5" cy="9" r="0.7" fill="currentColor"/></svg>
                     Product ဝယ်ရန်လမ်းညွှန်
                 </button>
+
+                
             </div>
 
-            <!-- Thank You Letter -->
+                        <!-- Thank You Letter -->
             <div class="thank-you-letter" id="thankYouLetter">
-                <div class="letter-icon">&#x1F49C;</div>
+                <div class="letter-icon">💜</div>
                 <p id="thankYouText"></p>
+                
+                <!-- ✨ DASHBOARD SKETCH ILLUSTRATION (V1) ✨ -->
+                <div class="wish-illustration">
+                    <div class="dash-shape dash-shape-1">
+                        <div class="dash-eye left"><div class="dash-pupil"></div></div>
+                        <div class="dash-eye right"><div class="dash-pupil"></div></div>
+                        <div class="dash-mouth"></div>
+                    </div>
+                    
+                    <div class="dash-shape dash-shape-2">
+                        <div class="dash-eye left"><div class="dash-pupil"></div></div>
+                        <div class="dash-eye right"><div class="dash-pupil"></div></div>
+                        <div class="dash-mouth"></div>
+                    </div>
+                    
+                    <div class="dash-shape dash-shape-3">
+                        <div class="dash-eye"><div class="dash-pupil"></div></div>
+                        <div class="dash-mouth"></div>
+                    </div>
+                    
+                    <div class="dash-shape dash-shape-4">
+                        <div class="dash-eye left"><div class="dash-pupil"></div></div>
+                        <div class="dash-eye right"><div class="dash-pupil"></div></div>
+                        <div class="dash-mouth"></div>
+                    </div>
+                </div>
+                <!-- ✨ END SKETCH ✨ -->
             </div>
+
 
             <div id="myProductsSection">
                 <h2 class="section-title"><i class="fas fa-box-open" style="color:var(--accent-green);font-size:.85em;"></i> My Products</h2>
