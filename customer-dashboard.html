@@ -2307,49 +2307,55 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    const passwordInput = document.getElementById('loginPassword');
+    // မျက်လုံးလှည့်မည့် (Animation) Container
     const illustration = document.querySelector('.illustration-container');
+    if (!illustration) return;
 
-    // ၁။ Password Box ကို ထောက်လိုက်ရင် (Focus ဖြစ်ရင်) 
-    if (passwordInput && illustration) {
-        passwordInput.addEventListener('focus', () => {
-            illustration.classList.add('password-focused');
-        });
-        
-        // Password Box ကနေ အပြင်ကို ပြန်ထွက်သွားရင် (Blur ဖြစ်ရင်)
-        passwordInput.addEventListener('blur', () => {
-            illustration.classList.remove('password-focused');
-        });
+    // Login Password နှင့် Register Password နှစ်ခုလုံးကို ယူမည်
+    const loginPassword = document.getElementById('loginPassword');
+    const regPassword = document.getElementById('regPassword');
+
+    // Password Box တစ်ခုခုကို Focus လုပ်လျှင် (နှိပ်လျှင်) မျက်လုံးလှည့်မည်
+    const handleFocus = () => {
+        illustration.classList.add('password-focused');
+    };
+
+    // Password Box တစ်ခုခုကနေ အပြင်ကို ပြန်နှိပ်လျှင် (Blur) မျက်လုံးပြန်တည့်မည်
+    const handleBlur = () => {
+        illustration.classList.remove('password-focused');
+    };
+
+    // Login Box ရှိလျှင် Event တပ်မည်
+    if (loginPassword) {
+        loginPassword.addEventListener('focus', handleFocus);
+        loginPassword.addEventListener('blur', handleBlur);
     }
 
-    /* ----------------------------------------------------------------- */
-/* Mouse Tracking for Characters */
-/* ----------------------------------------------------------------- */
-/* ----------------------------------------------------------------- */
-/* Mouse Tracking for Characters */
-/* ----------------------------------------------------------------- */
-document.addEventListener('mousemove', (e) => {
-  const illustration = document.querySelector('.illustration-container');
-  if (!illustration) return;
-  
-  const centerX = window.innerWidth / 2;
-  const centerY = window.innerHeight / 2;
-  
-  // 50 နဲ့စားထားတာကို 20 လို့ပြောင်းလိုက်တဲ့အတွက် ပိုသွက်သွက်လက်လက် ရွေ့ပါမည်
-  let xAxis = (e.clientX - centerX) / 20;
-  let yAxis = (e.clientY - centerY) / 20;
-  
-  // Limit ကို 12 ကနေ 25 အထိ ပြန်တင်လိုက်ပါတယ် (ပိုကျယ်ကျယ် ရွေ့နိုင်သွားမည်)
-  const limit = 25; 
-  xAxis = Math.max(Math.min(xAxis, limit), -limit);
-  yAxis = Math.max(Math.min(yAxis, limit), -limit);
+    // Register (Create Account) Box ရှိလျှင် Event တပ်မည်
+    if (regPassword) {
+        regPassword.addEventListener('focus', handleFocus);
+        regPassword.addEventListener('blur', handleBlur);
+    }
 
-  illustration.style.setProperty('--mouseX', `${xAxis}px`);
-  illustration.style.setProperty('--mouseY', `${yAxis}px`);
-});
+    // -----------------------------------------------------------------
+    // Mouse X, Y Tracking 
+    // -----------------------------------------------------------------
+    document.addEventListener('mousemove', (e) => {
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+        
+        let xAxis = (e.clientX - centerX) / 20;
+        let yAxis = (e.clientY - centerY) / 20;
+        
+        const limit = 25; 
+        xAxis = Math.max(Math.min(xAxis, limit), -limit);
+        yAxis = Math.max(Math.min(yAxis, limit), -limit);
 
-
+        illustration.style.setProperty('--mouseX', `${xAxis}px`);
+        illustration.style.setProperty('--mouseY', `${yAxis}px`);
+    });
 });
 </script>
+
 </body>
 </html>
