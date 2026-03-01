@@ -1351,7 +1351,7 @@
         /* Container Background & Layout */
 .login-left {
   flex: 1;
-  background: #f4f5f7 !important;
+  background: #103f00 !important; /* Background အစိမ်းရင့် */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1359,6 +1359,19 @@
   overflow: hidden;
   min-height: 100vh;
 }
+
+/* Background Grain Effect */
+.login-left::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.15; /* Grain အားအနည်းအများ (လိုသလိုချိန်နိုင်သည်) */
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 128px 128px;
+}
+
 .login-left-overlay, .login-left-content { display: none !important; }
 
 /* Character Container */
@@ -1379,6 +1392,24 @@
   z-index: 1;
   animation: float-breath 4s ease-in-out infinite alternate;
   transform-origin: bottom center;
+  overflow: hidden; /* Texture တွေ အပြင်မထွက်အောင် */
+}
+
+/* Shape တိုင်းအတွက် Grain Effect */
+.shape::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0.15;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+/* မျက်လုံးနှင့် ပါးစပ်များကို Grain အပေါ်မှာ ပေါ်စေရန် z-index တင်ပေးသည် */
+.shape .eye-white, .shape .eye-sleepy, .shape .mouth-smile, .shape .mouth-side, .shape .mouth-tiny {
+  z-index: 5 !important;
 }
 
 /* မျက်လုံး အဖြူခံများ */
@@ -1402,13 +1433,16 @@
 }
 
 /* =================================================================
-   Characters 
+   Characters with Inner Glow & Gradients
 ==================================================================== */
 
-/* 1. Half-circle Character (လိမ္မော်ဝါ) */
+/* 1. Half-circle Character (Orange) */
 .shape-orange { 
   width: 170px; height: 85px; 
-  background: #F59E0B; 
+  /* Gradient ဖြင့် အလယ်မှာရင့်ပြီး ဘေးဘောင်တွေမှာ လင်းသွားစေသည် */
+  background: radial-gradient(circle at 50% 100%, #F59E0B 20%, #fcd34d 90%, #fffbeb 100%);
+  /* Inner Glow Effect */
+  box-shadow: inset 0px 8px 15px rgba(255, 255, 255, 0.8), inset 0px -4px 10px rgba(245, 158, 11, 0.4);
   left: -15px; 
   border-top-left-radius: 85px; 
   border-top-right-radius: 85px; 
@@ -1423,7 +1457,8 @@
 /* 2. Tall Character (Brand Green) */
 .shape-purple { 
   width: 90px; height: 220px; 
-  background: #a7e169; 
+  background: radial-gradient(circle at 50% 50%, #a7e169 30%, #d9f2c2 80%, #ffffff 100%);
+  box-shadow: inset 0px 8px 15px rgba(255, 255, 255, 0.9), inset -4px 0px 10px rgba(255, 255, 255, 0.7), inset 4px 0px 10px rgba(255, 255, 255, 0.7);
   left: 30px; 
   animation-delay: 0s; 
   z-index: 1; 
@@ -1436,7 +1471,9 @@
 /* 3. Middle Character (Black) */
 .shape-black { 
   width: 60px; height: 150px; 
-  background: #111318; 
+  /* အမည်းမှာ အဖြူစပ်ရင် ပြာသွားတတ်လို့ မီးခိုးရောင်နုနုကိုသာ စပ်ထားသည် */
+  background: radial-gradient(circle at 50% 50%, #111318 40%, #374151 85%, #9ca3af 100%);
+  box-shadow: inset 0px 10px 20px rgba(255, 255, 255, 0.5), inset -3px 0px 8px rgba(255, 255, 255, 0.3), inset 3px 0px 8px rgba(255, 255, 255, 0.3);
   left: 110px; 
   animation-delay: 1s; 
   z-index: 2; 
@@ -1448,7 +1485,8 @@
 /* 4. Small Character (Brand Red) */
 .shape-yellow { 
   width: 75px; height: 110px; 
-  background: #ed2939; 
+  background: radial-gradient(circle at 50% 50%, #ed2939 30%, #fca5a5 85%, #fee2e2 100%);
+  box-shadow: inset 0px 8px 15px rgba(255, 255, 255, 0.8), inset -4px 0px 10px rgba(255, 255, 255, 0.5), inset 4px 0px 10px rgba(255, 255, 255, 0.5);
   left: 160px; 
   border-top-left-radius: 40px; 
   border-top-right-radius: 40px; 
@@ -1482,9 +1520,10 @@
 }
 
 @media (max-width: 600px) {
-  .login-left { min-height: 250px; background: transparent !important; }
+  .login-left { min-height: 250px; background: #103f00 !important; }
   .illustration-container { transform: translate(-50%, -50%) scale(1.1); top: 60%; }
 }
+
 
 
 
