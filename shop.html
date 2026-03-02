@@ -961,7 +961,7 @@
                 <div class="flex flex-wrap gap-3 justify-center mt-6">
                     <a href="#products" class="btn-primary hidden md:inline-flex">Browse Products</a>
                     <a href="#how-it-works" class="btn-secondary hidden md:inline-flex">How It Works</a>
-                    <a href="customer-dashboard.html" class="btn-secondary md:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
+                    <a href="customer-dashboard.html" class="btn-secondary md:hidden" id="heroMobileBtn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
                 </div>
             </div>
         </section>
@@ -1677,6 +1677,16 @@
             // Mobile
             btnLoginMobile.style.display  = 'none';
             userInfoMobile.style.display  = 'block';
+
+            // Hero mobile button
+            const heroMobileBtn = document.getElementById('heroMobileBtn');
+            if (heroMobileBtn) {
+                heroMobileBtn.style.backgroundColor = '#a7e169';
+                heroMobileBtn.style.borderColor = '#a7e169';
+                heroMobileBtn.style.color = '#000';
+                heroMobileBtn.style.boxShadow = 'inset 0 0 12px 3px rgba(255,255,255,0.40), inset 0 0 28px 6px rgba(255,255,255,0.12)';
+                heroMobileBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>Logged in';
+            }
 
             // Mobile avatar
             const avatarMobile = document.getElementById('avatarMobile');
