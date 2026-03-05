@@ -123,10 +123,15 @@
                     <div class="hidden md:flex items-center space-x-4 nav-center">
                         <a href="/index.html#home" class="nav-link">Home</a>
                        <!-- <a href="/courses.html" class="nav-link">Courses</a> -->
-                        <a href="/prompt.html" class="nav-link">Prompts</a>
                         <a href="/shop.html" class="nav-link">Shop</a>
                         <a href="/blog.html" class="nav-link font-bold text-black" style="color: #000 !important;">Blog</a>
-                        <a href="/resources/resources-collection.html" class="nav-link">Resources</a>
+                        <div class="nav-dropdown-wrapper">
+                            <a href="/resources/resources-collection.html" class="nav-link" style="display:inline-flex;align-items:center;gap:4px;">Resources <i class="fas fa-chevron-down nav-dropdown-arrow"></i></a>
+                            <div class="nav-dropdown">
+                                <a href="/resources/resources-collection.html">All Resources</a>
+                                <a href="/prompt.html">AI Prompts</a>
+                            </div>
+                        </div>
                         
                         <a href="/index.html#contact" class="nav-link">Contact</a>
                     </div>
@@ -151,10 +156,18 @@
             <div class="py-2 px-4 space-y-1 bg-white border-b border-gray-100">
                 <a href="/index.html#home" class="block py-2 mobile-nav-link">Home</a>
                 <!-- <a href="/courses.html" class="block py-2 mobile-nav-link">Courses</a> -->
-                <a href="/prompt.html" class="block py-2 mobile-nav-link">Prompts</a>
                 <a href="/shop.html" class="block py-2 mobile-nav-link">Shop</a>
                 <a href="/blog.html" class="block py-2 mobile-nav-link font-bold text-black">Blog</a>
-                <a href="/resources/resources-collection.html" class="block py-2 mobile-nav-link">Resources</a>
+                <div>
+                    <button onclick="toggleMobileResourcesDropdown()" class="block py-2 mobile-nav-link w-full text-left" style="display:flex;align-items:center;gap:6px;">
+                        <span>Resources</span>
+                        <i class="fas fa-chevron-down mobile-dropdown-arrow" id="mobile-res-arrow"></i>
+                    </button>
+                    <div class="mobile-sub-menu" id="mobile-resources-sub">
+                        <a href="/resources/resources-collection.html" class="block py-2 pl-6 text-sm text-gray-500 hover:text-black transition">All Resources</a>
+                        <a href="/prompt.html" class="block py-2 pl-6 text-sm text-gray-500 hover:text-black transition">AI Prompts</a>
+                    </div>
+                </div>
                 <a href="/index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
                 <a href="/customer-dashboard.html" style="display:inline-flex; align-items:center; gap:0.35rem; background:#ed2939; color:#fff; font-weight:600; border-radius:2rem; padding:0.3rem 0.75rem; font-size:0.75rem; border:1px solid #ed2939; text-decoration:none;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
             </div>
@@ -424,6 +437,12 @@
             });
         }
     </script>
+<script>
+function toggleMobileResourcesDropdown() {
+    document.getElementById('mobile-resources-sub').classList.toggle('open');
+    document.getElementById('mobile-res-arrow').classList.toggle('rotated');
+}
+</script>
 <script src="/js/shop-badge.js"></script>
 <script type="module" src="/js/nav-auth.js"></script>
 </body>

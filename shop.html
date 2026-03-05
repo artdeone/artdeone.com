@@ -39,6 +39,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="css-and-js/theme.css">
     <link rel="stylesheet" href="css-and-js/mobile-smooth-nav.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
@@ -874,10 +875,15 @@
                     </div>
                     <div class="hidden md:flex items-center space-x-4 nav-center">
                         <a href="index.html#home" class="nav-link">Home</a>
-                        <a href="prompt.html" class="nav-link">Prompts</a>
                         <a href="shop.html" class="nav-link font-bold" style="color: #000 !important;">Shop</a>
                         <a href="blog.html" class="nav-link">Blog</a>
-                        <a href="/resources/resources-collection.html" class="nav-link">Resources</a>
+                        <div class="nav-dropdown-wrapper">
+                            <a href="/resources/resources-collection.html" class="nav-link" style="display:inline-flex;align-items:center;gap:4px;">Resources <i class="fas fa-chevron-down nav-dropdown-arrow"></i></a>
+                            <div class="nav-dropdown">
+                                <a href="/resources/resources-collection.html">All Resources</a>
+                                <a href="prompt.html">AI Prompts</a>
+                            </div>
+                        </div>
                         <a href="index.html#contact" class="nav-link">Contact</a>
                     </div>
                     <div class="hidden md:flex items-center gap-3" id="desktopAuth">
@@ -906,10 +912,18 @@
         <div class="mobile-menu md:hidden" id="mobile-menu">
             <div class="py-2 px-4 space-y-1">
                 <a href="index.html#home" class="block py-2 mobile-nav-link">Home</a>
-                <a href="prompt.html" class="block py-2 mobile-nav-link">Prompts</a>
                 <a href="shop.html" class="block py-2 mobile-nav-link text-black font-bold">Shop</a>
                 <a href="blog.html" class="block py-2 mobile-nav-link">Blog</a>
-                <a href="/resources/resources-collection.html" class="block py-2 mobile-nav-link">Resources</a>
+                <div>
+                    <button onclick="toggleMobileResourcesDropdown()" class="block py-2 mobile-nav-link w-full text-left" style="display:flex;align-items:center;gap:6px;">
+                        <span>Resources</span>
+                        <i class="fas fa-chevron-down mobile-dropdown-arrow" id="mobile-res-arrow"></i>
+                    </button>
+                    <div class="mobile-sub-menu" id="mobile-resources-sub">
+                        <a href="/resources/resources-collection.html" class="block py-2 pl-6 text-sm text-gray-500 hover:text-black transition">All Resources</a>
+                        <a href="prompt.html" class="block py-2 pl-6 text-sm text-gray-500 hover:text-black transition">AI Prompts</a>
+                    </div>
+                </div>
                 <a href="index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
                 <div id="mobileAuth">
                     <!-- Not logged in -->
@@ -1748,6 +1762,12 @@
     supabaseShop.auth.onAuthStateChange((_event, session) => {
         updateAuthUI(session);
     });
+</script>
+<script>
+function toggleMobileResourcesDropdown() {
+    document.getElementById('mobile-resources-sub').classList.toggle('open');
+    document.getElementById('mobile-res-arrow').classList.toggle('rotated');
+}
 </script>
 </body>
 </html>

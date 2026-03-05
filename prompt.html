@@ -45,7 +45,7 @@
 
     <style>
        .nav-btn { border-radius: 2rem; }
-        
+
         /* Masonry Grid Layout */
         .masonry-grid { column-count: 4; column-gap: 1rem; }
         @media (max-width: 1280px) { .masonry-grid { column-count: 3; } }
@@ -435,10 +435,15 @@
                     </div>
                     <div class="hidden md:flex items-center space-x-4 nav-center">
                         <a href="/index.html#home" class="nav-link">Home</a>
-                        <a href="/prompt.html" class="nav-link font-bold text-black" style="color: #000 !important;">Prompts</a>
                         <a href="/shop.html" class="nav-link">Shop</a>
                         <a href="/blog.html" class="nav-link">Blog</a>
-                        <a href="/resources/resources-collection.html" class="nav-link">Resources</a>
+                        <div class="nav-dropdown-wrapper">
+                            <a href="/resources/resources-collection.html" class="nav-link" style="display:inline-flex;align-items:center;gap:4px;">Resources <i class="fas fa-chevron-down nav-dropdown-arrow"></i></a>
+                            <div class="nav-dropdown">
+                                <a href="/resources/resources-collection.html">All Resources</a>
+                                <a href="/prompt.html" style="color:#000;font-weight:700;">AI Prompts</a>
+                            </div>
+                        </div>
                         <a href="/index.html#contact" class="nav-link">Contact</a>
                     </div>
                     <div class="hidden md:block">
@@ -458,10 +463,18 @@
         <div class="mobile-menu md:hidden hidden" id="mobile-menu">
             <div class="py-2 px-4 space-y-1 bg-white border-b border-gray-100">
                 <a href="/index.html#home" class="block py-2 mobile-nav-link">Home</a>
-                <a href="/prompt.html" class="block py-2 mobile-nav-link font-bold text-black">Prompts</a>
                 <a href="/shop.html" class="block py-2 mobile-nav-link">Shop</a>
                 <a href="/blog.html" class="block py-2 mobile-nav-link">Blog</a>
-                <a href="/resources/resources-collection.html" class="block py-2 mobile-nav-link">Resources</a>
+                <div>
+                    <button onclick="toggleMobileResourcesDropdown()" class="block py-2 mobile-nav-link w-full text-left" style="display:flex;align-items:center;gap:6px;">
+                        <span>Resources</span>
+                        <i class="fas fa-chevron-down mobile-dropdown-arrow" id="mobile-res-arrow"></i>
+                    </button>
+                    <div class="mobile-sub-menu" id="mobile-resources-sub">
+                        <a href="/resources/resources-collection.html" class="block py-2 pl-6 text-sm text-gray-500 hover:text-black transition">All Resources</a>
+                        <a href="/prompt.html" class="block py-2 pl-6 text-sm font-bold text-black">AI Prompts</a>
+                    </div>
+                </div>
                 <a href="/index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
                 <a href="/customer-dashboard.html" style="display:inline-flex; align-items:center; gap:0.35rem; background:#ed2939; color:#fff; font-weight:600; border-radius:2rem; padding:0.3rem 0.75rem; font-size:0.75rem; border:1px solid #ed2939; text-decoration:none;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
             </div>
@@ -1034,6 +1047,12 @@
         </div>
     </footer>
 
+    <script>
+    function toggleMobileResourcesDropdown() {
+        document.getElementById('mobile-resources-sub').classList.toggle('open');
+        document.getElementById('mobile-res-arrow').classList.toggle('rotated');
+    }
+    </script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script src="css-and-js/mobile-smooth-nav.js"></script>
@@ -1099,7 +1118,7 @@
                          onload="this.classList.add('img-loaded'); this.previousElementSibling.style.display='none';">
                     <div class="prompt-overlay">
                         <h3>${prompt.title}</h3>
-                        <div style="display:flex;align-items:center;justify-content:space-between;">
+                        <div style="display:flex;align-items:center;gap:6px;">
                             <p>ADO Team</p>
                             <div style="display:flex;gap:1rem;" onclick="event.stopPropagation();">
                                 <a href="https://www.facebook.com/artdeone/" target="_blank" style="color:rgba(255,255,255,0.85);font-size:0.875rem;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.85)'"><i class="fab fa-facebook-f"></i></a>
