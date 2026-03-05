@@ -84,27 +84,7 @@
             transform: scale(1.06);
         }
 
-        /* Shine Sweep on Hover */
-        .prompt-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -80%;
-            width: 60%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent 0%,
-                rgba(255,255,255,0.25) 50%,
-                transparent 100%
-            );
-            z-index: 25;
-            pointer-events: none;
-            transition: left 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .prompt-card:hover::before {
-            left: 130%;
-        }
+        /* Shine Sweep on Hover - Disabled */
 
         /* Enhanced Overlay - Slide Up */
         .prompt-overlay {
@@ -156,7 +136,6 @@
             .prompt-overlay p {
                 transform: translateY(0);
             }
-            .prompt-card::before { display: none; }
         }
 
         /* ====== CARD REVEAL ANIMATION ====== */
@@ -515,7 +494,7 @@
             <div data-aos="fade-up" data-aos-delay="200">
                 <button 
                     onclick="openGeneratePanel()" 
-                    class="btn-primary inline-flex items-center gap-3 font-bold py-4 px-10 rounded-full transition-all duration-300 transform hover:-translate-y-1 group"
+                    class="btn-primary inline-flex items-center gap-2 font-semibold py-2.5 px-6 text-sm rounded-full transition-all duration-300 transform hover:-translate-y-1 group"
                 >
                     <i class="fas fa-sparkles group-hover:rotate-12 transition-transform"></i>
                     <span>Generate My Prompt</span>
@@ -529,67 +508,271 @@
     <div id="generate-panel-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] opacity-0 invisible transition-all duration-300"></div>
 
     <!-- Generate Panel (Slide from Right) -->
-    <div id="generate-panel" class="fixed top-0 right-0 h-full w-full md:w-[600px] bg-white shadow-2xl z-[101] transform translate-x-full transition-transform duration-500 ease-out overflow-y-auto">
+    <style>
+        /* ====== GENERATE PANEL — macOS Glass UI ====== */
+        #generate-panel {
+            background: rgba(255,255,255,0.82);
+            backdrop-filter: blur(40px) saturate(1.8);
+            -webkit-backdrop-filter: blur(40px) saturate(1.8);
+            border-left: 1px solid rgba(255,255,255,0.5);
+        }
+        #generate-panel .panel-header {
+            background: rgba(255,255,255,0.45);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+        #generate-panel textarea {
+            background: rgba(255,255,255,0.6);
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 14px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 0.9rem;
+        }
+        #generate-panel textarea:focus {
+            background: rgba(255,255,255,0.9);
+            border-color: rgba(0,0,0,0.15);
+            box-shadow: 0 0 0 4px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        /* Custom macOS-style dropdown */
+        .glass-select-wrapper { position: relative; }
+        .glass-select-trigger {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 14px 18px;
+            background: rgba(255,255,255,0.6);
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 0.9rem; color: #1d1d1f;
+            user-select: none;
+        }
+        .glass-select-trigger:hover {
+            background: rgba(255,255,255,0.85);
+            border-color: rgba(0,0,0,0.12);
+        }
+        .glass-select-trigger .chevron-icon {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 0.7rem; color: #888;
+        }
+        .glass-select-wrapper.open .chevron-icon {
+            transform: rotate(180deg);
+        }
+        .glass-select-dropdown {
+            position: absolute; top: calc(100% + 6px); left: 0; right: 0;
+            background: rgba(255,255,255,0.78);
+            backdrop-filter: blur(50px) saturate(2);
+            -webkit-backdrop-filter: blur(50px) saturate(2);
+            border: 1px solid rgba(255,255,255,0.6);
+            border-radius: 14px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
+            padding: 6px;
+            z-index: 50;
+            opacity: 0;
+            transform: translateY(-8px) scale(0.98);
+            pointer-events: none;
+            transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                        transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-select-wrapper.open .glass-select-dropdown {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+        .glass-select-option {
+            padding: 10px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            color: #1d1d1f;
+            transition: background 0.15s ease;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .glass-select-option:hover {
+            background: rgba(0,0,0,0.05);
+        }
+        .glass-select-option.selected {
+            background: rgba(0,0,0,0.06);
+            font-weight: 600;
+        }
+        .glass-select-option .check-mark {
+            width: 16px; font-size: 0.75rem; color: #000; opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        .glass-select-option.selected .check-mark { opacity: 1; }
+
+        /* Panel result area */
+        #generate-panel .panel-result-box {
+            background: rgba(255,255,255,0.5);
+            border: 1px solid rgba(0,0,0,0.06);
+            border-radius: 14px;
+        }
+        #generate-panel .panel-result-box .prompt-output {
+            background: rgba(255,255,255,0.7);
+            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 10px;
+        }
+
+        /* Panel footer button */
+        #generate-panel .panel-footer-btn {
+            background: #1d1d1f;
+            color: #fff;
+            border: none;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #generate-panel .panel-footer-btn:hover {
+            background: #000;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+        }
+        #generate-panel .panel-footer-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Loading overlay */
+        #generate-panel .panel-loading-overlay {
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        /* Panel close button */
+        #generate-panel .panel-close-btn {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.05);
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s ease;
+        }
+        #generate-panel .panel-close-btn:hover {
+            background: rgba(0,0,0,0.1);
+        }
+    </style>
+    <div id="generate-panel" class="fixed top-0 right-0 h-full w-full md:w-[520px] shadow-2xl z-[101] transform translate-x-full transition-transform duration-500 ease-out overflow-y-auto">
         <div class="relative h-full flex flex-col">
-            <div class="flex-shrink-0 border-b border-gray-200 px-8 py-6 flex items-center justify-between">
-                <h2 class="text-3xl font-bold text-black">Generate</h2>
-                <button onclick="closeGeneratePanel()" class="w-10 h-10 flex items-center justify-center hover:bg-gray-100 rounded-lg transition-colors duration-200">
-                    <i class="fas fa-times text-gray-600 text-xl"></i>
+            <!-- Header -->
+            <div class="panel-header flex-shrink-0 px-7 py-5 flex items-center justify-between">
+                <h2 class="text-xl font-semibold text-black tracking-tight">Generate Prompt</h2>
+                <button onclick="closeGeneratePanel()" class="panel-close-btn">
+                    <i class="fas fa-times text-gray-500 text-sm"></i>
                 </button>
             </div>
-            <div class="flex-1 p-8 space-y-8">
+
+            <!-- Body -->
+            <div class="flex-1 px-7 py-6 space-y-6">
+                <!-- Textarea -->
                 <div>
-                    <label for="panel-topic" class="block text-lg font-bold text-black mb-4">What do you want to create?</label>
-                    <textarea id="panel-topic" rows="8" placeholder="e.g., A futuristic city at sunset with flying cars..." class="w-full px-6 py-5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-black focus:bg-white transition-all duration-300 text-gray-800 placeholder-gray-400 text-base resize-none" required></textarea>
+                    <label for="panel-topic" class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2.5">Describe your vision</label>
+                    <textarea id="panel-topic" rows="6" placeholder="A futuristic city at sunset with flying cars..." class="w-full px-5 py-4 text-gray-800 placeholder-gray-400 resize-none" required></textarea>
                 </div>
+
+                <!-- Custom Glass Dropdown (synced to hidden select) -->
                 <div>
-                    <label for="panel-style" class="block text-lg font-bold text-black mb-4">Select Your Style</label>
-                    <div class="relative">
-                        <select id="panel-style" class="w-full px-6 py-5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-black focus:bg-white transition-all duration-300 text-gray-800 appearance-none cursor-pointer text-base">
-                            <option value="realistic">Realistic & Photographic</option>
-                            <option value="anime">Anime & Manga</option>
-                            <option value="cartoon">Cartoon & Illustration</option>
-                            <option value="abstract">Abstract & Artistic</option>
-                            <option value="minimalist">Minimalist & Clean</option>
-                            <option value="vintage">Vintage & Retro</option>
-                        </select>
-                        <div class="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none">
-                            <i class="fas fa-chevron-down text-gray-400"></i>
+                    <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2.5">Style</label>
+                    <select id="panel-style" class="hidden">
+                        <option value="realistic" selected>Realistic & Photographic</option>
+                        <option value="anime">Anime & Manga</option>
+                        <option value="cartoon">Cartoon & Illustration</option>
+                        <option value="abstract">Abstract & Artistic</option>
+                        <option value="minimalist">Minimalist & Clean</option>
+                        <option value="vintage">Vintage & Retro</option>
+                    </select>
+                    <div class="glass-select-wrapper" id="glass-style-select">
+                        <div class="glass-select-trigger" onclick="toggleGlassSelect()">
+                            <span id="glass-select-label">Realistic & Photographic</span>
+                            <i class="fas fa-chevron-down chevron-icon"></i>
+                        </div>
+                        <div class="glass-select-dropdown">
+                            <div class="glass-select-option selected" data-value="realistic" onclick="selectGlassOption(this)">
+                                <span class="check-mark"><i class="fas fa-check"></i></span>Realistic & Photographic
+                            </div>
+                            <div class="glass-select-option" data-value="anime" onclick="selectGlassOption(this)">
+                                <span class="check-mark"><i class="fas fa-check"></i></span>Anime & Manga
+                            </div>
+                            <div class="glass-select-option" data-value="cartoon" onclick="selectGlassOption(this)">
+                                <span class="check-mark"><i class="fas fa-check"></i></span>Cartoon & Illustration
+                            </div>
+                            <div class="glass-select-option" data-value="abstract" onclick="selectGlassOption(this)">
+                                <span class="check-mark"><i class="fas fa-check"></i></span>Abstract & Artistic
+                            </div>
+                            <div class="glass-select-option" data-value="minimalist" onclick="selectGlassOption(this)">
+                                <span class="check-mark"><i class="fas fa-check"></i></span>Minimalist & Clean
+                            </div>
+                            <div class="glass-select-option" data-value="vintage" onclick="selectGlassOption(this)">
+                                <span class="check-mark"><i class="fas fa-check"></i></span>Vintage & Retro
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Result -->
                 <div id="panel-result-container" class="hidden">
-                    <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
-                        <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-base font-bold text-black">Your Generated Prompt</h3>
-                            <button onclick="copyPanelPrompt()" class="text-sm font-semibold text-black hover:text-gray-600 transition-colors duration-200 flex items-center gap-2">
-                                <i class="fas fa-copy"></i><span>Copy</span>
+                    <div class="panel-result-box p-5">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-sm font-semibold text-black">Your Generated Prompt</h3>
+                            <button onclick="copyPanelPrompt()" class="text-xs font-medium text-gray-500 hover:text-black transition-colors duration-200 flex items-center gap-1.5">
+                                <i class="fas fa-copy text-[10px]"></i><span>Copy</span>
                             </button>
                         </div>
-                        <div class="bg-white rounded-lg p-5 border border-gray-200">
+                        <div class="prompt-output p-4">
                             <p id="panel-generated-prompt" class="text-gray-700 leading-relaxed text-sm"></p>
                         </div>
-                        <div id="panel-generated-image-container" class="mt-6 hidden">
-                            <h4 class="text-base font-bold text-black mb-3">Generated Image</h4>
-                            <img id="panel-generated-image" src="" alt="Generated Image" class="w-full h-auto rounded-lg border border-gray-200">
+                        <div id="panel-generated-image-container" class="mt-5 hidden">
+                            <h4 class="text-sm font-semibold text-black mb-2.5">Generated Image</h4>
+                            <img id="panel-generated-image" src="" alt="Generated Image" class="w-full h-auto rounded-xl border border-gray-100">
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="flex-shrink-0 border-t border-gray-200 p-8">
-                <button id="panel-generate-btn" onclick="generateFromPanel()" class="btn-primary w-full font-bold py-4 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 transform hover:-translate-y-1">
-                    <span>Generate My Prompt</span>
-                    <i class="fas fa-arrow-right"></i>
+
+            <!-- Footer -->
+            <div class="flex-shrink-0 px-7 py-5">
+                <button id="panel-generate-btn" onclick="generateFromPanel()" class="panel-footer-btn w-full py-3.5 px-6 flex items-center justify-center gap-2.5">
+                    <span>Generate</span>
+                    <i class="fas fa-arrow-right text-xs"></i>
                 </button>
             </div>
-            <div id="panel-loading" class="hidden absolute inset-0 bg-white/95 backdrop-blur-sm flex items-center justify-center z-20">
+
+            <!-- Loading -->
+            <div id="panel-loading" class="hidden absolute inset-0 panel-loading-overlay flex items-center justify-center z-20">
                 <div class="text-center">
-                    <div class="w-12 h-12 border-3 border-gray-200 border-t-black rounded-full animate-spin mb-4"></div>
-                    <p class="text-gray-600 font-semibold">Generating your prompt...</p>
+                    <div class="w-10 h-10 border-2 border-gray-200 border-t-black rounded-full animate-spin mb-3"></div>
+                    <p class="text-gray-500 text-sm font-medium">Generating...</p>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+    // Glass dropdown logic
+    function toggleGlassSelect() {
+        document.getElementById('glass-style-select').classList.toggle('open');
+    }
+    function selectGlassOption(el) {
+        const wrapper = document.getElementById('glass-style-select');
+        const value = el.dataset.value;
+        const label = el.textContent.trim();
+        // Update hidden select
+        document.getElementById('panel-style').value = value;
+        // Update UI
+        document.getElementById('glass-select-label').textContent = label;
+        wrapper.querySelectorAll('.glass-select-option').forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        // Close with slight delay for visual feedback
+        setTimeout(() => wrapper.classList.remove('open'), 120);
+    }
+    // Close dropdown on outside click
+    document.addEventListener('click', function(e) {
+        const wrapper = document.getElementById('glass-style-select');
+        if (wrapper && !wrapper.contains(e.target)) {
+            wrapper.classList.remove('open');
+        }
+    });
+    </script>
 
     <!-- Prompts Gallery Section -->
     <section class="py-16 px-4 sm:px-6 lg:px-8">
