@@ -467,12 +467,18 @@
             { id: 66, title: "typo/graphicposters", category: "design . font . poster", image: "resources-images/typographicposters.jpg", link: "https://www.typographicposters.com/archive" },
             { id: 67, title: "trending.design", category: "design . font . book", image: "resources-images/trending.design.jpg", link: "https://trending.design/?via=toools" },
             { id: 68, title: "Fabric", category: "design . notes", image: "resources-images/fabric.jpg", link: "https://fabric.so/" },
-            { id: 69, title: "Same Energy", category: "design . notes", image: "resources-images/same.energy.jpg", link: "https://same.energy/?via=toools" }
+            { id: 69, title: "Same Energy", category: "design . notes", image: "resources-images/same.energy.jpg", link: "https://same.energy/?via=toools" },
+            { id: 70, title: "Logo Design Library", category: "design . logo", image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772765574/Screenshot_2026-03-06_at_09.21.48_gmco6k.png", link: "https://logosystem.co/" },
+            { id: 71, title: "Visual Journal", category: "design", image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772765854/Screenshot_2026-03-06_at_09.27.24_h9x3vi.png", link: "https://visualjournal.it/" },
+            { id: 72, title: "Rebrand Gallery", category: "design", image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772765955/Screenshot_2026-03-06_at_09.29.10_os04qt.png", link: "https://www.rebrand.gallery/" },
+            { id: 73, title: "BrandGuidelines", category: "design", image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772766058/brandguideline_zte33r.png", link: "https://www.brandguidelines.net/" },
+            { id: 74, title: "Logoinspo", category: "design", image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772766153/Screenshot_2026-03-06_at_09.32.24_q3eyr2.png", link: "https://www.logoinspo.com/" },
+            { id: 75, title: "Iconoir", category: "design . illustration", image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772766335/Screenshot_2026-03-06_at_09.35.26_rftg1s.png", link: "https://iconoir.com/" },
         ];
 
         const resourcesPerPage = 16;
         let currentPage = 1;
-        let filteredResources = [...resources];
+        let filteredResources = [...resources].reverse();
 
         const container = document.getElementById('resources-container');
         const pageNumbersContainer = document.getElementById('page-numbers');
@@ -566,7 +572,7 @@
                 const matchesCategory = (activeFilter === 'all') || r.category.toLowerCase().includes(activeFilter.toLowerCase());
                 const matchesSearch = r.title.toLowerCase().includes(searchTerm) || r.category.toLowerCase().includes(searchTerm);
                 return matchesCategory && matchesSearch;
-            });
+            }).reverse();
 
             currentPage = 1;
             renderResources();
