@@ -179,6 +179,21 @@
         }
 
         [data-aos] { transition-duration: 1000ms !important; }
+
+        /* Prevent testimonial cards from clipping on hover */
+        #testimonialSlider .minimalist-card {
+            overflow: visible;
+        }
+        #testimonialSlider .minimalist-card:hover {
+            transform: none;
+        }
+        #testimonialSlider {
+            overflow: hidden;
+            padding-top: 8px;
+        }
+        /* Hide mobile testimonial scrollbar */
+        .mobile-testimonials::-webkit-scrollbar { display: none; }
+        .mobile-testimonials { -ms-overflow-style: none; scrollbar-width: none; }
 </style>
 </head>
 <body class="bg-white text-[#323232]">
@@ -246,17 +261,21 @@
         </div>
     </nav>
 
-    <main class="pt-32 pb-20">
+    <main class="pt-32 pb-20" style="background:
+        radial-gradient(ellipse 600px 500px at 10% 120px, rgba(167,225,105,0.18) 0%, rgba(167,225,105,0.06) 40%, transparent 70%),
+        radial-gradient(ellipse 650px 550px at 50% 80px, rgba(237,41,57,0.10) 0%, rgba(255,140,50,0.04) 40%, transparent 70%),
+        radial-gradient(ellipse 500px 450px at 90% 150px, rgba(167,225,105,0.12) 0%, rgba(200,235,180,0.04) 40%, transparent 70%);">
+
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            
+
             <!-- Hero Section -->
-            <div class="flex flex-col lg:flex-row items-center gap-12 md:gap-16 mb-24" data-aos="fade-up">
-                <div class="lg:w-auto lg:shrink-0">
+            <div class="relative flex flex-col lg:flex-row items-center gap-12 md:gap-16 mb-24" data-aos="fade-up">
+                <div class="relative z-10 lg:w-auto lg:shrink-0">
                     <div class="relative rounded-2xl overflow-hidden border border-gray-200 max-w-sm">
                         <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119870/instructor-02_a7snby.jpg" alt="Instructor" class="w-full object-cover aspect-[4/5]">
                     </div>
                 </div>
-                <div class="lg:flex-1">
+                <div class="relative z-10 lg:flex-1">
                         <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-4 artdeone-font">
                             <span class="text-transparent bg-clip-text bg-gradient-to-r from-black to-[#a7e169]">Lead Instructor</span>
                         </h1>
@@ -285,15 +304,10 @@
                         </div>
                     </div>
                     
-                    <div class="grid grid-cols-2 gap-4 mb-8">
-                        <div class="stat-card">
-                            <h3 class="text-3xl font-bold text-[#323232]">9+</h3>
-                            <p class="text-sm text-gray-500 mt-1">Years Experience</p>
-                        </div>
-                        <div class="stat-card">
-                            <h3 class="text-3xl font-bold text-[#323232]">100+</h3>
-                            <p class="text-sm text-gray-500 mt-1">Students Trained</p>
-                        </div>
+                    <div class="flex items-center gap-3 mb-8 text-sm text-gray-400">
+                        <span><strong class="text-xl text-black font-bold">9+</strong> Years Experience</span>
+                        <span class="text-gray-300">|</span>
+                        <span><strong class="text-xl text-black font-bold">100+</strong> Students Trained</span>
                     </div>
                     
                     <a href="index.html#contact" class="btn-primary w-full sm:w-auto rounded-full text-center">Work With Me</a>
@@ -302,97 +316,64 @@
 
             <section class="py-16 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16" data-aos="fade-up">
-            <h2 class="text-3xl font-bold text-[#333] mb-4">Brands I've Worked With</span></h2>
-            <div class="w-20 h-1 bg-gray-700 mx-auto mb-6"></div>
-            <p class="text-gray-500 max-w-2xl mx-auto">
-                Trusted by businesses and organizations across Southeast Asia.
-            </p>
+        <div class="text-center mb-12" data-aos="fade-up">
+            <p class="text-sm uppercase tracking-widest text-gray-400 font-medium">Trusted by businesses across Southeast Asia</p>
         </div>
-        
+
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 md:gap-12 items-center justify-items-center">
             <!-- Client Logo 1 -->
-            <div class="client-logo flex items-center justify-center h-20" data-aos="fade-up">
-                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379518/logo-1_pamyyo.png" alt="Air Thinlwin" class="max-h-16 max-w-full object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+            <div class="client-logo flex items-center justify-center h-16 w-32" data-aos="fade-up">
+                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379518/logo-1_pamyyo.png" alt="Air Thinlwin" class="h-10 w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
             </div>
-            
+
             <!-- Client Logo 2 -->
-            <div class="client-logo flex items-center justify-center h-20" data-aos="fade-up" data-aos-delay="100">
-                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379517/logo-2_w8mmgo.png" alt="Jackery" class="max-h-16 max-w-full object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+            <div class="client-logo flex items-center justify-center h-16 w-32" data-aos="fade-up" data-aos-delay="100">
+                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379517/logo-2_w8mmgo.png" alt="Jackery" class="h-10 w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
             </div>
-            
+
             <!-- Client Logo 3 -->
-            <div class="client-logo flex items-center justify-center h-20" data-aos="fade-up" data-aos-delay="200">
-                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379517/logo-3_xejmzs.png" alt="VENUCIA" class="max-h-16 max-w-full object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+            <div class="client-logo flex items-center justify-center h-16 w-32" data-aos="fade-up" data-aos-delay="200">
+                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379517/logo-3_xejmzs.png" alt="VENUCIA" class="h-10 w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
             </div>
-            
+
             <!-- Client Logo 4 -->
-            <div class="client-logo flex items-center justify-center h-20" data-aos="fade-up" data-aos-delay="300">
-                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379635/logo-4_h9myqh.png" alt="Yealink" class="max-h-16 max-w-full object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+            <div class="client-logo flex items-center justify-center h-16 w-32" data-aos="fade-up" data-aos-delay="300">
+                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379635/logo-4_h9myqh.png" alt="Yealink" class="h-10 w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
             </div>
 
             <!-- Client Logo 5 -->
-            <div class="client-logo flex items-center justify-center h-20" data-aos="fade-up" data-aos-delay="400">
-                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379516/logo-5_brafmc.png" alt="CHANGANt" class="max-h-16 max-w-full object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+            <div class="client-logo flex items-center justify-center h-16 w-32" data-aos="fade-up" data-aos-delay="400">
+                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379516/logo-5_brafmc.png" alt="CHANGAN" class="h-10 w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
             </div>
 
             <!-- Client Logo 6 -->
-            <div class="client-logo flex items-center justify-center h-20" data-aos="fade-up" data-aos-delay="500">
-                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379517/logo-6_ipkciz.png" alt="AVer" class="max-h-16 max-w-full object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+            <div class="client-logo flex items-center justify-center h-16 w-32" data-aos="fade-up" data-aos-delay="500">
+                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379517/logo-6_ipkciz.png" alt="AVer" class="h-10 w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
             </div>
 
             <!-- Client Logo 7 -->
-            <div class="client-logo flex items-center justify-center h-20" data-aos="fade-up" data-aos-delay="600">
-                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/lady_may_jctvnh.png" alt="Lady May" class="max-h-16 max-w-full object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+            <div class="client-logo flex items-center justify-center h-16 w-32" data-aos="fade-up" data-aos-delay="600">
+                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/lady_may_jctvnh.png" alt="Lady May" class="h-10 w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
             </div>
 
             <!-- Client Logo 8 -->
-            <div class="client-logo flex items-center justify-center h-20" data-aos="fade-up" data-aos-delay="700">
-                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/mnvenus_puiiyb.png" alt="MN Venus" class="max-h-16 max-w-full object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+            <div class="client-logo flex items-center justify-center h-20 w-32" data-aos="fade-up" data-aos-delay="700">
+                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/mnvenus_puiiyb.png" alt="MN Venus" class="h-[4.5rem] w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
             </div>
 
             <!-- Client Logo 9 -->
-            <div class="client-logo flex items-center justify-center h-20" data-aos="fade-up" data-aos-delay="800">
-                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/syk_tx6ijr.png" alt="SYK" class="max-h-16 max-w-full object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+            <div class="client-logo flex items-center justify-center h-16 w-32" data-aos="fade-up" data-aos-delay="800">
+                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/syk_tx6ijr.png" alt="SYK" class="h-14 w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
             </div>
 
             <!-- Client Logo 10 -->
-            <div class="client-logo flex items-center justify-center h-20" data-aos="fade-up" data-aos-delay="900">
-                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/royal_cyhkwx.png" alt="Royal" class="max-h-16 max-w-full object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+            <div class="client-logo flex items-center justify-center h-16 w-32" data-aos="fade-up" data-aos-delay="900">
+                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/royal_cyhkwx.png" alt="Royal" class="h-14 w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
             </div>
         </div>
     </div>
 </section>
 
-
-            <!-- Philosophy Section -->
-            <div class="mb-24" data-aos="fade-up">
-                <h2 class="text-3xl font-bold text-[#323232] mb-12 text-center">My Philosophy</h2>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="minimalist-card p-8">
-                        <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center mb-6 text-black">
-                            <i class="fas fa-lightbulb"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-[#323232] mb-3">Innovation</h3>
-                        <p class="text-gray-500 text-sm leading-relaxed">For me, real innovation happens when what you're good at meets what truly excites you - it's about growing ideas from that sweet spot.</p>
-                    </div>
-                    <div class="minimalist-card p-8">
-                        <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center mb-6 text-black">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-[#323232] mb-3">Adaptability</h3>
-                        <p class="text-gray-500 text-sm leading-relaxed">Every learner's different, so I always tweak my teaching style to match what works for them and what they're aiming for.</p>
-                    </div>
-                    <div class="minimalist-card p-8">
-                        <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center mb-6 text-black">
-                            <i class="fas fa-rocket"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-[#323232] mb-3">Practicality</h3>
-                        <p class="text-gray-500 text-sm leading-relaxed">I focus on practical skills that students can immediately apply to personal projects or professional work.</p>
-                    </div>
-                </div>
-            </div>
-            
 
             <!-- Featured Work -->
             <div class="mb-24" data-aos="fade-up">
@@ -408,10 +389,10 @@
                         </div>
                     </div>
                     <div class="portfolio-item group">
-                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768104188/logo_pfwrd2.webp" alt="One Day Studio">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119194/chinese-dg_mlhwqu.jpg" alt="Chinese Dragon">
                         <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-center items-center p-6 text-center">
-                            <h3 class="text-xl font-bold text-white mb-2">THE BURMA FOOD HOUSE</h3>
-                            <p class="text-gray-300 text-sm">Brand Identity</p>
+                            <h3 class="text-xl font-bold text-white mb-2">Chinese Dragon</h3>
+                            <p class="text-gray-300 text-sm">Digital Illustration</p>
                         </div>
                     </div>
                     <div class="portfolio-item group">
@@ -421,21 +402,355 @@
                             <p class="text-gray-300 text-sm">Logo Design</p>
                         </div>
                     </div>
+                    <div class="portfolio-item group">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768120055/jackery-3_vr9dmx.jpg" alt="Jackery">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-center items-center p-6 text-center">
+                            <h3 class="text-xl font-bold text-white mb-2">Jackery</h3>
+                            <p class="text-gray-300 text-sm">Product Design</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item group">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119196/medusa_dq2snq.jpg" alt="Medusa Illustration">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-center items-center p-6 text-center">
+                            <h3 class="text-xl font-bold text-white mb-2">Medusa</h3>
+                            <p class="text-gray-300 text-sm">Digital Illustration</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item group">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768104188/logo_pfwrd2.webp" alt="The Burma Food House">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-center items-center p-6 text-center">
+                            <h3 class="text-xl font-bold text-white mb-2">THE BURMA FOOD HOUSE</h3>
+                            <p class="text-gray-300 text-sm">Brand Identity</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="mt-16 border border-[#a7e169] rounded-lg p-8 flex flex-col md:flex-row items-center justify-between bg-[#a7e169]/10" data-aos="fade-up">
-                        <div class="mb-4 md:mb-0">
-                            <h4 class="text-xl font-bold text-black">Need Freelance Design?</h4>
-                            <p class="text-gray-500 text-sm mt-1">Professional freelance design services for your business.</p>
+            <!-- Services Offered -->
+            <div class="mb-24" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-[#323232] mb-4 text-center">Services</h2>
+                <p class="text-gray-500 text-center mb-12 max-w-2xl mx-auto">Professional design solutions tailored for businesses of all sizes.</p>
+
+                <!-- Mobile: horizontal compact / Desktop: 5-col grid -->
+                <div class="hidden md:grid md:grid-cols-3 lg:grid-cols-5 gap-6">
+                    <div class="minimalist-card p-6 text-center">
+                        <div class="w-14 h-14 rounded-full bg-[#a7e169]/20 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-pen-nib text-xl text-[#5a8c1e]"></i>
                         </div>
-                        <a href="tel:09953681497" class="inline-flex items-center gap-2 bg-[#a7e169] text-black font-bold py-3 px-8 rounded-full hover:bg-[#ed2939] hover:text-white transition-all duration-300 shadow-sm">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
-                                <path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd" />
-                            </svg>
-                            <span>09953681497</span>
-                        </a>
+                        <h4 class="font-bold text-black mb-2">Logo Design</h4>
+                        <p class="text-gray-500 text-sm">Unique, memorable logos that represent your brand identity.</p>
                     </div>
+                    <div class="minimalist-card p-6 text-center">
+                        <div class="w-14 h-14 rounded-full bg-[#ed2939]/10 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-palette text-xl text-[#ed2939]"></i>
+                        </div>
+                        <h4 class="font-bold text-black mb-2">Brand Identity</h4>
+                        <p class="text-gray-500 text-sm">Complete visual systems including colors, typography, and guidelines.</p>
+                    </div>
+                    <div class="minimalist-card p-6 text-center">
+                        <div class="w-14 h-14 rounded-full bg-[#a7e169]/20 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-bullhorn text-xl text-[#5a8c1e]"></i>
+                        </div>
+                        <h4 class="font-bold text-black mb-2">Social Media</h4>
+                        <p class="text-gray-500 text-sm">Eye-catching posts, stories, and campaign visuals for all platforms.</p>
+                    </div>
+                    <div class="minimalist-card p-6 text-center">
+                        <div class="w-14 h-14 rounded-full bg-[#ed2939]/10 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-print text-xl text-[#ed2939]"></i>
+                        </div>
+                        <h4 class="font-bold text-black mb-2">Print Design</h4>
+                        <p class="text-gray-500 text-sm">Business cards, brochures, banners, and packaging design.</p>
+                    </div>
+                    <div class="minimalist-card p-6 text-center">
+                        <div class="w-14 h-14 rounded-full bg-[#a7e169]/20 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-globe text-xl text-[#5a8c1e]"></i>
+                        </div>
+                        <h4 class="font-bold text-black mb-2">Website Design</h4>
+                        <p class="text-gray-500 text-sm">Modern, responsive websites that elevate your online presence.</p>
+                    </div>
+                </div>
+                <!-- Mobile: compact horizontal cards -->
+                <div class="flex flex-col gap-3 md:hidden">
+                    <div class="minimalist-card flex items-center gap-4 p-4">
+                        <div class="w-10 h-10 rounded-full bg-[#a7e169]/20 flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-pen-nib text-sm text-[#5a8c1e]"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-black text-sm">Logo Design</h4>
+                            <p class="text-gray-500 text-xs">Unique, memorable logos for your brand.</p>
+                        </div>
+                    </div>
+                    <div class="minimalist-card flex items-center gap-4 p-4">
+                        <div class="w-10 h-10 rounded-full bg-[#ed2939]/10 flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-palette text-sm text-[#ed2939]"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-black text-sm">Brand Identity</h4>
+                            <p class="text-gray-500 text-xs">Colors, typography, and visual guidelines.</p>
+                        </div>
+                    </div>
+                    <div class="minimalist-card flex items-center gap-4 p-4">
+                        <div class="w-10 h-10 rounded-full bg-[#a7e169]/20 flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-bullhorn text-sm text-[#5a8c1e]"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-black text-sm">Social Media</h4>
+                            <p class="text-gray-500 text-xs">Posts, stories, and campaign visuals.</p>
+                        </div>
+                    </div>
+                    <div class="minimalist-card flex items-center gap-4 p-4">
+                        <div class="w-10 h-10 rounded-full bg-[#ed2939]/10 flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-print text-sm text-[#ed2939]"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-black text-sm">Print Design</h4>
+                            <p class="text-gray-500 text-xs">Business cards, brochures, and banners.</p>
+                        </div>
+                    </div>
+                    <div class="minimalist-card flex items-center gap-4 p-4">
+                        <div class="w-10 h-10 rounded-full bg-[#a7e169]/20 flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-globe text-sm text-[#5a8c1e]"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-black text-sm">Website Design</h4>
+                            <p class="text-gray-500 text-xs">Modern, responsive websites for you.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How I Work -->
+            <div class="mb-24" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-[#323232] mb-4 text-center">How I Work</h2>
+                <p class="text-gray-500 text-center mb-12 max-w-2xl mx-auto">ရိုးရှင်းတဲ့ အဆင့် ၄ ဆင့်နဲ့ သင့် Project ကို အကောင်အထည်ဖော်ပေးပါတယ်။</p>
+
+                <div class="grid md:grid-cols-4 gap-6">
+                    <div class="text-center relative">
+                        <div class="w-12 h-12 rounded-full bg-[#a7e169] text-black font-bold text-lg flex items-center justify-center mx-auto mb-4">1</div>
+                        <h4 class="font-bold text-black mb-2 text-sm">ဆွေးနွေးတိုင်ပင်ခြင်း</h4>
+                        <p class="text-gray-500 text-xs leading-relaxed">သင့် Brand ရဲ့ ရည်မှန်းချက်၊ လိုချင်တဲ့ ပုံစံနဲ့ Project အသေးစိတ်ကို အရင်ဆုံး ဆွေးနွေးပါတယ်။</p>
+                        <div class="hidden md:block absolute top-6 left-[60%] w-[80%] h-[2px] bg-[#e5e5e5]"></div>
+                    </div>
+                    <div class="text-center relative">
+                        <div class="w-12 h-12 rounded-full bg-[#a7e169] text-black font-bold text-lg flex items-center justify-center mx-auto mb-4">2</div>
+                        <h4 class="font-bold text-black mb-2 text-sm">ပုံကြမ်း ရေးဆွဲခြင်း</h4>
+                        <p class="text-gray-500 text-xs leading-relaxed">Concept ပုံကြမ်းတွေ ဖန်တီးပြီး သင့်ရဲ့ Feedback ယူပါတယ်။</p>
+                        <div class="hidden md:block absolute top-6 left-[60%] w-[80%] h-[2px] bg-[#e5e5e5]"></div>
+                    </div>
+                    <div class="text-center relative">
+                        <div class="w-12 h-12 rounded-full bg-[#a7e169] text-black font-bold text-lg flex items-center justify-center mx-auto mb-4">3</div>
+                        <h4 class="font-bold text-black mb-2 text-sm">ပြန်လည်ပြင်ဆင်ခြင်း</h4>
+                        <p class="text-gray-500 text-xs leading-relaxed">သင် စိတ်ကျေနပ်တဲ့ ဒီဇိုင်းရလာတဲ့အထိ အတူတကွ ပြင်ဆင်ပါတယ်။</p>
+                        <div class="hidden md:block absolute top-6 left-[60%] w-[80%] h-[2px] bg-[#e5e5e5]"></div>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 rounded-full bg-[#ed2939] text-white font-bold text-lg flex items-center justify-center mx-auto mb-4">4</div>
+                        <h4 class="font-bold text-black mb-2 text-sm">File အပ်နှံခြင်း</h4>
+                        <p class="text-gray-500 text-xs leading-relaxed">လိုအပ်တဲ့ Format အားလုံးနဲ့ Final File တွေကို လက်ခံရရှိပါမယ်။</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonials -->
+            <div class="mb-24" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-[#323232] mb-4 text-center">What Clients Say</h2>
+                <p class="text-gray-500 text-center mb-12 max-w-2xl mx-auto">Feedback from businesses and students I've worked with.</p>
+
+                <!-- Mobile: horizontal scroll single cards -->
+                <div class="mobile-testimonials flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 md:hidden" style="-webkit-overflow-scrolling: touch;">
+                    <div class="minimalist-card p-5 flex-shrink-0 w-[85vw] snap-center">
+                        <div class="flex items-center gap-1 mb-3">
+                            <i class="fas fa-star text-[#f59e0b] text-xs"></i><i class="fas fa-star text-[#f59e0b] text-xs"></i><i class="fas fa-star text-[#f59e0b] text-xs"></i><i class="fas fa-star text-[#f59e0b] text-xs"></i><i class="fas fa-star text-[#f59e0b] text-xs"></i>
+                        </div>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-4">"Logo design အရမ်းလှပါတယ်။ Professional ဖြစ်ပြီး brand ရဲ့ identity ကို ကောင်းကောင်းဖော်ပြပေးနိုင်ပါတယ်။"</p>
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 rounded-full bg-[#a7e169]/20 flex items-center justify-center"><span class="font-bold text-[#5a8c1e] text-xs">KZ</span></div>
+                            <div><p class="font-bold text-black text-xs">Ko Kaung Zaw</p><p class="text-gray-400" style="font-size:10px;">Business Owner</p></div>
+                        </div>
+                    </div>
+                    <div class="minimalist-card p-5 flex-shrink-0 w-[85vw] snap-center">
+                        <div class="flex items-center gap-1 mb-3">
+                            <i class="fas fa-star text-[#f59e0b] text-xs"></i><i class="fas fa-star text-[#f59e0b] text-xs"></i><i class="fas fa-star text-[#f59e0b] text-xs"></i><i class="fas fa-star text-[#f59e0b] text-xs"></i><i class="fas fa-star text-[#f59e0b] text-xs"></i>
+                        </div>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-4">"Social media campaign တွေအတွက် design quality အရမ်းကောင်းပါတယ်။ Deadline အမြဲမှီပါတယ်။"</p>
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 rounded-full bg-[#ed2939]/10 flex items-center justify-center"><span class="font-bold text-[#ed2939] text-xs">TH</span></div>
+                            <div><p class="font-bold text-black text-xs">Ma Thiri Hlaing</p><p class="text-gray-400" style="font-size:10px;">Marketing Manager</p></div>
+                        </div>
+                    </div>
+                    <div class="minimalist-card p-5 flex-shrink-0 w-[85vw] snap-center">
+                        <div class="flex items-center gap-1 mb-3">
+                            <i class="fas fa-star text-[#f59e0b] text-xs"></i><i class="fas fa-star text-[#f59e0b] text-xs"></i><i class="fas fa-star text-[#f59e0b] text-xs"></i><i class="fas fa-star text-[#f59e0b] text-xs"></i><i class="fas fa-star text-[#f59e0b] text-xs"></i>
+                        </div>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-4">"Illustrator course ကနေ အခြေခံကစပြီး လက်တွေ့ project တွေအထိ သင်ပေးတာမို့ အရမ်းအကျိုးရှိပါတယ်။"</p>
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 rounded-full bg-[#a7e169]/20 flex items-center justify-center"><span class="font-bold text-[#5a8c1e] text-xs">MA</span></div>
+                            <div><p class="font-bold text-black text-xs">Ko Min Aung</p><p class="text-gray-400" style="font-size:10px;">Former Student</p></div>
+                        </div>
+                    </div>
+                    <div class="minimalist-card p-5 flex-shrink-0 w-[85vw] snap-center">
+                        <div class="flex items-center gap-1 mb-3">
+                            <i class="fas fa-star text-[#f59e0b] text-xs"></i><i class="fas fa-star text-[#f59e0b] text-xs"></i><i class="fas fa-star text-[#f59e0b] text-xs"></i><i class="fas fa-star text-[#f59e0b] text-xs"></i><i class="fas fa-star text-[#f59e0b] text-xs"></i>
+                        </div>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-4">"Brand identity တစ်ခုလုံးကို အစအဆုံး စီစဉ်ပေးတာ အရမ်းကောင်းပါတယ်။ Logo ကနေ font အထိ consistent ဖြစ်ပါတယ်။"</p>
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 rounded-full bg-[#ed2939]/10 flex items-center justify-center"><span class="font-bold text-[#ed2939] text-xs">AK</span></div>
+                            <div><p class="font-bold text-black text-xs">U Aung Kyaw</p><p class="text-gray-400" style="font-size:10px;">Restaurant Owner</p></div>
+                        </div>
+                    </div>
+                    <div class="minimalist-card p-5 flex-shrink-0 w-[85vw] snap-center">
+                        <div class="flex items-center gap-1 mb-3">
+                            <i class="fas fa-star text-[#f59e0b] text-xs"></i><i class="fas fa-star text-[#f59e0b] text-xs"></i><i class="fas fa-star text-[#f59e0b] text-xs"></i><i class="fas fa-star text-[#f59e0b] text-xs"></i><i class="fas fa-star text-[#f59e0b] text-xs"></i>
+                        </div>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-4">"ကျွန်မတို့ Company ရဲ့ social media post တွေကို လစဉ် design လုပ်ပေးတာ ၂ နှစ်ကျော်ပြီ။ Creative ဖြစ်ပါတယ်။"</p>
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 rounded-full bg-[#a7e169]/20 flex items-center justify-center"><span class="font-bold text-[#5a8c1e] text-xs">HS</span></div>
+                            <div><p class="font-bold text-black text-xs">Daw Hnin Si</p><p class="text-gray-400" style="font-size:10px;">CEO, Fashion Brand</p></div>
+                        </div>
+                    </div>
+                    <div class="minimalist-card p-5 flex-shrink-0 w-[85vw] snap-center">
+                        <div class="flex items-center gap-1 mb-3">
+                            <i class="fas fa-star text-[#f59e0b] text-xs"></i><i class="fas fa-star text-[#f59e0b] text-xs"></i><i class="fas fa-star text-[#f59e0b] text-xs"></i><i class="fas fa-star text-[#f59e0b] text-xs"></i><i class="fas fa-star text-[#f59e0b] text-xs"></i>
+                        </div>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-4">"Graphic design course တက်ပြီး ကိုယ်ပိုင် studio ဖွင့်နိုင်ခဲ့ပါတယ်။ Career guidance ပါ ပေးပါတယ်။"</p>
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 rounded-full bg-[#ed2939]/10 flex items-center justify-center"><span class="font-bold text-[#ed2939] text-xs">YM</span></div>
+                            <div><p class="font-bold text-black text-xs">Ko Ye Myint</p><p class="text-gray-400" style="font-size:10px;">Freelance Designer</p></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Desktop: slideshow -->
+                <div class="relative hidden md:block" id="testimonialSlider">
+                    <div class="flex transition-transform duration-500 ease-in-out" id="testimonialTrack">
+                        <!-- Slide 1 -->
+                        <div class="w-full flex-shrink-0 grid md:grid-cols-3 gap-8 px-1">
+                            <div class="minimalist-card p-8">
+                                <div class="flex items-center gap-1 mb-4">
+                                    <i class="fas fa-star text-[#f59e0b] text-sm"></i><i class="fas fa-star text-[#f59e0b] text-sm"></i><i class="fas fa-star text-[#f59e0b] text-sm"></i><i class="fas fa-star text-[#f59e0b] text-sm"></i><i class="fas fa-star text-[#f59e0b] text-sm"></i>
+                                </div>
+                                <p class="text-gray-500 text-sm leading-relaxed mb-6">"Logo design အရမ်းလှပါတယ်။ Professional ဖြစ်ပြီး brand ရဲ့ identity ကို ကောင်းကောင်းဖော်ပြပေးနိုင်ပါတယ်။ အကြံပြုချက်တွေကိုလည်း လျင်မြန်စွာ ပြင်ဆင်ပေးပါတယ်။"</p>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-[#a7e169]/20 flex items-center justify-center"><span class="font-bold text-[#5a8c1e] text-sm">KZ</span></div>
+                                    <div>
+                                        <p class="font-bold text-black text-sm">Ko Kaung Zaw</p>
+                                        <p class="text-gray-400 text-xs">Business Owner</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="minimalist-card p-8">
+                                <div class="flex items-center gap-1 mb-4">
+                                    <i class="fas fa-star text-[#f59e0b] text-sm"></i><i class="fas fa-star text-[#f59e0b] text-sm"></i><i class="fas fa-star text-[#f59e0b] text-sm"></i><i class="fas fa-star text-[#f59e0b] text-sm"></i><i class="fas fa-star text-[#f59e0b] text-sm"></i>
+                                </div>
+                                <p class="text-gray-500 text-sm leading-relaxed mb-6">"Social media campaign တွေအတွက် design quality အရမ်းကောင်းပါတယ်။ Deadline အမြဲမှီပါတယ်။ Long-term partner အနေနဲ့ ဆက်အလုပ်လုပ်ချင်ပါတယ်။"</p>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-[#ed2939]/10 flex items-center justify-center"><span class="font-bold text-[#ed2939] text-sm">TH</span></div>
+                                    <div>
+                                        <p class="font-bold text-black text-sm">Ma Thiri Hlaing</p>
+                                        <p class="text-gray-400 text-xs">Marketing Manager</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="minimalist-card p-8">
+                                <div class="flex items-center gap-1 mb-4">
+                                    <i class="fas fa-star text-[#f59e0b] text-sm"></i><i class="fas fa-star text-[#f59e0b] text-sm"></i><i class="fas fa-star text-[#f59e0b] text-sm"></i><i class="fas fa-star text-[#f59e0b] text-sm"></i><i class="fas fa-star text-[#f59e0b] text-sm"></i>
+                                </div>
+                                <p class="text-gray-500 text-sm leading-relaxed mb-6">"Illustrator course ကနေ အခြေခံကစပြီး လက်တွေ့ project တွေအထိ သင်ပေးတာမို့ အရမ်းအကျိုးရှိပါတယ်။ သင်ပြီးတာနဲ့ freelance job တွေ ရပြီ။"</p>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-[#a7e169]/20 flex items-center justify-center"><span class="font-bold text-[#5a8c1e] text-sm">MA</span></div>
+                                    <div>
+                                        <p class="font-bold text-black text-sm">Ko Min Aung</p>
+                                        <p class="text-gray-400 text-xs">Former Student</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 2 -->
+                        <div class="w-full flex-shrink-0 grid md:grid-cols-3 gap-8 px-1">
+                            <div class="minimalist-card p-8">
+                                <div class="flex items-center gap-1 mb-4">
+                                    <i class="fas fa-star text-[#f59e0b] text-sm"></i><i class="fas fa-star text-[#f59e0b] text-sm"></i><i class="fas fa-star text-[#f59e0b] text-sm"></i><i class="fas fa-star text-[#f59e0b] text-sm"></i><i class="fas fa-star text-[#f59e0b] text-sm"></i>
+                                </div>
+                                <p class="text-gray-500 text-sm leading-relaxed mb-6">"Brand identity တစ်ခုလုံးကို အစအဆုံး စီစဉ်ပေးတာ အရမ်းကောင်းပါတယ်။ Logo ကနေ color palette, font အထိ အကုန်လုံး consistent ဖြစ်အောင် လုပ်ပေးပါတယ်။"</p>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-[#ed2939]/10 flex items-center justify-center"><span class="font-bold text-[#ed2939] text-sm">AK</span></div>
+                                    <div>
+                                        <p class="font-bold text-black text-sm">U Aung Kyaw</p>
+                                        <p class="text-gray-400 text-xs">Restaurant Owner</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="minimalist-card p-8">
+                                <div class="flex items-center gap-1 mb-4">
+                                    <i class="fas fa-star text-[#f59e0b] text-sm"></i><i class="fas fa-star text-[#f59e0b] text-sm"></i><i class="fas fa-star text-[#f59e0b] text-sm"></i><i class="fas fa-star text-[#f59e0b] text-sm"></i><i class="fas fa-star text-[#f59e0b] text-sm"></i>
+                                </div>
+                                <p class="text-gray-500 text-sm leading-relaxed mb-6">"ကျွန်မတို့ Company ရဲ့ social media post တွေကို လစဉ် design လုပ်ပေးတာ ၂ နှစ်ကျော်ပြီ။ Creative ဖြစ်ပြီး engagement လည်း တက်လာပါတယ်။"</p>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-[#a7e169]/20 flex items-center justify-center"><span class="font-bold text-[#5a8c1e] text-sm">HS</span></div>
+                                    <div>
+                                        <p class="font-bold text-black text-sm">Daw Hnin Si</p>
+                                        <p class="text-gray-400 text-xs">CEO, Fashion Brand</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="minimalist-card p-8">
+                                <div class="flex items-center gap-1 mb-4">
+                                    <i class="fas fa-star text-[#f59e0b] text-sm"></i><i class="fas fa-star text-[#f59e0b] text-sm"></i><i class="fas fa-star text-[#f59e0b] text-sm"></i><i class="fas fa-star text-[#f59e0b] text-sm"></i><i class="fas fa-star text-[#f59e0b] text-sm"></i>
+                                </div>
+                                <p class="text-gray-500 text-sm leading-relaxed mb-6">"Adobe Illustrator Course တက်ပြီးနောက်ပိုင်း Illustrator ကိုတော်တော်လေးနားလည်သွားပါတယ်။ စာပဲသင်တာမဟုတ်ပဲ လုပ်ငန်းအတွေ့အကြုံနဲ့ ဆုံးမစကားလေးတွေပါ မကြာမကြာပြောတတ်တဲ့ဆရာပါ။ ကျေးဇူးပါဆရာ"</p>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-[#ed2939]/10 flex items-center justify-center"><span class="font-bold text-[#ed2939] text-sm">YM</span></div>
+                                    <div>
+                                        <p class="font-bold text-black text-sm">Ko Ye Myint</p>
+                                        <p class="text-gray-400 text-xs">Freelance Designer</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slider Controls -->
+                    <div class="flex justify-center items-center gap-4 mt-8">
+                        <button onclick="prevTestimonial()" class="w-10 h-10 rounded-full border border-[#e5e5e5] flex items-center justify-center hover:bg-[#a7e169] hover:border-[#a7e169] transition-all duration-300 cursor-pointer">
+                            <i class="fas fa-chevron-left text-sm"></i>
+                        </button>
+                        <div class="flex gap-2" id="testimonialDots">
+                            <button onclick="goToTestimonial(0)" class="w-2.5 h-2.5 rounded-full bg-[#a7e169] transition-all duration-300 cursor-pointer"></button>
+                            <button onclick="goToTestimonial(1)" class="w-2.5 h-2.5 rounded-full bg-[#e5e5e5] transition-all duration-300 cursor-pointer"></button>
+                        </div>
+                        <button onclick="nextTestimonial()" class="w-10 h-10 rounded-full border border-[#e5e5e5] flex items-center justify-center hover:bg-[#a7e169] hover:border-[#a7e169] transition-all duration-300 cursor-pointer">
+                            <i class="fas fa-chevron-right text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Free Consultation CTA -->
+            <div class="mt-16 rounded-2xl" data-aos="fade-up">
+                <div class="bg-white px-8 py-16 md:px-16 md:py-20 relative border border-[#e5e5e5] rounded-2xl overflow-hidden">
+                    <!-- Decorative Elements -->
+                    <div class="absolute -top-16 -right-16 w-64 h-64 bg-[#a7e169]/10 rounded-full blur-3xl"></div>
+                    <div class="absolute -bottom-16 -left-16 w-48 h-48 bg-[#ed2939]/5 rounded-full blur-3xl"></div>
+
+                    <div class="relative z-10 max-w-2xl mx-auto text-center">
+                        <h3 class="text-3xl md:text-4xl font-bold text-black mb-4 leading-tight">Free Consultation<br><span class="text-[#ed2939]">For Your Brand</span></h3>
+
+                        <p class="text-[#555] text-sm md:text-base max-w-md mx-auto mb-10 leading-relaxed">သင့် Brand ကို Professional ဖြစ်စေချင်ပါသလား? အခုပဲအခမဲ့ တိုင်ပင်ဆွေးနွေးနိုင်ပါတယ်။</p>
+
+                        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                            <a href="tel:09953681497" class="btn-primary rounded-full" style="background-color:#ed2939; border-color:#ed2939; color:#fff;" onmouseover="this.style.backgroundColor='#a7e169';this.style.borderColor='#a7e169';this.style.color='#000';" onmouseout="this.style.backgroundColor='#ed2939';this.style.borderColor='#ed2939';this.style.color='#fff';">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-2">
+                                    <path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd" />
+                                </svg>
+                                Call Now
+                            </a>
+                            <a href="index.html#contact" class="btn-primary rounded-full">
+                                <i class="fas fa-envelope text-sm mr-2"></i>
+                                Send Message
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </main>
@@ -606,6 +921,48 @@ function toggleMobileResourcesDropdown() {
     document.getElementById('mobile-resources-sub').classList.toggle('open');
     document.getElementById('mobile-res-arrow').classList.toggle('rotated');
 }
+</script>
+<script>
+// Testimonial Slider
+let currentTestimonial = 0;
+const totalSlides = 2;
+let testimonialInterval;
+
+function updateTestimonialSlider() {
+    const track = document.getElementById('testimonialTrack');
+    const dots = document.getElementById('testimonialDots').children;
+    if (!track) return;
+    track.style.transform = 'translateX(-' + (currentTestimonial * 100) + '%)';
+    for (let i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(/bg-\[#a7e169\]|bg-\[#e5e5e5\]/g, '');
+        dots[i].classList.add(i === currentTestimonial ? 'bg-[#a7e169]' : 'bg-[#e5e5e5]');
+    }
+}
+
+function nextTestimonial() {
+    currentTestimonial = (currentTestimonial + 1) % totalSlides;
+    updateTestimonialSlider();
+    resetAutoSlide();
+}
+
+function prevTestimonial() {
+    currentTestimonial = (currentTestimonial - 1 + totalSlides) % totalSlides;
+    updateTestimonialSlider();
+    resetAutoSlide();
+}
+
+function goToTestimonial(index) {
+    currentTestimonial = index;
+    updateTestimonialSlider();
+    resetAutoSlide();
+}
+
+function resetAutoSlide() {
+    clearInterval(testimonialInterval);
+    testimonialInterval = setInterval(nextTestimonial, 5000);
+}
+
+testimonialInterval = setInterval(nextTestimonial, 5000);
 </script>
 <script src="/js/shop-badge.js"></script>
 <script type="module" src="/js/nav-auth.js"></script>
