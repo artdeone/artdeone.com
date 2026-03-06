@@ -722,7 +722,7 @@
                 pageButton.addEventListener('click', () => {
                     currentPage = i;
                     loadBlogPosts(currentPage);
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    document.getElementById('blog-posts').scrollIntoView({ behavior: 'smooth', block: 'start' });
                 });
                 pageNumbersContainer.appendChild(pageButton);
             }
@@ -735,7 +735,7 @@
                 if (currentPage > 1) {
                     currentPage--;
                     loadBlogPosts(currentPage);
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    document.getElementById('blog-posts').scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
 
@@ -744,7 +744,7 @@
                 if (currentPage < totalPages) {
                     currentPage++;
                     loadBlogPosts(currentPage);
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    document.getElementById('blog-posts').scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
         });
