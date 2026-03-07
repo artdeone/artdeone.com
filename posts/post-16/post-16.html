@@ -248,6 +248,13 @@
             filter: brightness(0) saturate(100%) invert(84%) sepia(32%) saturate(673%) hue-rotate(36deg) brightness(94%) contrast(89%);
         }
 
+        .dark-mode .signin-cta {
+            background: linear-gradient(135deg, #1a2e1a 0%, #2a2a1a 100%) !important;
+            border-color: #333 !important;
+        }
+        .dark-mode .signin-cta p.text-black { color: #fff !important; }
+        .dark-mode .signin-cta .text-gray-600 { color: #9ca3af !important; }
+
         /* Dark Mode: Sign in text & icon dark */
         .dark-mode .nav-btn {
             color: #000 !important;
@@ -277,6 +284,19 @@
         }
         .dark-mode .theme-toggle-btn { background-color: #fff; color: #000; }
         .theme-toggle-btn.active-state, .theme-toggle-btn:hover { opacity: 1; transform: scale(1.1); }
+
+        /* Blur Fade-in Scroll Animation */
+        .blur-fade {
+            opacity: 0;
+            filter: blur(12px);
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, filter 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .blur-fade.visible {
+            opacity: 1;
+            filter: blur(0);
+            transform: translateY(0);
+        }
 
     </style>
 </head>
@@ -387,7 +407,7 @@
                     </p>
 
                     <!-- Point 1 -->
-                    <div class="mb-16">
+                    <div class="mb-16 blur-fade">
                         <h2 class="text-black">1. Brutalism</h2>
                         <div class="trend-image-container">
                             <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772815309/Brutalism-scaled_w69kyq.jpg" alt="Brutalism Design Style">
@@ -401,7 +421,7 @@
                     </div>
 
                     <!-- Point 2 -->
-                    <div class="mb-16">
+                    <div class="mb-16 blur-fade">
                         <h2 class="text-black">2. Memphis Design</h2>
                         <div class="trend-image-container">
                             <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772815305/memphis_ziu1um.jpg" alt="Memphis Design Style">
@@ -414,8 +434,18 @@
                         </p>
                     </div>
 
+                    <!-- Sign-in CTA Banner -->
+                    <div class="signin-cta mb-16 blur-fade p-6 rounded-2xl border border-gray-200 text-center" style="background: linear-gradient(135deg, #f9fef5 0%, #fefce8 100%);">
+                        <p class="text-lg font-bold text-black mb-2">အခမဲ့ Resources တွေရယူဖို့ Sign in ဝင်ထားလိုက်ပါခင်ဗျ</p>
+                        <p class="text-sm text-gray-600 mb-4">Sign in လုပ်ထားရင် Resources တွေ၊ Templates တွေ အကုန် Free Download လုပ်လို့ရပါတယ်။</p>
+                        <a href="/customer-dashboard.html" class="nav-btn bg-[#a7e169] text-black px-8 py-3 h-auto inline-flex gap-2 rounded-full font-bold hover:bg-[#ed2939] hover:text-white transition-all" style="text-decoration:none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            Sign in
+                        </a>
+                    </div>
+
                     <!-- Point 3 -->
-                    <div class="mb-16">
+                    <div class="mb-16 blur-fade">
                         <h2 class="text-black">3. Maximalism</h2>
                         <div class="trend-image-container">
                             <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772815305/maximalism_ghpijq.jpg" alt="Maximalism Design Style">
@@ -429,7 +459,7 @@
                     </div>
 
                     <!-- Point 4 -->
-                    <div class="mb-16">
+                    <div class="mb-16 blur-fade">
                         <h2 class="text-black">4. Vaporwave Design</h2>
                         <div class="trend-image-container">
                             <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772815314/vaporwave_wjeqkh.jpg" alt="Vaporwave Design Style">
@@ -443,7 +473,7 @@
                     </div>
 
                     <!-- Point 5 -->
-                    <div class="mb-16">
+                    <div class="mb-16 blur-fade">
                         <h2 class="text-black">5. Swiss Design</h2>
                         <div class="trend-image-container">
                             <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772815305/swiss_wmyakn.jpg" alt="Swiss Design Style">
@@ -740,6 +770,16 @@ function toggleMobileResourcesDropdown() {
     document.getElementById('mobile-resources-sub').classList.toggle('open');
     document.getElementById('mobile-res-arrow').classList.toggle('rotated');
 }
+</script>
+<script>
+const blurObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.15 });
+document.querySelectorAll('.blur-fade').forEach(el => blurObserver.observe(el));
 </script>
 <script src="/js/shop-badge.js"></script>
 <script type="module" src="/js/nav-auth.js"></script>
