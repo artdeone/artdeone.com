@@ -1403,7 +1403,68 @@
                 ],
                 closing: 'သင်္ကြန် Design တွေအတွက် Character လိုအပ်ရင် ဒီမှာ Free Download ရယူလိုက်ပါခင်ဗျ။'
             },
+
+            {
+                id: 7,
+                name: 'Boho Minimal Leaf Vector Patterns',
+                category: 'template',
+                price: 0,
+                originalPrice: 15000,
+                freeStart: '2026-05-11',
+                freeEnd: '2026-05-26',
+                image: 'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772948112/CM-05_aarhqx.jpg',
+                images: [
+                    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772948112/CM-05_aarhqx.jpg',
+                    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772947854/botanical_leave-pattern-10_betr64.jpg',
+                    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772947858/botanical_leave-pattern-02_eccruu.jpg',
+                    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772947858/botanical_leave-pattern-06_wxjvva.jpg',
+                    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772947858/botanical_leave-pattern-08_f4pjn2.jpg',
+                    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772947854/botanical_leave-pattern-12_wj03q1.jpg',
+                    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772947854/botanical_leave-pattern-12_wj03q1.jpg',
+                    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772947854/botanical_leave-pattern-13_lxn4wa.jpg'
+                ],
+                description: 'ART de ONE ရဲ့ Fabric Patterns ၁၂ခုကို Free မျှ၀ေပေးလိုက်ပါတယ်။ Personal, Commercial လိုအပ်တဲ့နေရာမှာအသုံးပြုနိုင်ပါတယ်။ "Creative Market" မှာရောင်းနေတဲ့ဟာလေးမို့ Free Download ကိုတော့ အချိန်အကန့်အသတ်တစ်ခု ထားပေးထားပါမယ်ခင်ဗျ။',
+                features: [
+                    'Boho Minimal Leaf Vector Patterns ၁၂ခု ပါဝင်',
+                    'Adobe Illustrator (Ai) ဖိုင်ဖြစ်၍ Vector Quality ရရှိမည်',
+                    'Fabric, Textile, Print Design များအတွက် အသင့်သုံးနိုင်',
+                    'Personal & Commercial Use နှစ်မျိုးလုံး အသုံးပြုနိုင်'
+                ],
+                note: '📌 Creative Market မှာရောင်းနေတဲ့ Product ဖြစ်တဲ့အတွက် Free Download ကို အချိန်အကန့်အသတ်ဖြင့် ပေးထားပါတယ်။\nFile type: Adobe Illustrator (Ai)',
+                closing: 'Fabric Patterns တွေလိုအပ်ရင် အချိန်မီ Download ရယူလိုက်ပါခင်ဗျ။'
+            },
         ];
+
+        // Time-limited free pricing logic
+        function getDisplayPrice(p) {
+            if (p.freeStart && p.freeEnd) {
+                const now = new Date();
+                const start = new Date(p.freeStart + 'T00:00:00');
+                const end = new Date(p.freeEnd + 'T00:00:00');
+                if (now >= start && now < end) {
+                    return 0;
+                }
+                return p.originalPrice || p.price;
+            }
+            return p.price;
+        }
+
+        function getTimeLimitedLabel(p) {
+            if (p.freeStart && p.freeEnd) {
+                const now = new Date();
+                const start = new Date(p.freeStart + 'T00:00:00');
+                const end = new Date(p.freeEnd + 'T00:00:00');
+                if (now < start) {
+                    const startStr = new Date(p.freeStart).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                    return `<div style="background:#fef2f2; border:1px solid #fecaca; border-radius:8px; padding:6px 12px; margin-top:8px; display:inline-block;"><span style="font-size:0.75rem; color:#dc2626; font-weight:600;">🔥 Free from ${startStr} (Limited Time)</span></div>`;
+                }
+                if (now >= start && now < end) {
+                    const daysLeft = Math.ceil((end - now) / (1000 * 60 * 60 * 24));
+                    return `<div style="background:#fef2f2; border:1px solid #fecaca; border-radius:8px; padding:6px 12px; margin-top:8px; display:inline-block;"><span style="font-size:0.75rem; color:#dc2626; font-weight:600;">🔥 Limited Time Free — ${daysLeft} day${daysLeft !== 1 ? 's' : ''} left</span></div>`;
+                }
+            }
+            return '';
+        }
 
         const categoryLabels = {
             template: 'Templates',
@@ -1460,13 +1521,14 @@
                 const matchCat = activeCategory === 'all' || p.category === activeCategory;
                 const matchSearch = p.name.toLowerCase().includes(query) || p.description.toLowerCase().includes(query);
                 let matchPrice = true;
-                if (activePriceRange === 'free') matchPrice = p.price === 0;
-                else if (activePriceRange === 'under10k') matchPrice = p.price > 0 && p.price < 10000;
-                else if (activePriceRange === '10k-50k') matchPrice = p.price >= 10000 && p.price <= 50000;
-                else if (activePriceRange === 'above50k') matchPrice = p.price > 50000;
+                const dp = getDisplayPrice(p);
+                if (activePriceRange === 'free') matchPrice = dp === 0;
+                else if (activePriceRange === 'under10k') matchPrice = dp > 0 && dp < 10000;
+                else if (activePriceRange === '10k-50k') matchPrice = dp >= 10000 && dp <= 50000;
+                else if (activePriceRange === 'above50k') matchPrice = dp > 50000;
                 return matchCat && matchSearch && matchPrice;
             });
-            filtered.sort((a, b) => a.price - b.price);
+            filtered.sort((a, b) => getDisplayPrice(a) - getDisplayPrice(b));
             renderProducts(filtered);
         }
 
@@ -1499,7 +1561,7 @@
                         <p class="text-sm text-[#555] mb-4 line-clamp-2">${p.description}</p>
                         <div class="flex items-center justify-between">
                             <div>
-                                ${p.price === 0 ? '<span class="price-tag" style="color:#16a34a;">Free</span>' : `<span class="price-tag">${formatPrice(p.price)}</span><span class="price-unit">MMK</span>`}
+                                ${getDisplayPrice(p) === 0 && p.originalPrice ? `<span style="text-decoration:line-through; color:#999; font-size:0.85rem;">${formatPrice(p.originalPrice)} MMK</span> <span class="price-tag" style="color:#16a34a; margin-left:6px;">Free</span> <span style="font-size:0.75rem; color:#dc2626; font-weight:600; margin-left:4px;">(Limited Time)</span>` : getDisplayPrice(p) === 0 ? '<span class="price-tag" style="color:#16a34a;">Free</span>' : `<span class="price-tag">${formatPrice(getDisplayPrice(p))}</span><span class="price-unit">MMK</span>`}
                             </div>
                             <button onclick="openModal(${p.id})" class="btn-primary text-sm" style="padding: 0.5rem 1.25rem;">View Details</button>
                         </div>
@@ -1591,7 +1653,7 @@
                     ${p.closing ? `<p style="font-size:0.9rem; color:#323232; line-height:1.8; margin-bottom:20px; font-style:italic;">${p.closing}</p>` : ''}
                     <div class="modal-price-bar">
                         <div>
-                            ${p.price === 0 ? '<span class="price-tag" style="font-size:1.6rem; color:#16a34a;">Free</span>' : `<span class="price-tag" style="font-size:1.6rem;">${formatPrice(p.price)}</span><span class="price-unit">MMK</span>`}
+                            ${getDisplayPrice(p) === 0 && p.originalPrice ? `<span style="text-decoration:line-through; color:#999; font-size:1rem;">${formatPrice(p.originalPrice)} MMK</span> <span class="price-tag" style="font-size:1.6rem; color:#16a34a; margin-left:8px;">Free</span> <span style="font-size:0.85rem; color:#dc2626; font-weight:600; margin-left:6px;">(Limited Time)</span>` : getDisplayPrice(p) === 0 ? '<span class="price-tag" style="font-size:1.6rem; color:#16a34a;">Free</span>' : `<span class="price-tag" style="font-size:1.6rem;">${formatPrice(getDisplayPrice(p))}</span><span class="price-unit">MMK</span>`}
                         </div>
                         <a href="customer-dashboard.html" class="btn-primary" style="padding: 0.6rem 1.5rem; font-size: 0.9rem; cursor:pointer; text-decoration:none;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in
