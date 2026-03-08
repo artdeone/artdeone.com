@@ -49,25 +49,28 @@
             font-family: 'Poppins', sans-serif;
             font-weight: 700; /* Ensures it uses the bold version of Poppins */
         }
-        /* Resource Cards */
+        /* Resource Cards — Soft Glass */
         .resource-card-minimal {
-            background: #ffffff;
-            border: 1px solid #e5e5e5;
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(0,0,0,0.06);
             border-radius: 1rem;
             overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 2px 8px -2px rgba(0,0,0,0.04);
         }
         .resource-card-minimal:hover {
-            transform: translateY(-8px);
-            border-color: #a7e169;
-            box-shadow: 0 20px 40px -20px rgba(167, 225, 105, 0.2);
+            transform: translateY(-5px);
+            border-color: rgba(167,225,105,0.35);
+            box-shadow: 0 12px 32px -8px rgba(0,0,0,0.1), 0 0 0 1px rgba(167,225,105,0.1);
+            background: rgba(255,255,255,0.85);
         }
         .resource-card-minimal img {
-            transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         .resource-card-minimal:hover img {
-            transform: scale(1.05);
+            transform: scale(1.04);
         }
         .nav-btn {
             border-radius: 2rem;
@@ -219,7 +222,7 @@
                 <button class="resource-filter" data-filter="font">Font</button>
             </div>
 
-            <div id="resources-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" data-aos="fade-up" data-aos-delay="200">
+            <div id="resources-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" data-aos="fade-up" data-aos-delay="200">
                 </div>
 
             <div class="flex justify-center items-center mt-20 space-x-2">
@@ -230,22 +233,6 @@
                 <button id="next-page" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-gray-600 hover:bg-black hover:text-white transition-colors disabled:opacity-30 disabled:cursor-not-allowed">
                     <i data-feather="chevron-right" class="w-5 h-5"></i>
                 </button>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 bg-gray-50 px-4 border-y border-gray-100">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-3xl font-bold text-black mb-3">Latest Industry Trends</h2>
-                <p class="text-gray-500 max-w-2xl mx-auto">Top companies shaping the future of design, AI, and digital innovation.</p>
-            </div>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
-                <a href="#" class="sub-card block p-6 text-center" data-aos="fade-up"><h3 class="font-bold text-lg text-black">OpenAI</h3></a>
-                <a href="#" class="sub-card block p-6 text-center" data-aos="fade-up" data-aos-delay="100"><h3 class="font-bold text-lg text-black">Midjourney</h3></a>
-                <a href="#" class="sub-card block p-6 text-center" data-aos="fade-up" data-aos-delay="200"><h3 class="font-bold text-lg text-black">Figma</h3></a>
-                <a href="#" class="sub-card block p-6 text-center" data-aos="fade-up" data-aos-delay="300"><h3 class="font-bold text-lg text-black">Adobe</h3></a>
-                <a href="#" class="sub-card block p-6 text-center" data-aos="fade-up" data-aos-delay="400"><h3 class="font-bold text-lg text-black">Runway</h3></a>
             </div>
         </div>
     </section>
@@ -495,14 +482,15 @@
             const paginatedResources = filteredResources.slice(startIndex, startIndex + resourcesPerPage);
 
             paginatedResources.forEach(resource => {
+                const cats = resource.category.split(' . ').map(c => c.trim()).join(' &middot; ');
                 const resourceEl = `
                     <a href="${resource.link}" target="_blank" class="resource-card-minimal block group">
-                        <div class="relative overflow-hidden h-48 bg-gray-50">
-                            <img src="${resource.image}" alt="${resource.title}" class="w-full h-full object-cover opacity-90 group-hover:opacity-100">
+                        <div class="relative overflow-hidden bg-gray-50/50 h-48">
+                            <img src="${resource.image}" alt="${resource.title}" class="w-full h-full object-cover">
                         </div>
-                        <div class="p-6">
-                            <h3 class="resource-title text-xl font-bold text-black mb-2 group-hover:text-[#a7e169] transition-colors">${resource.title}</h3>
-                            <p class="text-gray-500 text-sm line-clamp-2">Category: ${resource.category}</p>
+                        <div class="p-5">
+                            <h3 class="resource-title text-base font-semibold text-[#1d1d1f] mb-1.5 group-hover:text-[#a7e169] transition-colors duration-300">${resource.title}</h3>
+                            <p class="text-gray-400 text-xs">${cats}</p>
                         </div>
                     </a>
                 `;

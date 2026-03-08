@@ -101,6 +101,142 @@
         }
 
         [data-aos] { transition-duration: 1000ms !important; }
+
+        /* Masonry Gallery Grid */
+        .gallery-grid {
+            columns: 3;
+            column-gap: 1rem;
+        }
+        @media (max-width: 1024px) { .gallery-grid { columns: 2; } }
+        @media (max-width: 640px) { .gallery-grid { columns: 1; } }
+
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 1rem;
+            border-radius: 1rem;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            border: 1px solid #e5e5e5;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .gallery-item:hover {
+            transform: translateY(-4px);
+            border-color: #a7e169;
+            box-shadow: 0 16px 40px -16px rgba(167, 225, 105, 0.3);
+        }
+        .gallery-item img {
+            width: 100%;
+            display: block;
+            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .gallery-item:hover img { transform: scale(1.03); }
+        .gallery-item .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+        /* Lightbox */
+        .lightbox-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0,0,0,0.92);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+        .lightbox-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .lightbox-img-wrapper {
+            max-width: 90vw;
+            max-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .lightbox-overlay img {
+            max-width: 90vw;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 0.75rem;
+            transform: scale(0.92);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.35s ease;
+        }
+        .lightbox-overlay.active img {
+            transform: scale(1);
+            opacity: 1;
+        }
+        .lightbox-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #fff;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-size: 1.25rem;
+            backdrop-filter: blur(4px);
+        }
+        .lightbox-btn:hover {
+            background: #a7e169;
+            color: #000;
+            border-color: #a7e169;
+        }
+        .lightbox-prev { left: 1.5rem; }
+        .lightbox-next { right: 1.5rem; }
+        .lightbox-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #fff;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-size: 1.1rem;
+            backdrop-filter: blur(4px);
+        }
+        .lightbox-close:hover {
+            background: #ed2939;
+            border-color: #ed2939;
+        }
+        .lightbox-counter {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.6);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
     </style>
 </head>
 <body class="bg-white text-[#323232]">
@@ -195,56 +331,61 @@
                         <div>
                             <h2 class="text-2xl font-bold mb-4 text-black">The Concept</h2>
                             <p class="text-gray-600 leading-relaxed mb-6">
-                                I used Adobe Illustrator to capture Venom's raw energy. The design blends organic textures with sharp, aggressive forms to show just how chaotic the character is. 
+                                This piece was initially sketched in Adobe Photoshop, then finalized in Adobe Illustrator. Before moving to Illustrator, I also explored the design in Affinity Designer to experiment with different approaches.
                             </p>
+                            <p class="text-gray-600 leading-relaxed mb-6">
+                                The entire illustration relies on the simple Pen Tool, combined with complex shapes and a minimal color palette. Subtle gradients were carefully applied to achieve natural-looking shadows and highlights throughout the composition.
+                            </p>
+                            <h3 class="text-lg font-bold text-black mb-2">Inspired By</h3>
                             <p class="text-gray-600 leading-relaxed">
-                                Instead of using gradients or mesh tools, I used complex shapes and a simple color palette to create depth. This is a very hard look to achieve. The lighting gives the suit a shiny look without losing that intense, scary vibe.
+                                The inspiration behind this artwork came from a trip to Bagan in 2020, where the ancient temples and traditional motifs left a lasting impression that shaped this illustration.
                             </p>
                         </div>
 
                         <div class="flex flex-wrap gap-3">
                             <span class="project-tag">Vector Art</span>
-                            <span class="project-tag">Character Design</span>
                             <span class="project-tag">Adobe Illustrator</span>
-                            <span class="project-tag">Advanced Shading</span>
+                            <span class="project-tag">Adobe Photoshop</span>
+                            <span class="project-tag">Affinity Designer</span>
+                            <span class="project-tag">Pen Tool</span>
                         </div>
 
                         <div class="grid grid-cols-2 gap-6 pt-6 border-t border-gray-200">
                             <div>
                                 <span class="block text-sm text-gray-500 mb-1">Software</span>
-                                <span class="font-bold text-black">Adobe Illustrator CC</span>
+                                <span class="font-bold text-black">Photoshop, Illustrator, Affinity</span>
                             </div>
                             <div>
-                                <span class="block text-sm text-gray-500 mb-1">Time Taken</span>
-                                <span class="font-bold text-black">3 Days</span>
+                                <span class="block text-sm text-gray-500 mb-1">Technique</span>
+                                <span class="font-bold text-black">Pen Tool & Complex Shapes</span>
                             </div>
                             <div>
                                 <span class="block text-sm text-gray-500 mb-1">Style</span>
                                 <span class="font-bold text-black">Advanced Vector</span>
                             </div>
                             <div>
-                                <span class="block text-sm text-gray-500 mb-1">Year</span>
-                                <span class="font-bold text-black">2019</span>
+                                <span class="block text-sm text-gray-500 mb-1">Inspired</span>
+                                <span class="font-bold text-black">Bagan Trip, 2020</span>
                             </div>
                         </div>
                     </div>
 
                     <div class="bg-gray-50 rounded-2xl p-2 border border-gray-200 shadow-sm" data-aos="fade-left">
-                         <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119195/advanced_tagqhw.jpg" alt="Venom Final Illustration" class="w-full h-auto rounded-xl">
+                         <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772886791/main_jqrexw.jpg" alt="Advanced Vector Illustration - Digital Art by ART de ONE Adobe Illustrator" class="w-full h-auto rounded-xl">
                     </div>
                 </div>
 
                 <div class="mb-24" data-aos="fade-up">
                     <div class="text-center mb-12">
                         <h2 class="text-3xl font-bold mb-3 text-black">Process Breakdown</h2>
-                        <p class="text-gray-500">Drag the slider to see the transition from Outline to Final Render</p>
+                        <p class="text-gray-500">Drag the slider to see the transition from Sketch to Final Render</p>
                     </div>
 
                     <div class="max-w-4xl mx-auto">
                         <img-comparison-slider class="w-full aspect-[4/3] object-cover">
-                            <img slot="first" src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119195/advanced_tagqhw.jpg" class="w-full h-full object-cover" alt="Venom Final" />
-                            
-                            <img slot="second" src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119195/before_y1jwo1.jpg" class="w-full h-full object-cover" alt="Venom Outline" />
+                            <img slot="first" src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772886791/main_jqrexw.jpg" class="w-full h-full object-cover" alt="Final Vector Illustration by ART de ONE" />
+
+                            <img slot="second" src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772886789/main-sketch_ei2g04.jpg" class="w-full h-full object-cover" alt="Initial Sketch in Adobe Photoshop by ART de ONE" style="object-position: center top;" />
                             
                             <svg slot="handle" class="custom-animated-handle" xmlns="http://www.w3.org/2000/svg" width="100" viewBox="-8 -3 16 6">
                                 <path stroke="#fff" d="M -5 -2 L -7 0 L -5 2 M -5 -2 L -5 2 M 5 -2 L 7 0 L 5 2 M 5 -2 L 5 2" stroke-width="1" fill="#a7e169" vector-effect="non-scaling-stroke"></path>
@@ -255,53 +396,159 @@
 
                 <div class="mb-12" data-aos="fade-up">
                     <h3 class="text-2xl font-bold mb-8 text-black border-l-4 border-[#a7e169] pl-4">More Artworks</h3>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        
-                        <div class="flex flex-col gap-6">
-                            <div class="artwork-card aspect-[3/4] group cursor-pointer">
-                                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119196/medusa_dq2snq.jpg" alt="medusa-artwork-1">
-                                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                    <span class="text-sm font-bold text-white uppercase tracking-widest">Medusa</span>
-                                </div>
-                            </div>
 
-                            <div class="artwork-card aspect-video group cursor-pointer">
-                                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119197/warrior_wobqag.jpg" alt="warrior-artwork-2">
-                                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                    <span class="text-sm font-bold text-white uppercase tracking-widest">Warrior</span>
-                                </div>
-                            </div>
-
-                            <div class="artwork-card aspect-[3/4] group cursor-pointer">
-                                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119196/wacom_q4ommh.jpg" alt="wacom-cintiq-artwork-3">
-                                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                    <span class="text-sm font-bold text-white uppercase tracking-widest">Wacom Cintiq</span>
-                                </div>
-                            </div>
+                    <div class="gallery-grid" id="artworkGallery">
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119195/advanced_tagqhw.jpg" alt="Venom Advanced Vector Illustration - Marvel Character Art Adobe Illustrator by ART de ONE" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
                         </div>
-
-                        <div class="flex flex-col gap-6">
-                            <div class="artwork-card aspect-[3/4] group cursor-pointer">
-                                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119194/chinese-dg_mlhwqu.jpg" alt="chinese-dg-artwork-4">
-                                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                    <span class="text-sm font-bold text-white uppercase tracking-widest">Chinese Dragon</span>
-                                </div>
-                            </div>
-
-                            <div class="artwork-card aspect-video group cursor-pointer">
-                                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119194/malificiant_x8uahb.jpg" alt="malificiant-artwork-5">
-                                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                    <span class="text-sm font-bold text-white uppercase tracking-widest">Malificiant</span>
-                                </div>
-                            </div>
-
-                            <div class="artwork-card aspect-[3/4] group cursor-pointer">
-                                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119198/org_kphvar.jpg" alt="org-artwork-6">
-                                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                    <span class="text-sm font-bold text-white uppercase tracking-widest">Org</span>
-                                </div>
-                            </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772869767/01_mk0vai.jpg" alt="Digital Vector Illustration by ART de ONE - Character Design Adobe Illustrator" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772869767/02_evt55j.jpg" alt="Advanced Vector Art Illustration by ART de ONE - Freelance Illustrator Portfolio" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772869766/Coyote_yb2aqi.jpg" alt="Coyote Vector Illustration - Wildlife Animal Art by ART de ONE Adobe Illustrator" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772869767/2024_Behance_-_03_vmm6ew.jpg" alt="Creative Digital Illustration Portfolio - Vector Character Art by ART de ONE" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772869768/2024_Behance_-_05_dmxz6m.jpg" alt="Professional Vector Illustration - Digital Art Portfolio ART de ONE Myanmar" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772869769/The_Warrior_01_FB-01_xxjn7v.jpg" alt="The Warrior Vector Illustration - Epic Character Design Adobe Illustrator by ART de ONE" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772869770/Stay_at_home-Dribbble_d4lsce.jpg" alt="Stay at Home Creative Vector Illustration - Dribbble Art by ART de ONE" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772869770/Samurai_and_armor-2000x2500_av6jvq.jpg" alt="Samurai Armor Vector Illustration - Japanese Warrior Art Adobe Illustrator by ART de ONE" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772869770/2024_Behance_-_06_ohfxyt.jpg" alt="Detailed Vector Illustration - Graphic Design Portfolio by ART de ONE Freelance Artist" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772869770/Lucky_Owl_Expand_Apperence-01-03-01_sc3irj.jpg" alt="Lucky Owl Vector Art - Detailed Bird Illustration Adobe Illustrator by ART de ONE" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772869770/Wolf-01_aahxjl.jpg" alt="Wolf Vector Illustration - Wildlife Animal Digital Art by ART de ONE" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772869771/Medusa_Octopus-01_gpfvnh.jpg" alt="Medusa Octopus Vector Illustration - Mythical Creature Art Adobe Illustrator by ART de ONE" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772869772/tropicalbird_lreg1k.jpg" alt="Tropical Bird Vector Illustration - Colorful Wildlife Art Adobe Illustrator by ART de ONE" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772869774/Model_Vector_g7iaaw.jpg" alt="Model Portrait Vector Illustration - Fashion Art Digital Drawing by ART de ONE" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772869774/2024_Behance_-_02_a2shqx.jpg" alt="Complex Vector Illustration - Advanced Shading Technique by ART de ONE Illustrator" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772869775/2024_Behance_-_01_b3gcrn.jpg" alt="Professional Digital Illustration - Creative Vector Art Portfolio by ART de ONE" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772869775/Nightmare-01_ksdpdy.jpg" alt="Nightmare Dark Vector Illustration - Horror Character Art Adobe Illustrator by ART de ONE" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772869775/Black_and_Red_Tiger-01_zgximy.jpg" alt="Black and Red Tiger Vector Illustration - Wildlife Animal Art Adobe Illustrator by ART de ONE" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772869777/2024_Behance_-_04_mrcgeb.jpg" alt="Illustration Artwork - Advanced Vector Design Portfolio by ART de ONE Myanmar" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772869779/Illustration_Manipulation-01_pf6qqc.jpg" alt="Illustration Photo Manipulation - Creative Digital Art Composite by ART de ONE" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772869782/Illustration_King_Kong-01_cbilnv.jpg" alt="King Kong Vector Illustration - Monster Character Art Adobe Illustrator by ART de ONE" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772869782/Deamon_Art_01-01_izijcu.jpg" alt="Daemon Dark Art Vector Illustration - Fantasy Character Design by ART de ONE" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772869782/My-Curva-Final_ciyqty.jpg" alt="Curva Vector Art - Complex Shape Illustration Adobe Illustrator by ART de ONE" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772869782/Artwork-Final-01-01_vesn4n.jpg" alt="Original Vector Artwork - Professional Illustration Portfolio by ART de ONE Graphic Designer" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772885845/Korean_cm1q0l.jpg" alt="Korean Traditional Dress Vector Illustration - Asian Culture Art by ART de ONE" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772885844/indian_xs0ty8.jpg" alt="Indian Traditional Dress Vector Illustration - South Asian Culture Art by ART de ONE" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772885846/Thai_nszaml.jpg" alt="Thai Traditional Dress Vector Illustration - Southeast Asian Culture Art by ART de ONE" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772885845/Khmer_wlcfi2.jpg" alt="Khmer Traditional Dress Vector Illustration - Cambodian Culture Art by ART de ONE" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772885844/chinese_mdrdyz.jpg" alt="Chinese Traditional Dress Vector Illustration - East Asian Culture Art by ART de ONE" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772885846/Arakanese_uq8ja5.jpg" alt="Arakanese Traditional Dress Vector Illustration - Myanmar Rakhine Culture Art by ART de ONE" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772885845/Burmese_Girl_Illustration_xz8tbb.jpg" alt="Burmese Girl Traditional Dress Vector Illustration - Myanmar Culture Art by ART de ONE" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772885845/Vietnam_Traditional_dress_ojunzf.jpg" alt="Vietnamese Traditional Dress Ao Dai Vector Illustration - Vietnam Culture Art by ART de ONE" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772885845/Lacquerware_zsfv8u.jpg" alt="Myanmar Lacquerware Vector Illustration - Traditional Craft Art by ART de ONE" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772885845/Myanmar_Silk_Sketch_Final_Work_qpjag3.jpg" alt="Myanmar Silk Weaving Sketch to Final Vector Illustration - Traditional Textile Art by ART de ONE" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772885845/Lacquerware-01_aci8tt.jpg" alt="Myanmar Lacquerware Detail Vector Art - Bagan Traditional Craft Illustration by ART de ONE" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772885845/Myanmar_Silk-RGB_lnwerm.jpg" alt="Myanmar Silk Traditional Textile Vector Illustration - Weaving Culture Art by ART de ONE" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772885845/Pathein-Umbrella-RGB_fwqrqi.jpg" alt="Pathein Umbrella Vector Illustration - Myanmar Traditional Parasol Craft Art by ART de ONE" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-expand text-white text-lg"></i></div>
                         </div>
                     </div>
 
@@ -489,6 +736,79 @@ function toggleMobileResourcesDropdown() {
     document.getElementById('mobile-resources-sub').classList.toggle('open');
     document.getElementById('mobile-res-arrow').classList.toggle('rotated');
 }
+</script>
+<!-- Lightbox -->
+<div class="lightbox-overlay" id="lightbox">
+    <button class="lightbox-close" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
+    <button class="lightbox-btn lightbox-prev" onclick="navigateLightbox(-1)"><i class="fas fa-chevron-left"></i></button>
+    <div class="lightbox-img-wrapper">
+        <img id="lightboxImg" src="" alt="Artwork">
+    </div>
+    <button class="lightbox-btn lightbox-next" onclick="navigateLightbox(1)"><i class="fas fa-chevron-right"></i></button>
+    <div class="lightbox-counter"><span id="lightboxCounter"></span></div>
+</div>
+
+<script>
+(function() {
+    const galleryItems = document.querySelectorAll('#artworkGallery .gallery-item');
+    const galleryImages = Array.from(galleryItems).map(function(item) { return item.querySelector('img').src; });
+    let currentIndex = 0;
+    const overlay = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const counter = document.getElementById('lightboxCounter');
+
+    // Auto-bind click handlers by DOM index
+    galleryItems.forEach(function(item, i) {
+        item.addEventListener('click', function() { openLightbox(i); });
+    });
+
+    window.openLightbox = function(index) {
+        currentIndex = index;
+        updateLightbox();
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    };
+
+    window.closeLightbox = function() {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    };
+
+    window.navigateLightbox = function(dir) {
+        currentIndex = (currentIndex + dir + galleryImages.length) % galleryImages.length;
+        lightboxImg.style.opacity = '0';
+        lightboxImg.style.transform = 'scale(0.92)';
+        setTimeout(function() {
+            updateLightbox();
+            lightboxImg.style.opacity = '1';
+            lightboxImg.style.transform = 'scale(1)';
+        }, 200);
+    };
+
+    function updateLightbox() {
+        lightboxImg.src = galleryImages[currentIndex];
+        counter.textContent = (currentIndex + 1) + ' / ' + galleryImages.length;
+    }
+
+    overlay.addEventListener('click', function(e) {
+        if (e.target === overlay || e.target.classList.contains('lightbox-img-wrapper')) closeLightbox();
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (!overlay.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') navigateLightbox(-1);
+        if (e.key === 'ArrowRight') navigateLightbox(1);
+    });
+
+    // Touch swipe support
+    let touchStartX = 0;
+    overlay.addEventListener('touchstart', function(e) { touchStartX = e.changedTouches[0].screenX; });
+    overlay.addEventListener('touchend', function(e) {
+        const diff = e.changedTouches[0].screenX - touchStartX;
+        if (Math.abs(diff) > 50) navigateLightbox(diff > 0 ? -1 : 1);
+    });
+})();
 </script>
 <script src="/js/shop-badge.js"></script>
 <script type="module" src="/js/nav-auth.js"></script>

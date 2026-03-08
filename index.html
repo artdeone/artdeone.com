@@ -313,8 +313,7 @@
         }
         .minimalist-card:hover {
             transform: translateY(-8px);
-            /* border-color: #a7e169; */
-            box-shadow: 0 10px 15px -3px rgba(167, 225, 105, 0.3);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
         }
 
         /* --- UPDATED PORTFOLIO STYLES (MATCHING REFERENCE) --- */
@@ -338,7 +337,7 @@
             object-fit: cover;
             transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
+
         .portfolio-card-clean:hover .portfolio-image-wrapper img {
             transform: scale(1.05);
         }
@@ -1081,7 +1080,7 @@ footer.footer-glow > .max-w-7xl {
     display: flex;
     align-items: center;
     width: max-content;
-    animation: marqueeScroll 30s linear infinite;
+    animation: marqueeScroll 18s linear infinite;
     will-change: transform;
 }
 
@@ -1107,7 +1106,7 @@ footer.footer-glow > .max-w-7xl {
 }
 
 @media (max-width: 768px) {
-    .logo-marquee-inner { animation-duration: 15s; }
+    .logo-marquee-inner { animation-duration: 10s; }
     .logo-marquee-img { height: 3.5rem; max-width: 120px; margin-right: 2rem; }
 }
 
@@ -2329,6 +2328,8 @@ footer.footer-glow > .max-w-7xl {
             width: 100%;
             cursor: grab;
             user-select: none;
+            padding: 12px 0;
+            margin: -12px 0;
         }
 
         .reviews-carousel-track-wrapper:active {
@@ -2338,7 +2339,7 @@ footer.footer-glow > .max-w-7xl {
         .reviews-carousel-track {
             display: flex;
             gap: 1.5rem;
-            transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: transform;
         }
 
@@ -2346,15 +2347,13 @@ footer.footer-glow > .max-w-7xl {
             flex: 0 0 calc(50% - 0.75rem);
             min-width: 0;
             opacity: 0;
-            transform: translateY(25px) scale(0.97);
-            filter: blur(6px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out, filter 0.6s ease-out;
+            transform: translateY(15px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
 
         .reviews-carousel-slide.slide-visible {
             opacity: 1;
-            transform: translateY(0) scale(1);
-            filter: blur(0);
+            transform: translateY(0);
         }
 
         @media (max-width: 767px) {
@@ -2451,7 +2450,7 @@ footer.footer-glow > .max-w-7xl {
             function goTo(index) {
                 const maxIndex = totalSlides - slidesPerView();
                 current = Math.max(0, Math.min(index, maxIndex));
-                track.style.transition = 'transform 0.55s cubic-bezier(0.16, 1, 0.3, 1)';
+                track.style.transition = 'transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
                 track.style.transform  = 'translateX(-' + (current * getSlideWidth()) + 'px)';
                 updateDots();
                 revealVisibleSlides();
@@ -2466,7 +2465,7 @@ footer.footer-glow > .max-w-7xl {
                 clearInterval(autoTimer);
                 autoTimer = setInterval(() => {
                     if (!isPaused) next();
-                }, 3500);
+                }, 5000);
             }
 
             // Pause on hover

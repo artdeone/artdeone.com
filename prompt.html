@@ -142,12 +142,12 @@
         @keyframes cardRevealAnim {
             from {
                 opacity: 0;
-                transform: translateY(50px) scale(0.96);
-                filter: blur(6px);
+                transform: translateY(24px);
+                filter: blur(4px);
             }
             to {
                 opacity: 1;
-                transform: translateY(0) scale(1);
+                transform: translateY(0);
                 filter: blur(0);
             }
         }
@@ -155,7 +155,7 @@
             opacity: 0;
         }
         .card-reveal.is-visible {
-            animation: cardRevealAnim 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: cardRevealAnim 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
         }
 
         /* ====== MODAL ====== */
@@ -918,6 +918,32 @@
         } catch (error) { throw error; }
     }
     </script>
+
+    <section class="py-24 bg-gray-50 px-4 border-y border-gray-100">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-black mb-3">Latest Industry Trends</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto">Top companies shaping the future of design, AI, and digital innovation.</p>
+            </div>
+            <div class="flex flex-wrap items-center justify-center gap-10 md:gap-16">
+                <a href="https://openai.com" target="_blank" class="opacity-60 hover:opacity-100 transition-opacity duration-300" data-aos="fade-up">
+                    <img src="https://cdn.worldvectorlogo.com/logos/openai-2.svg" alt="OpenAI" class="h-9 w-auto">
+                </a>
+                <a href="https://www.midjourney.com" target="_blank" class="opacity-60 hover:opacity-100 transition-opacity duration-300" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772902667/cdnlogo.com_midjourney_aznsa1.png" alt="Midjourney" class="h-14 w-auto">
+                </a>
+                <a href="https://claude.ai" target="_blank" class="opacity-60 hover:opacity-100 transition-opacity duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772902667/cdnlogo.com_claude_enkkqm.png" alt="Claude" class="h-7 w-auto">
+                </a>
+                <a href="https://www.perplexity.ai" target="_blank" class="opacity-60 hover:opacity-100 transition-opacity duration-300" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772902666/Perplexity_AI_logo.svg_l6woef.png" alt="Perplexity AI" class="h-9 w-auto">
+                </a>
+                <a href="https://gemini.google.com" target="_blank" class="opacity-60 hover:opacity-100 transition-opacity duration-300" data-aos="fade-up" data-aos-delay="400">
+                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772902756/cdnlogo.com_gemini_utk3l9.png" alt="Google Gemini" class="h-8 w-auto relative -top-0.5">
+                </a>
+            </div>
+        </div>
+    </section>
     </main>
 
     <footer class="bg-white text-[#323232] py-12 border-t border-gray-200 footer-glow">
@@ -1087,7 +1113,7 @@
                 requestAnimationFrame(() => {
                     const unrevealed = gallery.querySelectorAll('.card-reveal:not(.is-visible)');
                     unrevealed.forEach((card, i) => {
-                        const delay = i * 80;
+                        const delay = i * 120;
                         card.style.animationDelay = delay + 'ms';
                         card.classList.add('is-visible');
 
