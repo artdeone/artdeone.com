@@ -905,6 +905,21 @@
                         </table>
                     </div>
                 </div>
+                <h4 class="analytics-section-title">Most Downloaded Products</h4>
+                <div class="analytics-charts" style="grid-template-columns:1fr; margin-bottom:0;">
+                    <div class="chart-card">
+                        <h4>Downloads by Product</h4>
+                        <canvas id="downloadsByProductChart"></canvas>
+                    </div>
+                </div>
+                <div class="table-wrap" style="margin-top:20px; margin-bottom:24px;">
+                    <div class="table-scroll">
+                        <table class="data-table">
+                            <thead><tr><th>#</th><th>Product</th><th>Category</th><th>Downloads</th><th>Popularity</th></tr></thead>
+                            <tbody id="downloadRankTableBody"><tr><td colspan="5" style="text-align:center; color:#999; padding:40px;">Loading download data...</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
                 <h4 class="analytics-section-title">Customer Spending Overview</h4>
                 <div class="table-wrap" style="margin-bottom: 24px;">
                     <div class="table-scroll">
@@ -1833,7 +1848,94 @@
             custTableBody.innerHTML = sortedCustomerSpend.length === 0
                 ? '<tr><td colspan="6" style="text-align:center; color:#999; padding:40px;">No customers yet</td></tr>'
                 : sortedCustomerSpend.map((c, i) => `<tr class="${c.is_active ? '' : 'inactive'}"><td style="color:#999; font-size:0.8em;">${i+1}</td><td style="font-weight:500;">${c.name}</td><td>${c.email}</td><td style="font-family:'Space Grotesk'; font-weight:600;">${c.orders}</td><td style="font-family:'Space Grotesk'; font-weight:700; color:#065f46;">${c.spent.toLocaleString()} MMK</td><td><span class="status-badge ${c.is_active ? 'badge-active' : 'badge-inactive'}">${c.is_active ? 'Active' : 'Inactive'}</span></td></tr>`).join('');
+
+            // ── Most Downloaded Products ──
+            await loadDownloadRankings(chartColors);
         };
+
+        let downloadsChartInstance = null;
+
+        async function loadDownloadRankings(chartColors) {
+            const { data: downloads } = await supabaseShop.from('shop_customer_downloads').select('product_id').eq('is_active', true);
+            const dlCountMap = {};
+            (downloads || []).forEach(d => {
+                dlCountMap[d.product_id] = (dlCountMap[d.product_id] || 0) + 1;
+            });
+
+            const productMap = {};
+            products.forEach(p => { productMap[p.id] = p; });
+
+            const ranked = Object.entries(dlCountMap).map(([pid, count]) => ({
+                id: pid,
+                name: productMap[pid]?.name || 'Unknown',
+                category: productMap[pid]?.category || 'other',
+                downloads: count
+            })).sort((a, b) => b.downloads - a.downloads);
+
+            const maxDl = ranked.length > 0 ? ranked[0].downloads : 1;
+
+            // Chart
+            if (downloadsChartInstance) downloadsChartInstance.destroy();
+            const dlCtx = document.getElementById('downloadsByProductChart');
+            if (dlCtx && typeof Chart !== 'undefined') {
+                downloadsChartInstance = new Chart(dlCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ranked.length ? ranked.map(r => r.name) : ['No data'],
+                        datasets: [{
+                            label: 'Downloads',
+                            data: ranked.length ? ranked.map(r => r.downloads) : [0],
+                            backgroundColor: ranked.map((_, i) => chartColors[i % chartColors.length]),
+                            borderRadius: 8,
+                            borderSkipped: false,
+                            maxBarThickness: 50
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: '#1a1a1a',
+                                titleFont: { family: 'Poppins', weight: '600' },
+                                bodyFont: { family: 'Space Grotesk' },
+                                padding: 12,
+                                cornerRadius: 10,
+                                callbacks: { label: ctx => `${ctx.raw} downloads` }
+                            }
+                        },
+                        scales: {
+                            x: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { font: { family: 'Space Grotesk', size: 11 }, stepSize: 1 } },
+                            y: { grid: { display: false }, ticks: { font: { family: 'Poppins', size: 11 } } }
+                        }
+                    }
+                });
+            }
+
+            // Table
+            const dlTableBody = document.getElementById('downloadRankTableBody');
+            dlTableBody.innerHTML = ranked.length === 0
+                ? '<tr><td colspan="5" style="text-align:center; color:#999; padding:40px;">No download data yet</td></tr>'
+                : ranked.map((r, i) => {
+                    const pct = Math.round((r.downloads / maxDl) * 100);
+                    return `<tr>
+                        <td style="color:#999; font-size:0.8em;">${i + 1}</td>
+                        <td style="font-weight:500;">${r.name}</td>
+                        <td><span style="font-size:0.8em;">${PRODUCT_CATEGORIES[r.category] || r.category}</span></td>
+                        <td style="font-family:'Space Grotesk'; font-weight:700; color:#1e40af;">${r.downloads}</td>
+                        <td style="min-width:120px;">
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <div style="flex:1; background:var(--gray-100); border-radius:6px; height:8px; overflow:hidden;">
+                                    <div style="width:${pct}%; height:100%; background:linear-gradient(90deg, #a7e169, #3b82f6); border-radius:6px; transition:width 0.6s ease;"></div>
+                                </div>
+                                <span style="font-size:0.72em; color:var(--gray-400); font-weight:600; min-width:32px;">${pct}%</span>
+                            </div>
+                        </td>
+                    </tr>`;
+                }).join('');
+        }
     </script>
 </body>
 </html>
