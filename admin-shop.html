@@ -1857,6 +1857,9 @@
 
         async function loadDownloadRankings(chartColors) {
             const { data: downloads } = await supabaseShop.from('shop_customer_downloads').select('product_id').eq('is_active', true);
+            const { data: allCust } = await supabaseShop.from('shop_customers').select('id', { count: 'exact', head: false });
+            const totalCustomers = (allCust || []).length;
+
             const dlCountMap = {};
             (downloads || []).forEach(d => {
                 dlCountMap[d.product_id] = (dlCountMap[d.product_id] || 0) + 1;
@@ -1865,11 +1868,21 @@
             const productMap = {};
             products.forEach(p => { productMap[p.id] = p; });
 
+            // Include free products — all customers have access
+            products.forEach(p => {
+                if (p.price === 0 && p.is_active && !dlCountMap[p.id]) {
+                    dlCountMap[p.id] = totalCustomers;
+                } else if (p.price === 0 && p.is_active && dlCountMap[p.id]) {
+                    dlCountMap[p.id] = Math.max(dlCountMap[p.id], totalCustomers);
+                }
+            });
+
             const ranked = Object.entries(dlCountMap).map(([pid, count]) => ({
                 id: pid,
                 name: productMap[pid]?.name || 'Unknown',
                 category: productMap[pid]?.category || 'other',
-                downloads: count
+                downloads: count,
+                isFree: productMap[pid]?.price === 0
             })).sort((a, b) => b.downloads - a.downloads);
 
             const maxDl = ranked.length > 0 ? ranked[0].downloads : 1;
@@ -1922,9 +1935,9 @@
                     const pct = Math.round((r.downloads / maxDl) * 100);
                     return `<tr>
                         <td style="color:#999; font-size:0.8em;">${i + 1}</td>
-                        <td style="font-weight:500;">${r.name}</td>
+                        <td style="font-weight:500;">${r.name} ${r.isFree ? '<span style="font-size:0.65em; background:#ecfdf5; color:#065f46; padding:2px 8px; border-radius:10px; margin-left:6px; font-weight:700;">FREE</span>' : ''}</td>
                         <td><span style="font-size:0.8em;">${PRODUCT_CATEGORIES[r.category] || r.category}</span></td>
-                        <td style="font-family:'Space Grotesk'; font-weight:700; color:#1e40af;">${r.downloads}</td>
+                        <td style="font-family:'Space Grotesk'; font-weight:700; color:#1e40af;">${r.downloads} ${r.isFree ? '<span style="font-size:0.7em; color:#999; font-weight:400;">(all users)</span>' : ''}</td>
                         <td style="min-width:120px;">
                             <div style="display:flex; align-items:center; gap:8px;">
                                 <div style="flex:1; background:var(--gray-100); border-radius:6px; height:8px; overflow:hidden;">
