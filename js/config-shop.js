@@ -15,6 +15,7 @@ export const PRODUCT_CATEGORIES = {
     mockup: 'Mockups',
     course: 'Online Courses',
     ebook: 'E-Books & Guides',
+    texture: 'Textures',
     other: 'Other'
 };
 
