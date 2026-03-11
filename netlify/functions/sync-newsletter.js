@@ -111,6 +111,7 @@ exports.handler = async (event) => {
     const unsubEmails = new Set((unsubscribed || []).map(u => u.email.toLowerCase()));
 
     let added = 0, removed = 0;
+    const delay = (ms) => new Promise(r => setTimeout(r, ms));
 
     // 4. Add new subscribers to Resend Audience
     for (const sub of subscribers) {
@@ -121,6 +122,7 @@ exports.handler = async (event) => {
           unsubscribed: false
         });
         added++;
+        await delay(600);
       }
     }
 
@@ -132,6 +134,7 @@ exports.handler = async (event) => {
           'DELETE'
         );
         removed++;
+        await delay(600);
       }
     }
 
