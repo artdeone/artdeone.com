@@ -966,6 +966,20 @@
                 <div class="form-group"><label>Thumbnail URL</label><input type="url" id="pThumbnail" class="form-input"></div>
                 <div class="form-group"><label>Download / Video URL</label><input type="url" id="pDownloadUrl" class="form-input"></div>
                 <div class="form-group"><label>Preview Video URL <span style="font-size:0.85em; color:#bbb;">(Courses only)</span></label><input type="url" id="pPreviewVideo" class="form-input" placeholder="Trailer / Preview video URL"></div>
+                <div style="background:#fffbeb; border:1px solid #fde68a; border-radius:12px; padding:16px 18px; margin-bottom:14px;">
+                    <label style="display:block; font-size:0.75em; font-weight:700; color:#92400e; margin-bottom:10px; text-transform:uppercase; letter-spacing:0.05em;"><i class="fas fa-tag" style="margin-right:4px;"></i> Promotion Period <span style="font-size:0.85em; color:#bbb; font-weight:400; text-transform:none;">(Optional)</span></label>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                        <div class="form-group" style="margin-bottom:0;">
+                            <label style="font-size:0.72em;">Start Date</label>
+                            <input type="date" id="pPromoStart" class="form-input">
+                        </div>
+                        <div class="form-group" style="margin-bottom:0;">
+                            <label style="font-size:0.72em;">End Date</label>
+                            <input type="date" id="pPromoEnd" class="form-input">
+                        </div>
+                    </div>
+                    <p style="font-size:0.72em; color:#b45309; margin-top:8px; margin-bottom:0; line-height:1.5;">⚠️ Set dates to make this product <strong>Free</strong> during the promotion period. Price will auto-revert after End Date.</p>
+                </div>
                 <div class="form-group" style="display:flex; align-items:center; gap:10px; padding: 8px 0;">
                     <input type="checkbox" id="pActive" checked style="width:18px; height:18px; accent-color: var(--accent-green); cursor: pointer;">
                     <label style="margin:0; text-transform: none; letter-spacing: 0; font-size: 0.88em; color: var(--gray-600); cursor: pointer;" for="pActive">Active (visible in shop)</label>
@@ -1497,6 +1511,8 @@
             document.getElementById('pThumbnail').value = p.thumbnail_url || '';
             document.getElementById('pDownloadUrl').value = p.download_url || '';
             document.getElementById('pPreviewVideo').value = p.preview_video_url || '';
+            document.getElementById('pPromoStart').value = p.promo_start || '';
+            document.getElementById('pPromoEnd').value = p.promo_end || '';
             document.getElementById('pActive').checked = p.is_active;
             document.getElementById('productModalTitle').textContent = 'Edit Product';
             document.getElementById('productModal').classList.add('active');
@@ -1513,6 +1529,8 @@
                 thumbnail_url: document.getElementById('pThumbnail').value,
                 download_url: document.getElementById('pDownloadUrl').value,
                 preview_video_url: document.getElementById('pPreviewVideo').value,
+                promo_start: document.getElementById('pPromoStart').value || null,
+                promo_end: document.getElementById('pPromoEnd').value || null,
                 is_active: document.getElementById('pActive').checked
             };
             if (id) {
