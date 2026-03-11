@@ -89,6 +89,10 @@ exports.handler = async (event) => {
   }
 
   try {
+    const params = event.queryStringParameters || {};
+    const offset = parseInt(params.offset) || 0;
+    const BATCH_SIZE = 12;
+
     // 1. Fetch subscribed customers from Supabase
     const subscribers = await supabaseRequest(
       'shop_customers?newsletter_subscribed=eq.true&is_active=eq.true&select=email,name',
@@ -103,50 +107,59 @@ exports.handler = async (event) => {
     const existingContacts = audienceData.data || [];
     const existingEmails = new Set(existingContacts.map(c => c.email.toLowerCase()));
 
-    // 3. Fetch unsubscribed customers
+    // 3. Find new subscribers not yet in Resend
+    const toAdd = subscribers.filter(s => !existingEmails.has(s.email.toLowerCase()));
+
+    // 4. Fetch unsubscribed customers
     const unsubscribed = await supabaseRequest(
       'shop_customers?newsletter_subscribed=eq.false&is_active=eq.true&select=email',
       'GET'
     );
     const unsubEmails = new Set((unsubscribed || []).map(u => u.email.toLowerCase()));
+    const toRemove = existingContacts.filter(c => unsubEmails.has(c.email.toLowerCase()));
 
+    // 5. Process batch
+    const allTasks = [
+      ...toAdd.map(s => ({ type: 'add', email: s.email, name: s.name })),
+      ...toRemove.map(c => ({ type: 'remove', id: c.id, email: c.email }))
+    ];
+
+    const batch = allTasks.slice(offset, offset + BATCH_SIZE);
     let added = 0, removed = 0;
     const delay = (ms) => new Promise(r => setTimeout(r, ms));
 
-    // 4. Add new subscribers to Resend Audience
-    for (const sub of subscribers) {
-      if (!existingEmails.has(sub.email.toLowerCase())) {
+    for (const task of batch) {
+      if (task.type === 'add') {
         await resendRequest(`/audiences/${audienceId}/contacts`, 'POST', {
-          email: sub.email.toLowerCase(),
-          first_name: sub.name || '',
+          email: task.email.toLowerCase(),
+          first_name: task.name || '',
           unsubscribed: false
         });
         added++;
-        await delay(600);
+      } else {
+        await resendRequest(`/audiences/${audienceId}/contacts/${task.id}`, 'DELETE');
+        removed++;
       }
+      await delay(550);
     }
 
-    // 5. Remove unsubscribed users from Resend Audience
-    for (const contact of existingContacts) {
-      if (unsubEmails.has(contact.email.toLowerCase())) {
-        await resendRequest(
-          `/audiences/${audienceId}/contacts/${contact.id}`,
-          'DELETE'
-        );
-        removed++;
-        await delay(600);
-      }
-    }
+    const nextOffset = offset + BATCH_SIZE;
+    const hasMore = nextOffset < allTasks.length;
 
     return {
       statusCode: 200,
       headers,
       body: JSON.stringify({
         success: true,
-        total_subscribers: subscribers.length,
+        total: allTasks.length,
+        processed: Math.min(nextOffset, allTasks.length),
         added,
         removed,
-        message: `Sync complete: ${added} added, ${removed} removed`
+        has_more: hasMore,
+        next_offset: hasMore ? nextOffset : null,
+        message: hasMore
+          ? `Batch done (${Math.min(nextOffset, allTasks.length)}/${allTasks.length}). Call again with ?offset=${nextOffset}`
+          : `Sync complete! All ${allTasks.length} contacts processed.`
       })
     };
 
