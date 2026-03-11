@@ -1020,6 +1020,37 @@
         .profile-orders-empty { text-align:center; padding:28px 0; color:var(--text-muted); font-size:.84em; }
         .profile-orders-empty i { display:block; font-size:1.5em; margin-bottom:8px; opacity:.3; }
 
+        /* Newsletter Toggle */
+        .newsletter-section { margin-bottom:20px; }
+        .newsletter-card {
+            background:var(--surface-2); border:1px solid var(--border); border-radius:var(--radius-sm);
+            padding:16px; display:flex; align-items:center; gap:14px;
+        }
+        .newsletter-card .nl-icon {
+            width:38px; height:38px; border-radius:10px;
+            background:var(--green-subtle); color:var(--accent-green);
+            display:flex; align-items:center; justify-content:center; font-size:.92em; flex-shrink:0;
+        }
+        [data-theme="dark"] .newsletter-card .nl-icon { background:rgba(167,225,105,.12); }
+        .newsletter-card .nl-detail { flex:1; min-width:0; }
+        .newsletter-card .nl-title { font-size:.84em; font-weight:600; color:var(--text-primary); margin-bottom:2px; }
+        .newsletter-card .nl-desc { font-size:.68em; color:var(--text-muted); line-height:1.5; }
+        .nl-toggle { position:relative; width:44px; height:24px; flex-shrink:0; }
+        .nl-toggle input { opacity:0; width:0; height:0; }
+        .nl-toggle .nl-slider {
+            position:absolute; inset:0; cursor:pointer;
+            background:var(--border-strong); border-radius:24px;
+            transition:all .25s var(--ease);
+        }
+        .nl-toggle .nl-slider::before {
+            content:''; position:absolute; left:3px; top:3px;
+            width:18px; height:18px; border-radius:50%;
+            background:#fff; transition:transform .25s var(--ease);
+            box-shadow:0 1px 3px rgba(0,0,0,.15);
+        }
+        .nl-toggle input:checked + .nl-slider { background:var(--accent-green); }
+        .nl-toggle input:checked + .nl-slider::before { transform:translateX(20px); }
+
         /* =====================================================
            PAYMENT GUIDE MODAL
         ===================================================== */
@@ -2273,6 +2304,20 @@
                     <div class="profile-info-row"><div class="info-icon method-icon" id="loginMethodIcon"><i class="fab fa-google"></i></div><div class="info-detail"><div class="info-title">Login Method</div><div class="info-value" id="loginMethodValue">Google Account</div></div></div>
                 </div>
             </div>
+            <div class="newsletter-section">
+                <div class="profile-info-label">Newsletter</div>
+                <div class="newsletter-card">
+                    <div class="nl-icon"><i class="fas fa-envelope-open-text"></i></div>
+                    <div class="nl-detail">
+                        <div class="nl-title">Weekly Newsletter</div>
+                        <div class="nl-desc">ပစ္စည်းအသစ်များနှင့် အခမဲ့ပစ္စည်းများ အကြောင်း အပတ်စဉ် email ရရှိမည်</div>
+                    </div>
+                    <label class="nl-toggle">
+                        <input type="checkbox" id="newsletterToggle" onchange="toggleNewsletter(this.checked)">
+                        <span class="nl-slider"></span>
+                    </label>
+                </div>
+            </div>
             <div class="profile-orders-section">
                 <div class="profile-info-label">Order History</div>
                 <div id="profileOrdersList"><div class="profile-orders-empty"><i class="fas fa-receipt"></i><p>No orders yet</p></div></div>
@@ -2548,7 +2593,16 @@
         if (prov === 'google') { mi.innerHTML = '<i class="fab fa-google"></i>'; mi.style.background = '#fef2f2'; mi.style.color = '#dc2626'; mv.textContent = 'Google Account'; }
         else { mi.innerHTML = '<i class="fas fa-envelope"></i>'; mi.style.background = '#eff6ff'; mi.style.color = '#2563eb'; mv.textContent = 'Email / Password'; }
         if (currentCustomer.created_at) { const d = new Date(currentCustomer.created_at); document.getElementById('profileDate').textContent = d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }); }
+        const nlToggle = document.getElementById('newsletterToggle');
+        if (nlToggle) nlToggle.checked = currentCustomer.newsletter_subscribed !== false;
     }
+    window.toggleNewsletter = async (checked) => {
+        if (!currentCustomer) return;
+        const { error } = await supabaseShop.from('shop_customers').update({ newsletter_subscribed: checked }).eq('id', currentCustomer.id);
+        if (error) { showToast('Newsletter update failed'); document.getElementById('newsletterToggle').checked = !checked; return; }
+        currentCustomer.newsletter_subscribed = checked;
+        showToast(checked ? 'Newsletter subscribed ✓' : 'Newsletter unsubscribed');
+    };
     async function loadOrderHistory() {
         const { data: o } = await supabaseShop.from('shop_orders').select('*, shop_products(name)').eq('customer_id', currentCustomer.id).order('created_at', { ascending: false });
         customerOrders = o || []; document.getElementById('statOrders').textContent = customerOrders.length;

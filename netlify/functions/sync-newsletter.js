@@ -1,0 +1,158 @@
+const https = require('https');
+
+// Supabase REST helper
+function supabaseRequest(path, method, data) {
+  return new Promise((resolve, reject) => {
+    const options = {
+      hostname: process.env.SUPABASE_URL.replace('https://', '').replace('http://', ''),
+      path: `/rest/v1/${path}`,
+      method: method,
+      headers: {
+        'apikey': process.env.SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${process.env.SUPABASE_ANON_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=representation'
+      }
+    };
+
+    const req = https.request(options, (res) => {
+      let body = '';
+      res.on('data', (chunk) => body += chunk);
+      res.on('end', () => {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          resolve(JSON.parse(body || '[]'));
+        } else {
+          reject(new Error(`Supabase error: ${res.statusCode} ${body}`));
+        }
+      });
+    });
+
+    req.on('error', reject);
+    if (data) req.write(JSON.stringify(data));
+    req.end();
+  });
+}
+
+// Resend API helper
+function resendRequest(path, method, data) {
+  return new Promise((resolve, reject) => {
+    const options = {
+      hostname: 'api.resend.com',
+      path: path,
+      method: method,
+      headers: {
+        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json'
+      }
+    };
+
+    const req = https.request(options, (res) => {
+      let body = '';
+      res.on('data', (chunk) => body += chunk);
+      res.on('end', () => {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          resolve(JSON.parse(body || '{}'));
+        } else {
+          reject(new Error(`Resend error: ${res.statusCode} ${body}`));
+        }
+      });
+    });
+
+    req.on('error', reject);
+    if (data) req.write(JSON.stringify(data));
+    req.end();
+  });
+}
+
+exports.handler = async (event) => {
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS'
+  };
+
+  if (event.httpMethod === 'OPTIONS') {
+    return { statusCode: 200, headers, body: 'OK' };
+  }
+
+  if (event.httpMethod !== 'POST') {
+    return { statusCode: 405, headers, body: 'Method Not Allowed' };
+  }
+
+  const audienceId = process.env.RESEND_AUDIENCE_ID;
+  if (!audienceId || !process.env.RESEND_API_KEY) {
+    return {
+      statusCode: 500,
+      headers,
+      body: JSON.stringify({ error: 'Missing RESEND_API_KEY or RESEND_AUDIENCE_ID' })
+    };
+  }
+
+  try {
+    // 1. Fetch subscribed customers from Supabase
+    const subscribers = await supabaseRequest(
+      'shop_customers?newsletter_subscribed=eq.true&is_active=eq.true&select=email,name',
+      'GET'
+    );
+
+    // 2. Fetch current Resend Audience contacts
+    const audienceData = await resendRequest(
+      `/audiences/${audienceId}/contacts`,
+      'GET'
+    );
+    const existingContacts = audienceData.data || [];
+    const existingEmails = new Set(existingContacts.map(c => c.email.toLowerCase()));
+
+    // 3. Fetch unsubscribed customers
+    const unsubscribed = await supabaseRequest(
+      'shop_customers?newsletter_subscribed=eq.false&is_active=eq.true&select=email',
+      'GET'
+    );
+    const unsubEmails = new Set((unsubscribed || []).map(u => u.email.toLowerCase()));
+
+    let added = 0, removed = 0;
+
+    // 4. Add new subscribers to Resend Audience
+    for (const sub of subscribers) {
+      if (!existingEmails.has(sub.email.toLowerCase())) {
+        await resendRequest(`/audiences/${audienceId}/contacts`, 'POST', {
+          email: sub.email.toLowerCase(),
+          first_name: sub.name || '',
+          unsubscribed: false
+        });
+        added++;
+      }
+    }
+
+    // 5. Remove unsubscribed users from Resend Audience
+    for (const contact of existingContacts) {
+      if (unsubEmails.has(contact.email.toLowerCase())) {
+        await resendRequest(
+          `/audiences/${audienceId}/contacts/${contact.id}`,
+          'DELETE'
+        );
+        removed++;
+      }
+    }
+
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({
+        success: true,
+        total_subscribers: subscribers.length,
+        added,
+        removed,
+        message: `Sync complete: ${added} added, ${removed} removed`
+      })
+    };
+
+  } catch (error) {
+    console.error('Sync error:', error);
+    return {
+      statusCode: 500,
+      headers,
+      body: JSON.stringify({ error: error.message })
+    };
+  }
+};
