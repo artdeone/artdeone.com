@@ -156,5 +156,15 @@ export async function findOrCreateCustomer(user) {
         console.error('Create customer error:', error);
         throw error;
     }
+
+    // Auto add new customer to newsletter audience
+    try {
+        fetch('/api/add-newsletter-contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: user.email, name: newCustomer.name })
+        });
+    } catch (e) { /* silent fail — newsletter sync is non-critical */ }
+
     return newCustomer;
 }
