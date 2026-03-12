@@ -2502,32 +2502,29 @@
         setTimeout(tick, 600);
     }
 
-    // Time-limited free pricing config
-    const timeLimitedProducts = {
-        7: { freeStart: '2026-05-11', freeEnd: '2026-05-26', originalPrice: 15000 }
-    };
-
+    // Promotion pricing from Supabase (promo_start / promo_end)
     function getDashboardPrice(p) {
-        const tl = timeLimitedProducts[p.id];
-        if (tl) {
+        if (p.promo_start && p.promo_end) {
             const now = new Date();
-            const start = new Date(tl.freeStart + 'T00:00:00');
-            const end = new Date(tl.freeEnd + 'T00:00:00');
+            const start = new Date(p.promo_start + 'T00:00:00');
+            const end = new Date(p.promo_end + 'T00:00:00');
             if (now >= start && now < end) return 0;
-            return tl.originalPrice;
         }
         return Number(p.price);
     }
 
     function getDashboardTimeBadge(p) {
-        const tl = timeLimitedProducts[p.id];
-        if (!tl) return '';
+        if (!p.promo_start || !p.promo_end) return '';
         const now = new Date();
-        const start = new Date(tl.freeStart + 'T00:00:00');
-        const end = new Date(tl.freeEnd + 'T00:00:00');
+        const start = new Date(p.promo_start + 'T00:00:00');
+        const end = new Date(p.promo_end + 'T00:00:00');
         if (now >= start && now < end) {
             const daysLeft = Math.ceil((end - now) / (1000 * 60 * 60 * 24));
-            return `<span style="font-size:0.7rem;color:#dc2626;display:block;margin-top:4px;">Limited Time Free — ${daysLeft} day${daysLeft !== 1 ? 's' : ''} left</span>`;
+            return `<span style="font-size:0.7rem;color:#dc2626;display:block;margin-top:4px;">🔥 Limited Time Free — ${daysLeft} day${daysLeft !== 1 ? 's' : ''} left</span>`;
+        }
+        if (now < start) {
+            const startStr = start.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            return `<span style="font-size:0.7rem;color:#b45309;display:block;margin-top:4px;">🔥 Free from ${startStr} (Limited Time)</span>`;
         }
         return '';
     }
