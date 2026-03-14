@@ -6,7 +6,7 @@
   <title>ART de ONE — AI Chat</title>
   <link rel="icon" type="image/png" href="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769316272/fav-icon_n00lji.png">
   <script src="https://js.puter.com/v2/"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500&display=swap" rel="stylesheet"/>
 
   <style>
     :root {
@@ -265,20 +265,21 @@
       justify-content: center;
       flex: 1;
       padding: 40px 20px;
-      gap: 10px;
+      gap: 0;
       text-align: center;
     }
     .wlc-icon {
-      width: 56px; height: 56px;
-      margin-bottom: 6px;
-    }
-    .wlc-icon img {
-      width: 100%; height: 100%;
-      object-fit: contain;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      font-size: 36px;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+      transition: color .2s;
     }
     #welcome h2 {
       font-size: 22px;
-      font-weight: 600;
+      font-weight: 300;
       letter-spacing: -.4px;
       color: var(--text);
     }
@@ -286,7 +287,7 @@
     .chips {
       display: flex; flex-wrap: wrap; gap: 8px;
       justify-content: center;
-      margin-top: 18px;
+      margin-top: 12px;
     }
     .chip {
       padding: 8px 16px;
@@ -377,15 +378,43 @@
 
     .input-shell {
       display: flex;
-      align-items: center;
-      gap: 8px;
+      flex-direction: column;
       background: var(--input-bg);
       border: 1.5px solid var(--input-bdr);
       border-radius: 16px;
-      padding: 10px 10px 10px 16px;
+      padding: 10px 10px 8px 16px;
       transition: border-color .2s, background .2s;
     }
     .input-shell:focus-within { border-color: var(--text); }
+    .input-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .input-bottom {
+      display: flex;
+      align-items: center;
+      padding-top: 6px;
+      position: relative;
+    }
+    .inline-model-btn {
+      display: flex; align-items: center; gap: 5px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 4px 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      color: var(--text-sub);
+      cursor: pointer;
+      transition: border-color .2s, color .2s, background .15s;
+    }
+    .inline-model-btn:hover { border-color: var(--text); color: var(--text); background: var(--hover-item); }
+    .inline-model-btn .chevron {
+      display: flex;
+      transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+    }
+    .inline-model-btn.open .chevron { transform: rotate(180deg); }
 
     #promptInput {
       flex: 1;
@@ -426,57 +455,32 @@
       margin-top: 8px;
     }
 
-    /* ══ MOBILE MODEL PICKER ══════════════════ */
-    .mobile-model-bar {
-      display: none;
-      padding: 0 20px 4px;
-      max-width: 740px;
-      margin: 0 auto;
-      width: 100%;
-    }
-    .mobile-model-toggle {
-      display: flex; align-items: center; gap: 6px;
-      background: var(--input-bg);
-      border: 1px solid var(--input-bdr);
-      border-radius: 10px;
-      padding: 6px 12px;
-      font-family: 'Inter', sans-serif;
-      font-size: 12px;
-      color: var(--text-sub);
-      cursor: pointer;
-      transition: border-color .2s, color .2s;
-      width: auto;
-    }
-    .mobile-model-toggle:hover { border-color: var(--text); color: var(--text); }
-    .mobile-model-toggle .model-name { font-weight: 500; color: var(--text); }
-    .mobile-model-toggle .chevron {
-      transition: transform .3s cubic-bezier(.34,1.56,.64,1);
-      display: flex;
-    }
-    .mobile-model-toggle.open .chevron { transform: rotate(180deg); }
-
+    /* ══ MODEL PICKER POPUP / SHEET ═══════════ */
     .mobile-model-sheet {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 0;
       background: var(--sidebar-bg);
-      border-top: 1px solid var(--border);
-      border-radius: 18px 18px 0 0;
-      padding: 0;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 4px 0;
       z-index: 100;
-      transform: translateY(100%);
-      transition: transform .35s cubic-bezier(.34,1.56,.64,1);
-      max-height: 60vh;
+      opacity: 0;
+      transform: translateY(6px) scale(.97);
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+      width: 240px;
+      max-height: 360px;
       overflow-y: auto;
-      box-shadow: 0 -8px 40px rgba(0,0,0,.25);
+      box-shadow: 0 8px 30px rgba(0,0,0,.18);
     }
     .mobile-model-sheet.open {
-      transform: translateY(0);
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
     }
     .mobile-model-sheet-handle {
-      width: 36px; height: 4px;
-      background: var(--border);
-      border-radius: 2px;
-      margin: 10px auto 6px;
+      display: none;
     }
     .mobile-model-sheet-title {
       padding: 4px 20px 8px;
@@ -514,19 +518,6 @@
     .mobile-model-option.active .check::after {
       content: '✓'; font-size: 10px; color: #000; font-weight: 700;
     }
-    .mobile-model-overlay {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,.4);
-      z-index: 99;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .3s ease;
-    }
-    .mobile-model-overlay.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
     @media (max-width: 580px) {
       #sidebar {
         position: fixed; top: 0; left: 0; bottom: 0;
@@ -534,12 +525,13 @@
         width: 280px !important;
         min-width: 280px !important;
         transform: translateX(-100%);
-        transition: transform .3s cubic-bezier(.4,0,.2,1);
+        transition: transform .3s cubic-bezier(.4,0,.2,1), box-shadow .3s ease;
         border-right: none;
-        box-shadow: 8px 0 30px rgba(0,0,0,.3);
+        box-shadow: none;
       }
       #sidebar.mobile-open {
         transform: translateX(0);
+        box-shadow: 8px 0 30px rgba(0,0,0,.3);
       }
       #sidebar.collapsed { transform: translateX(-100%); }
       .mobile-sb-overlay {
@@ -554,7 +546,6 @@
       }
       #msgList, #inputZone { padding-left: 12px; padding-right: 12px; }
       .msg-block.user .bubble { max-width: 88%; }
-      .mobile-model-bar { display: block; }
     }
   </style>
 </head>
@@ -622,8 +613,7 @@
   <div id="chatArea">
     <div id="msgList">
       <div id="welcome">
-        <div class="wlc-icon"><img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379061/artdeone-1_plyge7.png" alt="ART de ONE"></div>
-        <h2>How can I help you?</h2>
+        <div class="wlc-icon">ART de ONE</div>
         <div class="chips">
           <button class="chip" onclick="chipClick(this)">Write code for me</button>
           <button class="chip" onclick="chipClick(this)">Design suggestion</button>
@@ -636,29 +626,29 @@
 
   <div id="inputZone">
     <div class="input-shell">
-      <textarea id="promptInput" rows="1" placeholder="Message Claude..."></textarea>
-      <button id="sendBtn">↑</button>
+      <div class="input-row">
+        <textarea id="promptInput" rows="1" placeholder="Message Claude..."></textarea>
+        <button id="sendBtn">↑</button>
+      </div>
+      <div class="input-bottom">
+        <button class="inline-model-btn" id="inlineModelBtn">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span id="inlineModelName">claude-sonnet-4-6</span>
+          <span class="chevron"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="mobile-model-sheet" id="mobileModelSheet">
+          <div class="mobile-model-sheet-handle"></div>
+          <div class="mobile-model-sheet-title">Select Model</div>
+          <div id="mobileModelList"></div>
+        </div>
+      </div>
     </div>
     <p class="input-hint">Enter ↵ &nbsp;·&nbsp; Shift+Enter for new line</p>
-  </div>
-
-  <div class="mobile-model-bar">
-    <button class="mobile-model-toggle" id="mobileModelToggle">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-      <span class="model-name" id="mobileModelName">claude-sonnet-4-6</span>
-      <span class="chevron"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span>
-    </button>
   </div>
 
 </div><!-- /main -->
 
 <div class="mobile-sb-overlay" id="mobileSbOverlay"></div>
-<div class="mobile-model-overlay" id="mobileModelOverlay"></div>
-<div class="mobile-model-sheet" id="mobileModelSheet">
-  <div class="mobile-model-sheet-handle"></div>
-  <div class="mobile-model-sheet-title">Select Model</div>
-  <div id="mobileModelList"></div>
-</div>
 
 <script type="module">
 import { supabaseShop as sb, getAuthSession, signOutCustomer } from './js/config-shop.js';
@@ -768,6 +758,8 @@ mobileSbOverlay.addEventListener('click', closeSidebar);
 ══════════════════════════════════════════ */
 modelSelect.addEventListener('change', () => {
   sbModelLabel.textContent = modelSelect.value;
+  const inlineName = document.getElementById('inlineModelName');
+  if (inlineName) inlineName.textContent = modelSelect.value;
 });
 
 /* ══════════════════════════════════════════
@@ -998,8 +990,7 @@ function buildWelcome() {
   const div = document.createElement('div');
   div.id = 'welcome';
   div.innerHTML = `
-    <div class="wlc-icon"><img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379061/artdeone-1_plyge7.png" alt="ART de ONE"></div>
-    <h2>How can I help you?</h2>
+    <div class="wlc-icon">ART de ONE</div>
     <div class="chips">
       <button class="chip" onclick="chipClick(this)">Write code for me</button>
       <button class="chip" onclick="chipClick(this)">Design suggestion</button>
@@ -1022,15 +1013,14 @@ function scrollDown() {
 }
 
 /* ══════════════════════════════════════════
-   MOBILE MODEL PICKER
+   INLINE MODEL PICKER (bottom sheet)
 ══════════════════════════════════════════ */
-const mobileToggle = document.getElementById('mobileModelToggle');
+const inlineBtn = document.getElementById('inlineModelBtn');
+const inlineModelName = document.getElementById('inlineModelName');
 const mobileSheet = document.getElementById('mobileModelSheet');
-const mobileOverlay = document.getElementById('mobileModelOverlay');
 const mobileModelList = document.getElementById('mobileModelList');
-const mobileModelName = document.getElementById('mobileModelName');
 
-function buildMobileModelList() {
+function buildModelList() {
   mobileModelList.innerHTML = '';
   Array.from(modelSelect.options).forEach(opt => {
     const btn = document.createElement('button');
@@ -1039,31 +1029,34 @@ function buildMobileModelList() {
     btn.addEventListener('click', () => {
       modelSelect.value = opt.value;
       modelSelect.dispatchEvent(new Event('change'));
-      mobileModelName.textContent = opt.textContent;
-      closeMobileSheet();
-      buildMobileModelList();
+      inlineModelName.textContent = opt.textContent;
+      closeModelSheet();
+      buildModelList();
     });
     mobileModelList.appendChild(btn);
   });
 }
 
-function openMobileSheet() {
-  buildMobileModelList();
+function openModelSheet() {
+  buildModelList();
   mobileSheet.classList.add('open');
-  mobileOverlay.classList.add('open');
-  mobileToggle.classList.add('open');
+  inlineBtn.classList.add('open');
 }
 
-function closeMobileSheet() {
+function closeModelSheet() {
   mobileSheet.classList.remove('open');
-  mobileOverlay.classList.remove('open');
-  mobileToggle.classList.remove('open');
+  inlineBtn.classList.remove('open');
 }
 
-mobileToggle.addEventListener('click', () => {
-  mobileSheet.classList.contains('open') ? closeMobileSheet() : openMobileSheet();
+inlineBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  mobileSheet.classList.contains('open') ? closeModelSheet() : openModelSheet();
 });
-mobileOverlay.addEventListener('click', closeMobileSheet);
+document.addEventListener('click', (e) => {
+  if (mobileSheet.classList.contains('open') && !mobileSheet.contains(e.target) && !inlineBtn.contains(e.target)) {
+    closeModelSheet();
+  }
+});
 
 /* ── Init ── */
 loadHistory();
