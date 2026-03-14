@@ -4,6 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ART de ONE — AI Chat</title>
+  <link rel="icon" type="image/png" href="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769316272/fav-icon_n00lji.png">
   <script src="https://js.puter.com/v2/"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 
@@ -268,14 +269,12 @@
       text-align: center;
     }
     .wlc-icon {
-      width: 46px; height: 46px;
-      background: var(--text);
-      color: var(--main-bg);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 20px;
+      width: 56px; height: 56px;
       margin-bottom: 6px;
-      transition: background .2s, color .2s;
+    }
+    .wlc-icon img {
+      width: 100%; height: 100%;
+      object-fit: contain;
     }
     #welcome h2 {
       font-size: 22px;
@@ -323,14 +322,12 @@
 
     .avatar {
       width: 26px; height: 26px;
-      background: var(--text);
-      color: var(--main-bg);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 12px;
       flex-shrink: 0;
       margin-top: 3px;
-      transition: background .2s, color .2s;
+    }
+    .avatar img {
+      width: 100%; height: 100%;
+      object-fit: contain;
     }
 
     .bubble {
@@ -429,10 +426,135 @@
       margin-top: 8px;
     }
 
+    /* ══ MOBILE MODEL PICKER ══════════════════ */
+    .mobile-model-bar {
+      display: none;
+      padding: 0 20px 4px;
+      max-width: 740px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .mobile-model-toggle {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--input-bg);
+      border: 1px solid var(--input-bdr);
+      border-radius: 10px;
+      padding: 6px 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: var(--text-sub);
+      cursor: pointer;
+      transition: border-color .2s, color .2s;
+      width: auto;
+    }
+    .mobile-model-toggle:hover { border-color: var(--text); color: var(--text); }
+    .mobile-model-toggle .model-name { font-weight: 500; color: var(--text); }
+    .mobile-model-toggle .chevron {
+      transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+      display: flex;
+    }
+    .mobile-model-toggle.open .chevron { transform: rotate(180deg); }
+
+    .mobile-model-sheet {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: var(--sidebar-bg);
+      border-top: 1px solid var(--border);
+      border-radius: 18px 18px 0 0;
+      padding: 0;
+      z-index: 100;
+      transform: translateY(100%);
+      transition: transform .35s cubic-bezier(.34,1.56,.64,1);
+      max-height: 60vh;
+      overflow-y: auto;
+      box-shadow: 0 -8px 40px rgba(0,0,0,.25);
+    }
+    .mobile-model-sheet.open {
+      transform: translateY(0);
+    }
+    .mobile-model-sheet-handle {
+      width: 36px; height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      margin: 10px auto 6px;
+    }
+    .mobile-model-sheet-title {
+      padding: 4px 20px 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .mobile-model-option {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 20px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px;
+      color: var(--text);
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+      transition: background .15s;
+    }
+    .mobile-model-option:hover { background: var(--hover-item); }
+    .mobile-model-option.active { background: var(--active-item); font-weight: 500; }
+    .mobile-model-option .check {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: all .2s;
+    }
+    .mobile-model-option.active .check {
+      border-color: #a7e169;
+      background: #a7e169;
+    }
+    .mobile-model-option.active .check::after {
+      content: '✓'; font-size: 10px; color: #000; font-weight: 700;
+    }
+    .mobile-model-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.4);
+      z-index: 99;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s ease;
+    }
+    .mobile-model-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
     @media (max-width: 580px) {
-      #sidebar { display: none; }
+      #sidebar {
+        position: fixed; top: 0; left: 0; bottom: 0;
+        z-index: 200;
+        width: 280px !important;
+        min-width: 280px !important;
+        transform: translateX(-100%);
+        transition: transform .3s cubic-bezier(.4,0,.2,1);
+        border-right: none;
+        box-shadow: 8px 0 30px rgba(0,0,0,.3);
+      }
+      #sidebar.mobile-open {
+        transform: translateX(0);
+      }
+      #sidebar.collapsed { transform: translateX(-100%); }
+      .mobile-sb-overlay {
+        position: fixed; inset: 0;
+        background: rgba(0,0,0,.4);
+        z-index: 199;
+        opacity: 0; pointer-events: none;
+        transition: opacity .3s ease;
+      }
+      .mobile-sb-overlay.open {
+        opacity: 1; pointer-events: auto;
+      }
       #msgList, #inputZone { padding-left: 12px; padding-right: 12px; }
       .msg-block.user .bubble { max-width: 88%; }
+      .mobile-model-bar { display: block; }
     }
   </style>
 </head>
@@ -500,7 +622,7 @@
   <div id="chatArea">
     <div id="msgList">
       <div id="welcome">
-        <div class="wlc-icon">✦</div>
+        <div class="wlc-icon"><img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379061/artdeone-1_plyge7.png" alt="ART de ONE"></div>
         <h2>How can I help you?</h2>
         <div class="chips">
           <button class="chip" onclick="chipClick(this)">Write code for me</button>
@@ -520,7 +642,23 @@
     <p class="input-hint">Enter ↵ &nbsp;·&nbsp; Shift+Enter for new line</p>
   </div>
 
+  <div class="mobile-model-bar">
+    <button class="mobile-model-toggle" id="mobileModelToggle">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      <span class="model-name" id="mobileModelName">claude-sonnet-4-6</span>
+      <span class="chevron"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </button>
+  </div>
+
 </div><!-- /main -->
+
+<div class="mobile-sb-overlay" id="mobileSbOverlay"></div>
+<div class="mobile-model-overlay" id="mobileModelOverlay"></div>
+<div class="mobile-model-sheet" id="mobileModelSheet">
+  <div class="mobile-model-sheet-handle"></div>
+  <div class="mobile-model-sheet-title">Select Model</div>
+  <div id="mobileModelList"></div>
+</div>
 
 <script type="module">
 import { supabaseShop as sb, getAuthSession, signOutCustomer } from './js/config-shop.js';
@@ -598,12 +736,32 @@ document.getElementById('themeBtn').addEventListener('click', () => {
 /* ══════════════════════════════════════════
    SIDEBAR TOGGLE
 ══════════════════════════════════════════ */
-document.getElementById('closeSbBtn').addEventListener('click', () => {
-  document.getElementById('sidebar').classList.add('collapsed');
-});
-document.getElementById('openSbBtn').addEventListener('click', () => {
-  document.getElementById('sidebar').classList.remove('collapsed');
-});
+const sidebar = document.getElementById('sidebar');
+const mobileSbOverlay = document.getElementById('mobileSbOverlay');
+const isMobile = () => window.innerWidth <= 580;
+
+function openSidebar() {
+  if (isMobile()) {
+    sidebar.classList.add('mobile-open');
+    sidebar.classList.remove('collapsed');
+    mobileSbOverlay.classList.add('open');
+  } else {
+    sidebar.classList.remove('collapsed');
+  }
+}
+
+function closeSidebar() {
+  if (isMobile()) {
+    sidebar.classList.remove('mobile-open');
+    mobileSbOverlay.classList.remove('open');
+  } else {
+    sidebar.classList.add('collapsed');
+  }
+}
+
+document.getElementById('closeSbBtn').addEventListener('click', closeSidebar);
+document.getElementById('openSbBtn').addEventListener('click', openSidebar);
+mobileSbOverlay.addEventListener('click', closeSidebar);
 
 /* ══════════════════════════════════════════
    MODEL SELECT
@@ -782,7 +940,7 @@ function renderBubble(role, text) {
   if (role === 'assistant') {
     const av = document.createElement('div');
     av.className = 'avatar';
-    av.textContent = '✦';
+    av.innerHTML = '<img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1773509389/chat-icon_vvaair.png" alt="AI">';
     block.appendChild(av);
   }
 
@@ -800,7 +958,7 @@ function renderTyping() {
 
   const av = document.createElement('div');
   av.className = 'avatar';
-  av.textContent = '✦';
+  av.innerHTML = '<img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1773509389/chat-icon_vvaair.png" alt="AI">';
   block.appendChild(av);
 
   const bbl = document.createElement('div');
@@ -840,7 +998,7 @@ function buildWelcome() {
   const div = document.createElement('div');
   div.id = 'welcome';
   div.innerHTML = `
-    <div class="wlc-icon">✦</div>
+    <div class="wlc-icon"><img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379061/artdeone-1_plyge7.png" alt="ART de ONE"></div>
     <h2>How can I help you?</h2>
     <div class="chips">
       <button class="chip" onclick="chipClick(this)">Write code for me</button>
@@ -862,6 +1020,50 @@ function updateTitle() {
 function scrollDown() {
   chatArea.scrollTop = chatArea.scrollHeight;
 }
+
+/* ══════════════════════════════════════════
+   MOBILE MODEL PICKER
+══════════════════════════════════════════ */
+const mobileToggle = document.getElementById('mobileModelToggle');
+const mobileSheet = document.getElementById('mobileModelSheet');
+const mobileOverlay = document.getElementById('mobileModelOverlay');
+const mobileModelList = document.getElementById('mobileModelList');
+const mobileModelName = document.getElementById('mobileModelName');
+
+function buildMobileModelList() {
+  mobileModelList.innerHTML = '';
+  Array.from(modelSelect.options).forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'mobile-model-option' + (opt.value === modelSelect.value ? ' active' : '');
+    btn.innerHTML = `<span class="check"></span>${opt.textContent}`;
+    btn.addEventListener('click', () => {
+      modelSelect.value = opt.value;
+      modelSelect.dispatchEvent(new Event('change'));
+      mobileModelName.textContent = opt.textContent;
+      closeMobileSheet();
+      buildMobileModelList();
+    });
+    mobileModelList.appendChild(btn);
+  });
+}
+
+function openMobileSheet() {
+  buildMobileModelList();
+  mobileSheet.classList.add('open');
+  mobileOverlay.classList.add('open');
+  mobileToggle.classList.add('open');
+}
+
+function closeMobileSheet() {
+  mobileSheet.classList.remove('open');
+  mobileOverlay.classList.remove('open');
+  mobileToggle.classList.remove('open');
+}
+
+mobileToggle.addEventListener('click', () => {
+  mobileSheet.classList.contains('open') ? closeMobileSheet() : openMobileSheet();
+});
+mobileOverlay.addEventListener('click', closeMobileSheet);
 
 /* ── Init ── */
 loadHistory();
