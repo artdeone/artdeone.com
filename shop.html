@@ -94,7 +94,8 @@
 
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; display: none; align-items: center; justify-content: center; padding: 1rem; backdrop-filter: blur(4px); }
         .modal-overlay.active { display: flex; }
-        .modal-box { background: #fff; border-radius: 1rem; max-width: 550px; width: 100%; max-height: 90vh; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; box-shadow: 0 25px 50px rgba(0,0,0,0.15); }
+        .modal-box { background: #fff; border-radius: 1rem; max-width: 550px; width: 100%; max-height: 90vh; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.15); display: flex; flex-direction: column; }
+        .modal-box-inner { overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; flex: 1; }
 
         .step-number { width: 2.25rem; height: 2.25rem; border-radius: 50%; background: #a7e169; color: #000; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0; }
         .step-connector { width: 2px; height: 1.5rem; background: #e5e5e5; margin-left: 1.1rem; }
@@ -272,9 +273,9 @@
             opacity: 1;
         }
 
-        .modal-box::-webkit-scrollbar { width: 4px; }
-        .modal-box::-webkit-scrollbar-track { background: transparent; }
-        .modal-box::-webkit-scrollbar-thumb { background: #e5e5e5; border-radius: 10px; }
+        .modal-box-inner::-webkit-scrollbar { width: 4px; }
+        .modal-box-inner::-webkit-scrollbar-track { background: transparent; }
+        .modal-box-inner::-webkit-scrollbar-thumb { background: #e5e5e5; border-radius: 10px; }
 
         .gallery-main-img {
             width: 100%;
@@ -566,6 +567,43 @@
             text-transform: uppercase;
             z-index: 2;
             box-shadow: 0 2px 8px rgba(237,41,57,0.3);
+        }
+        /* ===== Product Origin Tags ===== */
+        .origin-tag {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 9px;
+            border-radius: 2rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.62rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            z-index: 2;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+        .origin-tag-handcraft {
+            background: rgba(240,251,228,0.88);
+            color: #3d7a0a;
+            border: 1px solid rgba(167,225,105,0.5);
+        }
+        .origin-tag-ai {
+            background: rgba(254,242,242,0.88);
+            color: #c81e2b;
+            border: 1px solid rgba(237,41,57,0.35);
+        }
+        .origin-tag-ai svg {
+            width: 12px;
+            height: 12px;
+        }
+        .origin-tag-curated {
+            background: rgba(239,246,255,0.88);
+            color: #1e56a0;
+            border: 1px solid rgba(37,99,235,0.35);
         }
         .modal-video-wrapper {
             position: relative;
@@ -1092,7 +1130,7 @@
     <!-- Product Detail Modal -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-box">
-            <div id="modalContent"></div>
+            <div class="modal-box-inner" id="modalContent"></div>
         </div>
     </div>
 
@@ -1264,6 +1302,7 @@
             {
                 id: 1,
                 name: 'ART de ONE - Stipple & Shader Brushes',
+                tag: 'handcraft',
                 category: 'brush',
                 price: 35700,
                 image: 'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1770978188/1_zkggfq.jpg',
@@ -1281,6 +1320,7 @@
             {
                 id: 2,
                 name: '101-Font Collection',
+                tag: 'curated',
                 category: 'font',
                 price: 5500,
                 image: 'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771049887/101_cover_lnd3tp.jpg',
@@ -1323,6 +1363,7 @@
             {
                 id: 3,
                 name: 'Antique Print Effect Brushes',
+                tag: 'handcraft',
                 category: 'brush',
                 price: 15000,
                 image: 'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771680190/example_jxplwn.jpg',
@@ -1340,6 +1381,7 @@
             {
                 id: 4,
                 name: 'High Quality Padauk Flower PNGs',
+                tag: 'curated',
                 category: 'template',
                 price: 0,
                 image: 'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771858821/pk-cover_hiblyn.jpg',
@@ -1362,6 +1404,7 @@
             {
                 id: 5,
                 name: 'ကံ့ကော်ပန်း High Quality PNGs and PSDs - Free Downlaod',
+                tag: 'curated',
                 category: 'template',
                 price: 0,
                 image: 'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772362157/cover_teqbfu.jpg',
@@ -1384,6 +1427,7 @@
             {
                 id: 6,
                 name: 'ART de ONE - High Quality Thingyan Character',
+                tag: 'ai',
                 category: 'template',
                 price: 0,
                 image: 'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772440847/cover-2_knyhpc.jpg',
@@ -1408,6 +1452,7 @@
             {
                 id: 7,
                 name: 'Boho Minimal Leaf Vector Patterns',
+                tag: 'handcraft',
                 category: 'template',
                 price: 0,
                 originalPrice: 15000,
@@ -1438,6 +1483,7 @@
             {
                 id: 8,
                 name: 'Organic Paper & Fabric Texture',
+                tag: 'handcraft',
                 category: 'texture',
                 price: 0,
                 originalPrice: 25000,
@@ -1581,21 +1627,21 @@
             grid.innerHTML = list.map(p => {
                 const isCourse = p.category === 'course' && p.previewVideo;
                 return `
-                <div class="minimalist-card" data-aos="fade-up">
+                <div class="minimalist-card" data-aos="fade-up" onclick="openModal(${p.id})" style="cursor:pointer;">
                     <div style="position:relative; overflow:hidden;">
                         ${isCourse ? `<span class="course-badge"><i class="fas fa-play-circle" style="margin-right:4px;"></i>Video Course</span>` : ''}
                         <img src="${p.image}" alt="${p.name}" class="product-card-img" loading="lazy">
                         ${isCourse ? `<div class="video-play-overlay"><div class="video-play-icon"><i class="fas fa-play"></i></div></div>` : ''}
+                        ${p.tag === 'handcraft' ? `<span class="origin-tag origin-tag-handcraft"><i class="fas fa-check-circle" style="font-size:10px;"></i> Handcraft</span>` : ''}
+                        ${p.tag === 'ai' ? `<span class="origin-tag origin-tag-ai"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2Z"/></svg> AI</span>` : ''}
+                        ${p.tag === 'curated' ? `<span class="origin-tag origin-tag-curated"><i class="fas fa-layer-group" style="font-size:10px;"></i> Curated</span>` : ''}
                     </div>
                     <div class="product-card-body">
                         <span class="category-badge mb-3">${categoryLabels[p.category]}</span>
                         <h3 class="font-bold text-black text-lg mt-2 mb-2">${p.name}</h3>
                         <p class="text-sm text-[#555] mb-4 line-clamp-2">${p.description}</p>
-                        <div class="flex items-center justify-between">
-                            <div>
-                                ${getDisplayPrice(p) === 0 && p.originalPrice ? `<span style="text-decoration:line-through; color:#999; font-size:0.85rem;">${formatPrice(p.originalPrice)} MMK</span> <span class="price-tag" style="color:#16a34a; margin-left:6px;">Free</span> <span style="font-size:0.75rem; color:#dc2626; font-weight:600; margin-left:4px;">(Limited Time)</span>` : getDisplayPrice(p) === 0 ? '<span class="price-tag" style="color:#16a34a;">Free</span>' : `<span class="price-tag">${formatPrice(getDisplayPrice(p))}</span><span class="price-unit">MMK</span>`}
-                            </div>
-                            <button onclick="openModal(${p.id})" class="btn-primary text-sm" style="padding: 0.5rem 1.25rem;">View Details</button>
+                        <div>
+                            ${getDisplayPrice(p) === 0 && p.originalPrice ? `<span style="text-decoration:line-through; color:#999; font-size:0.85rem;">${formatPrice(p.originalPrice)} MMK</span> <span class="price-tag" style="color:#16a34a; margin-left:6px;">Free</span> <span style="font-size:0.75rem; color:#dc2626; font-weight:600; margin-left:4px;">(Limited Time)</span>` : getDisplayPrice(p) === 0 ? '<span class="price-tag" style="color:#16a34a;">Free</span>' : `<span class="price-tag">${formatPrice(getDisplayPrice(p))}</span><span class="price-unit">MMK</span>`}
                         </div>
                     </div>
                 </div>`;

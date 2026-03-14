@@ -1298,6 +1298,7 @@
         .mobile-dropdown.open .mobile-menu-item:nth-child(1) { transition-delay:.08s; }
         .mobile-dropdown.open .mobile-menu-item:nth-child(2) { transition-delay:.13s; }
         .mobile-dropdown.open .mobile-menu-item:nth-child(3) { transition-delay:.18s; }
+        .mobile-dropdown.open .mobile-menu-item:nth-child(4) { transition-delay:.23s; }
         .mobile-menu-item:hover { background:var(--surface-2); }
         .mobile-menu-item i { width:18px; text-align:center; font-size:.9em; color:var(--text-muted); }
         .mobile-menu-item.menu-logout { color:var(--accent-red); }
@@ -1326,6 +1327,8 @@
         .btn-refresh:hover { box-shadow:none; }
         .btn-logout { background:transparent; color:var(--text-secondary); border:1px solid var(--border); }
         .btn-logout:hover { background:var(--red-subtle); color:var(--accent-red); border-color:rgba(237,41,57,.15); }
+        .btn-go-ai { background:transparent; color:var(--text-secondary); }
+        .btn-go-ai:hover { background:var(--green-subtle); color:var(--accent-green); }
         .btn-go-shop { background:transparent; color:var(--text-secondary); }
         .btn-go-shop:hover { background:var(--green-subtle); color:var(--accent-green); }
         .btn-profile { background:transparent; color:var(--text-secondary); padding:6px 12px; }
@@ -2077,6 +2080,7 @@
                     <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png" alt="ART de ONE" id="navLogoImg">
                 </div>
                 <div class="nav-actions">
+                    <a href="ado-ai.html" class="btn btn-go-ai nav-hide-mobile"><i class="fas fa-robot"></i> <span>AI Chat</span></a>
                     <a href="shop.html" class="btn btn-go-shop nav-hide-mobile"><i class="fas fa-store"></i> <span>Shop</span></a>
                     <button onclick="toggleProfile()" class="btn btn-profile nav-hide-mobile" id="profileBtn">
                         <span class="profile-avatar-sm" id="navAvatarInitial"></span>
@@ -2100,6 +2104,7 @@
             </div>
             <div class="mobile-dropdown" id="mobileDropdown">
                 <div class="mobile-dropdown-inner">
+                    <a href="ado-ai.html" class="mobile-menu-item"><i class="fas fa-robot"></i> AI Chat</a>
                     <a href="shop.html" class="mobile-menu-item"><i class="fas fa-store"></i> Go to Shop</a>
                     <button onclick="toggleProfile();toggleMobileMenu();" class="mobile-menu-item"><i class="fas fa-user"></i> Profile</button>
                     <button onclick="logout()" class="mobile-menu-item menu-logout"><i class="fas fa-right-from-bracket"></i> Logout</button>
