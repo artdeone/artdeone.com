@@ -665,6 +665,33 @@
       #msgList, #inputZone { padding-left: 12px; padding-right: 12px; }
       .msg-block.user .bubble { max-width: 88%; }
     }
+    /* Puter Limit UI Styles */
+.usage-box {
+  padding: 12px 16px;
+  border-top: 1px solid var(--border);
+}
+.usage-text {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #888;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+.usage-bar-bg {
+  width: 100%;
+  height: 6px;
+  background: var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.usage-bar-fill {
+  width: 0%;
+  height: 100%;
+  background: #10b981; /* ပုံမှန်အစိမ်းရောင် */
+  transition: width 0.4s ease, background 0.4s ease;
+}
+
   </style>
 </head>
 <body>
@@ -746,6 +773,16 @@
     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
     Delete all history
   </button>
+  <!-- Puter Usage Limit (ထည့်သွင်းမည့်အပိုင်း) -->
+<div class="usage-box">
+  <div class="usage-text">
+    <span>Free Limit: $0.50</span>
+    <span id="usage-percent-text">0%</span>
+  </div>
+  <div class="usage-bar-bg">
+    <div id="usage-bar-fill" class="usage-bar-fill"></div>
+  </div>
+</div>
 
   <div class="sb-footer">
     <span class="sb-model-label" id="sbModelLabel">Claude Sonnet 4</span>
@@ -830,6 +867,37 @@ await new Promise(resolve => {
     if (window.puter) { clearInterval(check); resolve(); }
   }, 50);
 });
+/* ══════════════════════════════════════════
+   PUTER USAGE LIMIT UI
+══════════════════════════════════════════ */
+async function updatePuterUsageUI() {
+  try {
+    const usage = await puter.auth.getMonthlyUsage();
+    const total = usage.allowanceInfo.monthUsageAllowance;
+    const remaining = usage.allowanceInfo.remaining;
+    const used = total - remaining;
+    
+    // ရာခိုင်နှုန်းတွက်ခြင်း
+    const percentage = ((used / total) * 100).toFixed(1);
+    
+    // UI တွင်စာသားနှင့် Bar အရှည်ကို ပြောင်းလဲခြင်း
+    document.getElementById('usage-percent-text').innerText = `${percentage}% Used`;
+    const barFill = document.getElementById('usage-bar-fill');
+    barFill.style.width = `${percentage}%`;
+    
+    // သုံးထားတာ ၈၀% ကျော်ရင် အနီရောင်၊ ၅၀% ကျော်ရင် လိမ္မော်ရောင်ပြောင်းရန်
+    if (percentage > 80) {
+      barFill.style.background = '#ef4444'; // Red
+    } else if (percentage > 50) {
+      barFill.style.background = '#f59e0b'; // Orange
+    }
+  } catch (error) {
+    console.error("Usage limit ယူရာတွင် အခက်အခဲရှိနေပါသည်: ", error);
+  }
+}
+
+// Function ကို စတင်အလုပ်လုပ်စေရန် ခေါ်ပေးခြင်း
+updatePuterUsageUI();
 
 /* ══════════════════════════════════════════
    AUTH GUARD — Login ဝင်ထားမှသာ သုံးလို့ရမည်
