@@ -592,6 +592,20 @@
       font-weight: 600;
       color: var(--text);
     }
+    .mobile-model-group-label {
+      padding: 10px 20px 4px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+      color: var(--text-sub);
+      border-top: 1px solid var(--border);
+      margin-top: 4px;
+    }
+    .mobile-model-group-label:first-of-type {
+      border-top: none;
+      margin-top: 0;
+    }
     .mobile-model-option {
       display: flex; align-items: center; gap: 10px;
       padding: 12px 20px;
@@ -676,13 +690,50 @@
   <div class="sb-section">Model</div>
   <div class="model-wrap">
     <select id="modelSelect">
-      <option value="claude-sonnet-4" selected>Claude Sonnet 4</option>
-      <option value="claude-opus-4">Claude Opus 4</option>
-      <option value="claude-sonnet-4-5">Claude Sonnet 4.5</option>
-      <option value="claude-opus-4-5">Claude Opus 4.5</option>
-      <option value="claude-3-7-sonnet">Claude 3.7 Sonnet</option>
-      <option value="claude-3-5-sonnet">Claude 3.5 Sonnet</option>
-      <option value="claude-3-haiku">Claude 3 Haiku</option>
+      <optgroup label="— Anthropic">
+        <option value="claude-sonnet-4" selected>Claude Sonnet 4</option>
+        <option value="claude-opus-4">Claude Opus 4</option>
+        <option value="claude-sonnet-4-5">Claude Sonnet 4.5</option>
+        <option value="claude-opus-4-5">Claude Opus 4.5</option>
+        <option value="claude-haiku-4-5">Claude Haiku 4.5</option>
+        <option value="claude-3-7-sonnet">Claude 3.7 Sonnet</option>
+        <option value="claude-3-5-sonnet">Claude 3.5 Sonnet</option>
+        <option value="claude-3-haiku">Claude 3 Haiku</option>
+      </optgroup>
+      <optgroup label="— OpenAI">
+        <option value="gpt-5-nano">GPT-5 Nano</option>
+        <option value="openai/gpt-5.2-chat">GPT-5.2 Chat</option>
+        <option value="openai/gpt-5.2">GPT-5.2</option>
+        <option value="openai/gpt-4.1">GPT-4.1</option>
+        <option value="gpt-4o">GPT-4o</option>
+        <option value="gpt-4o-mini">GPT-4o Mini</option>
+      </optgroup>
+      <optgroup label="— Google">
+        <option value="gemini-2.5-flash-lite">Gemini 2.5 Flash Lite</option>
+        <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+        <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
+        <option value="gemini-1.5-flash">Gemini 1.5 Flash</option>
+      </optgroup>
+      <optgroup label="— xAI">
+        <option value="openai/grok-4">Grok 4</option>
+        <option value="openai/grok-4-1-fast">Grok 4.1 Fast</option>
+        <option value="grok-beta">Grok Beta</option>
+      </optgroup>
+      <optgroup label="— DeepSeek">
+        <option value="deepseek-chat">DeepSeek Chat</option>
+        <option value="deepseek-reasoner">DeepSeek Reasoner (R1)</option>
+      </optgroup>
+      <optgroup label="— Meta">
+        <option value="openai/llama-4">Llama 4</option>
+        <option value="openai/llama-3-3">Llama 3.3</option>
+        <option value="meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo">Llama 3.1 70B</option>
+        <option value="meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo">Llama 3.1 8B</option>
+      </optgroup>
+      <optgroup label="— Mistral">
+        <option value="mistral-large-latest">Mistral Large</option>
+        <option value="mistral-small-latest">Mistral Small</option>
+        <option value="codestral-latest">Codestral</option>
+      </optgroup>
     </select>
   </div>
 
@@ -889,6 +940,7 @@ modelSelect.addEventListener('change', () => {
   sbModelLabel.textContent = label;
   const inlineName = document.getElementById('inlineModelName');
   if (inlineName) inlineName.textContent = label;
+  promptInput.placeholder = `Message ${label}…`;
 });
 
 /* ══════════════════════════════════════════
@@ -1175,18 +1227,41 @@ const mobileModelList = document.getElementById('mobileModelList');
 
 function buildModelList() {
   mobileModelList.innerHTML = '';
-  Array.from(modelSelect.options).forEach(opt => {
-    const btn = document.createElement('button');
-    btn.className = 'mobile-model-option' + (opt.value === modelSelect.value ? ' active' : '');
-    btn.innerHTML = `<span class="check"></span>${opt.textContent}`;
-    btn.addEventListener('click', () => {
-      modelSelect.value = opt.value;
-      modelSelect.dispatchEvent(new Event('change'));
-      inlineModelName.textContent = opt.textContent;
-      closeModelSheet();
-      buildModelList();
-    });
-    mobileModelList.appendChild(btn);
+  Array.from(modelSelect.children).forEach(child => {
+    if (child.tagName === 'OPTGROUP') {
+      // Group label header
+      const label = document.createElement('div');
+      label.className = 'mobile-model-group-label';
+      label.textContent = child.label.replace(/^—\s*/, '');
+      mobileModelList.appendChild(label);
+      // Options inside this group
+      Array.from(child.children).forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'mobile-model-option' + (opt.value === modelSelect.value ? ' active' : '');
+        btn.innerHTML = `<span class="check"></span>${opt.textContent}`;
+        btn.addEventListener('click', () => {
+          modelSelect.value = opt.value;
+          modelSelect.dispatchEvent(new Event('change'));
+          inlineModelName.textContent = opt.textContent;
+          closeModelSheet();
+          buildModelList();
+        });
+        mobileModelList.appendChild(btn);
+      });
+    } else if (child.tagName === 'OPTION') {
+      // Ungrouped option (fallback)
+      const btn = document.createElement('button');
+      btn.className = 'mobile-model-option' + (child.value === modelSelect.value ? ' active' : '');
+      btn.innerHTML = `<span class="check"></span>${child.textContent}`;
+      btn.addEventListener('click', () => {
+        modelSelect.value = child.value;
+        modelSelect.dispatchEvent(new Event('change'));
+        inlineModelName.textContent = child.textContent;
+        closeModelSheet();
+        buildModelList();
+      });
+      mobileModelList.appendChild(btn);
+    }
   });
 }
 
