@@ -1327,8 +1327,6 @@
         .btn-refresh:hover { box-shadow:none; }
         .btn-logout { background:transparent; color:var(--text-secondary); border:1px solid var(--border); }
         .btn-logout:hover { background:var(--red-subtle); color:var(--accent-red); border-color:rgba(237,41,57,.15); }
-        .btn-go-ai { background:var(--surface-2); color:var(--text-secondary); border:1px solid var(--border); text-decoration:none; }
-        .btn-go-ai:hover { background:var(--green-subtle); color:var(--accent-green); border-color:var(--accent-green); }
         .btn-go-shop { background:transparent; color:var(--text-secondary); }
         .btn-go-shop:hover { background:var(--green-subtle); color:var(--accent-green); }
         .btn-profile { background:transparent; color:var(--text-secondary); padding:6px 12px; }
@@ -1930,175 +1928,6 @@
     .wish-illustration { display: none; }
 }
 
-/* =====================================================
-   AI ANNOUNCEMENT BANNER
-===================================================== */
-@keyframes ai-banner-in { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
-@keyframes ai-shimmer-move { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
-@keyframes ai-icon-spin { 0%{transform:rotate(0deg) scale(1)} 50%{transform:rotate(180deg) scale(1.15)} 100%{transform:rotate(360deg) scale(1)} }
-
-.ai-announce-banner {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    flex-wrap: wrap;
-    background: linear-gradient(135deg, #0d1f00 0%, #1a3a00 50%, #0d1f00 100%);
-    background-size: 200% 100%;
-    border: 1px solid rgba(167,225,105,.25);
-    border-radius: 12px;
-    padding: 14px 18px;
-    margin-bottom: 16px;
-    overflow: hidden;
-    animation: ai-banner-in .5s var(--ease) .2s both;
-    box-shadow: 0 0 0 1px rgba(167,225,105,.08), 0 4px 20px rgba(0,0,0,.12);
-}
-[data-theme="light"] .ai-announce-banner {
-    background: linear-gradient(135deg, #f0fce8 0%, #e8f9d4 50%, #f0fce8 100%);
-    border-color: rgba(167,225,105,.4);
-    box-shadow: 0 0 0 1px rgba(167,225,105,.15), 0 4px 16px rgba(167,225,105,.08);
-}
-
-/* Shimmer overlay */
-.ai-announce-banner::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, transparent 0%, rgba(167,225,105,.06) 50%, transparent 100%);
-    background-size: 200% 100%;
-    animation: ai-shimmer-move 3s linear infinite;
-    pointer-events: none;
-}
-
-/* Left side */
-.ai-announce-left {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    flex: 1;
-    min-width: 0;
-    position: relative;
-    z-index: 1;
-}
-
-/* Icon */
-.ai-announce-icon {
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
-    background: rgba(167,225,105,.15);
-    border: 1px solid rgba(167,225,105,.25);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1em;
-    color: #a7e169;
-    flex-shrink: 0;
-    animation: ai-icon-spin 6s linear infinite;
-}
-[data-theme="light"] .ai-announce-icon {
-    background: rgba(167,225,105,.2);
-    border-color: rgba(167,225,105,.35);
-}
-
-/* Text block */
-.ai-announce-text { min-width: 0; }
-
-.ai-announce-title {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: .9em;
-    font-weight: 700;
-    color: #a7e169;
-    letter-spacing: -.01em;
-    margin-bottom: 3px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-[data-theme="light"] .ai-announce-title { color: #3a6b00; }
-
-.ai-announce-desc {
-    font-size: .76em;
-    color: rgba(167,225,105,.7);
-    line-height: 1.55;
-}
-[data-theme="light"] .ai-announce-desc { color: #4a7c1a; }
-.ai-announce-desc strong { color: #a7e169; font-weight: 600; }
-[data-theme="light"] .ai-announce-desc strong { color: #2d5a00; }
-
-/* CTA Button */
-.ai-announce-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding: 9px 18px;
-    border-radius: 999px;
-    background: #a7e169;
-    color: #000;
-    font-family: 'Poppins', sans-serif;
-    font-size: .78em;
-    font-weight: 700;
-    text-decoration: none;
-    white-space: nowrap;
-    flex-shrink: 0;
-    position: relative;
-    z-index: 1;
-    transition: all .22s var(--ease);
-    box-shadow: 0 2px 10px rgba(167,225,105,.25);
-    letter-spacing: .01em;
-}
-.ai-announce-btn:hover {
-    background: #ed2939;
-    color: #fff;
-    box-shadow: 0 4px 16px rgba(237,41,57,.3);
-    transform: translateY(-1px);
-}
-.ai-announce-btn:active { transform: scale(.96); }
-
-/* Close button */
-.ai-announce-close {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    border: none;
-    background: rgba(167,225,105,.1);
-    color: rgba(167,225,105,.6);
-    font-size: .7em;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all .2s;
-    z-index: 2;
-    line-height: 1;
-}
-.ai-announce-close:hover {
-    background: rgba(237,41,57,.2);
-    color: #ed2939;
-}
-[data-theme="light"] .ai-announce-close {
-    background: rgba(0,0,0,.06);
-    color: #6b7280;
-}
-[data-theme="light"] .ai-announce-close:hover {
-    background: rgba(237,41,57,.1);
-    color: #ed2939;
-}
-
-@media(max-width: 600px) {
-    .ai-announce-banner { padding: 12px 14px; gap: 10px; }
-    .ai-announce-title { font-size: .82em; white-space: normal; }
-    .ai-announce-desc { font-size: .72em; }
-    .ai-announce-btn { width: 100%; justify-content: center; padding: 9px 14px; }
-    .ai-announce-icon { width: 32px; height: 32px; font-size: .95em; }
-    .ai-announce-close { top: 6px; right: 6px; }
-}
-
-
 
 
         
@@ -2248,7 +2077,6 @@
                     <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png" alt="ART de ONE" id="navLogoImg">
                 </div>
                 <div class="nav-actions">
-                    <a href="ado-ai.html" class="btn btn-go-ai nav-hide-mobile">✦ <span>AI</span></a>
                     <a href="shop.html" class="btn btn-go-shop nav-hide-mobile"><i class="fas fa-store"></i> <span>Shop</span></a>
                     <button onclick="toggleProfile()" class="btn btn-profile nav-hide-mobile" id="profileBtn">
                         <span class="profile-avatar-sm" id="navAvatarInitial"></span>
@@ -2272,7 +2100,6 @@
             </div>
             <div class="mobile-dropdown" id="mobileDropdown">
                 <div class="mobile-dropdown-inner">
-                    <a href="ado-ai.html" class="mobile-menu-item">✦ AI Chat</a>
                     <a href="shop.html" class="mobile-menu-item"><i class="fas fa-store"></i> Go to Shop</a>
                     <button onclick="toggleProfile();toggleMobileMenu();" class="mobile-menu-item"><i class="fas fa-user"></i> Profile</button>
                     <button onclick="logout()" class="mobile-menu-item menu-logout"><i class="fas fa-right-from-bracket"></i> Logout</button>
@@ -2302,21 +2129,6 @@
                 
             </div>
 
-            <!-- ══ AI ANNOUNCEMENT BANNER ══ -->
-            <div class="ai-announce-banner" id="aiAnnounceBanner">
-                <button class="ai-announce-close" onclick="document.getElementById('aiAnnounceBanner').style.display='none'" title="Close">✕</button>
-                <div class="ai-announce-left">
-                    <div class="ai-announce-icon">✦</div>
-                    <div class="ai-announce-text">
-                        <div class="ai-announce-title">ADO AI — Free အသုံးပြုနိုင်ပြီ 🎉</div>
-                        <div class="ai-announce-desc">စမ်းသပ်နေဆဲကာလမို့လို့ အဆင်မပြေတဲ့အခြေအနေများရှိနိုင်ပါသည်။</div>
-                    </div>
-                </div>
-                <a href="ado-ai.html" class="ai-announce-btn">
-                    စမ်းသုံးကြည့်မည်
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                </a>
-            </div>
 
                         <!-- Thank You Letter -->
             <div class="thank-you-letter" id="thankYouLetter">
