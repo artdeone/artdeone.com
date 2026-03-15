@@ -46,6 +46,8 @@
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; }
+    body { visibility: hidden; }
+    body.authed { visibility: visible; }
 
     body {
       font-family: 'Inter', -apple-system, sans-serif;
@@ -572,17 +574,13 @@
   <div class="sb-section">Model</div>
   <div class="model-wrap">
     <select id="modelSelect">
-      <option value="claude-sonnet-4-6" selected>claude-sonnet-4-6</option>
-      <option value="claude-opus-4-6">claude-opus-4-6</option>
-      <option value="claude-opus-4-5">claude-opus-4-5</option>
-      <option value="claude-haiku-4-5">claude-haiku-4-5</option>
-      <option value="claude-sonnet-4-5">claude-sonnet-4-5</option>
-      <option value="claude-opus-4-1">claude-opus-4-1</option>
-      <option value="claude-opus-4">claude-opus-4</option>
-      <option value="claude-sonnet-4">claude-sonnet-4</option>
-      <option value="claude-3-7-sonnet">claude-3-7-sonnet</option>
-      <option value="claude-3-5-sonnet">claude-3-5-sonnet</option>
-      <option value="claude-3-haiku">claude-3-haiku</option>
+      <option value="claude-sonnet-4" selected>Claude Sonnet 4</option>
+      <option value="claude-opus-4">Claude Opus 4</option>
+      <option value="claude-sonnet-4-5">Claude Sonnet 4.5</option>
+      <option value="claude-opus-4-5">Claude Opus 4.5</option>
+      <option value="claude-3-7-sonnet">Claude 3.7 Sonnet</option>
+      <option value="claude-3-5-sonnet">Claude 3.5 Sonnet</option>
+      <option value="claude-3-haiku">Claude 3 Haiku</option>
     </select>
   </div>
 
@@ -592,7 +590,7 @@
   </div>
 
   <div class="sb-footer">
-    <span class="sb-model-label" id="sbModelLabel">claude-sonnet-4-6</span>
+    <span class="sb-model-label" id="sbModelLabel">Claude Sonnet 4</span>
     <button class="icon-btn" id="themeBtn"></button>
   </div>
 </nav>
@@ -633,7 +631,7 @@
       <div class="input-bottom">
         <button class="inline-model-btn" id="inlineModelBtn">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-          <span id="inlineModelName">claude-sonnet-4-6</span>
+          <span id="inlineModelName">Claude Sonnet 4</span>
           <span class="chevron"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span>
         </button>
         <div class="mobile-model-sheet" id="mobileModelSheet">
@@ -662,6 +660,7 @@ if (!session) {
   throw new Error('Not authenticated');
 }
 const currentUserId = session.user.id;
+document.body.classList.add('authed');
 
 /* ══════════════════════════════════════════
    SUPABASE DB HELPERS (user_id based)
@@ -757,9 +756,10 @@ mobileSbOverlay.addEventListener('click', closeSidebar);
    MODEL SELECT
 ══════════════════════════════════════════ */
 modelSelect.addEventListener('change', () => {
-  sbModelLabel.textContent = modelSelect.value;
+  const label = modelSelect.options[modelSelect.selectedIndex].textContent;
+  sbModelLabel.textContent = label;
   const inlineName = document.getElementById('inlineModelName');
-  if (inlineName) inlineName.textContent = modelSelect.value;
+  if (inlineName) inlineName.textContent = label;
 });
 
 /* ══════════════════════════════════════════
@@ -781,6 +781,7 @@ function renderHistoryList() {
   [...sessions].reverse().forEach(s => {
     const item = document.createElement('div');
     item.className = 'h-item';
+    item.dataset.sid = s.id;
     item.textContent = s.title;
     item.onclick = () => restoreSession(s.id);
     list.appendChild(item);
@@ -795,9 +796,8 @@ function restoreSession(id) {
   chatHistory.forEach(m => renderBubble(m.role, m.content));
   topbarTitle.textContent = s.title;
   scrollDown();
-  // Mark active
   document.querySelectorAll('.h-item').forEach(el => {
-    el.classList.toggle('active', el.textContent === s.title);
+    el.classList.toggle('active', el.dataset.sid === id);
   });
 }
 
