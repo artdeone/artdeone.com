@@ -183,9 +183,111 @@
       overflow: hidden;
       text-overflow: ellipsis;
       transition: background .15s;
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
     .h-item:hover { background: var(--hover-item); }
     .h-item.active { background: var(--active-item); font-weight: 500; }
+    .h-item-text {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .h-item .h-del-btn {
+      display: none;
+      width: 22px; height: 22px;
+      border-radius: 5px;
+      border: none;
+      background: transparent;
+      color: var(--text-sub);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background .15s, color .15s;
+    }
+    .h-item:hover .h-del-btn { display: flex; }
+    .h-item .h-del-btn:hover { background: #e5393933; color: #e55; }
+
+    /* Delete All History Button */
+    .del-all-btn {
+      margin: 4px 12px 8px;
+      padding: 7px 12px;
+      background: transparent;
+      color: var(--text-sub);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+      transition: background .15s, color .15s, border-color .15s;
+    }
+    .del-all-btn.visible { display: flex; }
+    .del-all-btn:hover { background: #e5393915; color: #e55; border-color: #e5393944; }
+
+    /* Confirm Dialog */
+    .confirm-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.5);
+      z-index: 999;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity .2s ease;
+    }
+    .confirm-overlay.open { opacity: 1; pointer-events: auto; }
+    .confirm-box {
+      background: var(--sidebar-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      width: 320px;
+      max-width: 90vw;
+      box-shadow: 0 12px 40px rgba(0,0,0,.25);
+      text-align: center;
+    }
+    .confirm-box h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .confirm-box p {
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+    .confirm-actions {
+      display: flex; gap: 8px; justify-content: center;
+    }
+    .confirm-actions button {
+      padding: 8px 20px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background .15s, color .15s;
+    }
+    .confirm-cancel {
+      background: var(--input-bg);
+      color: var(--text);
+    }
+    .confirm-cancel:hover { background: var(--hover-item); }
+    .confirm-delete {
+      background: #e53939;
+      color: #fff;
+      border-color: #e53939;
+    }
+    .confirm-delete:hover { background: #cc2e2e; border-color: #cc2e2e; }
 
     /* Sidebar Footer */
     .sb-footer {
@@ -589,6 +691,11 @@
     <div style="padding:16px 10px;text-align:center;font-size:12px;color:var(--text-sub);">No history yet</div>
   </div>
 
+  <button class="del-all-btn" id="delAllBtn">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+    Delete all history
+  </button>
+
   <div class="sb-footer">
     <span class="sb-model-label" id="sbModelLabel">Claude Sonnet 4</span>
     <button class="icon-btn" id="themeBtn"></button>
@@ -647,6 +754,18 @@
 </div><!-- /main -->
 
 <div class="mobile-sb-overlay" id="mobileSbOverlay"></div>
+
+<!-- ══ CONFIRM DELETE DIALOG ══ -->
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <h3 id="confirmTitle">Delete Chat?</h3>
+    <p id="confirmMsg">This action cannot be undone. The chat history will be permanently deleted.</p>
+    <div class="confirm-actions">
+      <button class="confirm-cancel" id="confirmCancel">Cancel</button>
+      <button class="confirm-delete" id="confirmDelete">Delete</button>
+    </div>
+  </div>
+</div>
 
 <script type="module">
 import { supabaseShop as sb, getAuthSession, signOutCustomer } from './js/config-shop.js';
@@ -783,17 +902,42 @@ function saveSessions() {
 
 function renderHistoryList() {
   const list = document.getElementById('historyList');
+  const delAllBtn = document.getElementById('delAllBtn');
+
   if (sessions.length === 0) {
     list.innerHTML = '<div style="padding:16px 10px;text-align:center;font-size:12px;color:var(--text-sub);">No history yet</div>';
+    delAllBtn.classList.remove('visible');
     return;
   }
+
+  delAllBtn.classList.add('visible');
   list.innerHTML = '';
+
   [...sessions].reverse().forEach(s => {
     const item = document.createElement('div');
     item.className = 'h-item';
     item.dataset.sid = s.id;
-    item.textContent = s.title;
-    item.onclick = () => restoreSession(s.id);
+
+    const textSpan = document.createElement('span');
+    textSpan.className = 'h-item-text';
+    textSpan.textContent = s.title;
+    textSpan.onclick = () => restoreSession(s.id);
+    item.appendChild(textSpan);
+
+    const delBtn = document.createElement('button');
+    delBtn.className = 'h-del-btn';
+    delBtn.title = 'Delete this chat';
+    delBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>';
+    delBtn.onclick = (e) => {
+      e.stopPropagation();
+      showConfirm(
+        'Delete Chat?',
+        'This chat will be permanently deleted and cannot be recovered.',
+        () => deleteSession(s.id)
+      );
+    };
+    item.appendChild(delBtn);
+
     list.appendChild(item);
   });
 }
@@ -929,7 +1073,6 @@ function clearChat() {
   dbClear();
 }
 
-document.getElementById('clearBtn').addEventListener('click', clearChat);
 document.getElementById('newChatBtn').addEventListener('click', clearChat);
 
 /* ══════════════════════════════════════════
@@ -1066,6 +1209,100 @@ document.addEventListener('click', (e) => {
   if (mobileSheet.classList.contains('open') && !mobileSheet.contains(e.target) && !inlineBtn.contains(e.target)) {
     closeModelSheet();
   }
+});
+
+/* ══════════════════════════════════════════
+   CONFIRM DIALOG
+══════════════════════════════════════════ */
+const confirmOverlay = document.getElementById('confirmOverlay');
+const confirmTitle   = document.getElementById('confirmTitle');
+const confirmMsg     = document.getElementById('confirmMsg');
+const confirmCancel  = document.getElementById('confirmCancel');
+const confirmDelete  = document.getElementById('confirmDelete');
+let confirmCallback  = null;
+
+function showConfirm(title, msg, onConfirm) {
+  confirmTitle.textContent = title;
+  confirmMsg.textContent = msg;
+  confirmCallback = onConfirm;
+  confirmOverlay.classList.add('open');
+}
+
+function hideConfirm() {
+  confirmOverlay.classList.remove('open');
+  confirmCallback = null;
+}
+
+confirmCancel.addEventListener('click', hideConfirm);
+confirmOverlay.addEventListener('click', (e) => {
+  if (e.target === confirmOverlay) hideConfirm();
+});
+confirmDelete.addEventListener('click', () => {
+  if (confirmCallback) confirmCallback();
+  hideConfirm();
+});
+
+/* ══════════════════════════════════════════
+   DELETE SESSION (single)
+══════════════════════════════════════════ */
+function deleteSession(id) {
+  sessions = sessions.filter(s => s.id !== id);
+  saveSessions();
+  renderHistoryList();
+
+  // If user was viewing this deleted session, reset to welcome
+  const activeItem = document.querySelector(`.h-item[data-sid="${id}"]`);
+  if (activeItem && activeItem.classList.contains('active')) {
+    chatHistory = [];
+    msgList.innerHTML = '';
+    msgList.appendChild(buildWelcome());
+    topbarTitle.textContent = 'New conversation';
+  }
+}
+
+/* ══════════════════════════════════════════
+   DELETE ALL SESSIONS + SUPABASE DATA
+══════════════════════════════════════════ */
+function deleteAllHistory() {
+  // Clear localStorage sessions
+  sessions = [];
+  saveSessions();
+  renderHistoryList();
+
+  // Clear current chat
+  chatHistory = [];
+  msgList.innerHTML = '';
+  msgList.appendChild(buildWelcome());
+  topbarTitle.textContent = 'New conversation';
+
+  // Clear Supabase data permanently
+  dbClear();
+}
+
+document.getElementById('delAllBtn').addEventListener('click', () => {
+  showConfirm(
+    'Delete All History?',
+    'All chat history will be permanently deleted from both this device and the server. This cannot be undone.',
+    deleteAllHistory
+  );
+});
+
+/* ══════════════════════════════════════════
+   CLEAR BUTTON — also with confirm
+══════════════════════════════════════════ */
+document.getElementById('clearBtn').addEventListener('click', () => {
+  if (chatHistory.length === 0) return;
+  showConfirm(
+    'Delete Current Chat?',
+    'The current conversation will be permanently deleted from the server.',
+    () => {
+      chatHistory = [];
+      msgList.innerHTML = '';
+      msgList.appendChild(buildWelcome());
+      topbarTitle.textContent = 'New conversation';
+      dbClear();
+    }
+  );
 });
 
 /* ── Init ── */
