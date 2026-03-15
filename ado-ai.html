@@ -652,6 +652,16 @@
 import { supabaseShop as sb, getAuthSession, signOutCustomer } from './js/config-shop.js';
 
 /* ══════════════════════════════════════════
+   WAIT FOR PUTER SDK
+══════════════════════════════════════════ */
+await new Promise(resolve => {
+  if (window.puter) return resolve();
+  const check = setInterval(() => {
+    if (window.puter) { clearInterval(check); resolve(); }
+  }, 50);
+});
+
+/* ══════════════════════════════════════════
    AUTH GUARD — Login ဝင်ထားမှသာ သုံးလို့ရမည်
 ══════════════════════════════════════════ */
 const session = await getAuthSession();
@@ -867,7 +877,7 @@ async function sendMessage() {
   scrollDown();
 
   try {
-    const stream = await window.puter.ai.chat(
+    const stream = await puter.ai.chat(
       chatHistory,
       { model: model, stream: true }
     );
