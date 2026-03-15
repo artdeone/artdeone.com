@@ -867,7 +867,7 @@ async function sendMessage() {
   scrollDown();
 
   try {
-    const stream = await puter.ai.chat(
+    const stream = await window.puter.ai.chat(
       chatHistory,
       { model: model, stream: true }
     );
