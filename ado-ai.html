@@ -439,10 +439,39 @@
     .bubble {
       padding: 10px 14px;
       font-size: 14.5px;
-      line-height: 1.72;
+      line-height: 1.65;
       color: var(--text);
       white-space: pre-wrap;
       word-break: break-word;
+    }
+    .msg-block.assistant .bubble { white-space: normal; }
+    .msg-block.assistant .bubble p { margin: 0 0 14px; }
+    .msg-block.assistant .bubble p:last-child { margin-bottom: 0; }
+    .msg-block.assistant .bubble { line-height: 1.8; }
+    .msg-block.assistant .bubble ul,
+    .msg-block.assistant .bubble ol { margin: 4px 0 8px 18px; }
+    .msg-block.assistant .bubble li { margin-bottom: 3px; }
+    .msg-block.assistant .bubble h1,
+    .msg-block.assistant .bubble h2,
+    .msg-block.assistant .bubble h3 { margin: 12px 0 6px; font-size: 1em; font-weight: 600; }
+    .msg-block.assistant .bubble pre {
+      background: var(--sidebar-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin: 6px 0;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .msg-block.assistant .bubble code {
+      font-family: 'SF Mono', Consolas, monospace;
+      font-size: .9em;
+    }
+    .msg-block.assistant .bubble p code {
+      background: var(--hover-item);
+      padding: 1px 5px;
+      border-radius: 4px;
     }
 
     /* Copy Button */
@@ -1197,8 +1226,8 @@ async function sendMessage() {
       displayContent = full.replace(/<think>[\s\S]*$/g, '').trim() || full;
     }
 
-    aiBubble.innerHTML = DOMPurify.sanitize(marked.parse(displayContent));
-    scrollDown();
+    // Typewriter streaming effect
+    await typewriterMarkdown(aiBubble, displayContent, scrollDown);
 
     chatHistory.push({ role: 'assistant', content: full });
     dbInsert('assistant', full);
@@ -1491,6 +1520,43 @@ document.getElementById('clearBtn').addEventListener('click', () => {
     }
   );
 });
+
+/* ══════════════════════════════════════════
+   TYPEWRITER MARKDOWN RENDERER
+══════════════════════════════════════════ */
+async function typewriterMarkdown(el, markdown, onTick) {
+  // Characters per frame — ပိုကြီးရင် ပိုမြန်သည်
+  const CHARS_PER_FRAME = 4;
+  const FRAME_DELAY = 18; // ms
+
+  let displayed = '';
+  let i = 0;
+  const chars = [...markdown]; // unicode-safe split
+
+  return new Promise(resolve => {
+    function tick() {
+      if (i >= chars.length) {
+        // Final render — full markdown parse
+        el.innerHTML = DOMPurify.sanitize(marked.parse(markdown));
+        if (onTick) onTick();
+        resolve();
+        return;
+      }
+
+      // Add next batch of chars
+      const end = Math.min(i + CHARS_PER_FRAME, chars.length);
+      displayed += chars.slice(i, end).join('');
+      i = end;
+
+      // Render partial markdown
+      el.innerHTML = DOMPurify.sanitize(marked.parse(displayed));
+      if (onTick) onTick();
+
+      setTimeout(tick, FRAME_DELAY);
+    }
+    tick();
+  });
+}
 
 /* ── Init ── */
 renderLimitBar();
