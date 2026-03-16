@@ -456,24 +456,48 @@
     .msg-block.assistant .bubble h2,
     .msg-block.assistant .bubble h3 { margin: 12px 0 6px; font-size: 1em; font-weight: 600; }
     .msg-block.assistant .bubble pre {
-      background: var(--sidebar-bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px 12px;
-      margin: 6px 0;
-      overflow-x: auto;
-      font-size: 13px;
-      line-height: 1.5;
-    }
-    .msg-block.assistant .bubble code {
-      font-family: 'SF Mono', Consolas, monospace;
-      font-size: .9em;
-    }
-    .msg-block.assistant .bubble p code {
-      background: var(--hover-item);
-      padding: 1px 5px;
-      border-radius: 4px;
-    }
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin: 6px 0;
+    overflow-x: auto;
+    font-size: 13px;
+    line-height: 1.5;
+    position: relative;
+  }
+  .msg-block.assistant .bubble .code-block-wrap {
+    position: relative;
+    margin: 6px 0;
+  }
+  .msg-block.assistant .bubble .code-block-wrap pre {
+    margin: 0;
+    padding: 36px 12px 12px;
+  }
+  .code-copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--hover-item);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 11px;
+    font-family: 'Inter', sans-serif;
+    color: var(--text-sub);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background .15s, color .15s, border-color .15s;
+    z-index: 1;
+  }
+  .code-copy-btn:hover {
+    background: var(--active-item);
+    color: var(--text);
+    border-color: var(--text-sub);
+  }
+  .code-copy-btn svg { flex-shrink: 0; }
     /* ══ TABLE STYLES ══ */
 .msg-block.assistant .bubble table {
   width: 100%;
@@ -1332,7 +1356,10 @@ function clearChat() {
   msgList.innerHTML = '';
   msgList.appendChild(buildWelcome());
   topbarTitle.textContent = 'New conversation';
-  dbClear();
+  // Supabase loaded chat ဆိုရင်သာ clear မည်
+  if (currentSessionId !== 'supabase_loaded') {
+    dbClear();
+  }
 }
 
 document.getElementById('newChatBtn').addEventListener('click', clearChat);
@@ -1355,8 +1382,9 @@ function renderBubble(role, text) {
   bbl.className = 'bubble';
 
   if (role === 'assistant') {
-    // Reload အခါ markdown parse လုပ်ပြီး render မည်
-    bbl.innerHTML = DOMPurify.sanitize(marked.parse(text));
+  bbl.innerHTML = DOMPurify.sanitize(marked.parse(text));
+  // Reload အခါ code copy buttons ထည့်မည်
+  setTimeout(() => addCodeCopyButtons(bbl), 0);
   } else {
     bbl.textContent = text;
   }
@@ -1614,6 +1642,7 @@ async function typewriterMarkdown(el, markdown, onTick) {
       if (i >= chars.length) {
         // Final render — full markdown parse
         el.innerHTML = DOMPurify.sanitize(marked.parse(markdown));
+        addCodeCopyButtons(el);
         if (onTick) onTick();
         resolve();
         return;
@@ -1633,7 +1662,41 @@ async function typewriterMarkdown(el, markdown, onTick) {
     tick();
   });
 }
+/* ══════════════════════════════════════════
+   CODE BLOCK COPY BUTTONS
+══════════════════════════════════════════ */
+function addCodeCopyButtons(el) {
+  el.querySelectorAll('pre').forEach(pre => {
+    // Already wrapped မဖြစ်အောင် စစ်မည်
+    if (pre.parentElement.classList.contains('code-block-wrap')) return;
 
+    const wrap = document.createElement('div');
+    wrap.className = 'code-block-wrap';
+    pre.parentNode.insertBefore(wrap, pre);
+    wrap.appendChild(pre);
+
+    const btn = document.createElement('button');
+    btn.className = 'code-copy-btn';
+    btn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy`;
+
+    btn.addEventListener('click', () => {
+      const code = pre.querySelector('code');
+      const text = code ? code.innerText : pre.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        btn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 13 4 10"/></svg>Copied!`;
+        btn.style.color = '#a7e169';
+        btn.style.borderColor = '#a7e169';
+        setTimeout(() => {
+          btn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy`;
+          btn.style.color = '';
+          btn.style.borderColor = '';
+        }, 1800);
+      });
+    });
+
+    wrap.appendChild(btn);
+  });
+}
 /* ── Init ── */
 renderLimitBar();
 loadHistory();
