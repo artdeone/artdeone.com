@@ -975,25 +975,51 @@ if (!session) {
 const currentUserId = session.user.id;
 document.body.classList.add('authed');
 
+
 /* ══════════════════════════════════════════
-   SUPABASE DB HELPERS (user_id based)
+   SUPABASE DB HELPERS (session-based)
 ══════════════════════════════════════════ */
-async function dbInsert(role, content) {
-  try { await sb.from('chat_messages').insert([{ user_id: currentUserId, role, content }]); } catch(_) {}
+async function dbSaveSession(sessionId, title, messages) {
+  try {
+    if (sessionId) {
+      // Update existing session
+      await sb.from('chat_messages')
+        .update({ messages, title, updated_at: new Date().toISOString() })
+        .eq('id', sessionId)
+        .eq('user_id', currentUserId);
+    } else {
+      // Insert new session
+      const { data } = await sb.from('chat_messages')
+        .insert([{ user_id: currentUserId, title, messages }])
+        .select('id')
+        .single();
+      return data?.id || null;
+    }
+  } catch(_) {}
+  return sessionId;
 }
 
-async function dbFetch() {
+async function dbFetchSessions() {
   try {
     const { data } = await sb
       .from('chat_messages')
-      .select('*')
+      .select('id, title, messages, created_at')
       .eq('user_id', currentUserId)
-      .order('created_at', { ascending: true });
+      .order('updated_at', { ascending: false });
     return data || [];
   } catch(_) { return []; }
 }
 
-async function dbClear() {
+async function dbDeleteSession(sessionId) {
+  try {
+    await sb.from('chat_messages')
+      .delete()
+      .eq('id', sessionId)
+      .eq('user_id', currentUserId);
+  } catch(_) {}
+}
+
+async function dbDeleteAllSessions() {
   try {
     await sb.from('chat_messages')
       .delete()
@@ -1014,7 +1040,8 @@ const sbModelLabel = document.getElementById('sbModelLabel');
 
 let chatHistory = [];
 let isBusy = false;
-let currentSessionId = null; // track active session
+let currentSessionId = null;   // Supabase session UUID
+let currentSessionTitle = '';  // Session title track
 
 /* ══════════════════════════════════════════
    DAILY LIMIT SYSTEM
@@ -1143,11 +1170,10 @@ modelSelect.addEventListener('change', () => {
 /* ══════════════════════════════════════════
    SESSIONS (localStorage)
 ══════════════════════════════════════════ */
-let sessions = JSON.parse(localStorage.getItem('ai_sessions') || '[]');
 
-function saveSessions() {
-  localStorage.setItem('ai_sessions', JSON.stringify(sessions));
-}
+let sessions = [];
+
+
 
 function renderHistoryList() {
   const list = document.getElementById('historyList');
@@ -1247,19 +1273,14 @@ window.chipClick = function(el) {
    LOAD HISTORY (Supabase)
 ══════════════════════════════════════════ */
 async function loadHistory() {
+  // Supabase မှ sessions များ ဆွဲယူ၍ sidebar မှာ ပြမည်
+  const rows = await dbFetchSessions();
+  sessions = rows.map(r => ({
+    id: r.id,
+    title: r.title,
+    history: r.messages
+  }));
   renderHistoryList();
-  const rows = await dbFetch();
-  if (rows.length > 0) {
-    removeWelcome();
-    rows.forEach(r => {
-      renderBubble(r.role, r.content);
-      chatHistory.push({ role: r.role, content: r.content });
-    });
-    // Supabase မှ load လုပ်တာဆိုလို့ session အသစ် မဖန်တီးရ
-    currentSessionId = 'supabase_loaded';
-    updateTitle();
-    scrollDown();
-  }
 }
 
 /* ══════════════════════════════════════════
@@ -1287,7 +1308,12 @@ async function sendMessage() {
   updateTitle();
   scrollDown();
 
-  dbInsert('user', text);
+  // User message ပို့ပြီးချင်း session save မည်
+const firstUser = chatHistory.find(m => m.role === 'user');
+currentSessionTitle = firstUser
+  ? (firstUser.content.length > 46 ? firstUser.content.slice(0, 46) + '…' : firstUser.content)
+  : 'New Chat';
+currentSessionId = await dbSaveSession(currentSessionId, currentSessionTitle, [...chatHistory]);
 
   const aiBubble = renderTyping();
   scrollDown();
@@ -1320,7 +1346,12 @@ async function sendMessage() {
     await typewriterMarkdown(aiBubble, displayContent, scrollDown);
 
     chatHistory.push({ role: 'assistant', content: full });
-    dbInsert('assistant', full);
+    // Assistant reply ပြီးရင် session update မည်
+    await dbSaveSession(currentSessionId, currentSessionTitle, [...chatHistory]);
+    // Sidebar history refresh မည်
+    const updatedRows = await dbFetchSessions();
+    sessions = updatedRows.map(r => ({ id: r.id, title: r.title, history: r.messages }));
+    renderHistoryList();
     addCopyBtn(aiBubble.closest('.msg-block'), full);
     incrementUsage();
 
@@ -1337,29 +1368,12 @@ async function sendMessage() {
    CLEAR / NEW CHAT
 ══════════════════════════════════════════ */
 function clearChat() {
-  // Save current chat to sessions before clearing
-  if (chatHistory.length > 0 && !currentSessionId) {
-    // New unsaved chat ကိုသာ save မည်
-    const firstUser = chatHistory.find(m => m.role === 'user');
-    const title = firstUser
-      ? (firstUser.content.length > 46 ? firstUser.content.slice(0, 46) + '…' : firstUser.content)
-      : 'Chat ' + (sessions.length + 1);
-
-    const newId = Date.now().toString();
-    sessions.push({ id: newId, title, history: [...chatHistory] });
-    saveSessions();
-    renderHistoryList();
-  }
-
   chatHistory = [];
   currentSessionId = null;
+  currentSessionTitle = '';
   msgList.innerHTML = '';
   msgList.appendChild(buildWelcome());
   topbarTitle.textContent = 'New conversation';
-  // Supabase loaded chat ဆိုရင်သာ clear မည်
-  if (currentSessionId !== 'supabase_loaded') {
-    dbClear();
-  }
 }
 
 document.getElementById('newChatBtn').addEventListener('click', clearChat);
@@ -1565,15 +1579,15 @@ confirmDelete.addEventListener('click', () => {
 /* ══════════════════════════════════════════
    DELETE SESSION (single)
 ══════════════════════════════════════════ */
-function deleteSession(id) {
+async function deleteSession(id) {
+  await dbDeleteSession(id);
   sessions = sessions.filter(s => s.id !== id);
-  saveSessions();
   renderHistoryList();
 
-  // If user was viewing this deleted session, reset to welcome
-  const activeItem = document.querySelector(`.h-item[data-sid="${id}"]`);
-  if (activeItem && activeItem.classList.contains('active')) {
+  if (currentSessionId === id) {
     chatHistory = [];
+    currentSessionId = null;
+    currentSessionTitle = '';
     msgList.innerHTML = '';
     msgList.appendChild(buildWelcome());
     topbarTitle.textContent = 'New conversation';
@@ -1583,20 +1597,16 @@ function deleteSession(id) {
 /* ══════════════════════════════════════════
    DELETE ALL SESSIONS + SUPABASE DATA
 ══════════════════════════════════════════ */
-function deleteAllHistory() {
-  // Clear localStorage sessions
+async function deleteAllHistory() {
+  await dbDeleteAllSessions();
   sessions = [];
-  saveSessions();
   renderHistoryList();
-
-  // Clear current chat
   chatHistory = [];
+  currentSessionId = null;
+  currentSessionTitle = '';
   msgList.innerHTML = '';
   msgList.appendChild(buildWelcome());
   topbarTitle.textContent = 'New conversation';
-
-  // Clear Supabase data permanently
-  dbClear();
 }
 
 document.getElementById('delAllBtn').addEventListener('click', () => {
@@ -1614,13 +1624,19 @@ document.getElementById('clearBtn').addEventListener('click', () => {
   if (chatHistory.length === 0) return;
   showConfirm(
     'Delete Current Chat?',
-    'The current conversation will be permanently deleted from the server.',
-    () => {
+    'The current conversation will be permanently deleted.',
+    async () => {
+      if (currentSessionId) {
+        await dbDeleteSession(currentSessionId);
+        sessions = sessions.filter(s => s.id !== currentSessionId);
+        renderHistoryList();
+      }
       chatHistory = [];
+      currentSessionId = null;
+      currentSessionTitle = '';
       msgList.innerHTML = '';
       msgList.appendChild(buildWelcome());
       topbarTitle.textContent = 'New conversation';
-      dbClear();
     }
   );
 });
