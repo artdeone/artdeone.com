@@ -188,6 +188,7 @@
       align-items: center;
       gap: 4px;
     }
+    .h-item { transition: background .2s ease, color .2s ease; }
     .h-item:hover { background: var(--hover-item); }
     .h-item.active { background: var(--active-item); font-weight: 500; }
     .h-item-text {
@@ -1123,10 +1124,9 @@ function restoreSession(id) {
   const s = sessions.find(x => x.id === id);
   if (!s) return;
 
-  // Fade out
-  msgList.style.transition = 'opacity .18s ease, transform .18s ease';
+  // Fade out only
+  msgList.style.transition = 'opacity .15s ease';
   msgList.style.opacity = '0';
-  msgList.style.transform = 'translateY(6px)';
 
   setTimeout(() => {
     chatHistory = [...s.history];
@@ -1140,15 +1140,12 @@ function restoreSession(id) {
 
     // Fade in
     msgList.style.opacity = '1';
-    msgList.style.transform = 'translateY(0)';
 
-    // Clean up inline styles
     setTimeout(() => {
       msgList.style.transition = '';
       msgList.style.opacity = '';
-      msgList.style.transform = '';
-    }, 200);
-  }, 180);
+    }, 160);
+  }, 150);
 }
 
 /* ══════════════════════════════════════════
