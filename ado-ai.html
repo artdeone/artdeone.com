@@ -1122,14 +1122,33 @@ function renderHistoryList() {
 function restoreSession(id) {
   const s = sessions.find(x => x.id === id);
   if (!s) return;
-  chatHistory = [...s.history];
-  msgList.innerHTML = '';
-  chatHistory.forEach(m => renderBubble(m.role, m.content));
-  topbarTitle.textContent = s.title;
-  scrollDown();
-  document.querySelectorAll('.h-item').forEach(el => {
-    el.classList.toggle('active', el.dataset.sid === id);
-  });
+
+  // Fade out
+  msgList.style.transition = 'opacity .18s ease, transform .18s ease';
+  msgList.style.opacity = '0';
+  msgList.style.transform = 'translateY(6px)';
+
+  setTimeout(() => {
+    chatHistory = [...s.history];
+    msgList.innerHTML = '';
+    chatHistory.forEach(m => renderBubble(m.role, m.content));
+    topbarTitle.textContent = s.title;
+    scrollDown();
+    document.querySelectorAll('.h-item').forEach(el => {
+      el.classList.toggle('active', el.dataset.sid === id);
+    });
+
+    // Fade in
+    msgList.style.opacity = '1';
+    msgList.style.transform = 'translateY(0)';
+
+    // Clean up inline styles
+    setTimeout(() => {
+      msgList.style.transition = '';
+      msgList.style.opacity = '';
+      msgList.style.transform = '';
+    }, 200);
+  }, 180);
 }
 
 /* ══════════════════════════════════════════
