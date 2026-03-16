@@ -1203,6 +1203,7 @@ async function sendMessage() {
     chatHistory.push({ role: 'assistant', content: full });
     dbInsert('assistant', full);
     addCopyBtn(aiBubble.closest('.msg-block'), full);
+    incrementUsage();
 
   } catch(err) {
     aiBubble.innerHTML = `<span style="color:#e55">⚠ ${err.message}</span>`;
@@ -1492,6 +1493,7 @@ document.getElementById('clearBtn').addEventListener('click', () => {
 });
 
 /* ── Init ── */
+renderLimitBar();
 loadHistory();
 </script>
 </body>
