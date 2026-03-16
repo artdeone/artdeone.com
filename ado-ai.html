@@ -85,12 +85,21 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      transition: min-width .28s cubic-bezier(.4,0,.2,1), width .28s cubic-bezier(.4,0,.2,1), background .25s;
+      transform: translateX(0);
+      opacity: 1;
+      transition: transform .42s cubic-bezier(.4,0,.2,1),
+                  opacity .35s ease,
+                  min-width .42s cubic-bezier(.4,0,.2,1),
+                  width .42s cubic-bezier(.4,0,.2,1),
+                  background .25s;
     }
     #sidebar.collapsed {
       width: 0 !important;
       min-width: 0 !important;
       border-right: none;
+      transform: translateX(-16px);
+      opacity: 0;
+      pointer-events: none;
     }
 
     .sb-top {
@@ -331,7 +340,7 @@
       align-items: center;
       gap: 4px;
       position: relative;
-      transition: background .18s ease, color .18s ease;
+      transition: background .28s cubic-bezier(.4,0,.2,1), color .28s ease;
     }
     .h-item:hover { background: var(--hover-item); }
     .h-item.active {
@@ -357,7 +366,7 @@
       white-space: nowrap;
     }
     .h-item .h-del-btn {
-      display: none;
+      display: flex;
       width: 22px; height: 22px;
       border-radius: 5px;
       border: none;
@@ -367,9 +376,10 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      transition: background .15s, color .15s;
+      opacity: 0;
+      transition: opacity .25s ease, background .18s ease, color .18s ease;
     }
-    .h-item:hover .h-del-btn { display: flex; }
+    .h-item:hover .h-del-btn { opacity: 1; }
     .h-item .h-del-btn:hover { background: #e5393920; color: #e55; }
 
     /* Delete All History Button */
@@ -813,7 +823,7 @@
       display: flex;
       flex-direction: column;
       background: var(--input-bg);
-      border: 1.5px solid var(--input-bdr);
+      border: 1px solid var(--input-bdr);
       border-radius: var(--radius-lg);
       padding: 12px 10px 8px 16px;
       transition: border-color .2s, box-shadow .2s, background .2s;
@@ -821,7 +831,7 @@
     }
     .input-shell:focus-within {
       border-color: var(--accent);
-      box-shadow: 0 0 0 3px var(--accent-soft), var(--shadow-sm);
+      box-shadow: 0 0 0 2px var(--accent-soft), var(--shadow-sm);
     }
     .input-row {
       display: flex;
@@ -870,8 +880,8 @@
     }
     .inline-model-btn.open .chevron { transform: rotate(180deg); }
     .inline-model-btn.open {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px var(--accent-soft);
+      border-color: var(--text-sub);
+      box-shadow: none;
     }
 
     #promptInput {
@@ -1077,7 +1087,8 @@
         width: 288px !important;
         min-width: 288px !important;
         transform: translateX(-100%);
-        transition: transform .3s cubic-bezier(.4,0,.2,1), box-shadow .3s ease;
+        opacity: 1;
+        transition: transform .42s cubic-bezier(.22,1,.36,1), box-shadow .42s ease;
         border-right: none;
         box-shadow: none;
       }
@@ -1093,7 +1104,7 @@
         -webkit-backdrop-filter: blur(2px);
         z-index: 199;
         opacity: 0; pointer-events: none;
-        transition: opacity .3s ease;
+        transition: opacity .42s ease;
       }
       .mobile-sb-overlay.open {
         opacity: 1; pointer-events: auto;
