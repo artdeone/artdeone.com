@@ -474,6 +474,52 @@
       padding: 1px 5px;
       border-radius: 4px;
     }
+    /* ══ TABLE STYLES ══ */
+.msg-block.assistant .bubble table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0 14px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  overflow: hidden;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+.msg-block.assistant .bubble thead {
+  background: var(--sidebar-bg);
+}
+.msg-block.assistant .bubble th {
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text);
+  border-bottom: 2px solid var(--border);
+  white-space: nowrap;
+}
+.msg-block.assistant .bubble td {
+  padding: 9px 14px;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.msg-block.assistant .bubble tr:last-child td {
+  border-bottom: none;
+}
+.msg-block.assistant .bubble tbody tr:nth-child(even) {
+  background: var(--hover-item);
+}
+.msg-block.assistant .bubble tbody tr {
+  transition: background .15s ease;
+}
+.msg-block.assistant .bubble tbody tr:hover {
+  background: var(--active-item);
+}
+
+/* Table overflow scroll (mobile) */
+.msg-block.assistant .bubble .table-wrap {
+  overflow-x: auto;
+  border-radius: 10px;
+}
 
     /* Copy Button */
     .copy-row { padding: 2px 0 2px 36px; opacity: 0; transition: opacity .15s; }
@@ -944,6 +990,7 @@ const sbModelLabel = document.getElementById('sbModelLabel');
 
 let chatHistory = [];
 let isBusy = false;
+let currentSessionId = null; // track active session
 
 /* ══════════════════════════════════════════
    DAILY LIMIT SYSTEM
@@ -1123,6 +1170,7 @@ function renderHistoryList() {
 function restoreSession(id) {
   const s = sessions.find(x => x.id === id);
   if (!s) return;
+  currentSessionId = id; // active session track
 
   // Fade out only
   msgList.style.transition = 'opacity .15s ease';
@@ -1183,6 +1231,8 @@ async function loadHistory() {
       renderBubble(r.role, r.content);
       chatHistory.push({ role: r.role, content: r.content });
     });
+    // Supabase မှ load လုပ်တာဆိုလို့ session အသစ် မဖန်တီးရ
+    currentSessionId = 'supabase_loaded';
     updateTitle();
     scrollDown();
   }
@@ -1264,18 +1314,21 @@ async function sendMessage() {
 ══════════════════════════════════════════ */
 function clearChat() {
   // Save current chat to sessions before clearing
-  if (chatHistory.length > 0) {
+  if (chatHistory.length > 0 && !currentSessionId) {
+    // New unsaved chat ကိုသာ save မည်
     const firstUser = chatHistory.find(m => m.role === 'user');
     const title = firstUser
       ? (firstUser.content.length > 46 ? firstUser.content.slice(0, 46) + '…' : firstUser.content)
       : 'Chat ' + (sessions.length + 1);
 
-    sessions.push({ id: Date.now().toString(), title, history: [...chatHistory] });
+    const newId = Date.now().toString();
+    sessions.push({ id: newId, title, history: [...chatHistory] });
     saveSessions();
     renderHistoryList();
   }
 
   chatHistory = [];
+  currentSessionId = null;
   msgList.innerHTML = '';
   msgList.appendChild(buildWelcome());
   topbarTitle.textContent = 'New conversation';
