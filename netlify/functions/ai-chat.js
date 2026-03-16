@@ -19,8 +19,8 @@ exports.handler = async function(event, context) {
         }
 
         const allowedModels = [
-            "deepseek-r1-distill-llama-70b",
             "llama-3.3-70b-versatile",
+            "meta-llama/llama-4-scout-17b-16e-instruct",
             "llama-3.1-8b-instant",
             "gemma2-9b-it",
             "mistral-saba-24b",
