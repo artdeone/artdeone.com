@@ -23,8 +23,8 @@ exports.handler = async function(event, context) {
             "llama-3.3-70b-versatile",
             "llama-3.1-8b-instant",
             "gemma2-9b-it",
-            "mixtral-8x7b-32768",
-            "qwen-qwq-32b"
+            "mistral-saba-24b",
+            "qwen/qwen3-32b"
         ];
 
         const selectedModel = allowedModels.includes(model) ? model : "llama-3.3-70b-versatile";
@@ -47,9 +47,15 @@ exports.handler = async function(event, context) {
         if (!response.ok) {
             const errText = await response.text();
             console.error("Groq API error:", response.status, errText);
+            let errMsg = `AI service error: ${response.status}`;
+            try {
+                const errJson = JSON.parse(errText);
+                errMsg = errJson.error?.message || errMsg;
+            } catch(_) {}
             return {
                 statusCode: response.status,
-                body: JSON.stringify({ error: `AI service error: ${response.status}` })
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ error: errMsg })
             };
         }
 
