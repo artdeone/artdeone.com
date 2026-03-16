@@ -1284,7 +1284,14 @@ function renderBubble(role, text) {
 
   const bbl = document.createElement('div');
   bbl.className = 'bubble';
-  bbl.textContent = text;
+
+  if (role === 'assistant') {
+    // Reload အခါ markdown parse လုပ်ပြီး render မည်
+    bbl.innerHTML = DOMPurify.sanitize(marked.parse(text));
+  } else {
+    bbl.textContent = text;
+  }
+
   block.appendChild(bbl);
   msgList.appendChild(block);
   return bbl;
