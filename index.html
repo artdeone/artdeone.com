@@ -1345,6 +1345,146 @@
                 margin-right: 2rem;
             }
         }
+
+        /* ═══ ADO AI PROMO SECTION ═══ */
+        .ado-ai-section {
+            position: relative;
+        }
+        .ado-ai-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.7;
+            background-image:
+                radial-gradient(circle at 1px 1px, #c0c0c0 0.8px, transparent 0);
+            background-size: 28px 28px;
+            pointer-events: none;
+        }
+        .ado-ai-promo-inner {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+        .ado-ai-promo-text {
+            text-align: center;
+            max-width: 560px;
+            margin: 0 auto;
+        }
+        .ado-ai-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(167, 225, 105, 0.12);
+            color: #a7e169;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            padding: 5px 14px;
+            border-radius: 50px;
+            margin-bottom: 1.25rem;
+        }
+        .ado-ai-badge-dot {
+            width: 6px; height: 6px;
+            background: #a7e169;
+            border-radius: 50%;
+            animation: adoBadgePulse 2s ease-in-out infinite;
+        }
+        @keyframes adoBadgePulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+        }
+        .ado-ai-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+        }
+        .ado-ai-highlight {
+            background: linear-gradient(135deg, #6aaf2e, #8cca50);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .ado-ai-desc {
+            color: #666;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 1.75rem;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .ado-ai-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #fff;
+            background: #6aaf2e;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 10px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: gap 0.3s ease, background 0.2s, transform 0.2s;
+        }
+        .ado-ai-cta:hover {
+            background: #5a9a24;
+            gap: 14px;
+            transform: translateY(-1px);
+        }
+        .ado-ai-models {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+        .ado-ai-model-tag {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #999;
+            letter-spacing: 0.04em;
+            transition: color 0.2s;
+        }
+        .ado-ai-model-tag:hover {
+            color: #555;
+        }
+        .ado-ai-models-divider {
+            width: 3px; height: 3px;
+            border-radius: 50%;
+            background: #ccc;
+            flex-shrink: 0;
+        }
+        .ado-ai-promo-img {
+            width: 100%;
+        }
+        .ado-ai-promo-img a {
+            display: block;
+        }
+        .ado-ai-promo-img img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .ado-ai-promo-img img:hover {
+            transform: scale(1.01);
+        }
+        @media (max-width: 768px) {
+            .ado-ai-promo-inner {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            .ado-ai-title {
+                font-size: 1.75rem;
+            }
+            .ado-ai-desc {
+                font-size: 0.95rem;
+            }
+        }
     </style>
 </head>
 
@@ -1368,6 +1508,7 @@
                         <!-- <a href="courses.html" class="nav-link">Courses</a> -->
                         <a href="shop.html" class="nav-link">Shop</a>
                         <a href="blog.html" class="nav-link">Blog</a>
+                        <a href="ado-ai.html" class="nav-link">✦Ai</a>
                         <div class="nav-dropdown-wrapper">
                             <a href="/resources/resources-collection.html" class="nav-link"
                                 style="display:inline-flex;align-items:center;gap:4px;">Resources <i
@@ -1417,6 +1558,7 @@
                 <!-- <a href="courses.html" class="block py-2 mobile-nav-link">Courses</a> -->
                 <a href="shop.html" class="block py-2 mobile-nav-link">Shop</a>
                 <a href="blog.html" class="block py-2 mobile-nav-link">Blog</a>
+                <a href="ado-ai.html" class="block py-2 mobile-nav-link">✦Ai</a>
                 <div>
                     <button onclick="toggleMobileResourcesDropdown()"
                         class="block py-2 mobile-nav-link w-full text-left"
@@ -1551,6 +1693,50 @@
                         class="logo-marquee-img">
                     <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/royal_cyhkwx.png"
                         alt="Royal" class="logo-marquee-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ ADO AI PROMO ═══ -->
+        <section class="py-20 px-4 section-dark overflow-hidden ado-ai-section">
+            <div class="max-w-6xl mx-auto">
+                <div class="ado-ai-promo-inner">
+                    <!-- Text -->
+                    <div class="ado-ai-promo-text">
+                        <div class="ado-ai-badge" data-aos="fade-up" data-aos-delay="100">
+                            <span class="ado-ai-badge-dot"></span>
+                            NEW
+                        </div>
+                        <h2 class="ado-ai-title" data-aos="fade-up" data-aos-delay="200">
+                            Meet <span class="ado-ai-highlight">ADO AI</span>
+                        </h2>
+                        <p class="ado-ai-desc" data-aos="fade-up" data-aos-delay="300">
+                            Your creative AI assistant for logo concepts, design feedback &amp; brand strategy.
+                        </p>
+                        <a href="ado-ai.html" class="ado-ai-cta" data-aos="fade-up" data-aos-delay="400">
+                            <span>It's Free</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                        </a>
+                        <div class="ado-ai-models" data-aos="fade-up" data-aos-delay="500">
+                            <span class="ado-ai-model-tag">Meta</span>
+                            <span class="ado-ai-models-divider"></span>
+                            <span class="ado-ai-model-tag">OpenAI</span>
+                            <span class="ado-ai-models-divider"></span>
+                            <span class="ado-ai-model-tag">Qwen</span>
+                            <span class="ado-ai-models-divider"></span>
+                            <span class="ado-ai-model-tag">Groq</span>
+                            <span class="ado-ai-models-divider"></span>
+                            <span class="ado-ai-model-tag">Moonshot</span>
+                        </div>
+                    </div>
+                    <!-- Image -->
+                    <div class="ado-ai-promo-img" data-aos="fade-up" data-aos-delay="300">
+                        <a href="ado-ai.html">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1773717171/Screenshot_2026-03-17_at_09.42.12_uzsspp.png"
+                                 alt="ADO AI Chat Interface"
+                                 loading="lazy">
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
