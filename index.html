@@ -1503,12 +1503,11 @@
                         </div>
                     </div>
 
-                    <div class="hidden md:flex items-center space-x-4 nav-center">
+                    <div class="hidden md:flex items-center space-x-6 nav-center">
                         <a href="index.html#home" class="nav-link font-bold" style="color: #000 !important;">Home</a>
                         <!-- <a href="courses.html" class="nav-link">Courses</a> -->
                         <a href="shop.html" class="nav-link">Shop</a>
                         <a href="blog.html" class="nav-link">Blog</a>
-                        <a href="ado-ai.html" class="nav-link">✦Ai</a>
                         <div class="nav-dropdown-wrapper">
                             <a href="/resources/resources-collection.html" class="nav-link"
                                 style="display:inline-flex;align-items:center;gap:4px;">Resources <i
@@ -1518,7 +1517,14 @@
                                 <a href="prompt.html">AI Prompts</a>
                             </div>
                         </div>
-                        <a href="index.html#contact" class="nav-link">Contact</a>
+                        <div class="nav-dropdown-wrapper">
+                            <a href="#" class="nav-link"
+                                style="display:inline-flex;align-items:center;gap:4px;">Our Products <i
+                                    class="fas fa-chevron-down nav-dropdown-arrow"></i></a>
+                            <div class="nav-dropdown">
+                                <a href="ado-ai-pricing.html">ADO AI</a>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="hidden md:flex items-center gap-3" id="desktopAuth">
@@ -1558,7 +1564,6 @@
                 <!-- <a href="courses.html" class="block py-2 mobile-nav-link">Courses</a> -->
                 <a href="shop.html" class="block py-2 mobile-nav-link">Shop</a>
                 <a href="blog.html" class="block py-2 mobile-nav-link">Blog</a>
-                <a href="ado-ai.html" class="block py-2 mobile-nav-link">✦Ai</a>
                 <div>
                     <button onclick="toggleMobileResourcesDropdown()"
                         class="block py-2 mobile-nav-link w-full text-left"
@@ -1573,7 +1578,18 @@
                             class="block py-2 pl-6 text-sm text-gray-500 hover:text-black transition">AI Prompts</a>
                     </div>
                 </div>
-                <a href="index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
+                <div>
+                    <button onclick="toggleMobileProductsDropdown()"
+                        class="block py-2 mobile-nav-link w-full text-left"
+                        style="display:flex;align-items:center;gap:6px;">
+                        <span>Our Products</span>
+                        <i class="fas fa-chevron-down mobile-dropdown-arrow" id="mobile-prod-arrow"></i>
+                    </button>
+                    <div class="mobile-sub-menu" id="mobile-products-sub">
+                        <a href="ado-ai-pricing.html"
+                            class="block py-2 pl-6 text-sm text-gray-500 hover:text-black transition">ADO AI</a>
+                    </div>
+                </div>
                 <div id="mobileAuth">
                     <a href="/customer-dashboard.html" class="nav-btn-signout"
                         style="padding:0.3rem 0.75rem; font-size:0.75rem; gap:0.35rem;" id="btnLoginMobile"><svg
@@ -1713,7 +1729,7 @@
                         <p class="ado-ai-desc" data-aos="fade-up" data-aos-delay="300">
                             Your creative AI assistant for logo concepts, design feedback &amp; brand strategy.
                         </p>
-                        <a href="ado-ai.html" class="ado-ai-cta" data-aos="fade-up" data-aos-delay="400">
+                        <a href="ado-ai-pricing.html" class="ado-ai-cta" data-aos="fade-up" data-aos-delay="400">
                             <span>It's Free</span>
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                         </a>
@@ -1731,7 +1747,7 @@
                     </div>
                     <!-- Image -->
                     <div class="ado-ai-promo-img" data-aos="fade-up" data-aos-delay="300">
-                        <a href="ado-ai.html">
+                        <a href="ado-ai-pricing.html">
                             <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1773717171/Screenshot_2026-03-17_at_09.42.12_uzsspp.png"
                                  alt="ADO AI Chat Interface"
                                  loading="lazy">
@@ -4004,6 +4020,10 @@
         function toggleMobileResourcesDropdown() {
             document.getElementById('mobile-resources-sub').classList.toggle('open');
             document.getElementById('mobile-res-arrow').classList.toggle('rotated');
+        }
+        function toggleMobileProductsDropdown() {
+            document.getElementById('mobile-products-sub').classList.toggle('open');
+            document.getElementById('mobile-prod-arrow').classList.toggle('rotated');
         }
     </script>
 </body>
