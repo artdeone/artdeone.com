@@ -291,12 +291,17 @@
                         <a href="/index.html"><img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png" alt="ART de ONE" class="h-10 w-auto"></a>
                     </div>
                     
-                    <div class="hidden md:flex items-center space-x-4 nav-center">
+                    <div class="hidden md:flex items-center space-x-6 nav-center">
                         <a href="/index.html#home" class="nav-link">Home</a>
                        <!-- <a href="/courses.html" class="nav-link">Courses</a> -->
                         <a href="/shop.html" class="nav-link">Shop</a>
                         <a href="/blog.html" class="nav-link font-bold active-page-link">Blog</a>
-                        <a href="/ado-ai-pricing.html" class="nav-link">ADO AI</a>
+                        <div class="nav-dropdown-wrapper">
+                            <a href="#" class="nav-link" style="display:inline-flex;align-items:center;gap:4px;">Our Products <i class="fas fa-chevron-down nav-dropdown-arrow"></i></a>
+                            <div class="nav-dropdown">
+                                <a href="/ado-ai-pricing.html">ADO AI</a>
+                            </div>
+                        </div>
                         <div class="nav-dropdown-wrapper">
                             <a href="/resources/resources-collection.html" class="nav-link" style="display:inline-flex;align-items:center;gap:4px;">Resources <i class="fas fa-chevron-down nav-dropdown-arrow"></i></a>
                             <div class="nav-dropdown">
@@ -330,7 +335,15 @@
                 <!-- <a href="/courses.html" class="block py-2 mobile-nav-link">Courses</a> -->
                 <a href="/shop.html" class="block py-2 mobile-nav-link">Shop</a>
                 <a href="/blog.html" class="block py-2 mobile-nav-link font-bold text-black">Blog</a>
-                <a href="/ado-ai-pricing.html" class="block py-2 mobile-nav-link">ADO AI</a>
+                <div>
+                    <button onclick="toggleMobileProductsDropdown()" class="block py-2 mobile-nav-link w-full text-left" style="display:flex;align-items:center;gap:6px;">
+                        <span>Our Products</span>
+                        <i class="fas fa-chevron-down mobile-dropdown-arrow" id="mobile-prod-arrow"></i>
+                    </button>
+                    <div class="mobile-sub-menu" id="mobile-products-sub">
+                        <a href="/ado-ai-pricing.html" class="block py-2 pl-6 text-sm text-gray-500 hover:text-black transition">ADO AI</a>
+                    </div>
+                </div>
                 <div>
                     <button onclick="toggleMobileResourcesDropdown()" class="block py-2 mobile-nav-link w-full text-left" style="display:flex;align-items:center;gap:6px;">
                         <span>Resources</span>
@@ -767,6 +780,10 @@ function toggleMobileResourcesDropdown() {
     document.getElementById('mobile-resources-sub').classList.toggle('open');
     document.getElementById('mobile-res-arrow').classList.toggle('rotated');
 }
+function toggleMobileProductsDropdown() {
+            document.getElementById('mobile-products-sub').classList.toggle('open');
+            document.getElementById('mobile-prod-arrow').classList.toggle('rotated');
+        }
 </script>
 <script src="/js/shop-badge.js"></script>
 <script type="module" src="/js/nav-auth.js"></script>
