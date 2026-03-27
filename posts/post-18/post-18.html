@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CZRQ0NPPJ2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-CZRQ0NPPJ2');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sora App ကို တရားဝင် ပိတ်သိမ်းတော့မယ့် ဝမ်းနည်းစရာ သတင်း - ART de ONE</title>
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769316272/fav-icon_n00lji.png">
+    
+    <!-- LIBRARIES -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    
+    <!-- CUSTOM STYLES -->
+    <link rel="stylesheet" href="/css-and-js/mobile-smooth-nav.css">
+    <link rel="stylesheet" href="/css-and-js/theme.css">
+    
+    <style>
+        /* --- BASE STYLES --- */
+        body {
+            background-color: #ffffff;
+            color: #323232;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* --- POST SPECIFIC STYLES --- */
+        .post-header {
+            padding-top: 8rem;
+            padding-bottom: 4rem;
+            border-bottom: 1px solid #f3f4f6;
+            transition: border-color 0.3s;
+        }
+        .post-header {
+            position: relative;
+            overflow: hidden;
+        }
+        .post-header-orb {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .post-header-orb-1 {
+            width: 550px; height: 550px;
+            bottom: -250px; left: -50px;
+            background: radial-gradient(circle at center, rgba(167,225,105,0.25) 0%, rgba(167,225,105,0.12) 30%, rgba(167,225,105,0.04) 55%, transparent 75%);
+            filter: blur(60px);
+            animation: orbDrift1 12s ease-in-out infinite;
+        }
+        .post-header-orb-2 {
+            width: 600px; height: 600px;
+            bottom: -300px; left: 50%;
+            transform: translateX(-50%);
+            background: radial-gradient(circle at center, rgba(237,41,57,0.18) 0%, rgba(255,140,50,0.10) 30%, rgba(237,41,57,0.04) 55%, transparent 75%);
+            filter: blur(70px);
+            animation: orbDrift2 15s ease-in-out infinite;
+        }
+        .post-header-orb-3 {
+            width: 450px; height: 450px;
+            bottom: -180px; right: -30px;
+            background: radial-gradient(circle at center, rgba(167,225,105,0.15) 0%, rgba(200,235,180,0.08) 35%, rgba(167,225,105,0.02) 60%, transparent 80%);
+            filter: blur(55px);
+            animation: orbDrift3 18s ease-in-out infinite;
+        }
+        .post-header > .max-w-3xl { position: relative; z-index: 2; }
+        
+        .post-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #323232;
+        }
+        
+        .post-content h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #000000;
+            margin-top: 4rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .post-content h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #000000;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .trend-image-container {
+            width: 100%;
+            background-color: #f3f4f6;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            margin: 2rem 0;
+            border: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .trend-image-container img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        /* SHARE BUTTON UPDATED (Smaller Size, Red Hover, No Stroke) */
+        .share-btn {
+            width: 36px; /* Smaller size */
+            height: 36px; /* Smaller size */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e5e7eb;
+            color: #6b7280;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .share-btn:hover {
+            background-color: #ed2939 !important; /* Red Hover */
+            color: #fff !important;
+            border-color: #ed2939 !important; /* Removes visible stroke */
+        }
+
+        .nav-btn { border-radius: 2rem; }
+        .text-accent { color: #a7e169; }
+        
+        /* RELATED CARD DEFAULT STYLES */
+        .related-card {
+            background-color: #ffffff;
+            border: 1px solid #e5e5e5;
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        .related-card h3 { color: #000; }
+        .related-card p { color: #9ca3af; }
+        
+        /* --- DARK MODE OVERRIDES --- */
+        body.dark-mode {
+            background-color: #121212 !important;
+            color: #e5e5e5 !important;
+        }
+        
+        /* DARK MODE TEXT CONTRAST FIX */
+        .dark-mode h1, 
+        .dark-mode h2, 
+        .dark-mode h3, 
+        .dark-mode strong, 
+        .dark-mode .text-black {
+            color: #ffffff !important;
+        }
+        
+        /* Intro Paragraph Specific Fix */
+        .dark-mode .post-content p {
+            color: #e5e5e5 !important;
+        }
+        .dark-mode .post-content { color: #e5e5e5 !important; }
+        .dark-mode .text-gray-500 { color: #9ca3af !important; }
+        
+        /* Dark Mode Containers */
+        .dark-mode .post-header { border-color: #333; }
+        .dark-mode .trend-image-container { 
+            background-color: #1e1e1e; 
+            border-color: #333; 
+        }
+        .dark-mode .bg-gray-50 { background-color: #1a1a1a; }
+        
+        /* Dark Mode Border Fix */
+        .dark-mode .border-gray-100, 
+        .dark-mode .border-gray-200 { 
+            border-color: #333 !important; 
+        }
+        
+        /* Share Button Dark Mode Border */
+        .dark-mode .share-btn {
+            border-color: #444;
+            color: #bbb;
+        }
+        
+        /* AUTHOR BOX AD CONTRAST FIX */
+        .dark-mode .w-10.h-10.rounded-full.bg-gray-100 {
+            background-color: #333 !important;
+            color: #fff !important;
+            border-color: #444 !important;
+        }
+
+        /* RELATED CARD DARK MODE */
+        .dark-mode .related-card { 
+            background-color: #1e1e1e !important; 
+            border-color: #333 !important; 
+        }
+        .dark-mode .related-card h3 { color: #ffffff !important; }
+        
+        /* Dark Mode Nav & Mobile Menu */
+        .dark-mode nav { 
+            background-color: rgba(18, 18, 18, 0.95) !important; 
+            border-bottom: 1px solid #333; 
+        }
+        .dark-mode .nav-link { color: #e5e5e5 !important; }
+        .dark-mode .nav-link:hover { color: #fff !important; }
+        
+        /* FIXED MOBILE MENU DARK MODE */
+        .dark-mode .mobile-menu {
+            background-color: #121212 !important;
+            border-bottom: 1px solid #333;
+        }
+        .dark-mode .mobile-menu .bg-white {
+            background-color: #121212 !important;
+            border-color: #333 !important;
+        }
+        .dark-mode .mobile-nav-link { color: #e5e5e5 !important; }
+        .dark-mode .mobile-menu-btn { color: #fff !important; }
+        .dark-mode .mobile-menu-btn:hover { background-color: #333; }
+        .hamburger-icon { color: #000; }
+        .dark-mode .hamburger-icon { color: #fff !important; }
+        .active-page-link { color: #000 !important; }
+        .dark-mode .active-page-link { color: #fff !important; }
+        
+        /* FOOTER LINE COLOR FIX */
+        .dark-mode footer { 
+            background-color: #121212; 
+            border-top: 1px solid #333 !important; 
+        }
+        .dark-mode footer p, .dark-mode footer a { color: #9ca3af !important; }
+        .dark-mode footer h3, .dark-mode footer span { color: #fff !important; }
+        .dark-mode footer a:hover { color: #fff !important; }
+        .dark-mode .trust-badge { background: #1e1e1e; border-color: #333; }
+        .dark-mode .trust-badge:hover { border-color: #555; box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+        .dark-mode .badge-label { color: #e5e5e5 !important; }
+        .dark-mode .badge-value { color: #9ca3af !important; }
+        .dark-mode .badge-icon:not(.badge-icon-blue):not(.badge-icon-gold):not(.badge-icon-green) { background: #333; }
+        .dark-mode .dmca-official-wrapper img { filter: none !important; }
+        
+        /* Logo Filter for Dark Mode (#a7e169) */
+        .dark-mode nav img, .dark-mode footer img {
+            filter: brightness(0) saturate(100%) invert(84%) sepia(32%) saturate(673%) hue-rotate(36deg) brightness(94%) contrast(89%);
+        }
+        .dark-mode .signin-cta {
+            background: linear-gradient(135deg, #1a2e1a 0%, #2a2a1a 100%) !important;
+            border-color: #333 !important;
+        }
+        .dark-mode .signin-cta p.text-black { color: #fff !important; }
+        .dark-mode .signin-cta .text-gray-600 { color: #9ca3af !important; }
+
+        /* Dark Mode: Sign in text & icon dark */
+        .dark-mode .nav-btn {
+            color: #000 !important;
+        }
+        /* Dark Mode: Back to All Posts text & arrow dark */
+        .dark-mode section.bg-gray-50 .nav-btn {
+            color: #000 !important;
+        }
+        /* Dark Mode: Hover - white text & elements */
+        .dark-mode .nav-btn:hover {
+            color: #fff !important;
+        }
+        .dark-mode section.bg-gray-50 .nav-btn:hover {
+            color: #fff !important;
+        }
+
+        /* Toggle Button */
+        .theme-toggle-btn {
+            position: fixed; bottom: 2rem; right: 2rem; z-index: 100;
+            width: 3rem; height: 3rem; border-radius: 50%;
+            background-color: #323232; color: #fff;
+            border: none;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; opacity: 0.3;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .dark-mode .theme-toggle-btn { background-color: #fff; color: #000; }
+        .theme-toggle-btn.active-state, .theme-toggle-btn:hover { opacity: 1; transform: scale(1.1); }
+
+        /* Blur Fade-in Scroll Animation */
+        .blur-fade {
+            opacity: 0;
+            filter: blur(12px);
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, filter 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .blur-fade.visible {
+            opacity: 1;
+            filter: blur(0);
+            transform: translateY(0);
+        }
+
+    </style>
+</head>
+<body class="bg-white text-[#323232]">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 nav-container">
+            <div class="nav-wrapper">
+                <div class="flex justify-between h-16 items-center">
+                    <div class="flex items-center">
+                        <a href="/index.html"><img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png" alt="ART de ONE" class="h-10 w-auto"></a>
+                    </div>
+                    
+                    <div class="hidden md:flex items-center space-x-6 nav-center">
+                        <a href="/index.html#home" class="nav-link">Home</a>
+                       <!-- <a href="/courses.html" class="nav-link">Courses</a> -->
+                        <a href="/shop.html" class="nav-link">Shop</a>
+                        <a href="/blog.html" class="nav-link font-bold active-page-link">Blog</a>
+                        <div class="nav-dropdown-wrapper">
+                            <a href="#" class="nav-link" style="display:inline-flex;align-items:center;gap:4px;">Our Products <i class="fas fa-chevron-down nav-dropdown-arrow"></i></a>
+                            <div class="nav-dropdown">
+                                <a href="/ado-ai-pricing.html">ADO AI</a>
+                            </div>
+                        </div>
+                        <div class="nav-dropdown-wrapper">
+                            <a href="/resources/resources-collection.html" class="nav-link" style="display:inline-flex;align-items:center;gap:4px;">Resources <i class="fas fa-chevron-down nav-dropdown-arrow"></i></a>
+                            <div class="nav-dropdown">
+                                <a href="/resources/resources-collection.html">All Resources</a>
+                                <a href="/prompt.html">AI Prompts</a>
+                            </div>
+                        </div>
+                        
+                        <a href="/index.html#contact" class="nav-link">Contact</a>
+                    </div>
+                    
+                    <div class="hidden md:block">
+                        <a href="/customer-dashboard.html" class="nav-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
+                    </div>
+                    
+                    <div class="md:hidden flex items-center">
+                        <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md hover:bg-gray-100 focus:outline-none" id="mobile-menu-button">
+                            <div class="icon-container hamburger-icon">
+                                <i data-feather="menu" class="icon-menu"></i>
+                                <i data-feather="x" class="icon-close"></i>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mobile-menu md:hidden hidden" id="mobile-menu">
+            <div class="py-2 px-4 space-y-1 bg-white border-b border-gray-100">
+                <a href="/index.html#home" class="block py-2 mobile-nav-link">Home</a>
+                <!-- <a href="/courses.html" class="block py-2 mobile-nav-link">Courses</a> -->
+                <a href="/shop.html" class="block py-2 mobile-nav-link">Shop</a>
+                <a href="/blog.html" class="block py-2 mobile-nav-link font-bold text-black">Blog</a>
+                <div>
+                    <button onclick="toggleMobileProductsDropdown()" class="block py-2 mobile-nav-link w-full text-left" style="display:flex;align-items:center;gap:6px;">
+                        <span>Our Products</span>
+                        <i class="fas fa-chevron-down mobile-dropdown-arrow" id="mobile-prod-arrow"></i>
+                    </button>
+                    <div class="mobile-sub-menu" id="mobile-products-sub">
+                        <a href="/ado-ai-pricing.html" class="block py-2 pl-6 text-sm text-gray-500 hover:text-black transition">ADO AI</a>
+                    </div>
+                </div>
+                <div>
+                    <button onclick="toggleMobileResourcesDropdown()" class="block py-2 mobile-nav-link w-full text-left" style="display:flex;align-items:center;gap:6px;">
+                        <span>Resources</span>
+                        <i class="fas fa-chevron-down mobile-dropdown-arrow" id="mobile-res-arrow"></i>
+                    </button>
+                    <div class="mobile-sub-menu" id="mobile-resources-sub">
+                        <a href="/resources/resources-collection.html" class="block py-2 pl-6 text-sm text-gray-500 hover:text-black transition">All Resources</a>
+                        <a href="/prompt.html" class="block py-2 pl-6 text-sm text-gray-500 hover:text-black transition">AI Prompts</a>
+                    </div>
+                </div>
+                <a href="/index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
+                <a href="/customer-dashboard.html" style="display:inline-flex; align-items:center; gap:0.35rem; background:#ed2939; color:#fff; font-weight:600; border-radius:2rem; padding:0.3rem 0.75rem; font-size:0.75rem; border:1px solid #ed2939; text-decoration:none;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Dark Mode Toggle -->
+        <button id="theme-toggle" class="theme-toggle-btn">
+            <i data-feather="moon" class="w-5 h-5 dark:hidden"></i>
+            <i data-feather="sun" class="w-5 h-5 hidden dark:block"></i>
+        </button>
+
+        <!-- Post Header -->
+        <section class="post-header bg-transparent">
+            <div class="post-header-orb post-header-orb-1"></div>
+            <div class="post-header-orb post-header-orb-2"></div>
+            <div class="post-header-orb post-header-orb-3"></div>
+            <div class="max-w-3xl mx-auto px-4 text-center" data-aos="fade-up">
+                <div class="flex items-center justify-center gap-4 text-sm text-gray-500 mb-6">
+                    <span class="uppercase tracking-widest text-accent font-bold">AI News</span>
+                    <span>•</span>
+                    <span>March 27, 2026</span>
+                </div>
+                <h1 class="text-3xl md:text-5xl font-bold text-black mb-8 leading-tight">
+                    Sora App ကို တရားဝင် ပိတ်သိမ်းတော့မယ့် ဝမ်းနည်းစရာ သတင်း
+                </h1>
+                
+                <!-- Author Box -->
+                <div class="flex items-center justify-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-black font-bold text-xs border border-gray-200">AD</div>
+                    <div class="text-left">
+                        <p class="text-black text-sm font-semibold">ART de ONE Team</p>
+                        <p class="text-xs text-gray-500">Author</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Section -->
+        <section class="py-16 px-4 bg-transparent">
+            <div class="max-w-3xl mx-auto">
+                <div class="post-content" data-aos="fade-up">
+                    <p class="text-lg leading-relaxed mb-12 text-[#323232]">
+                        မင်္ဂလာပါ၊ ART de ONE ကနေ ပြန်လည်ကြိုဆိုပါတယ်။ ဒီနေ့မှာတော့ AI Video ဖန်တီးသူတွေနဲ့ Creator လောကအတွက် စိတ်မကောင်းစရာ သတ္တဝါ သတင်းတစ်ခုကို မျှဝေပေးချင်ပါတယ်။ မကြာသေးမီကပဲ Sora Team ကနေ သူတို့ရဲ့ Sora app ကို အပြီးတိုင် ရပ်နားတော့မယ်အကြောင်း တရားဝင် ကြေညာလိုက်ပါတယ်။
+                    </p>
+
+                    <!-- Feature Image -->
+                    <div class="trend-image-container">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1774600975/sora_cover_zedql7.jpg" alt="Sora App Shutdown">
+                    </div>
+
+                    <!-- Section 1 -->
+                    <div class="mb-16 blur-fade">
+                        <h2 class="text-black">ကြေညာချက်တွင် ဘာတွေပါဝင်လဲ</h2>
+                        <p>
+                            Sora Team ရဲ့ ထုတ်ပြန်ချက်အရ သူတို့အနေနဲ့ သုံးစွဲသူတွေကို အခုလို နှုတ်ဆက်စကား ဆိုထားပါတယ်။
+                        </p>
+                        <p class="mt-4">
+                            <strong class="text-black">"Sora app ကို နှုတ်ဆက်ရတော့မယ်အချိန် ရောက်လာပါပြီ။ Sora ကို အသုံးပြုပြီး ဖန်တီးမှုတွေလုပ်ခဲ့ကြတဲ့၊ မျှဝေခဲ့ကြတဲ့၊ Community တစ်ခု တည်ဆောက်ခဲ့ကြသူ အားလုံးကို အထူးပဲ ကျေးဇူးတင်ပါတယ်။ သင်တို့ရဲ့ ဖန်တီးမှုတွေတိုင်းက တန်ဖိုးရှိလှပါတယ်၊ ဒီသတင်းကြောင့် အားလုံး စိတ်ပျက်ဝမ်းနည်းရမယ်ဆိုတာကိုလည်း ကျွန်ုပ်တို့ သိနားလည်ပါတယ်။"</strong>
+                        </p>
+                        <p class="mt-6">
+                            ဒါ့အပြင် App နဲ့ API ကို ဘယ်အချိန်အထိ ဆက်လက် အသုံးပြုနိုင်ဦးမလဲ ဆိုတဲ့ Timeline အတိအကျနဲ့ သုံးစွဲသူတွေရဲ့ လက်ရှိ ဖန်တီးထားတဲ့ Video တွေကို ဘယ်လို ပြန်လည် သိမ်းဆည်း (Backup) ယူလို့ရမလဲဆိုတဲ့ အသေးစိတ် အချက်အလက်တွေကိုတော့ မကြာခင်မှာ ဆက်လက် ထုတ်ပြန်ပေးသွားမယ်လို့ ဆိုပါတယ်။
+                        </p>
+                    </div>
+
+                    <!-- Sign-in CTA Banner -->
+                    <div class="signin-cta mb-16 blur-fade p-6 rounded-2xl border border-gray-200 text-center" style="background: linear-gradient(135deg, #f9fef5 0%, #fefce8 100%);">
+                        <p class="text-lg font-bold text-black mb-2">အခမဲ့ Resources တွေရယူဖို့ Sign in ဝင်ထားလိုက်ပါခင်ဗျ</p>
+                        <p class="text-sm text-gray-600 mb-4">Sign in လုပ်ထားရင် Resources တွေ၊ Templates တွေ အကုန် Free Download လုပ်လို့ရပါတယ်။</p>
+                        <a href="/customer-dashboard.html" class="nav-btn bg-[#a7e169] text-black px-8 py-3 h-auto inline-flex gap-2 rounded-full font-bold hover:bg-[#ed2939] hover:text-white transition-all" style="text-decoration:none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            Sign in
+                        </a>
+                    </div>
+
+                    <!-- Section 2 -->
+                    <div class="mb-16 blur-fade">
+                        <h2 class="text-black">Creator များအတွက် အကြံပြုချက်</h2>
+                        <p>
+                            AI နည်းပညာတွေက အရှိန်အဟုန်နဲ့ ပြောင်းလဲနေတာဖြစ်လို့ အခုလို Tool တစ်ခု ရပ်နားသွားတာဟာ ဖန်တီးရှင်တွေအတွက် နှမြောစရာကောင်းပါတယ်။
+                        </p>
+                        <p class="mt-4">
+                            ART de ONE ရဲ့ ကျောင်းသားတွေနဲ့ ဖန်တီးရှင်တွေထဲမှာ Sora ကို အသုံးပြုပြီး Project တွေ လုပ်နေသူတွေ ရှိခဲ့ရင် ကိုယ့်ရဲ့ Video တွေနဲ့ Data တွေကို ဆုံးရှုံးမှု မရှိအောင် အချိန်မီ သိမ်းဆည်းထားနိုင်ဖို့ (Backup ယူထားဖို့) ကြိုတင် ပြင်ဆင်ထားသင့်ပါတယ်။
+                        </p>
+                        <p class="mt-4">
+                            နောက်ထပ် Update သတင်းတွေနဲ့ အစားထိုး အသုံးပြုနိုင်မယ့် AI Tool အသစ်တွေအကြောင်းကိုလည်း ဆက်လက် မျှဝေပေးသွားပါမယ်။
+                        </p>
+                    </div>
+
+                    <!-- Share Section -->
+                    <div class="border-t border-gray-100 mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center gap-6">
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Share this article</span>
+                        <div class="flex gap-3">
+                            
+                            <!-- Facebook -->
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-18%2Fpost-18.html" 
+                               target="_blank" 
+                               class="share-btn" 
+                               aria-label="Share on Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+
+                            <!-- X (Formerly Twitter) - SVG Logo -->
+                            <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-18%2Fpost-18.html&text=Sora%20App%20%E1%80%95%E1%80%BC%E1%80%AD%E1%80%94%E1%80%BA%E1%80%99%E1%80%B3%20by%20ART%20de%20ONE" 
+                               target="_blank" 
+                               class="share-btn" 
+                               aria-label="Share on X">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" viewBox="0 0 512 512" fill="currentColor">
+                                    <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/>
+                                </svg>
+                            </a>
+
+                            <!-- LinkedIn -->
+                            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-18%2Fpost-18.html" 
+                               target="_blank" 
+                               class="share-btn" 
+                               aria-label="Share on LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+
+                            <!-- Pinterest -->
+                            <a href="https://pinterest.com/pin/create/button/?url=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-18%2Fpost-18.html&media=https%3A%2F%2Fres.cloudinary.com%2Fddkd9lxpr%2Fimage%2Fupload%2Fv1774600975%2Fsora_cover_zedql7.jpg&description=Sora%20App%20Shutdown%20by%20ART%20de%20ONE" 
+                               target="_blank" 
+                               class="share-btn" 
+                               aria-label="Share on Pinterest">
+                                <i class="fab fa-pinterest-p"></i>
+                            </a>
+
+                            <!-- TikTok (Profile Link) -->
+                            <a href="https://www.tiktok.com/@artdeone" 
+                               target="_blank" 
+                               class="share-btn" 
+                               aria-label="Visit TikTok">
+                                <i class="fab fa-tiktok"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Random Related Articles -->
+        <section class="py-20 bg-gray-50 border-t border-gray-100">
+            <div class="max-w-7xl mx-auto px-4">
+                <h2 class="text-2xl font-bold text-black mb-10 text-center">Related Articles</h2>
+                
+                <div id="random-related-posts" class="grid md:grid-cols-3 gap-8">
+                     <!-- JS will populate this -->
+                </div>
+                
+                <div class="text-center mt-16">
+                    <a href="../../blog.html" class="nav-btn bg-[#a7e169] text-black px-8 py-3 h-auto inline-flex gap-2 rounded-full font-bold hover:bg-[#ed2939] hover:text-white transition-all">
+                        <i data-feather="arrow-left" class="w-4 h-4"></i> Back to All Posts
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white text-[#323232] py-12 border-t border-gray-200 footer-glow">
+    
+    <!-- Sarvam-style circle glow orbs -->
+    <div class="footer-orb footer-orb-1"></div>
+    <div class="footer-orb footer-orb-2"></div>
+    <div class="footer-orb footer-orb-3"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <span class="text-xl font-bold mb-4 block text-black">ART de ONE</span>
+                    <p class="text-gray-500 text-sm">
+                        Freelance Graphic Designer & Illustrator Portfolio, Blog, Resources and Online Courses
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Quick Links</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/index.html#home" class="text-gray-500 hover:text-black transition duration-300">Home</a></li>
+                      <!--  <li><a href="/courses.html" class="nav-link">Courses</a> -->
+                        <li><a href="/prompt.html" class="text-gray-500 hover:text-black transition duration-300">Prompts</a></li>
+                        <li><a href="/shop.html" class="text-gray-500 hover:text-black transition duration-300">Shop</a></li>
+                        <li><a href="/blog.html" class="text-gray-500 hover:text-black transition duration-300">Blog</a></li>
+                        <li><a href="/resources/resources-collection.html" class="text-gray-500 hover:text-black transition duration-300">Resources</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Services</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Logo Design</a></li>
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Social Media</a></li>
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Printing</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Contact</h3>
+                    <ul class="space-y-2 text-sm">
+                         <li><a href="/index.html#about" class="text-gray-500 hover:text-black transition duration-300">About</a></li>
+                        <li><a href="/index.html#contact" class="text-gray-500 hover:text-black transition duration-300">Contact</a></li>
+                    </ul>
+                </div> 
+                
+            </div>
+            <div class="border-t border-gray-200 mt-8 pt-8">
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-6">
+        
+        <!-- Left: Copyright -->
+        <p class="text-gray-500 text-sm text-center sm:text-left order-2 sm:order-1 sm:w-1/4">
+            &copy; 2026 ART de ONE. All rights reserved.
+        </p>
+        
+        <!-- Center: Trust Badges -->
+        <div class="flex flex-wrap items-center justify-center gap-3 order-1 sm:order-2">
+            
+            <!-- Badge 1: SSL Secured -->
+            <div class="trust-badge group" title="SSL Encrypted Connection">
+                <div class="badge-icon">
+                    <i class="fas fa-lock text-xs"></i>
+                </div>
+                <div class="badge-text">
+                    <span class="badge-label">SSL</span>
+                    <span class="badge-value">Secured</span>
+                </div>
+            </div>
+            
+            <!-- Badge 2: DMCA Protected -->
+        <div class="trust-badge group dmca-official-wrapper" title="DMCA.com Protection Status">
+            <a href="//www.dmca.com/Protection/Status.aspx?ID=04063fb7-27c9-4e80-86e5-bc851bcd5935" 
+               title="DMCA.com Protection Status" 
+               class="dmca-badge">
+                <img src="https://images.dmca.com/Badges/dmca-badge-w100-2x1-02.png?ID=04063fb7-27c9-4e80-86e5-bc851bcd5935" 
+                     alt="DMCA.com Protection Status" 
+                     style="height: 20px; width: auto; display: block;" />
+            </a>
+            <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+        </div>
+            
+            <!-- Badge 3: Verified Professional -->
+            <div class="trust-badge group" title="9+ Years Professional Experience">
+                <div class="badge-icon badge-icon-gold">
+                    <i class="fas fa-award text-xs"></i>
+                </div>
+                <div class="badge-text">
+                    <span class="badge-label">Verified</span>
+                    <span class="badge-value">Professional</span>
+                </div>
+            </div>
+            
+            <!-- Badge 4: Safe Browsing -->
+            <div class="trust-badge group" title="Google Safe Browsing Verified">
+                <div class="badge-icon badge-icon-green">
+                    <i class="fas fa-check-circle text-xs"></i>
+                </div>
+                <div class="badge-text">
+                    <span class="badge-label">Google</span>
+                    <span class="badge-value">Safe</span>
+                </div>
+            </div>
+            
+            <!-- Badge 5: Google Business -->
+            <a href="https://g.page/r/Cb6j-IdtRRWLEAE/review" target="_blank" class="trust-badge group" title="Find us on Google Business">
+                <div class="badge-icon" style="background-color: #4285F4;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width:12px;height:12px;fill:white;">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                </div>
+                <div class="badge-text">
+                    <span class="badge-label">Google</span>
+                    <span class="badge-value">Business</span>
+                </div>
+            </a>
+            
+        </div>
+        
+        <!-- Right: Social Icons -->
+        <div class="flex justify-center sm:justify-end space-x-6 text-sm order-3 sm:w-1/4">
+            <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-behance"></i></a>
+            <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-tiktok"></i></a>
+        </div>
+        
+    </div>
+</div>
+
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="/css-and-js/mobile-smooth-nav.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+        feather.replace();
+
+        // --- DARK MODE LOGIC ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+        const moonIcon = document.querySelector('.feather-moon');
+        const sunIcon = document.querySelector('.feather-sun');
+        let fadeTimeout;
+
+        if(localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-mode');
+            moonIcon.classList.add('hidden');
+            sunIcon.classList.remove('hidden');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            if(body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                moonIcon.classList.add('hidden');
+                sunIcon.classList.remove('hidden');
+            } else {
+                localStorage.setItem('theme', 'light');
+                moonIcon.classList.remove('hidden');
+                sunIcon.classList.add('hidden');
+            }
+
+            themeToggleBtn.classList.add('active-state');
+            clearTimeout(fadeTimeout);
+            fadeTimeout = setTimeout(() => {
+                themeToggleBtn.classList.remove('active-state');
+            }, 2000);
+        });
+
+        // --- RANDOM RELATED ARTICLES ---
+        const allPosts = [
+            { title: "Design Style အခေါ်အ၀ေါ် (၅)ခု", date: "Mar 6, 2026", link: "../post-16/post-16.html", img: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772815632/cover_oacv8z.jpg" },
+            { title: "Part - 2 စိတ်၀င်စားစရာကောင်းတဲ့ Design Style အခေါ်အ၀ေါ် (၅)ခု", date: "Mar 7, 2026", link: "../post-17/post-17.html", img: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772816203/cover_qy7bwg.jpg" },
+            { title: "Design World's Crazy Facts", date: "Feb 5, 2026", link: "../post-15/post-15.html", img: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1770282751/cover_fghqoq.jpg" },
+            { title: "2026 Graphic Design Trends", date: "Dec 29, 2025", link: "../post-14/post-14.html", img: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1766720115/dt-cover_vbokgn.jpg" },
+            { title: "Christmas Vibe Fonts", date: "Dec 17, 2025", link: "../post-13/post-13.html", img: "../post-13/images/christmas-3.jpg" },
+            { title: "7 Fonts That Look Like Logo", date: "Dec 04, 2025", link: "../post-12/post-12.html", img: "../post-12/images/gendy.jpg" },
+            { title: "Generative Ai Basics", date: "Nov 10, 2025", link: "../post-11/post-11.html", img: "../post-11/images/yt-thumbnail.jpg" },
+            { title: "Affinity Rebrand", date: "Nov 3, 2025", link: "../featured/featured-post.html", img: "../featured/images/featured-image-5.jpg" },
+            { title: "Free Ai Better than Midjourney", date: "Oct 24, 2025", link: "../post-9/post-9.html", img: "../post-9/images/thumbnail.jpg" },
+            { title: "RGB Theory & Nature", date: "Oct 1, 2025", link: "../post-3/post-3.html", img: "../post-3/images/rgb-1.jpg" },
+            { title: "Design Principles Part 1", date: "Oct 3, 2025", link: "../post-4/post-4.html", img: "../post-4/images/cover.jpg" }
+        ];
+
+        const shuffled = allPosts.sort(() => 0.5 - Math.random());
+        const selected = shuffled.slice(0, 3);
+        
+        const relatedContainer = document.getElementById('random-related-posts');
+        if(relatedContainer) {
+            selected.forEach(post => {
+                relatedContainer.innerHTML += `
+                    <a href="${post.link}" class="related-card group block rounded-2xl overflow-hidden hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-lg">
+                        <div class="h-48 overflow-hidden">
+                            <img src="${post.img}" alt="${post.title}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-black mb-2 group-hover:text-[#a7e169] transition-colors">${post.title}</h3>
+                            <p class="text-xs font-bold text-gray-400 uppercase">${post.date}</p>
+                        </div>
+                    </a>
+                `;
+            });
+        }
+    </script>
+<script>
+function toggleMobileResourcesDropdown() {
+    document.getElementById('mobile-resources-sub').classList.toggle('open');
+    document.getElementById('mobile-res-arrow').classList.toggle('rotated');
+}
+function toggleMobileProductsDropdown() {
+            document.getElementById('mobile-products-sub').classList.toggle('open');
+            document.getElementById('mobile-prod-arrow').classList.toggle('rotated');
+        }
+</script>
+<script>
+const blurObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.15 });
+document.querySelectorAll('.blur-fade').forEach(el => blurObserver.observe(el));
+</script>
+<script src="/js/shop-badge.js"></script>
+<script type="module" src="/js/nav-auth.js"></script>
+</body>
+</html>
