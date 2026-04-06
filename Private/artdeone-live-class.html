@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live Class — ART de ONE</title>
+<link rel="icon" type="image/png" href="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769316272/fav-icon_n00lji.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: { extend: { colors: { brand: { green: '#a7e169', dark: '#111116', card: '#1a1a20', border: '#2a2a35' } } } }
+  };
+  if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark');
+  }
+</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Space+Grotesk:wght@300;400;500;600&display=swap');
+
+:root { --accent: #a7e169; --accent-dim: rgba(167,225,105,0.12); --glass: rgba(26,26,32,0.85); }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Outfit', sans-serif; background: #111116; color: #fff; height: 100dvh; overflow: hidden; -webkit-font-smoothing: antialiased; }
+h1,h2,h3,h4 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; }
+
+/* ── Prejoin Screen ── */
+#prejoin {
+  position: fixed; inset: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(167,225,105,0.07) 0%, transparent 70%), #111116;
+}
+.grid-bg {
+  position: absolute; inset: 0; opacity: 0.04;
+  background-image: linear-gradient(#a7e169 1px, transparent 1px), linear-gradient(90deg, #a7e169 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.prejoin-card {
+  position: relative; z-index: 1;
+  background: #1a1a20; border: 1px solid #2a2a35;
+  border-radius: 24px; padding: 48px 40px;
+  width: 100%; max-width: 460px;
+  box-shadow: 0 40px 80px -20px rgba(0,0,0,0.6);
+  animation: slideUp 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+@keyframes slideUp { from { opacity: 0; transform: translateY(24px) scale(0.97); } to { opacity: 1; transform: none; } }
+
+.logo-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--accent-dim); border: 1px solid rgba(167,225,105,0.2);
+  border-radius: 100px; padding: 6px 14px; margin-bottom: 24px;
+}
+.live-dot { width: 7px; height: 7px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
+
+.field-wrap { margin-bottom: 16px; }
+.field-label { font-size: 13px; color: #9ca3af; margin-bottom: 6px; display: block; }
+.field-input {
+  width: 100%; background: #111116; border: 1px solid #2a2a35;
+  border-radius: 12px; padding: 12px 16px; color: #fff;
+  font-family: 'Outfit', sans-serif; font-size: 15px; outline: none;
+  transition: border-color 0.2s;
+}
+.field-input:focus { border-color: var(--accent); }
+.field-input::placeholder { color: #4b5563; }
+
+.btn-join {
+  width: 100%; padding: 14px; border-radius: 12px;
+  background: var(--accent); color: #111116;
+  font-family: 'Space Grotesk', sans-serif; font-weight: 600;
+  font-size: 15px; border: none; cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.btn-join:hover { opacity: 0.88; transform: translateY(-1px); }
+.btn-join:active { transform: translateY(0); }
+.btn-join:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+.divider { height: 1px; background: #2a2a35; margin: 20px 0; }
+
+.quick-options { display: flex; gap: 10px; }
+.quick-btn {
+  flex: 1; padding: 10px; border-radius: 10px;
+  background: #111116; border: 1px solid #2a2a35;
+  color: #9ca3af; font-size: 13px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  transition: all 0.2s; font-family: 'Outfit', sans-serif;
+}
+.quick-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ── Call Screen ── */
+#callscreen {
+  position: fixed; inset: 0; z-index: 40;
+  background: #0a0a0d;
+  display: none; flex-direction: column;
+}
+#callscreen.active { display: flex; }
+
+#jitsi-frame {
+  flex: 1; width: 100%; border: none;
+  background: #0a0a0d;
+}
+
+/* ── Custom Toolbar ── */
+.toolbar {
+  position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 10px;
+  background: rgba(17,17,22,0.92); backdrop-filter: blur(16px);
+  border: 1px solid #2a2a35; border-radius: 100px;
+  padding: 10px 16px; z-index: 100;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+.ctrl-btn {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: #1a1a20; border: 1px solid #2a2a35;
+  color: #e5e7eb; font-size: 16px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s; position: relative;
+}
+.ctrl-btn:hover { background: #252530; border-color: #3a3a48; }
+.ctrl-btn.active { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
+.ctrl-btn.danger { background: rgba(239,68,68,0.12); border-color: rgba(239,68,68,0.4); color: #ef4444; }
+.ctrl-btn.danger:hover { background: #ef4444; color: #fff; }
+.ctrl-btn.muted { background: rgba(239,68,68,0.12); border-color: rgba(239,68,68,0.3); color: #f87171; }
+
+.ctrl-sep { width: 1px; height: 28px; background: #2a2a35; margin: 0 4px; }
+.ctrl-label { font-size: 11px; color: #6b7280; position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%); white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity 0.2s; }
+.ctrl-btn:hover .ctrl-label { opacity: 1; }
+
+/* ── Header Bar ── */
+.call-header {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 20px;
+  background: linear-gradient(to bottom, rgba(10,10,13,0.9) 0%, transparent 100%);
+}
+.room-info { display: flex; align-items: center; gap: 10px; }
+.live-badge {
+  background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3);
+  color: #ef4444; font-size: 11px; font-weight: 600; padding: 4px 10px;
+  border-radius: 100px; display: flex; align-items: center; gap: 5px;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.live-badge-dot { width: 6px; height: 6px; background: #ef4444; border-radius: 50%; animation: pulse 1.5s infinite; }
+.room-name { font-size: 14px; font-weight: 500; color: #e5e7eb; font-family: 'Space Grotesk', sans-serif; }
+.duration-badge { font-size: 13px; color: #9ca3af; font-variant-numeric: tabular-nums; }
+
+.header-actions { display: flex; gap: 8px; }
+.hdr-btn {
+  width: 34px; height: 34px; border-radius: 8px;
+  background: rgba(26,26,32,0.8); border: 1px solid #2a2a35;
+  color: #9ca3af; font-size: 13px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.hdr-btn:hover { background: #1a1a20; color: #fff; border-color: #3a3a48; }
+
+/* ── Mini Popup (Minimized) ── */
+#mini-popup {
+  position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+  width: 280px; height: 180px;
+  background: #0a0a0d; border: 1px solid #2a2a35;
+  border-radius: 16px; overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+  display: none;
+  cursor: grab;
+  animation: popIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+#mini-popup.active { display: block; }
+@keyframes popIn { from { opacity: 0; transform: scale(0.8) translateY(20px); } to { opacity: 1; transform: none; } }
+
+#mini-jitsi { width: 100%; height: 100%; border: none; }
+
+.mini-bar {
+  position: absolute; top: 0; left: 0; right: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+  padding: 8px 10px;
+  display: flex; align-items: center; justify-content: space-between;
+  opacity: 0; transition: opacity 0.2s;
+}
+#mini-popup:hover .mini-bar { opacity: 1; }
+.mini-title { font-size: 11px; color: #9ca3af; font-family: 'Space Grotesk', sans-serif; }
+.mini-controls { display: flex; gap: 6px; }
+.mini-btn {
+  width: 26px; height: 26px; border-radius: 6px;
+  background: rgba(26,26,32,0.9); border: 1px solid #2a2a35;
+  color: #9ca3af; font-size: 10px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.mini-btn:hover { color: #fff; background: #1a1a20; }
+.mini-btn.restore { color: var(--accent); }
+
+.mini-bottom {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  padding: 8px 10px;
+  display: flex; justify-content: center; gap: 8px;
+  opacity: 0; transition: opacity 0.2s;
+}
+#mini-popup:hover .mini-bottom { opacity: 1; }
+.mini-ctrl {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: rgba(26,26,32,0.9); border: 1px solid #2a2a35;
+  color: #e5e7eb; font-size: 12px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.mini-ctrl.muted { color: #f87171; background: rgba(239,68,68,0.1); border-color: rgba(239,68,68,0.3); }
+.mini-ctrl.danger { color: #ef4444; }
+.mini-ctrl:hover { transform: scale(1.1); }
+
+/* ── Low Bandwidth Indicator ── */
+.network-badge {
+  position: absolute; top: 60px; left: 50%; transform: translateX(-50%);
+  background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3);
+  color: #fbbf24; font-size: 12px; padding: 6px 14px; border-radius: 100px;
+  display: none; align-items: center; gap: 6px; z-index: 200;
+  font-family: 'Outfit', sans-serif;
+}
+.network-badge.visible { display: flex; }
+
+/* ── Toast ── */
+.toast {
+  position: fixed; top: 24px; left: 50%; transform: translateX(-50%);
+  background: #1a1a20; border: 1px solid #2a2a35; border-radius: 100px;
+  padding: 10px 20px; font-size: 13px; color: #e5e7eb; z-index: 9999;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s, transform 0.3s;
+  transform: translateX(-50%) translateY(-10px);
+  display: flex; align-items: center; gap: 8px;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.toast-icon { color: var(--accent); }
+
+/* ── Permission Error ── */
+#perm-error {
+  display: none; flex-direction: column; align-items: center;
+  justify-content: center; height: 100%; gap: 16px; text-align: center; padding: 40px;
+}
+#perm-error.visible { display: flex; }
+.perm-icon { font-size: 48px; color: #f87171; margin-bottom: 8px; }
+
+/* scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-thumb { background: #2a2a35; border-radius: 10px; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════ PRE-JOIN SCREEN ═══════════════════════════════ -->
+<div id="prejoin">
+  <div class="grid-bg"></div>
+  <div class="prejoin-card">
+
+    <div class="logo-badge">
+      <div class="live-dot"></div>
+      <span style="font-size:12px; font-weight:500; color: var(--accent); font-family:'Space Grotesk',sans-serif; letter-spacing:0.05em;">LIVE CLASS</span>
+    </div>
+
+    <h2 style="font-size:26px; font-weight:600; margin-bottom:6px; color:#fff;">Join Your Class</h2>
+    <p style="font-size:14px; color:#6b7280; margin-bottom:28px;">ART de ONE — Video Learning Platform</p>
+
+    <div class="field-wrap">
+      <label class="field-label"><i class="fa-regular fa-user" style="margin-right:6px; font-size:12px;"></i>Your Name</label>
+      <input id="display-name" class="field-input" type="text" placeholder="e.g. Ma Ma Khaing" autocomplete="name">
+    </div>
+
+    <div class="field-wrap">
+      <label class="field-label"><i class="fa-regular fa-door-open" style="margin-right:6px; font-size:12px;"></i>Room / Class Code</label>
+      <div style="position:relative;">
+        <input id="room-code" class="field-input" type="text" placeholder="e.g. artdeone-drawing-101" style="padding-right:44px;">
+        <button onclick="generateRoom()" title="Generate random room" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:#6b7280;cursor:pointer;font-size:15px;transition:color 0.2s;" onmouseover="this.style.color='#a7e169'" onmouseout="this.style.color='#6b7280'">
+          <i class="fa-solid fa-shuffle"></i>
+        </button>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:10px; margin-bottom:20px;">
+      <label style="flex:1; display:flex; align-items:center; gap:8px; background:#111116; border:1px solid #2a2a35; border-radius:10px; padding:10px 14px; cursor:pointer; transition: border-color 0.2s;" id="mic-toggle-wrap">
+        <input type="checkbox" id="start-mic" checked style="accent-color:var(--accent); width:15px; height:15px;">
+        <span style="font-size:13px; color:#9ca3af;"><i class="fa-solid fa-microphone" style="margin-right:5px;"></i>Mic On</span>
+      </label>
+      <label style="flex:1; display:flex; align-items:center; gap:8px; background:#111116; border:1px solid #2a2a35; border-radius:10px; padding:10px 14px; cursor:pointer; transition: border-color 0.2s;" id="cam-toggle-wrap">
+        <input type="checkbox" id="start-cam" checked style="accent-color:var(--accent); width:15px; height:15px;">
+        <span style="font-size:13px; color:#9ca3af;"><i class="fa-solid fa-video" style="margin-right:5px;"></i>Camera On</span>
+      </label>
+    </div>
+
+    <button class="btn-join" id="join-btn" onclick="joinCall()">
+      <i class="fa-solid fa-video"></i>
+      Join Class Now
+    </button>
+
+    <div class="divider"></div>
+
+    <div class="quick-options">
+      <button class="quick-btn" onclick="copyInvite()">
+        <i class="fa-regular fa-link"></i> Copy Invite Link
+      </button>
+      <button class="quick-btn" onclick="generateRoom()">
+        <i class="fa-regular fa-plus"></i> New Room
+      </button>
+    </div>
+
+    <p style="text-align:center; font-size:12px; color:#374151; margin-top:20px;">
+      <i class="fa-solid fa-shield-halved" style="color:var(--accent); margin-right:4px;"></i>
+      Encrypted · No account needed · Works on slow internet
+    </p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ CALL SCREEN ═══════════════════════════════ -->
+<div id="callscreen">
+
+  <!-- Header -->
+  <div class="call-header">
+    <div class="room-info">
+      <div class="live-badge">
+        <div class="live-badge-dot"></div>
+        LIVE
+      </div>
+      <span class="room-name" id="header-room-name"></span>
+      <span class="duration-badge" id="call-duration">00:00</span>
+    </div>
+    <div class="header-actions">
+      <button class="hdr-btn" onclick="minimizeCall()" title="Minimize">
+        <i class="fa-solid fa-down-left-and-up-right-to-center" style="font-size:11px;"></i>
+      </button>
+      <button class="hdr-btn" onclick="copyInvite()" title="Invite">
+        <i class="fa-solid fa-user-plus" style="font-size:12px;"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Network badge -->
+  <div class="network-badge" id="network-badge">
+    <i class="fa-solid fa-wifi" style="font-size:11px;"></i>
+    Low connection — quality reduced automatically
+  </div>
+
+  <!-- Jitsi Container -->
+  <div id="jitsi-container" style="flex:1; width:100%; position:relative; overflow:hidden; background:#0a0a0d;">
+    <div id="perm-error">
+      <div class="perm-icon"><i class="fa-solid fa-camera-slash"></i></div>
+      <h3 style="font-family:'Space Grotesk',sans-serif; font-size:18px; color:#fff;">Camera / Mic Access Denied</h3>
+      <p style="color:#6b7280; font-size:14px; max-width:280px;">Please allow access in your browser settings and refresh the page.</p>
+    </div>
+  </div>
+
+  <!-- Bottom Toolbar -->
+  <div class="toolbar" id="main-toolbar">
+
+    <!-- Mic -->
+    <button class="ctrl-btn" id="btn-mic" onclick="toggleMic()" title="Toggle Mic">
+      <i class="fa-solid fa-microphone" id="mic-icon"></i>
+      <span class="ctrl-label" id="mic-label">Mute</span>
+    </button>
+
+    <!-- Camera -->
+    <button class="ctrl-btn" id="btn-cam" onclick="toggleCam()" title="Toggle Camera">
+      <i class="fa-solid fa-video" id="cam-icon"></i>
+      <span class="ctrl-label" id="cam-label">Camera Off</span>
+    </button>
+
+    <!-- Screen Share -->
+    <button class="ctrl-btn" id="btn-share" onclick="toggleShare()" title="Share Screen">
+      <i class="fa-solid fa-display" id="share-icon"></i>
+      <span class="ctrl-label" id="share-label">Share Screen</span>
+    </button>
+
+    <div class="ctrl-sep"></div>
+
+    <!-- Chat -->
+    <button class="ctrl-btn" id="btn-chat" onclick="toggleChat()" title="Chat">
+      <i class="fa-solid fa-message"></i>
+      <span class="ctrl-label">Chat</span>
+    </button>
+
+    <!-- Participants -->
+    <button class="ctrl-btn" id="btn-participants" onclick="toggleParticipants()" title="Participants">
+      <i class="fa-solid fa-users"></i>
+      <span class="ctrl-label">People</span>
+    </button>
+
+    <div class="ctrl-sep"></div>
+
+    <!-- Minimize -->
+    <button class="ctrl-btn" onclick="minimizeCall()" title="Minimize">
+      <i class="fa-solid fa-compress"></i>
+      <span class="ctrl-label">Minimize</span>
+    </button>
+
+    <!-- End Call -->
+    <button class="ctrl-btn danger" onclick="endCall()" title="End Call">
+      <i class="fa-solid fa-phone-slash"></i>
+      <span class="ctrl-label">Leave</span>
+    </button>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ MINI POPUP ═══════════════════════════════ -->
+<div id="mini-popup">
+  <div id="mini-container" style="width:100%; height:100%;"></div>
+
+  <div class="mini-bar">
+    <span class="mini-title" id="mini-room-label"></span>
+    <div class="mini-controls">
+      <button class="mini-btn restore" onclick="restoreCall()" title="Restore">
+        <i class="fa-solid fa-expand" style="font-size:10px;"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="mini-bottom">
+    <button class="mini-ctrl" id="mini-btn-mic" onclick="toggleMic()" title="Toggle Mic">
+      <i class="fa-solid fa-microphone" id="mini-mic-icon"></i>
+    </button>
+    <button class="mini-ctrl" id="mini-btn-cam" onclick="toggleCam()" title="Toggle Camera">
+      <i class="fa-solid fa-video" id="mini-cam-icon"></i>
+    </button>
+    <button class="mini-ctrl danger" onclick="endCall()" title="Leave">
+      <i class="fa-solid fa-phone-slash"></i>
+    </button>
+  </div>
+
+  <!-- Resize handle -->
+  <div id="resize-handle" style="position:absolute;bottom:0;right:0;width:20px;height:20px;cursor:nwse-resize;display:flex;align-items:flex-end;justify-content:flex-end;padding:4px;">
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="rgba(255,255,255,0.2)">
+      <rect x="6" y="0" width="2" height="10" rx="1"/>
+      <rect x="0" y="6" width="10" height="2" rx="1"/>
+    </svg>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <i class="fa-solid fa-check toast-icon" id="toast-icon"></i>
+  <span id="toast-msg">Copied!</span>
+</div>
+
+<!-- Jitsi External API -->
+<script src="https://meet.jit.si/external_api.js"></script>
+
+<script>
+let jitsiApi = null;
+let isMinimized = false;
+let micMuted = false;
+let camMuted = false;
+let shareActive = false;
+let durationTimer = null;
+let durationSec = 0;
+let currentRoom = '';
+let currentName = '';
+
+// ─────────────────────── URL params ───────────────────────
+(function() {
+  const p = new URLSearchParams(window.location.search);
+  if (p.get('room')) document.getElementById('room-code').value = p.get('room');
+  if (p.get('name')) document.getElementById('display-name').value = p.get('name');
+})();
+
+function generateRoom() {
+  const adj = ['drawing','painting','sculpture','design','watercolor','digital','portrait','landscape'];
+  const num = Math.floor(1000 + Math.random() * 9000);
+  const pick = adj[Math.floor(Math.random() * adj.length)];
+  document.getElementById('room-code').value = `artdeone-${pick}-${num}`;
+}
+
+function copyInvite() {
+  const room = document.getElementById('room-code').value.trim() || currentRoom;
+  if (!room) { showToast('Enter a room code first', 'fa-exclamation'); return; }
+  const url = `${window.location.origin}${window.location.pathname}?room=${encodeURIComponent(room)}`;
+  navigator.clipboard.writeText(url).then(() => showToast('Invite link copied!', 'fa-check'));
+}
+
+function showToast(msg, icon = 'fa-check', duration = 2500) {
+  const t = document.getElementById('toast');
+  const i = document.getElementById('toast-icon');
+  document.getElementById('toast-msg').textContent = msg;
+  i.className = `fa-solid ${icon} toast-icon`;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), duration);
+}
+
+// ─────────────────────── Join ───────────────────────
+function joinCall() {
+  const name = document.getElementById('display-name').value.trim();
+  const room = document.getElementById('room-code').value.trim();
+  const startMic = document.getElementById('start-mic').checked;
+  const startCam = document.getElementById('start-cam').checked;
+
+  if (!name) { document.getElementById('display-name').focus(); showToast('Please enter your name', 'fa-user'); return; }
+  if (!room)  { document.getElementById('room-code').focus(); showToast('Please enter a room code', 'fa-door-open'); return; }
+
+  currentRoom = room;
+  currentName = name;
+  micMuted = !startMic;
+  camMuted = !startCam;
+
+  document.getElementById('header-room-name').textContent = room;
+  document.getElementById('mini-room-label').textContent = room;
+  document.getElementById('join-btn').disabled = true;
+  document.getElementById('join-btn').innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Connecting…';
+
+  document.getElementById('prejoin').style.display = 'none';
+  document.getElementById('callscreen').classList.add('active');
+
+  initJitsi(room, name, startMic, startCam);
+  startDurationTimer();
+}
+
+// ─────────────────────── Jitsi Init ───────────────────────
+function initJitsi(room, name, startMic, startCam) {
+  const container = document.getElementById('jitsi-container');
+
+  try {
+    jitsiApi = new JitsiMeetExternalAPI("meet.jit.si", {
+      roomName: room,
+      width: '100%',
+      height: '100%',
+      parentNode: container,
+      userInfo: { displayName: name },
+      configOverwrite: {
+        startWithAudioMuted: !startMic,
+        startWithVideoMuted: !startCam,
+        prejoinPageEnabled: false,
+        disableDeepLinking: true,
+        enableLayerSuspension: true,
+        enableNoAudioDetection: true,
+        enableNoisyMicDetection: true,
+        disableAP: false,
+        constraints: {
+          video: {
+            height: { ideal: 720, max: 720, min: 240 },
+            frameRate: { ideal: 30, min: 15 }
+          }
+        },
+        p2p: { enabled: true, stunServers: [{ urls: 'stun:meet-jit-si-turnrelay.jitsi.net:443' }] },
+        channelLastN: 8,
+        adaptiveLastN: true,
+        adaptiveBandwidth: true,
+      },
+      interfaceConfigOverwrite: {
+        SHOW_JITSI_WATERMARK: false,
+        SHOW_WATERMARK_FOR_GUESTS: false,
+        SHOW_BRAND_WATERMARK: false,
+        TOOLBAR_BUTTONS: [],
+        HIDE_INVITE_MORE_HEADER: true,
+        DISABLE_JOIN_LEAVE_NOTIFICATIONS: false,
+        filmStripOnly: false,
+      }
+    });
+
+    jitsiApi.addEventListener('videoConferenceJoined', () => {
+      document.getElementById('join-btn').disabled = false;
+      updateMicUI();
+      updateCamUI();
+    });
+
+    jitsiApi.addEventListener('audioMuteStatusChanged', ({ muted }) => {
+      micMuted = muted;
+      updateMicUI();
+    });
+
+    jitsiApi.addEventListener('videoMuteStatusChanged', ({ muted }) => {
+      camMuted = muted;
+      updateCamUI();
+    });
+
+    jitsiApi.addEventListener('screenSharingStatusChanged', ({ on }) => {
+      shareActive = on;
+      updateShareUI();
+    });
+
+    jitsiApi.addEventListener('videoConferenceLeft', () => {
+      cleanupCall();
+    });
+
+    // Network quality detection
+    jitsiApi.addEventListener('connectionQualityChanged', (data) => {
+      const badge = document.getElementById('network-badge');
+      if (data.localStats && data.localStats.packetLoss > 15) {
+        badge.classList.add('visible');
+        setTimeout(() => badge.classList.remove('visible'), 5000);
+      }
+    });
+
+  } catch(e) {
+    document.getElementById('perm-error').classList.add('visible');
+    showToast('Could not load video — check browser permissions', 'fa-exclamation');
+    console.error(e);
+  }
+}
+
+// ─────────────────────── Controls ───────────────────────
+function toggleMic() {
+  if (!jitsiApi) return;
+  jitsiApi.executeCommand('toggleAudio');
+}
+
+function toggleCam() {
+  if (!jitsiApi) return;
+  jitsiApi.executeCommand('toggleVideo');
+}
+
+function toggleShare() {
+  if (!jitsiApi) return;
+  jitsiApi.executeCommand('toggleShareScreen');
+}
+
+function toggleChat() {
+  if (!jitsiApi) return;
+  jitsiApi.executeCommand('toggleChat');
+}
+
+function toggleParticipants() {
+  if (!jitsiApi) return;
+  jitsiApi.executeCommand('toggleParticipantsPane');
+}
+
+function updateMicUI() {
+  const btn = document.getElementById('btn-mic');
+  const icon = document.getElementById('mic-icon');
+  const label = document.getElementById('mic-label');
+  const miniBtn = document.getElementById('mini-btn-mic');
+  const miniIcon = document.getElementById('mini-mic-icon');
+
+  if (micMuted) {
+    btn.classList.add('muted'); btn.classList.remove('active');
+    icon.className = 'fa-solid fa-microphone-slash';
+    label.textContent = 'Unmute';
+    miniBtn.classList.add('muted');
+    miniIcon.className = 'fa-solid fa-microphone-slash';
+  } else {
+    btn.classList.remove('muted'); btn.classList.add('active');
+    icon.className = 'fa-solid fa-microphone';
+    label.textContent = 'Mute';
+    miniBtn.classList.remove('muted');
+    miniIcon.className = 'fa-solid fa-microphone';
+  }
+}
+
+function updateCamUI() {
+  const btn = document.getElementById('btn-cam');
+  const icon = document.getElementById('cam-icon');
+  const label = document.getElementById('cam-label');
+  const miniBtn = document.getElementById('mini-btn-cam');
+  const miniIcon = document.getElementById('mini-cam-icon');
+
+  if (camMuted) {
+    btn.classList.add('muted'); btn.classList.remove('active');
+    icon.className = 'fa-solid fa-video-slash';
+    label.textContent = 'Camera On';
+    miniBtn.classList.add('muted');
+    miniIcon.className = 'fa-solid fa-video-slash';
+  } else {
+    btn.classList.remove('muted'); btn.classList.add('active');
+    icon.className = 'fa-solid fa-video';
+    label.textContent = 'Camera Off';
+    miniBtn.classList.remove('muted');
+    miniIcon.className = 'fa-solid fa-video';
+  }
+}
+
+function updateShareUI() {
+  const btn = document.getElementById('btn-share');
+  const icon = document.getElementById('share-icon');
+  const label = document.getElementById('share-label');
+  if (shareActive) {
+    btn.classList.add('active');
+    icon.className = 'fa-solid fa-stop';
+    label.textContent = 'Stop Share';
+    showToast('Screen sharing started', 'fa-display');
+  } else {
+    btn.classList.remove('active');
+    icon.className = 'fa-solid fa-display';
+    label.textContent = 'Share Screen';
+  }
+}
+
+// ─────────────────────── Minimize ───────────────────────
+function minimizeCall() {
+  if (!jitsiApi) return;
+  isMinimized = true;
+
+  const callscreen = document.getElementById('callscreen');
+  const miniPopup = document.getElementById('mini-popup');
+  const miniContainer = document.getElementById('mini-container');
+
+  // Move jitsi iframe into mini container
+  const jitsiFrame = callscreen.querySelector('iframe');
+  if (jitsiFrame) {
+    jitsiFrame.style.width = '100%';
+    jitsiFrame.style.height = '100%';
+    miniContainer.appendChild(jitsiFrame);
+  }
+
+  callscreen.classList.remove('active');
+  miniPopup.classList.add('active');
+  showToast('Class minimized', 'fa-compress');
+}
+
+function restoreCall() {
+  if (!jitsiApi) return;
+  isMinimized = false;
+
+  const callscreen = document.getElementById('callscreen');
+  const miniPopup = document.getElementById('mini-popup');
+  const jitsiContainer = document.getElementById('jitsi-container');
+
+  const jitsiFrame = miniPopup.querySelector('iframe');
+  if (jitsiFrame) {
+    jitsiFrame.style.width = '100%';
+    jitsiFrame.style.height = '100%';
+    jitsiContainer.prepend(jitsiFrame);
+  }
+
+  miniPopup.classList.remove('active');
+  callscreen.classList.add('active');
+}
+
+// ─────────────────────── End Call ───────────────────────
+function endCall() {
+  if (jitsiApi) {
+    jitsiApi.executeCommand('hangup');
+    setTimeout(cleanupCall, 500);
+  } else {
+    cleanupCall();
+  }
+}
+
+function cleanupCall() {
+  if (jitsiApi) { try { jitsiApi.dispose(); } catch(e) {} jitsiApi = null; }
+  clearInterval(durationTimer);
+  durationSec = 0;
+
+  document.getElementById('callscreen').classList.remove('active');
+  document.getElementById('mini-popup').classList.remove('active');
+  document.getElementById('prejoin').style.display = 'flex';
+  document.getElementById('join-btn').disabled = false;
+  document.getElementById('join-btn').innerHTML = '<i class="fa-solid fa-video"></i> Join Class Now';
+  document.getElementById('call-duration').textContent = '00:00';
+
+  // Clear containers
+  document.getElementById('jitsi-container').innerHTML = '<div id="perm-error"><div class="perm-icon"><i class="fa-solid fa-camera-slash"></i></div><h3 style="font-family:\'Space Grotesk\',sans-serif;font-size:18px;color:#fff;">Camera / Mic Access Denied</h3><p style="color:#6b7280;font-size:14px;max-width:280px;">Please allow access in your browser settings and refresh the page.</p></div>';
+  document.getElementById('mini-container').innerHTML = '';
+
+  shareActive = false; micMuted = false; camMuted = false;
+  showToast('Class ended', 'fa-phone-slash');
+}
+
+// ─────────────────────── Duration Timer ───────────────────────
+function startDurationTimer() {
+  durationSec = 0;
+  durationTimer = setInterval(() => {
+    durationSec++;
+    const h = Math.floor(durationSec / 3600);
+    const m = Math.floor((durationSec % 3600) / 60);
+    const s = durationSec % 60;
+    const pad = n => String(n).padStart(2,'0');
+    document.getElementById('call-duration').textContent = h > 0
+      ? `${pad(h)}:${pad(m)}:${pad(s)}` : `${pad(m)}:${pad(s)}`;
+  }, 1000);
+}
+
+// ─────────────────────── Draggable Mini Popup ───────────────────────
+(function() {
+  const popup = document.getElementById('mini-popup');
+  let dragging = false, ox = 0, oy = 0;
+
+  popup.addEventListener('mousedown', (e) => {
+    if (e.target.closest('.mini-btn, .mini-ctrl')) return;
+    dragging = true;
+    const rect = popup.getBoundingClientRect();
+    ox = e.clientX - rect.left;
+    oy = e.clientY - rect.top;
+    popup.style.cursor = 'grabbing';
+    e.preventDefault();
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!dragging) return;
+    const x = Math.max(0, Math.min(window.innerWidth - popup.offsetWidth, e.clientX - ox));
+    const y = Math.max(0, Math.min(window.innerHeight - popup.offsetHeight, e.clientY - oy));
+    popup.style.right = 'auto';
+    popup.style.bottom = 'auto';
+    popup.style.left = x + 'px';
+    popup.style.top = y + 'px';
+  });
+
+  document.addEventListener('mouseup', () => {
+    dragging = false;
+    popup.style.cursor = 'grab';
+  });
+
+  // Touch drag
+  popup.addEventListener('touchstart', (e) => {
+    const t = e.touches[0];
+    const rect = popup.getBoundingClientRect();
+    ox = t.clientX - rect.left;
+    oy = t.clientY - rect.top;
+    dragging = true;
+  }, { passive: true });
+
+  document.addEventListener('touchmove', (e) => {
+    if (!dragging) return;
+    const t = e.touches[0];
+    const x = Math.max(0, Math.min(window.innerWidth - popup.offsetWidth, t.clientX - ox));
+    const y = Math.max(0, Math.min(window.innerHeight - popup.offsetHeight, t.clientY - oy));
+    popup.style.right = 'auto';
+    popup.style.bottom = 'auto';
+    popup.style.left = x + 'px';
+    popup.style.top = y + 'px';
+  }, { passive: true });
+
+  document.addEventListener('touchend', () => { dragging = false; });
+
+  // Double-click mini popup to restore
+  popup.addEventListener('dblclick', restoreCall);
+})();
+
+// ─────────────────────── Keyboard Shortcuts ───────────────────────
+document.addEventListener('keydown', (e) => {
+  if (!jitsiApi) return;
+  if (e.target.tagName === 'INPUT') return;
+  if (e.key === 'm' || e.key === 'M') toggleMic();
+  if (e.key === 'v' || e.key === 'V') toggleCam();
+  if (e.key === 's' || e.key === 'S') toggleShare();
+  if (e.key === 'Escape') isMinimized ? restoreCall() : minimizeCall();
+});
+
+// ─────────────────────── Auto-fill from URL ───────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  generateRoom();
+});
+</script>
+</body>
+</html>

@@ -24,6 +24,55 @@
     <link rel="stylesheet" href="/css-and-js/theme.css">
     
     <style>
+        /* Added Space Grotesk to imports */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+        /* --- NEW BRAND THEME STYLES --- */
+        body {
+            background-color: #ffffff;
+            color: #323232;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Navigation Overrides for Light Theme */
+        nav {
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            border-bottom: 1px solid #e5e5e5;
+            backdrop-filter: blur(12px);
+        }
+
+        .nav-link {
+            color: #323232 !important;
+            font-weight: 400 !important;
+            letter-spacing: 0.04em;
+            font-size: 0.9rem !important;
+        }
+
+        .nav-link:hover {
+            color: #000 !important;
+            font-weight: 600 !important;
+        }
+
+        .mobile-menu {
+            background-color: #ffffff !important;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .mobile-nav-link {
+            color: #323232 !important;
+            font-weight: 400;
+            font-size: 0.9rem;
+        }
+
+        /* Icons in Mobile Menu */
+        .mobile-menu-btn {
+            color: #000 !important;
+        }
+
+        .mobile-menu-btn:hover {
+            background-color: #f3f4f6;
+        }
+
         /* --- BRAND CONSISTENT STYLES --- */
         
         /* Lightbox Styles */
@@ -50,10 +99,42 @@
             color: #a7e169; /* New Brand Accent */
         }
 
-        /* Masonry Layout */
-        .masonry-item {
-            break-inside: avoid;
-            margin-bottom: 1rem;
+        /* Grid Layout */
+        .grid-item {
+            position: relative;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            aspect-ratio: 3/4;
+        }
+        .grid-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            z-index: 10;
+        }
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+        .grid-item:hover img {
+            transform: scale(1.1);
+        }
+        .grid-item-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+        }
+        .grid-item:hover .grid-item-overlay {
+            opacity: 1;
         }
 
         /* Share Button */
@@ -76,7 +157,7 @@
             opacity: 0;
             transform: translateY(-10px);
         }
-        .masonry-item:hover .share-btn {
+        .grid-item:hover .share-btn {
             opacity: 1;
             transform: translateY(0);
         }
@@ -147,6 +228,23 @@
 
         /* Animation overrides */
         [data-aos] { transition-duration: 1000ms !important; }
+
+        /* Orb animations */
+        @keyframes orbDrift1 {
+            0%, 100% { transform: translate(0px, 0px) scale(1); }
+            33%       { transform: translate(30px, -20px) scale(1.05); }
+            66%       { transform: translate(-20px, 15px) scale(0.97); }
+        }
+        @keyframes orbDrift2 {
+            0%, 100% { transform: translateX(-50%) translate(0px, 0px) scale(1); }
+            40%       { transform: translateX(-50%) translate(-25px, 20px) scale(1.04); }
+            70%       { transform: translateX(-50%) translate(20px, -15px) scale(0.96); }
+        }
+        @keyframes orbDrift3 {
+            0%, 100% { transform: translate(0px, 0px) scale(1); }
+            30%       { transform: translate(-20px, 25px) scale(1.06); }
+            65%       { transform: translate(15px, -10px) scale(0.95); }
+        }
     </style>
 </head>
 <body class="bg-white text-[#323232]">
@@ -156,17 +254,13 @@
             <div class="nav-wrapper">
                 <div class="flex justify-between h-16 items-center">
                     <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <a href="/index.html#home" class="flex items-center">
-                                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png" alt="ART de ONE" class="h-10 w-auto">
-                            </a>
-                        </div>
+                        <a href="/index.html"><img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png" alt="ART de ONE" class="h-10 w-auto"></a>
                     </div>
                     
                     <div class="hidden md:flex items-center space-x-6 nav-center">
-                        <a href="/index.html#home" class="nav-link font-bold" style="color: #000 !important;">Home</a>
-                        <!-- <a href="/courses.html" class="nav-link">Courses</a> -->
+                        <a href="/index.html#home" class="nav-link">Home</a>
                         <a href="/shop.html" class="nav-link">Shop</a>
+                        <a href="/portfolio/student-gallery.html" class="nav-link" style="color: #000 !important; font-weight: 700 !important;">Student</a>
                         <a href="/blog.html" class="nav-link">Blog</a>
                         <a href="https://ai.artdeone.com/" class="nav-link">Ai</a>
                         <div class="nav-dropdown-wrapper">
@@ -176,11 +270,10 @@
                                 <a href="/prompt.html">AI Prompts</a>
                             </div>
                         </div>
-
                         <a href="/index.html#contact" class="nav-link">Contact</a>
                     </div>
                     
-                    <div class="hidden md:block">
+                    <div class="hidden md:flex items-center gap-4" id="desktop-auth-container">
                         <a href="/customer-dashboard.html" class="nav-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
                     </div>
                     
@@ -198,11 +291,11 @@
         
         <div class="mobile-menu md:hidden hidden" id="mobile-menu">
             <div class="py-2 px-4 space-y-1">
-                <a href="/index.html#home" class="block py-2 mobile-nav-link text-black font-bold">Home</a>
+                <a href="/index.html#home" class="block py-2 mobile-nav-link">Home</a>
                 <!-- <a href="/courses.html" class="block py-2 mobile-nav-link">Courses</a> -->
                 <a href="/shop.html" class="block py-2 mobile-nav-link">Shop</a>
+                <a href="/portfolio/student-gallery.html" class="block py-2 mobile-nav-link text-black font-bold">Student</a>
                 <a href="/blog.html" class="block py-2 mobile-nav-link">Blog</a>
-                <a href="https://ai.artdeone.com/" class="block py-2 mobile-nav-link">Ai</a>
                 <div>
                     <button onclick="toggleMobileResourcesDropdown()" class="block py-2 mobile-nav-link w-full text-left" style="display:flex;align-items:center;gap:6px;">
                         <span>Resources</span>
@@ -213,17 +306,24 @@
                         <a href="/prompt.html" class="block py-2 pl-6 text-sm text-gray-500 hover:text-black transition">AI Prompts</a>
                     </div>
                 </div>
+                <a href="https://ai.artdeone.com/" class="block py-2 mobile-nav-link">Ai</a>
                 <a href="/index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
                 <a href="/customer-dashboard.html" style="display:inline-flex; align-items:center; gap:0.35rem; background:#ed2939; color:#fff; font-weight:600; border-radius:2rem; padding:0.3rem 0.75rem; font-size:0.75rem; border:1px solid #ed2939; text-decoration:none;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
             </div>
         </div>
     </nav>
 
-    <main class="pt-32 pb-20 bg-white min-h-screen">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <main class="pt-32 pb-20 bg-white min-h-screen" style="overflow-x: clip; position: relative;">
+
+        <!-- Background Orbs -->
+        <div class="absolute rounded-full pointer-events-none" style="width:600px;height:600px;top:-100px;left:-150px;background:radial-gradient(circle at center,rgba(167,225,105,0.22) 0%,rgba(167,225,105,0.10) 35%,rgba(167,225,105,0.03) 60%,transparent 78%);filter:blur(65px);animation:orbDrift1 14s ease-in-out infinite;z-index:0;"></div>
+        <div class="absolute rounded-full pointer-events-none" style="width:650px;height:650px;top:200px;left:50%;transform:translateX(-50%);background:radial-gradient(circle at center,rgba(237,41,57,0.12) 0%,rgba(255,140,50,0.07) 35%,rgba(237,41,57,0.02) 60%,transparent 78%);filter:blur(75px);animation:orbDrift2 17s ease-in-out infinite;z-index:0;"></div>
+        <div class="absolute rounded-full pointer-events-none" style="width:500px;height:500px;top:50px;right:-100px;background:radial-gradient(circle at center,rgba(167,225,105,0.18) 0%,rgba(200,235,180,0.08) 40%,rgba(167,225,105,0.02) 65%,transparent 82%);filter:blur(60px);animation:orbDrift3 20s ease-in-out infinite;z-index:0;"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="position:relative;z-index:1;">
             
-            <section class="text-center py-12">
-                <div class="max-w-4xl mx-auto" data-aos="fade-up">
+            <!-- ===== HERO SECTION ===== -->
+            <section class="py-12">
+                <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
                     <span class="text-[#a7e169] font-bold tracking-widest text-xs uppercase mb-2 block">Student Showcase</span>
                     <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-4 artdeone-font">
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-black to-[#a7e169]">STUDENT GALLERY</span>
@@ -231,8 +331,46 @@
                     <p class="text-lg text-[#555] max-w-2xl mx-auto font-light">
                         Celebrating the creativity, skill, and dedication of our students across all course levels.
                     </p>
-                    <a href="/index.html#portfolio" class="inline-flex items-center gap-2 mt-6 text-sm font-semibold text-black hover:text-[#a7e169] transition-colors">
-                        <i class="fas fa-arrow-left"></i> Back to Portfolio
+                    <div class="flex justify-center gap-4 mt-6">
+                        <a href="/index.html#portfolio" class="inline-flex items-center gap-2 text-sm font-semibold text-black hover:text-[#a7e169] transition-colors">
+                            <i class="fas fa-arrow-left"></i> Back to Portfolio
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Stats Bar -->
+                <div class="max-w-3xl mx-auto mt-10 grid grid-cols-3 gap-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-center bg-white border border-gray-100 rounded-2xl py-5 px-4 shadow-sm">
+                        <div class="text-3xl font-bold text-black">100<span class="text-[#a7e169]">+</span></div>
+                        <div class="text-xs text-gray-500 uppercase tracking-widest mt-1">Students</div>
+                    </div>
+                    <div class="text-center bg-white border border-gray-100 rounded-2xl py-5 px-4 shadow-sm">
+                        <div class="text-3xl font-bold text-black">7<span class="text-[#a7e169]">+</span></div>
+                        <div class="text-xs text-gray-500 uppercase tracking-widest mt-1">Batches</div>
+                    </div>
+                    <div class="text-center bg-white border border-gray-100 rounded-2xl py-5 px-4 shadow-sm">
+                        <div class="text-3xl font-bold text-black">58<span class="text-[#a7e169]">+</span></div>
+                        <div class="text-xs text-gray-500 uppercase tracking-widest mt-1">Artworks</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== STUDENT LOGIN STRIP ===== -->
+            <section class="mb-14" data-aos="fade-up" data-aos-delay="150">
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-5 bg-[#f7fef0] border-l-4 border-[#a7e169] rounded-r-xl px-6 py-5">
+                    <div>
+                        <p class="font-bold text-black text-base mb-1">
+                            <i class="fas fa-user-graduate text-[#a7e169] mr-2"></i>ART de ONE ကျောင်းသား၊ ကျောင်းသူများ
+                        </p>
+                        <p class="text-sm text-gray-500 leading-relaxed">
+                            Login ဝင်ပြီး class materials များ download ရယူနိုင်သည်၊ homework တင်နိုင်သည်၊<br class="hidden sm:block">
+                            instructor feedback များ တိုက်ရိုက်ရယူနိုင်သည်။
+                        </p>
+                    </div>
+                    <a href="/Private/student-login.html"
+                       class="group flex-shrink-0 inline-flex items-center gap-2 bg-[#a7e169] text-black font-semibold text-sm rounded-full px-6 py-3 hover:bg-black hover:text-white transition-all duration-300 whitespace-nowrap">
+                        Student Login
+                        <i class="fas fa-arrow-right text-xs transition-transform duration-300 group-hover:translate-x-1"></i>
                     </a>
                 </div>
             </section>
@@ -240,10 +378,11 @@
             
             <div class="mb-20" data-aos="fade-up" data-aos-duration="800">
                 <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold mb-3">
-                        <span class="text-transparent bg-clip-text bg-black">Selected Artwork</span>
-                    </h2>
-                    <p class="text-sm text-gray-400 font-light mx-auto">Handpicked by ART de ONE Instructors</p>
+                    <span class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#a7e169] mb-3">
+                        <i class="fas fa-trophy"></i> Instructor Picks
+                    </span>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-3 text-black">Selected Artwork</h2>
+                    <p class="text-sm text-gray-400 font-light mx-auto">Handpicked by ART de ONE Instructors — outstanding work from each batch</p>
                 </div>
                 
 
@@ -348,279 +487,383 @@
                 </div>
             </div>
 
-            <div class="border-t border-gray-200 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-            
-            <div class="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
+            <div class="border-t border-gray-200 mt-8 pt-12">
+
+            <!-- Gallery Section Header — full width, centered above grid -->
+            <div class="text-center mb-10">
+                <span class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#a7e169] mb-2">
+                    <i class="fas fa-images"></i> All Artworks
+                </span>
+                <h2 class="text-2xl md:text-3xl font-bold text-black">Full Student Gallery</h2>
+                <p class="text-sm text-gray-400 mt-1">Click any artwork to view full size · Share on Facebook</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 
-                <div class="masonry-item group relative rounded-lg overflow-hidden cursor-pointer" data-aos="fade-up" onclick="openLightbox(0)">
-                    <img src="student-gallery/ayesandar.jpg" alt="Vector Portrait" class="gallery-img w-full h-auto block transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                        
+                <div class="grid-item cursor-pointer" data-aos="fade-up" onclick="openLightbox(0)">
+                    <img src="student-gallery/ayesandar.jpg" alt="Vector Portrait">
+                    <div class="grid-item-overlay">
                         <button onclick="shareSpecificImage(event, 'student-gallery/ayesandar.jpg')" class="share-btn" title="Share on Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </button>
-                        
                         <h3 class="text-lg font-bold text-white">Ma Aye Sandar</h3>
                         <p class="text-sm text-gray-200 font-light">Custome Typo</p>
                         <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">By one student</p>
                     </div>
                 </div>
 
-                <div class="masonry-item group relative rounded-lg overflow-hidden cursor-pointer" data-aos="fade-up" data-aos-delay="100" onclick="openLightbox(1)">
-                    <img src="student-gallery/wahwah.jpg" alt="Logo Concept" class="gallery-img w-full h-auto block transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                        
+                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="100" onclick="openLightbox(1)">
+                    <img src="student-gallery/wahwah.jpg" alt="Logo Concept">
+                    <div class="grid-item-overlay">
                         <button onclick="shareSpecificImage(event, 'student-gallery/wahwah.jpg')" class="share-btn" title="Share on Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </button>
-
                         <h3 class="text-lg font-bold text-white">Ma Wah Wah</h3>
                         <p class="text-sm text-gray-200 font-light">Vector Artwork</p>
                         <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Batch 1 student</p>
                     </div>
                 </div>
 
-                <div class="masonry-item group relative rounded-lg overflow-hidden cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(2)">
-                    <img src="student-gallery/lwinoomg-2.jpg" alt="Packaging Design" class="gallery-img w-full h-auto block transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                        
+                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(2)">
+                    <img src="student-gallery/lwinoomg-2.jpg" alt="Packaging Design">
+                    <div class="grid-item-overlay">
                         <button onclick="shareSpecificImage(event, 'student-gallery/lwinoomg-2.jpg')" class="share-btn" title="Share on Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </button>
-
                         <h3 class="text-lg font-bold text-white">Ko Lwin Oo Maung</h3>
                         <p class="text-sm text-gray-200 font-light">Vector Artwork</p>
                         <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Batch 1 student</p>
                     </div>
                 </div>
 
-                <div class="masonry-item group relative rounded-lg overflow-hidden cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(3)">
-                    <img src="student-gallery/phoochit.jpg" alt="Packaging Design" class="gallery-img w-full h-auto block transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                        
+                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(3)">
+                    <img src="student-gallery/phoochit.jpg" alt="Packaging Design">
+                    <div class="grid-item-overlay">
                         <button onclick="shareSpecificImage(event, 'student-gallery/phoochit.jpg')" class="share-btn" title="Share on Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </button>
-
                         <h3 class="text-lg font-bold text-white">Ma Phoo Phoo Chit</h3>
                         <p class="text-sm text-gray-200 font-light">Photo Manipulation</p>
                         <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">By 1 student</p>
                     </div>
                 </div>
 
-                <div class="masonry-item group relative rounded-lg overflow-hidden cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(4)">
-                    <img src="student-gallery/lwinoomg.jpg" alt="Packaging Design" class="gallery-img w-full h-auto block transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                        
+                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(4)">
+                    <img src="student-gallery/lwinoomg.jpg" alt="Packaging Design">
+                    <div class="grid-item-overlay">
                         <button onclick="shareSpecificImage(event, 'student-gallery/lwinoomg.jpg')" class="share-btn" title="Share on Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </button>
-
                         <h3 class="text-lg font-bold text-white">Ko Lwin Oo Maung</h3>
                         <p class="text-sm text-gray-200 font-light">Vector Artwork</p>
                         <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">By 1 student</p>
                     </div>
                 </div>
 
-                <div class="masonry-item group relative rounded-lg overflow-hidden cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(5)">
-                    <img src="student-gallery/tharhtetaung-3.jpg" alt="Packaging Design" class="gallery-img w-full h-auto block transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                        
+                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(5)">
+                    <img src="student-gallery/tharhtetaung-3.jpg" alt="Packaging Design">
+                    <div class="grid-item-overlay">
                         <button onclick="shareSpecificImage(event, 'student-gallery/tharhtetaung-3.jpg')" class="share-btn" title="Share on Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </button>
-
                         <h3 class="text-lg font-bold text-white">Ko Thar Htet Aung</h3>
                         <p class="text-sm text-gray-200 font-light">Minimalist Vector Artwork</p>
                         <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Batch 1 student</p>
                     </div>
                 </div>
 
-                <div class="masonry-item group relative rounded-lg overflow-hidden cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(6)">
-                    <img src="student-gallery/mintawa.jpeg" alt="Packaging Design" class="gallery-img w-full h-auto block transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                        
+                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(6)">
+                    <img src="student-gallery/mintawa.jpeg" alt="Packaging Design">
+                    <div class="grid-item-overlay">
                         <button onclick="shareSpecificImage(event, 'student-gallery/mintawa.jpeg')" class="share-btn" title="Share on Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </button>
-
                         <h3 class="text-lg font-bold text-white">Ko Min Ta Waw Marn</h3>
                         <p class="text-sm text-gray-200 font-light">UI Design</p>
                         <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Batch 3 student</p>
                     </div>
                 </div>
 
-                <div class="masonry-item group relative rounded-lg overflow-hidden cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(7)">
-                    <img src="student-gallery/thura-aung.jpg" alt="Packaging Design" class="gallery-img w-full h-auto block transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                        
+                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(7)">
+                    <img src="student-gallery/thura-aung.jpg" alt="Packaging Design">
+                    <div class="grid-item-overlay">
                         <button onclick="shareSpecificImage(event, 'student-gallery/thura-aung.jpg')" class="share-btn" title="Share on Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </button>
-
                         <h3 class="text-lg font-bold text-white">Ko Thura Aung</h3>
                         <p class="text-sm text-gray-200 font-light">Custom Typo</p>
                         <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Batch 5 student</p>
                     </div>
                 </div>
 
-                <div class="masonry-item group relative rounded-lg overflow-hidden cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(8)">
-                    <img src="student-gallery/mmwoman.jpg" alt="Packaging Design" class="gallery-img w-full h-auto block transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                        
+                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(8)">
+                    <img src="student-gallery/mmwoman.jpg" alt="Packaging Design">
+                    <div class="grid-item-overlay">
                         <button onclick="shareSpecificImage(event, 'student-gallery/mmwoman.jpg')" class="share-btn" title="Share on Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </button>
-
                         <h3 class="text-lg font-bold text-white">Yvonne</h3>
                         <p class="text-sm text-gray-200 font-light">Vector Artwork</p>
                         <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Batch 4 student</p>
                     </div>
                 </div>
 
-                <div class="masonry-item group relative rounded-lg overflow-hidden cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(9)">
-                    <img src="student-gallery/whitney-phyu.jpeg" alt="Packaging Design" class="gallery-img w-full h-auto block transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                        
+                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(9)">
+                    <img src="student-gallery/whitney-phyu.jpeg" alt="Packaging Design">
+                    <div class="grid-item-overlay">
                         <button onclick="shareSpecificImage(event, 'student-gallery/whitney-phyu.jpeg')" class="share-btn" title="Share on Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </button>
-
                         <h3 class="text-lg font-bold text-white">Whitney Phyu</h3>
                         <p class="text-sm text-gray-200 font-light">Vector Artwork</p>
                         <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Batch 4 student</p>
                     </div>
                 </div>
 
-                <div class="masonry-item group relative rounded-lg overflow-hidden cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(10)">
-                    <img src="student-gallery/poly-1.jpeg" alt="Packaging Design" class="gallery-img w-full h-auto block transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                        
+                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(10)">
+                    <img src="student-gallery/poly-1.jpeg" alt="Packaging Design">
+                    <div class="grid-item-overlay">
                         <button onclick="shareSpecificImage(event, 'student-gallery/poly-1.jpeg')" class="share-btn" title="Share on Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </button>
-
                         <h3 class="text-lg font-bold text-white">Poly Lin</h3>
                         <p class="text-sm text-gray-200 font-light">Vector Artwork</p>
                         <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Batch 4 student</p>
                     </div>
                 </div>
 
-                <div class="masonry-item group relative rounded-lg overflow-hidden cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(11)">
-                    <img src="student-gallery/poly-2.jpeg" alt="Packaging Design" class="gallery-img w-full h-auto block transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                        
+                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(11)">
+                    <img src="student-gallery/poly-2.jpeg" alt="Packaging Design">
+                    <div class="grid-item-overlay">
                         <button onclick="shareSpecificImage(event, 'student-gallery/poly-2.jpeg')" class="share-btn" title="Share on Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </button>
-
                         <h3 class="text-lg font-bold text-white">Poly Lin</h3>
                         <p class="text-sm text-gray-200 font-light">Vector Artwork</p>
                         <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Batch 4 student</p>
                     </div>
                 </div>
 
-                <div class="masonry-item group relative rounded-lg overflow-hidden cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(12)">
-                    <img src="student-gallery/poly-3.jpeg" alt="Packaging Design" class="gallery-img w-full h-auto block transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                        
+                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(12)">
+                    <img src="student-gallery/poly-3.jpeg" alt="Packaging Design">
+                    <div class="grid-item-overlay">
                         <button onclick="shareSpecificImage(event, 'student-gallery/poly-3.jpeg')" class="share-btn" title="Share on Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </button>
-
                         <h3 class="text-lg font-bold text-white">Poly Lin</h3>
                         <p class="text-sm text-gray-200 font-light">Vector Artwork</p>
                         <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Batch 4 student</p>
                     </div>
                 </div>
 
-                <div class="masonry-item group relative rounded-lg overflow-hidden cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(13)">
-                    <img src="student-gallery/thura-aung-2.jpg" alt="Packaging Design" class="gallery-img w-full h-auto block transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                        
+                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(13)">
+                    <img src="student-gallery/thura-aung-2.jpg" alt="Packaging Design">
+                    <div class="grid-item-overlay">
                         <button onclick="shareSpecificImage(event, 'student-gallery/thura-aung-2.jpg')" class="share-btn" title="Share on Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </button>
-
                         <h3 class="text-lg font-bold text-white">Poly Lin</h3>
                         <p class="text-sm text-gray-200 font-light">Vector Artwork</p>
                         <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Batch 4 student</p>
                     </div>
                 </div>
 
-                <div class="masonry-item group relative rounded-lg overflow-hidden cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(14)">
-                    <img src="student-gallery/sumyat-1.jpeg" alt="Packaging Design" class="gallery-img w-full h-auto block transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                        
+                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(14)">
+                    <img src="student-gallery/sumyat-1.jpeg" alt="Packaging Design">
+                    <div class="grid-item-overlay">
                         <button onclick="shareSpecificImage(event, 'student-gallery/sumyat-1.jpeg')" class="share-btn" title="Share on Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </button>
-
                         <h3 class="text-lg font-bold text-white">Ma Su Myat Mon</h3>
                         <p class="text-sm text-gray-200 font-light">Vector Artwork</p>
                         <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">By 1 student</p>
                     </div>
                 </div>
 
-                <div class="masonry-item group relative rounded-lg overflow-hidden cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(15)">
-                    <img src="student-gallery/sumyat-2.jpeg" alt="Packaging Design" class="gallery-img w-full h-auto block transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                        
+                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(15)">
+                    <img src="student-gallery/sumyat-2.jpeg" alt="Packaging Design">
+                    <div class="grid-item-overlay">
                         <button onclick="shareSpecificImage(event, 'student-gallery/sumyat-2.jpeg')" class="share-btn" title="Share on Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </button>
-
                         <h3 class="text-lg font-bold text-white">Ma Su Myat Mon</h3>
                         <p class="text-sm text-gray-200 font-light">Vector Artwork</p>
                         <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">By 1 student</p>
                     </div>
                 </div>
 
-                <div class="masonry-item group relative rounded-lg overflow-hidden cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(16)">
-                    <img src="student-gallery/Aileen-1.jpeg" alt="Packaging Design" class="gallery-img w-full h-auto block transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                        
+                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(16)">
+                    <img src="student-gallery/Aileen-1.jpeg" alt="Packaging Design">
+                    <div class="grid-item-overlay">
                         <button onclick="shareSpecificImage(event, 'student-gallery/Aileen-1.jpeg')" class="share-btn" title="Share on Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </button>
-
                         <h3 class="text-lg font-bold text-white">Aileen</h3>
                         <p class="text-sm text-gray-200 font-light">Vector Artwork</p>
                         <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Batch 4 student</p>
                     </div>
                 </div>
 
-                <div class="masonry-item group relative rounded-lg overflow-hidden cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(17)">
-                    <img src="student-gallery/Aileen-2.jpeg" alt="Packaging Design" class="gallery-img w-full h-auto block transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                        
+                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(17)">
+                    <img src="student-gallery/Aileen-2.jpeg" alt="Packaging Design">
+                    <div class="grid-item-overlay">
                         <button onclick="shareSpecificImage(event, 'student-gallery/Aileen-2.jpeg')" class="share-btn" title="Share on Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </button>
-
                         <h3 class="text-lg font-bold text-white">Aileen</h3>
                         <p class="text-sm text-gray-200 font-light">Vector Artwork</p>
                         <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Batch 4 student</p>
                     </div>
                 </div>
 
-                
+                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(18)">
+                    <img src="student-gallery/Gee Lay.jpg" alt="Student Artwork">
+                    <div class="grid-item-overlay">
+                        <button onclick="shareSpecificImage(event, 'student-gallery/Gee Lay.jpg')" class="share-btn" title="Share on Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <h3 class="text-lg font-bold text-white">Gee Lay</h3>
+                        <p class="text-sm text-gray-200 font-light">Student Artwork</p>
+                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Student</p>
+                    </div>
+                </div>
+
+                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(19)">
+                    <img src="student-gallery/Ko Lwin Oo Maung-02.jpg" alt="Student Artwork">
+                    <div class="grid-item-overlay">
+                        <button onclick="shareSpecificImage(event, 'student-gallery/Ko Lwin Oo Maung-02.jpg')" class="share-btn" title="Share on Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <h3 class="text-lg font-bold text-white">Ko Lwin Oo Maung</h3>
+                        <p class="text-sm text-gray-200 font-light">Student Artwork</p>
+                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Student</p>
+                    </div>
+                </div>
+
+                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(20)">
+                    <img src="student-gallery/lwinoomg-3.jpg" alt="Student Artwork">
+                    <div class="grid-item-overlay">
+                        <button onclick="shareSpecificImage(event, 'student-gallery/lwinoomg-3.jpg')" class="share-btn" title="Share on Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <h3 class="text-lg font-bold text-white">Ko Lwin Oo Maung</h3>
+                        <p class="text-sm text-gray-200 font-light">Student Artwork</p>
+                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Student</p>
+                    </div>
+                </div>
+
+                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(21)">
+                    <img src="student-gallery/lwinoomg-4.jpg" alt="Student Artwork">
+                    <div class="grid-item-overlay">
+                        <button onclick="shareSpecificImage(event, 'student-gallery/lwinoomg-4.jpg')" class="share-btn" title="Share on Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <h3 class="text-lg font-bold text-white">Ko Lwin Oo Maung</h3>
+                        <p class="text-sm text-gray-200 font-light">Student Artwork</p>
+                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Student</p>
+                    </div>
+                </div>
+
+                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(22)">
+                    <img src="student-gallery/phoochit-3.jpeg" alt="Student Artwork">
+                    <div class="grid-item-overlay">
+                        <button onclick="shareSpecificImage(event, 'student-gallery/phoochit-3.jpeg')" class="share-btn" title="Share on Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <h3 class="text-lg font-bold text-white">Ma Phoo Phoo Chit</h3>
+                        <p class="text-sm text-gray-200 font-light">Student Artwork</p>
+                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Student</p>
+                    </div>
+                </div>
+
+                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(23)">
+                    <img src="student-gallery/phoochit=2.jpg" alt="Student Artwork">
+                    <div class="grid-item-overlay">
+                        <button onclick="shareSpecificImage(event, 'student-gallery/phoochit=2.jpg')" class="share-btn" title="Share on Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <h3 class="text-lg font-bold text-white">Ma Phoo Phoo Chit</h3>
+                        <p class="text-sm text-gray-200 font-light">Student Artwork</p>
+                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Student</p>
+                    </div>
+                </div>
+
+                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(24)">
+                    <img src="student-gallery/phooochit-2.jpg" alt="Student Artwork">
+                    <div class="grid-item-overlay">
+                        <button onclick="shareSpecificImage(event, 'student-gallery/phooochit-2.jpg')" class="share-btn" title="Share on Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <h3 class="text-lg font-bold text-white">Ma Phoo Phoo Chit</h3>
+                        <p class="text-sm text-gray-200 font-light">Student Artwork</p>
+                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Student</p>
+                    </div>
+                </div>
+
+                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(25)">
+                    <img src="student-gallery/sumyat-3.jpeg" alt="Student Artwork">
+                    <div class="grid-item-overlay">
+                        <button onclick="shareSpecificImage(event, 'student-gallery/sumyat-3.jpeg')" class="share-btn" title="Share on Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <h3 class="text-lg font-bold text-white">Ma Su Myat Mon</h3>
+                        <p class="text-sm text-gray-200 font-light">Student Artwork</p>
+                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Student</p>
+                    </div>
+                </div>
+
+                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(26)">
+                    <img src="student-gallery/tharhtetaung-2.jpg" alt="Student Artwork">
+                    <div class="grid-item-overlay">
+                        <button onclick="shareSpecificImage(event, 'student-gallery/tharhtetaung-2.jpg')" class="share-btn" title="Share on Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <h3 class="text-lg font-bold text-white">Ko Thar Htet Aung</h3>
+                        <p class="text-sm text-gray-200 font-light">Student Artwork</p>
+                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Student</p>
+                    </div>
+                </div>
+
+                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(27)">
+                    <img src="student-gallery/wahwah-2.jpg" alt="Student Artwork">
+                    <div class="grid-item-overlay">
+                        <button onclick="shareSpecificImage(event, 'student-gallery/wahwah-2.jpg')" class="share-btn" title="Share on Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <h3 class="text-lg font-bold text-white">Ma Wah Wah</h3>
+                        <p class="text-sm text-gray-200 font-light">Student Artwork</p>
+                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Student</p>
+                    </div>
+                </div>
 
             </div>
         </div>
 
-        <div class="mt-16 border border-[#a7e169] rounded-lg p-8 flex flex-col md:flex-row items-center justify-between bg-[#a7e169]/10" data-aos="fade-up">
-                        <div class="mb-4 md:mb-0">
-                            <h4 class="text-xl font-bold text-black">Master Vector ART</h4>
-                            <p class="text-gray-500 text-sm mt-1">Learn the advanced techniques used in this project.</p>
-                        </div>
-                        <a href="tel:09953681497" class="inline-flex items-center gap-2 bg-[#a7e169] text-black font-bold py-3 px-8 rounded-full hover:bg-[#ed2939] hover:text-white transition-all duration-300 shadow-sm">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
-                                <path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd" />
-                            </svg>
-                            <span>09953681497</span>
-                        </a>
-                    </div>
+        <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-6" data-aos="fade-up">
+            <!-- Enroll CTA -->
+            <div class="border border-[#a7e169] rounded-2xl p-8 flex flex-col items-start bg-[#a7e169]/10">
+                <span class="text-xs font-bold uppercase tracking-widest text-[#a7e169] mb-2">New Students</span>
+                <h4 class="text-xl font-bold text-black mb-2">Master Vector ART</h4>
+                <p class="text-gray-500 text-sm mt-1 mb-6">Learn the advanced techniques used in this gallery. Join the next batch today.</p>
+                <a href="tel:09953681497" class="inline-flex items-center gap-2 bg-[#a7e169] text-black font-bold py-3 px-8 rounded-full hover:bg-[#ed2939] hover:text-white transition-all duration-300 shadow-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                        <path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd" />
+                    </svg>
+                    <span>09953681497</span>
+                </a>
+            </div>
+            <!-- Student Login CTA -->
+            <div class="border border-black rounded-2xl p-8 flex flex-col items-start bg-black text-white">
+                <span class="text-xs font-bold uppercase tracking-widest text-[#a7e169] mb-2">Current Students</span>
+                <h4 class="text-xl font-bold text-white mb-2">Student Dashboard</h4>
+                <p class="text-gray-400 text-sm mt-1 mb-6">Class materials ကြည့်ရှုရန်၊ homework တင်ရန်နှင့် instructor feedback ရယူရန် login ဝင်ပါ။</p>
+                <a href="/Private/student-login.html" class="group inline-flex items-center gap-2 bg-[#a7e169] text-black font-bold py-3 px-8 rounded-full hover:bg-white hover:text-black transition-all duration-300 shadow-sm">
+                    <i class="fas fa-user-graduate"></i>
+                    Student Login
+                    <i class="fas fa-arrow-right text-xs transition-transform duration-300 group-hover:translate-x-1"></i>
+                </a>
+            </div>
+        </div>
     </main>
 
     <div id="lightbox" class="fixed inset-0 z-[60] bg-black/95 flex flex-col justify-center items-center p-4">
@@ -824,7 +1067,7 @@
         let images = [];
 
         document.addEventListener('DOMContentLoaded', () => {
-            const items = document.querySelectorAll('.masonry-item');
+            const items = document.querySelectorAll('.grid-item');
             items.forEach((item, index) => {
                 const img = item.querySelector('img');
                 const title = item.querySelector('h3').innerText;

@@ -1,99 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Dashboard - ART de ONE</title>
-    <link rel="icon" type="image/png" href="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769316272/fav-icon_n00lji.png">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <title>Student Dashboard — ART de ONE</title>
+    <link rel="icon" type="image/png"
+        href="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769316272/fav-icon_n00lji.png">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
-  tailwind.config = {
-    darkMode: 'class', // Enable manual dark mode toggle
-    theme: {
-      extend: {
-        colors: {
-          brand: {
-            green: '#a7e169', // Your brand green
-            dark: '#111116',  // Dark mode bg
-            card: '#1a1a20',  // Dark mode card
-            border: '#2a2a35' // Dark mode border
-          }
+        tailwind.config = {
+            darkMode: 'class',
+            theme: { extend: { colors: { brand: { green: '#a7e169', dark: '#111116', card: '#1a1a20', border: '#2a2a35' } } } }
+        };
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
         }
-      }
-    }
-  }
-</script>
+    </script>
 
-    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Space+Grotesk:wght@300;400;500;600&display=swap');
-        
+
         :root {
             --accent: #a7e169;
-            --text-primary: #1a1a1a;
-            --text-secondary: #666666;
-            --bg-light: #f9fafb;
         }
 
         body {
-            font-family: 'Outfit', sans-serif; /* Cleaner, more minimal font */
-            background-color: var(--bg-light);
-            color: var(--text-primary);
+            font-family: 'Outfit', sans-serif;
             -webkit-font-smoothing: antialiased;
         }
-        
-        h1, h2, h3, h4, h5, h6 {
+
+        h1,
+        h2,
+        h3,
+        h4 {
             font-family: 'Space Grotesk', sans-serif;
             letter-spacing: -0.02em;
         }
 
-        /* Minimal Scrollbar */
         ::-webkit-scrollbar {
-            width: 6px;
+            width: 5px;
         }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
+
         ::-webkit-scrollbar-thumb {
             background: #e5e7eb;
             border-radius: 10px;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #d1d5db;
+
+        .dark ::-webkit-scrollbar-thumb {
+            background: #2a2a35;
         }
 
-        /* Animations */
         .fade-in-up {
-            animation: fadeInUp 0.6s ease-out forwards;
-            opacity: 0;
-            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease-out both;
         }
 
         @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: none;
             }
         }
 
         .hover-lift {
             transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
         }
+
         .hover-lift:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 20px -10px rgba(0, 0, 0, 0.05);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px -8px rgba(0, 0, 0, .08);
         }
 
-        /* Sidebar Link Active State */
         .sidebar-link {
             position: relative;
-            transition: all 0.3s ease;
+            transition: all 0.25s ease;
         }
+
         .sidebar-link::before {
             content: '';
             position: absolute;
@@ -102,1497 +91,1505 @@
             transform: translateY(-50%);
             height: 0%;
             width: 3px;
-            background-color: var(--accent);
-            transition: height 0.3s ease;
-            border-radius: 0 4px 4px 0;
+            background: var(--accent);
+            transition: height .25s ease;
+            border-radius: 0 3px 3px 0;
         }
+
         .sidebar-link.active::before {
             height: 60%;
         }
+
         .sidebar-link.active {
-            color: black;
-            background: linear-gradient(90deg, #f9fafb 0%, #ffffff 100%);
+            color: #000;
+            background: linear-gradient(90deg, #f9fafb 0%, #fff 100%);
         }
+
+        .dark .sidebar-link.active {
+            color: #fff;
+            background: linear-gradient(90deg, #1a1a20 0%, #111116 100%);
+        }
+
         .sidebar-link:hover:not(.active) {
-            color: black;
-            background-color: #f9fafb;
+            color: #000;
+            background: #f9fafb;
         }
 
-        /* Utilities */
-        .hidden { display: none; }
-        .text-thin-custom { font-weight: 300; }
-        .border-thin { border-width: 1px; }
+        .dark .sidebar-link:hover:not(.active) {
+            color: #fff;
+            background: #1a1a20;
+        }
 
+        .section {
+            display: none;
+        }
 
-            /* =========================================
-            DARK MODE STYLES (ADDITION)
-            ========================================= */
-            
-            /* Default Transition */
-            body, .card, .nav-item, input, select {
-                transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-            }
+        .section.active {
+            display: block;
+        }
 
-            /* Dark Mode Variables Override */
-            .dark body {
-                background-color: #111116 !important;
-                color: #e5e5e5 !important;
-            }
+        .hidden {
+            display: none !important;
+        }
 
-            /* Dark Mode Cards */
-            .dark .bg-white {
-                background-color: #1a1a20 !important;
-                border-color: #2a2a35 !important;
-                color: #e5e5e5 !important;
+        /* ── Sidebar Desktop Visibility Fallback ── */
+        @media (min-width: 768px) {
+            #main-sidebar {
+                display: flex !important;
+                flex-direction: column;
             }
 
-            /* Dark Mode Text */
-            .dark .text-gray-500, 
-            .dark .text-gray-600, 
-            .dark .text-gray-700 {
-                color: #a0a0a0 !important;
+            #mobile-topbar {
+                display: none !important;
             }
-            
-            .dark .text-gray-800,
-            .dark .text-gray-900,
-            .dark .text-black {
-                color: #ffffff !important;
+        }
+
+        @media (max-width: 767px) {
+            #main-sidebar {
+                display: none !important;
             }
 
-            /* Dark Mode Inputs */
-            .dark input, 
-            .dark select, 
-            .dark textarea {
-                background-color: #16161c !important;
-                border-color: #2a2a35 !important;
-                color: #ffffff !important;
+            #mobile-topbar {
+                display: flex !important;
             }
+        }
 
-            /* Theme Toggle Button Style */
-            .theme-toggle {
-                cursor: pointer;
-                padding: 8px;
-                border-radius: 50%;
-                transition: background 0.3s;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 40px;
-                height: 40px;
-            }
-            .dark .theme-toggle {
-                background: rgba(255,255,255,0.1);
-            }
-            .theme-toggle:hover {
-                background: rgba(0,0,0,0.05);
-            }
-            .dark .theme-toggle:hover {
-                background: rgba(255,255,255,0.2);
-            }
+        /* File download card */
+        .file-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            border-radius: 16px;
+            transition: all 0.25s ease;
+        }
 
-             /* Dark Mode Logo Filter */
-            /* ဒီ Code က Logo ကို အစိမ်းရောင် #a7e169 ပြောင်းပေးပါမယ် */
-            .dark img[alt="Logo"] {
-                filter: brightness(0) saturate(100%) invert(86%) sepia(8%) saturate(1487%) hue-rotate(44deg) brightness(98%) contrast(87%);
-            }
+        .file-card:hover {
+            transform: translateX(4px);
+        }
 
-                        /* =========================================
-            DARK MODE MASTER FIXES (UPDATED)
-            ========================================= */
-            
-            /* 1. Background Fixes */
-            /* အဖြူရောင်ကတ်များအားလုံးကို Dark Mode ပြောင်းမယ် */
-            .dark .bg-white {
-                background-color: #1a1a20 !important; /* Card Background */
-                border-color: #2a2a35 !important;
-                color: #e5e5e5 !important;
-            }
+        /* Dark mode overrides (High Contrast) */
+        .dark .bg-white {
+            background-color: #121217 !important;
+        }
 
-            /* မီးခိုးရောင်ဖျော့ကွက်များ (AI Result Box, Profile Stats) ကို Dark Mode ပြောင်းမယ် */
-            .dark .bg-gray-50 {
-                background-color: #111116 !important; /* Darker Background */
-                border-color: #2a2a35 !important;
-                color: #e5e5e5 !important;
-            }
+        .dark .border-gray-100 {
+            border-color: #202028 !important;
+        }
 
-            /* 2. AI Model Cards Specific Fix */
-            /* Model ရွေးတဲ့ကတ်လေးတွေ */
-            .dark label.cursor-pointer {
-                background-color: #1a1a20 !important; 
-                border-color: #3f3f46 !important;
-            }
-            /* ရွေးထားတဲ့ Model (Selected) */
-            .dark input[type="radio"]:checked + div {
-                background-color: #27272a !important;
-                border-color: #a7e169 !important;
-            }
+        .dark .border-gray-50 {
+            border-color: #202028 !important;
+        }
 
-            /* 3. Text Color Fixes */
-            /* မီးခိုးရောင်စာသားများကို ဖတ်ရလွယ်အောင် ပြုပြင်မယ် */
-            .dark .text-gray-400,
-            .dark .text-gray-500, 
-            .dark .text-gray-600, 
-            .dark .text-gray-700 {
-                color: #9ca3af !important; /* Lighter Gray */
-            }
-            
-            .dark .text-gray-800,
-            .dark .text-gray-900,
-            .dark .text-black {
-                color: #ffffff !important; /* Pure White */
-            }
+        .dark .text-gray-900 {
+            color: #ffffff !important;
+        }
 
-            /* 4. Input & Textarea Fix */
-            .dark input, 
-            .dark select, 
-            .dark textarea {
-                background-color: #16161c !important;
-                border-color: #2a2a35 !important;
-                color: #ffffff !important;
-            }
-            
-            /* Placeholder Text Color */
-            .dark input::placeholder,
-            .dark textarea::placeholder {
-                color: #6b7280 !important;
-            }
+        .dark .text-gray-800 {
+            color: #f3f4f6 !important;
+        }
 
-            /* 5. Special Elements */
-            /* AI Result Container အတွင်းက Icon နေရာ */
-            .dark #ai-result-container {
-                background-color: transparent !important; /* အပြင်ကောင်နဲ့ အရောင်တူအောင် */
-                border: none !important;
-            }
+        .dark .text-gray-700 {
+            color: #e5e7eb !important;
+        }
 
+        .dark .text-gray-500 {
+            color: #babad3 !important;
+        }
 
+        /* Brighter gray */
+        .dark .text-gray-400 {
+            color: #9191a7 !important;
+        }
 
+        /* Brighter than 6b7280 */
+        .dark .bg-gray-50 {
+            background-color: #08080a !important;
+        }
+
+        /* Deeper background */
+        .dark .bg-gray-100 {
+            background-color: #121217 !important;
+        }
+
+        .dark input,
+        .dark select,
+        .dark textarea {
+            background-color: #0b0b0f !important;
+            border-color: #2a2a35 !important;
+            color: #ffffff !important;
+            border-width: 1px !important;
+        }
+
+        /* ── Dark mode global text fallback ── */
+        .dark body {
+            color: #ffffff;
+        }
+
+        .dark h1,
+        .dark h2,
+        .dark h3,
+        .dark h4,
+        .dark h5 {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .dark p {
+            color: #d1d5db;
+        }
+
+        .dark span:not([class*="bg-"]):not([class*="badge"]):not([class*="text-"]) {
+            color: inherit;
+        }
     </style>
 </head>
-<body>
 
-    <div class="flex h-screen overflow-hidden bg-white">
-        
-        <aside class="sidebar w-72 bg-white border-r border-gray-100 hidden md:flex flex-col z-10">
-            <div class="p-8 flex items-center justify-start">
-                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png" 
-                    alt="Logo" class="h-8 opacity-90 hover:opacity-100 transition-opacity">
+<body class="bg-[#eef0f3] dark:bg-brand-dark text-gray-900 dark:text-gray-100 transition-colors duration-300">
+
+    <div class="flex h-screen overflow-hidden">
+
+        <!-- ═══ SIDEBAR ═══ -->
+        <aside id="main-sidebar"
+            class="w-72 bg-white dark:bg-brand-card border-r border-gray-200 dark:border-brand-border hidden md:flex flex-col z-10 transition-colors shadow-lg drop-shadow-[4px_0_24px_rgba(0,0,0,0.03)] relative z-20">
+            <div class="p-8">
+                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png"
+                    alt="Logo" class="h-8 opacity-90">
             </div>
 
-            <nav class="flex-1 px-6 space-y-1 overflow-y-auto mt-4">
+            <nav class="flex-1 px-5 space-y-1 overflow-y-auto">
                 <p class="px-4 text-[10px] uppercase tracking-widest text-gray-400 font-medium mb-4">Menu</p>
-                <a href="#" class="sidebar-link active flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-500 text-sm font-medium" data-section="dashboard">
-                    <i class="fa-solid fa-chart-pie w-5 text-center"></i>
+                <a href="#"
+                    class="sidebar-link active flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-700 dark:text-gray-300 text-sm font-medium transition hover:text-black dark:hover:text-white"
+                    data-section="dashboard">
+                    <svg class="w-5 h-5 opacity-80 text-center" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <rect width="7" height="9" x="3" y="3" rx="1" />
+                        <rect width="7" height="5" x="14" y="3" rx="1" />
+                        <rect width="7" height="9" x="14" y="12" rx="1" />
+                        <rect width="7" height="5" x="3" y="16" rx="1" />
+                    </svg>
                     <span>Dashboard</span>
                 </a>
-                <a href="#" class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-500 text-sm font-medium" data-section="my-courses">
-                    <i class="fa-solid fa-graduation-cap w-5 text-center"></i>
+                <a href="#"
+                    class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-700 dark:text-gray-300 text-sm font-medium transition hover:text-black dark:hover:text-white"
+                    data-section="live-class">
+                    <svg class="w-5 h-5 opacity-80 text-center" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                        <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                    </svg>
+                    <span>Live Class</span>
+                </a>
+                <a href="#"
+                    class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-700 dark:text-gray-300 text-sm font-medium transition hover:text-black dark:hover:text-white"
+                    data-section="my-courses">
+                    <svg class="w-5 h-5 opacity-80 text-center" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                        <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                    </svg>
                     <span>My Courses</span>
                 </a>
-                <!-- AI Studio Link -->
-                <a href="#" class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-500 text-sm font-medium" data-section="ai-studio">
-                    <i class="fa-solid fa-wand-magic-sparkles w-5 text-center"></i>
+                <a href="#"
+                    class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-700 dark:text-gray-300 text-sm font-medium transition hover:text-black dark:hover:text-white"
+                    data-section="downloads">
+                    <svg class="w-5 h-5 opacity-80 text-center" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" x2="12" y1="15" y2="3" />
+                    </svg>
+                    <span class="flex-1">Downloads</span>
+                    <span class="bg-brand-green text-black text-[10px] font-bold px-2 py-0.5 rounded-full">R2</span>
+                </a>
+                <a href="#"
+                    class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-700 dark:text-gray-300 text-sm font-medium transition hover:text-black dark:hover:text-white"
+                    data-section="software">
+                    <svg class="w-5 h-5 opacity-80 text-center" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <rect x="2" y="3" width="20" height="14" rx="2"/>
+                        <path d="M8 21h8M12 17v4"/>
+                    </svg>
+                    <span class="flex-1">Software</span>
+                </a>
+                <a href="#"
+                    class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-700 dark:text-gray-300 text-sm font-medium transition hover:text-black dark:hover:text-white"
+                    data-section="ai-studio">
+                    <svg class="w-5 h-5 opacity-80 text-center" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path
+                            d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+                        <path d="M5 3v4" />
+                        <path d="M19 17v4" />
+                        <path d="M3 5h4" />
+                        <path d="M17 19h4" />
+                    </svg>
                     <span>AI Studio</span>
                 </a>
-
-                <!-- Premium Blog Link -->
-                <a href="#" class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-500 text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group" data-section="premium-blog">
-                    <i class="fa-solid fa-layer-group w-5 text-center group-hover:text-gray-900 dark:group-hover:text-white transition-colors"></i>
-                    <span class="flex-1">Premium Blog</span>
-                    <span class="bg-brand-green text-black text-10px font-bold px-2 py-0.5 rounded-full shadow-sm">NEW</span>
+                <a href="#"
+                    class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-700 dark:text-gray-300 text-sm font-medium transition hover:text-black dark:hover:text-white"
+                    data-section="premium-blog">
+                    <svg class="w-5 h-5 opacity-80 text-center" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                        <polyline points="2 17 12 22 22 17" />
+                        <polyline points="2 12 12 17 22 12" />
+                    </svg>
+                    <span class="flex-1">Students Blog</span>
+                    <span class="bg-brand-green text-black text-[10px] font-bold px-2 py-0.5 rounded-full">NEW</span>
                 </a>
-
-                <!-- Announcement Link (Desktop) -->
-                <a href="#" class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-500 text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group" data-section="announcements">
-                    <!-- Icon -->
-                    <i class="fa-solid fa-bullhorn w-5 text-center group-hover:text-gray-900 dark:group-hover:text-white transition-colors"></i>
-                    
-                    <!-- Text (Flex-1 to push badge to right if needed, otherwise standard) -->
+                <a href="#"
+                    class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-700 dark:text-gray-300 text-sm font-medium transition hover:text-black dark:hover:text-white"
+                    data-section="announcements">
+                    <svg class="w-5 h-5 opacity-80 text-center" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="m3 11 18-5v12L3 14v-3z" />
+                        <path d="M11.6 16.8a3 3 0 1 1-5.8-1.6" />
+                    </svg>
                     <span class="flex-1">Announcements</span>
-                    
-                    <!-- Notification Badge (Red) -->
-                    <span id="desktop-noti" class="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm hidden">
-                        0
-                    </span>
+                    <span id="desktop-noti"
+                        class="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full hidden">0</span>
                 </a>
-
-
-                <a href="#" class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-500 text-sm font-medium" data-section="profile">
-                    <i class="fa-regular fa-user w-5 text-center"></i>
+                <a href="#"
+                    class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-700 dark:text-gray-300 text-sm font-medium transition hover:text-black dark:hover:text-white"
+                    data-section="profile">
+                    <svg class="w-5 h-5 opacity-80 text-center" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
                     <span>Profile</span>
                 </a>
             </nav>
 
-            <div class="p-6 border-t border-gray-50 dark:border-gray-800 transition-colors">
-                <div class="flex items-center gap-3 px-2 py-2 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-colors cursor-pointer group">
-                    <div onclick="switchSection('profile')" class="flex items-center gap-3 px-2 py-2 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-colors cursor-pointer group">
-                        <!-- Avatar Image -->
-                        <img id="sidebar-avatar" 
-                            src="https://via.placeholder.com/150" 
-                            class="w-9 h-9 rounded-full object-cover border border-gray-100 dark:border-gray-700"
-                            alt="User Avatar">
-                        
-                        <!-- User Info -->
-                        <div class="flex-1 min-w-0">
-                            <span id="student-name" class="block text-sm text-gray-800 dark:text-gray-200 font-medium truncate">Loading...</span>
-                            <p class="text-xs text-gray-400 truncate font-light" id="sidebar-user-email">...</p>
-                        </div>
+            <!-- Sidebar Footer -->
+            <div class="p-5 border-t border-gray-50 dark:border-brand-border space-y-3">
+                <!-- User info -->
+                <div onclick="switchSection('profile')" class="flex items-center gap-3 cursor-pointer group">
+                    <img id="sidebar-avatar" src="https://via.placeholder.com/40"
+                        class="w-9 h-9 rounded-full object-cover border border-gray-100 dark:border-gray-700 flex-shrink-0">
+                    <div class="flex-1 min-w-0">
+                        <span id="student-name"
+                            class="block text-sm font-medium truncate group-hover:text-brand-green transition">Loading…</span>
+                        <p class="text-xs text-gray-400 truncate font-light" id="sidebar-user-email">…</p>
                     </div>
-
-                    <!-- Theme Toggle Button (NEW) -->
-                    <button id="themeToggleDesktop" class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 transition mr-1" title="Toggle Dark Mode">
-                         <!-- Sun Icon (Light Mode) -->
-                         <i class="fas fa-sun text-orange-400 block dark:hidden text-sm"></i>
-                         <!-- Moon Icon (Dark Mode) -->
-                         <i class="fas fa-moon text-[#a7e169] hidden dark:block text-sm"></i>
+                </div>
+                <!-- Actions row -->
+                <div class="flex items-center gap-2">
+                    <button id="themeToggleDesktop" title="Toggle theme"
+                        class="w-9 h-9 rounded-lg flex items-center justify-center hover:bg-gray-100 transition flex-shrink-0 border border-gray-100">
+                        <!-- Sun icon: shown in light mode -->
+                        <svg class="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                            viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5" />
+                            <line x1="12" y1="1" x2="12" y2="3" />
+                            <line x1="12" y1="21" x2="12" y2="23" />
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                            <line x1="1" y1="12" x2="3" y2="12" />
+                            <line x1="21" y1="12" x2="23" y2="12" />
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                        </svg>
+                        <!-- Moon icon: shown in dark mode -->
+                        <svg class="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                            viewBox="0 0 24 24" fill="none" stroke="#a7e169" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" style="display:none">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                        </svg>
                     </button>
-
-                    <!-- Logout Button -->
-                    <button onclick="logout()" class="text-gray-300 hover:text-red-500 transition-colors p-1" title="Logout">
-                        <i class="fa-solid fa-arrow-right-from-bracket text-sm"></i>
+                    <button onclick="logout()"
+                        class="flex-1 flex items-center justify-center gap-2 text-xs font-medium text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition px-3 py-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/10 border border-gray-100 dark:border-brand-border">
+                        <i class="fa-solid fa-arrow-right-from-bracket text-xs"></i>
+                        <span>Sign Out</span>
                     </button>
                 </div>
             </div>
 
         </aside>
 
-        <!-- dark:bg-[#111116] ကို ထပ်ဖြည့်လိုက်ပါတယ် -->
-        <div class="flex-1 flex flex-col h-full overflow-hidden relative bg-[#fcfcfc] dark:bg-[#111116] transition-colors">
-            <header class="md:hidden bg-white/80 dark:bg-[#111116]/90 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 p-4 flex justify-between items-center z-20 sticky top-0 transition-colors">
-                <!-- Logo -->
-                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png" alt="Logo" class="h-9 opacity-90 hover:opacity-100 transition-opacity">
-                
-                <!-- Right Side Controls -->
-                <div class="flex items-center gap-2">
-                    <!-- Theme Toggle Button (NEW) -->
-                    <button id="themeToggleMobile" class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 transition" title="Toggle Dark Mode">
-                         <!-- Sun Icon (Light Mode) -->
-                         <i class="fas fa-sun text-orange-400 block dark:hidden text-lg"></i>
-                         <!-- Moon Icon (Dark Mode) -->
-                         <i class="fas fa-moon text-[#a7e169] hidden dark:block text-lg"></i>
-                    </button>
+        <!-- ═══ MAIN AREA ═══ -->
+        <div class="flex-1 flex flex-col h-full overflow-hidden">
 
-                    <!-- Menu Button -->
-                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="text-gray-500 dark:text-gray-400 focus:outline-none z-50 relative p-2 ml-1">
-                        <i class="fa-solid fa-bars text-lg"></i>
+            <!-- Mobile Header -->
+            <header id="mobile-topbar"
+                class="md:hidden bg-white/90 dark:bg-brand-dark/90 backdrop-blur-md border-b border-gray-100 dark:border-brand-border p-4 flex justify-between items-center z-20 sticky top-0">
+                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png"
+                    alt="Logo" class="h-8">
+                <div class="flex items-center gap-2">
+                    <button id="themeToggleMobile" title="Toggle theme"
+                        class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-100 transition">
+                        <svg class="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17"
+                            viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5" />
+                            <line x1="12" y1="1" x2="12" y2="3" />
+                            <line x1="12" y1="21" x2="12" y2="23" />
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                            <line x1="1" y1="12" x2="3" y2="12" />
+                            <line x1="21" y1="12" x2="23" y2="12" />
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                        </svg>
+                        <svg class="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17"
+                            viewBox="0 0 24 24" fill="none" stroke="#a7e169" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" style="display:none">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                        </svg>
+                    </button>
+                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="p-2">
+                        <i class="fa-solid fa-bars text-lg text-gray-500"></i>
                     </button>
                 </div>
             </header>
 
+            <!-- Mobile Sidebar -->
+            <div id="mobile-sidebar" class="fixed inset-0 z-40 hidden bg-black/40 dark:bg-black/70"
+                onclick="toggleMobileMenu()">
+                <div id="mobile-sidebar-content"
+                    class="w-80 max-w-[85vw] h-full bg-white dark:bg-brand-dark shadow-2xl flex flex-col p-6 border-r border-gray-100 dark:border-brand-border transform -translate-x-full transition-transform duration-300"
+                    onclick="event.stopPropagation()">
+                    <div class="flex items-center justify-between mb-8">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png"
+                            alt="Logo" class="h-8">
+                        <button onclick="toggleMobileMenu()"
+                            class="w-10 h-10 rounded-full bg-gray-50 dark:bg-brand-card flex items-center justify-center">
+                            <i class="fa-solid fa-xmark text-gray-500"></i>
+                        </button>
+                    </div>
+                    <nav class="space-y-2 flex-1">
+                        <button onclick="switchSection('dashboard');toggleMobileMenu()"
+                            class="w-full flex items-center gap-4 px-4 py-3.5 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-brand-card rounded-2xl transition text-sm font-medium"><svg
+                                class="w-5 h-5 opacity-80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect width="7" height="9" x="3" y="3" rx="1" />
+                                <rect width="7" height="5" x="14" y="3" rx="1" />
+                                <rect width="7" height="9" x="14" y="12" rx="1" />
+                                <rect width="7" height="5" x="3" y="16" rx="1" />
+                            </svg><span>Dashboard</span></button>
+                        <button onclick="switchSection('live-class');toggleMobileMenu()"
+                            class="w-full flex items-center gap-4 px-4 py-3.5 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-brand-card rounded-2xl transition text-sm font-medium"><svg
+                                class="w-5 h-5 opacity-80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                                <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                            </svg><span>Live Class</span></button>
+                        <button onclick="switchSection('my-courses');toggleMobileMenu()"
+                            class="w-full flex items-center gap-4 px-4 py-3.5 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-brand-card rounded-2xl transition text-sm font-medium"><svg
+                                class="w-5 h-5 opacity-80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                                <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                            </svg><span>My Courses</span></button>
+                        <button onclick="switchSection('downloads');toggleMobileMenu()"
+                            class="w-full flex items-center gap-4 px-4 py-3.5 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-brand-card rounded-2xl transition text-sm font-medium"><svg
+                                class="w-5 h-5 opacity-80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="7 10 12 15 17 10" />
+                                <line x1="12" x2="12" y1="15" y2="3" />
+                            </svg><span>Downloads</span><span
+                                class="ml-auto bg-brand-green text-black text-[10px] font-bold px-2 py-0.5 rounded-full">R2</span></button>
+                        <button onclick="switchSection('software');toggleMobileMenu()"
+                            class="w-full flex items-center gap-4 px-4 py-3.5 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-brand-card rounded-2xl transition text-sm font-medium"><svg
+                                class="w-5 h-5 opacity-80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect x="2" y="3" width="20" height="14" rx="2"/>
+                                <path d="M8 21h8M12 17v4"/>
+                            </svg><span>Software</span></button>
+                        <button onclick="switchSection('ai-studio');toggleMobileMenu()"
+                            class="w-full flex items-center gap-4 px-4 py-3.5 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-brand-card rounded-2xl transition text-sm font-medium"><svg
+                                class="w-5 h-5 opacity-80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+                                <path d="M5 3v4" />
+                                <path d="M19 17v4" />
+                                <path d="M3 5h4" />
+                                <path d="M17 19h4" />
+                            </svg><span>AI Studio</span></button>
+                        <button onclick="switchSection('premium-blog');toggleMobileMenu()"
+                            class="w-full flex items-center gap-4 px-4 py-3.5 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-brand-card rounded-2xl transition text-sm font-medium"><svg
+                                class="w-5 h-5 opacity-80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                                <polyline points="2 17 12 22 22 17" />
+                                <polyline points="2 12 12 17 22 12" />
+                            </svg><span>Premium Blog</span></button>
+                        <button onclick="switchSection('announcements');toggleMobileMenu()"
+                            class="w-full flex items-center gap-4 px-4 py-3.5 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-brand-card rounded-2xl transition text-sm font-medium"><svg
+                                class="w-5 h-5 opacity-80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="m3 11 18-5v12L3 14v-3z" />
+                                <path d="M11.6 16.8a3 3 0 1 1-5.8-1.6" />
+                            </svg><span>Announcements</span><span id="mobile-noti"
+                                class="ml-auto bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full hidden">0</span></button>
+                        <button onclick="switchSection('profile');toggleMobileMenu()"
+                            class="w-full flex items-center gap-4 px-4 py-3.5 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-brand-card rounded-2xl transition text-sm font-medium"><svg
+                                class="w-5 h-5 opacity-80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg><span>Profile</span></button>
+                    </nav>
+                    <div class="pt-5 mt-6 border-t border-gray-100 dark:border-brand-border">
+                        <button onclick="confirmLogout()"
+                            class="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-2xl font-semibold text-sm bg-red-50 text-red-600 hover:bg-red-100 dark:bg-red-500/10 dark:text-red-400 border border-red-100 dark:border-red-500/20 transition">
+                            <i class="fa-solid fa-power-off text-xs"></i> Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-            <!-- Mobile Sidebar Overlay -->
-<div id="mobile-sidebar"
-     class="fixed inset-0 z-40 hidden transition-opacity duration-300 bg-black/40 dark:bg-black/70"
-     onclick="toggleMobileMenu()">
-
-  <!-- Mobile Sidebar Panel -->
-  <div id="mobile-sidebar-content"
-       class="w-80 max-w-[85vw] h-full shadow-2xl transform -translate-x-full transition-transform duration-300 flex flex-col p-6 border-r border-gray-100 dark:border-gray-800 bg-white dark:bg-[#111116]"
-       onclick="event.stopPropagation()">
-
-    <!-- Top Header (Logo + Close) -->
-    <div class="flex items-center justify-between mb-8">
-      <div class="flex items-center gap-3">
-        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png"
-             alt="Logo"
-             class="h-8 w-auto object-contain">
-        <span class="text-xs uppercase tracking-widest text-gray-400 dark:text-gray-500 font-medium">Menu</span>
-      </div>
-
-      <button class="w-10 h-10 rounded-full flex items-center justify-center bg-gray-50 hover:bg-gray-100 dark:bg-[#1a1a20] dark:hover:bg-[#22222a] transition"
-              onclick="toggleMobileMenu()"
-              aria-label="Close menu"
-              title="Close">
-        <i class="fa-solid fa-xmark text-gray-500 dark:text-gray-300"></i>
-      </button>
-    </div>
-
-    <!-- Nav Buttons -->
-    <nav class="space-y-2 flex-1">
-      <button onclick="switchSection('dashboard'); toggleMobileMenu()"
-              class="w-full flex items-center gap-4 px-4 py-3.5 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-[#1a1a20] rounded-2xl transition-all text-sm font-medium border border-transparent hover:border-gray-100 dark:hover:border-gray-800">
-        <i class="fa-solid fa-chart-pie w-5 text-center"></i>
-        <span class="flex-1 text-left">Dashboard</span>
-      </button>
-
-      <button onclick="switchSection('my-courses'); toggleMobileMenu()"
-              class="w-full flex items-center gap-4 px-4 py-3.5 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-[#1a1a20] rounded-2xl transition-all text-sm font-medium border border-transparent hover:border-gray-100 dark:hover:border-gray-800">
-        <i class="fa-solid fa-graduation-cap w-5 text-center"></i>
-        <span class="flex-1 text-left">My Courses</span>
-      </button>
-
-      <button onclick="switchSection('ai-studio'); toggleMobileMenu()"
-              class="w-full flex items-center gap-4 px-4 py-3.5 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-[#1a1a20] rounded-2xl transition-all text-sm font-medium border border-transparent hover:border-gray-100 dark:hover:border-gray-800">
-        <i class="fa-solid fa-wand-magic-sparkles w-5 text-center"></i>
-        <span class="flex-1 text-left">AI Studio</span>
-      </button>
-
-      <button onclick="switchSection('premium-blog'); toggleMobileMenu()" class="w-full flex items-center gap-4 px-4 py-3.5 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-1a1a20 rounded-2xl transition-all text-sm font-medium border border-transparent hover:border-gray-100 dark:hover:border-gray-800">
-        <i class="fa-solid fa-layer-group w-5 text-center"></i>
-        <span class="flex-1 text-left">Premium Blog</span>
-      </button>
-
-
-      <button onclick="switchSection('announcements'); toggleMobileMenu()"
-              class="w-full flex items-center gap-4 px-4 py-3.5 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-[#1a1a20] rounded-2xl transition-all text-sm font-medium border border-transparent hover:border-gray-100 dark:hover:border-gray-800">
-        <i class="fa-solid fa-bullhorn w-5 text-center"></i>
-        <span class="flex-1 text-left">Announcements</span>
-
-        <!-- Notification Badge -->
-        <span id="mobile-noti" class="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm hidden">
-          0
-        </span>
-      </button>
-
-      <button onclick="switchSection('profile'); toggleMobileMenu()"
-              class="w-full flex items-center gap-4 px-4 py-3.5 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-[#1a1a20] rounded-2xl transition-all text-sm font-medium border border-transparent hover:border-gray-100 dark:hover:border-gray-800">
-        <i class="fa-regular fa-user w-5 text-center"></i>
-        <span class="flex-1 text-left">Profile</span>
-      </button>
-    </nav>
-
-    <!-- Bottom Logout -->
-    <div class="pt-5 mt-6 border-t border-gray-100 dark:border-gray-800">
-      <button onclick="handleLogout()"
-              class="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-2xl font-semibold text-sm transition-all
-                     bg-red-50 text-red-600 hover:bg-red-100
-                     dark:bg-red-500/10 dark:text-red-400 dark:hover:bg-red-500/15
-                     border border-red-100 dark:border-red-500/20">
-        <i class="fa-solid fa-power-off text-xs"></i>
-        Logout
-      </button>
-
-      <p class="mt-4 text-[11px] text-gray-400 dark:text-gray-500 font-light text-center">
-        ART de ONE • Student Portal
-      </p>
-    </div>
-
-  </div>
-</div>
-
-
+            <!-- ═══ MAIN CONTENT ═══ -->
             <main class="flex-1 overflow-y-auto p-4 md:p-10 scroll-smooth" id="main-content">
-                
-                <div id="dashboard-section" class="section space-y-10 max-w-7xl mx-auto fade-in-up">
-                    
+
+                <!-- ── LIVE CLASS ── -->
+                <div id="live-class-section" class="section space-y-8 max-w-3xl mx-auto fade-in-up">
+                    <div>
+                        <h2 class="text-2xl font-light">Live Class</h2>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm font-light mt-1">Join your instructor's virtual classroom</p>
+                    </div>
+                    <div class="bg-white dark:bg-brand-card p-8 rounded-2xl border border-gray-100 dark:border-brand-border">
+                        <div class="max-w-md">
+                            <label class="block text-sm font-medium mb-2">Room Code</label>
+                            <input type="text" id="student-room-code" class="w-full bg-gray-50 dark:bg-brand-dark border border-gray-200 dark:border-brand-border rounded-xl p-3 text-sm focus:outline-none focus:border-brand-green transition mb-4" placeholder="Enter room code provided by instructor">
+                            <button onclick="joinStudentLiveClass()" class="w-full bg-brand-green text-black font-medium py-3 rounded-xl hover:bg-green-400 transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-video"></i> Join Class
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── DASHBOARD ── -->
+                <div id="dashboard-section" class="section active space-y-8 max-w-7xl mx-auto fade-in-up">
                     <div class="relative overflow-hidden rounded-2xl bg-black h-48 md:h-56 flex items-center">
-                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768710049/student-banner_dadfyn.png" 
-                             class="absolute inset-0 w-full h-full object-cover opacity-60" 
-                             alt="Banner">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768710049/student-banner_dadfyn.png"
+                            class="absolute inset-0 w-full h-full object-cover opacity-60" alt="">
                         <div class="absolute inset-0 bg-gradient-to-r from-black/80 to-transparent"></div>
-                        <div class="relative z-10 px-8 md:px-12 w-full">
-                            <p class="text-white/70 text-sm tracking-widest uppercase mb-2 font-light">Student Portal</p>
-                            <h1 class="text-3xl md:text-4xl font-light text-white leading-tight">
-                                Welcome back, <br>
-                                <span id="welcome-name" class="font-medium text-[#a7e169]">Student</span>
+                        <div class="relative z-10 px-8 md:px-12">
+                            <p class="text-white/60 text-xs tracking-widest uppercase mb-2">Student Portal</p>
+                            <h1 class="text-3xl md:text-4xl font-light text-white">Welcome back,<br>
+                                <span id="welcome-name" class="font-medium text-brand-green">Student</span>
                             </h1>
                         </div>
                     </div>
 
-                    <div class="bg-white rounded-2xl p-8 border border-gray-100 hover-lift">
+                    <!-- Profile Card -->
+                    <div
+                        class="bg-white dark:bg-brand-card rounded-2xl p-8 border border-gray-100 dark:border-brand-border hover-lift">
                         <div class="flex flex-col xl:flex-row gap-8 xl:items-center">
-                            
-                            <div class="flex items-center gap-6 xl:w-1/3 xl:border-r border-gray-100 xl:pr-8">
-                                <div class="relative group">
-                                    <div class="w-20 h-20 rounded-full bg-gray-50 border border-gray-100 overflow-hidden flex items-center justify-center">
-                                        <i class="fa-regular fa-user text-2xl text-gray-300" id="detail-profile-icon"></i>
-                                        <img id="detail-profile-img" src="" alt="Profile" class="w-full h-full object-cover hidden transition-transform group-hover:scale-110">
+                            <div
+                                class="flex items-center gap-6 xl:w-1/3 xl:border-r border-gray-100 dark:border-brand-border xl:pr-8">
+                                <div class="relative">
+                                    <div
+                                        class="w-20 h-20 rounded-full bg-gray-50 dark:bg-brand-dark border border-gray-100 dark:border-brand-border overflow-hidden flex items-center justify-center">
+                                        <i class="fa-regular fa-user text-2xl text-gray-300"
+                                            id="detail-profile-icon"></i>
+                                        <img id="detail-profile-img" src="" alt="Profile"
+                                            class="w-full h-full object-cover hidden">
                                     </div>
                                 </div>
                                 <div>
-                                    <h3 class="text-xl font-semibold text-gray-900 mb-1" id="detail-full-name">Loading...</h3>
-                                    <p class="text-sm text-gray-400 font-light" id="detail-student-id">ID: -</p>
-                                    <p class="text-sm text-gray-500 mt-2 flex items-center gap-2">
-                                        <i class="fa-regular fa-envelope text-xs"></i> <span id="detail-email" class="truncate">-</span>
+                                    <h3 class="text-xl font-semibold mb-1" id="detail-full-name">Loading…</h3>
+                                    <p class="text-sm text-gray-400 font-light" id="detail-student-id">–</p>
+                                    <p class="text-sm text-gray-500 mt-1 flex items-center gap-2"><i
+                                            class="fa-regular fa-envelope text-xs"></i><span id="detail-email">–</span>
                                     </p>
                                 </div>
                             </div>
-
                             <div class="grid grid-cols-2 md:grid-cols-3 gap-6 xl:flex-1">
                                 <div>
                                     <p class="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Phone</p>
-                                    <p class="text-sm font-medium text-gray-700" id="detail-phone">-</p>
+                                    <p class="text-sm font-medium" id="detail-phone">–</p>
                                 </div>
-                                <div class="col-span-2 md:col-span-2">
+                                <div class="col-span-2">
                                     <p class="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Address</p>
-                                    <p class="text-sm font-medium text-gray-700 truncate" id="detail-address">-</p>
+                                    <p class="text-sm font-medium truncate" id="detail-address">–</p>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="mt-8 pt-8 border-t border-gray-50 grid grid-cols-2 md:grid-cols-4 gap-4">
-                            <div class="text-center md:text-left md:pl-4 md:border-l border-transparent">
-                                <span class="block text-2xl font-light text-gray-900" id="stat-attendance-total">0</span>
-                                <span class="text-xs text-gray-400 uppercase tracking-wide">Present</span>
-                            </div>
-                            <div class="text-center md:text-left md:pl-4 md:border-l border-gray-100">
-                                <span class="block text-2xl font-light text-yellow-600" id="stat-attendance-late">0</span>
-                                <span class="text-xs text-gray-400 uppercase tracking-wide">Late</span>
-                            </div>
-                            <div class="text-center md:text-left md:pl-4 md:border-l border-gray-100">
-                                <span class="block text-2xl font-light text-orange-600" id="stat-attendance-undertime">0</span>
-                                <span class="text-xs text-gray-400 uppercase tracking-wide">Undertime</span>
-                            </div>
-                            <div class="text-center md:text-left md:pl-4 md:border-l border-gray-100">
-                                <span class="block text-2xl font-light text-red-500" id="stat-attendance-absent">0</span>
-                                <span class="text-xs text-gray-400 uppercase tracking-wide">Absent</span>
-                            </div>
+                        <div
+                            class="mt-8 pt-8 border-t border-gray-50 dark:border-brand-border grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="text-center md:text-left"><span class="block text-2xl font-light"
+                                    id="stat-attendance-total">0</span><span
+                                    class="text-xs text-gray-400 uppercase tracking-wide">Present</span></div>
+                            <div class="text-center md:text-left"><span
+                                    class="block text-2xl font-light text-yellow-600"
+                                    id="stat-attendance-late">0</span><span
+                                    class="text-xs text-gray-400 uppercase tracking-wide">Late</span></div>
+                            <div class="text-center md:text-left"><span
+                                    class="block text-2xl font-light text-orange-600"
+                                    id="stat-attendance-undertime">0</span><span
+                                    class="text-xs text-gray-400 uppercase tracking-wide">Undertime</span></div>
+                            <div class="text-center md:text-left"><span class="block text-2xl font-light text-red-500"
+                                    id="stat-attendance-absent">0</span><span
+                                    class="text-xs text-gray-400 uppercase tracking-wide">Absent</span></div>
                         </div>
                     </div>
 
+                    <!-- Stat Cards -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="bg-white p-6 rounded-2xl border border-gray-100 hover-lift group">
+                        <div
+                            class="bg-white dark:bg-brand-card p-6 rounded-2xl border border-gray-100 dark:border-brand-border hover-lift group">
                             <div class="flex justify-between items-start">
                                 <div>
-                                    <p class="text-gray-400 text-xs uppercase tracking-widest font-medium mb-2">Enrolled</p>
-                                    <h3 class="text-3xl font-light text-gray-900 group-hover:text-blue-600 transition-colors" id="stat-enrolled">0</h3>
+                                    <p class="text-gray-400 text-xs uppercase tracking-widest font-medium mb-2">Enrolled
+                                    </p>
+                                    <h3 class="text-3xl font-light group-hover:text-blue-600 transition"
+                                        id="stat-enrolled">0</h3>
                                 </div>
-                                <i class="fa-solid fa-book-open text-gray-100 text-3xl group-hover:text-blue-50 transition-colors"></i>
+                                <i
+                                    class="fa-solid fa-book-open text-gray-100 dark:text-gray-700 text-3xl group-hover:text-blue-100 transition"></i>
                             </div>
                         </div>
-                        <div class="bg-white p-6 rounded-2xl border border-gray-100 hover-lift group">
+                        <div
+                            class="bg-white dark:bg-brand-card p-6 rounded-2xl border border-gray-100 dark:border-brand-border hover-lift group">
                             <div class="flex justify-between items-start">
                                 <div>
-                                    <p class="text-gray-400 text-xs uppercase tracking-widest font-medium mb-2">Active</p>
-                                    <h3 class="text-3xl font-light text-gray-900 group-hover:text-[#a7e169] transition-colors" id="stat-active">0</h3>
+                                    <p class="text-gray-400 text-xs uppercase tracking-widest font-medium mb-2">Active
+                                    </p>
+                                    <h3 class="text-3xl font-light group-hover:text-brand-green transition"
+                                        id="stat-active">0</h3>
                                 </div>
-                                <i class="fa-solid fa-play text-gray-100 text-3xl group-hover:text-[#a7e169]/20 transition-colors"></i>
+                                <i
+                                    class="fa-solid fa-play text-gray-100 dark:text-gray-700 text-3xl group-hover:text-brand-green/20 transition"></i>
                             </div>
                         </div>
-                        <div class="bg-white p-6 rounded-2xl border border-gray-100 hover-lift group">
+                        <div class="bg-white dark:bg-brand-card p-6 rounded-2xl border border-gray-100 dark:border-brand-border hover-lift group cursor-pointer"
+                            onclick="switchSection('downloads')">
                             <div class="flex justify-between items-start">
                                 <div>
-                                    <p class="text-gray-400 text-xs uppercase tracking-widest font-medium mb-2">Files</p>
-                                    <h3 class="text-3xl font-light text-gray-900 group-hover:text-yellow-500 transition-colors" id="stat-files">0</h3>
+                                    <p class="text-gray-400 text-xs uppercase tracking-widest font-medium mb-2">
+                                        Downloads</p>
+                                    <h3 class="text-3xl font-light group-hover:text-yellow-500 transition"
+                                        id="stat-files">–</h3>
                                 </div>
-                                <i class="fa-solid fa-folder text-gray-100 text-3xl group-hover:text-yellow-100 transition-colors"></i>
+                                <i
+                                    class="fa-solid fa-folder-arrow-down text-gray-100 dark:text-gray-700 text-3xl group-hover:text-yellow-100 transition"></i>
                             </div>
                         </div>
                     </div>
 
+                    <!-- Dashboard Announcement Preview -->
+                    <div id="dashboard-announcement-widget" class="hidden space-y-4">
+                        <div class="flex justify-between items-center px-1">
+                            <h2 class="text-xl font-medium flex items-center gap-2">
+                                <span class="relative flex h-2.5 w-2.5">
+                                    <span
+                                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
+                                </span>
+                                Latest Announcement
+                            </h2>
+                            <button onclick="switchSection('announcements')"
+                                class="text-xs text-gray-400 hover:text-black dark:hover:text-white transition flex items-center gap-2">VIEW
+                                ALL <i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                        <div id="dashboard-announcement-content"></div>
+                    </div>
+
+                    <!-- Recent Courses -->
                     <div>
-                        <div class="flex justify-between items-end mb-6 px-1">
-                            <h2 class="text-xl font-medium text-gray-900">Active Courses</h2>
-                            <button onclick="switchSection('my-courses')" class="text-xs text-gray-400 hover:text-black transition-colors flex items-center gap-2">
-                                VIEW ALL <i class="fa-solid fa-arrow-right"></i>
-                            </button>
+                        <div class="flex justify-between items-center mb-6 px-1">
+                            <h2 class="text-xl font-medium">Active Courses</h2>
+                            <button onclick="switchSection('my-courses')"
+                                class="text-xs text-gray-400 hover:text-black dark:hover:text-white transition flex items-center gap-2">VIEW
+                                ALL <i class="fa-solid fa-arrow-right"></i></button>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="dashboard-courses-grid">
-                            <div class="col-span-full py-12 text-center text-gray-300 font-light">
+                            <div class="col-span-full text-center py-12 text-gray-300 font-light">
                                 <i class="fa-solid fa-circle-notch fa-spin mb-3 text-xl"></i>
-                                <p>Loading courses...</p>
+                                <p>Loading courses…</p>
                             </div>
                         </div>
                     </div>
-
                 </div>
 
-                <div id="my-courses-section" class="section hidden space-y-8 max-w-7xl mx-auto fade-in-up">
-                    <h2 class="text-2xl font-light text-gray-900">Learning Library</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="all-courses-grid">
-                        </div>
+                <!-- ── MY COURSES ── -->
+                <div id="my-courses-section" class="section space-y-8 max-w-7xl mx-auto fade-in-up">
+                    <h2 class="text-2xl font-light">Learning Library</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="all-courses-grid"></div>
                 </div>
 
-                <div id="course-detail-view" class="section hidden space-y-6 max-w-5xl mx-auto fade-in-up">
-                    <button onclick="switchSection('my-courses'); window.scrollTo(0,0)" class="group flex items-center gap-2 text-gray-400 hover:text-black mb-6 transition-colors text-sm">
+                <!-- Course Detail -->
+                <div id="course-detail-view" class="section space-y-6 max-w-5xl mx-auto fade-in-up">
+                    <button id="course-back-btn" onclick="switchSection('my-courses')"
+                        class="group flex items-center gap-2 text-gray-400 hover:text-black dark:hover:text-white mb-6 transition text-sm">
                         <i class="fa-solid fa-arrow-left transition-transform group-hover:-translate-x-1"></i> Back
                     </button>
-                    
-                    <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden">
-                        <div class="p-8 md:p-10 border-b border-gray-50 bg-white">
-                            <div class="flex justify-between items-start flex-wrap gap-4">
-                                <div class="space-y-4">
-                                    <span class="px-3 py-1 rounded-full border border-gray-200 text-gray-500 text-[10px] font-semibold uppercase tracking-widest inline-block" id="detail-course-type">Type</span>
-                                    <h1 class="text-3xl md:text-4xl font-light text-gray-900" id="detail-course-title">Course Title</h1>
-                                    <p class="text-gray-500 font-light max-w-2xl leading-relaxed" id="detail-course-desc">Course description...</p>
-                                </div>
-                                <div class="text-right">
-                                    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-50 text-green-700 text-xs font-medium border border-green-100" id="detail-course-status">
-                                        <span class="w-2 h-2 rounded-full bg-green-500"></span> Active
-                                    </span>
-                                </div>
-                            </div>
+                    <div
+                        class="bg-white dark:bg-brand-card rounded-2xl border border-gray-100 dark:border-brand-border overflow-hidden">
+                        <div class="p-8 md:p-10 border-b border-gray-50 dark:border-brand-border">
+                            <span
+                                class="px-3 py-1 rounded-full border border-gray-200 dark:border-brand-border text-gray-500 text-[10px] font-semibold uppercase tracking-widest inline-block"
+                                id="detail-course-type">Type</span>
+                            <h1 class="text-3xl md:text-4xl font-light mt-4 mb-3" id="detail-course-title">Course Title
+                            </h1>
+                            <p class="text-gray-500 dark:text-gray-400 font-light max-w-2xl leading-relaxed"
+                                id="detail-course-desc">–</p>
                         </div>
-                        
-                        <div class="p-8 md:p-10 bg-[#fbfbfb]">
-                            <h3 class="text-sm font-semibold uppercase tracking-widest text-gray-400 mb-6 flex items-center gap-2">
-                                <i class="fa-regular fa-folder-open"></i> Materials
-                            </h3>
+                        <div class="p-8 md:p-10 bg-gray-50 dark:bg-brand-dark">
+                            <h3
+                                class="text-sm font-semibold uppercase tracking-widest text-gray-400 mb-6 flex items-center gap-2">
+                                <i class="fa-regular fa-folder-open"></i> Materials</h3>
                             <div class="space-y-3" id="course-files-list">
-                                <p class="text-gray-400 text-center font-light text-sm py-8">Loading files...</p>
+                                <p class="text-gray-400 text-center font-light text-sm py-8">Loading files…</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div id="announcements-section" class="section hidden space-y-8 max-w-4xl mx-auto fade-in-up">
-                    <h2 class="text-2xl font-light text-gray-900">Announcements</h2>
-                    <div class="space-y-6" id="announcements-list">
-                        </div>
-                </div>
-
-                <div id="profile-section" class="section hidden space-y-8 max-w-2xl mx-auto fade-in-up">
-                    <h2 class="text-2xl font-light text-gray-900">My Profile</h2>
-                    <div class="bg-white p-10 rounded-2xl border border-gray-100 relative overflow-hidden">
-                        
-                        <div class="flex items-center gap-8 mb-10 pb-10 border-b border-gray-50">
-                           <div class="relative w-24 h-24 group">
-                                <img id="profile-avatar" src="https://via.placeholder.com/150" 
-                                    class="w-full h-full rounded-full object-cover border-4 border-white shadow-sm">
-                                <label for="avatar-upload-input" 
-                                    class="absolute bottom-0 right-0 bg-black text-white p-2 rounded-full cursor-pointer hover:bg-gray-800 transition-colors shadow-sm transform group-hover:scale-110">
-                                    <i class="fa-solid fa-camera text-xs"></i>
-                                </label>
-                                <input type="file" id="avatar-upload-input" class="hidden" accept="image/*" onchange="uploadAvatar(event)">
-                            </div>
-
-                            <div>
-                                <h3 class="text-2xl font-medium text-gray-900" id="profile-name">Student Name</h3>
-                                <p class="text-gray-400 font-light" id="profile-email">email@example.com</p>
-                                <span class="mt-3 inline-block text-[10px] uppercase tracking-widest font-semibold text-[#a7e169]" id="profile-type">Student</span>
-                            </div>
-                        </div>
-
-                        
-                        <!-- Profile Light/Dark Mode-->
-                        <div class="space-y-6">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <!-- Phone Section -->
-                                <div>
-                                    <label class="block text-xs uppercase tracking-widest text-gray-400 font-medium mb-2">Phone</label>
-                                    <div class="p-4 bg-gray-50 dark:bg-[#1a1a20] rounded-xl text-gray-800 dark:text-gray-200 text-sm font-medium border border-gray-100 dark:border-gray-800 transition-colors" id="profile-phone">
-                                        -
-                                    </div>
-                                </div>
-                                <!-- Joined Date Section -->
-                                <div>
-                                    <label class="block text-xs uppercase tracking-widest text-gray-400 font-medium mb-2">Joined</label>
-                                    <div class="p-4 bg-gray-50 dark:bg-[#1a1a20] rounded-xl text-gray-800 dark:text-gray-200 text-sm font-medium border border-gray-100 dark:border-gray-800 transition-colors" id="profile-joined">
-                                        -
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Address Section -->
-                            <div>
-                                <label class="block text-xs uppercase tracking-widest text-gray-400 font-medium mb-2">Address</label>
-                                <div class="p-4 bg-gray-50 dark:bg-[#1a1a20] rounded-xl text-gray-800 dark:text-gray-200 text-sm font-medium border border-gray-100 dark:border-gray-800 transition-colors" id="profile-address">
-                                    -
-                                </div>
-                            </div>
-                        </div>
-
-
-                        
-                        
-                        <div class="mt-12 pt-6 border-t border-gray-50 flex justify-end">
-                            <button onclick="logout()" class="px-8 py-3 bg-white border border-red-100 text-red-500 rounded-xl hover:bg-red-50 transition-colors text-sm font-medium">
-                                Logout
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- AI Studio Section -->
-                <div id="ai-studio-section" class="section hidden space-y-10 max-w-7xl mx-auto fade-in-up">
-                    
-                    <!-- Header -->
+                <!-- ── DOWNLOADS (Course Files R2) ── -->
+                <div id="downloads-section" class="section space-y-8 max-w-7xl mx-auto fade-in-up">
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div>
-                            <h2 class="text-2xl font-bold text-gray-900 tracking-tight">AI Art Studio</h2>
-                            <p class="text-gray-500 text-sm font-light mt-1">Generate high-quality images using Flux.1 AI</p>
-                        </div>
-                        <div class="flex items-center gap-2 px-3 py-1 bg-green-50 border border-green-100 rounded-full">
-                            <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-                            <span class="text-xs font-medium text-green-700">Flux.1 Engine Ready</span>
+                            <h2 class="text-2xl font-light">Downloads</h2>
+                            <p class="text-gray-500 dark:text-gray-400 text-sm font-light mt-1">Course materials and
+                                resources — stored on Cloudflare R2</p>
                         </div>
                     </div>
 
-                    <!-- Generator UI -->
-                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        
-                        <!-- Controls -->
-                        <div class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm h-fit">
+                    <!-- Filters & Search -->
+                    <div class="flex flex-wrap gap-3 items-center">
+                        <div class="relative flex-1 min-w-[200px]">
+                            <i
+                                class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-300 text-sm"></i>
+                            <input type="text" id="file-search" placeholder="Search files…"
+                                class="w-full pl-9 pr-4 py-2.5 border border-gray-200 dark:border-brand-border rounded-xl text-sm bg-white dark:bg-brand-card focus:outline-none focus:border-brand-green focus:ring-2 focus:ring-brand-green/10 transition"
+                                oninput="filterFiles()">
+                        </div>
+                        <select id="file-course-filter" onchange="filterFiles()"
+                            class="border border-gray-200 dark:border-brand-border rounded-xl px-3 py-2.5 text-sm bg-white dark:bg-brand-card focus:outline-none focus:border-brand-green transition">
+                            <option value="">All Courses</option>
+                        </select>
+                        <select id="file-type-filter" onchange="filterFiles()"
+                            class="border border-gray-200 dark:border-brand-border rounded-xl px-3 py-2.5 text-sm bg-white dark:bg-brand-card focus:outline-none focus:border-brand-green transition">
+                            <option value="">All Types</option>
+                            <option value="pdf">PDF</option>
+                            <option value="video">Video</option>
+                            <option value="zip">ZIP / Archive</option>
+                            <option value="doc">Document</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
 
-                            <!-- ✅ NEW: AI Model Selector - ဒီနေရာမှာ ထည့်ပါ -->
-                            <!-- AI Model Selector (4 Models) -->
+                    <!-- File count info -->
+                    <p class="text-sm text-gray-400 font-light" id="file-count-info"></p>
+
+                    <!-- Files Grid -->
+                    <div id="downloads-list" class="space-y-3">
+                        <div class="text-center py-16 text-gray-300">
+                            <i class="fa-solid fa-circle-notch fa-spin text-2xl mb-3 block"></i>
+                            <p class="font-light">Loading files…</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── SOFTWARE DOWNLOADS ── -->
+                <div id="software-section" class="section space-y-8 max-w-7xl mx-auto fade-in-up">
+                    <div>
+                        <h2 class="text-2xl font-light">Software Downloads</h2>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm font-light mt-1">Tools and applications required for your courses</p>
+                    </div>
+
+                    <!-- Search + Filter -->
+                    <div class="flex flex-wrap gap-3 items-center">
+                        <div class="relative flex-1 min-w-[200px]">
+                            <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-300 text-sm"></i>
+                            <input type="text" id="software-search" placeholder="Search software…"
+                                class="w-full pl-9 pr-4 py-2.5 border border-gray-200 dark:border-brand-border rounded-xl text-sm bg-white dark:bg-brand-card focus:outline-none focus:border-brand-green focus:ring-2 focus:ring-brand-green/10 transition"
+                                oninput="filterSoftware()">
+                        </div>
+                        <!-- Platform tabs -->
+                        <div class="flex items-center gap-1 bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-1">
+                            <button onclick="setSoftwareFilter('all')" id="sw-filter-all"
+                                class="px-3 py-1.5 rounded-lg text-xs font-semibold transition bg-gray-900 text-white dark:bg-brand-green dark:text-black">All</button>
+                            <button onclick="setSoftwareFilter('win')" id="sw-filter-win"
+                                class="px-3 py-1.5 rounded-lg text-xs font-semibold transition text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white flex items-center gap-1.5">
+                                <i class="fa-brands fa-windows"></i> Windows</button>
+                            <button onclick="setSoftwareFilter('mac')" id="sw-filter-mac"
+                                class="px-3 py-1.5 rounded-lg text-xs font-semibold transition text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white flex items-center gap-1.5">
+                                <i class="fa-brands fa-apple"></i> Mac</button>
+                        </div>
+                    </div>
+
+                    <!-- Windows Section -->
+                    <div id="sw-windows-block">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background:#e8f4ff;">
+                                <i class="fa-brands fa-windows text-base" style="color:#0078D4;"></i>
+                            </div>
+                            <h3 class="font-semibold text-base">Windows</h3>
+                            <div class="flex-1 h-px bg-gray-100 dark:bg-brand-border"></div>
+                        </div>
+                        <div id="sw-windows-list" class="space-y-3">
+                            <div class="text-center py-8 text-gray-300"><i class="fa-solid fa-circle-notch fa-spin"></i></div>
+                        </div>
+                    </div>
+
+                    <!-- Mac Section -->
+                    <div id="sw-mac-block">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background:#f5f5f5;">
+                                <i class="fa-brands fa-apple text-base" style="color:#333;"></i>
+                            </div>
+                            <h3 class="font-semibold text-base">Mac OS</h3>
+                            <div class="flex-1 h-px bg-gray-100 dark:bg-brand-border"></div>
+                        </div>
+                        <div id="sw-mac-list" class="space-y-3">
+                            <div class="text-center py-8 text-gray-300"><i class="fa-solid fa-circle-notch fa-spin"></i></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── AI STUDIO ── -->
+                <div id="ai-studio-section" class="section space-y-10 max-w-7xl mx-auto fade-in-up">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div>
+                            <h2 class="text-2xl font-bold tracking-tight">AI Art Studio</h2>
+                            <p class="text-gray-500 text-sm font-light mt-1">Generate high-quality images using Flux.1
+                                AI</p>
+                        </div>
+                        <div
+                            class="flex items-center gap-2 px-3 py-1 bg-green-50 dark:bg-green-900/20 border border-green-100 dark:border-green-800 rounded-full">
+                            <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                            <span class="text-xs font-medium text-green-700 dark:text-green-400">Flux.1 Engine
+                                Ready</span>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div
+                            class="bg-white dark:bg-brand-card border border-gray-100 dark:border-brand-border rounded-2xl p-6 h-fit">
                             <div class="mb-6">
-                                <label class="block text-gray-700 text-sm font-medium mb-3">
-                                    <i class="fa-solid fa-brain mr-1"></i> AI Model
-                                </label>
-                                
-                                <div class="space-y-3">
-                                    <!-- FLUX Schnell -->
-                                    <label class="flex items-center p-3 bg-gray-50 border-2 border-black rounded-xl cursor-pointer">
-                                        <input type="radio" name="ai-model" value="flux-schnell" checked class="mr-3 text-black focus:ring-black">
+                                <label class="block text-sm font-medium mb-3"><i class="fa-solid fa-brain mr-1"></i> AI
+                                    Model</label>
+                                <div class="space-y-2">
+                                    <label
+                                        class="flex items-center p-3 bg-gray-50 dark:bg-brand-dark border-2 border-black dark:border-brand-green rounded-xl cursor-pointer">
+                                        <input type="radio" name="ai-model" value="flux-schnell" checked class="mr-3">
                                         <div class="flex-1">
                                             <div class="font-medium text-sm">⚡ FLUX.1 Schnell</div>
-                                            <div class="text-xs text-gray-500 mt-1">Fast (5-10s) • Modern & Sharp</div>
+                                            <div class="text-xs text-gray-500 mt-0.5">Fast (5-10s) • Modern & Sharp
+                                            </div>
                                         </div>
                                     </label>
-                                    
-                                    <!-- SDXL -->
-                                    <label class="flex items-center p-3 bg-gray-50 border border-gray-200 rounded-xl cursor-pointer hover:border-black transition-all group">
-                                        <input type="radio" name="ai-model" value="sdxl" class="mr-3 text-black focus:ring-black">
+                                    <label
+                                        class="flex items-center p-3 bg-gray-50 dark:bg-brand-dark border border-gray-200 dark:border-brand-border rounded-xl cursor-pointer hover:border-black dark:hover:border-brand-green transition">
+                                        <input type="radio" name="ai-model" value="sdxl" class="mr-3">
                                         <div class="flex-1">
                                             <div class="font-medium text-sm">🖼️ Stable Diffusion XL</div>
-                                            <div class="text-xs text-gray-500 mt-1">Balanced (10-20s) • Industry Standard</div>
+                                            <div class="text-xs text-gray-500 mt-0.5">Balanced (10-20s) • Industry
+                                                Standard</div>
                                         </div>
                                     </label>
-                                    
-                                    <!-- Stable Diffusion 3.5 Medium -->
-                                    <label class="flex items-center p-3 bg-gray-50 border border-gray-200 rounded-xl cursor-pointer hover:border-black transition-all group">
-                                        <input type="radio" name="ai-model" value="sd3-medium" class="mr-3 text-black focus:ring-black">
+                                    <label
+                                        class="flex items-center p-3 bg-gray-50 dark:bg-brand-dark border border-gray-200 dark:border-brand-border rounded-xl cursor-pointer hover:border-black dark:hover:border-brand-green transition">
+                                        <input type="radio" name="ai-model" value="sd3-medium" class="mr-3">
                                         <div class="flex-1">
                                             <div class="font-medium text-sm">🎨 Stable Diffusion 3.5</div>
-                                            <div class="text-xs text-gray-500 mt-1">Balanced (10-15s) • High Quality</div>
+                                            <div class="text-xs text-gray-500 mt-0.5">Balanced (10-15s) • High Quality
+                                            </div>
                                         </div>
                                     </label>
-                                    
-                                    <!-- Openjourney -->
-                                    <label class="flex items-center p-3 bg-gray-50 border border-gray-200 rounded-xl cursor-pointer hover:border-black transition-all group">
-                                        <input type="radio" name="ai-model" value="openjourney" class="mr-3 text-black focus:ring-black">
+                                    <label
+                                        class="flex items-center p-3 bg-gray-50 dark:bg-brand-dark border border-gray-200 dark:border-brand-border rounded-xl cursor-pointer hover:border-black dark:hover:border-brand-green transition">
+                                        <input type="radio" name="ai-model" value="openjourney" class="mr-3">
                                         <div class="flex-1">
                                             <div class="font-medium text-sm">🌈 Openjourney</div>
-                                            <div class="text-xs text-gray-500 mt-1">Artistic (10-20s) • Midjourney Style</div>
+                                            <div class="text-xs text-gray-500 mt-0.5">Artistic (10-20s) • Midjourney
+                                                Style</div>
                                         </div>
                                     </label>
                                 </div>
-                                
-                                <p class="text-xs text-gray-500 mt-3">
-                                    <i class="fa-solid fa-check-circle text-green-600"></i> All models are free on Hugging Face
-                                </p>
                             </div>
-
-
-                            <!-- ✅ END NEW CODE -->
-
-
-                            <label class="block text-gray-700 text-sm font-medium mb-3">Your Prompt</label>
-
-                            <textarea id="ai-prompt" rows="6" 
-                                class="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 text-sm text-gray-800 focus:outline-none focus:border-black focus:ring-0 transition-all resize-none placeholder-gray-400"
-                                placeholder="A futuristic student studying in a glass room with neon lights, cyberpunk style, 8k resolution..."></textarea>
-                            
-                            <button onclick="generateAIImage()" id="gen-btn" 
-                                class="w-full mt-6 bg-black text-white font-medium py-3.5 rounded-xl transition-transform active:scale-95 flex items-center justify-center gap-2 hover:bg-gray-800">
-                                <i class="fa-solid fa-wand-magic-sparkles"></i>
-                                Generate Image
+                            <label class="block text-sm font-medium mb-3">Your Prompt</label>
+                            <textarea id="ai-prompt" rows="6"
+                                class="w-full bg-gray-50 dark:bg-brand-dark border border-gray-200 dark:border-brand-border rounded-xl p-4 text-sm focus:outline-none focus:border-black dark:focus:border-brand-green transition resize-none"
+                                placeholder="A futuristic student studying in a glass room with neon lights…"></textarea>
+                            <button onclick="generateAIImage()" id="gen-btn"
+                                class="w-full mt-4 bg-black dark:bg-brand-green dark:text-black text-white font-medium py-3.5 rounded-xl transition active:scale-95 flex items-center justify-center gap-2 hover:bg-gray-800 dark:hover:bg-green-400">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Image
                             </button>
                         </div>
-
-                        <!-- Result Display -->
-                        <div class="lg:col-span-2 bg-gray-50 border border-gray-100 rounded-2xl flex flex-col items-center justify-center min-h-[500px] relative overflow-hidden group">
-                            
-                            <!-- Loading/Empty State -->
-                            <div id="ai-result-container" class="text-center p-8 w-full h-full flex items-center justify-center">
-                                <div>
-                                    <i class="fa-regular fa-image text-4xl text-gray-300 mb-4 block"></i>
-                                    <p class="text-gray-400 text-sm font-light">Your generated image will appear here.</p>
+                        <div
+                            class="lg:col-span-2 bg-gray-50 dark:bg-brand-card border border-gray-100 dark:border-brand-border rounded-2xl flex flex-col items-center justify-center min-h-[500px] relative overflow-hidden">
+                            <div id="ai-result-container"
+                                class="text-center p-8 w-full h-full flex items-center justify-center">
+                                <div><i class="fa-regular fa-image text-4xl text-gray-300 mb-4 block"></i>
+                                    <p class="text-gray-400 text-sm font-light">Your generated image will appear here.
+                                    </p>
                                 </div>
                             </div>
-
-                            <!-- Save Button (Normally Hidden) -->
-                            <button id="save-ai-btn" onclick="saveToGallery()" 
-                                class="hidden absolute bottom-6 right-6 bg-white text-black px-6 py-3 rounded-full font-medium shadow-xl hover:shadow-2xl transition-all border border-gray-100 flex items-center gap-2">
-                                <i class="fa-solid fa-download"></i>
-                                Save to Gallery
+                            <button id="save-ai-btn" onclick="saveToGallery()"
+                                class="hidden absolute bottom-6 right-6 bg-white dark:bg-brand-card text-black dark:text-white px-6 py-3 rounded-full font-medium shadow-xl hover:shadow-2xl transition border border-gray-100 dark:border-brand-border flex items-center gap-2">
+                                <i class="fa-solid fa-download"></i> Save to Gallery
                             </button>
                         </div>
                     </div>
                 </div>
 
-
-                <!-- PREMIUM BLOG SECTION (Dynamic Version) -->
-<div id="premium-blog-section" class="section hidden space-y-10 max-w-7xl mx-auto fade-in-up">
-    <!-- Header -->
-    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-            <h2 class="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">Premium Blog</h2>
-            <p class="text-gray-500 dark:text-gray-400 text-sm font-light mt-1">Exclusive tutorials, resources, and updates.</p>
-        </div>
-    </div>
-
-    <!-- Blog Posts Container -->
-    <div id="blog-posts-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Loading State -->
-        <div class="col-span-full text-center py-12 text-gray-300">
-            <i class="fa-solid fa-circle-notch fa-spin text-xl mb-3"></i>
-            <p>Loading content...</p>
-        </div>
-    </div>
-</div>
-
-<!-- Blog Logic Script -->
-<script type="module">
-    // Path ပြင်ထားပါသည်: ../js/premium-blog.js
-    import { blogPosts } from '../js/premium-blog.js';
-
-    function renderBlogPosts() {
-        const container = document.getElementById('blog-posts-container');
-        if (!container) return;
-
-        if (blogPosts.length > 0) container.innerHTML = '';
-
-        container.innerHTML = blogPosts.map(post => {
-            let typeBadge = '';
-            if (post.type === 'video') typeBadge = '<i class="fa-brands fa-youtube mr-1"></i> Video';
-            else if (post.type === 'resource') typeBadge = '<i class="fa-solid fa-gem mr-1"></i> Premium';
-            else typeBadge = '<i class="fa-regular fa-file-lines mr-1"></i> Article';
-
-            let labelClass = post.type === 'resource' ? 'bg-purple-100 text-purple-600' : 'bg-black/70 text-white backdrop-blur';
-            if (post.type === 'article') labelClass = 'bg-white/90 text-gray-900 backdrop-blur dark:bg-black/70 dark:text-white';
-
-            return `
-            <article class="bg-white dark:bg-1a1a20 border border-gray-100 dark:border-gray-800 rounded-2xl overflow-hidden hover-lift flex flex-col h-full group">
-                <div class="h-48 relative overflow-hidden bg-gray-100 dark:bg-gray-800">
-                    <img src="${post.image}" alt="${post.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute top-3 left-3">
-                        <span class="px-2 py-1 ${labelClass} text-10px font-bold uppercase tracking-widest rounded-md shadow-sm">
-                            ${typeBadge}
-                        </span>
+                <!-- ── PREMIUM BLOG ── -->
+                <div id="premium-blog-section" class="section space-y-8 max-w-7xl mx-auto fade-in-up">
+                    <div>
+                        <h2 class="text-2xl font-bold tracking-tight">Premium Blog</h2>
+                        <p class="text-gray-500 text-sm font-light mt-1">Exclusive tutorials, resources, and updates.
+                        </p>
+                    </div>
+                    <div id="blog-posts-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="col-span-full text-center py-12 text-gray-300"><i
+                                class="fa-solid fa-circle-notch fa-spin text-xl mb-3"></i>
+                            <p>Loading content…</p>
+                        </div>
                     </div>
                 </div>
-                <div class="p-6 flex-1 flex flex-col">
-                    <div class="flex items-center gap-2 mb-3">
-                        <span class="text-10px text-brand-green font-bold uppercase tracking-widest">${post.category}</span>
-                        <span class="text-gray-300">•</span>
-                        <span class="text-10px text-gray-400 uppercase">${post.date}</span>
-                    </div>
-                    <h3 class="text-xl font-medium text-gray-900 dark:text-white mb-3 group-hover:text-brand-green transition-colors line-clamp-2">
-                        ${post.title}
-                    </h3>
-                    <p class="text-gray-500 dark:text-gray-400 text-sm font-light leading-relaxed mb-6 line-clamp-3">
-                        ${post.description}
-                    </p>
-                    <div class="mt-auto pt-4 border-t border-gray-50 dark:border-gray-800">
-                        <!-- Link ပြင်ထားပါသည်: blog-post-template.html -->
-                        <a href="blog-post-template.html?id=${post.id}" class="flex items-center justify-between text-sm font-medium text-gray-900 dark:text-white group-hover:text-brand-green transition-colors">
-                            <span>${post.type === 'video' ? 'Watch Video' : 'Read More'}</span>
-                            <i class="fa-solid fa-arrow-right -rotate-45 group-hover:rotate-0 transition-transform"></i>
-                        </a>
+
+                <!-- ── ANNOUNCEMENTS ── -->
+                <div id="announcements-section" class="section space-y-6 max-w-4xl mx-auto fade-in-up">
+                    <h2 class="text-2xl font-light">Announcements</h2>
+                    <div class="space-y-4" id="announcements-list"></div>
+                </div>
+
+                <!-- ── PROFILE ── -->
+                <div id="profile-section" class="section space-y-8 max-w-2xl mx-auto fade-in-up">
+                    <h2 class="text-2xl font-light">My Profile</h2>
+                    <div
+                        class="bg-white dark:bg-brand-card p-10 rounded-2xl border border-gray-100 dark:border-brand-border">
+                        <div
+                            class="flex items-center gap-8 mb-10 pb-10 border-b border-gray-50 dark:border-brand-border">
+                            <div class="relative w-24 h-24 group">
+                                <img id="profile-avatar" src="https://via.placeholder.com/96"
+                                    class="w-full h-full rounded-full object-cover border-4 border-white dark:border-brand-border shadow-sm">
+                                <label for="avatar-upload-input"
+                                    class="absolute bottom-0 right-0 bg-black text-white p-2 rounded-full cursor-pointer hover:bg-gray-800 transition shadow-sm">
+                                    <i class="fa-solid fa-camera text-xs"></i>
+                                </label>
+                                <input type="file" id="avatar-upload-input" class="hidden" accept="image/*"
+                                    onchange="uploadAvatar(event)">
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-medium" id="profile-name">–</h3>
+                                <p class="text-gray-400 font-light" id="profile-email">–</p>
+                                <span
+                                    class="mt-3 inline-block text-[10px] uppercase tracking-widest font-semibold text-brand-green"
+                                    id="profile-type">Student</span>
+                            </div>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div><label
+                                        class="block text-xs uppercase tracking-widest text-gray-400 font-medium mb-2">Phone</label>
+                                    <div class="p-4 bg-gray-50 dark:bg-brand-dark rounded-xl text-sm font-medium border border-gray-100 dark:border-brand-border"
+                                        id="profile-phone">–</div>
+                                </div>
+                                <div><label
+                                        class="block text-xs uppercase tracking-widest text-gray-400 font-medium mb-2">Joined</label>
+                                    <div class="p-4 bg-gray-50 dark:bg-brand-dark rounded-xl text-sm font-medium border border-gray-100 dark:border-brand-border"
+                                        id="profile-joined">–</div>
+                                </div>
+                            </div>
+                            <div><label
+                                    class="block text-xs uppercase tracking-widest text-gray-400 font-medium mb-2">Address</label>
+                                <div class="p-4 bg-gray-50 dark:bg-brand-dark rounded-xl text-sm font-medium border border-gray-100 dark:border-brand-border"
+                                    id="profile-address">–</div>
+                            </div>
+                        </div>
+                        <div class="mt-12 pt-6 border-t border-gray-50 dark:border-brand-border flex justify-end">
+                            <button onclick="logout()"
+                                class="px-8 py-3 bg-white dark:bg-brand-dark border border-red-100 dark:border-red-900/30 text-red-500 rounded-xl hover:bg-red-50 dark:hover:bg-red-900/10 transition text-sm font-medium">Logout</button>
+                        </div>
                     </div>
                 </div>
-            </article>
-            `;
-        }).join('');
-    }
-
-    renderBlogPosts();
-</script>
-
-
 
             </main>
         </div>
     </div>
 
-    <div id="logout-modal" class="hidden fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="fixed inset-0 bg-white/80 backdrop-blur-sm transition-opacity"></div>
-        <div class="flex min-h-full items-center justify-center p-4 text-center">
-            <div class="relative transform overflow-hidden rounded-2xl bg-white border border-gray-100 text-left shadow-2xl transition-all sm:w-full sm:max-w-sm p-8">
-                <div class="text-center">
-                    <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-red-50 mb-4">
-                        <i class="fa-solid fa-power-off text-red-500"></i>
-                    </div>
-                    <h3 class="text-lg font-medium leading-6 text-gray-900" id="modal-title">Sign Out</h3>
-                    <p class="text-sm text-gray-500 mt-2 font-light">Are you sure you want to log out?</p>
-                </div>
-                <div class="mt-8 flex gap-3">
-                    <button type="button" onclick="closeLogoutModal()" class="flex-1 justify-center rounded-xl bg-gray-50 px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors">Cancel</button>
-                    <button type="button" onclick="confirmLogout()" class="flex-1 justify-center rounded-xl bg-black px-4 py-3 text-sm font-medium text-white hover:bg-gray-800 transition-colors">Logout</button>
-                </div>
+    <!-- Logout Modal -->
+    <div id="logout-modal"
+        class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
+        <div
+            class="bg-white dark:bg-brand-card rounded-2xl p-8 max-w-sm w-full border border-gray-100 dark:border-brand-border shadow-2xl">
+            <h2 class="text-xl font-semibold mb-2">Sign out?</h2>
+            <p class="text-gray-500 text-sm font-light mb-8">You'll need to sign in again to access your courses.</p>
+            <div class="flex gap-3">
+                <button onclick="closeLogoutModal()"
+                    class="flex-1 py-3 border border-gray-200 dark:border-brand-border rounded-xl text-sm font-medium hover:bg-gray-50 dark:hover:bg-brand-dark transition">Cancel</button>
+                <button onclick="confirmLogout()"
+                    class="flex-1 py-3 bg-black dark:bg-red-600 text-white rounded-xl text-sm font-medium hover:bg-gray-800 dark:hover:bg-red-700 transition">Sign
+                    Out</button>
             </div>
         </div>
     </div>
 
+    <!-- SCRIPT -->
     <script type="module">
-    import { supabase } from '../js/supabase-config.js';
+        import { supabase } from '../js/supabase-config.js';
+        import { blogPosts } from '../js/premium-blog.js';
 
-    let currentUser = null;
-    let myEnrollments = [];
+        let currentUser = null;
+        let myEnrollments = [];
+        let allFiles = [];
+        let currentBlob = null;
 
-    // ============================================
-    // INITIALIZATION
-    // ============================================
-    window.addEventListener('load', async () => {
-        const { data: { session }, error } = await supabase.auth.getSession();
-        if (!session) {
-            window.location.href = 'student-login.html';
-            return;
-        }
-        await loadUserProfile(session.user.id);
-        await loadMyCourses(session.user.id);
-        loadAnnouncements();
-    });
+        // ── INIT ──
+        window.addEventListener('load', async () => {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) { window.location.href = 'student-login.html'; return; }
 
-    // ============================================
-    // DATA LOADING
-    // ============================================
-    
-    async function loadUserProfile(userId) {
-        try {
-            const { data: student, error } = await supabase
+            // Guard: students table ထဲမှ��ရှိမှ student dashboard ဝင်ခွင့်ပေး
+            const { data: studentCheck, error: studentError } = await supabase
                 .from('students')
-                .select('*')
-                .eq('id', userId)
+                .select('id')
+                .eq('id', session.user.id)
                 .maybeSingle();
 
-            if (error) throw error;
-            
-            if (!student) {
-                console.warn("Student profile not found for ID:", userId);
-                return;
-            }
-
-            currentUser = student;
-            updateProfileUI(student);
-            
-        } catch (error) {
-            console.error('Error loading profile:', error);
-        }
-    }
-
-    async function loadMyCourses(userId) {
-        try {
-            const { data: enrollments, error: enrollError } = await supabase
-                .from('enrollments')
-                .select('course_id, status, enrolled_at, progress_percentage')
-                .eq('student_id', userId)
-                .in('status', ['active', 'completed', 'dropped'])
-                .order('enrolled_at', { ascending: false });
-
-            if (enrollError) throw enrollError;
-
-            if (!enrollments || enrollments.length === 0) {
-                myEnrollments = [];
-                renderCoursesGrid([]);
-                updateStats([]);
-                return;
-            }
-
-            const courseIds = enrollments.map(e => e.course_id);
-            const { data: courses, error: courseError } = await supabase
-                .from('courses')
-                .select('id, title, description, course_type, level, duration_weeks, status, cover_image_url')
-                .in('id', courseIds);
-
-            if (courseError) throw courseError;
-
-            const combinedData = enrollments.map(enrollment => {
-                const courseData = courses.find(c => c.id === enrollment.course_id);
-                return { ...enrollment, courses: courseData };
-            });
-            
-            myEnrollments = combinedData;
-            renderCoursesGrid(combinedData);
-            updateStats(combinedData);
-
-        } catch (error) {
-            console.error('Error loading courses:', error);
-            const grid = document.getElementById('dashboard-courses-grid');
-            if(grid) grid.innerHTML = '<p class="col-span-full text-center text-red-500 font-light">Unable to load courses.</p>';
-        }
-    }
-
-        //individual နဲ့ group ခွဲခြားပြီး announcement အပိုင်း
-        async function loadAnnouncements() {
-        try {
-            // currentUser မရှိသေးရင် ခဏစောင့်ဖို့ (သို့) default ယူဖို့ လိုနိုင်ပါတယ်
-            // ဒီနေရာမှာတော့ currentUser ရှိမှ ဆက်လုပ်မယ်၊ မရှိရင် individual လို့ ယူဆမယ်
-            const studentType = (currentUser && currentUser.student_type) 
-                                ? currentUser.student_type 
-                                : 'individual';
-
-            // Debugging အတွက် console ထုတ်ကြည့်နိုင်ပါတယ်
-            console.log("Fetching announcements for:", studentType);
-
-            const { data, error } = await supabase
-                .from('announcements')
-                .select('*')
-                // Filter: target_audience is 'all' OR matches student's type
-                .or(`target_audience.eq.all,target_audience.eq.${studentType}`) 
-                .eq('is_active', true)
-                .order('published_at', { ascending: false })
-                .limit(5);
-
-            if (error) throw error;
-            
-            const container = document.getElementById('announcements-list');
-            if (!container) return;
-
-            if (data.length === 0) {
-                container.innerHTML = '<p class="text-gray-400 text-center font-light text-sm">No new announcements.</p>';
-                return;
-            }
-
-            // Minimalist Announcement Card
-            container.innerHTML = data.map(a => `
-                <div class="bg-white p-6 rounded-xl border border-gray-100 hover:border-gray-200 transition-colors">
-                    <div class="flex justify-between items-start mb-3">
-                        <div class="flex items-center gap-2">
-                            <h3 class="font-medium text-gray-900">${a.title}</h3>
-                            ${a.target_audience !== 'all' ? 
-                                `<span class="text-[10px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full capitalize border border-blue-100">${a.target_audience} Only</span>` 
-                                : ''}
-                        </div>
-                        <span class="text-[10px] text-gray-400 bg-gray-50 px-2 py-1 rounded">${new Date(a.published_at).toLocaleDateString()}</span>
-                    </div>
-                    <p class="text-gray-500 text-sm font-light leading-relaxed">${a.content || a.description || ''}</p> 
-                </div>
-            `).join('');
-            
-        } catch (error) {
-            console.error('Error loading announcements:', error);
-        }
-    }
-    // announcements section end
-
-
-    // Avatar Upload
-    window.uploadAvatar = async function(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-
-        if (file.size > 2 * 1024 * 1024) {
-            alert("File size must be less than 2MB");
-            return;
-        }
-
-        try {
-            const profileImg = document.getElementById('profile-avatar');
-            if(profileImg) profileImg.src = 'https://media.tenor.com/On7kvXhzml4AAAAj/loading-gif.gif';
-
-            const fileExt = file.name.split('.').pop();
-            const fileName = `${currentUser.id}-${Math.random().toString(36).substring(7)}.${fileExt}`;
-            const filePath = `${fileName}`;
-
-            const { error: uploadError } = await supabase.storage.from('avatars').upload(filePath, file);
-            if (uploadError) throw uploadError;
-
-            const { data: { publicUrl } } = supabase.storage.from('avatars').getPublicUrl(filePath);
-
-            const { error: updateError } = await supabase
-                .from('students')
-                .update({ avatar_url: publicUrl })
-                .eq('id', currentUser.id);
-
-            if (updateError) throw updateError;
-
-            if(profileImg) profileImg.src = publicUrl;
-            const sidebarImg = document.getElementById('sidebar-avatar');
-            if(sidebarImg) sidebarImg.src = publicUrl;
-
-            const detailImg = document.getElementById('detail-profile-img');
-            const detailIcon = document.getElementById('detail-profile-icon');
-            if(detailImg) {
-                detailImg.src = publicUrl;
-                detailImg.classList.remove('hidden');
-            }
-            if(detailIcon) detailIcon.classList.add('hidden');
-
-            currentUser.avatar_url = publicUrl;
-
-        } catch (error) {
-            console.error('Error uploading avatar:', error);
-            alert('Upload failed.');
-        }
-    };
-
-    // ============================================
-    // UI HELPERS
-    // ============================================
-
-    function updateProfileUI(student) {
-        if (!student) return;
-
-        const fullName = student.full_name || student.name || 'Student';
-        const navName = document.getElementById('student-name');
-        const navEmail = document.getElementById('sidebar-user-email');
-        
-        if(navName) navName.textContent = fullName;
-        if(navEmail) navEmail.textContent = student.email || '';
-
-        const firstName = fullName.split(' ')[0];
-        const welcomeNameEl = document.getElementById('welcome-name');
-        if(welcomeNameEl) welcomeNameEl.textContent = firstName;
-
-        setText('detail-full-name', fullName);
-        setText('detail-student-id', student.student_id_text || student.id?.slice(0, 8));
-        setText('detail-phone', student.phone || student.phone_number);
-        setText('detail-email', student.email);
-        setText('detail-address', student.address);
-
-        setText('profile-name', fullName);
-        setText('profile-email', student.email);
-        setText('profile-type', student.student_type || 'Student');
-        setText('profile-phone', student.phone || student.phone_number); 
-        setText('profile-address', student.address);
-        if (student.created_at) {
-            setText('profile-joined', new Date(student.created_at).toLocaleDateString());
-        }
-
-        setText('stat-attendance-total', (student.total_attendance || 0));
-        setText('stat-attendance-late', (student.late_attendance || 0));
-        setText('stat-attendance-undertime', (student.undertime || 0));
-        setText('stat-attendance-absent', (student.absent_days || 0));
-
-        const defaultAvatar = 'https://via.placeholder.com/150'; 
-        const avatarUrl = student.avatar_url || defaultAvatar;
-
-        const profileImg = document.getElementById('profile-avatar');
-        if (profileImg) profileImg.src = avatarUrl;
-        const sidebarImg = document.getElementById('sidebar-avatar');
-        if (sidebarImg) sidebarImg.src = avatarUrl;
-
-        const detailImg = document.getElementById('detail-profile-img');
-        const detailIcon = document.getElementById('detail-profile-icon');
-        
-        if (student.avatar_url) {
-            if(detailImg) {
-                detailImg.src = avatarUrl;
-                detailImg.classList.remove('hidden');
-            }
-            if(detailIcon) detailIcon.classList.add('hidden');
-        } else {
-            if(detailImg) detailImg.classList.add('hidden');
-            if(detailIcon) detailIcon.classList.remove('hidden');
-        }
-    }
-
-    function renderCoursesGrid(enrollments) {
-        const gridHTML = enrollments.length === 0 ?
-            '<div class="col-span-full text-center py-10 text-gray-400 font-light text-sm">You are not enrolled in any courses yet.</div>' :
-            enrollments.map(e => {
-                let statusColor = e.status === 'active' ? 'bg-green-500' : e.status === 'completed' ? 'bg-blue-500' : 'bg-red-500';
-                
-                return `
-                    <div class="group bg-white rounded-2xl border border-gray-100 overflow-hidden flex flex-col h-full cursor-pointer hover-lift transition-all" onclick="openCourse('${e.courses.id}')">
-                        <div class="h-40 bg-gray-50 relative overflow-hidden">
-                            <img src="${e.courses.cover_image_url || 'https://via.placeholder.com/800x600?text=Course'}" 
-                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale group-hover:grayscale-0" alt="Course">
-                            
-                            <div class="absolute top-3 left-3 flex items-center gap-2">
-                                <span class="px-2 py-1 bg-white/90 backdrop-blur text-[10px] font-bold uppercase tracking-widest rounded-md shadow-sm border border-gray-100">
-                                    <span class="w-1.5 h-1.5 rounded-full ${statusColor} inline-block mr-1"></span> ${e.status}
-                                </span>
-                            </div>
-                        </div>
-                        <div class="p-6 flex-1 flex flex-col">
-                            <span class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-2">${(e.courses.course_type || 'Course')}</span>
-                            <h3 class="font-medium text-lg mb-2 text-gray-900 group-hover:text-black line-clamp-2">${e.courses.title}</h3>
-                            <p class="text-sm text-gray-500 font-light mb-4 line-clamp-2 leading-relaxed">${e.courses.description || 'No description'}</p>
-                            
-                            <div class="mt-auto pt-4 border-t border-gray-50 flex justify-between items-center">
-                                <div class="text-xs text-gray-400 font-medium">
-                                    ${e.courses.duration_weeks || '-'} WEEKS
-                                </div>
-                                <span class="w-8 h-8 rounded-full border border-gray-100 flex items-center justify-center text-gray-400 group-hover:bg-black group-hover:text-white transition-colors">
-                                    <i class="fa-solid fa-arrow-right text-xs"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-
-        const dashGrid = document.getElementById('dashboard-courses-grid');
-        if(dashGrid) dashGrid.innerHTML = gridHTML;
-        
-        const allGrid = document.getElementById('all-courses-grid');
-        if(allGrid) allGrid.innerHTML = gridHTML;
-    }
-
-    function updateStats(enrollments) {
-        setText('stat-enrolled', enrollments.length);
-        setText('stat-active', enrollments.filter(e => e.status === 'active').length);
-        setText('stat-files', '-'); 
-    }
-
-    function setText(id, text) {
-        const el = document.getElementById(id);
-        if (el) el.textContent = text || '-';
-    }
-
-    window.toggleMobileMenu = function() {
-        const mobileSidebar = document.getElementById('mobile-sidebar');
-        const mobileSidebarContent = document.getElementById('mobile-sidebar-content');
-        
-        if (!mobileSidebar || !mobileSidebarContent) return;
-
-        if (mobileSidebar.classList.contains('hidden')) {
-            mobileSidebar.classList.remove('hidden');
-            setTimeout(() => {
-                mobileSidebarContent.classList.remove('-translate-x-full');
-            }, 10);
-        } else {
-            mobileSidebarContent.classList.add('-translate-x-full');
-            setTimeout(() => {
-                mobileSidebar.classList.add('hidden');
-            }, 300);
-        }
-    };
-
-    window.switchSection = function(sectionId) {
-        document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
-        const activeLink = document.querySelector(`.sidebar-link[data-section="${sectionId}"]`);
-        if(activeLink) activeLink.classList.add('active');
-
-        document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
-        
-        // Add fade animation
-        const targetSection = document.getElementById(`${sectionId}-section`);
-        if(targetSection) {
-            targetSection.classList.remove('hidden');
-            targetSection.classList.remove('fade-in-up'); 
-            void targetSection.offsetWidth; // trigger reflow
-            targetSection.classList.add('fade-in-up');
-        }
-    };
-
-    window.openCourse = async function(courseId) {
-        const enrollment = myEnrollments.find(e => e.courses.id === courseId);
-        if (!enrollment) return;
-        const course = enrollment.courses;
-
-        setText('detail-course-title', course.title);
-        setText('detail-course-desc', course.description || 'No description available.');
-        setText('detail-course-type', course.course_type);
-        
-        const statusEl = document.getElementById('detail-course-status');
-        if(statusEl) statusEl.innerHTML = `<span class="w-2 h-2 rounded-full ${enrollment.status === 'active' ? 'bg-green-500' : 'bg-gray-400'}"></span> ${enrollment.status.toUpperCase()}`;
-
-        document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
-        const detailSection = document.getElementById('course-detail-view');
-        
-        if (detailSection) {
-            detailSection.classList.remove('hidden');
-            detailSection.classList.add('fade-in-up');
-            window.scrollTo(0, 0);
-            await loadCourseFiles(courseId);
-        }
-    };
-
-    async function loadCourseFiles(courseId) {
-        const listContainer = document.getElementById('course-files-list');
-        if(!listContainer) return;
-        
-        listContainer.innerHTML = '<div class="text-center py-8"><i class="fa-solid fa-spinner fa-spin text-gray-300"></i></div>';
-
-        try {
-            const { data: files, error } = await supabase
-                .from('course_files')
-                .select('*')
-                .eq('course_id', courseId)
-                .order('upload_date', { ascending: false });
-
-            if (error) throw error;
-
-            if (!files || files.length === 0) {
-                listContainer.innerHTML = '<p class="text-gray-400 text-center py-6 font-light text-sm">No materials uploaded yet.</p>';
-                return;
-            }
-
-            // Minimalist File List
-            listContainer.innerHTML = files.map(f => `
-                <div class="flex items-center justify-between p-4 bg-white border border-gray-100 rounded-xl hover:border-gray-300 transition-all group">
-                    <div class="flex items-center gap-4">
-                        <div class="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-gray-400 group-hover:text-black transition-colors">
-                            <i class="fa-regular fa-file-lines"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-medium text-gray-800 text-sm group-hover:text-black">${f.file_name}</h4>
-                            <p class="text-[10px] text-gray-400 uppercase tracking-wide">${new Date(f.upload_date).toLocaleDateString()}</p>
-                        </div>
-                    </div>
-                    <a href="${f.file_url}" target="_blank" class="px-3 py-2 text-gray-400 hover:text-black hover:bg-gray-50 rounded-lg transition-colors text-xs">
-                        <i class="fa-solid fa-download"></i>
-                    </a>
-                </div>
-            `).join('');
-
-        } catch (err) {
-            console.error('Error loading files:', err);
-            listContainer.innerHTML = '<p class="text-red-400 text-center text-sm">Failed to load files.</p>';
-        }
-    }
-    // ==========================================
-    // LOGOUT FUNCTIONS
-    // ==========================================
-
-    // 1. Desktop Logout (Open Modal)
-    window.logout = function() {
-        const modal = document.getElementById('logout-modal');
-        if(modal) modal.classList.remove('hidden');
-    };
-
-    // 2. Mobile Sidebar Logout (New Function) <--- ဒီကောင် မရှိလို့ Error တက်နေတာပါ
-    window.handleLogout = function() {
-        // Mobile Sidebar ပိတ်မယ် (ရှိရင်)
-        const sidebar = document.getElementById('mobile-sidebar');
-        if (sidebar && !sidebar.classList.contains('hidden')) {
-            sidebar.classList.add('hidden'); 
-        }
-        // ပြီးရင် Logout Modal ဖွင့်မယ်
-        window.logout();
-    };
-
-    // 3. Close Modal
-    window.closeLogoutModal = function() {
-        const modal = document.getElementById('logout-modal');
-        if(modal) modal.classList.add('hidden');
-    };
-
-    // 4. Confirm Logout Logic
-    window.confirmLogout = async function(event) { // event parameter ထည့်ပေးထားပါတယ်
-        // event.target က undefined ဖြစ်နိုင်လို့ စစ်ပေးထားပါတယ်
-        let btn = event ? event.target : document.querySelector('#logout-modal button.bg-black');
-        
-        const originalText = btn ? btn.textContent : 'Logout';
-        if(btn) {
-            btn.textContent = 'Logging out...';
-            btn.disabled = true;
-        }
-
-        try {
-            const { error } = await supabase.auth.signOut();
-            if (error) throw error;
-            window.location.href = 'student-login.html';
-        } catch (error) {
-            console.error('Logout error:', error);
-            alert('Error logging out.');
-            if(btn) {
-                btn.textContent = originalText;
-                btn.disabled = false;
-            }
-            closeLogoutModal();
-        }
-    };
-
-
-    document.querySelectorAll('.sidebar-link').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const section = link.dataset.section;
-            switchSection(section);
-        });
-    });
-
-       // --- AI Studio Logic (Flux.1) ---
-// const HF_TOKEN = ... (မလိုတော့ပါ၊ ဖျက်လိုက်ပါ)
-
-let currentBlob = null; 
-
-async function generateAIImage() {
-    const prompt = document.getElementById('ai-prompt').value;
-    const model = document.querySelector('input[name="ai-model"]:checked').value;
-    const btn = document.getElementById('gen-btn');
-    const container = document.getElementById('ai-result-container');
-    const saveBtn = document.getElementById('save-ai-btn');
-
-    if (!prompt) return alert('Please enter a prompt!');
-
-    btn.disabled = true;
-    btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Generating...`;
-    saveBtn.classList.add('hidden');
-    container.innerHTML = `
-        <div class="flex flex-col items-center animate-pulse">
-            <div class="w-12 h-12 border-4 border-gray-200 border-t-black rounded-full animate-spin mb-4"></div>
-            <p class="text-gray-500 text-sm">Creating with AI...</p>
-        </div>`;
-
-    try {
-        const response = await fetch("/api/generate-image", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ 
-                prompt: prompt,
-                model: model
-            }),
-        });
-
-        if (!response.ok) {
-            const contentType = response.headers.get("content-type");
-            let errorMsg = "Generation Failed";
-            
-            if (contentType && contentType.includes("application/json")) {
-                const errorData = await response.json();
-                errorMsg = errorData.error || errorMsg;
-            } else {
-                errorMsg = await response.text();
-            }
-            
-            throw new Error(errorMsg);
-        }
-
-        const blob = await response.blob();
-        currentBlob = blob;
-
-        // ✅ FIX: blob ကို data URL ပြောင်းမယ် (CSP က blob: block လုပ်ထားလို့)
-        const dataUrl = await blobToDataURL(blob);
-
-        container.innerHTML = `<img src="${dataUrl}" class="w-full h-full object-contain shadow-sm rounded-lg" style="opacity:0;transition:opacity 0.5s ease;" onload="this.style.opacity='1'">`;
-        saveBtn.classList.remove('hidden');
-
-    } catch (error) {
-        container.innerHTML = `
-            <div class="text-red-600 p-4 bg-red-50 rounded-lg">
-                <i class="fa-solid fa-triangle-exclamation mr-2"></i>
-                <strong>Error:</strong> ${error.message}
-            </div>`;
-        console.error("Image Generation Error:", error);
-    } finally {
-        btn.disabled = false;
-        btn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles"></i> Generate Image`;
-    }
-}
-
-// ✅ NEW HELPER: Blob → Data URL converter
-function blobToDataURL(blob) {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result);
-        reader.onerror = reject;
-        reader.readAsDataURL(blob);
-    });
-}
-
-
-// ✅ အမှန်က ဒီနေရာမှာ ရှိရပါမယ် (Function အပြင်ဘက်)
-window.generateAIImage = generateAIImage;
-window.saveToGallery = saveToGallery;
-
-
-    // Gallery Save Function (Optional)
-    async function saveToGallery() {
-        if (!currentBlob) return;
-        const btn = document.getElementById('save-ai-btn');
-        
-        // Supabase Code ကို အစ်ကို့ uploadLogic အတိုင်း ပြန်သုံးလို့ရပါတယ်
-        // လောလောဆယ် Download ချပေးမယ့် Code ထည့်ပေးထားပါတယ်
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(currentBlob);
-        a.download = `artdeone-ai-${Date.now()}.jpg`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        
-        btn.innerHTML = `<i class="fa-solid fa-check"></i> Saved!`;
-        setTimeout(() => btn.innerHTML = `<i class="fa-solid fa-download"></i> Save to Gallery`, 2000);
-    }
-
-            // ==========================================
-    // LIGHT/DARK MODE LOGIC (Updated for 2 Buttons)
-    // ==========================================
-    const htmlRoot = document.documentElement;
-    const toggles = [
-        document.getElementById('themeToggleDesktop'),
-        document.getElementById('themeToggleMobile')
-    ];
-
-    // 1. Check Saved Preference
-    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        htmlRoot.classList.add('dark');
-    } else {
-        htmlRoot.classList.remove('dark');
-    }
-
-    // 2. Toggle Function
-    function toggleTheme() {
-        if (htmlRoot.classList.contains('dark')) {
-            htmlRoot.classList.remove('dark');
-            localStorage.theme = 'light';
-        } else {
-            htmlRoot.classList.add('dark');
-            localStorage.theme = 'dark';
-        }
-    }
-
-    // 3. Add Listeners to Both Buttons
-    toggles.forEach(btn => {
-        if(btn) btn.addEventListener('click', toggleTheme);
-    });
-
-                // ==========================================
-    // NOTIFICATION BADGE LOGIC (TARGET AUDIENCE FILTERED)
-    // ==========================================
-    
-    // 1. Update UI Function
-    function updateNotifications(count) {
-        const desktopBadge = document.getElementById('desktop-noti');
-        const mobileBadge = document.getElementById('mobile-noti');
-        const badges = [desktopBadge, mobileBadge];
-
-        badges.forEach(badge => {
-            if (badge) {
-                if (count > 0) {
-                    badge.innerText = count;           
-                    badge.classList.remove('hidden');  
-                    badge.classList.add('inline-flex');
-                    badge.classList.add('animate-bounce');
-                    setTimeout(() => badge.classList.remove('animate-bounce'), 1000);
-                } else {
-                    badge.classList.add('hidden');     
-                    badge.classList.remove('inline-flex');
-                }
-            }
-        });
-    }
-
-    // 2. Fetch Filtered Data
-    async function fetchAnnouncementCount() {
-        try {
-            // A. လက်ရှိ Login ဝင်ထားတဲ့ User ကို ရယူမယ်
-            const { data: { user } } = await supabase.auth.getUser();
-            if (!user) return; // Login မဝင်ထားရင် ဘာမှမလုပ်ဘူး
-
-            // B. ကျောင်းသားရဲ့ Type (Individual/Group) ကို students table ကနေ ယူမယ်
-            // (Note: 'email' or 'id' နဲ့ ချိတ်ဆက်ထားတယ်လို့ ယူဆပါတယ်)
-            const { data: studentData, error: studentError } = await supabase
-                .from('students')
-                .select('student_type') // သင့် Table ထဲက column နာမည် (ဥပမာ: type, category, target_audience)
-                .eq('email', user.email) 
-                .single();
-
             if (studentError) {
-                console.error('Error fetching student info:', studentError);
+                console.error('Student check failed:', studentError.message);
+                // DB query error ဆိုရင် sign out ပြီး login page ပြန်ပို့
+                await supabase.auth.signOut();
+                window.location.href = 'student-login.html';
                 return;
             }
 
-            const studentType = studentData?.student_type || 'individual'; // Default to individual if not found
-
-            // C. Announcement တွေကို Filter လုပ်ပြီး ရေတွက်မယ်
-            // Logic: target_audience က 'all' ဖြစ်ရင်သော်လည်းကောင်း၊ ကျောင်းသား Type နဲ့ တူရင်သော်လည်းကောင်း ယူမယ်
-            const { count, error } = await supabase
-                .from('announcements')
-                .select('*', { count: 'exact', head: true })
-                .or(`target_audience.eq.all,target_audience.eq.${studentType}`);
-
-            if (error) {
-                console.error('Supabase Error:', error);
+            if (!studentCheck) {
+                // students table ထဲမှာ မရှိရင် → ဒီ user က student မဟုတ်
+                // admin-panel ကို redirect မလုပ်တော့ဘူး — sign out ပြီး login ပြန်ပို့
+                // (admin user ဆိုရင် admin-panel.html ကနေ သူ့ login page ကနေ ဝင်ရမယ်)
+                await supabase.auth.signOut();
+                window.location.href = 'student-login.html';
                 return;
             }
 
-            console.log(`Live Count (${studentType}):`, count);
-            updateNotifications(count || 0);
+            await loadUserProfile(session.user);
+            await loadMyCourses(session.user.id);
+            loadAnnouncements();
+            loadAllFiles(session.user.id);
+            loadSoftware();
+            fetchAnnouncementCount();
+            loadDashboardAnnouncement();
+        });
 
-        } catch (error) {
-            console.error('Error fetching announcements:', error);
+        // ── PROFILE LOADING ──
+        async function loadUserProfile(authUser) {
+            // Fallback to auth metadata (Google OAuth users)
+            const fallbackName = authUser.user_metadata?.full_name || authUser.email?.split('@')[0] || 'Student';
+            const fallbackAvatar = authUser.user_metadata?.avatar_url || null;
+
+            // Try to load from students table
+            const { data: student } = await supabase.from('students').select('*').eq('id', authUser.id).maybeSingle();
+            const s = student || { full_name: fallbackName, avatar_url: fallbackAvatar, email: authUser.email };
+            currentUser = s;
+            updateProfileUI(s);
         }
-    }
 
-    // 3. Initialize & Realtime Update
-    document.addEventListener('DOMContentLoaded', () => {
-        fetchAnnouncementCount();
-        
-        supabase
-            .channel('announcement-badge-updates')
-            .on('postgres_changes', { event: '*', schema: 'public', table: 'announcements' }, () => {
-                fetchAnnouncementCount();
-            })
-            .subscribe();
-    });
+        function updateProfileUI(s) {
+            const name = s.full_name || s.email?.split('@')[0] || 'Student';
+            const avatar = s.avatar_url;
 
+            setText('welcome-name', name.split(' ')[0]);
+            setText('student-name', name);
+            setText('sidebar-user-email', s.email || '');
+            setText('detail-full-name', name);
+            setText('detail-student-id', s.student_type ? `Type: ${s.student_type}` : '');
+            setText('detail-email', s.email || '');
+            setText('detail-phone', s.phone_number || '—');
+            setText('detail-address', s.address || '—');
+            setText('stat-attendance-total', s.total_attendance ?? 0);
+            setText('stat-attendance-late', s.late_attendance ?? 0);
+            setText('stat-attendance-undertime', s.undertime ?? 0);
+            setText('stat-attendance-absent', s.absent_days ?? 0);
+            setText('profile-name', name);
+            setText('profile-email', s.email || '');
+            setText('profile-type', s.student_type || 'Student');
+            setText('profile-phone', s.phone_number || '—');
+            setText('profile-joined', s.created_at ? new Date(s.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : '—');
+            setText('profile-address', s.address || '—');
 
-</script>
+            if (avatar) {
+                const imgs = ['sidebar-avatar', 'detail-profile-img', 'profile-avatar'];
+                imgs.forEach(id => { const el = document.getElementById(id); if (el) { el.src = avatar; el.classList.remove('hidden'); } });
+                const icon = document.getElementById('detail-profile-icon');
+                if (icon) icon.classList.add('hidden');
+            }
+        }
 
+        function setText(id, val) { const el = document.getElementById(id); if (el) el.textContent = val; }
+
+        // ── COURSES ──
+        async function loadMyCourses(userId) {
+            const { data: enrollments } = await supabase.from('enrollments').select('course_id,status,enrolled_at,progress_percentage').eq('student_id', userId).in('status', ['active', 'completed']).order('enrolled_at', { ascending: false });
+            if (!enrollments?.length) { myEnrollments = []; renderCoursesGrid([]); updateStats([]); return; }
+            const ids = enrollments.map(e => e.course_id);
+            const { data: courses } = await supabase.from('courses').select('id,title,description,course_type,level,duration_weeks,status,cover_image_url').in('id', ids);
+            const combined = enrollments.map(e => ({ ...e, courses: courses?.find(c => c.id === e.course_id) }));
+            myEnrollments = combined;
+            renderCoursesGrid(combined);
+            updateStats(combined);
+        }
+
+        function renderCoursesGrid(enrollments) {
+            const active = enrollments.filter(e => e.status === 'active');
+            const dashGrid = document.getElementById('dashboard-courses-grid');
+            const allGrid = document.getElementById('all-courses-grid');
+            const empty = '<div class="col-span-full text-center py-12 text-gray-300 font-light"><i class="fa-regular fa-folder-open text-3xl mb-3 block"></i><p>No courses enrolled yet</p></div>';
+            if (!enrollments.length) { if (dashGrid) dashGrid.innerHTML = empty; if (allGrid) allGrid.innerHTML = empty; return; }
+            const makeCard = (e) => {
+                const c = e.courses;
+                if (!c) return '';
+                const colors = ['#a7e169', '#60a5fa', '#f97316', '#a78bfa', '#fb7185'];
+                const col = colors[Math.abs(c.title.charCodeAt(0) % colors.length)];
+                return `<div class="bg-white dark:bg-brand-card rounded-2xl border border-gray-100 dark:border-brand-border overflow-hidden hover-lift cursor-pointer" onclick="openCourse('${c.id}')">
+                <div class="h-40 relative overflow-hidden" style="background:${c.cover_image_url ? '' : 'linear-gradient(135deg,' + col + '33,' + col + '11)'}">
+                    ${c.cover_image_url ? `<img src="${c.cover_image_url}" class="w-full h-full object-cover">` : `<div class="absolute inset-0 flex items-center justify-center"><i class="fa-solid fa-palette text-5xl opacity-20" style="color:${col}"></i></div>`}
+                    <span class="absolute top-4 left-4 text-[10px] uppercase tracking-widest font-semibold px-3 py-1 rounded-full border" style="color:${col};background:rgba(255,255,255,.9);border-color:${col}44">${c.course_type || 'Course'}</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-base font-medium mb-2 line-clamp-2">${c.title}</h3>
+                    <p class="text-gray-400 text-xs font-light line-clamp-2 mb-4">${c.description || ''}</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs flex items-center gap-1.5" style="color:${e.status === 'active' ? '#16a34a' : '#6b7280'}">
+                            <span class="w-1.5 h-1.5 rounded-full inline-block" style="background:${e.status === 'active' ? '#16a34a' : '#9ca3af'}"></span>${e.status}
+                        </span>
+                        ${c.level ? `<span class="text-[10px] text-gray-400 capitalize">${c.level}</span>` : ''}
+                    </div>
+                </div>
+            </div>`;
+            };
+            if (dashGrid) dashGrid.innerHTML = active.slice(0, 3).map(makeCard).join('') || empty;
+            if (allGrid) allGrid.innerHTML = enrollments.map(makeCard).join('') || empty;
+        }
+
+        function updateStats(enrollments) {
+            setText('stat-enrolled', enrollments.length);
+            setText('stat-active', enrollments.filter(e => e.status === 'active').length);
+        }
+
+        window.openCourse = async function (courseId) {
+            const e = myEnrollments.find(x => x.course_id === courseId);
+            if (!e?.courses) return;
+            const c = e.courses;
+            setText('detail-course-type', c.course_type || '');
+            setText('detail-course-title', c.title);
+            setText('detail-course-desc', c.description || '');
+            // Track source section for smart back button
+            const srcEl = document.querySelector('.section.active');
+            const srcId = srcEl?.id?.replace(/-section$/, '') || 'my-courses';
+            const backBtn = document.getElementById('course-back-btn');
+            if (backBtn) backBtn.setAttribute('onclick', `switchSection('${srcId}')`);
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById('course-detail-view').classList.add('active');
+            await loadCourseFiles(courseId);
+        };
+
+        async function loadCourseFiles(courseId) {
+            const list = document.getElementById('course-files-list');
+            list.innerHTML = '<p class="text-gray-400 text-sm text-center py-8 font-light"><i class="fa-solid fa-circle-notch fa-spin mr-2"></i>Loading…</p>';
+            const { data } = await supabase.from('course_files').select('*').eq('course_id', courseId).eq('is_active', true).order('upload_date')
+            if (!data?.length) { list.innerHTML = '<p class="text-gray-400 text-sm text-center py-8 font-light">No files available yet.</p>'; return; }
+            list.innerHTML = data.map(f => renderFileCard(f)).join('');
+        }
+
+        // ── DOWNLOADS SECTION ──
+        async function loadAllFiles(userId) {
+            // Load enrolled course IDs
+            const { data: enrollments } = await supabase.from('enrollments').select('course_id').eq('student_id', userId);
+            const enrolledIds = (enrollments || []).map(e => e.course_id);
+
+            // Load all active files excluding software (for enrolled courses OR no course restriction)
+            let query = supabase.from('course_files').select('*').eq('is_active', true).neq('file_type', 'software').order('upload_date', { ascending: false });
+            const { data } = await query;
+            allFiles = (data || []).filter(f => !f.course_id || enrolledIds.includes(f.course_id));
+
+            // Update stat
+            setText('stat-files', allFiles.length);
+
+            // Populate course filter
+            const courses = [...new Map(allFiles.filter(f => f.course).map(f => [f.course_id, f.course])).entries()].map(([id, c]) => ({ id, title: c.title }));
+            const filterSel = document.getElementById('file-course-filter');
+            if (filterSel) {
+                filterSel.innerHTML = '<option value="">All Courses</option>' + courses.map(c => `<option value="${c.id}">${c.title}</option>`).join('');
+            }
+
+            renderDownloads(allFiles);
+        }
+
+        // ── SOFTWARE SECTION ──
+        let allSoftware = [];
+        let currentSwFilter = 'all';
+
+        async function loadSoftware() {
+            const { data } = await supabase.from('course_files').select('*').eq('is_active', true).eq('file_type', 'software').order('upload_date', { ascending: false });
+            allSoftware = data || [];
+            renderSoftware(allSoftware);
+        }
+
+        function getSoftwarePlatform(f) {
+            const d = f.file_description || '';
+            if (d.startsWith('[win]')) return 'win';
+            if (d.startsWith('[mac]')) return 'mac';
+            return 'both';
+        }
+
+        function getSoftwareCleanDesc(f) {
+            return (f.file_description || '').replace(/^\[(win|mac|both)\]/, '').trim();
+        }
+
+        function makeSoftwareCard(f) {
+            const plat = getSoftwarePlatform(f);
+            const desc = getSoftwareCleanDesc(f);
+            const size = f.file_size_kb ? (f.file_size_kb > 1024 ? (f.file_size_kb / 1024).toFixed(1) + ' MB' : f.file_size_kb + ' KB') : '';
+            const isWin = plat === 'win' || plat === 'both';
+            const iconBg = isWin ? '#e8f4ff' : '#f5f5f5';
+            const iconColor = isWin ? '#0078D4' : '#333';
+            const iconClass = isWin ? 'fa-brands fa-windows' : 'fa-brands fa-apple';
+            return `<div class="file-card bg-white dark:bg-brand-card border border-gray-100 dark:border-brand-border rounded-2xl hover:border-brand-green dark:hover:border-brand-green hover:shadow-md" style="transition:all .25s ease;">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:${iconBg};">
+                    <i class="${iconClass} text-xl" style="color:${iconColor};"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <h4 class="font-medium text-sm mb-1 truncate">${f.title || f.file_name || 'Untitled'}</h4>
+                    <p class="text-xs text-gray-400 font-light">${desc}${desc && size ? ' · ' : ''}${size}</p>
+                </div>
+                <a href="${f.file_url}" target="_blank" download
+                    class="flex-shrink-0 flex items-center gap-2 px-4 py-2.5 bg-black dark:bg-brand-green dark:text-black text-white text-xs font-semibold rounded-xl hover:bg-gray-800 dark:hover:bg-green-400 transition active:scale-95"
+                    onclick="trackDownload('${f.id}')">
+                    <i class="fa-solid fa-download"></i><span class="hidden sm:inline">Download</span>
+                </a>
+            </div>`;
+        }
+
+        function makeSoftwareEmpty(platform) {
+            return `<div class="flex items-center gap-4 p-5 bg-gray-50 dark:bg-brand-card/40 rounded-2xl border border-dashed border-gray-200 dark:border-brand-border">
+                <i class="fa-solid fa-circle-info text-gray-300 text-xl"></i>
+                <p class="text-sm text-gray-400 font-light">No ${platform} software available yet.</p>
+            </div>`;
+        }
+
+        function renderSoftware(items) {
+            const winItems = items.filter(f => { const p = getSoftwarePlatform(f); return p === 'win' || p === 'both'; });
+            const macItems = items.filter(f => { const p = getSoftwarePlatform(f); return p === 'mac' || p === 'both'; });
+
+            const winList = document.getElementById('sw-windows-list');
+            const macList = document.getElementById('sw-mac-list');
+            const winBlock = document.getElementById('sw-windows-block');
+            const macBlock = document.getElementById('sw-mac-block');
+
+            if (currentSwFilter === 'win') { winBlock?.classList.remove('hidden'); macBlock?.classList.add('hidden'); }
+            else if (currentSwFilter === 'mac') { winBlock?.classList.add('hidden'); macBlock?.classList.remove('hidden'); }
+            else { winBlock?.classList.remove('hidden'); macBlock?.classList.remove('hidden'); }
+
+            if (winList) winList.innerHTML = winItems.length ? winItems.map(f => makeSoftwareCard(f)).join('') : makeSoftwareEmpty('Windows');
+            if (macList) macList.innerHTML = macItems.length ? macItems.map(f => makeSoftwareCard(f)).join('') : makeSoftwareEmpty('Mac');
+        }
+
+        window.setSoftwareFilter = function (filter) {
+            currentSwFilter = filter;
+            ['all', 'win', 'mac'].forEach(k => {
+                const btn = document.getElementById('sw-filter-' + k);
+                if (!btn) return;
+                if (k === filter) {
+                    btn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold transition bg-gray-900 text-white dark:bg-brand-green dark:text-black' + (k !== 'all' ? ' flex items-center gap-1.5' : '');
+                } else {
+                    btn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold transition text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white' + (k !== 'all' ? ' flex items-center gap-1.5' : '');
+                }
+            });
+            filterSoftware();
+        };
+
+        window.filterSoftware = function () {
+            const q = document.getElementById('software-search')?.value.toLowerCase() || '';
+            const filtered = allSoftware.filter(f =>
+                !q || (f.title || '').toLowerCase().includes(q) || getSoftwareCleanDesc(f).toLowerCase().includes(q)
+            );
+            renderSoftware(filtered);
+        };
+
+        function renderDownloads(files) {
+            const container = document.getElementById('downloads-list');
+            const infoEl = document.getElementById('file-count-info');
+            if (infoEl) infoEl.textContent = files.length ? `${files.length} file${files.length !== 1 ? 's' : ''} available` : '';
+            if (!files.length) {
+                container.innerHTML = `<div class="text-center py-20 text-gray-300">
+                <i class="fa-solid fa-folder-open text-5xl mb-4 block opacity-40"></i>
+                <p class="font-light text-sm">No files available yet</p>
+            </div>`;
+                return;
+            }
+            container.innerHTML = files.map(f => renderFileCard(f, true)).join('');
+        }
+
+        function renderFileCard(f, showCourse = false) {
+            const fileIcons = { pdf: 'fa-file-pdf', video: 'fa-file-video', zip: 'fa-file-zipper', doc: 'fa-file-word', other: 'fa-file' };
+            const fileColors = { pdf: '#ef4444', video: '#8b5cf6', zip: '#f59e0b', doc: '#3b82f6', other: '#6b7280' };
+            const icon = fileIcons[f.file_type] || 'fa-file';
+            const color = fileColors[f.file_type] || '#6b7280';
+            const size = f.file_size_kb ? (f.file_size_kb > 1024 ? (f.file_size_kb / 1024).toFixed(1) + ' MB' : f.file_size_kb + ' KB') : '';
+
+            return `<div class="file-card bg-white dark:bg-brand-card border border-gray-100 dark:border-brand-border rounded-2xl hover:border-brand-green dark:hover:border-brand-green hover:shadow-md" style="transition:all .25s ease;">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:${color}18;">
+                <i class="fa-solid ${icon} text-xl" style="color:${color};"></i>
+            </div>
+            <div class="flex-1 min-w-0">
+                <h4 class="font-medium text-sm mb-1 truncate">${f.title || f.file_name || 'Untitled'}</h4>
+                <p class="text-xs text-gray-400 font-light flex items-center gap-2 flex-wrap">
+                    ${showCourse && f.course ? `<span>${f.course.title}</span><span class="text-gray-200 dark:text-gray-700">·</span>` : ''}
+                    ${f.file_description ? `<span>${f.file_description}</span>` : ''}
+                    ${size ? `${f.file_description ? '<span class="text-gray-200 dark:text-gray-700">·</span>' : ''}  <span>${size}</span>` : ''}
+                </p>
+            </div>
+            <span class="text-[10px] uppercase tracking-widest font-bold px-2 py-1 rounded-full flex-shrink-0" style="background:${color}18; color:${color};">${f.file_type || 'file'}</span>
+            <a href="${f.file_url}" target="_blank" download
+                class="flex-shrink-0 flex items-center gap-2 px-4 py-2.5 bg-black dark:bg-brand-green dark:text-black text-white text-xs font-semibold rounded-xl hover:bg-gray-800 dark:hover:bg-green-400 transition active:scale-95"
+                onclick="trackDownload('${f.id}')">
+                <i class="fa-solid fa-download"></i> <span class="hidden sm:inline">Download</span>
+            </a>
+        </div>`;
+        }
+
+        window.filterFiles = function () {
+            const q = document.getElementById('file-search')?.value.toLowerCase() || '';
+            const course = document.getElementById('file-course-filter')?.value || '';
+            const type = document.getElementById('file-type-filter')?.value || '';
+            const filtered = allFiles.filter(f => {
+                const matchQ = !q || (f.title || '').toLowerCase().includes(q) || (f.file_description || '').toLowerCase().includes(q);
+                const matchCourse = !course || f.course_id === course;
+                const matchType = !type || f.file_type === type;
+                return matchQ && matchCourse && matchType;
+            });
+            renderDownloads(filtered);
+        };
+
+        // ── ANNOUNCEMENTS ──
+        async function loadAnnouncements() {
+            const { data: { user } } = await supabase.auth.getUser();
+            const { data: studentData } = await supabase.from('students').select('student_type').eq('id', user.id).maybeSingle();
+            const type = studentData?.student_type || 'individual';
+            const { data } = await supabase.from('announcements').select('*').or(`target_audience.eq.all,target_audience.eq.${type}`).order('published_at', { ascending: false });
+            const list = document.getElementById('announcements-list');
+            if (!data?.length) { list.innerHTML = '<p class="text-gray-400 text-center font-light py-12">No announcements at this time.</p>'; return; }
+            const priorityColor = { urgent: '#ef4444', high: '#f97316', normal: '#6b7280', low: '#9ca3af' };
+            list.innerHTML = data.map(a => `
+            <div class="bg-white dark:bg-brand-card rounded-2xl p-6 border border-gray-100 dark:border-brand-border hover-lift">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5" style="background:${priorityColor[a.priority] || '#6b7280'}18;">
+                        <i class="fa-solid fa-bullhorn text-sm" style="color:${priorityColor[a.priority] || '#6b7280'};"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2 mb-2 flex-wrap">
+                            <h3 class="font-semibold text-sm">${a.title}</h3>
+                            <span class="text-[10px] uppercase tracking-widest font-bold px-2 py-0.5 rounded-full" style="background:${priorityColor[a.priority] || '#6b7280'}18; color:${priorityColor[a.priority] || '#6b7280'};"> ${a.priority}</span>
+                        </div>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm font-light leading-relaxed">${a.content}</p>
+                        <p class="text-xs text-gray-300 dark:text-gray-600 mt-3">${new Date(a.published_at || a.created_at || new Date()).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
+                    </div>
+                </div>
+            </div>`).join('');
+        }
+
+        async function fetchAnnouncementCount() {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) return;
+            const { data: s } = await supabase.from('students').select('student_type').eq('id', user.id).maybeSingle();
+            const type = s?.student_type || 'individual';
+            const { count } = await supabase.from('announcements').select('*', { count: 'exact', head: true }).or(`target_audience.eq.all,target_audience.eq.${type}`);
+            const badges = [document.getElementById('desktop-noti'), document.getElementById('mobile-noti')];
+            badges.forEach(b => { if (!b) return; if (count > 0) { b.textContent = count; b.classList.remove('hidden'); } else { b.classList.add('hidden'); } });
+        }
+
+        // ── DASHBOARD ANNOUNCEMENT PREVIEW ──
+        async function loadDashboardAnnouncement() {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) return;
+            const { data: s } = await supabase.from('students').select('student_type').eq('id', user.id).maybeSingle();
+            const type = s?.student_type || 'individual';
+            const { data } = await supabase
+                .from('announcements')
+                .select('*')
+                .or(`target_audience.eq.all,target_audience.eq.${type}`)
+                .order('published_at', { ascending: false })
+                .limit(1);
+
+            const widget = document.getElementById('dashboard-announcement-widget');
+            const content = document.getElementById('dashboard-announcement-content');
+            if (!data?.length || !widget || !content) return;
+
+            widget.classList.remove('hidden');
+            const a = data[0];
+            const priorityMeta = {
+                urgent: { color: '#ef4444', label: 'Urgent', bg: '#fef2f2' },
+                high: { color: '#f97316', label: 'High', bg: '#fff7ed' },
+                normal: { color: '#6b7280', label: 'Normal', bg: '#f9fafb' }
+            };
+            const meta = priorityMeta[a.priority] || priorityMeta.normal;
+            content.innerHTML = `
+            <div class="bg-white dark:bg-brand-card rounded-2xl p-6 border border-gray-100 dark:border-brand-border hover-lift cursor-pointer" style="border-left:4px solid ${meta.color};" onclick="switchSection('announcements')">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:${meta.color}18;">
+                        <i class="fa-solid fa-bullhorn text-sm" style="color:${meta.color};"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center gap-2 mb-1 flex-wrap">
+                            <h3 class="font-semibold text-sm">${a.title}</h3>
+                            <span class="text-[10px] uppercase tracking-widest font-bold px-2 py-0.5 rounded-full" style="background:${meta.color}18; color:${meta.color};">${a.priority}</span>
+                        </div>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm font-light leading-relaxed">${(a.content || '').length > 130 ? (a.content || '').slice(0, 130) + '…' : (a.content || '')}</p>
+                        <p class="text-xs text-gray-300 dark:text-gray-600 mt-2">${new Date(a.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-gray-300 dark:text-gray-600 text-xs flex-shrink-0 mt-1"></i>
+                </div>
+            </div>`;
+        }
+
+        // ── BLOG ──
+        function renderBlogPosts() {
+            const container = document.getElementById('blog-posts-container');
+            if (!container || !blogPosts?.length) { if (container) container.innerHTML = '<p class="col-span-full text-center text-gray-400 py-12">No posts yet.</p>'; return; }
+            container.innerHTML = blogPosts.map(p => `
+            <article class="bg-white dark:bg-brand-card rounded-2xl border border-gray-100 dark:border-brand-border overflow-hidden hover-lift cursor-pointer" onclick="window.location.href='blog-post-template.html?id=${p.id}'">
+                <div class="h-44 overflow-hidden">
+                    ${p.type === 'video' && p.videoId ? `<div class="h-full bg-black flex items-center justify-center"><i class="fa-solid fa-play text-3xl text-white/60"></i></div>` : p.image ? `<img src="${p.image}" class="w-full h-full object-cover hover:scale-105 transition duration-500">` : `<div class="h-full bg-gray-100 dark:bg-brand-dark flex items-center justify-center"><i class="fa-regular fa-image text-3xl text-gray-300"></i></div>`}
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-[10px] uppercase tracking-widest font-bold text-brand-green">${p.category || ''}</span>
+                        <span class="text-gray-200 dark:text-gray-700">·</span>
+                        <span class="text-xs text-gray-400">${p.date || ''}</span>
+                    </div>
+                    <h3 class="font-semibold text-sm leading-snug line-clamp-2">${p.title}</h3>
+                </div>
+            </article>`).join('');
+        }
+        renderBlogPosts();
+
+        // ── AVATAR UPLOAD ──
+        window.uploadAvatar = async function (event) {
+            const file = event.target.files[0];
+            if (!file || !currentUser) return;
+            const { data: { user } } = await supabase.auth.getUser();
+            const filePath = `avatars/${user.id}/${Date.now()}.${file.name.split('.').pop()}`;
+            const { error } = await supabase.storage.from('avatars').upload(filePath, file, { upsert: true });
+            if (error) { alert('Upload failed: ' + error.message); return; }
+            const { data: { publicUrl } } = supabase.storage.from('avatars').getPublicUrl(filePath);
+            await supabase.from('students').update({ avatar_url: publicUrl }).eq('id', user.id);
+            ['sidebar-avatar', 'detail-profile-img', 'profile-avatar'].forEach(id => { const el = document.getElementById(id); if (el) { el.src = publicUrl; el.classList.remove('hidden'); } });
+            document.getElementById('detail-profile-icon')?.classList.add('hidden');
+        };
+
+        // ── NAVIGATION ──
+        document.querySelectorAll('.sidebar-link[data-section]').forEach(link => {
+            link.addEventListener('click', (e) => { e.preventDefault(); switchSection(link.dataset.section); });
+        });
+
+        window.switchSection = function (id) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            const target = document.getElementById(id + '-section');
+            if (target) target.classList.add('active');
+            document.querySelectorAll('.sidebar-link[data-section]').forEach(l => l.classList.toggle('active', l.dataset.section === id));
+            window.scrollTo(0, 0);
+        };
+
+        window.toggleMobileMenu = function () {
+            const overlay = document.getElementById('mobile-sidebar');
+            const panel = document.getElementById('mobile-sidebar-content');
+            const open = !overlay.classList.contains('hidden');
+            overlay.classList.toggle('hidden', open);
+            panel.classList.toggle('-translate-x-full', open);
+        };
+
+        // ── AUTH ──
+        window.logout = function () { document.getElementById('logout-modal').classList.remove('hidden'); };
+        window.closeLogoutModal = function () { document.getElementById('logout-modal').classList.add('hidden'); };
+        window.confirmLogout = async function () {
+            await supabase.auth.signOut();
+            window.location.href = 'student-login.html';
+        };
+
+        // ── DARK MODE ──
+        function updateThemeIcons() {
+            const isDark = document.documentElement.classList.contains('dark');
+            document.querySelectorAll('.theme-icon-sun').forEach(el => el.style.display = isDark ? 'none' : 'block');
+            document.querySelectorAll('.theme-icon-moon').forEach(el => el.style.display = isDark ? 'block' : 'none');
+            // Update toggle button border color for dark mode
+            document.querySelectorAll('#themeToggleDesktop, #themeToggleMobile').forEach(btn => {
+                if (!btn) return;
+                btn.style.borderColor = isDark ? '#2a2a35' : '#f3f4f6';
+                btn.style.backgroundColor = isDark ? '#1a1a20' : '';
+            });
+        }
+        updateThemeIcons(); // Init icons on page load
+
+        const toggles = [document.getElementById('themeToggleDesktop'), document.getElementById('themeToggleMobile')];
+        toggles.forEach(btn => {
+            if (btn) btn.addEventListener('click', () => {
+                const isDark = document.documentElement.classList.toggle('dark');
+                localStorage.theme = isDark ? 'dark' : 'light';
+                updateThemeIcons();
+            });
+        });
+
+        // ── AI STUDIO ──
+        window.generateAIImage = async function () {
+            const prompt = document.getElementById('ai-prompt').value.trim();
+            const model = document.querySelector('input[name="ai-model"]:checked')?.value || 'flux-schnell';
+            const btn = document.getElementById('gen-btn');
+            const container = document.getElementById('ai-result-container');
+            if (!prompt) { alert('Please enter a prompt.'); return; }
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Generating…';
+            container.innerHTML = `<div class="text-center p-8"><i class="fa-solid fa-circle-notch fa-spin text-3xl text-gray-300 mb-4 block"></i><p class="text-gray-400 text-sm font-light">Generating your artwork…</p></div>`;
+            const saveBtn = document.getElementById('save-ai-btn');
+            saveBtn.classList.add('hidden');
+            try {
+                const res = await fetch('/api/generate-image', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt, model }) });
+                if (!res.ok) throw new Error(await res.text());
+                const blob = await res.blob();
+                currentBlob = blob;
+                const url = await new Promise((res, rej) => { const r = new FileReader(); r.onloadend = () => res(r.result); r.onerror = rej; r.readAsDataURL(blob); });
+                container.innerHTML = `<img src="${url}" class="w-full h-full object-contain rounded-lg" style="opacity:0;transition:opacity .5s;" onload="this.style.opacity='1'">`;
+                saveBtn.classList.remove('hidden');
+            } catch (err) {
+                container.innerHTML = `<div class="text-red-500 p-6 bg-red-50 dark:bg-red-900/10 rounded-xl text-sm"><i class="fa-solid fa-triangle-exclamation mr-2"></i>${err.message}</div>`;
+            } finally { btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Generate Image'; }
+        };
+
+        window.saveToGallery = function () {
+            if (!currentBlob) return;
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(currentBlob);
+            a.download = `artdeone-ai-${Date.now()}.jpg`;
+            a.click();
+            const btn = document.getElementById('save-ai-btn');
+            btn.innerHTML = '<i class="fa-solid fa-check"></i> Saved!';
+            setTimeout(() => btn.innerHTML = '<i class="fa-solid fa-download"></i> Save to Gallery', 2000);
+        };
+
+        window.joinStudentLiveClass = function() {
+            const room = document.getElementById('student-room-code').value.trim();
+            if (!room) { alert('Please enter a room code'); return; }
+            const name = currentUser?.full_name || currentUser?.email?.split('@')[0] || 'Student';
+            window.open(`artdeone-live-class.html?room=${encodeURIComponent(room)}&name=${encodeURIComponent(name)}`, '_blank');
+        };
+    </script>
 </body>
+
 </html>
