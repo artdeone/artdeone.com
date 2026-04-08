@@ -16,72 +16,648 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/feather-icons"></script>
 
     <link rel="stylesheet" href="/css-and-js/mobile-smooth-nav.css">
-    
     <link rel="stylesheet" href="/css-and-js/theme.css">
     
     <style>
-        /* Added Space Grotesk to imports */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
-        /* --- NEW BRAND THEME STYLES --- */
+        /* --- BRAND THEME (UNCHANGED) --- */
         body {
             background-color: #ffffff;
             color: #323232;
             font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
         }
 
-        /* Navigation Overrides for Light Theme */
+        /* Navigation Overrides (UNCHANGED) */
         nav {
             background-color: rgba(255, 255, 255, 0.95) !important;
             border-bottom: 1px solid #e5e5e5;
             backdrop-filter: blur(12px);
         }
-
         .nav-link {
             color: #323232 !important;
             font-weight: 400 !important;
             letter-spacing: 0.04em;
             font-size: 0.9rem !important;
         }
-
         .nav-link:hover {
             color: #000 !important;
             font-weight: 600 !important;
         }
-
         .mobile-menu {
             background-color: #ffffff !important;
             border-bottom: 1px solid #e5e5e5;
         }
-
         .mobile-nav-link {
             color: #323232 !important;
             font-weight: 400;
             font-size: 0.9rem;
         }
-
-        /* Icons in Mobile Menu */
         .mobile-menu-btn {
             color: #000 !important;
         }
-
         .mobile-menu-btn:hover {
             background-color: #f3f4f6;
         }
+        .nav-btn {
+            background-color: #a7e169;
+            color: #000;
+            font-weight: 600;
+            border-radius: 2rem;
+            padding: 0.5rem 1.25rem;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #a7e169;
+            height: auto;
+            line-height: 1;
+        }
+        .nav-btn:hover {
+            background-color: #ed2939;
+            border-color: #ed2939;
+            color: #fff;
+            transform: translateY(-1px);
+        }
 
-        /* --- BRAND CONSISTENT STYLES --- */
-        
-        /* Lightbox Styles */
+        /* ===================== */
+        /* MODERN REDESIGN STYLES */
+        /* ===================== */
+
+        /* CSS Custom Properties */
+        :root {
+            --green: #a7e169;
+            --red: #ed2939;
+            --black: #000000;
+            --dark: #323232;
+            --gray-100: #f7f7f7;
+            --gray-200: #e5e5e5;
+            --gray-400: #999;
+            --gray-500: #777;
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-interactive: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* ===== SCROLL-DRIVEN ANIMATIONS ===== */
+
+        /* Base: all animated elements start hidden */
+        .fade-in,
+        .slide-up,
+        .slide-left,
+        .slide-right,
+        .scale-up,
+        .blur-in,
+        .reveal-up {
+            opacity: 0;
+            filter: blur(6px);
+            transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 1.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        filter 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform, filter;
+        }
+
+        .fade-in          { transform: translateY(0); }
+        .slide-up         { transform: translateY(60px); }
+        .slide-left       { transform: translateX(80px); }
+        .slide-right      { transform: translateX(-80px); }
+        .scale-up         { transform: scale(0.88); }
+        .blur-in          { transform: translateY(30px); filter: blur(16px); }
+        .reveal-up        { clip-path: inset(100% 0 0 0); }
+
+        /* Visible state — triggered by JS IntersectionObserver */
+        .fade-in.is-visible,
+        .slide-up.is-visible,
+        .slide-left.is-visible,
+        .slide-right.is-visible,
+        .scale-up.is-visible,
+        .blur-in.is-visible,
+        .reveal-up.is-visible {
+            opacity: 1;
+            transform: translateY(0) translateX(0) scale(1);
+            filter: blur(0);
+            clip-path: inset(0 0 0 0);
+        }
+
+        /* Stagger delays via data-delay or nth-child */
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(40px);
+            filter: blur(5px);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+                        filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .stagger-item.is-visible { opacity: 1; transform: translateY(0); filter: blur(0); }
+        .stagger-item:nth-child(1) { transition-delay: 0ms; }
+        .stagger-item:nth-child(2) { transition-delay: 120ms; }
+        .stagger-item:nth-child(3) { transition-delay: 240ms; }
+        .stagger-item:nth-child(4) { transition-delay: 360ms; }
+        .stagger-item:nth-child(5) { transition-delay: 480ms; }
+        .stagger-item:nth-child(6) { transition-delay: 600ms; }
+
+        /* Masonry items stagger */
+        .masonry-item {
+            opacity: 0;
+            transform: translateY(50px) scale(0.95);
+            filter: blur(5px);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+                        filter 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+                        box-shadow 0.4s var(--ease-out);
+        }
+        .masonry-item.is-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0);
+            transition: opacity 0.4s var(--ease-out),
+                        transform 0.5s var(--ease-out),
+                        filter 0.4s var(--ease-out),
+                        box-shadow 0.5s var(--ease-out);
+        }
+
+        /* Section headers — text reveal */
+        .section-tag,
+        .section-title,
+        .section-desc {
+            opacity: 0;
+            transform: translateY(20px);
+            filter: blur(4px);
+            transition: opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 1.1s cubic-bezier(0.16, 1, 0.3, 1),
+                        filter 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .section-tag.is-visible  { opacity: 1; transform: translateY(0); filter: blur(0); transition-delay: 0ms; }
+        .section-title.is-visible { opacity: 1; transform: translateY(0); filter: blur(0); transition-delay: 150ms; }
+        .section-desc.is-visible  { opacity: 1; transform: translateY(0); filter: blur(0); transition-delay: 300ms; }
+
+        /* Stat cards entrance */
+        .stat-card {
+            opacity: 0;
+            transform: translateY(40px) scale(0.92);
+            filter: blur(5px);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+                        filter 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+                        border-color var(--transition-interactive),
+                        box-shadow var(--transition-interactive);
+        }
+        .stat-card.is-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0);
+        }
+        .stat-card:nth-child(1) { transition-delay: 0ms; }
+        .stat-card:nth-child(2) { transition-delay: 200ms; }
+        .stat-card:nth-child(3) { transition-delay: 400ms; }
+
+        /* Hero entrance animations */
+        .hero-animate {
+            opacity: 0;
+            transform: translateY(40px);
+            filter: blur(6px);
+            transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 1.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        filter 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hero-animate.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+
+        /* Outdoor cards */
+        .outdoor-card {
+            opacity: 0;
+            transform: translateX(60px) scale(0.92);
+            filter: blur(5px);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+                        filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .outdoor-card.is-visible {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+            filter: blur(0);
+        }
+
+        /* CTA cards */
+        .cta-card {
+            opacity: 0;
+            transform: translateY(50px);
+            filter: blur(5px);
+            transition: opacity 1.3s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 1.3s cubic-bezier(0.16, 1, 0.3, 1),
+                        filter 1.3s cubic-bezier(0.16, 1, 0.3, 1),
+                        box-shadow 0.4s var(--ease-out);
+        }
+        .cta-card.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+            transition: opacity 0.4s var(--ease-out),
+                        transform 0.5s var(--ease-out),
+                        filter 0.4s var(--ease-out),
+                        box-shadow 0.5s var(--ease-out);
+        }
+        .cta-card:nth-child(1) { transition-delay: 0ms; }
+        .cta-card:nth-child(2) { transition-delay: 250ms; }
+
+        /* ===== HERO ===== */
+        .hero-section {
+            padding-top: 10rem;
+            padding-bottom: 4rem;
+            position: relative;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(167, 225, 105, 0.12);
+            border: 1px solid rgba(167, 225, 105, 0.3);
+            color: var(--green);
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+        }
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+        }
+        .hero-title .gradient-text {
+            background: linear-gradient(135deg, #000 0%, #a7e169 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ===== STATS — Animated Counter Cards ===== */
+        .stat-card {
+            background: #fff;
+            border: 1px solid var(--gray-200);
+            border-radius: 1.25rem;
+            padding: 1.75rem 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: border-color var(--transition-interactive), box-shadow var(--transition-interactive), transform var(--transition-interactive);
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(167,225,105,0.06) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .stat-card:hover {
+            border-color: var(--green);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(167, 225, 105, 0.12);
+        }
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--black);
+            line-height: 1;
+            font-variant-numeric: tabular-nums;
+        }
+        .stat-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--gray-500);
+            margin-top: 0.5rem;
+        }
+
+        /* ===== STUDENT LOGIN BANNER ===== */
+        .login-banner {
+            background: linear-gradient(135deg, #f7fef0 0%, #fff 100%);
+            border-left: 4px solid var(--green);
+            border-radius: 0 1rem 1rem 0;
+            padding: 1.75rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* ===== BENTO GRID — Featured Picks ===== */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: auto auto;
+            gap: 1rem;
+        }
+        @media (max-width: 768px) {
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .bento-card {
+            position: relative;
+            border-radius: 1.25rem;
+            overflow: hidden;
+            cursor: pointer;
+            background: var(--gray-100);
+        }
+        .bento-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s var(--ease-out);
+        }
+        .bento-card:hover img {
+            transform: scale(1.06);
+        }
+        .bento-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 40%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s var(--ease-out);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+        }
+        .bento-card:hover .bento-overlay {
+            opacity: 1;
+        }
+        .bento-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            background: rgba(167,225,105,0.2);
+            backdrop-filter: blur(8px);
+            color: var(--green);
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.25rem 0.6rem;
+            border-radius: 100px;
+            width: fit-content;
+            margin-bottom: 0.5rem;
+        }
+        /* Large featured card spans 2 columns and 2 rows */
+        .bento-card--large {
+            grid-column: span 2;
+            grid-row: span 2;
+            min-height: 500px;
+        }
+        .bento-card--small {
+            min-height: 240px;
+        }
+        @media (max-width: 768px) {
+            .bento-card--large {
+                grid-column: span 1;
+                grid-row: span 1;
+                min-height: 300px;
+            }
+            .bento-card--small {
+                min-height: 240px;
+            }
+        }
+
+        /* ===== MASONRY GALLERY ===== */
+        .masonry-grid {
+            columns: 4 250px;
+            column-gap: 1rem;
+        }
+        @media (max-width: 1024px) {
+            .masonry-grid { columns: 3 200px; }
+        }
+        @media (max-width: 640px) {
+            .masonry-grid { columns: 2 150px; }
+        }
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1rem;
+            border-radius: 1rem;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+        }
+        .masonry-item:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+            z-index: 10;
+        }
+        .masonry-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.6s var(--ease-out);
+        }
+        .masonry-item:hover img {
+            transform: scale(1.05);
+        }
+        .masonry-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.35s var(--ease-out);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.25rem;
+        }
+        .masonry-item:hover .masonry-overlay {
+            opacity: 1;
+        }
+
+        /* Share Button */
+        .share-btn {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #000;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            z-index: 20;
+            opacity: 0;
+            transform: translateY(-8px);
+            transition: opacity 0.3s var(--ease-out), transform 0.3s var(--ease-out), background-color var(--transition-interactive), color var(--transition-interactive);
+        }
+        .masonry-item:hover .share-btn,
+        .bento-card:hover .share-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .share-btn:hover {
+            background-color: var(--green);
+            color: #000;
+            border-color: var(--green);
+        }
+
+        /* ===== FILTER TABS ===== */
+        .filter-tabs {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .filter-tab {
+            padding: 0.5rem 1.25rem;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid var(--gray-200);
+            background: #fff;
+            color: var(--gray-500);
+            transition: background var(--transition-interactive), color var(--transition-interactive), border-color var(--transition-interactive), transform var(--transition-interactive);
+        }
+        .filter-tab:hover {
+            border-color: var(--green);
+            color: var(--dark);
+        }
+        .filter-tab:active {
+            transform: scale(0.97);
+        }
+        .filter-tab.active {
+            background: var(--green);
+            border-color: var(--green);
+            color: #000;
+            font-weight: 600;
+        }
+
+        /* ===== OUTDOOR ACTIVITIES SECTION ===== */
+        .outdoor-scroll {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding-bottom: 1rem;
+        }
+        .outdoor-scroll::-webkit-scrollbar {
+            display: none;
+        }
+        .outdoor-card {
+            scroll-snap-align: start;
+            flex: 0 0 auto;
+            width: 300px;
+            height: 400px;
+            border-radius: 1.25rem;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        @media (max-width: 640px) {
+            .outdoor-card {
+                width: 260px;
+                height: 340px;
+            }
+        }
+        .outdoor-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s var(--ease-out);
+        }
+        .outdoor-card:hover img {
+            transform: scale(1.08);
+        }
+        .outdoor-card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+            transition: background 0.4s ease;
+        }
+        .outdoor-card:hover .outdoor-card-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.15) 70%);
+        }
+
+        /* ===== SECTION HEADERS ===== */
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--green);
+            margin-bottom: 0.75rem;
+        }
+        .section-title {
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            font-weight: 700;
+            color: var(--black);
+            line-height: 1.15;
+        }
+        .section-desc {
+            font-size: 0.875rem;
+            color: var(--gray-400);
+            font-weight: 300;
+            margin-top: 0.5rem;
+        }
+
+        /* ===== CTA CARDS ===== */
+        .cta-card {
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+        }
+        .cta-card:hover {
+            transform: translateY(-4px);
+        }
+        .cta-card--light {
+            background: linear-gradient(135deg, rgba(167,225,105,0.12) 0%, rgba(167,225,105,0.04) 100%);
+            border: 1px solid rgba(167,225,105,0.3);
+        }
+        .cta-card--light:hover {
+            box-shadow: 0 20px 40px rgba(167,225,105,0.15);
+        }
+        .cta-card--dark {
+            background: var(--black);
+            color: #fff;
+            border: 1px solid #222;
+        }
+        .cta-card--dark:hover {
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+        }
+
+        /* ===== LIGHTBOX ===== */
         #lightbox {
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s ease;
-            backdrop-filter: blur(10px);
-            background-color: rgba(0, 0, 0, 0.95); /* Keep lightbox dark for focus */
+            backdrop-filter: blur(16px);
+            background-color: rgba(0, 0, 0, 0.95);
         }
         #lightbox.active {
             opacity: 1;
@@ -96,140 +672,10 @@
             transition: color 0.3s ease;
         }
         .lightbox-nav:hover {
-            color: #a7e169; /* New Brand Accent */
+            color: var(--green);
         }
 
-        /* Grid Layout */
-        .grid-item {
-            position: relative;
-            border-radius: 1rem;
-            overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            aspect-ratio: 3/4;
-        }
-        .grid-item:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            z-index: 10;
-        }
-        .grid-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.7s ease;
-        }
-        .grid-item:hover img {
-            transform: scale(1.1);
-        }
-        .grid-item-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 1.5rem;
-        }
-        .grid-item:hover .grid-item-overlay {
-            opacity: 1;
-        }
-
-        /* Share Button */
-        .share-btn {
-            position: absolute;
-            bottom: 1rem;
-            right: 1rem;
-            background-color: rgba(255, 255, 255, 0.9);
-            color: #000;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            z-index: 20;
-            opacity: 0;
-            transform: translateY(-10px);
-        }
-        .grid-item:hover .share-btn {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .share-btn:hover {
-            background-color: #a7e169; /* Brand Accent */
-            color: #000;
-            border-color: #a7e169;
-            transform: scale(1.1);
-        }
-
-       
-
-        /* Card Styles (Matched to Courses.html) */
-        .gallery-card-minimal {
-            background-color: #ffffff;
-            border: 1px solid #e5e5e5;
-            border-radius: 1rem;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-        }
-        .gallery-card-minimal:hover {
-            transform: translateY(-8px);
-            border-color: #a7e169;
-            box-shadow: 0 20px 40px -20px rgba(167, 225, 105, 0.3);
-        }
-    
-         /* SIMPLE HOVER LIFT FIX */
-        .gallery-card-minimal {
-            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
-            position: relative;
-        }
-        .gallery-card-minimal:hover {
-            transform: translateY(-8px) !important;
-        }
-
-        .section-subtitle {
-            color: #555;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Navigation Button */
-        .nav-btn {
-            background-color: #a7e169;
-            color: #000;
-            font-weight: 600;
-            border-radius: 2rem; 
-            padding: 0.5rem 1.25rem; 
-            font-size: 0.8rem; 
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #a7e169;
-            height: auto;
-            line-height: 1;
-        }
-
-        .nav-btn:hover {
-            background-color: #ed2939;
-            border-color: #ed2939;
-            color: #fff;
-            transform: translateY(-1px);
-        }
-
-
-        /* Animation overrides */
-        [data-aos] { transition-duration: 1000ms !important; }
-
-        /* Orb animations */
+        /* ===== BACKGROUND ORBS ===== */
         @keyframes orbDrift1 {
             0%, 100% { transform: translate(0px, 0px) scale(1); }
             33%       { transform: translate(30px, -20px) scale(1.05); }
@@ -245,16 +691,63 @@
             30%       { transform: translate(-20px, 25px) scale(1.06); }
             65%       { transform: translate(15px, -10px) scale(0.95); }
         }
+
+        /* Marquee for outdoor section */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .marquee-track {
+            display: flex;
+            animation: marquee 30s linear infinite;
+            width: max-content;
+        }
+        .marquee-track:hover {
+            animation-play-state: paused;
+        }
+
+        /* ===== SCROLL PROGRESS BAR ===== */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--green);
+            z-index: 100;
+            transform-origin: left;
+            scale: 0 1;
+            animation: progressBar linear;
+            animation-timeline: scroll();
+        }
+        @keyframes progressBar {
+            to { scale: 1 1; }
+        }
+
+        /* Image counter badge in lightbox */
+        .image-counter {
+            font-variant-numeric: tabular-nums;
+            font-size: 0.75rem;
+            letter-spacing: 0.08em;
+            color: rgba(255,255,255,0.5);
+        }
     </style>
 </head>
 <body class="bg-white text-[#323232]">
 
+    <!-- Scroll Progress -->
+    <div class="scroll-progress"></div>
+
+    <!-- ===== NAVBAR (UNCHANGED) ===== -->
     <nav class="fixed w-full z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 nav-container">
             <div class="nav-wrapper">
                 <div class="flex justify-between h-16 items-center">
                     <div class="flex items-center">
-                        <a href="/index.html"><img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png" alt="ART de ONE" class="h-10 w-auto"></a>
+                        <div class="flex-shrink-0">
+                            <a href="/index.html" class="flex items-center">
+                                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png" alt="ART de ONE" class="h-10 w-auto">
+                            </a>
+                        </div>
                     </div>
                     
                     <div class="hidden md:flex items-center space-x-6 nav-center">
@@ -273,8 +766,14 @@
                         <a href="/index.html#contact" class="nav-link">Contact</a>
                     </div>
                     
-                    <div class="hidden md:flex items-center gap-4" id="desktop-auth-container">
-                        <a href="/customer-dashboard.html" class="nav-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
+                    <div class="hidden md:flex items-center gap-3" id="desktopAuth">
+                        <a href="/Private/student-login.html" class="nav-btn" id="btnLoginDesktop"><i class="fas fa-user-graduate mr-1.5 text-xs"></i>Student Login</a>
+                        <div id="userInfoDesktop" style="display:none;" class="flex items-center gap-3">
+                            <a href="/customer-dashboard.html" title="Dashboard" style="text-decoration:none; display:flex; align-items:center;">
+                                <span class="shop-nav-avatar" id="avatarDesktop"></span>
+                            </a>
+                            <button onclick="logout()" class="nav-btn-signout">Sign out</button>
+                        </div>
                     </div>
                     
                     <div class="md:hidden flex items-center">
@@ -289,13 +788,13 @@
             </div>
         </div>
         
-        <div class="mobile-menu md:hidden hidden" id="mobile-menu">
+        <div class="mobile-menu md:hidden" id="mobile-menu">
             <div class="py-2 px-4 space-y-1">
                 <a href="/index.html#home" class="block py-2 mobile-nav-link">Home</a>
-                <!-- <a href="/courses.html" class="block py-2 mobile-nav-link">Courses</a> -->
                 <a href="/shop.html" class="block py-2 mobile-nav-link">Shop</a>
-                <a href="/portfolio/student-gallery.html" class="block py-2 mobile-nav-link text-black font-bold">Student</a>
+                <a href="/portfolio/student-gallery.html" class="block py-2 mobile-nav-link font-bold text-black">Student</a>
                 <a href="/blog.html" class="block py-2 mobile-nav-link">Blog</a>
+                <a href="https://ai.artdeone.com/" class="block py-2 mobile-nav-link">Ai</a>
                 <div>
                     <button onclick="toggleMobileResourcesDropdown()" class="block py-2 mobile-nav-link w-full text-left" style="display:flex;align-items:center;gap:6px;">
                         <span>Resources</span>
@@ -306,568 +805,597 @@
                         <a href="/prompt.html" class="block py-2 pl-6 text-sm text-gray-500 hover:text-black transition">AI Prompts</a>
                     </div>
                 </div>
-                <a href="https://ai.artdeone.com/" class="block py-2 mobile-nav-link">Ai</a>
                 <a href="/index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
-                <a href="/customer-dashboard.html" style="display:inline-flex; align-items:center; gap:0.35rem; background:#ed2939; color:#fff; font-weight:600; border-radius:2rem; padding:0.3rem 0.75rem; font-size:0.75rem; border:1px solid #ed2939; text-decoration:none;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
+                <div id="mobileAuth">
+                    <a href="/Private/student-login.html" class="nav-btn-signout" style="padding:0.3rem 0.75rem; font-size:0.75rem; gap:0.35rem; background:#a7e169; color:#000; border:1px solid #a7e169; border-radius:2rem; font-weight:600; display:inline-flex; align-items:center;" id="btnLoginMobile"><i class="fas fa-user-graduate" style="font-size:0.65rem; margin-right:4px;"></i>Student Login</a>
+                    <div id="userInfoMobile" style="display:none;">
+                        <a href="/customer-dashboard.html" class="mobile-profile-row" style="text-decoration:none;">
+                            <span class="shop-nav-avatar" id="avatarMobile"></span>
+                            <span class="mobile-nav-link text-black font-medium" style="padding:0;">Dashboard</span>
+                        </a>
+                        <button onclick="logout()" class="nav-btn-signout" style="width:100%; margin-top:4px; margin-bottom:8px; font-size:0.8rem; padding:0.5rem 1rem;">Sign out</button>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
 
-    <main class="pt-32 pb-20 bg-white min-h-screen" style="overflow-x: clip; position: relative;">
+    <!-- ===== MAIN CONTENT ===== -->
+    <main style="position: relative; overflow-x: clip;">
 
         <!-- Background Orbs -->
         <div class="absolute rounded-full pointer-events-none" style="width:600px;height:600px;top:-100px;left:-150px;background:radial-gradient(circle at center,rgba(167,225,105,0.22) 0%,rgba(167,225,105,0.10) 35%,rgba(167,225,105,0.03) 60%,transparent 78%);filter:blur(65px);animation:orbDrift1 14s ease-in-out infinite;z-index:0;"></div>
         <div class="absolute rounded-full pointer-events-none" style="width:650px;height:650px;top:200px;left:50%;transform:translateX(-50%);background:radial-gradient(circle at center,rgba(237,41,57,0.12) 0%,rgba(255,140,50,0.07) 35%,rgba(237,41,57,0.02) 60%,transparent 78%);filter:blur(75px);animation:orbDrift2 17s ease-in-out infinite;z-index:0;"></div>
         <div class="absolute rounded-full pointer-events-none" style="width:500px;height:500px;top:50px;right:-100px;background:radial-gradient(circle at center,rgba(167,225,105,0.18) 0%,rgba(200,235,180,0.08) 40%,rgba(167,225,105,0.02) 65%,transparent 82%);filter:blur(60px);animation:orbDrift3 20s ease-in-out infinite;z-index:0;"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="position:relative;z-index:1;">
-            
+
+        <div style="position:relative;z-index:1;">
+
             <!-- ===== HERO SECTION ===== -->
-            <section class="py-12">
-                <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
-                    <span class="text-[#a7e169] font-bold tracking-widest text-xs uppercase mb-2 block">Student Showcase</span>
-                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-4 artdeone-font">
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-black to-[#a7e169]">STUDENT GALLERY</span>
-                    </h1>
-                    <p class="text-lg text-[#555] max-w-2xl mx-auto font-light">
-                        Celebrating the creativity, skill, and dedication of our students across all course levels.
-                    </p>
-                    <div class="flex justify-center gap-4 mt-6">
-                        <a href="/index.html#portfolio" class="inline-flex items-center gap-2 text-sm font-semibold text-black hover:text-[#a7e169] transition-colors">
-                            <i class="fas fa-arrow-left"></i> Back to Portfolio
-                        </a>
+            <section class="hero-section">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-3xl mx-auto text-center">
+                        <h1 class="hero-title mb-6 hero-animate" style="transition-delay: 0ms;">
+                            <span class="gradient-text artdeone-font">ART de ONE</span><br>
+                            <span style="font-size: clamp(1.5rem, 3.5vw, 2.5rem); font-weight: 600; color: #323232; letter-spacing: -0.01em;">ကျောင်းသား၊ ကျောင်းသူများ</span>
+                        </h1>
+                        <p class="text-base sm:text-lg text-[#555] max-w-xl mx-auto font-light leading-relaxed mb-2 hero-animate" style="transition-delay: 150ms;">
+                            Login ဝင်ပြီး class materials များ download ရယူနိုင်သည်၊ homework တင်နိုင်သည်၊ instructor feedback များ တိုက်ရိုက်ရယူနိုင်သည်။
+                        </p>
+                        
+                        <div class="flex justify-center gap-4 mt-10 hero-animate" style="transition-delay: 400ms;">
+                            <a href="/Private/student-login.html"
+                               class="group inline-flex items-center gap-2.5 bg-[#a7e169] text-black font-semibold text-sm rounded-full px-8 py-3.5 hover:bg-[#ed2939] hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-black/10">
+                                <i class="fas fa-user-graduate text-sm"></i>
+                                Student Login
+                                <i class="fas fa-arrow-right text-xs transition-transform duration-300 group-hover:translate-x-1"></i>
+                            </a>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Stats Bar -->
-                <div class="max-w-3xl mx-auto mt-10 grid grid-cols-3 gap-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="text-center bg-white border border-gray-100 rounded-2xl py-5 px-4 shadow-sm">
-                        <div class="text-3xl font-bold text-black">100<span class="text-[#a7e169]">+</span></div>
-                        <div class="text-xs text-gray-500 uppercase tracking-widest mt-1">Students</div>
-                    </div>
-                    <div class="text-center bg-white border border-gray-100 rounded-2xl py-5 px-4 shadow-sm">
-                        <div class="text-3xl font-bold text-black">7<span class="text-[#a7e169]">+</span></div>
-                        <div class="text-xs text-gray-500 uppercase tracking-widest mt-1">Batches</div>
-                    </div>
-                    <div class="text-center bg-white border border-gray-100 rounded-2xl py-5 px-4 shadow-sm">
-                        <div class="text-3xl font-bold text-black">58<span class="text-[#a7e169]">+</span></div>
-                        <div class="text-xs text-gray-500 uppercase tracking-widest mt-1">Artworks</div>
+                    <!-- Stats -->
+                    <div class="max-w-2xl mx-auto mt-14 grid grid-cols-3 gap-3 sm:gap-5 fade-in">
+                        <div class="stat-card">
+                            <div class="stat-number" data-count="100">0</div>
+                            <div class="text-[#a7e169] text-xl font-bold -mt-1">+</div>
+                            <div class="stat-label">Students</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" data-count="7">0</div>
+                            <div class="text-[#a7e169] text-xl font-bold -mt-1">+</div>
+                            <div class="stat-label">Batches</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" data-count="58">0</div>
+                            <div class="text-[#a7e169] text-xl font-bold -mt-1">+</div>
+                            <div class="stat-label">Artworks</div>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <!-- ===== STUDENT LOGIN STRIP ===== -->
-            <section class="mb-14" data-aos="fade-up" data-aos-delay="150">
-                <div class="flex flex-col sm:flex-row items-center justify-between gap-5 bg-[#f7fef0] border-l-4 border-[#a7e169] rounded-r-xl px-6 py-5">
-                    <div>
-                        <p class="font-bold text-black text-base mb-1">
-                            <i class="fas fa-user-graduate text-[#a7e169] mr-2"></i>ART de ONE ကျောင်းသား၊ ကျောင်းသူများ
-                        </p>
-                        <p class="text-sm text-gray-500 leading-relaxed">
-                            Login ဝင်ပြီး class materials များ download ရယူနိုင်သည်၊ homework တင်နိုင်သည်၊<br class="hidden sm:block">
-                            instructor feedback များ တိုက်ရိုက်ရယူနိုင်သည်။
-                        </p>
-                    </div>
-                    <a href="/Private/student-login.html"
-                       class="group flex-shrink-0 inline-flex items-center gap-2 bg-[#a7e169] text-black font-semibold text-sm rounded-full px-6 py-3 hover:bg-black hover:text-white transition-all duration-300 whitespace-nowrap">
-                        Student Login
-                        <i class="fas fa-arrow-right text-xs transition-transform duration-300 group-hover:translate-x-1"></i>
-                    </a>
-                </div>
-            </section>
-
-            
-            <div class="mb-20" data-aos="fade-up" data-aos-duration="800">
-                <div class="text-center mb-12">
-                    <span class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#a7e169] mb-3">
+            <!-- ===== FEATURED PICKS — BENTO GRID ===== -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
+                <div class="text-center mb-10 fade-in">
+                    <span class="section-tag">
                         <i class="fas fa-trophy"></i> Instructor Picks
                     </span>
-                    <h2 class="text-3xl md:text-4xl font-bold mb-3 text-black">Selected Artwork</h2>
-                    <p class="text-sm text-gray-400 font-light mx-auto">Handpicked by ART de ONE Instructors — outstanding work from each batch</p>
-                </div>
-                
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-                    <div class="gallery-card-minimal group" data-aos="fade-up" data-aos-delay="100">
-                        <div class="relative overflow-hidden aspect-square bg-gray-100">
-                            <img src="student-gallery/whitney-phyu.jpeg" 
-                                alt="Vector Illustration" 
-                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-lg font-bold text-black mb-1 group-hover:text-[#a7e169] transition-colors">Vector Illustration</h3>
-                            <p class="text-xs text-gray-500 uppercase tracking-wide mb-3">Best Character Design</p>
-                            <div class="flex items-center text-xs text-black font-medium pt-3 border-t border-gray-100">
-                                <span class="inline-block w-2 h-2 bg-[#a7e169] rounded-full mr-2"></span>
-                                Batch 4 Student
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="gallery-card-minimal group" data-aos="fade-up" data-aos-delay="200">
-                        <div class="relative overflow-hidden aspect-square bg-gray-100">
-                            <img src="student-gallery/wahwah.jpg" 
-                                alt="Vector Artwork" 
-                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-lg font-bold text-black mb-1 group-hover:text-[#a7e169] transition-colors">Vector Illustration</h3>
-                            <p class="text-xs text-gray-500 uppercase tracking-wide mb-3">Best Vector Artwork</p>
-                            <div class="flex items-center text-xs text-black font-medium pt-3 border-t border-gray-100">
-                                <span class="inline-block w-2 h-2 bg-[#a7e169] rounded-full mr-2"></span>
-                                Batch 1 & 2 Student
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="gallery-card-minimal group" data-aos="fade-up" data-aos-delay="300">
-                        <div class="relative overflow-hidden aspect-square bg-gray-100">
-                            <img src="student-gallery/lwinoomg-2.jpg" 
-                                alt="Advanced Vector" 
-                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-lg font-bold text-black mb-1 group-hover:text-[#a7e169] transition-colors">Vector Illustration</h3>
-                            <p class="text-xs text-gray-500 uppercase tracking-wide mb-3">Best Advanced Vector</p>
-                            <div class="flex items-center text-xs text-black font-medium pt-3 border-t border-gray-100">
-                                <span class="inline-block w-2 h-2 bg-[#a7e169] rounded-full mr-2"></span>
-                                Batch 1 & 2 Student
-                            </div>
-                        </div>
-                    </div>
-                    
-                     <div class="gallery-card-minimal group" data-aos="fade-up" data-aos-delay="300">
-                        <div class="relative overflow-hidden aspect-square bg-gray-100">
-                            <img src="student-gallery/phoochit.jpg" 
-                                alt="Photo Manipulation" 
-                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-lg font-bold text-black mb-1 group-hover:text-[#a7e169] transition-colors">Photo Manipulation</h3>
-                            <p class="text-xs text-gray-500 uppercase tracking-wide mb-3">Best Photo Manipulation</p>
-                            <div class="flex items-center text-xs text-black font-medium pt-3 border-t border-gray-100">
-                                <span class="inline-block w-2 h-2 bg-[#a7e169] rounded-full mr-2"></span>
-                                Batch 2 & By One Student
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="gallery-card-minimal group" data-aos="fade-up" data-aos-delay="300">
-                        <div class="relative overflow-hidden aspect-square bg-gray-100">
-                            <img src="student-gallery/tharhteaung.jpg" 
-                                alt="Ads Design" 
-                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-lg font-bold text-black mb-1 group-hover:text-[#a7e169] transition-colors">Ads Design</h3>
-                            <p class="text-xs text-gray-500 uppercase tracking-wide mb-3">Best Ad Design in AI</p>
-                            <div class="flex items-center text-xs text-black font-medium pt-3 border-t border-gray-100">
-                                <span class="inline-block w-2 h-2 bg-[#a7e169] rounded-full mr-2"></span>
-                                Batch 2 Student
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="gallery-card-minimal group" data-aos="fade-up" data-aos-delay="300">
-                        <div class="relative overflow-hidden aspect-square bg-gray-100">
-                            <img src="student-gallery/sumyat-2.jpeg" 
-                                alt="Lighting" 
-                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-lg font-bold text-black mb-1 group-hover:text-[#a7e169] transition-colors">Understood the Lighting</h3>
-                            <p class="text-xs text-gray-500 uppercase tracking-wide mb-3">Best Artwork Ever</p>
-                            <div class="flex items-center text-xs text-black font-medium pt-3 border-t border-gray-100">
-                                <span class="inline-block w-2 h-2 bg-[#a7e169] rounded-full mr-2"></span>
-                                By One Student
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="border-t border-gray-200 mt-8 pt-12">
-
-            <!-- Gallery Section Header — full width, centered above grid -->
-            <div class="text-center mb-10">
-                <span class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#a7e169] mb-2">
-                    <i class="fas fa-images"></i> All Artworks
-                </span>
-                <h2 class="text-2xl md:text-3xl font-bold text-black">Full Student Gallery</h2>
-                <p class="text-sm text-gray-400 mt-1">Click any artwork to view full size · Share on Facebook</p>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                
-                <div class="grid-item cursor-pointer" data-aos="fade-up" onclick="openLightbox(0)">
-                    <img src="student-gallery/ayesandar.jpg" alt="Vector Portrait">
-                    <div class="grid-item-overlay">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/ayesandar.jpg')" class="share-btn" title="Share on Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <h3 class="text-lg font-bold text-white">Ma Aye Sandar</h3>
-                        <p class="text-sm text-gray-200 font-light">Custome Typo</p>
-                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">By one student</p>
-                    </div>
+                    <h2 class="section-title">Selected Artwork</h2>
+                    <p class="section-desc">Handpicked by ART de ONE Instructors — outstanding work from each batch</p>
                 </div>
 
-                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="100" onclick="openLightbox(1)">
-                    <img src="student-gallery/wahwah.jpg" alt="Logo Concept">
-                    <div class="grid-item-overlay">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/wahwah.jpg')" class="share-btn" title="Share on Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <h3 class="text-lg font-bold text-white">Ma Wah Wah</h3>
-                        <p class="text-sm text-gray-200 font-light">Vector Artwork</p>
-                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Batch 1 student</p>
-                    </div>
-                </div>
-
-                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(2)">
-                    <img src="student-gallery/lwinoomg-2.jpg" alt="Packaging Design">
-                    <div class="grid-item-overlay">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/lwinoomg-2.jpg')" class="share-btn" title="Share on Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <h3 class="text-lg font-bold text-white">Ko Lwin Oo Maung</h3>
-                        <p class="text-sm text-gray-200 font-light">Vector Artwork</p>
-                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Batch 1 student</p>
-                    </div>
-                </div>
-
-                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(3)">
-                    <img src="student-gallery/phoochit.jpg" alt="Packaging Design">
-                    <div class="grid-item-overlay">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/phoochit.jpg')" class="share-btn" title="Share on Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <h3 class="text-lg font-bold text-white">Ma Phoo Phoo Chit</h3>
-                        <p class="text-sm text-gray-200 font-light">Photo Manipulation</p>
-                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">By 1 student</p>
-                    </div>
-                </div>
-
-                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(4)">
-                    <img src="student-gallery/lwinoomg.jpg" alt="Packaging Design">
-                    <div class="grid-item-overlay">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/lwinoomg.jpg')" class="share-btn" title="Share on Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <h3 class="text-lg font-bold text-white">Ko Lwin Oo Maung</h3>
-                        <p class="text-sm text-gray-200 font-light">Vector Artwork</p>
-                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">By 1 student</p>
-                    </div>
-                </div>
-
-                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(5)">
-                    <img src="student-gallery/tharhtetaung-3.jpg" alt="Packaging Design">
-                    <div class="grid-item-overlay">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/tharhtetaung-3.jpg')" class="share-btn" title="Share on Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <h3 class="text-lg font-bold text-white">Ko Thar Htet Aung</h3>
-                        <p class="text-sm text-gray-200 font-light">Minimalist Vector Artwork</p>
-                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Batch 1 student</p>
-                    </div>
-                </div>
-
-                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(6)">
-                    <img src="student-gallery/mintawa.jpeg" alt="Packaging Design">
-                    <div class="grid-item-overlay">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/mintawa.jpeg')" class="share-btn" title="Share on Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <h3 class="text-lg font-bold text-white">Ko Min Ta Waw Marn</h3>
-                        <p class="text-sm text-gray-200 font-light">UI Design</p>
-                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Batch 3 student</p>
-                    </div>
-                </div>
-
-                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(7)">
-                    <img src="student-gallery/thura-aung.jpg" alt="Packaging Design">
-                    <div class="grid-item-overlay">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/thura-aung.jpg')" class="share-btn" title="Share on Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <h3 class="text-lg font-bold text-white">Ko Thura Aung</h3>
-                        <p class="text-sm text-gray-200 font-light">Custom Typo</p>
-                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Batch 5 student</p>
-                    </div>
-                </div>
-
-                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(8)">
-                    <img src="student-gallery/mmwoman.jpg" alt="Packaging Design">
-                    <div class="grid-item-overlay">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/mmwoman.jpg')" class="share-btn" title="Share on Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <h3 class="text-lg font-bold text-white">Yvonne</h3>
-                        <p class="text-sm text-gray-200 font-light">Vector Artwork</p>
-                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Batch 4 student</p>
-                    </div>
-                </div>
-
-                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(9)">
-                    <img src="student-gallery/whitney-phyu.jpeg" alt="Packaging Design">
-                    <div class="grid-item-overlay">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/whitney-phyu.jpeg')" class="share-btn" title="Share on Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <h3 class="text-lg font-bold text-white">Whitney Phyu</h3>
-                        <p class="text-sm text-gray-200 font-light">Vector Artwork</p>
-                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Batch 4 student</p>
-                    </div>
-                </div>
-
-                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(10)">
-                    <img src="student-gallery/poly-1.jpeg" alt="Packaging Design">
-                    <div class="grid-item-overlay">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/poly-1.jpeg')" class="share-btn" title="Share on Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <h3 class="text-lg font-bold text-white">Poly Lin</h3>
-                        <p class="text-sm text-gray-200 font-light">Vector Artwork</p>
-                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Batch 4 student</p>
-                    </div>
-                </div>
-
-                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(11)">
-                    <img src="student-gallery/poly-2.jpeg" alt="Packaging Design">
-                    <div class="grid-item-overlay">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/poly-2.jpeg')" class="share-btn" title="Share on Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <h3 class="text-lg font-bold text-white">Poly Lin</h3>
-                        <p class="text-sm text-gray-200 font-light">Vector Artwork</p>
-                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Batch 4 student</p>
-                    </div>
-                </div>
-
-                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(12)">
-                    <img src="student-gallery/poly-3.jpeg" alt="Packaging Design">
-                    <div class="grid-item-overlay">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/poly-3.jpeg')" class="share-btn" title="Share on Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <h3 class="text-lg font-bold text-white">Poly Lin</h3>
-                        <p class="text-sm text-gray-200 font-light">Vector Artwork</p>
-                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Batch 4 student</p>
-                    </div>
-                </div>
-
-                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(13)">
-                    <img src="student-gallery/thura-aung-2.jpg" alt="Packaging Design">
-                    <div class="grid-item-overlay">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/thura-aung-2.jpg')" class="share-btn" title="Share on Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <h3 class="text-lg font-bold text-white">Poly Lin</h3>
-                        <p class="text-sm text-gray-200 font-light">Vector Artwork</p>
-                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Batch 4 student</p>
-                    </div>
-                </div>
-
-                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(14)">
-                    <img src="student-gallery/sumyat-1.jpeg" alt="Packaging Design">
-                    <div class="grid-item-overlay">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/sumyat-1.jpeg')" class="share-btn" title="Share on Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <h3 class="text-lg font-bold text-white">Ma Su Myat Mon</h3>
-                        <p class="text-sm text-gray-200 font-light">Vector Artwork</p>
-                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">By 1 student</p>
-                    </div>
-                </div>
-
-                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(15)">
-                    <img src="student-gallery/sumyat-2.jpeg" alt="Packaging Design">
-                    <div class="grid-item-overlay">
+                <div class="bento-grid fade-in">
+                    <!-- Large featured card -->
+                    <div class="bento-card bento-card--large stagger-item" onclick="openLightboxByUrl('student-gallery/sumyat-2.jpeg')">
+                        <img src="student-gallery/sumyat-2.jpeg" alt="Understood the Lighting" loading="lazy">
                         <button onclick="shareSpecificImage(event, 'student-gallery/sumyat-2.jpeg')" class="share-btn" title="Share on Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </button>
-                        <h3 class="text-lg font-bold text-white">Ma Su Myat Mon</h3>
-                        <p class="text-sm text-gray-200 font-light">Vector Artwork</p>
-                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">By 1 student</p>
+                        <div class="bento-overlay">
+                            <div class="bento-tag"><i class="fas fa-star text-[0.5rem]"></i> Best Artwork Ever</div>
+                            <h3 class="text-xl font-bold text-white mb-0.5">Understood the Lighting</h3>
+                            <p class="text-xs text-gray-300 uppercase tracking-wider font-medium">By One Student</p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(16)">
-                    <img src="student-gallery/Aileen-1.jpeg" alt="Packaging Design">
-                    <div class="grid-item-overlay">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/Aileen-1.jpeg')" class="share-btn" title="Share on Facebook">
+                    <!-- Small cards -->
+                    <div class="bento-card bento-card--small stagger-item" onclick="openLightboxByUrl('student-gallery/whitney-phyu.jpeg')">
+                        <img src="student-gallery/whitney-phyu.jpeg" alt="Vector Illustration" loading="lazy">
+                        <button onclick="shareSpecificImage(event, 'student-gallery/whitney-phyu.jpeg')" class="share-btn" title="Share on Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </button>
-                        <h3 class="text-lg font-bold text-white">Aileen</h3>
-                        <p class="text-sm text-gray-200 font-light">Vector Artwork</p>
-                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Batch 4 student</p>
+                        <div class="bento-overlay">
+                            <div class="bento-tag">Best Character Design</div>
+                            <h3 class="text-base font-bold text-white">Vector Illustration</h3>
+                            <p class="text-xs text-gray-400">Batch 4 Student</p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(17)">
-                    <img src="student-gallery/Aileen-2.jpeg" alt="Packaging Design">
-                    <div class="grid-item-overlay">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/Aileen-2.jpeg')" class="share-btn" title="Share on Facebook">
+                    <div class="bento-card bento-card--small stagger-item" onclick="openLightboxByUrl('student-gallery/wahwah.jpg')">
+                        <img src="student-gallery/wahwah.jpg" alt="Vector Artwork" loading="lazy">
+                        <button onclick="shareSpecificImage(event, 'student-gallery/wahwah.jpg')" class="share-btn" title="Share on Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </button>
-                        <h3 class="text-lg font-bold text-white">Aileen</h3>
-                        <p class="text-sm text-gray-200 font-light">Vector Artwork</p>
-                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Batch 4 student</p>
+                        <div class="bento-overlay">
+                            <div class="bento-tag">Best Vector Artwork</div>
+                            <h3 class="text-base font-bold text-white">Vector Illustration</h3>
+                            <p class="text-xs text-gray-400">Batch 1 & 2 Student</p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(18)">
-                    <img src="student-gallery/Gee Lay.jpg" alt="Student Artwork">
-                    <div class="grid-item-overlay">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/Gee Lay.jpg')" class="share-btn" title="Share on Facebook">
+                    <div class="bento-card bento-card--small stagger-item" onclick="openLightboxByUrl('student-gallery/lwinoomg-2.jpg')">
+                        <img src="student-gallery/lwinoomg-2.jpg" alt="Advanced Vector" loading="lazy">
+                        <button onclick="shareSpecificImage(event, 'student-gallery/lwinoomg-2.jpg')" class="share-btn" title="Share on Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </button>
-                        <h3 class="text-lg font-bold text-white">Gee Lay</h3>
-                        <p class="text-sm text-gray-200 font-light">Student Artwork</p>
-                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Student</p>
+                        <div class="bento-overlay">
+                            <div class="bento-tag">Best Advanced Vector</div>
+                            <h3 class="text-base font-bold text-white">Vector Illustration</h3>
+                            <p class="text-xs text-gray-400">Batch 1 & 2 Student</p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(19)">
-                    <img src="student-gallery/Ko Lwin Oo Maung-02.jpg" alt="Student Artwork">
-                    <div class="grid-item-overlay">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/Ko Lwin Oo Maung-02.jpg')" class="share-btn" title="Share on Facebook">
+                    <div class="bento-card bento-card--small stagger-item" onclick="openLightboxByUrl('student-gallery/phoochit.jpg')">
+                        <img src="student-gallery/phoochit.jpg" alt="Photo Manipulation" loading="lazy">
+                        <button onclick="shareSpecificImage(event, 'student-gallery/phoochit.jpg')" class="share-btn" title="Share on Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </button>
-                        <h3 class="text-lg font-bold text-white">Ko Lwin Oo Maung</h3>
-                        <p class="text-sm text-gray-200 font-light">Student Artwork</p>
-                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Student</p>
+                        <div class="bento-overlay">
+                            <div class="bento-tag">Best Photo Manipulation</div>
+                            <h3 class="text-base font-bold text-white">Photo Manipulation</h3>
+                            <p class="text-xs text-gray-400">Batch 2 & By One Student</p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(20)">
-                    <img src="student-gallery/lwinoomg-3.jpg" alt="Student Artwork">
-                    <div class="grid-item-overlay">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/lwinoomg-3.jpg')" class="share-btn" title="Share on Facebook">
+                    <div class="bento-card bento-card--small stagger-item" onclick="openLightboxByUrl('student-gallery/tharhteaung.jpg')">
+                        <img src="student-gallery/tharhteaung.jpg" alt="Ads Design" loading="lazy">
+                        <button onclick="shareSpecificImage(event, 'student-gallery/tharhteaung.jpg')" class="share-btn" title="Share on Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </button>
-                        <h3 class="text-lg font-bold text-white">Ko Lwin Oo Maung</h3>
-                        <p class="text-sm text-gray-200 font-light">Student Artwork</p>
-                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Student</p>
+                        <div class="bento-overlay">
+                            <div class="bento-tag">Best Ad Design in AI</div>
+                            <h3 class="text-base font-bold text-white">Ads Design</h3>
+                            <p class="text-xs text-gray-400">Batch 2 Student</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== FULL STUDENT GALLERY — MASONRY ===== -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
+                <div class="border-t border-gray-200 pt-16">
+                    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 fade-in">
+                        <div>
+                            <span class="section-tag">
+                                <i class="fas fa-images"></i> All Artworks
+                            </span>
+                            <h2 class="section-title">Full Student Gallery</h2>
+                            <p class="section-desc">Click any artwork to view full size</p>
+                        </div>
+                        <div class="filter-tabs" id="filterTabs">
+                            <button class="filter-tab active" data-filter="all">All</button>
+                            <button class="filter-tab" data-filter="vector">Vector</button>
+                            <button class="filter-tab" data-filter="photo">Photo</button>
+                            <button class="filter-tab" data-filter="typo">Typography</button>
+                            <button class="filter-tab" data-filter="ui">UI Design</button>
+                        </div>
+                    </div>
+
+                    <div class="masonry-grid" id="masonryGrid">
+
+                        <div class="masonry-item" data-category="typo" onclick="openLightbox(0)">
+                            <img src="student-gallery/ayesandar.jpg" alt="Custom Typography" loading="lazy">
+                            <button onclick="shareSpecificImage(event, 'student-gallery/ayesandar.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
+                            <div class="masonry-overlay">
+                                <h3 class="text-base font-bold text-white">Ma Aye Sandar</h3>
+                                <p class="text-xs text-gray-300">Custom Typo</p>
+                                <p class="text-[0.65rem] text-[#a7e169] mt-1.5 uppercase tracking-wider font-bold">By One Student</p>
+                            </div>
+                        </div>
+
+                        <div class="masonry-item" data-category="vector" onclick="openLightbox(1)">
+                            <img src="student-gallery/wahwah.jpg" alt="Vector Artwork" loading="lazy">
+                            <button onclick="shareSpecificImage(event, 'student-gallery/wahwah.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
+                            <div class="masonry-overlay">
+                                <h3 class="text-base font-bold text-white">Ma Wah Wah</h3>
+                                <p class="text-xs text-gray-300">Vector Artwork</p>
+                                <p class="text-[0.65rem] text-[#a7e169] mt-1.5 uppercase tracking-wider font-bold">Batch 1 Student</p>
+                            </div>
+                        </div>
+
+                        <div class="masonry-item" data-category="vector" onclick="openLightbox(2)">
+                            <img src="student-gallery/lwinoomg-2.jpg" alt="Vector Artwork" loading="lazy">
+                            <button onclick="shareSpecificImage(event, 'student-gallery/lwinoomg-2.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
+                            <div class="masonry-overlay">
+                                <h3 class="text-base font-bold text-white">Ko Lwin Oo Maung</h3>
+                                <p class="text-xs text-gray-300">Vector Artwork</p>
+                                <p class="text-[0.65rem] text-[#a7e169] mt-1.5 uppercase tracking-wider font-bold">Batch 1 Student</p>
+                            </div>
+                        </div>
+
+                        <div class="masonry-item" data-category="photo" onclick="openLightbox(3)">
+                            <img src="student-gallery/phoochit.jpg" alt="Photo Manipulation" loading="lazy">
+                            <button onclick="shareSpecificImage(event, 'student-gallery/phoochit.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
+                            <div class="masonry-overlay">
+                                <h3 class="text-base font-bold text-white">Ma Phoo Phoo Chit</h3>
+                                <p class="text-xs text-gray-300">Photo Manipulation</p>
+                                <p class="text-[0.65rem] text-[#a7e169] mt-1.5 uppercase tracking-wider font-bold">By 1 Student</p>
+                            </div>
+                        </div>
+
+                        <div class="masonry-item" data-category="vector" onclick="openLightbox(4)">
+                            <img src="student-gallery/lwinoomg.jpg" alt="Vector Artwork" loading="lazy">
+                            <button onclick="shareSpecificImage(event, 'student-gallery/lwinoomg.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
+                            <div class="masonry-overlay">
+                                <h3 class="text-base font-bold text-white">Ko Lwin Oo Maung</h3>
+                                <p class="text-xs text-gray-300">Vector Artwork</p>
+                                <p class="text-[0.65rem] text-[#a7e169] mt-1.5 uppercase tracking-wider font-bold">By 1 Student</p>
+                            </div>
+                        </div>
+
+                        <div class="masonry-item" data-category="vector" onclick="openLightbox(5)">
+                            <img src="student-gallery/tharhtetaung-3.jpg" alt="Minimalist Vector" loading="lazy">
+                            <button onclick="shareSpecificImage(event, 'student-gallery/tharhtetaung-3.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
+                            <div class="masonry-overlay">
+                                <h3 class="text-base font-bold text-white">Ko Thar Htet Aung</h3>
+                                <p class="text-xs text-gray-300">Minimalist Vector Artwork</p>
+                                <p class="text-[0.65rem] text-[#a7e169] mt-1.5 uppercase tracking-wider font-bold">Batch 1 Student</p>
+                            </div>
+                        </div>
+
+                        <div class="masonry-item" data-category="ui" onclick="openLightbox(6)">
+                            <img src="student-gallery/mintawa.jpeg" alt="UI Design" loading="lazy">
+                            <button onclick="shareSpecificImage(event, 'student-gallery/mintawa.jpeg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
+                            <div class="masonry-overlay">
+                                <h3 class="text-base font-bold text-white">Ko Min Ta Waw Marn</h3>
+                                <p class="text-xs text-gray-300">UI Design</p>
+                                <p class="text-[0.65rem] text-[#a7e169] mt-1.5 uppercase tracking-wider font-bold">Batch 3 Student</p>
+                            </div>
+                        </div>
+
+                        <div class="masonry-item" data-category="typo" onclick="openLightbox(7)">
+                            <img src="student-gallery/thura-aung.jpg" alt="Custom Typo" loading="lazy">
+                            <button onclick="shareSpecificImage(event, 'student-gallery/thura-aung.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
+                            <div class="masonry-overlay">
+                                <h3 class="text-base font-bold text-white">Ko Thura Aung</h3>
+                                <p class="text-xs text-gray-300">Custom Typo</p>
+                                <p class="text-[0.65rem] text-[#a7e169] mt-1.5 uppercase tracking-wider font-bold">Batch 5 Student</p>
+                            </div>
+                        </div>
+
+                        <div class="masonry-item" data-category="vector" onclick="openLightbox(8)">
+                            <img src="student-gallery/mmwoman.jpg" alt="Vector Artwork" loading="lazy">
+                            <button onclick="shareSpecificImage(event, 'student-gallery/mmwoman.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
+                            <div class="masonry-overlay">
+                                <h3 class="text-base font-bold text-white">Yvonne</h3>
+                                <p class="text-xs text-gray-300">Vector Artwork</p>
+                                <p class="text-[0.65rem] text-[#a7e169] mt-1.5 uppercase tracking-wider font-bold">Batch 4 Student</p>
+                            </div>
+                        </div>
+
+                        <div class="masonry-item" data-category="vector" onclick="openLightbox(9)">
+                            <img src="student-gallery/whitney-phyu.jpeg" alt="Vector Artwork" loading="lazy">
+                            <button onclick="shareSpecificImage(event, 'student-gallery/whitney-phyu.jpeg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
+                            <div class="masonry-overlay">
+                                <h3 class="text-base font-bold text-white">Whitney Phyu</h3>
+                                <p class="text-xs text-gray-300">Vector Artwork</p>
+                                <p class="text-[0.65rem] text-[#a7e169] mt-1.5 uppercase tracking-wider font-bold">Batch 4 Student</p>
+                            </div>
+                        </div>
+
+                        <div class="masonry-item" data-category="vector" onclick="openLightbox(10)">
+                            <img src="student-gallery/poly-1.jpeg" alt="Vector Artwork" loading="lazy">
+                            <button onclick="shareSpecificImage(event, 'student-gallery/poly-1.jpeg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
+                            <div class="masonry-overlay">
+                                <h3 class="text-base font-bold text-white">Poly Lin</h3>
+                                <p class="text-xs text-gray-300">Vector Artwork</p>
+                                <p class="text-[0.65rem] text-[#a7e169] mt-1.5 uppercase tracking-wider font-bold">Batch 4 Student</p>
+                            </div>
+                        </div>
+
+                        <div class="masonry-item" data-category="vector" onclick="openLightbox(11)">
+                            <img src="student-gallery/poly-2.jpeg" alt="Vector Artwork" loading="lazy">
+                            <button onclick="shareSpecificImage(event, 'student-gallery/poly-2.jpeg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
+                            <div class="masonry-overlay">
+                                <h3 class="text-base font-bold text-white">Poly Lin</h3>
+                                <p class="text-xs text-gray-300">Vector Artwork</p>
+                                <p class="text-[0.65rem] text-[#a7e169] mt-1.5 uppercase tracking-wider font-bold">Batch 4 Student</p>
+                            </div>
+                        </div>
+
+                        <div class="masonry-item" data-category="vector" onclick="openLightbox(12)">
+                            <img src="student-gallery/poly-3.jpeg" alt="Vector Artwork" loading="lazy">
+                            <button onclick="shareSpecificImage(event, 'student-gallery/poly-3.jpeg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
+                            <div class="masonry-overlay">
+                                <h3 class="text-base font-bold text-white">Poly Lin</h3>
+                                <p class="text-xs text-gray-300">Vector Artwork</p>
+                                <p class="text-[0.65rem] text-[#a7e169] mt-1.5 uppercase tracking-wider font-bold">Batch 4 Student</p>
+                            </div>
+                        </div>
+
+                        <div class="masonry-item" data-category="vector" onclick="openLightbox(13)">
+                            <img src="student-gallery/thura-aung-2.jpg" alt="Vector Artwork" loading="lazy">
+                            <button onclick="shareSpecificImage(event, 'student-gallery/thura-aung-2.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
+                            <div class="masonry-overlay">
+                                <h3 class="text-base font-bold text-white">Ko Thura Aung</h3>
+                                <p class="text-xs text-gray-300">Vector Artwork</p>
+                                <p class="text-[0.65rem] text-[#a7e169] mt-1.5 uppercase tracking-wider font-bold">Batch 5 Student</p>
+                            </div>
+                        </div>
+
+                        <div class="masonry-item" data-category="vector" onclick="openLightbox(14)">
+                            <img src="student-gallery/sumyat-1.jpeg" alt="Vector Artwork" loading="lazy">
+                            <button onclick="shareSpecificImage(event, 'student-gallery/sumyat-1.jpeg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
+                            <div class="masonry-overlay">
+                                <h3 class="text-base font-bold text-white">Ma Su Myat Mon</h3>
+                                <p class="text-xs text-gray-300">Vector Artwork</p>
+                                <p class="text-[0.65rem] text-[#a7e169] mt-1.5 uppercase tracking-wider font-bold">By 1 Student</p>
+                            </div>
+                        </div>
+
+                        <div class="masonry-item" data-category="vector" onclick="openLightbox(15)">
+                            <img src="student-gallery/sumyat-2.jpeg" alt="Vector Artwork" loading="lazy">
+                            <button onclick="shareSpecificImage(event, 'student-gallery/sumyat-2.jpeg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
+                            <div class="masonry-overlay">
+                                <h3 class="text-base font-bold text-white">Ma Su Myat Mon</h3>
+                                <p class="text-xs text-gray-300">Vector Artwork</p>
+                                <p class="text-[0.65rem] text-[#a7e169] mt-1.5 uppercase tracking-wider font-bold">By 1 Student</p>
+                            </div>
+                        </div>
+
+                        <div class="masonry-item" data-category="vector" onclick="openLightbox(16)">
+                            <img src="student-gallery/Aileen-1.jpeg" alt="Vector Artwork" loading="lazy">
+                            <button onclick="shareSpecificImage(event, 'student-gallery/Aileen-1.jpeg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
+                            <div class="masonry-overlay">
+                                <h3 class="text-base font-bold text-white">Aileen</h3>
+                                <p class="text-xs text-gray-300">Vector Artwork</p>
+                                <p class="text-[0.65rem] text-[#a7e169] mt-1.5 uppercase tracking-wider font-bold">Batch 4 Student</p>
+                            </div>
+                        </div>
+
+                        <div class="masonry-item" data-category="vector" onclick="openLightbox(17)">
+                            <img src="student-gallery/Aileen-2.jpeg" alt="Vector Artwork" loading="lazy">
+                            <button onclick="shareSpecificImage(event, 'student-gallery/Aileen-2.jpeg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
+                            <div class="masonry-overlay">
+                                <h3 class="text-base font-bold text-white">Aileen</h3>
+                                <p class="text-xs text-gray-300">Vector Artwork</p>
+                                <p class="text-[0.65rem] text-[#a7e169] mt-1.5 uppercase tracking-wider font-bold">Batch 4 Student</p>
+                            </div>
+                        </div>
+
+                        <div class="masonry-item" data-category="vector" onclick="openLightbox(18)">
+                            <img src="student-gallery/Gee Lay.jpg" alt="Student Artwork" loading="lazy">
+                            <button onclick="shareSpecificImage(event, 'student-gallery/Gee Lay.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
+                            <div class="masonry-overlay">
+                                <h3 class="text-base font-bold text-white">Gee Lay</h3>
+                                <p class="text-xs text-gray-300">Student Artwork</p>
+                                <p class="text-[0.65rem] text-[#a7e169] mt-1.5 uppercase tracking-wider font-bold">Student</p>
+                            </div>
+                        </div>
+
+                        <div class="masonry-item" data-category="vector" onclick="openLightbox(19)">
+                            <img src="student-gallery/Ko Lwin Oo Maung-02.jpg" alt="Student Artwork" loading="lazy">
+                            <button onclick="shareSpecificImage(event, 'student-gallery/Ko Lwin Oo Maung-02.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
+                            <div class="masonry-overlay">
+                                <h3 class="text-base font-bold text-white">Ko Lwin Oo Maung</h3>
+                                <p class="text-xs text-gray-300">Student Artwork</p>
+                                <p class="text-[0.65rem] text-[#a7e169] mt-1.5 uppercase tracking-wider font-bold">Student</p>
+                            </div>
+                        </div>
+
+                        <div class="masonry-item" data-category="vector" onclick="openLightbox(20)">
+                            <img src="student-gallery/lwinoomg-3.jpg" alt="Student Artwork" loading="lazy">
+                            <button onclick="shareSpecificImage(event, 'student-gallery/lwinoomg-3.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
+                            <div class="masonry-overlay">
+                                <h3 class="text-base font-bold text-white">Ko Lwin Oo Maung</h3>
+                                <p class="text-xs text-gray-300">Student Artwork</p>
+                                <p class="text-[0.65rem] text-[#a7e169] mt-1.5 uppercase tracking-wider font-bold">Student</p>
+                            </div>
+                        </div>
+
+                        <div class="masonry-item" data-category="vector" onclick="openLightbox(21)">
+                            <img src="student-gallery/lwinoomg-4.jpg" alt="Student Artwork" loading="lazy">
+                            <button onclick="shareSpecificImage(event, 'student-gallery/lwinoomg-4.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
+                            <div class="masonry-overlay">
+                                <h3 class="text-base font-bold text-white">Ko Lwin Oo Maung</h3>
+                                <p class="text-xs text-gray-300">Student Artwork</p>
+                                <p class="text-[0.65rem] text-[#a7e169] mt-1.5 uppercase tracking-wider font-bold">Student</p>
+                            </div>
+                        </div>
+
+                        <div class="masonry-item" data-category="photo" onclick="openLightbox(22)">
+                            <img src="student-gallery/phoochit-3.jpeg" alt="Student Artwork" loading="lazy">
+                            <button onclick="shareSpecificImage(event, 'student-gallery/phoochit-3.jpeg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
+                            <div class="masonry-overlay">
+                                <h3 class="text-base font-bold text-white">Ma Phoo Phoo Chit</h3>
+                                <p class="text-xs text-gray-300">Student Artwork</p>
+                                <p class="text-[0.65rem] text-[#a7e169] mt-1.5 uppercase tracking-wider font-bold">Student</p>
+                            </div>
+                        </div>
+
+                        <div class="masonry-item" data-category="photo" onclick="openLightbox(23)">
+                            <img src="student-gallery/phoochit=2.jpg" alt="Student Artwork" loading="lazy">
+                            <button onclick="shareSpecificImage(event, 'student-gallery/phoochit=2.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
+                            <div class="masonry-overlay">
+                                <h3 class="text-base font-bold text-white">Ma Phoo Phoo Chit</h3>
+                                <p class="text-xs text-gray-300">Student Artwork</p>
+                                <p class="text-[0.65rem] text-[#a7e169] mt-1.5 uppercase tracking-wider font-bold">Student</p>
+                            </div>
+                        </div>
+
+                        <div class="masonry-item" data-category="photo" onclick="openLightbox(24)">
+                            <img src="student-gallery/phooochit-2.jpg" alt="Student Artwork" loading="lazy">
+                            <button onclick="shareSpecificImage(event, 'student-gallery/phooochit-2.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
+                            <div class="masonry-overlay">
+                                <h3 class="text-base font-bold text-white">Ma Phoo Phoo Chit</h3>
+                                <p class="text-xs text-gray-300">Student Artwork</p>
+                                <p class="text-[0.65rem] text-[#a7e169] mt-1.5 uppercase tracking-wider font-bold">Student</p>
+                            </div>
+                        </div>
+
+                        <div class="masonry-item" data-category="vector" onclick="openLightbox(25)">
+                            <img src="student-gallery/sumyat-3.jpeg" alt="Student Artwork" loading="lazy">
+                            <button onclick="shareSpecificImage(event, 'student-gallery/sumyat-3.jpeg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
+                            <div class="masonry-overlay">
+                                <h3 class="text-base font-bold text-white">Ma Su Myat Mon</h3>
+                                <p class="text-xs text-gray-300">Student Artwork</p>
+                                <p class="text-[0.65rem] text-[#a7e169] mt-1.5 uppercase tracking-wider font-bold">Student</p>
+                            </div>
+                        </div>
+
+                        <div class="masonry-item" data-category="vector" onclick="openLightbox(26)">
+                            <img src="student-gallery/tharhtetaung-2.jpg" alt="Student Artwork" loading="lazy">
+                            <button onclick="shareSpecificImage(event, 'student-gallery/tharhtetaung-2.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
+                            <div class="masonry-overlay">
+                                <h3 class="text-base font-bold text-white">Ko Thar Htet Aung</h3>
+                                <p class="text-xs text-gray-300">Student Artwork</p>
+                                <p class="text-[0.65rem] text-[#a7e169] mt-1.5 uppercase tracking-wider font-bold">Student</p>
+                            </div>
+                        </div>
+
+                        <div class="masonry-item" data-category="vector" onclick="openLightbox(27)">
+                            <img src="student-gallery/wahwah-2.jpg" alt="Student Artwork" loading="lazy">
+                            <button onclick="shareSpecificImage(event, 'student-gallery/wahwah-2.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
+                            <div class="masonry-overlay">
+                                <h3 class="text-base font-bold text-white">Ma Wah Wah</h3>
+                                <p class="text-xs text-gray-300">Student Artwork</p>
+                                <p class="text-[0.65rem] text-[#a7e169] mt-1.5 uppercase tracking-wider font-bold">Student</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== OUTDOOR ACTIVITIES — NEW SECTION ===== -->
+            <section class="mb-24 fade-in">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+                    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+                        <div>
+                            <span class="section-tag">
+                                <i class="fas fa-mountain-sun"></i> Beyond the Classroom
+                            </span>
+                            <h2 class="section-title">Outdoor Activities</h2>
+                            <p class="section-desc">Learning goes beyond screens — our students explore, collaborate, and create together</p>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-gray-400 flex-shrink-0">
+                            <span>Scroll to explore</span>
+                            <i class="fas fa-arrow-right text-[#a7e169]"></i>
+                        </div>
                     </div>
                 </div>
 
-                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(21)">
-                    <img src="student-gallery/lwinoomg-4.jpg" alt="Student Artwork">
-                    <div class="grid-item-overlay">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/lwinoomg-4.jpg')" class="share-btn" title="Share on Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <h3 class="text-lg font-bold text-white">Ko Lwin Oo Maung</h3>
-                        <p class="text-sm text-gray-200 font-light">Student Artwork</p>
-                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Student</p>
+                <!-- Horizontal scroll gallery -->
+                <div class="outdoor-scroll pl-4 sm:pl-8 lg:pl-[max(2rem,calc((100vw-1280px)/2+2rem))]">
+
+                    <div class="outdoor-card" id="outdoor-1">
+                        <div class="w-full h-full bg-gradient-to-br from-[#a7e169]/20 to-[#a7e169]/5 flex items-center justify-center">
+                            <div class="text-center px-6">
+                                <i class="fas fa-camera text-4xl text-[#a7e169]/40 mb-4"></i>
+                                <p class="text-sm text-gray-400 font-medium">Add your outdoor photos here</p>
+                                <p class="text-xs text-gray-300 mt-1">Replace this placeholder</p>
+                            </div>
+                        </div>
+                        <div class="outdoor-card-overlay">
+                            <p class="text-xs text-[#a7e169] uppercase tracking-wider font-bold mb-1">Team Building</p>
+                            <h3 class="text-lg font-bold text-white">Group Activity Day</h3>
+                        </div>
+                    </div>
+
+                    <div class="outdoor-card" id="outdoor-2">
+                        <div class="w-full h-full bg-gradient-to-br from-[#ed2939]/10 to-[#ed2939]/5 flex items-center justify-center">
+                            <div class="text-center px-6">
+                                <i class="fas fa-palette text-4xl text-[#ed2939]/30 mb-4"></i>
+                                <p class="text-sm text-gray-400 font-medium">Outdoor sketching session</p>
+                                <p class="text-xs text-gray-300 mt-1">Replace this placeholder</p>
+                            </div>
+                        </div>
+                        <div class="outdoor-card-overlay">
+                            <p class="text-xs text-[#a7e169] uppercase tracking-wider font-bold mb-1">Sketching Trip</p>
+                            <h3 class="text-lg font-bold text-white">Plein Air Drawing</h3>
+                        </div>
+                    </div>
+
+                    <div class="outdoor-card" id="outdoor-3">
+                        <div class="w-full h-full bg-gradient-to-br from-black/10 to-black/5 flex items-center justify-center">
+                            <div class="text-center px-6">
+                                <i class="fas fa-users text-4xl text-black/20 mb-4"></i>
+                                <p class="text-sm text-gray-400 font-medium">Student gathering</p>
+                                <p class="text-xs text-gray-300 mt-1">Replace this placeholder</p>
+                            </div>
+                        </div>
+                        <div class="outdoor-card-overlay">
+                            <p class="text-xs text-[#a7e169] uppercase tracking-wider font-bold mb-1">Student Life</p>
+                            <h3 class="text-lg font-bold text-white">Batch Gathering</h3>
+                        </div>
+                    </div>
+
+                    <div class="outdoor-card" id="outdoor-4">
+                        <div class="w-full h-full bg-gradient-to-br from-[#a7e169]/15 to-[#a7e169]/5 flex items-center justify-center">
+                            <div class="text-center px-6">
+                                <i class="fas fa-trophy text-4xl text-[#a7e169]/30 mb-4"></i>
+                                <p class="text-sm text-gray-400 font-medium">Award ceremony</p>
+                                <p class="text-xs text-gray-300 mt-1">Replace this placeholder</p>
+                            </div>
+                        </div>
+                        <div class="outdoor-card-overlay">
+                            <p class="text-xs text-[#a7e169] uppercase tracking-wider font-bold mb-1">Celebration</p>
+                            <h3 class="text-lg font-bold text-white">Certificate Day</h3>
+                        </div>
+                    </div>
+
+                    <div class="outdoor-card" id="outdoor-5">
+                        <div class="w-full h-full bg-gradient-to-br from-[#ed2939]/10 to-[#a7e169]/10 flex items-center justify-center">
+                            <div class="text-center px-6">
+                                <i class="fas fa-heart text-4xl text-[#ed2939]/25 mb-4"></i>
+                                <p class="text-sm text-gray-400 font-medium">Fun moments</p>
+                                <p class="text-xs text-gray-300 mt-1">Replace this placeholder</p>
+                            </div>
+                        </div>
+                        <div class="outdoor-card-overlay">
+                            <p class="text-xs text-[#a7e169] uppercase tracking-wider font-bold mb-1">Fun Times</p>
+                            <h3 class="text-lg font-bold text-white">Behind the Scenes</h3>
+                        </div>
+                    </div>
+
+                    <!-- Spacer for scroll end -->
+                    <div class="flex-shrink-0 w-8"></div>
+                </div>
+            </section>
+
+            <!-- ===== CTA SECTION ===== -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <!-- Enroll CTA -->
+                    <div class="cta-card cta-card--light">
+                        <span class="section-tag mb-3 block"><i class="fas fa-rocket"></i> New Students</span>
+                        <h4 class="text-xl font-bold text-black mb-2">Master Vector ART</h4>
+                        <p class="text-gray-500 text-sm mt-1 mb-8 leading-relaxed">Learn the advanced techniques used in this gallery. Join the next batch today.</p>
+                        <a href="tel:09953681497" class="inline-flex items-center gap-2 bg-[#a7e169] text-black font-bold py-3 px-8 rounded-full hover:bg-[#ed2939] hover:text-white transition-all duration-300 shadow-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                                <path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd" />
+                            </svg>
+                            <span>09953681497</span>
+                        </a>
+                    </div>
+                    <!-- Student Login CTA -->
+                    <div class="cta-card cta-card--dark">
+                        <span class="section-tag mb-3 block" style="color: #a7e169;"><i class="fas fa-graduation-cap"></i> Current Students</span>
+                        <h4 class="text-xl font-bold text-white mb-2">Student Dashboard</h4>
+                        <p class="text-gray-400 text-sm mt-1 mb-8 leading-relaxed">Class materials ကြည့်ရှုရန်၊ homework တင်ရန်နှင့် instructor feedback ရယူရန် login ဝင်ပါ။</p>
+                        <a href="/Private/student-login.html" class="group inline-flex items-center gap-2 bg-[#a7e169] text-black font-bold py-3 px-8 rounded-full hover:bg-white hover:text-black transition-all duration-300 shadow-sm">
+                            <i class="fas fa-user-graduate"></i>
+                            Student Login
+                            <i class="fas fa-arrow-right text-xs transition-transform duration-300 group-hover:translate-x-1"></i>
+                        </a>
                     </div>
                 </div>
+            </section>
 
-                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(22)">
-                    <img src="student-gallery/phoochit-3.jpeg" alt="Student Artwork">
-                    <div class="grid-item-overlay">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/phoochit-3.jpeg')" class="share-btn" title="Share on Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <h3 class="text-lg font-bold text-white">Ma Phoo Phoo Chit</h3>
-                        <p class="text-sm text-gray-200 font-light">Student Artwork</p>
-                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Student</p>
-                    </div>
-                </div>
-
-                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(23)">
-                    <img src="student-gallery/phoochit=2.jpg" alt="Student Artwork">
-                    <div class="grid-item-overlay">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/phoochit=2.jpg')" class="share-btn" title="Share on Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <h3 class="text-lg font-bold text-white">Ma Phoo Phoo Chit</h3>
-                        <p class="text-sm text-gray-200 font-light">Student Artwork</p>
-                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Student</p>
-                    </div>
-                </div>
-
-                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(24)">
-                    <img src="student-gallery/phooochit-2.jpg" alt="Student Artwork">
-                    <div class="grid-item-overlay">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/phooochit-2.jpg')" class="share-btn" title="Share on Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <h3 class="text-lg font-bold text-white">Ma Phoo Phoo Chit</h3>
-                        <p class="text-sm text-gray-200 font-light">Student Artwork</p>
-                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Student</p>
-                    </div>
-                </div>
-
-                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(25)">
-                    <img src="student-gallery/sumyat-3.jpeg" alt="Student Artwork">
-                    <div class="grid-item-overlay">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/sumyat-3.jpeg')" class="share-btn" title="Share on Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <h3 class="text-lg font-bold text-white">Ma Su Myat Mon</h3>
-                        <p class="text-sm text-gray-200 font-light">Student Artwork</p>
-                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Student</p>
-                    </div>
-                </div>
-
-                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(26)">
-                    <img src="student-gallery/tharhtetaung-2.jpg" alt="Student Artwork">
-                    <div class="grid-item-overlay">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/tharhtetaung-2.jpg')" class="share-btn" title="Share on Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <h3 class="text-lg font-bold text-white">Ko Thar Htet Aung</h3>
-                        <p class="text-sm text-gray-200 font-light">Student Artwork</p>
-                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Student</p>
-                    </div>
-                </div>
-
-                <div class="grid-item cursor-pointer" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(27)">
-                    <img src="student-gallery/wahwah-2.jpg" alt="Student Artwork">
-                    <div class="grid-item-overlay">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/wahwah-2.jpg')" class="share-btn" title="Share on Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <h3 class="text-lg font-bold text-white">Ma Wah Wah</h3>
-                        <p class="text-sm text-gray-200 font-light">Student Artwork</p>
-                        <p class="text-xs text-[#a7e169] mt-2 uppercase tracking-wider font-bold">Student</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-6" data-aos="fade-up">
-            <!-- Enroll CTA -->
-            <div class="border border-[#a7e169] rounded-2xl p-8 flex flex-col items-start bg-[#a7e169]/10">
-                <span class="text-xs font-bold uppercase tracking-widest text-[#a7e169] mb-2">New Students</span>
-                <h4 class="text-xl font-bold text-black mb-2">Master Vector ART</h4>
-                <p class="text-gray-500 text-sm mt-1 mb-6">Learn the advanced techniques used in this gallery. Join the next batch today.</p>
-                <a href="tel:09953681497" class="inline-flex items-center gap-2 bg-[#a7e169] text-black font-bold py-3 px-8 rounded-full hover:bg-[#ed2939] hover:text-white transition-all duration-300 shadow-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
-                        <path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd" />
-                    </svg>
-                    <span>09953681497</span>
-                </a>
-            </div>
-            <!-- Student Login CTA -->
-            <div class="border border-black rounded-2xl p-8 flex flex-col items-start bg-black text-white">
-                <span class="text-xs font-bold uppercase tracking-widest text-[#a7e169] mb-2">Current Students</span>
-                <h4 class="text-xl font-bold text-white mb-2">Student Dashboard</h4>
-                <p class="text-gray-400 text-sm mt-1 mb-6">Class materials ကြည့်ရှုရန်၊ homework တင်ရန်နှင့် instructor feedback ရယူရန် login ဝင်ပါ။</p>
-                <a href="/Private/student-login.html" class="group inline-flex items-center gap-2 bg-[#a7e169] text-black font-bold py-3 px-8 rounded-full hover:bg-white hover:text-black transition-all duration-300 shadow-sm">
-                    <i class="fas fa-user-graduate"></i>
-                    Student Login
-                    <i class="fas fa-arrow-right text-xs transition-transform duration-300 group-hover:translate-x-1"></i>
-                </a>
-            </div>
-        </div>
+        </div><!-- end z-index wrapper -->
     </main>
 
+    <!-- ===== LIGHTBOX ===== -->
     <div id="lightbox" class="fixed inset-0 z-[60] bg-black/95 flex flex-col justify-center items-center p-4">
-        
         <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white/70 hover:text-white transition-colors z-[70]">
             <i data-feather="x" class="w-8 h-8"></i>
         </button>
@@ -886,9 +1414,12 @@
                     <span id="lightbox-title" class="text-white font-medium block"></span>
                     <span id="lightbox-desc" class="text-gray-500 text-xs"></span>
                 </div>
-                <button onclick="shareToFacebook()" class="text-[#a7e169] hover:text-white text-xs flex items-center gap-1 mt-1 transition-colors">
-                    <i class="fab fa-facebook"></i> Share
-                </button>
+                <div class="flex items-center gap-3">
+                    <span class="image-counter" id="lightbox-counter"></span>
+                    <button onclick="shareToFacebook()" class="text-[#a7e169] hover:text-white text-xs flex items-center gap-1 transition-colors">
+                        <i class="fab fa-facebook"></i> Share
+                    </button>
+                </div>
             </div>
 
             <button onclick="changeImage(1)" class="lightbox-nav text-gray-400 hover:text-[#a7e169] flex items-center gap-2">
@@ -897,12 +1428,11 @@
         </div>
     </div>
 
+    <!-- ===== FOOTER (UNCHANGED) ===== -->
     <footer class="bg-white text-[#323232] py-12 border-t border-gray-200 footer-glow">
-    
-    <!-- Sarvam-style circle glow orbs -->
-    <div class="footer-orb footer-orb-1"></div>
-    <div class="footer-orb footer-orb-2"></div>
-    <div class="footer-orb footer-orb-3"></div>
+        <div class="footer-orb footer-orb-1"></div>
+        <div class="footer-orb footer-orb-2"></div>
+        <div class="footer-orb footer-orb-3"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-4 gap-8">
@@ -916,14 +1446,12 @@
                     <h3 class="text-lg font-semibold mb-4 text-black">Quick Links</h3>
                     <ul class="space-y-2 text-sm">
                         <li><a href="index.html#home" class="text-gray-500 hover:text-black transition duration-300">Home</a></li>
-                      <!--  <li><a href="courses.html" class="text-gray-500 hover:text-black transition duration-300">Courses</a></li> -->
                         <li><a href="/prompt.html" class="text-gray-500 hover:text-black transition duration-300">Prompts</a></li>
                         <li><a href="/shop.html" class="text-gray-500 hover:text-black transition duration-300">Shop</a></li>
                         <li><a href="/blog.html" class="text-gray-500 hover:text-black transition duration-300">Blog</a></li>
                         <li><a href="/resources/resources-collection.html" class="text-gray-500 hover:text-black transition duration-300">Resources</a></li>
                     </ul>
                 </div>
-
                 <div>
                     <h3 class="text-lg font-semibold mb-4 text-black">Services</h3>
                     <ul class="space-y-2 text-sm">
@@ -932,125 +1460,101 @@
                         <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Printing</a></li>
                     </ul>
                 </div>
-
                 <div>
                     <h3 class="text-lg font-semibold mb-4 text-black">Contact</h3>
                     <ul class="space-y-2 text-sm">
-                         <li><a href="/index.html#about" class="text-gray-500 hover:text-black transition duration-300">About</a></li>
+                        <li><a href="/index.html#about" class="text-gray-500 hover:text-black transition duration-300">About</a></li>
                         <li><a href="/index.html#contact" class="text-gray-500 hover:text-black transition duration-300">Contact</a></li>
                     </ul>
-                </div> 
-                <!-- <div>
-                    <h3 class="text-lg font-semibold mb-4 text-black">Classes</h3>
-                    <ul class="space-y-2 text-sm">
-                         <li><a href="courses/basic-illustrator/course-detail-basic.html" class="text-gray-500 hover:text-black transition duration-300">Basic Course</a></li>
-                        <li><a href="courses/intermediate-illustrator/course-detail-intermediate.html" class="text-gray-500 hover:text-black transition duration-300">Intermediate</a></li>
-                        <li><a href="courses/graphic-design/course-detail-graphic-design.html" class="text-gray-500 hover:text-black transition duration-300">Graphic Design</a></li>
-                    </ul>
-                </div> -->
-                
+                </div>
             </div>
             <div class="border-t border-gray-200 mt-8 pt-8">
-    <div class="flex flex-col sm:flex-row justify-between items-center gap-6">
-        
-        <!-- Left: Copyright -->
-        <p class="text-gray-500 text-sm text-center sm:text-left order-2 sm:order-1 sm:w-1/4">
-            &copy; 2026 ART de ONE. All rights reserved.
-        </p>
-        
-        <!-- Center: Trust Badges -->
-        <div class="flex flex-wrap items-center justify-center gap-3 order-1 sm:order-2">
-            
-            <!-- Badge 1: SSL Secured -->
-            <div class="trust-badge group" title="SSL Encrypted Connection">
-                <div class="badge-icon">
-                    <i class="fas fa-lock text-xs"></i>
-                </div>
-                <div class="badge-text">
-                    <span class="badge-label">SSL</span>
-                    <span class="badge-value">Secured</span>
-                </div>
-            </div>
-            
-            <!-- Badge 2: DMCA Protected -->
-        <div class="trust-badge group dmca-official-wrapper" title="DMCA.com Protection Status">
-            <a href="//www.dmca.com/Protection/Status.aspx?ID=04063fb7-27c9-4e80-86e5-bc851bcd5935" 
-               title="DMCA.com Protection Status" 
-               class="dmca-badge">
-                <img src="https://images.dmca.com/Badges/dmca-badge-w100-2x1-02.png?ID=04063fb7-27c9-4e80-86e5-bc851bcd5935" 
-                     alt="DMCA.com Protection Status" 
-                     style="height: 20px; width: auto; display: block;" />
-            </a>
-            <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
-        </div>
-            
-            <!-- Badge 3: Verified Professional -->
-            <div class="trust-badge group" title="9+ Years Professional Experience">
-                <div class="badge-icon badge-icon-gold">
-                    <i class="fas fa-award text-xs"></i>
-                </div>
-                <div class="badge-text">
-                    <span class="badge-label">Verified</span>
-                    <span class="badge-value">Professional</span>
-                </div>
-            </div>
-            
-            <!-- Badge 4: Safe Browsing -->
-            <div class="trust-badge group" title="Google Safe Browsing Verified">
-                <div class="badge-icon badge-icon-green">
-                    <i class="fas fa-check-circle text-xs"></i>
-                </div>
-                <div class="badge-text">
-                    <span class="badge-label">Google</span>
-                    <span class="badge-value">Safe</span>
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-6">
+                    <p class="text-gray-500 text-sm text-center sm:text-left order-2 sm:order-1 sm:w-1/4">
+                        &copy; 2026 ART de ONE. All rights reserved.
+                    </p>
+                    <div class="flex flex-wrap items-center justify-center gap-3 order-1 sm:order-2">
+                        <div class="trust-badge group" title="SSL Encrypted Connection">
+                            <div class="badge-icon"><i class="fas fa-lock text-xs"></i></div>
+                            <div class="badge-text"><span class="badge-label">SSL</span><span class="badge-value">Secured</span></div>
+                        </div>
+                        <div class="trust-badge group dmca-official-wrapper" title="DMCA.com Protection Status">
+                            <a href="//www.dmca.com/Protection/Status.aspx?ID=04063fb7-27c9-4e80-86e5-bc851bcd5935" title="DMCA.com Protection Status" class="dmca-badge">
+                                <img src="https://images.dmca.com/Badges/dmca-badge-w100-2x1-02.png?ID=04063fb7-27c9-4e80-86e5-bc851bcd5935" alt="DMCA.com Protection Status" style="height: 20px; width: auto; display: block;" />
+                            </a>
+                            <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+                        </div>
+                        <div class="trust-badge group" title="9+ Years Professional Experience">
+                            <div class="badge-icon badge-icon-gold"><i class="fas fa-award text-xs"></i></div>
+                            <div class="badge-text"><span class="badge-label">Verified</span><span class="badge-value">Professional</span></div>
+                        </div>
+                        <div class="trust-badge group" title="Google Safe Browsing Verified">
+                            <div class="badge-icon badge-icon-green"><i class="fas fa-check-circle text-xs"></i></div>
+                            <div class="badge-text"><span class="badge-label">Google</span><span class="badge-value">Safe</span></div>
+                        </div>
+                        <a href="https://g.page/r/Cb6j-IdtRRWLEAE/review" target="_blank" class="trust-badge group" title="Find us on Google Business">
+                            <div class="badge-icon" style="background-color: #4285F4;">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width:12px;height:12px;fill:white;">
+                                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                                </svg>
+                            </div>
+                            <div class="badge-text"><span class="badge-label">Google</span><span class="badge-value">Business</span></div>
+                        </a>
+                    </div>
+                    <div class="flex justify-center sm:justify-end space-x-6 text-sm order-3 sm:w-1/4">
+                        <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-behance"></i></a>
+                        <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-tiktok"></i></a>
+                    </div>
                 </div>
             </div>
-            
-            <!-- Badge 5: Google Business -->
-            <a href="https://g.page/r/Cb6j-IdtRRWLEAE/review" target="_blank" class="trust-badge group" title="Find us on Google Business">
-                <div class="badge-icon" style="background-color: #4285F4;">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width:12px;height:12px;fill:white;">
-                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-                    </svg>
-                </div>
-                <div class="badge-text">
-                    <span class="badge-label">Google</span>
-                    <span class="badge-value">Business</span>
-                </div>
-            </a>
-            
-        </div>
-        
-        <!-- Right: Social Icons -->
-        <div class="flex justify-center sm:justify-end space-x-6 text-sm order-3 sm:w-1/4">
-            <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-behance"></i></a>
-            <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-linkedin-in"></i></a>
-            <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-tiktok"></i></a>
-        </div>
-        
-    </div>
-</div>
-
         </div>
     </footer>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- ===== SCRIPTS ===== -->
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script src="/css-and-js/mobile-smooth-nav.js"></script>
-    
+
     <script>
-        AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
         feather.replace();
 
-        // Mobile menu toggle
+        // ===== ANIMATED NUMBER COUNTER =====
+        const counters = document.querySelectorAll('[data-count]');
+        let counterObserved = false;
+
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !counterObserved) {
+                    counterObserved = true;
+                    counters.forEach(counter => {
+                        const target = parseInt(counter.getAttribute('data-count'));
+                        const duration = 1500;
+                        const start = performance.now();
+
+                        function updateCounter(now) {
+                            const elapsed = now - start;
+                            const progress = Math.min(elapsed / duration, 1);
+                            // Ease-out curve
+                            const eased = 1 - Math.pow(1 - progress, 3);
+                            counter.textContent = Math.round(target * eased);
+                            if (progress < 1) requestAnimationFrame(updateCounter);
+                        }
+                        requestAnimationFrame(updateCounter);
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(c => counterObserver.observe(c));
+
+        // ===== MOBILE MENU =====
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
             const menu = document.getElementById('mobile-menu');
             menu.classList.toggle('hidden');
-            
             const icon = this.querySelector('i');
             if (icon) {
                 icon.setAttribute('data-feather', menu.classList.contains('hidden') ? 'menu' : 'x');
@@ -1058,37 +1562,76 @@
             }
         });
 
+        // ===== FILTER TABS =====
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        const masonryItems = document.querySelectorAll('.masonry-item');
+
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                filterTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                const filter = tab.getAttribute('data-filter');
+
+                masonryItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = '';
+                        item.style.opacity = '0';
+                        requestAnimationFrame(() => {
+                            requestAnimationFrame(() => {
+                                item.style.transition = 'opacity 0.4s ease';
+                                item.style.opacity = '1';
+                            });
+                        });
+                    } else {
+                        item.style.transition = 'opacity 0.3s ease';
+                        item.style.opacity = '0';
+                        setTimeout(() => { item.style.display = 'none'; }, 300);
+                    }
+                });
+            });
+        });
+
+        // ===== LIGHTBOX =====
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const lightboxTitle = document.getElementById('lightbox-title');
         const lightboxDesc = document.getElementById('lightbox-desc');
-        
+        const lightboxCounter = document.getElementById('lightbox-counter');
+
         let currentIdx = 0;
         let images = [];
 
         document.addEventListener('DOMContentLoaded', () => {
-            const items = document.querySelectorAll('.grid-item');
-            items.forEach((item, index) => {
+            const items = document.querySelectorAll('.masonry-item');
+            items.forEach((item) => {
                 const img = item.querySelector('img');
                 const title = item.querySelector('h3').innerText;
                 const desc = item.querySelector('p').innerText;
-                
-                images.push({
-                    src: img.src,
-                    title: title,
-                    desc: desc
-                });
+                images.push({ src: img.src, title, desc });
             });
         });
 
         function openLightbox(index) {
             currentIdx = index;
+            showLightboxImage();
+        }
+
+        function openLightboxByUrl(url) {
+            const idx = images.findIndex(img => img.src.includes(url));
+            if (idx >= 0) {
+                currentIdx = idx;
+                showLightboxImage();
+            }
+        }
+
+        function showLightboxImage() {
             const data = images[currentIdx];
             lightboxImg.src = data.src;
             lightboxTitle.innerText = data.title;
             lightboxDesc.innerText = data.desc;
+            lightboxCounter.innerText = `${currentIdx + 1} / ${images.length}`;
 
-            lightboxImg.style.transition = 'none'; 
+            lightboxImg.style.transition = 'none';
             lightboxImg.style.transform = 'scale(0.95)';
             lightboxImg.style.opacity = '0';
 
@@ -1112,66 +1655,148 @@
         function changeImage(direction) {
             lightboxImg.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
             lightboxImg.style.opacity = '0';
-            lightboxImg.style.transform = 'scale(0.98)'; 
-            
+            lightboxImg.style.transform = 'scale(0.98)';
+
             setTimeout(() => {
                 currentIdx += direction;
                 if (currentIdx < 0) currentIdx = images.length - 1;
                 if (currentIdx >= images.length) currentIdx = 0;
-                
+
                 const data = images[currentIdx];
                 lightboxImg.src = data.src;
                 lightboxTitle.innerText = data.title;
                 lightboxDesc.innerText = data.desc;
+                lightboxCounter.innerText = `${currentIdx + 1} / ${images.length}`;
 
                 requestAnimationFrame(() => {
-                    lightboxImg.style.transform = 'scale(1.02)'; 
-                    
+                    lightboxImg.style.transform = 'scale(1.02)';
                     requestAnimationFrame(() => {
-                         lightboxImg.style.transition = 'transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s ease';
-                         lightboxImg.style.transform = 'scale(1)';
-                         lightboxImg.style.opacity = '1';
+                        lightboxImg.style.transition = 'transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s ease';
+                        lightboxImg.style.transform = 'scale(1)';
+                        lightboxImg.style.opacity = '1';
                     });
                 });
             }, 300);
         }
 
-        // --- SHARE DIRECTLY FROM CARD ---
+        // ===== SHARE =====
         function shareSpecificImage(event, imagePath) {
-            // Prevent the click from bubbling up to the lightbox opener
             event.stopPropagation();
-            
             const absoluteUrl = new URL(imagePath, window.location.href).href;
             const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(absoluteUrl)}`;
             window.open(facebookUrl, '_blank', 'width=600,height=400');
         }
 
-        // Share from Lightbox (Current Active Image)
         function shareToFacebook() {
-            const currentImageSrc = images[currentIdx].src; 
+            const currentImageSrc = images[currentIdx].src;
             const absoluteUrl = new URL(currentImageSrc, window.location.href).href;
             const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(absoluteUrl)}`;
             window.open(facebookUrl, '_blank', 'width=600,height=400');
         }
 
+        // ===== KEYBOARD NAVIGATION =====
         document.addEventListener('keydown', (e) => {
             if (!lightbox.classList.contains('active')) return;
             if (e.key === 'Escape') closeLightbox();
             if (e.key === 'ArrowLeft') changeImage(-1);
             if (e.key === 'ArrowRight') changeImage(1);
         });
+
+        // ===== TOUCH SWIPE FOR LIGHTBOX =====
+        let touchStartX = 0;
+        lightbox.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        lightbox.addEventListener('touchend', (e) => {
+            const diff = e.changedTouches[0].screenX - touchStartX;
+            if (Math.abs(diff) > 50) {
+                changeImage(diff > 0 ? -1 : 1);
+            }
+        }, { passive: true });
+
+        // ===== SCROLL ANIMATIONS (IntersectionObserver) =====
+        const scrollAnimObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    scrollAnimObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+        // Observe all animated elements
+        document.querySelectorAll('.fade-in, .slide-up, .slide-left, .slide-right, .scale-up, .blur-in, .reveal-up, .hero-animate, .stagger-item, .section-tag, .section-title, .section-desc, .cta-card').forEach(el => {
+            scrollAnimObserver.observe(el);
+        });
+
+        // Masonry items with stagger delay
+        document.querySelectorAll('.masonry-item').forEach((el, i) => {
+            const masonryObs = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => entry.target.classList.add('is-visible'), (i % 4) * 180);
+                        masonryObs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.08 });
+            masonryObs.observe(el);
+        });
+
+        // Stat cards
+        document.querySelectorAll('.stat-card').forEach(el => scrollAnimObserver.observe(el));
+
+        // Outdoor cards with stagger
+        document.querySelectorAll('.outdoor-card').forEach((el, i) => {
+            const outdoorObs = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => entry.target.classList.add('is-visible'), i * 200);
+                        outdoorObs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+            outdoorObs.observe(el);
+        });
+
+        // ===== OUTDOOR SCROLL DRAG =====
+        const scrollContainer = document.querySelector('.outdoor-scroll');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        scrollContainer.addEventListener('mousedown', (e) => {
+            isDown = true;
+            scrollContainer.style.cursor = 'grabbing';
+            startX = e.pageX - scrollContainer.offsetLeft;
+            scrollLeft = scrollContainer.scrollLeft;
+        });
+        scrollContainer.addEventListener('mouseleave', () => {
+            isDown = false;
+            scrollContainer.style.cursor = '';
+        });
+        scrollContainer.addEventListener('mouseup', () => {
+            isDown = false;
+            scrollContainer.style.cursor = '';
+        });
+        scrollContainer.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - scrollContainer.offsetLeft;
+            const walk = (x - startX) * 1.5;
+            scrollContainer.scrollLeft = scrollLeft - walk;
+        });
     </script>
-<script>
-function toggleMobileResourcesDropdown() {
-    document.getElementById('mobile-resources-sub').classList.toggle('open');
-    document.getElementById('mobile-res-arrow').classList.toggle('rotated');
-}
-function toggleMobileProductsDropdown() {
-    document.getElementById('mobile-products-sub').classList.toggle('open');
-    document.getElementById('mobile-prod-arrow').classList.toggle('rotated');
-}
-</script>
-<script src="/js/shop-badge.js"></script>
-<script type="module" src="/js/nav-auth.js"></script>
+    <script>
+        function toggleMobileResourcesDropdown() {
+            document.getElementById('mobile-resources-sub').classList.toggle('open');
+            document.getElementById('mobile-res-arrow').classList.toggle('rotated');
+        }
+        function toggleMobileProductsDropdown() {
+            document.getElementById('mobile-products-sub').classList.toggle('open');
+            document.getElementById('mobile-prod-arrow').classList.toggle('rotated');
+        }
+    </script>
+    <script src="/js/shop-badge.js"></script>
+    <script type="module" src="/js/nav-auth.js"></script>
 </body>
 </html>

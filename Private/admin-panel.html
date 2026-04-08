@@ -908,6 +908,9 @@
             <div class="sidebar-link" data-section="announcements">
                 <i class="fa-solid fa-bullhorn"></i> Announcements
             </div>
+            <div class="sidebar-link" data-section="homework">
+                <i class="fa-solid fa-file-lines"></i> Homework
+            </div>
         </aside>
 
         <!-- Main Content -->
@@ -1026,6 +1029,7 @@
                             <thead>
                                 <tr>
                                     <th>Student</th>
+                                    <th>Student ID</th>
                                     <th>Type</th>
                                     <th>Status</th>
                                     <th>Invite Code</th>
@@ -1144,16 +1148,14 @@
                 </div>
             </section>
 
-            <!-- ─── Course Files (R2) ─── -->
+            <!-- ─── Course Files ─── -->
             <section id="files-section" class="section">
                 <div class="page-header">
                     <div>
                         <h1>Course Files</h1>
-                        <p>Upload materials to Cloudflare R2 — students can download from the dashboard</p>
+                        <p>Add Google Drive links — students can access them from the dashboard</p>
                     </div>
                     <div style="display:flex; gap:10px;">
-                        <button class="btn btn-secondary" onclick="openModal('r2-settings')"><i
-                                class="fa-solid fa-gear"></i> R2 Settings</button>
                         <button class="btn btn-primary" onclick="openModal('add-file')"><i
                                 class="fa-solid fa-upload"></i> Add File</button>
                     </div>
@@ -1189,10 +1191,9 @@
                 <div class="page-header">
                     <div>
                         <h1>Software Downloads</h1>
-                        <p>Upload software tools and apps for students to download</p>
+                        <p>Manage software links for students to access</p>
                     </div>
                     <div style="display:flex; gap:10px;">
-                        <button class="btn btn-secondary" onclick="openModal('r2-settings')"><i class="fa-solid fa-gear"></i> R2 Settings</button>
                         <button class="btn btn-primary" onclick="openAddSoftwareModal()"><i class="fa-solid fa-upload"></i> Add Software</button>
                     </div>
                 </div>
@@ -1215,6 +1216,33 @@
                     <div class="empty-state"><i class="fa-solid fa-circle-notch fa-spin"></i>
                         <p>Loading…</p>
                     </div>
+                </div>
+            </section>
+
+            <!-- ─── Homework ─── -->
+            <section id="homework-section" class="section">
+                <div class="page-header">
+                    <div>
+                        <h1>Homework Submissions</h1>
+                        <p>Review student homework, give feedback and star ratings</p>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
+                    <select id="hw-filter-status" class="form-input" style="width:auto; min-width:150px; margin:0;" onchange="loadHomework()">
+                        <option value="">All Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="reviewed">Reviewed</option>
+                        <option value="revision">Needs Revision</option>
+                    </select>
+                    <select id="hw-filter-course" class="form-input" style="width:auto; min-width:180px; margin:0;" onchange="loadHomework()">
+                        <option value="">All Courses</option>
+                    </select>
+                </div>
+
+                <div id="homework-container">
+                    <div class="empty-state"><i class="fa-solid fa-circle-notch fa-spin"></i><p>Loading…</p></div>
                 </div>
             </section>
 
@@ -1398,54 +1426,19 @@
         </div>
     </div>
 
-    <!-- Add Course File (R2) -->
+    <!-- Add Course File -->
     <div id="add-file-modal" class="modal">
         <div class="modal-box">
             <div class="modal-header">
-                <h2>Add Course File</h2><button class="modal-close" onclick="closeModal('add-file')">&times;</button>
+                <h2>Add Course File Link</h2><button class="modal-close" onclick="closeModal('add-file')">&times;</button>
             </div>
             <div id="add-file-alert"></div>
 
-            <!-- Tab toggle -->
-            <div
-                style="display:flex; gap:2px; background:var(--bg); border-radius:10px; padding:3px; margin-bottom:20px; border:1px solid var(--border);">
-                <button type="button" class="btn" id="file-tab-upload" onclick="setFileTab('upload')"
-                    style="flex:1; justify-content:center; font-size:.83rem; padding:8px;">
-                    <i class="fa-solid fa-upload"></i> Upload via R2 Worker
-                </button>
-                <button type="button" class="btn btn-ghost" id="file-tab-url" onclick="setFileTab('url')"
-                    style="flex:1; justify-content:center; font-size:.83rem; padding:8px;">
-                    <i class="fa-solid fa-link"></i> Paste R2 URL
-                </button>
-            </div>
-
             <form id="add-file-form">
-                <!-- Upload mode -->
-                <div id="file-upload-mode">
-                    <div class="dropzone" id="file-dropzone">
-                        <input type="file" id="file-upload-input" onchange="handleFileSelect(this)">
-                        <i class="fa-solid fa-cloud-arrow-up"></i>
-                        <p><strong>Click or drag a file here</strong></p>
-                        <p id="file-selected-name" style="margin-top:6px; color:var(--green); font-weight:500;"></p>
-                    </div>
-                    <div id="upload-progress-wrap" class="hidden" style="margin-top:12px;">
-                        <div
-                            style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:.8rem; color:var(--muted);">
-                            <span>Uploading…</span><span id="upload-percent">0%</span>
-                        </div>
-                        <div class="progress-wrap">
-                            <div class="progress-bar" id="upload-progress-bar" style="width:0%;"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- URL mode -->
-                <div id="file-url-mode" class="hidden">
-                    <label class="form-label">Cloudflare R2 File URL</label>
-                    <input type="url" id="manual-file-url" class="form-input"
-                        placeholder="https://pub-xxx.r2.dev/filename.pdf">
-                    <p class="form-hint">Paste the public R2 URL after uploading via Cloudflare Dashboard</p>
-                </div>
+                <label class="form-label">Google Drive Link</label>
+                <input type="url" id="manual-file-url" class="form-input" required
+                    placeholder="https://drive.google.com/file/d/...">
+                <p class="form-hint">Paste the public Google Drive link</p>
 
                 <label class="form-label" style="margin-top:4px;">File Title</label>
                 <input type="text" id="file-title" class="form-input" required
@@ -1475,55 +1468,7 @@
         </div>
     </div>
 
-    <!-- R2 Settings -->
-    <div id="r2-settings-modal" class="modal">
-        <div class="modal-box" style="max-width:480px;">
-            <div class="modal-header">
-                <h2>Cloudflare R2 Settings</h2><button class="modal-close"
-                    onclick="closeModal('r2-settings')">&times;</button>
-            </div>
 
-            <div class="alert alert-info" style="margin-bottom:16px;">
-                <i class="fa-solid fa-circle-info"></i>
-                <span>Set your Cloudflare Worker URL to enable direct uploads from this panel. The Worker handles the S3
-                    API signing.</span>
-            </div>
-
-            <label class="form-label">R2 Upload Worker URL</label>
-            <input type="url" id="r2-worker-url" class="form-input"
-                placeholder="https://your-worker.workers.dev/upload">
-            <p class="form-hint">Your Cloudflare Worker endpoint that accepts multipart file uploads and returns the
-                public R2 URL.</p>
-
-            <label class="form-label">R2 Public Base URL (for direct links)</label>
-            <input type="url" id="r2-public-url" class="form-input" placeholder="https://pub-xxx.r2.dev">
-            <p class="form-hint">Used to construct download links for students. Found in R2 bucket → Public Access
-                settings.</p>
-
-            <div
-                style="background:#fafafa; border:1px solid var(--border); border-radius:12px; padding:16px; margin-bottom:16px;">
-                <p style="font-size:.83rem; font-weight:600; margin-bottom:8px;">Example Cloudflare Worker
-                    (wrangler.toml):</p>
-                <pre style="font-size:.75rem; color:#555; overflow-x:auto; white-space:pre-wrap;">// Worker handles POST /upload
-export default {
-  async fetch(request, env) {
-    const formData = await request.formData();
-    const file = formData.get('file');
-    const key = Date.now() + '_' + file.name;
-    await env.R2_BUCKET.put(key, file.stream());
-    const url = env.PUBLIC_URL + '/' + key;
-    return Response.json({ url });
-  }
-}</pre>
-            </div>
-
-            <div class="modal-footer">
-                <button class="btn btn-primary" onclick="saveR2Settings()"><i class="fa-solid fa-save"></i> Save
-                    Settings</button>
-                <button class="btn btn-secondary" onclick="closeModal('r2-settings')">Cancel</button>
-            </div>
-        </div>
-    </div>
 
     <!-- Add Announcement -->
     <div id="add-announcement-modal" class="modal">
@@ -1591,50 +1536,18 @@ export default {
         </div>
     </div>
 
-    <!-- Add Software (R2) -->
+    <!-- Add Software -->
     <div id="add-software-modal" class="modal">
         <div class="modal-box">
             <div class="modal-header">
-                <h2>Add Software</h2><button class="modal-close" onclick="closeModal('add-software')">&times;</button>
+                <h2>Add Software Link</h2><button class="modal-close" onclick="closeModal('add-software')">&times;</button>
             </div>
             <div id="add-software-alert"></div>
 
-            <!-- Tab toggle -->
-            <div style="display:flex; gap:2px; background:var(--bg); border-radius:10px; padding:3px; margin-bottom:20px; border:1px solid var(--border);">
-                <button type="button" class="btn btn-primary" id="sw-tab-upload" onclick="setSoftwareTab('upload')"
-                    style="flex:1; justify-content:center; font-size:.83rem; padding:8px;">
-                    <i class="fa-solid fa-upload"></i> Upload via R2
-                </button>
-                <button type="button" class="btn btn-ghost" id="sw-tab-url" onclick="setSoftwareTab('url')"
-                    style="flex:1; justify-content:center; font-size:.83rem; padding:8px;">
-                    <i class="fa-solid fa-link"></i> Paste URL
-                </button>
-            </div>
-
             <form id="add-software-form">
-                <!-- Upload mode -->
-                <div id="sw-upload-mode">
-                    <div class="dropzone" id="sw-dropzone">
-                        <input type="file" id="sw-upload-input" onchange="handleSoftwareFileSelect(this)">
-                        <i class="fa-solid fa-cloud-arrow-up"></i>
-                        <p><strong>Click or drag installer file here</strong></p>
-                        <p id="sw-selected-name" style="margin-top:6px; color:var(--green); font-weight:500;"></p>
-                    </div>
-                    <div id="sw-progress-wrap" class="hidden" style="margin-top:12px;">
-                        <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:.8rem; color:var(--muted);">
-                            <span>Uploading…</span><span id="sw-percent">0%</span>
-                        </div>
-                        <div class="progress-wrap">
-                            <div class="progress-bar" id="sw-progress-bar" style="width:0%;"></div>
-                        </div>
-                    </div>
-                </div>
-                <!-- URL mode -->
-                <div id="sw-url-mode" class="hidden">
-                    <label class="form-label">Cloudflare R2 File URL</label>
-                    <input type="url" id="sw-manual-url" class="form-input" placeholder="https://pub-xxx.r2.dev/installer.exe">
-                    <p class="form-hint">Paste the public R2 URL after uploading via Cloudflare Dashboard</p>
-                </div>
+                <label class="form-label">Google Drive Link</label>
+                <input type="url" id="sw-manual-url" class="form-input" required placeholder="https://drive.google.com/file/d/...">
+                <p class="form-hint">Paste the public Google Drive link</p>
 
                 <label class="form-label" style="margin-top:4px;">Software Name</label>
                 <input type="text" id="sw-title" class="form-input" required placeholder="e.g. Adobe Photoshop 2025">
@@ -1664,6 +1577,75 @@ export default {
                     <button type="button" class="btn btn-secondary" onclick="closeModal('add-software')">Cancel</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Homework Review Modal -->
+    <div id="hw-review-modal" class="modal">
+        <div class="modal-box" style="max-width:600px;">
+            <div class="modal-header">
+                <h2>Review Homework</h2>
+                <button class="modal-close" onclick="closeModal('hw-review')">&times;</button>
+            </div>
+
+            <!-- Student Info -->
+            <div style="display:flex; align-items:center; gap:14px; padding:16px; background:var(--bg); border-radius:12px; margin-bottom:20px;">
+                <img id="hw-review-avatar" src="" style="width:44px; height:44px; border-radius:50%; object-fit:cover; border:2px solid var(--green);">
+                <div>
+                    <div style="font-weight:600; font-size:.95rem;" id="hw-review-student-name"></div>
+                    <div style="font-size:.78rem; color:var(--muted);" id="hw-review-course-date"></div>
+                </div>
+                <span id="hw-review-status-badge" class="badge" style="margin-left:auto;"></span>
+            </div>
+
+            <!-- Homework Details -->
+            <div style="margin-bottom:20px;">
+                <div style="font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); font-weight:600; margin-bottom:6px;">Submission Title</div>
+                <div style="font-size:.95rem; font-weight:500;" id="hw-review-title"></div>
+            </div>
+
+            <div id="hw-review-notes-wrap" style="margin-bottom:20px; display:none;">
+                <div style="font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); font-weight:600; margin-bottom:6px;">Student Notes</div>
+                <div style="font-size:.875rem; color:#555; font-style:italic; padding:12px 16px; background:#fafafa; border-radius:10px; border:1px solid var(--border);" id="hw-review-notes"></div>
+            </div>
+
+            <!-- File Preview -->
+            <div id="hw-review-file-wrap" style="margin-bottom:20px; display:none;">
+                <div style="font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); font-weight:600; margin-bottom:8px;">Submitted File</div>
+                <div id="hw-review-file-preview" style="border:1px solid var(--border); border-radius:12px; overflow:hidden; background:#fafafa;"></div>
+            </div>
+
+            <!-- Feedback Form -->
+            <div style="border-top:1px solid var(--border); padding-top:20px;">
+                <label class="form-label">Your Feedback</label>
+                <textarea id="hw-review-feedback" class="form-input" rows="3" placeholder="Write your feedback for the student…" style="margin-bottom:12px;"></textarea>
+
+                <label class="form-label">Rating</label>
+                <div id="hw-review-stars" style="display:flex; gap:6px; margin-bottom:16px;">
+                    <button type="button" class="hw-star-btn" onclick="setHwRating(1)" style="background:none; border:none; font-size:1.6rem; cursor:pointer; color:#ddd; transition:color .15s;">★</button>
+                    <button type="button" class="hw-star-btn" onclick="setHwRating(2)" style="background:none; border:none; font-size:1.6rem; cursor:pointer; color:#ddd; transition:color .15s;">★</button>
+                    <button type="button" class="hw-star-btn" onclick="setHwRating(3)" style="background:none; border:none; font-size:1.6rem; cursor:pointer; color:#ddd; transition:color .15s;">★</button>
+                    <button type="button" class="hw-star-btn" onclick="setHwRating(4)" style="background:none; border:none; font-size:1.6rem; cursor:pointer; color:#ddd; transition:color .15s;">★</button>
+                    <button type="button" class="hw-star-btn" onclick="setHwRating(5)" style="background:none; border:none; font-size:1.6rem; cursor:pointer; color:#ddd; transition:color .15s;">★</button>
+                </div>
+
+                <label class="form-label">Status</label>
+                <div style="display:flex; gap:8px; margin-bottom:8px;">
+                    <button type="button" class="btn btn-secondary hw-status-btn" id="hw-status-reviewed" onclick="setHwStatus('reviewed')" style="flex:1; justify-content:center;">
+                        <i class="fa-solid fa-circle-check"></i> Reviewed
+                    </button>
+                    <button type="button" class="btn btn-secondary hw-status-btn" id="hw-status-revision" onclick="setHwStatus('revision')" style="flex:1; justify-content:center;">
+                        <i class="fa-solid fa-rotate-left"></i> Needs Revision
+                    </button>
+                </div>
+            </div>
+
+            <div id="hw-review-alert" style="margin-top:12px;"></div>
+
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="hw-review-save-btn" onclick="saveHwReview()"><i class="fa-solid fa-paper-plane"></i> Submit Review</button>
+                <button class="btn btn-secondary" onclick="closeModal('hw-review')">Cancel</button>
+            </div>
         </div>
     </div>
 
@@ -1743,7 +1725,7 @@ export default {
         window.navigateTo = navigateTo;
 
         async function loadSection(s) {
-            const map = { dashboard: loadDashboardStats, students: loadStudents, courses: loadCourses, enrollments: loadEnrollments, 'invite-codes': loadInviteCodes, files: loadFiles, software: loadSoftware, announcements: loadAnnouncements };
+            const map = { dashboard: loadDashboardStats, students: loadStudents, courses: loadCourses, enrollments: loadEnrollments, 'invite-codes': loadInviteCodes, files: loadFiles, software: loadSoftware, announcements: loadAnnouncements, homework: loadHomework };
             map[s]?.();
         }
 
@@ -1792,7 +1774,7 @@ export default {
 
         function renderStudents(list) {
             const tbody = document.getElementById('students-tbody');
-            if (!list.length) { tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:40px; color:var(--muted);">No students found</td></tr>`; return; }
+            if (!list.length) { tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:40px; color:var(--muted);">No students found</td></tr>`; return; }
             tbody.innerHTML = list.map(s => `
         <tr>
             <td>
@@ -1804,6 +1786,7 @@ export default {
                     </div>
                 </div>
             </td>
+            <td><span class="code-pill" style="font-size:.75rem;">${s.student_id || s.id?.substring(0, 8).toUpperCase() || '—'}</span></td>
             <td><span class="badge badge-blue">${s.student_type || 'N/A'}</span></td>
             <td><span class="badge badge-dot ${s.status === 'active' ? 'badge-green' : 'badge-gray'}">${s.status || 'N/A'}</span></td>
             <td>${s.invite_code_used ? `<span class="code-pill">${s.invite_code_used}</span>` : '<span style="color:var(--muted);">—</span>'}</td>
@@ -2402,7 +2385,7 @@ export default {
                         <span class="badge ${a.priority === 'urgent' ? 'badge-red' : a.priority === 'high' ? 'badge-yellow' : 'badge-gray'}">${a.priority}</span>
                         <span class="badge badge-blue">${a.target_audience}</span>
                     </div>
-                    <p style="font-size:.875rem; color:var(--muted); line-height:1.6;">${a.content}</p>
+                    <p style="font-size:.875rem; color:var(--muted); line-height:1.6; overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;">${a.content}</p>
                     <p style="font-size:.75rem; color:#bbb; margin-top:8px;">${new Date(a.published_at || a.created_at || new Date()).toLocaleString()}</p>
                 </div>
                 <button class="btn btn-danger btn-ghost" onclick="deleteAnnouncement('${a.id}')"><i class="fa-solid fa-trash"></i></button>
@@ -2502,6 +2485,222 @@ export default {
         window.setSoftwareTab = setSoftwareTab;
         window.handleSoftwareFileSelect = handleSoftwareFileSelect;
         window.selectPlatform = selectPlatform;
+
+        // ── Homework Review ──
+        async function loadHomework() {
+            const statusFilter = document.getElementById('hw-filter-status')?.value || '';
+            const courseFilter = document.getElementById('hw-filter-course')?.value || '';
+
+            // Populate course filter dropdown
+            const courseSel = document.getElementById('hw-filter-course');
+            if (courseSel && courseSel.options.length <= 1) {
+                const { data: courses } = await supabase.from('courses').select('id, title').eq('status', 'active').order('title');
+                if (courses?.length) {
+                    courseSel.innerHTML = '<option value="">All Courses</option>' + courses.map(c => `<option value="${c.id}">${c.title}</option>`).join('');
+                }
+            }
+
+            let query = supabase.from('homework_submissions').select('*, courses(title), students(full_name, email, avatar_url)').order('created_at', { ascending: false });
+            if (statusFilter) query = query.eq('status', statusFilter);
+            if (courseFilter) query = query.eq('course_id', courseFilter);
+
+            const { data, error } = await query;
+            const container = document.getElementById('homework-container');
+
+            if (error) { container.innerHTML = `<div class="alert alert-error"><i class="fa-solid fa-circle-exclamation"></i> ${error.message}</div>`; return; }
+            if (!data?.length) {
+                container.innerHTML = '<div class="empty-state"><i class="fa-solid fa-file-lines"></i><p>No homework submissions yet</p></div>';
+                return;
+            }
+
+            // Group submissions by student
+            const grouped = {};
+            const studentOrder = [];
+            data.forEach(h => {
+                const sid = h.student_id || 'unknown';
+                if (!grouped[sid]) {
+                    grouped[sid] = {
+                        name: h.students?.full_name || h.students?.email || 'Unknown',
+                        email: h.students?.email || '',
+                        avatar: h.students?.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(h.students?.full_name || h.students?.email || 'U')}&background=a7e169&color=000&size=44`,
+                        id: h.student_id,
+                        items: []
+                    };
+                    studentOrder.push(sid);
+                }
+                grouped[sid].items.push(h);
+            });
+
+            container.innerHTML = studentOrder.map(sid => {
+                const g = grouped[sid];
+                const pendingCount = g.items.filter(h => h.status === 'pending').length;
+                const shortId = g.id ? g.id.substring(0, 8).toUpperCase() : '—';
+                return `<div style="border:1px solid var(--border); border-radius:16px; margin-bottom:20px; background:var(--card); overflow:hidden;">
+                    <!-- Student Header -->
+                    <div style="display:flex; align-items:center; gap:12px; padding:16px 20px; background:var(--bg); border-bottom:1px solid var(--border); cursor:pointer;" onclick="this.parentElement.querySelector('.hw-student-items').classList.toggle('hidden')">
+                        <img src="${g.avatar}" style="width:40px; height:40px; border-radius:50%; object-fit:cover; border:2px solid var(--green); flex-shrink:0;">
+                        <div style="flex:1; min-width:0;">
+                            <div style="font-weight:600; font-size:.95rem;">${g.name}</div>
+                            <div style="font-size:.75rem; color:var(--muted);">${g.email}${g.id ? ' · ID: ' + shortId : ''}</div>
+                        </div>
+                        <span class="badge badge-gray" style="flex-shrink:0;">${g.items.length} submission${g.items.length !== 1 ? 's' : ''}</span>
+                        ${pendingCount > 0 ? `<span class="badge badge-yellow" style="flex-shrink:0;">${pendingCount} pending</span>` : ''}
+                        <i class="fa-solid fa-chevron-down" style="color:var(--muted); font-size:.75rem; transition:transform .2s;"></i>
+                    </div>
+                    <!-- Submissions List -->
+                    <div class="hw-student-items" style="padding:12px 16px;">
+                        ${g.items.map(h => {
+                            const statusBadge = { pending: 'badge-yellow', reviewed: 'badge-green', revision: 'badge-red' };
+                            const sb = statusBadge[h.status] || 'badge-gray';
+                            const stars = h.rating ? '★'.repeat(h.rating) + '☆'.repeat(5 - h.rating) : '';
+                            const isImage = /\.(jpg|jpeg|png|gif|webp)$/i.test(h.file_url || '');
+                            return `<div style="padding:14px; border:1px solid #f0f0f0; border-radius:12px; margin-bottom:8px; transition:var(--transition);" onmouseenter="this.style.borderColor='var(--green)'" onmouseleave="this.style.borderColor='#f0f0f0'">
+                                <div style="display:flex; gap:14px; flex-wrap:wrap;">
+                                    ${isImage ? `<div style="width:64px; height:64px; border-radius:8px; overflow:hidden; flex-shrink:0; background:#f9f9f9;">
+                                        <a href="${h.file_url}" target="_blank"><img src="${h.file_url}" style="width:100%; height:100%; object-fit:cover;" alt=""></a>
+                                    </div>` : ''}
+                                    <div style="flex:1; min-width:0;">
+                                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px; flex-wrap:wrap;">
+                                            <span style="font-weight:500; font-size:.875rem;">${h.title || 'Untitled'}</span>
+                                            <span class="badge ${sb}">${h.status}</span>
+                                            ${stars ? `<span style="color:#eab308; font-size:.85rem; letter-spacing:2px;">${stars}</span>` : ''}
+                                        </div>
+                                        <p style="font-size:.75rem; color:var(--muted);">${h.courses?.title || 'General'} · ${new Date(h.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
+                                        ${h.student_notes ? `<p style="font-size:.78rem; color:#888; margin-top:4px; font-style:italic;">"${h.student_notes}"</p>` : ''}
+                                        ${h.feedback ? `<div style="margin-top:6px; padding:8px 12px; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:8px;">
+                                            <p style="font-size:.7rem; color:#888; text-transform:uppercase; letter-spacing:.05em; font-weight:600; margin-bottom:3px;">Your Feedback</p>
+                                            <p style="font-size:.82rem; color:#14532d;">${h.feedback}</p>
+                                        </div>` : ''}
+                                    </div>
+                                    <div style="display:flex; flex-direction:column; gap:4px; flex-shrink:0;">
+                                        ${h.file_url ? `<a href="${h.file_url}" target="_blank" class="btn btn-ghost" title="View file"><i class="fa-solid fa-eye"></i></a>` : ''}
+                                        <button class="btn btn-primary" style="font-size:.75rem; padding:6px 12px;" onclick="openHwReview('${h.id}')"><i class="fa-solid fa-pen"></i> Review</button>
+                                        <button class="btn btn-danger btn-ghost" onclick="deleteHomework('${h.id}')"><i class="fa-solid fa-trash"></i></button>
+                                    </div>
+                                </div>
+                            </div>`;
+                        }).join('')}
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        let hwReviewId = null;
+        let hwReviewRating = 0;
+        let hwReviewStatus = 'reviewed';
+
+        window.setHwRating = function(n) {
+            hwReviewRating = n;
+            document.querySelectorAll('.hw-star-btn').forEach((btn, i) => {
+                btn.style.color = i < n ? '#eab308' : '#ddd';
+            });
+        };
+
+        window.setHwStatus = function(s) {
+            hwReviewStatus = s;
+            document.getElementById('hw-status-reviewed').className = 'btn ' + (s === 'reviewed' ? 'btn-primary' : 'btn-secondary') + ' hw-status-btn';
+            document.getElementById('hw-status-revision').className = 'btn ' + (s === 'revision' ? 'btn-danger' : 'btn-secondary') + ' hw-status-btn';
+            document.getElementById('hw-status-reviewed').style.flex = '1';
+            document.getElementById('hw-status-revision').style.flex = '1';
+            document.getElementById('hw-status-reviewed').style.justifyContent = 'center';
+            document.getElementById('hw-status-revision').style.justifyContent = 'center';
+        };
+
+        window.openHwReview = async function(id) {
+            hwReviewId = id;
+            hwReviewRating = 0;
+            hwReviewStatus = 'reviewed';
+
+            // Fetch the submission data
+            const { data: h, error } = await supabase.from('homework_submissions').select('*, courses(title), students(full_name, email, avatar_url)').eq('id', id).maybeSingle();
+            if (error || !h) { alert('Could not load submission.'); return; }
+
+            const studentName = h.students?.full_name || h.students?.email || 'Unknown';
+            const avatar = h.students?.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(studentName)}&background=a7e169&color=000&size=88`;
+            const statusBadge = { pending: 'badge-yellow', reviewed: 'badge-green', revision: 'badge-red' };
+            const sb = statusBadge[h.status] || 'badge-gray';
+
+            document.getElementById('hw-review-avatar').src = avatar;
+            document.getElementById('hw-review-student-name').textContent = studentName;
+            document.getElementById('hw-review-course-date').textContent = (h.courses?.title || 'General') + ' · ' + new Date(h.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+            const badgeEl = document.getElementById('hw-review-status-badge');
+            badgeEl.className = 'badge ' + sb;
+            badgeEl.textContent = h.status;
+
+            document.getElementById('hw-review-title').textContent = h.title || 'Untitled';
+
+            const notesWrap = document.getElementById('hw-review-notes-wrap');
+            if (h.student_notes) { notesWrap.style.display = 'block'; document.getElementById('hw-review-notes').textContent = h.student_notes; }
+            else { notesWrap.style.display = 'none'; }
+
+            // File preview
+            const fileWrap = document.getElementById('hw-review-file-wrap');
+            const filePreview = document.getElementById('hw-review-file-preview');
+            if (h.file_url) {
+                fileWrap.style.display = 'block';
+                const isImage = /\.(jpg|jpeg|png|gif|webp)$/i.test(h.file_url);
+                if (isImage) {
+                    filePreview.innerHTML = `<a href="${h.file_url}" target="_blank"><img src="${h.file_url}" style="width:100%; max-height:280px; object-fit:contain; display:block;"></a>`;
+                } else {
+                    const fileName = h.file_name || h.file_url.split('/').pop();
+                    filePreview.innerHTML = `<a href="${h.file_url}" target="_blank" style="display:flex; align-items:center; gap:12px; padding:16px; text-decoration:none; color:var(--text);">
+                        <div style="width:44px; height:44px; border-radius:10px; background:var(--green-dim); display:flex; align-items:center; justify-content:center; flex-shrink:0;"><i class="fa-solid fa-file-arrow-down" style="color:#2d5a00; font-size:1.1rem;"></i></div>
+                        <div style="flex:1; min-width:0;"><div style="font-weight:500; font-size:.875rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${fileName}</div><div style="font-size:.75rem; color:var(--muted);">Click to view / download</div></div>
+                        <i class="fa-solid fa-arrow-up-right-from-square" style="color:var(--muted);"></i>
+                    </a>`;
+                }
+            } else { fileWrap.style.display = 'none'; }
+
+            // Pre-fill existing feedback
+            document.getElementById('hw-review-feedback').value = h.feedback || '';
+            if (h.rating) { setHwRating(h.rating); } else { setHwRating(0); }
+            if (h.status === 'revision') { setHwStatus('revision'); } else { setHwStatus('reviewed'); }
+
+            document.getElementById('hw-review-alert').innerHTML = '';
+            openModal('hw-review');
+        };
+
+        window.saveHwReview = async function() {
+            const feedback = document.getElementById('hw-review-feedback').value.trim();
+            if (!feedback) {
+                document.getElementById('hw-review-alert').innerHTML = '<div class="alert alert-error"><i class="fa-solid fa-circle-exclamation"></i> Please enter your feedback.</div>';
+                return;
+            }
+            if (!hwReviewRating || hwReviewRating < 1 || hwReviewRating > 5) {
+                document.getElementById('hw-review-alert').innerHTML = '<div class="alert alert-error"><i class="fa-solid fa-circle-exclamation"></i> Please select a rating (1-5 stars).</div>';
+                return;
+            }
+
+            const btn = document.getElementById('hw-review-save-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Saving…';
+
+            const { error } = await supabase.from('homework_submissions').update({
+                feedback: feedback,
+                rating: hwReviewRating,
+                status: hwReviewStatus,
+                reviewed_at: new Date().toISOString()
+            }).eq('id', hwReviewId);
+
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit Review';
+
+            if (error) {
+                document.getElementById('hw-review-alert').innerHTML = `<div class="alert alert-error"><i class="fa-solid fa-circle-exclamation"></i> ${error.message}</div>`;
+                return;
+            }
+
+            document.getElementById('hw-review-alert').innerHTML = '<div class="alert alert-success"><i class="fa-solid fa-check-circle"></i> Review saved successfully!</div>';
+            setTimeout(() => { closeModal('hw-review'); loadHomework(); }, 1200);
+        };
+
+        window.deleteHomework = async function(id) {
+            if (!confirm('Delete this homework submission?')) return;
+            await supabase.from('homework_submissions').delete().eq('id', id);
+            loadHomework();
+        };
+
+        window.loadHomework = loadHomework;
 
         function generateAdminRoom() {
             const num = Math.floor(1000 + Math.random() * 9000);

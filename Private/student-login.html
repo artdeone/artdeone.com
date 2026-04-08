@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap');
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -103,7 +103,8 @@
         }
 
         .panel-art h2 {
-            font-family: 'DM Serif Display', serif;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 600;
             font-size: clamp(2rem, 3.5vw, 3rem);
             line-height: 1.2;
             color: #ffffff;
@@ -195,7 +196,8 @@
         }
 
         .form-header h1 {
-            font-family: 'DM Serif Display', serif;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 600;
             font-size: 2rem;
             line-height: 1.2;
             color: var(--text);
@@ -403,17 +405,18 @@
 
         /* ─── Back link ─── */
         .back-link {
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            gap: 6px;
-            font-size: 13px;
-            color: var(--muted);
+            justify-content: center;
+            gap: 5px;
+            font-size: 11px;
+            color: #c0c4cc;
             text-decoration: none;
-            margin-bottom: 32px;
+            margin-top: 12px;
             transition: color var(--transition);
         }
 
-        .back-link:hover { color: var(--text); }
+        .back-link:hover { color: var(--muted); }
 
         /* ─── Footer ─── */
         .form-footer {
@@ -427,8 +430,15 @@
         @media (max-width: 800px) {
             .page-wrap { grid-template-columns: 1fr; }
             .panel-left { display: none; }
-            .panel-right { padding: 40px 24px; align-items: flex-start; min-height: 100vh; }
+            .panel-right { padding: 40px 24px; align-items: center; justify-content: center; min-height: 100vh; }
             .form-wrap { max-width: 100%; }
+            .mobile-logo { display: flex; align-items: center; justify-content: center; margin-bottom: 32px; }
+            .mobile-logo img { height: 36px; width: auto; }
+        }
+
+        /* Hide mobile logo on desktop */
+        @media (min-width: 801px) {
+            .mobile-logo { display: none; }
         }
 
         /* Animations */
@@ -451,14 +461,13 @@
     <!-- ─────────────── Left: Brand Panel ─────────────── -->
     <div class="panel-left">
         <div class="panel-brand">
-            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769316272/fav-icon_n00lji.png" alt="ART de ONE">
-            <span style="color:#fff; font-size:15px; font-weight:600; letter-spacing:0.01em;">ART de ONE</span>
+            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png" alt="ART de ONE">
         </div>
 
         <div class="panel-art">
             <div class="panel-art-tag">Student Portal</div>
-            <h2>Where <em>creativity</em> meets craft.</h2>
-            <p>Access your courses, assignments, and resources. Your artistic journey continues here.</p>
+            <h2>Learn, <em>create</em>, and grow.</h2>
+            <p>Download class materials, submit homework, and get feedback from your instructor — all in one place.</p>
             <div class="panel-dots">
                 <span></span><span></span><span></span>
             </div>
@@ -471,9 +480,10 @@
     <div class="panel-right">
         <div class="form-wrap">
 
-            <a href="/index.html" class="back-link">
-                <i class="fa-solid fa-arrow-left" style="font-size:11px;"></i> Back to Home
-            </a>
+            <!-- Mobile Logo (visible only on mobile) -->
+            <div class="mobile-logo">
+                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png" alt="ART de ONE">
+            </div>
 
             <!-- Tab Switcher -->
             <div class="tabs" role="tablist">
@@ -566,6 +576,10 @@
             <div class="form-footer">
                 Need help? <a href="mailto:support@artdeone.com" style="color:var(--text); text-decoration:underline; text-decoration-color:var(--green);">Contact support</a>
             </div>
+
+            <a href="/index.html" class="back-link">
+                <i class="fa-solid fa-arrow-left" style="font-size:9px;"></i> Back to Home
+            </a>
 
         </div>
     </div>

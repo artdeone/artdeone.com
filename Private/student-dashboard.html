@@ -21,14 +21,14 @@
     </script>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Space+Grotesk:wght@300;400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap');
 
         :root {
             --accent: #a7e169;
         }
 
         body {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'DM Sans', sans-serif;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -36,7 +36,7 @@
         h2,
         h3,
         h4 {
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'DM Sans', sans-serif;
             letter-spacing: -0.02em;
         }
 
@@ -132,6 +132,205 @@
             display: none !important;
         }
 
+        #sidebar-toggle-btn:hover {
+            transform: scale(1.1);
+        }
+        .sidebar-collapsed #sidebar-toggle-btn {
+            transform: translateX(14px);
+        }
+        .sidebar-collapsed #sidebar-toggle-btn:hover {
+            transform: translateX(14px) scale(1.1);
+        }
+        .sidebar-collapsed #sidebar-toggle-btn svg {
+            transform: rotate(180deg);
+        }
+
+        /* ── Icon-Rail Collapsed Sidebar ── */
+        #main-sidebar {
+            width: 288px;
+            min-width: 288px;
+            flex-shrink: 0;
+            transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1), min-width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: width;
+        }
+        #main-sidebar.sidebar-collapsed {
+            width: 64px !important;
+            min-width: 64px !important;
+            overflow: visible;
+        }
+        #main-sidebar.sidebar-collapsed nav {
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        #main-sidebar.sidebar-collapsed .sidebar-logo-full {
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+            transition: opacity 0.2s ease;
+        }
+        #main-sidebar.sidebar-collapsed .sidebar-logo-icon {
+            display: block !important;
+            opacity: 1;
+            transition: opacity 0.25s ease 0.1s;
+        }
+        #main-sidebar:not(.sidebar-collapsed) .sidebar-logo-icon {
+            display: none !important;
+        }
+        #main-sidebar.sidebar-collapsed .sidebar-logo-area {
+            padding: 16px 8px !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #main-sidebar.sidebar-collapsed nav {
+            padding: 8px 6px !important;
+            overflow-x: hidden;
+        }
+        #main-sidebar.sidebar-collapsed nav > p {
+            display: none;
+        }
+        #main-sidebar.sidebar-collapsed .sidebar-link {
+            justify-content: center;
+            padding: 12px 0 !important;
+            gap: 0 !important;
+            border-radius: 12px;
+            position: relative;
+        }
+        #main-sidebar.sidebar-collapsed .sidebar-link span {
+            display: none;
+        }
+        #main-sidebar.sidebar-collapsed .sidebar-link svg {
+            width: 22px;
+            height: 22px;
+            margin: 0;
+        }
+        /* Tooltip on hover for collapsed icons */
+        #main-sidebar.sidebar-collapsed .sidebar-link::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            left: calc(100% + 10px);
+            top: 50%;
+            transform: translateY(-50%);
+            background: #1a1a1a;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 8px;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.15s ease;
+            z-index: 999;
+        }
+        .dark #main-sidebar.sidebar-collapsed .sidebar-link::after {
+            background: #2a2a35;
+        }
+        #main-sidebar.sidebar-collapsed .sidebar-link:hover::after {
+            opacity: 1;
+        }
+        /* Hide sidebar footer text in collapsed state */
+        #main-sidebar.sidebar-collapsed .sidebar-footer-content {
+            display: none !important;
+        }
+        #main-sidebar.sidebar-collapsed .sidebar-footer-collapsed {
+            display: flex !important;
+        }
+        #main-sidebar:not(.sidebar-collapsed) .sidebar-footer-collapsed {
+            display: none !important;
+        }
+        /* Toggle button adjustments for collapsed */
+        #main-sidebar.sidebar-collapsed #sidebar-toggle-btn {
+            right: -14px;
+        }
+        #main-sidebar.sidebar-collapsed #sidebar-toggle-btn svg {
+            transform: rotate(180deg);
+        }
+        /* Profile popover */
+        .sidebar-popover {
+            position: absolute;
+            left: calc(100% + 8px);
+            bottom: 12px;
+            width: 220px;
+            background: #fff;
+            border: 1px solid #e8e8e8;
+            border-radius: 14px;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+            padding: 16px;
+            z-index: 999;
+            opacity: 0;
+            transform: translateX(-6px);
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        .sidebar-popover.show {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+        }
+        .dark .sidebar-popover {
+            background: #1a1a20;
+            border-color: #2a2a35;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+        }
+        .sidebar-popover .pop-name {
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 2px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .sidebar-popover .pop-email {
+            font-size: 11px;
+            color: #9ca3af;
+            margin-bottom: 12px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .sidebar-popover .pop-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            padding: 8px 10px;
+            border: none;
+            border-radius: 8px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.15s ease;
+            background: transparent;
+            color: inherit;
+        }
+        .sidebar-popover .pop-btn:hover {
+            background: #f3f4f6;
+        }
+        .dark .sidebar-popover .pop-btn:hover {
+            background: #23232e;
+        }
+        .sidebar-popover .pop-btn.pop-danger:hover {
+            background: #fef2f2;
+            color: #ef4444;
+        }
+        .dark .sidebar-popover .pop-btn.pop-danger:hover {
+            background: rgba(239,68,68,0.1);
+            color: #ef4444;
+        }
+        .sidebar-popover .pop-divider {
+            height: 1px;
+            background: #f3f4f6;
+            margin: 8px 0;
+        }
+        .dark .sidebar-popover .pop-divider {
+            background: #2a2a35;
+        }
+
         /* ── Sidebar Desktop Visibility Fallback ── */
         @media (min-width: 768px) {
             #main-sidebar {
@@ -167,6 +366,21 @@
         .file-card:hover {
             transform: translateX(4px);
         }
+
+        /* Download grid card (vertical) */
+        .dl-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 16px; }
+        @media (min-width: 640px) { .dl-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1024px) { .dl-grid { grid-template-columns: repeat(3, 1fr); } }
+        .dl-card {
+            display: flex; flex-direction: column; padding: 20px; border-radius: 16px;
+            transition: all 0.25s ease; position: relative; overflow: hidden;
+        }
+        .dl-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px -8px rgba(0,0,0,.08); }
+        .dl-card .dl-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+        .dl-card .dl-title { font-weight: 500; font-size: .875rem; margin-bottom: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .dl-card .dl-meta { font-size: .75rem; color: #9ca3af; margin-bottom: 16px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+        .dl-card .dl-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 14px; border-top: 1px solid #f3f4f6; }
+        .dark .dl-card .dl-footer { border-top-color: #2a2a35; }
 
         /* Dark mode overrides (High Contrast) */
         .dark .bg-white {
@@ -242,6 +456,329 @@
         .dark span:not([class*="bg-"]):not([class*="badge"]):not([class*="text-"]) {
             color: inherit;
         }
+        /* ── Homework Success Overlay ── */
+        @keyframes hwSuccessIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes hwCheckDraw {
+            from { stroke-dashoffset: 50; }
+            to { stroke-dashoffset: 0; }
+        }
+        @keyframes hwCheckCircle {
+            from { stroke-dashoffset: 166; }
+            to { stroke-dashoffset: 0; }
+        }
+        @keyframes hwConfetti {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-60px) rotate(360deg); opacity: 0; }
+        }
+        #hw-success-overlay {
+            position: fixed; inset: 0; z-index: 9999;
+            display: none; align-items: center; justify-content: center;
+            background: rgba(0,0,0,0.4); backdrop-filter: blur(6px);
+        }
+        #hw-success-overlay.active { display: flex; }
+        .hw-success-card {
+            background: #fff; border-radius: 24px; padding: 48px 40px 36px;
+            max-width: 400px; width: 90%; text-align: center;
+            box-shadow: 0 32px 64px -16px rgba(0,0,0,0.2);
+            animation: hwSuccessIn 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
+        }
+        .dark .hw-success-card { background: #1a1a20; border: 1px solid #2a2a35; }
+        .hw-success-check { width: 80px; height: 80px; margin: 0 auto 24px; }
+        .hw-success-check circle {
+            fill: none; stroke: #a7e169; stroke-width: 3;
+            stroke-dasharray: 166; stroke-dashoffset: 166;
+            animation: hwCheckCircle 0.6s 0.2s ease-out forwards;
+        }
+        .hw-success-check path {
+            fill: none; stroke: #a7e169; stroke-width: 3.5;
+            stroke-linecap: round; stroke-linejoin: round;
+            stroke-dasharray: 50; stroke-dashoffset: 50;
+            animation: hwCheckDraw 0.4s 0.6s ease-out forwards;
+        }
+        .hw-success-confetti { position: relative; height: 0; }
+        .hw-success-confetti span {
+            position: absolute; width: 8px; height: 8px; border-radius: 2px;
+            animation: hwConfetti 1s ease-out forwards;
+        }
+
+        /* ═══════════════════════════════════════════════
+           MODERN UI ENHANCEMENTS — Visual only, no logic
+           ═══════════════════════════════════════════════ */
+
+        /* Subtle dot-grid background */
+        body {
+            background-color: #edf0f4;
+            background-image: radial-gradient(circle, rgba(0,0,0,0.055) 1px, transparent 1px);
+            background-size: 22px 22px;
+        }
+        .dark body {
+            background-color: #0e0e12;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.022) 1px, transparent 1px);
+        }
+
+        /* Sidebar — richer gradient + crisper border */
+        #main-sidebar {
+            background: linear-gradient(180deg, #ffffff 0%, #f7f9fb 100%) !important;
+            border-right: 1px solid #e4e8ee !important;
+            box-shadow: 4px 0 24px rgba(0,0,0,0.03) !important;
+        }
+        .dark #main-sidebar {
+            background: linear-gradient(175deg, #17171d 0%, #111116 100%) !important;
+            border-right-color: #1c1c25 !important;
+            box-shadow: 4px 0 24px rgba(0,0,0,0.25) !important;
+        }
+
+        /* Sidebar logo area separator */
+        #main-sidebar .sidebar-logo-area {
+            border-bottom: 1px solid #f0f2f5;
+            padding-bottom: 20px;
+            margin-bottom: 4px;
+        }
+        .dark #main-sidebar .sidebar-logo-area {
+            border-bottom-color: #1c1c25;
+        }
+
+        /* Sidebar active link — green-tinted bg + green icon + accent bar glow */
+        .sidebar-link.active {
+            background: linear-gradient(90deg, rgba(167,225,105,0.13) 0%, rgba(167,225,105,0.03) 100%) !important;
+            color: #111 !important;
+            font-weight: 600 !important;
+        }
+        .dark .sidebar-link.active {
+            background: linear-gradient(90deg, rgba(167,225,105,0.11) 0%, rgba(167,225,105,0.02) 100%) !important;
+            color: #fff !important;
+        }
+        .sidebar-link.active::before {
+            box-shadow: 0 0 8px rgba(167,225,105,0.7);
+        }
+        .sidebar-link.active svg {
+            color: #a7e169 !important;
+            opacity: 1 !important;
+        }
+
+        /* Sidebar hover (non-active) */
+        .sidebar-link:hover:not(.active) {
+            background: #f2f5f8 !important;
+            color: #111 !important;
+        }
+        .dark .sidebar-link:hover:not(.active) {
+            background: rgba(255,255,255,0.04) !important;
+            color: #fff !important;
+        }
+
+        /* Sidebar section label */
+        #main-sidebar nav > p {
+            font-size: 9px;
+            letter-spacing: 0.16em;
+            color: #c0c4cd;
+        }
+        .dark #main-sidebar nav > p {
+            color: #3a3a4a;
+        }
+
+        /* Enhanced hover-lift cards */
+        .hover-lift:hover {
+            transform: translateY(-5px) !important;
+            box-shadow: 0 24px 52px -12px rgba(0,0,0,0.11) !important;
+        }
+        .dark .hover-lift:hover {
+            box-shadow: 0 24px 52px -12px rgba(0,0,0,0.45) !important;
+        }
+
+        /* Stat cards — top accent line */
+        .stat-card-accent {
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card-accent::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--stat-accent, #a7e169);
+            opacity: 0.65;
+            border-radius: 0 0 3px 3px;
+            transition: opacity 0.3s ease;
+        }
+        .stat-card-accent:hover::before {
+            opacity: 1;
+        }
+
+        /* Card hover glow border */
+        .card-hover-glow {
+            transition: border-color 0.28s ease, box-shadow 0.28s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+        }
+        .card-hover-glow:hover {
+            border-color: rgba(167,225,105,0.38) !important;
+            box-shadow: 0 0 0 1px rgba(167,225,105,0.1), 0 20px 44px -10px rgba(0,0,0,0.09);
+        }
+        .dark .card-hover-glow:hover {
+            box-shadow: 0 0 0 1px rgba(167,225,105,0.12), 0 20px 44px -10px rgba(0,0,0,0.4);
+        }
+
+        /* Scrollbar — ultra-thin & elegant */
+        ::-webkit-scrollbar { width: 4px !important; height: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #d5d9e0; border-radius: 10px; }
+        .dark ::-webkit-scrollbar-thumb { background: #23232e; }
+        ::-webkit-scrollbar-thumb:hover { background: #b0b5bf; }
+        .dark ::-webkit-scrollbar-thumb:hover { background: #2e2e3e; }
+
+        /* Input focus — soft green glow ring */
+        input:focus, select:focus, textarea:focus {
+            box-shadow: 0 0 0 3px rgba(167,225,105,0.2) !important;
+        }
+
+        /* Button press micro-interaction */
+        button { transition: transform 0.12s ease; }
+        button:active { transform: scale(0.97); }
+
+        /* Mobile topbar polish */
+        #mobile-topbar {
+            box-shadow: 0 1px 16px rgba(0,0,0,0.07) !important;
+        }
+        .dark #mobile-topbar {
+            box-shadow: 0 1px 16px rgba(0,0,0,0.3) !important;
+        }
+
+        /* Announcement list items — smooth hover */
+        #announcements-list > div,
+        #announcements-list > div:first-child {
+            transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+        }
+        #announcements-list > div:hover {
+            transform: translateX(3px);
+            box-shadow: 0 4px 20px -4px rgba(0,0,0,0.08);
+        }
+
+        /* Dashboard announcement widget card */
+        #dashboard-announcement-content > div {
+            transition: box-shadow 0.25s ease;
+        }
+        #dashboard-announcement-content > div:hover {
+            box-shadow: 0 8px 28px -6px rgba(0,0,0,0.1);
+        }
+
+        /* Section fade-in refined */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-up { animation-duration: 0.45s; animation-timing-function: cubic-bezier(0.22,1,0.36,1); }
+
+        /* Course cards polish */
+        #dashboard-courses-grid .hover-lift,
+        #all-courses-grid .hover-lift {
+            border-radius: 20px !important;
+        }
+
+        /* Banner glow overlay */
+        .banner-inner-glow {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(167,225,105,0.12) 0%, transparent 55%);
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        /* Section title pill label */
+        .section-pill-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #a7e169;
+            background: rgba(167,225,105,0.1);
+            border: 1px solid rgba(167,225,105,0.2);
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-bottom: 8px;
+            width: fit-content;
+        }
+
+        /* File download cards polish */
+        .dl-card {
+            border-radius: 18px !important;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease !important;
+        }
+        .dl-card:hover {
+            border-color: rgba(167,225,105,0.35) !important;
+            box-shadow: 0 12px 32px -8px rgba(0,0,0,0.1) !important;
+        }
+
+        /* Sidebar footer user area */
+        #main-sidebar .border-t {
+            border-color: #f0f2f5 !important;
+        }
+        .dark #main-sidebar .border-t {
+            border-color: #1c1c25 !important;
+        }
+
+        /* Main content area subtle inner shadow top */
+        #main-content {
+            background: transparent;
+        }
+
+        /* Announcement modal animation */
+        #announcement-modal > div > div {
+            animation: fadeInUp 0.35s cubic-bezier(0.22,1,0.36,1);
+        }
+
+        /* Homework success card dark mode */
+        .dark .hw-success-card {
+            box-shadow: 0 32px 64px -16px rgba(0,0,0,0.5);
+        }
+
+        /* Profile section card */
+        #profile-section .bg-white {
+            border-radius: 24px !important;
+        }
+
+        /* ── Dashboard profile card — prevent email overflow on mobile ── */
+        #detail-email {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            display: inline-block;
+            max-width: 100%;
+            vertical-align: middle;
+        }
+        @media (max-width: 767px) {
+            #detail-email {
+                max-width: 42vw;
+            }
+        }
+        /* ── Icon-Rail: Critical Overrides ── */
+        #main-sidebar.sidebar-collapsed {
+            margin-left: 0 !important;
+        }
+        #main-sidebar.sidebar-collapsed #sidebar-toggle-btn {
+            transform: none !important;
+        }
+        #main-sidebar.sidebar-collapsed #sidebar-toggle-btn:hover {
+            transform: scale(1.1) !important;
+        }
+
+        /* Collapsed footer — hide original user-info + actions */
+        #main-sidebar.sidebar-collapsed > div:last-of-type > div:not(.sidebar-footer-collapsed):not(.sidebar-popover) {
+            display: none !important;
+        }
+        /* Collapsed footer — compact centered layout */
+        #main-sidebar.sidebar-collapsed > div:last-of-type {
+            padding: 12px 0 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            gap: 0 !important;
+            position: relative;
+            overflow: visible;
+        }
     </style>
 </head>
 
@@ -251,17 +788,25 @@
 
         <!-- ═══ SIDEBAR ═══ -->
         <aside id="main-sidebar"
-            class="w-72 bg-white dark:bg-brand-card border-r border-gray-200 dark:border-brand-border hidden md:flex flex-col z-10 transition-colors shadow-lg drop-shadow-[4px_0_24px_rgba(0,0,0,0.03)] relative z-20">
-            <div class="p-8">
+            class="w-72 bg-white dark:bg-brand-card border-r border-gray-200 dark:border-brand-border hidden md:flex flex-col z-10 shadow-lg drop-shadow-[4px_0_24px_rgba(0,0,0,0.03)] relative z-20">
+            
+            <!-- Toggle Button -->
+            <button onclick="toggleDesktopSidebar()" id="sidebar-toggle-btn" class="absolute -right-3.5 top-8 bg-white dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-full text-gray-500 hover:text-black dark:hover:text-white shadow-md z-50 flex items-center justify-center h-7 w-7" style="transition: all 0.3s;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s;"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+
+            <div class="p-8 sidebar-logo-area">
                 <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png"
-                    alt="Logo" class="h-8 opacity-90">
+                    alt="Logo" class="h-8 opacity-90 sidebar-logo-full" style="transition: opacity 0.2s ease;">
+                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1775619210/ART_de_ONE-icon_ahogva.png"
+                    alt="Logo" class="sidebar-logo-icon" style="height:28px; width:28px; object-fit:contain; display:none; transition: opacity 0.25s ease;">
             </div>
 
             <nav class="flex-1 px-5 space-y-1 overflow-y-auto">
                 <p class="px-4 text-[10px] uppercase tracking-widest text-gray-400 font-medium mb-4">Menu</p>
                 <a href="#"
                     class="sidebar-link active flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-700 dark:text-gray-300 text-sm font-medium transition hover:text-black dark:hover:text-white"
-                    data-section="dashboard">
+                    data-section="dashboard" data-tooltip="Dashboard">
                     <svg class="w-5 h-5 opacity-80 text-center" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -274,7 +819,7 @@
                 </a>
                 <a href="#"
                     class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-700 dark:text-gray-300 text-sm font-medium transition hover:text-black dark:hover:text-white"
-                    data-section="live-class">
+                    data-section="live-class" data-tooltip="Live Class">
                     <svg class="w-5 h-5 opacity-80 text-center" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <polygon points="23 7 16 12 23 17 23 7"></polygon>
                         <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
@@ -283,7 +828,7 @@
                 </a>
                 <a href="#"
                     class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-700 dark:text-gray-300 text-sm font-medium transition hover:text-black dark:hover:text-white"
-                    data-section="my-courses">
+                    data-section="my-courses" data-tooltip="My Courses">
                     <svg class="w-5 h-5 opacity-80 text-center" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -294,7 +839,7 @@
                 </a>
                 <a href="#"
                     class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-700 dark:text-gray-300 text-sm font-medium transition hover:text-black dark:hover:text-white"
-                    data-section="downloads">
+                    data-section="downloads" data-tooltip="Downloads">
                     <svg class="w-5 h-5 opacity-80 text-center" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -303,11 +848,10 @@
                         <line x1="12" x2="12" y1="15" y2="3" />
                     </svg>
                     <span class="flex-1">Downloads</span>
-                    <span class="bg-brand-green text-black text-[10px] font-bold px-2 py-0.5 rounded-full">R2</span>
                 </a>
                 <a href="#"
                     class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-700 dark:text-gray-300 text-sm font-medium transition hover:text-black dark:hover:text-white"
-                    data-section="software">
+                    data-section="software" data-tooltip="Software">
                     <svg class="w-5 h-5 opacity-80 text-center" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -318,7 +862,7 @@
                 </a>
                 <a href="#"
                     class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-700 dark:text-gray-300 text-sm font-medium transition hover:text-black dark:hover:text-white"
-                    data-section="ai-studio">
+                    data-section="ai-studio" data-tooltip="AI Studio">
                     <svg class="w-5 h-5 opacity-80 text-center" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -333,20 +877,22 @@
                 </a>
                 <a href="#"
                     class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-700 dark:text-gray-300 text-sm font-medium transition hover:text-black dark:hover:text-white"
-                    data-section="premium-blog">
+                    data-section="homework" data-tooltip="Homework">
                     <svg class="w-5 h-5 opacity-80 text-center" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
-                        <polygon points="12 2 2 7 12 12 22 7 12 2" />
-                        <polyline points="2 17 12 22 22 17" />
-                        <polyline points="2 12 12 17 22 12" />
+                        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" x2="8" y1="13" y2="13"/>
+                        <line x1="16" x2="8" y1="17" y2="17"/>
+                        <line x1="10" x2="8" y1="9" y2="9"/>
                     </svg>
-                    <span class="flex-1">Students Blog</span>
+                    <span class="flex-1">Homework</span>
                     <span class="bg-brand-green text-black text-[10px] font-bold px-2 py-0.5 rounded-full">NEW</span>
                 </a>
                 <a href="#"
                     class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-700 dark:text-gray-300 text-sm font-medium transition hover:text-black dark:hover:text-white"
-                    data-section="announcements">
+                    data-section="announcements" data-tooltip="Announcements">
                     <svg class="w-5 h-5 opacity-80 text-center" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -359,7 +905,7 @@
                 </a>
                 <a href="#"
                     class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-700 dark:text-gray-300 text-sm font-medium transition hover:text-black dark:hover:text-white"
-                    data-section="profile">
+                    data-section="profile" data-tooltip="Profile">
                     <svg class="w-5 h-5 opacity-80 text-center" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -411,6 +957,30 @@
                         class="flex-1 flex items-center justify-center gap-2 text-xs font-medium text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition px-3 py-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/10 border border-gray-100 dark:border-brand-border">
                         <i class="fa-solid fa-arrow-right-from-bracket text-xs"></i>
                         <span>Sign Out</span>
+                    </button>
+                </div>
+
+                <!-- Collapsed-only avatar (icon-rail) -->
+                <div class="sidebar-footer-collapsed" style="display:none; justify-content:center; align-items:center;">
+                    <img id="sidebar-avatar-collapsed" src="https://via.placeholder.com/40"
+                         class="w-9 h-9 rounded-full object-cover border border-gray-100 dark:border-gray-700 cursor-pointer hover:ring-2 hover:ring-brand-green/40 transition"
+                         onclick="toggleSidebarPopover(event)">
+                </div>
+
+                <!-- Profile Popover (collapsed sidebar) -->
+                <div class="sidebar-popover" id="sidebar-popover">
+                    <div class="pop-name" id="pop-user-name">Loading…</div>
+                    <div class="pop-email" id="pop-user-email">…</div>
+                    <div class="pop-divider"></div>
+                    <button class="pop-btn" onclick="switchSection('profile'); closeSidebarPopover();">
+                        <i class="fa-regular fa-user" style="font-size:13px;"></i> Profile
+                    </button>
+                    <button class="pop-btn" id="popover-theme-toggle" onclick="document.getElementById('themeToggleDesktop').click();">
+                        <i class="fa-solid fa-circle-half-stroke" style="font-size:13px;"></i> <span id="popover-theme-label">Toggle Theme</span>
+                    </button>
+                    <div class="pop-divider"></div>
+                    <button class="pop-btn pop-danger" onclick="closeSidebarPopover(); logout();">
+                        <i class="fa-solid fa-arrow-right-from-bracket" style="font-size:13px;"></i> Sign Out
                     </button>
                 </div>
             </div>
@@ -502,8 +1072,7 @@
                                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                                 <polyline points="7 10 12 15 17 10" />
                                 <line x1="12" x2="12" y1="15" y2="3" />
-                            </svg><span>Downloads</span><span
-                                class="ml-auto bg-brand-green text-black text-[10px] font-bold px-2 py-0.5 rounded-full">R2</span></button>
+                            </svg><span>Downloads</span></button>
                         <button onclick="switchSection('software');toggleMobileMenu()"
                             class="w-full flex items-center gap-4 px-4 py-3.5 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-brand-card rounded-2xl transition text-sm font-medium"><svg
                                 class="w-5 h-5 opacity-80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -524,15 +1093,16 @@
                                 <path d="M3 5h4" />
                                 <path d="M17 19h4" />
                             </svg><span>AI Studio</span></button>
-                        <button onclick="switchSection('premium-blog');toggleMobileMenu()"
+                        <button onclick="switchSection('homework');toggleMobileMenu()"
                             class="w-full flex items-center gap-4 px-4 py-3.5 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-brand-card rounded-2xl transition text-sm font-medium"><svg
                                 class="w-5 h-5 opacity-80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round">
-                                <polygon points="12 2 2 7 12 12 22 7 12 2" />
-                                <polyline points="2 17 12 22 22 17" />
-                                <polyline points="2 12 12 17 22 12" />
-                            </svg><span>Premium Blog</span></button>
+                                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="16" x2="8" y1="13" y2="13"/>
+                                <line x1="16" x2="8" y1="17" y2="17"/>
+                            </svg><span>Homework</span></button>
                         <button onclick="switchSection('announcements');toggleMobileMenu()"
                             class="w-full flex items-center gap-4 px-4 py-3.5 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-brand-card rounded-2xl transition text-sm font-medium"><svg
                                 class="w-5 h-5 opacity-80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -566,6 +1136,7 @@
                 <!-- ── LIVE CLASS ── -->
                 <div id="live-class-section" class="section space-y-8 max-w-3xl mx-auto fade-in-up">
                     <div>
+                        <div class="section-pill-label"><i class="fa-solid fa-circle-dot" style="font-size:8px; color:#ef4444;"></i> <span style="color:#ef4444;">Live</span></div>
                         <h2 class="text-2xl font-light">Live Class</h2>
                         <p class="text-gray-500 dark:text-gray-400 text-sm font-light mt-1">Join your instructor's virtual classroom</p>
                     </div>
@@ -582,10 +1153,11 @@
 
                 <!-- ── DASHBOARD ── -->
                 <div id="dashboard-section" class="section active space-y-8 max-w-7xl mx-auto fade-in-up">
-                    <div class="relative overflow-hidden rounded-2xl bg-black h-48 md:h-56 flex items-center">
+                    <div class="relative overflow-hidden rounded-2xl bg-black h-48 md:h-56 flex items-center" style="border-radius:24px;">
                         <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768710049/student-banner_dadfyn.png"
                             class="absolute inset-0 w-full h-full object-cover opacity-60" alt="">
                         <div class="absolute inset-0 bg-gradient-to-r from-black/80 to-transparent"></div>
+                        <div class="banner-inner-glow"></div>
                         <div class="relative z-10 px-8 md:px-12">
                             <p class="text-white/60 text-xs tracking-widest uppercase mb-2">Student Portal</p>
                             <h1 class="text-3xl md:text-4xl font-light text-white">Welcome back,<br>
@@ -596,7 +1168,7 @@
 
                     <!-- Profile Card -->
                     <div
-                        class="bg-white dark:bg-brand-card rounded-2xl p-8 border border-gray-100 dark:border-brand-border hover-lift">
+                        class="bg-white dark:bg-brand-card rounded-2xl p-8 border border-gray-100 dark:border-brand-border hover-lift card-hover-glow">
                         <div class="flex flex-col xl:flex-row gap-8 xl:items-center">
                             <div
                                 class="flex items-center gap-6 xl:w-1/3 xl:border-r border-gray-100 dark:border-brand-border xl:pr-8">
@@ -650,7 +1222,7 @@
                     <!-- Stat Cards -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div
-                            class="bg-white dark:bg-brand-card p-6 rounded-2xl border border-gray-100 dark:border-brand-border hover-lift group">
+                            class="bg-white dark:bg-brand-card p-6 rounded-2xl border border-gray-100 dark:border-brand-border hover-lift group stat-card-accent card-hover-glow" style="--stat-accent:#60a5fa;">
                             <div class="flex justify-between items-start">
                                 <div>
                                     <p class="text-gray-400 text-xs uppercase tracking-widest font-medium mb-2">Enrolled
@@ -658,12 +1230,13 @@
                                     <h3 class="text-3xl font-light group-hover:text-blue-600 transition"
                                         id="stat-enrolled">0</h3>
                                 </div>
-                                <i
-                                    class="fa-solid fa-book-open text-gray-100 dark:text-gray-700 text-3xl group-hover:text-blue-100 transition"></i>
+                                <div class="w-12 h-12 rounded-2xl flex items-center justify-center" style="background:rgba(96,165,250,0.1);">
+                                    <i class="fa-solid fa-book-open text-xl" style="color:#60a5fa;"></i>
+                                </div>
                             </div>
                         </div>
                         <div
-                            class="bg-white dark:bg-brand-card p-6 rounded-2xl border border-gray-100 dark:border-brand-border hover-lift group">
+                            class="bg-white dark:bg-brand-card p-6 rounded-2xl border border-gray-100 dark:border-brand-border hover-lift group stat-card-accent card-hover-glow" style="--stat-accent:#a7e169;">
                             <div class="flex justify-between items-start">
                                 <div>
                                     <p class="text-gray-400 text-xs uppercase tracking-widest font-medium mb-2">Active
@@ -671,11 +1244,12 @@
                                     <h3 class="text-3xl font-light group-hover:text-brand-green transition"
                                         id="stat-active">0</h3>
                                 </div>
-                                <i
-                                    class="fa-solid fa-play text-gray-100 dark:text-gray-700 text-3xl group-hover:text-brand-green/20 transition"></i>
+                                <div class="w-12 h-12 rounded-2xl flex items-center justify-center" style="background:rgba(167,225,105,0.12);">
+                                    <i class="fa-solid fa-play text-xl" style="color:#a7e169;"></i>
+                                </div>
                             </div>
                         </div>
-                        <div class="bg-white dark:bg-brand-card p-6 rounded-2xl border border-gray-100 dark:border-brand-border hover-lift group cursor-pointer"
+                        <div class="bg-white dark:bg-brand-card p-6 rounded-2xl border border-gray-100 dark:border-brand-border hover-lift group cursor-pointer stat-card-accent card-hover-glow" style="--stat-accent:#f59e0b;"
                             onclick="switchSection('downloads')">
                             <div class="flex justify-between items-start">
                                 <div>
@@ -684,8 +1258,9 @@
                                     <h3 class="text-3xl font-light group-hover:text-yellow-500 transition"
                                         id="stat-files">–</h3>
                                 </div>
-                                <i
-                                    class="fa-solid fa-folder-arrow-down text-gray-100 dark:text-gray-700 text-3xl group-hover:text-yellow-100 transition"></i>
+                                <div class="w-12 h-12 rounded-2xl flex items-center justify-center" style="background:rgba(245,158,11,0.1);">
+                                    <i class="fa-solid fa-folder-arrow-down text-xl" style="color:#f59e0b;"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -752,52 +1327,63 @@
                             <h3
                                 class="text-sm font-semibold uppercase tracking-widest text-gray-400 mb-6 flex items-center gap-2">
                                 <i class="fa-regular fa-folder-open"></i> Materials</h3>
-                            <div class="space-y-3" id="course-files-list">
+                            <div class="dl-grid" id="course-files-list">
                                 <p class="text-gray-400 text-center font-light text-sm py-8">Loading files…</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- ── DOWNLOADS (Course Files R2) ── -->
+                <!-- ── DOWNLOADS ── -->
                 <div id="downloads-section" class="section space-y-8 max-w-7xl mx-auto fade-in-up">
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div>
+                            <div class="section-pill-label"><i class="fa-solid fa-arrow-down-to-bracket" style="font-size:8px;"></i> Course Materials</div>
                             <h2 class="text-2xl font-light">Downloads</h2>
                             <p class="text-gray-500 dark:text-gray-400 text-sm font-light mt-1">Course materials and
-                                resources — stored on Cloudflare R2</p>
+                                resources</p>
                         </div>
                     </div>
 
                     <!-- Filters & Search -->
-                    <div class="flex flex-wrap gap-3 items-center">
-                        <div class="relative flex-1 min-w-[200px]">
-                            <i
-                                class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-300 text-sm"></i>
-                            <input type="text" id="file-search" placeholder="Search files…"
-                                class="w-full pl-9 pr-4 py-2.5 border border-gray-200 dark:border-brand-border rounded-xl text-sm bg-white dark:bg-brand-card focus:outline-none focus:border-brand-green focus:ring-2 focus:ring-brand-green/10 transition"
-                                oninput="filterFiles()">
+                    <div class="flex flex-col gap-3">
+                        <div class="flex gap-3 items-center">
+                            <div class="relative flex-1 min-w-0 md:max-w-xs">
+                                <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-300 text-sm"></i>
+                                <input type="text" id="file-search" placeholder="Search files…"
+                                    class="w-full pl-9 pr-4 py-2.5 border border-gray-200 dark:border-brand-border rounded-xl text-sm bg-white dark:bg-brand-card focus:outline-none focus:border-brand-green focus:ring-2 focus:ring-brand-green/10 transition"
+                                    oninput="filterFiles()">
+                            </div>
+                            <button type="button" onclick="toggleDlFilters()" class="flex items-center gap-2 px-3.5 py-2.5 border border-gray-200 dark:border-brand-border rounded-xl text-sm bg-white dark:bg-brand-card text-gray-500 hover:border-brand-green transition flex-shrink-0" id="dl-filter-toggle">
+                                <i class="fa-solid fa-sliders text-xs"></i> Filters
+                            </button>
+                            <!-- Hidden desktop selects (values synced from panel) -->
+                            <select id="file-course-filter" class="hidden"><option value="">All Courses</option></select>
+                            <select id="file-type-filter" class="hidden"><option value="">All Types</option></select>
                         </div>
-                        <select id="file-course-filter" onchange="filterFiles()"
-                            class="border border-gray-200 dark:border-brand-border rounded-xl px-3 py-2.5 text-sm bg-white dark:bg-brand-card focus:outline-none focus:border-brand-green transition">
-                            <option value="">All Courses</option>
-                        </select>
-                        <select id="file-type-filter" onchange="filterFiles()"
-                            class="border border-gray-200 dark:border-brand-border rounded-xl px-3 py-2.5 text-sm bg-white dark:bg-brand-card focus:outline-none focus:border-brand-green transition">
-                            <option value="">All Types</option>
-                            <option value="pdf">PDF</option>
-                            <option value="video">Video</option>
-                            <option value="zip">ZIP / Archive</option>
-                            <option value="doc">Document</option>
-                            <option value="other">Other</option>
-                        </select>
+                        <!-- Collapsible filter panel -->
+                        <div id="dl-mobile-filters" class="flex flex-wrap gap-3 overflow-hidden" style="max-height:0; opacity:0; transition: max-height 0.3s ease, opacity 0.25s ease;">
+                            <select id="file-course-filter-m" onchange="syncDlFilter('course', this.value); filterFiles()"
+                                class="border border-gray-200 dark:border-brand-border rounded-xl pl-3 pr-7 py-2.5 text-sm bg-white dark:bg-brand-card focus:outline-none focus:border-brand-green transition" style="width:auto;">
+                                <option value="">All Courses</option>
+                            </select>
+                            <select id="file-type-filter-m" onchange="syncDlFilter('type', this.value); filterFiles()"
+                                class="border border-gray-200 dark:border-brand-border rounded-xl pl-3 pr-7 py-2.5 text-sm bg-white dark:bg-brand-card focus:outline-none focus:border-brand-green transition" style="width:auto;">
+                                <option value="">All Types</option>
+                                <option value="pdf">PDF</option>
+                                <option value="video">Video</option>
+                                <option value="zip">ZIP / Archive</option>
+                                <option value="doc">Document</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
                     </div>
 
                     <!-- File count info -->
                     <p class="text-sm text-gray-400 font-light" id="file-count-info"></p>
 
                     <!-- Files Grid -->
-                    <div id="downloads-list" class="space-y-3">
+                    <div id="downloads-list" class="dl-grid">
                         <div class="text-center py-16 text-gray-300">
                             <i class="fa-solid fa-circle-notch fa-spin text-2xl mb-3 block"></i>
                             <p class="font-light">Loading files…</p>
@@ -808,6 +1394,7 @@
                 <!-- ── SOFTWARE DOWNLOADS ── -->
                 <div id="software-section" class="section space-y-8 max-w-7xl mx-auto fade-in-up">
                     <div>
+                        <div class="section-pill-label"><i class="fa-solid fa-desktop" style="font-size:8px;"></i> Tools & Apps</div>
                         <h2 class="text-2xl font-light">Software Downloads</h2>
                         <p class="text-gray-500 dark:text-gray-400 text-sm font-light mt-1">Tools and applications required for your courses</p>
                     </div>
@@ -963,9 +1550,64 @@
                     </div>
                 </div>
 
+                <!-- ── HOMEWORK ── -->
+                <div id="homework-section" class="section space-y-8 max-w-4xl mx-auto fade-in-up">
+                    <div>
+                        <div class="section-pill-label"><i class="fa-solid fa-pencil" style="font-size:8px;"></i> Assignments</div>
+                        <h2 class="text-2xl font-light">Homework</h2>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm font-light mt-1">Submit your homework and receive instructor feedback</p>
+                    </div>
+
+                    <!-- Upload Form -->
+                    <div class="bg-white dark:bg-brand-card rounded-2xl p-6 md:p-8 border border-gray-100 dark:border-brand-border">
+                        <h3 class="text-base font-semibold mb-5 flex items-center gap-2">
+                            <i class="fa-solid fa-cloud-arrow-up text-brand-green"></i> Submit Homework
+                        </h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs uppercase tracking-widest text-gray-400 font-medium mb-2">Course</label>
+                                <select id="hw-course-select" class="w-full bg-gray-50 dark:bg-brand-dark border border-gray-200 dark:border-brand-border rounded-xl p-3 text-sm focus:outline-none focus:border-brand-green transition">
+                                    <option value="">Select a course…</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs uppercase tracking-widest text-gray-400 font-medium mb-2">Title</label>
+                                <input type="text" id="hw-title" placeholder="e.g. Week 3 — Vector Illustration" class="w-full bg-gray-50 dark:bg-brand-dark border border-gray-200 dark:border-brand-border rounded-xl p-3 text-sm focus:outline-none focus:border-brand-green transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs uppercase tracking-widest text-gray-400 font-medium mb-2">Notes (optional)</label>
+                                <textarea id="hw-notes" rows="3" placeholder="Any notes for the instructor…" class="w-full bg-gray-50 dark:bg-brand-dark border border-gray-200 dark:border-brand-border rounded-xl p-3 text-sm focus:outline-none focus:border-brand-green transition resize-none"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-xs uppercase tracking-widest text-gray-400 font-medium mb-2">Upload File (image, PDF, ZIP — max 10MB)</label>
+                                <input type="file" id="hw-file" accept="image/*,.pdf,.zip,.rar,.psd,.ai" class="w-full bg-gray-50 dark:bg-brand-dark border border-gray-200 dark:border-brand-border rounded-xl p-3 text-sm focus:outline-none focus:border-brand-green transition file:mr-3 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-brand-green file:text-black">
+                            </div>
+                            <button onclick="submitHomework()" id="hw-submit-btn" class="w-full sm:w-auto bg-black dark:bg-brand-green dark:text-black text-white font-medium py-3 px-8 rounded-xl hover:bg-gray-800 dark:hover:bg-green-400 transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-paper-plane"></i> Submit
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- My Submissions -->
+                    <div>
+                        <h3 class="text-lg font-medium mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-list-check text-gray-400"></i> My Submissions
+                        </h3>
+                        <div id="hw-submissions-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                            <div class="text-center py-12 text-gray-300 font-light">
+                                <i class="fa-solid fa-circle-notch fa-spin mb-3 text-xl block"></i>
+                                <p>Loading submissions…</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- ── ANNOUNCEMENTS ── -->
                 <div id="announcements-section" class="section space-y-6 max-w-4xl mx-auto fade-in-up">
-                    <h2 class="text-2xl font-light">Announcements</h2>
+                    <div>
+                        <div class="section-pill-label"><i class="fa-solid fa-bullhorn" style="font-size:8px;"></i> From Admin</div>
+                        <h2 class="text-2xl font-light">Announcements</h2>
+                    </div>
                     <div class="space-y-4" id="announcements-list"></div>
                 </div>
 
@@ -995,6 +1637,12 @@
                             </div>
                         </div>
                         <div class="space-y-6">
+                            <!-- Student ID -->
+                            <div>
+                                <label class="block text-xs uppercase tracking-widest text-gray-400 font-medium mb-2">Student ID</label>
+                                <div class="p-4 bg-gray-50 dark:bg-brand-dark rounded-xl text-sm font-medium border border-gray-100 dark:border-brand-border font-mono tracking-wide"
+                                    id="profile-student-id">–</div>
+                            </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div><label
                                         class="block text-xs uppercase tracking-widest text-gray-400 font-medium mb-2">Phone</label>
@@ -1013,6 +1661,42 @@
                                     id="profile-address">–</div>
                             </div>
                         </div>
+
+                        <!-- Attendance Summary -->
+                        <div class="mt-8 pt-8 border-t border-gray-50 dark:border-brand-border">
+                            <h3 class="text-sm font-semibold uppercase tracking-widest text-gray-400 mb-5 flex items-center gap-2">
+                                <i class="fa-solid fa-chart-bar text-brand-green"></i> Attendance Summary
+                            </h3>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <div class="bg-gray-50 dark:bg-brand-dark rounded-xl p-4 text-center border border-gray-100 dark:border-brand-border">
+                                    <span class="block text-2xl font-light text-green-600" id="profile-att-present">0</span>
+                                    <span class="text-[10px] text-gray-400 uppercase tracking-wide">Present</span>
+                                </div>
+                                <div class="bg-gray-50 dark:bg-brand-dark rounded-xl p-4 text-center border border-gray-100 dark:border-brand-border">
+                                    <span class="block text-2xl font-light text-yellow-600" id="profile-att-late">0</span>
+                                    <span class="text-[10px] text-gray-400 uppercase tracking-wide">Late</span>
+                                </div>
+                                <div class="bg-gray-50 dark:bg-brand-dark rounded-xl p-4 text-center border border-gray-100 dark:border-brand-border">
+                                    <span class="block text-2xl font-light text-orange-600" id="profile-att-undertime">0</span>
+                                    <span class="text-[10px] text-gray-400 uppercase tracking-wide">Undertime</span>
+                                </div>
+                                <div class="bg-gray-50 dark:bg-brand-dark rounded-xl p-4 text-center border border-gray-100 dark:border-brand-border">
+                                    <span class="block text-2xl font-light text-red-500" id="profile-att-absent">0</span>
+                                    <span class="text-[10px] text-gray-400 uppercase tracking-wide">Absent</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Enrolled Courses -->
+                        <div class="mt-8 pt-8 border-t border-gray-50 dark:border-brand-border">
+                            <h3 class="text-sm font-semibold uppercase tracking-widest text-gray-400 mb-5 flex items-center gap-2">
+                                <i class="fa-solid fa-book-open text-brand-green"></i> Enrolled Courses
+                            </h3>
+                            <div id="profile-courses-list" class="space-y-3">
+                                <p class="text-gray-400 text-sm font-light text-center py-4">Loading courses…</p>
+                            </div>
+                        </div>
+
                         <div class="mt-12 pt-6 border-t border-gray-50 dark:border-brand-border flex justify-end">
                             <button onclick="logout()"
                                 class="px-8 py-3 bg-white dark:bg-brand-dark border border-red-100 dark:border-red-900/30 text-red-500 rounded-xl hover:bg-red-50 dark:hover:bg-red-900/10 transition text-sm font-medium">Logout</button>
@@ -1021,6 +1705,108 @@
                 </div>
 
             </main>
+        </div>
+    </div>
+
+    <!-- Homework Success Overlay -->
+    <div id="hw-success-overlay">
+        <div class="hw-success-card">
+            <div class="hw-success-confetti" id="hw-confetti"></div>
+            <svg class="hw-success-check" viewBox="0 0 56 56">
+                <circle cx="28" cy="28" r="26"/>
+                <path d="M17 28l7 7 15-15"/>
+            </svg>
+            <h3 class="text-xl font-semibold mb-2">Homework Submitted!</h3>
+            <p class="text-gray-500 dark:text-gray-400 text-sm font-light mb-6">Your work has been received. Your instructor will review it soon.</p>
+            <div class="flex items-center justify-center gap-2 mb-4 px-4 py-3 rounded-xl" style="background:rgba(167,225,105,0.1);">
+                <i class="fa-solid fa-clock text-xs" style="color:#a7e169;"></i>
+                <span class="text-xs font-medium" style="color:#65893e;">Status: Pending Review</span>
+            </div>
+            <button onclick="closeHwSuccess()" class="w-full mt-2 bg-black dark:bg-brand-green dark:text-black text-white font-medium py-3 rounded-xl hover:bg-gray-800 dark:hover:bg-green-400 transition text-sm">Got it</button>
+        </div>
+    </div>
+
+    <!-- Homework Detail Modal -->
+    <div id="hw-detail-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-filter backdrop-blur-sm transition-opacity" onclick="if(event.target === this) closeHwDetailModal()">
+        <div class="bg-white dark:bg-brand-card rounded-2xl w-full max-w-lg max-h-[85vh] flex flex-col border border-gray-100 dark:border-brand-border relative overflow-hidden" onclick="event.stopPropagation()" style="animation: fadeInUp 0.35s cubic-bezier(0.22,1,0.36,1);">
+            <!-- Header -->
+            <div class="p-6 border-b border-gray-50 dark:border-brand-border flex items-start justify-between">
+                <div class="flex items-center gap-3 min-w-0">
+                    <div id="hwd-status-dot" class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <i class="fa-solid fa-file-lines text-base" id="hwd-icon"></i>
+                    </div>
+                    <div class="min-w-0">
+                        <h2 class="text-lg font-semibold truncate" id="hwd-title">Homework</h2>
+                        <p class="text-xs text-gray-400 mt-0.5" id="hwd-meta">Course · Date</p>
+                    </div>
+                </div>
+                <button onclick="closeHwDetailModal()" class="w-8 h-8 rounded-full flex items-center justify-center bg-gray-100 dark:bg-brand-border text-gray-500 hover:text-black dark:hover:text-white transition flex-shrink-0 ml-3">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <!-- Body -->
+            <div class="p-6 overflow-y-auto flex-1 space-y-5">
+                <!-- Status badge -->
+                <div class="flex items-center gap-3 flex-wrap">
+                    <span id="hwd-status-badge" class="text-[10px] uppercase tracking-widest font-bold px-2.5 py-1 rounded-full">Status</span>
+                    <span id="hwd-rating" class="text-yellow-400 text-base tracking-wider hidden"></span>
+                    <span id="hwd-rating-num" class="text-[10px] text-gray-400 hidden"></span>
+                </div>
+                <!-- Preview image or file icon -->
+                <div id="hwd-preview" class="w-full rounded-xl overflow-hidden bg-gray-50 dark:bg-brand-dark hidden">
+                    <img id="hwd-preview-img" src="" class="w-full max-h-72 object-contain" alt="">
+                </div>
+                <div id="hwd-file-icon-block" class="w-full py-6 rounded-xl bg-gray-50 dark:bg-brand-dark flex items-center justify-center hidden">
+                    <i class="fa-solid fa-file-lines text-4xl text-gray-300 dark:text-gray-600"></i>
+                </div>
+                <!-- Student notes -->
+                <div id="hwd-notes-block" class="hidden">
+                    <p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold mb-1.5"><i class="fa-regular fa-note-sticky mr-1"></i> My Notes</p>
+                    <p id="hwd-notes" class="text-sm text-gray-600 dark:text-gray-300 font-light leading-relaxed"></p>
+                </div>
+                <!-- Instructor Feedback (full) -->
+                <div id="hwd-feedback-block" class="hidden">
+                    <div class="p-4 bg-green-50 dark:bg-green-900/10 rounded-xl border border-green-100 dark:border-green-800/30">
+                        <p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold mb-2"><i class="fa-solid fa-comment-dots mr-1"></i> Instructor Feedback</p>
+                        <p id="hwd-feedback" class="text-sm text-gray-700 dark:text-gray-300 font-light leading-relaxed whitespace-pre-wrap"></p>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer -->
+            <div class="p-5 border-t border-gray-50 dark:border-brand-border flex items-center justify-end gap-3">
+                <a id="hwd-view-file-btn" href="#" target="_blank" class="hidden items-center gap-2 px-5 py-2.5 bg-black dark:bg-brand-green dark:text-black text-white text-xs font-semibold rounded-xl hover:bg-gray-800 dark:hover:bg-green-400 transition active:scale-95" onclick="event.stopPropagation()">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> View File
+                </a>
+                <button onclick="closeHwDetailModal()" class="px-5 py-2.5 border border-gray-200 dark:border-brand-border rounded-xl text-xs font-medium text-gray-500 hover:bg-gray-50 dark:hover:bg-brand-dark transition">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Announcement Modal -->
+    <div id="announcement-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm shadow-2xl transition-opacity animate-fade-in" onclick="if(event.target === this) closeAnnouncementModal()">
+        <div class="bg-white dark:bg-brand-card rounded-2xl w-full max-w-2xl max-h-[85vh] flex flex-col border border-gray-100 dark:border-brand-border relative overflow-hidden" onclick="event.stopPropagation()">
+            <div class="p-6 border-b border-gray-50 dark:border-brand-border flex items-start justify-between bg-gray-50/50 dark:bg-brand-dark/50" id="am-header-bg">
+                <div class="flex items-center gap-4">
+                    <div id="am-icon-wrap" class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <i class="fa-solid fa-bullhorn text-lg" id="am-icon"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-3 flex-wrap">
+                            <h2 class="text-xl font-semibold" id="am-title">Announcement</h2>
+                            <span id="am-priority" class="text-[10px] uppercase tracking-widest font-bold px-2 py-0.5 rounded-full whitespace-nowrap">Priority</span>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-1" id="am-date">Date</p>
+                    </div>
+                </div>
+                <button onclick="closeAnnouncementModal()" class="w-8 h-8 rounded-full flex items-center justify-center bg-gray-100 dark:bg-brand-border text-gray-500 hover:text-black dark:hover:text-white transition mt-1">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="p-8 overflow-y-auto" style="min-height: 200px;">
+                <div id="am-content" class="text-gray-600 dark:text-gray-300 text-sm font-light leading-relaxed whitespace-pre-wrap">
+                    Loading content...
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1125,6 +1911,15 @@
             setText('profile-joined', s.created_at ? new Date(s.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : '—');
             setText('profile-address', s.address || '—');
 
+            // Profile section — Student ID
+            setText('profile-student-id', s.student_id || s.id?.substring(0, 8).toUpperCase() || '—');
+
+            // Profile section — Attendance Summary
+            setText('profile-att-present', s.total_attendance ?? 0);
+            setText('profile-att-late', s.late_attendance ?? 0);
+            setText('profile-att-undertime', s.undertime ?? 0);
+            setText('profile-att-absent', s.absent_days ?? 0);
+
             if (avatar) {
                 const imgs = ['sidebar-avatar', 'detail-profile-img', 'profile-avatar'];
                 imgs.forEach(id => { const el = document.getElementById(id); if (el) { el.src = avatar; el.classList.remove('hidden'); } });
@@ -1225,10 +2020,11 @@
 
             // Populate course filter
             const courses = [...new Map(allFiles.filter(f => f.course).map(f => [f.course_id, f.course])).entries()].map(([id, c]) => ({ id, title: c.title }));
+            const courseOpts = '<option value="">All Courses</option>' + courses.map(c => `<option value="${c.id}">${c.title}</option>`).join('');
             const filterSel = document.getElementById('file-course-filter');
-            if (filterSel) {
-                filterSel.innerHTML = '<option value="">All Courses</option>' + courses.map(c => `<option value="${c.id}">${c.title}</option>`).join('');
-            }
+            if (filterSel) filterSel.innerHTML = courseOpts;
+            const filterSelM = document.getElementById('file-course-filter-m');
+            if (filterSelM) filterSelM.innerHTML = courseOpts;
 
             renderDownloads(allFiles);
         }
@@ -1257,23 +2053,26 @@
         function makeSoftwareCard(f) {
             const plat = getSoftwarePlatform(f);
             const desc = getSoftwareCleanDesc(f);
-            const size = f.file_size_kb ? (f.file_size_kb > 1024 ? (f.file_size_kb / 1024).toFixed(1) + ' MB' : f.file_size_kb + ' KB') : '';
             const isWin = plat === 'win' || plat === 'both';
             const iconBg = isWin ? '#e8f4ff' : '#f5f5f5';
             const iconColor = isWin ? '#0078D4' : '#333';
             const iconClass = isWin ? 'fa-brands fa-windows' : 'fa-brands fa-apple';
-            return `<div class="file-card bg-white dark:bg-brand-card border border-gray-100 dark:border-brand-border rounded-2xl hover:border-brand-green dark:hover:border-brand-green hover:shadow-md" style="transition:all .25s ease;">
-                <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:${iconBg};">
-                    <i class="${iconClass} text-xl" style="color:${iconColor};"></i>
+            const isGDrive = f.file_url && f.file_url.includes('drive.google.com');
+            const gDriveIcon = isGDrive ? `<i class="fa-brands fa-google-drive text-2xl" style="color: #0F9D58;"></i>` : `<i class="${iconClass} text-xl" style="color:${iconColor};"></i>`;
+            const bgDrive = isGDrive ? '#0F9D5812' : iconBg;
+            
+            return `<div class="file-card bg-white dark:bg-brand-card border border-gray-100 dark:border-brand-border rounded-2xl hover:border-brand-green dark:hover:border-brand-green hover:shadow-md cursor-pointer" style="transition:all .25s ease;" onclick="window.open('${f.file_url}', '_blank')">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:${bgDrive};">
+                    ${gDriveIcon}
                 </div>
                 <div class="flex-1 min-w-0">
                     <h4 class="font-medium text-sm mb-1 truncate">${f.title || f.file_name || 'Untitled'}</h4>
-                    <p class="text-xs text-gray-400 font-light">${desc}${desc && size ? ' · ' : ''}${size}</p>
+                    <p class="text-xs text-gray-400 font-light truncate">${desc || (isGDrive ? 'Google Drive Link' : 'Software Download')}</p>
                 </div>
-                <a href="${f.file_url}" target="_blank" download
+                <a href="${f.file_url}" target="_blank"
                     class="flex-shrink-0 flex items-center gap-2 px-4 py-2.5 bg-black dark:bg-brand-green dark:text-black text-white text-xs font-semibold rounded-xl hover:bg-gray-800 dark:hover:bg-green-400 transition active:scale-95"
-                    onclick="trackDownload('${f.id}')">
-                    <i class="fa-solid fa-download"></i><span class="hidden sm:inline">Download</span>
+                    onclick="event.stopPropagation()">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i><span class="hidden sm:inline">Open</span>
                 </a>
             </div>`;
         }
@@ -1329,7 +2128,7 @@
             const infoEl = document.getElementById('file-count-info');
             if (infoEl) infoEl.textContent = files.length ? `${files.length} file${files.length !== 1 ? 's' : ''} available` : '';
             if (!files.length) {
-                container.innerHTML = `<div class="text-center py-20 text-gray-300">
+                container.innerHTML = `<div style="grid-column:1/-1;" class="text-center py-20 text-gray-300">
                 <i class="fa-solid fa-folder-open text-5xl mb-4 block opacity-40"></i>
                 <p class="font-light text-sm">No files available yet</p>
             </div>`;
@@ -1339,30 +2138,31 @@
         }
 
         function renderFileCard(f, showCourse = false) {
-            const fileIcons = { pdf: 'fa-file-pdf', video: 'fa-file-video', zip: 'fa-file-zipper', doc: 'fa-file-word', other: 'fa-file' };
-            const fileColors = { pdf: '#ef4444', video: '#8b5cf6', zip: '#f59e0b', doc: '#3b82f6', other: '#6b7280' };
-            const icon = fileIcons[f.file_type] || 'fa-file';
-            const color = fileColors[f.file_type] || '#6b7280';
-            const size = f.file_size_kb ? (f.file_size_kb > 1024 ? (f.file_size_kb / 1024).toFixed(1) + ' MB' : f.file_size_kb + ' KB') : '';
+            const isGDrive = f.file_url && f.file_url.includes('drive.google.com');
+            const fileIcons = { pdf: 'fa-file-pdf', video: 'fa-file-video', zip: 'fa-file-zipper', doc: 'fa-file-word', other: 'fa-file', software: 'fa-file-code' };
+            const fileColors = { pdf: '#ef4444', video: '#8b5cf6', zip: '#f59e0b', doc: '#3b82f6', other: '#6b7280', software: '#10b981' };
+            const typeKey = f.file_type ? f.file_type.toLowerCase() : 'other';
+            const icon = fileIcons[typeKey] || 'fa-file';
+            const color = fileColors[typeKey] || '#6b7280';
+            const driveColor = isGDrive ? '#0F9D58' : color;
 
-            return `<div class="file-card bg-white dark:bg-brand-card border border-gray-100 dark:border-brand-border rounded-2xl hover:border-brand-green dark:hover:border-brand-green hover:shadow-md" style="transition:all .25s ease;">
-            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:${color}18;">
-                <i class="fa-solid ${icon} text-xl" style="color:${color};"></i>
+            return `<div class="dl-card bg-white dark:bg-brand-card border border-gray-100 dark:border-brand-border hover:border-brand-green dark:hover:border-brand-green cursor-pointer shadow-sm hover:shadow-md transition-all" onclick="window.open('${f.file_url}', '_blank')">
+            <div class="dl-icon" style="background:${driveColor}12; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+                ${isGDrive ? `<i class="fa-brands fa-google-drive text-2xl" style="color: ${driveColor};"></i>` : `<i class="fa-solid ${icon} text-xl" style="color:${color};"></i>`}
             </div>
-            <div class="flex-1 min-w-0">
-                <h4 class="font-medium text-sm mb-1 truncate">${f.title || f.file_name || 'Untitled'}</h4>
-                <p class="text-xs text-gray-400 font-light flex items-center gap-2 flex-wrap">
-                    ${showCourse && f.course ? `<span>${f.course.title}</span><span class="text-gray-200 dark:text-gray-700">·</span>` : ''}
-                    ${f.file_description ? `<span>${f.file_description}</span>` : ''}
-                    ${size ? `${f.file_description ? '<span class="text-gray-200 dark:text-gray-700">·</span>' : ''}  <span>${size}</span>` : ''}
-                </p>
+            <div class="dl-title font-semibold text-sm truncate" title="${f.title || f.file_name}">${f.title || f.file_name || 'Untitled'}</div>
+            <div class="dl-meta flex flex-wrap items-center gap-1.5 mt-1 mb-4 text-xs">
+                ${showCourse && f.course ? `<span class="text-gray-500 dark:text-gray-400 font-medium">${f.course.title}</span><span class="text-gray-300 dark:text-gray-600">•</span>` : ''}
+                <span class="text-gray-400 dark:text-gray-500 font-light truncate">${f.file_description || (isGDrive ? 'Google Drive Link' : 'File Download')}</span>
             </div>
-            <span class="text-[10px] uppercase tracking-widest font-bold px-2 py-1 rounded-full flex-shrink-0" style="background:${color}18; color:${color};">${f.file_type || 'file'}</span>
-            <a href="${f.file_url}" target="_blank" download
-                class="flex-shrink-0 flex items-center gap-2 px-4 py-2.5 bg-black dark:bg-brand-green dark:text-black text-white text-xs font-semibold rounded-xl hover:bg-gray-800 dark:hover:bg-green-400 transition active:scale-95"
-                onclick="trackDownload('${f.id}')">
-                <i class="fa-solid fa-download"></i> <span class="hidden sm:inline">Download</span>
-            </a>
+            <div class="dl-footer mt-auto pt-3 border-t border-gray-50 dark:border-brand-border flex items-center justify-between">
+                <span class="text-[10px] uppercase tracking-widest font-bold px-2.5 py-1 rounded-full" style="background:${color}14; color:${color};">${f.file_type || 'file'}</span>
+                <a href="${f.file_url}" target="_blank"
+                    class="flex items-center gap-2 px-4 py-2 bg-black dark:bg-brand-green dark:text-black text-white text-xs font-semibold rounded-xl hover:bg-gray-800 dark:hover:bg-green-400 transition active:scale-95"
+                    onclick="event.stopPropagation()">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Open
+                </a>
+            </div>
         </div>`;
         }
 
@@ -1379,6 +2179,29 @@
             renderDownloads(filtered);
         };
 
+        // ── Mobile filter toggle & sync ──
+        let dlFiltersOpen = false;
+        window.toggleDlFilters = function () {
+            dlFiltersOpen = !dlFiltersOpen;
+            const panel = document.getElementById('dl-mobile-filters');
+            const btn = document.getElementById('dl-filter-toggle');
+            if (dlFiltersOpen) {
+                panel.style.maxHeight = panel.scrollHeight + 'px';
+                panel.style.opacity = '1';
+                btn.style.borderColor = '#a7e169';
+                btn.style.color = '#000';
+            } else {
+                panel.style.maxHeight = '0';
+                panel.style.opacity = '0';
+                btn.style.borderColor = '';
+                btn.style.color = '';
+            }
+        };
+        window.syncDlFilter = function (which, val) {
+            if (which === 'course') document.getElementById('file-course-filter').value = val;
+            if (which === 'type') document.getElementById('file-type-filter').value = val;
+        };
+
         // ── ANNOUNCEMENTS ──
         async function loadAnnouncements() {
             const { data: { user } } = await supabase.auth.getUser();
@@ -1388,32 +2211,33 @@
             const list = document.getElementById('announcements-list');
             if (!data?.length) { list.innerHTML = '<p class="text-gray-400 text-center font-light py-12">No announcements at this time.</p>'; return; }
             const priorityColor = { urgent: '#ef4444', high: '#f97316', normal: '#6b7280', low: '#9ca3af' };
+            window.announcementDataMap = Object.fromEntries(data.map(a => [a.id, a]));
+            window._allAnnouncementIds = data.map(a => a.id);
+            updateUnreadBadges();
             list.innerHTML = data.map(a => `
-            <div class="bg-white dark:bg-brand-card rounded-2xl p-6 border border-gray-100 dark:border-brand-border hover-lift">
-                <div class="flex items-start gap-4">
-                    <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5" style="background:${priorityColor[a.priority] || '#6b7280'}18;">
-                        <i class="fa-solid fa-bullhorn text-sm" style="color:${priorityColor[a.priority] || '#6b7280'};"></i>
+            <div class="bg-white dark:bg-brand-card rounded-xl p-4 border border-gray-100 dark:border-brand-border hover:border-brand-green hover:shadow-sm transition-all cursor-pointer overflow-hidden" onclick="openAnnouncementModal('${a.id}')">
+                <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background:${priorityColor[a.priority] || '#6b7280'}18;">
+                        <i class="fa-solid fa-bullhorn text-xs" style="color:${priorityColor[a.priority] || '#6b7280'};"></i>
                     </div>
-                    <div class="flex-1">
-                        <div class="flex items-center gap-2 mb-2 flex-wrap">
-                            <h3 class="font-semibold text-sm">${a.title}</h3>
-                            <span class="text-[10px] uppercase tracking-widest font-bold px-2 py-0.5 rounded-full" style="background:${priorityColor[a.priority] || '#6b7280'}18; color:${priorityColor[a.priority] || '#6b7280'};"> ${a.priority}</span>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center justify-between gap-2 mb-1">
+                            <h3 class="font-medium text-sm text-gray-900 dark:text-white truncate">${a.title}</h3>
+                            <span class="text-[9px] uppercase tracking-wider font-bold px-1.5 py-0.5 rounded flex-shrink-0" style="background:${priorityColor[a.priority] || '#6b7280'}18; color:${priorityColor[a.priority] || '#6b7280'};">${a.priority}</span>
                         </div>
-                        <p class="text-gray-500 dark:text-gray-400 text-sm font-light leading-relaxed">${a.content}</p>
-                        <p class="text-xs text-gray-300 dark:text-gray-600 mt-3">${new Date(a.published_at || a.created_at || new Date()).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
+                        <p class="text-gray-500 dark:text-gray-400 text-xs font-light leading-relaxed line-clamp-1 mb-2">${a.content}</p>
+                        <p class="text-[10px] text-gray-400 dark:text-gray-500">${new Date(a.published_at || a.created_at || new Date()).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
                     </div>
                 </div>
             </div>`).join('');
         }
 
         async function fetchAnnouncementCount() {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (!user) return;
-            const { data: s } = await supabase.from('students').select('student_type').eq('id', user.id).maybeSingle();
-            const type = s?.student_type || 'individual';
-            const { count } = await supabase.from('announcements').select('*', { count: 'exact', head: true }).or(`target_audience.eq.all,target_audience.eq.${type}`);
-            const badges = [document.getElementById('desktop-noti'), document.getElementById('mobile-noti')];
-            badges.forEach(b => { if (!b) return; if (count > 0) { b.textContent = count; b.classList.remove('hidden'); } else { b.classList.add('hidden'); } });
+            // Unread badge is now handled by updateUnreadBadges() after loadAnnouncements populates _allAnnouncementIds
+            // This function is kept for compatibility but defers to the unread tracking system
+            if (window._allAnnouncementIds && window._allAnnouncementIds.length) {
+                updateUnreadBadges();
+            }
         }
 
         // ── DASHBOARD ANNOUNCEMENT PREVIEW ──
@@ -1441,24 +2265,75 @@
                 normal: { color: '#6b7280', label: 'Normal', bg: '#f9fafb' }
             };
             const meta = priorityMeta[a.priority] || priorityMeta.normal;
+            window.announcementDataMap = window.announcementDataMap || {};
+            window.announcementDataMap[a.id] = a;
             content.innerHTML = `
-            <div class="bg-white dark:bg-brand-card rounded-2xl p-6 border border-gray-100 dark:border-brand-border hover-lift cursor-pointer" style="border-left:4px solid ${meta.color};" onclick="switchSection('announcements')">
-                <div class="flex items-start gap-4">
-                    <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:${meta.color}18;">
-                        <i class="fa-solid fa-bullhorn text-sm" style="color:${meta.color};"></i>
+            <div class="bg-white dark:bg-brand-card rounded-xl p-4 border border-gray-100 dark:border-brand-border hover:shadow-sm transition-all cursor-pointer overflow-hidden" style="border-left:3px solid ${meta.color};" onclick="openAnnouncementModal('${a.id}')">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background:${meta.color}18;">
+                        <i class="fa-solid fa-bullhorn text-xs" style="color:${meta.color};"></i>
                     </div>
                     <div class="flex-1 min-w-0">
-                        <div class="flex items-center gap-2 mb-1 flex-wrap">
-                            <h3 class="font-semibold text-sm">${a.title}</h3>
-                            <span class="text-[10px] uppercase tracking-widest font-bold px-2 py-0.5 rounded-full" style="background:${meta.color}18; color:${meta.color};">${a.priority}</span>
+                        <div class="flex items-center justify-between gap-2 mb-1">
+                            <h3 class="font-medium text-sm text-gray-900 dark:text-white truncate">${a.title}</h3>
+                            <span class="text-[9px] uppercase tracking-wider font-bold px-1.5 py-0.5 rounded flex-shrink-0" style="background:${meta.color}18; color:${meta.color};">${a.priority}</span>
                         </div>
-                        <p class="text-gray-500 dark:text-gray-400 text-sm font-light leading-relaxed">${(a.content || '').length > 130 ? (a.content || '').slice(0, 130) + '…' : (a.content || '')}</p>
-                        <p class="text-xs text-gray-300 dark:text-gray-600 mt-2">${new Date(a.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
+                        <p class="text-gray-500 dark:text-gray-400 text-xs font-light leading-relaxed line-clamp-1 mb-1">${a.content}</p>
+                        <p class="text-[10px] text-gray-400 dark:text-gray-500">${new Date(a.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
                     </div>
-                    <i class="fa-solid fa-chevron-right text-gray-300 dark:text-gray-600 text-xs flex-shrink-0 mt-1"></i>
+                    <i class="fa-solid fa-chevron-right text-gray-300 dark:text-gray-600 text-xs flex-shrink-0 ml-2"></i>
                 </div>
             </div>`;
         }
+
+        // ── UNREAD ANNOUNCEMENT TRACKING ──
+        function getReadAnnouncementIds() {
+            try { return JSON.parse(localStorage.getItem('readAnnouncementIds') || '[]'); } catch { return []; }
+        }
+        function markAnnouncementAsRead(id) {
+            const readIds = getReadAnnouncementIds();
+            if (readIds.includes(id)) return;
+            readIds.push(id);
+            localStorage.setItem('readAnnouncementIds', JSON.stringify(readIds));
+            updateUnreadBadges();
+        }
+        function updateUnreadBadges() {
+            const allIds = window._allAnnouncementIds || [];
+            const readIds = getReadAnnouncementIds();
+            const unread = allIds.filter(id => !readIds.includes(id)).length;
+            const badges = [document.getElementById('desktop-noti'), document.getElementById('mobile-noti')];
+            badges.forEach(b => {
+                if (!b) return;
+                if (unread > 0) { b.textContent = unread; b.classList.remove('hidden'); }
+                else { b.classList.add('hidden'); }
+            });
+        }
+
+        window.openAnnouncementModal = function(id) {
+            const a = window.announcementDataMap?.[id];
+            if (!a) return;
+            markAnnouncementAsRead(id);
+            const priorityColor = { urgent: '#ef4444', high: '#f97316', normal: '#6b7280', low: '#9ca3af' };
+            const color = priorityColor[a.priority] || '#6b7280';
+            
+            document.getElementById('am-title').textContent = a.title;
+            const pBadge = document.getElementById('am-priority');
+            pBadge.textContent = a.priority;
+            pBadge.style.background = `${color}18`;
+            pBadge.style.color = color;
+            document.getElementById('am-date').textContent = new Date(a.published_at || a.created_at || new Date()).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+            document.getElementById('am-content').textContent = a.content;
+            
+            document.getElementById('am-icon-wrap').style.background = `${color}18`;
+            document.getElementById('am-icon').style.color = color;
+            document.getElementById('am-header-bg').style.borderTop = `4px solid ${color}`;
+            
+            document.getElementById('announcement-modal').classList.remove('hidden');
+        };
+
+        window.closeAnnouncementModal = function() {
+            document.getElementById('announcement-modal').classList.add('hidden');
+        };
 
         // ── BLOG ──
         function renderBlogPosts() {
@@ -1515,6 +2390,36 @@
             overlay.classList.toggle('hidden', open);
             panel.classList.toggle('-translate-x-full', open);
         };
+
+        window.toggleDesktopSidebar = function() {
+            const sidebar = document.getElementById('main-sidebar');
+            sidebar.classList.toggle('sidebar-collapsed');
+            const isCollapsed = sidebar.classList.contains('sidebar-collapsed');
+            localStorage.setItem('sidebarCollapsed', isCollapsed ? '1' : '0');
+            closeSidebarPopover();
+        };
+
+        // ── Sidebar Popover ──
+        window.toggleSidebarPopover = function(e) {
+            e.stopPropagation();
+            const popover = document.getElementById('sidebar-popover');
+            if (!popover) return;
+            // Sync data before showing
+            _syncCollapsedFooter();
+            popover.classList.toggle('show');
+        };
+        window.closeSidebarPopover = function() {
+            const popover = document.getElementById('sidebar-popover');
+            if (popover) popover.classList.remove('show');
+        };
+        // Close popover on outside click
+        document.addEventListener('click', function(e) {
+            const popover = document.getElementById('sidebar-popover');
+            if (!popover || !popover.classList.contains('show')) return;
+            const collapsedAvatar = document.getElementById('sidebar-avatar-collapsed');
+            if (popover.contains(e.target) || (collapsedAvatar && collapsedAvatar.contains(e.target))) return;
+            closeSidebarPopover();
+        });
 
         // ── AUTH ──
         window.logout = function () { document.getElementById('logout-modal').classList.remove('hidden'); };
@@ -1589,6 +2494,314 @@
             const name = currentUser?.full_name || currentUser?.email?.split('@')[0] || 'Student';
             window.open(`artdeone-live-class.html?room=${encodeURIComponent(room)}&name=${encodeURIComponent(name)}`, '_blank');
         };
+
+        // ── HOMEWORK ──
+        async function loadHomeworkCourses() {
+            const sel = document.getElementById('hw-course-select');
+            if (!sel) return;
+
+            // If myEnrollments already loaded, use them
+            if (myEnrollments?.length) {
+                sel.innerHTML = '<option value="">Select a course…</option>' +
+                    myEnrollments.filter(e => e.courses).map(e => `<option value="${e.course_id}">${e.courses.title}</option>`).join('');
+                return;
+            }
+
+            // Fallback: fetch enrolled courses directly
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) return;
+            const { data: enrollments } = await supabase.from('enrollments').select('course_id, courses(title)').eq('student_id', user.id).in('status', ['active', 'completed']);
+            if (!enrollments?.length) return;
+            sel.innerHTML = '<option value="">Select a course…</option>' +
+                enrollments.filter(e => e.courses).map(e => `<option value="${e.course_id}">${e.courses.title}</option>`).join('');
+        }
+
+        // Global homework data map for modal
+        window._hwDataMap = {};
+
+        async function loadHomeworkSubmissions() {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) return;
+            const list = document.getElementById('hw-submissions-list');
+            const { data, error } = await supabase
+                .from('homework_submissions')
+                .select('*, courses(title)')
+                .eq('student_id', user.id)
+                .order('created_at', { ascending: false });
+
+            if (error) { list.innerHTML = `<p class="text-red-400 text-sm">${error.message}</p>`; return; }
+            if (!data?.length) {
+                list.innerHTML = `<div class="text-center py-12 text-gray-300 font-light col-span-full">
+                    <i class="fa-regular fa-folder-open text-3xl mb-3 block"></i>
+                    <p>No homework submitted yet</p>
+                </div>`;
+                return;
+            }
+            // Store all homework data for modal access
+            window._hwDataMap = Object.fromEntries(data.map(h => [h.id, h]));
+
+            list.innerHTML = data.map(h => {
+                const statusColors = { pending: '#f59e0b', reviewed: '#16a34a', revision: '#ef4444' };
+                const statusColor = statusColors[h.status] || '#6b7280';
+                const isImage = /\.(jpg|jpeg|png|gif|webp)$/i.test(h.file_url || '');
+                const hasFeedback = !!h.feedback;
+                return `<div class="bg-white dark:bg-brand-card rounded-2xl border border-gray-100 dark:border-brand-border hover:border-brand-green dark:hover:border-brand-green hover:shadow-md transition-all flex flex-col overflow-hidden cursor-pointer" onclick="openHwDetailModal('${h.id}')">
+                    ${isImage ? `<div class="w-full h-40 bg-gray-50 dark:bg-brand-dark overflow-hidden flex-shrink-0">
+                        <img src="${h.file_url}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" alt="">
+                    </div>` : `<div class="w-full h-28 bg-gray-50 dark:bg-brand-dark flex items-center justify-center flex-shrink-0">
+                        <i class="fa-solid fa-file-lines text-3xl text-gray-300 dark:text-gray-600"></i>
+                    </div>`}
+                    <div class="p-4 flex flex-col flex-1">
+                        <div class="flex items-center gap-2 mb-2 flex-wrap">
+                            <span class="text-[10px] uppercase tracking-widest font-bold px-2 py-0.5 rounded-full" style="background:${statusColor}18; color:${statusColor};">${h.status}</span>
+                            ${hasFeedback ? `<span class="text-[10px] uppercase tracking-widest font-bold px-2 py-0.5 rounded-full" style="background:#16a34a18; color:#16a34a;"><i class="fa-solid fa-comment-dots mr-1"></i>Reviewed</span>` : ''}
+                        </div>
+                        <h4 class="font-medium text-sm mb-1 line-clamp-2">${h.title || 'Untitled'}</h4>
+                        <p class="text-xs text-gray-400 mb-2">${h.courses?.title || 'General'} · ${new Date(h.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
+                        ${h.rating ? `<div class="flex items-center gap-1 mb-2"><span class="text-yellow-400 text-sm tracking-wider">${'★'.repeat(h.rating)}${'☆'.repeat(5 - h.rating)}</span><span class="text-[10px] text-gray-400 ml-1">${h.rating}/5</span></div>` : ''}
+                        <div class="mt-auto pt-3 border-t border-gray-50 dark:border-brand-border flex items-center justify-between">
+                            <span class="text-xs text-gray-400 font-light">${hasFeedback ? 'Tap to read review' : 'Tap for details'}</span>
+                            <i class="fa-solid fa-chevron-right text-gray-300 dark:text-gray-600 text-[10px]"></i>
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        // ── Homework Detail Modal ──
+        window.openHwDetailModal = function(id) {
+            const h = window._hwDataMap?.[id];
+            if (!h) return;
+            const statusColors = { pending: '#f59e0b', reviewed: '#16a34a', revision: '#ef4444' };
+            const statusColor = statusColors[h.status] || '#6b7280';
+            const isImage = /\.(jpg|jpeg|png|gif|webp)$/i.test(h.file_url || '');
+
+            // Title & meta
+            document.getElementById('hwd-title').textContent = h.title || 'Untitled';
+            document.getElementById('hwd-meta').textContent = (h.courses?.title || 'General') + ' · ' + new Date(h.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+
+            // Status icon
+            const statusDot = document.getElementById('hwd-status-dot');
+            statusDot.style.background = statusColor + '18';
+            document.getElementById('hwd-icon').style.color = statusColor;
+
+            // Status badge
+            const badge = document.getElementById('hwd-status-badge');
+            badge.textContent = h.status;
+            badge.style.background = statusColor + '18';
+            badge.style.color = statusColor;
+
+            // Rating
+            const ratingEl = document.getElementById('hwd-rating');
+            const ratingNumEl = document.getElementById('hwd-rating-num');
+            if (h.rating) {
+                ratingEl.textContent = '★'.repeat(h.rating) + '☆'.repeat(5 - h.rating);
+                ratingEl.classList.remove('hidden');
+                ratingNumEl.textContent = h.rating + '/5';
+                ratingNumEl.classList.remove('hidden');
+            } else {
+                ratingEl.classList.add('hidden');
+                ratingNumEl.classList.add('hidden');
+            }
+
+            // Preview
+            const previewWrap = document.getElementById('hwd-preview');
+            const fileIconBlock = document.getElementById('hwd-file-icon-block');
+            if (isImage && h.file_url) {
+                document.getElementById('hwd-preview-img').src = h.file_url;
+                previewWrap.classList.remove('hidden');
+                fileIconBlock.classList.add('hidden');
+            } else if (h.file_url) {
+                previewWrap.classList.add('hidden');
+                fileIconBlock.classList.remove('hidden');
+            } else {
+                previewWrap.classList.add('hidden');
+                fileIconBlock.classList.add('hidden');
+            }
+
+            // Student notes
+            const notesBlock = document.getElementById('hwd-notes-block');
+            if (h.student_notes) {
+                document.getElementById('hwd-notes').textContent = h.student_notes;
+                notesBlock.classList.remove('hidden');
+            } else {
+                notesBlock.classList.add('hidden');
+            }
+
+            // Feedback
+            const fbBlock = document.getElementById('hwd-feedback-block');
+            if (h.feedback) {
+                document.getElementById('hwd-feedback').textContent = h.feedback;
+                fbBlock.classList.remove('hidden');
+            } else {
+                fbBlock.classList.add('hidden');
+            }
+
+            // View file button
+            const viewBtn = document.getElementById('hwd-view-file-btn');
+            if (h.file_url) {
+                viewBtn.href = h.file_url;
+                viewBtn.classList.remove('hidden');
+                viewBtn.style.display = 'inline-flex';
+            } else {
+                viewBtn.classList.add('hidden');
+            }
+
+            document.getElementById('hw-detail-modal').classList.remove('hidden');
+        };
+
+        window.closeHwDetailModal = function() {
+            document.getElementById('hw-detail-modal').classList.add('hidden');
+        };
+
+        window.submitHomework = async function () {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) return;
+            const courseId = document.getElementById('hw-course-select').value;
+            const title = document.getElementById('hw-title').value.trim();
+            const notes = document.getElementById('hw-notes').value.trim();
+            const fileInput = document.getElementById('hw-file');
+            const file = fileInput.files[0];
+            const btn = document.getElementById('hw-submit-btn');
+
+            if (!title) { alert('Please enter a title.'); return; }
+            if (!file) { alert('Please select a file to upload.'); return; }
+            if (file.size > 10 * 1024 * 1024) { alert('File size must be under 10MB.'); return; }
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Uploading…';
+
+            try {
+                // Upload file to Supabase Storage
+                const ext = file.name.split('.').pop();
+                const filePath = `homework/${user.id}/${Date.now()}.${ext}`;
+                const { error: uploadErr } = await supabase.storage.from('homework').upload(filePath, file);
+                if (uploadErr) throw uploadErr;
+
+                const { data: { publicUrl } } = supabase.storage.from('homework').getPublicUrl(filePath);
+
+                // Insert record
+                const { error: insertErr } = await supabase.from('homework_submissions').insert([{
+                    student_id: user.id,
+                    course_id: courseId || null,
+                    title: title,
+                    student_notes: notes || null,
+                    file_url: publicUrl,
+                    file_name: file.name,
+                    status: 'pending'
+                }]);
+                if (insertErr) throw insertErr;
+
+                // Reset form
+                document.getElementById('hw-title').value = '';
+                document.getElementById('hw-notes').value = '';
+                fileInput.value = '';
+                document.getElementById('hw-course-select').value = '';
+
+                showHwSuccess();
+                loadHomeworkSubmissions();
+            } catch (err) {
+                alert('Submit failed: ' + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit';
+            }
+        };
+
+        function showHwSuccess() {
+            const overlay = document.getElementById('hw-success-overlay');
+            overlay.classList.add('active');
+            // Confetti
+            const confetti = document.getElementById('hw-confetti');
+            confetti.innerHTML = '';
+            const colors = ['#a7e169','#60a5fa','#f97316','#a78bfa','#fb7185','#fbbf24'];
+            for (let i = 0; i < 12; i++) {
+                const span = document.createElement('span');
+                span.style.background = colors[i % colors.length];
+                span.style.left = (Math.random() * 300 - 150) + 'px';
+                span.style.animationDelay = (Math.random() * 0.4) + 's';
+                span.style.animationDuration = (0.8 + Math.random() * 0.6) + 's';
+                confetti.appendChild(span);
+            }
+        }
+        window.closeHwSuccess = function() {
+            document.getElementById('hw-success-overlay').classList.remove('active');
+        };
+
+        // ── Profile Enrolled Courses List ──
+        function renderProfileCourses() {
+            const list = document.getElementById('profile-courses-list');
+            if (!list) return;
+            if (!myEnrollments?.length) {
+                list.innerHTML = `<div class="text-center py-6 text-gray-300 font-light">
+                    <i class="fa-regular fa-folder-open text-2xl mb-2 block"></i>
+                    <p class="text-sm">No courses enrolled yet</p>
+                </div>`;
+                return;
+            }
+            list.innerHTML = myEnrollments.filter(e => e.courses).map(e => {
+                const c = e.courses;
+                const statusColors = { active: '#16a34a', completed: '#6b7280' };
+                const statusColor = statusColors[e.status] || '#6b7280';
+                const colors = ['#a7e169', '#60a5fa', '#f97316', '#a78bfa', '#fb7185'];
+                const col = colors[Math.abs(c.title.charCodeAt(0) % colors.length)];
+                return `<div class="flex items-center gap-4 p-4 bg-gray-50 dark:bg-brand-dark rounded-xl border border-gray-100 dark:border-brand-border hover:border-brand-green transition cursor-pointer" onclick="openCourse('${c.id}')">
+                    <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background:${col}18;">
+                        <i class="fa-solid fa-book-open text-sm" style="color:${col};"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-medium text-sm truncate">${c.title}</h4>
+                        <p class="text-xs text-gray-400 font-light">${c.course_type || 'Course'} ${c.level ? '· ' + c.level : ''}</p>
+                    </div>
+                    <span class="text-[10px] uppercase tracking-widest font-bold px-2 py-0.5 rounded-full flex-shrink-0" style="background:${statusColor}18; color:${statusColor};">${e.status}</span>
+                </div>`;
+            }).join('');
+        }
+
+        // Load homework data / profile courses when section is shown
+        const origSwitchSection = window.switchSection;
+        window.switchSection = function (id) {
+            origSwitchSection(id);
+            if (id === 'homework') {
+                loadHomeworkCourses();
+                loadHomeworkSubmissions();
+            }
+            if (id === 'profile') {
+                renderProfileCourses();
+            }
+        };
+
+        // ── Collapsed Footer Sync (avatar + name/email for popover) ──
+        function _syncCollapsedFooter() {
+            const nameEl = document.getElementById('student-name');
+            const emailEl = document.getElementById('sidebar-user-email');
+            const avatarEl = document.getElementById('sidebar-avatar');
+            const popName = document.getElementById('pop-user-name');
+            const popEmail = document.getElementById('pop-user-email');
+            const collapsedAvatar = document.getElementById('sidebar-avatar-collapsed');
+            if (nameEl && popName) popName.textContent = nameEl.textContent;
+            if (emailEl && popEmail) popEmail.textContent = emailEl.textContent;
+            if (avatarEl && collapsedAvatar && avatarEl.src) collapsedAvatar.src = avatarEl.src;
+        }
+        // Observe sidebar-avatar src changes → sync collapsed avatar
+        const _sidebarAvatarEl = document.getElementById('sidebar-avatar');
+        if (_sidebarAvatarEl) {
+            new MutationObserver(_syncCollapsedFooter).observe(_sidebarAvatarEl, { attributes: true, attributeFilter: ['src'] });
+        }
+        // Observe name/email text changes → sync popover
+        ['student-name', 'sidebar-user-email'].forEach(function(id) {
+            const el = document.getElementById(id);
+            if (el) new MutationObserver(_syncCollapsedFooter).observe(el, { childList: true, characterData: true, subtree: true });
+        });
+
+        // ── Restore Sidebar Collapsed State from localStorage ──
+        (function restoreSidebarState() {
+            const saved = localStorage.getItem('sidebarCollapsed');
+            if (saved === '1') {
+                const sidebar = document.getElementById('main-sidebar');
+                if (sidebar) sidebar.classList.add('sidebar-collapsed');
+            }
+        })();
     </script>
 </body>
 
