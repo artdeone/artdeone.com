@@ -1226,10 +1226,12 @@
                         <h1>Homework Submissions</h1>
                         <p>Review student homework, give feedback and star ratings</p>
                     </div>
+                    <span id="hw-summary" style="font-size:.82rem; color:var(--muted); font-weight:500;"></span>
                 </div>
 
                 <!-- Filters -->
-                <div style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
+                <div style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap; align-items:center;">
+                    <input type="text" id="hw-search" class="form-input" placeholder="Search by student name…" oninput="loadHomework()" style="width:auto; min-width:200px; margin:0;">
                     <select id="hw-filter-status" class="form-input" style="width:auto; min-width:150px; margin:0;" onchange="loadHomework()">
                         <option value="">All Status</option>
                         <option value="pending">Pending</option>
@@ -2490,6 +2492,7 @@
         async function loadHomework() {
             const statusFilter = document.getElementById('hw-filter-status')?.value || '';
             const courseFilter = document.getElementById('hw-filter-course')?.value || '';
+            const searchQuery = (document.getElementById('hw-search')?.value || '').toLowerCase().trim();
 
             // Populate course filter dropdown
             const courseSel = document.getElementById('hw-filter-course');
@@ -2500,16 +2503,18 @@
                 }
             }
 
-            let query = supabase.from('homework_submissions').select('*, courses(title), students(full_name, email, avatar_url)').order('created_at', { ascending: false });
+            let query = supabase.from('homework_submissions').select('*, courses(title), students(full_name, email, avatar_url, student_id)').order('created_at', { ascending: false });
             if (statusFilter) query = query.eq('status', statusFilter);
             if (courseFilter) query = query.eq('course_id', courseFilter);
 
             const { data, error } = await query;
             const container = document.getElementById('homework-container');
+            const summaryEl = document.getElementById('hw-summary');
 
-            if (error) { container.innerHTML = `<div class="alert alert-error"><i class="fa-solid fa-circle-exclamation"></i> ${error.message}</div>`; return; }
+            if (error) { container.innerHTML = `<div class="alert alert-error"><i class="fa-solid fa-circle-exclamation"></i> ${error.message}</div>`; if (summaryEl) summaryEl.textContent = ''; return; }
             if (!data?.length) {
                 container.innerHTML = '<div class="empty-state"><i class="fa-solid fa-file-lines"></i><p>No homework submissions yet</p></div>';
+                if (summaryEl) summaryEl.textContent = '';
                 return;
             }
 
@@ -2524,6 +2529,7 @@
                         email: h.students?.email || '',
                         avatar: h.students?.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(h.students?.full_name || h.students?.email || 'U')}&background=a7e169&color=000&size=44`,
                         id: h.student_id,
+                        studentId: h.students?.student_id || null,
                         items: []
                     };
                     studentOrder.push(sid);
@@ -2531,58 +2537,73 @@
                 grouped[sid].items.push(h);
             });
 
-            container.innerHTML = studentOrder.map(sid => {
+            // Apply search filter on student name
+            const filteredOrder = searchQuery
+                ? studentOrder.filter(sid => grouped[sid].name.toLowerCase().includes(searchQuery) || grouped[sid].email.toLowerCase().includes(searchQuery))
+                : studentOrder;
+
+            const totalPending = data.filter(h => h.status === 'pending').length;
+            if (summaryEl) summaryEl.textContent = `${filteredOrder.length} student${filteredOrder.length !== 1 ? 's' : ''} · ${data.length} total · ${totalPending} pending`;
+
+            if (!filteredOrder.length) {
+                container.innerHTML = '<div class="empty-state"><i class="fa-solid fa-search"></i><p>No students match your search</p></div>';
+                return;
+            }
+
+            container.innerHTML = `<div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(380px, 1fr)); gap:20px;">` + filteredOrder.map(sid => {
                 const g = grouped[sid];
                 const pendingCount = g.items.filter(h => h.status === 'pending').length;
-                const shortId = g.id ? g.id.substring(0, 8).toUpperCase() : '—';
-                return `<div style="border:1px solid var(--border); border-radius:16px; margin-bottom:20px; background:var(--card); overflow:hidden;">
+                const reviewedCount = g.items.filter(h => h.status === 'reviewed').length;
+                const displayId = g.studentId || (g.id ? g.id.substring(0, 8).toUpperCase() : '—');
+                return `<div style="border:1px solid var(--border); border-radius:16px; background:var(--card); overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,.04); display:flex; flex-direction:column; max-width:580px;">
                     <!-- Student Header -->
-                    <div style="display:flex; align-items:center; gap:12px; padding:16px 20px; background:var(--bg); border-bottom:1px solid var(--border); cursor:pointer;" onclick="this.parentElement.querySelector('.hw-student-items').classList.toggle('hidden')">
-                        <img src="${g.avatar}" style="width:40px; height:40px; border-radius:50%; object-fit:cover; border:2px solid var(--green); flex-shrink:0;">
-                        <div style="flex:1; min-width:0;">
-                            <div style="font-weight:600; font-size:.95rem;">${g.name}</div>
-                            <div style="font-size:.75rem; color:var(--muted);">${g.email}${g.id ? ' · ID: ' + shortId : ''}</div>
+                    <div style="padding:16px 18px; background:var(--bg); border-bottom:1px solid var(--border);">
+                        <div style="display:flex; align-items:center; gap:12px;">
+                            <img src="${g.avatar}" style="width:40px; height:40px; border-radius:50%; object-fit:cover; border:2px solid var(--green); flex-shrink:0;">
+                            <div style="flex:1; min-width:0;">
+                                <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+                                    <span style="font-weight:600; font-size:.9rem;">${g.name}</span>
+                                    <span class="code-pill" style="font-size:.65rem; padding:1px 6px;">${displayId}</span>
+                                </div>
+                                <div style="font-size:.72rem; color:var(--muted); margin-top:1px;">${g.email}</div>
+                            </div>
                         </div>
-                        <span class="badge badge-gray" style="flex-shrink:0;">${g.items.length} submission${g.items.length !== 1 ? 's' : ''}</span>
-                        ${pendingCount > 0 ? `<span class="badge badge-yellow" style="flex-shrink:0;">${pendingCount} pending</span>` : ''}
-                        <i class="fa-solid fa-chevron-down" style="color:var(--muted); font-size:.75rem; transition:transform .2s;"></i>
+                        <div style="display:flex; gap:5px; align-items:center; flex-wrap:wrap; margin-top:10px;">
+                            <span class="badge badge-gray" style="font-size:.68rem;">${g.items.length} submission${g.items.length !== 1 ? 's' : ''}</span>
+                            ${pendingCount > 0 ? `<span class="badge badge-yellow badge-dot" style="font-size:.68rem;">${pendingCount} pending</span>` : ''}
+                            ${reviewedCount > 0 ? `<span class="badge badge-green badge-dot" style="font-size:.68rem;">${reviewedCount} reviewed</span>` : ''}
+                        </div>
                     </div>
-                    <!-- Submissions List -->
-                    <div class="hw-student-items" style="padding:12px 16px;">
+                    <!-- Submissions -->
+                    <div style="padding:12px; display:grid; grid-template-columns:repeat(auto-fill, minmax(155px, 1fr)); gap:10px; flex:1;">
                         ${g.items.map(h => {
                             const statusBadge = { pending: 'badge-yellow', reviewed: 'badge-green', revision: 'badge-red' };
                             const sb = statusBadge[h.status] || 'badge-gray';
                             const stars = h.rating ? '★'.repeat(h.rating) + '☆'.repeat(5 - h.rating) : '';
                             const isImage = /\.(jpg|jpeg|png|gif|webp)$/i.test(h.file_url || '');
-                            return `<div style="padding:14px; border:1px solid #f0f0f0; border-radius:12px; margin-bottom:8px; transition:var(--transition);" onmouseenter="this.style.borderColor='var(--green)'" onmouseleave="this.style.borderColor='#f0f0f0'">
-                                <div style="display:flex; gap:14px; flex-wrap:wrap;">
-                                    ${isImage ? `<div style="width:64px; height:64px; border-radius:8px; overflow:hidden; flex-shrink:0; background:#f9f9f9;">
-                                        <a href="${h.file_url}" target="_blank"><img src="${h.file_url}" style="width:100%; height:100%; object-fit:cover;" alt=""></a>
-                                    </div>` : ''}
-                                    <div style="flex:1; min-width:0;">
-                                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px; flex-wrap:wrap;">
-                                            <span style="font-weight:500; font-size:.875rem;">${h.title || 'Untitled'}</span>
-                                            <span class="badge ${sb}">${h.status}</span>
-                                            ${stars ? `<span style="color:#eab308; font-size:.85rem; letter-spacing:2px;">${stars}</span>` : ''}
-                                        </div>
-                                        <p style="font-size:.75rem; color:var(--muted);">${h.courses?.title || 'General'} · ${new Date(h.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
-                                        ${h.student_notes ? `<p style="font-size:.78rem; color:#888; margin-top:4px; font-style:italic;">"${h.student_notes}"</p>` : ''}
-                                        ${h.feedback ? `<div style="margin-top:6px; padding:8px 12px; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:8px;">
-                                            <p style="font-size:.7rem; color:#888; text-transform:uppercase; letter-spacing:.05em; font-weight:600; margin-bottom:3px;">Your Feedback</p>
-                                            <p style="font-size:.82rem; color:#14532d;">${h.feedback}</p>
-                                        </div>` : ''}
-                                    </div>
-                                    <div style="display:flex; flex-direction:column; gap:4px; flex-shrink:0;">
-                                        ${h.file_url ? `<a href="${h.file_url}" target="_blank" class="btn btn-ghost" title="View file"><i class="fa-solid fa-eye"></i></a>` : ''}
-                                        <button class="btn btn-primary" style="font-size:.75rem; padding:6px 12px;" onclick="openHwReview('${h.id}')"><i class="fa-solid fa-pen"></i> Review</button>
-                                        <button class="btn btn-danger btn-ghost" onclick="deleteHomework('${h.id}')"><i class="fa-solid fa-trash"></i></button>
-                                    </div>
+                            return `<div style="padding:10px; border:1px solid #f0f0f0; border-radius:10px; display:flex; flex-direction:column; transition:var(--transition); background:#fff; font-size:.78rem;" onmouseenter="this.style.borderColor='var(--green)';this.style.boxShadow='0 3px 10px rgba(167,225,105,.1)'" onmouseleave="this.style.borderColor='#f0f0f0';this.style.boxShadow='none'">
+                                ${isImage ? `<div style="border-radius:6px; overflow:hidden; margin-bottom:8px; background:#f9f9f9; height:90px;">
+                                    <a href="${h.file_url}" target="_blank"><img src="${h.file_url}" style="width:100%; height:100%; object-fit:cover;" alt=""></a>
+                                </div>` : ''}
+                                <div style="display:flex; align-items:center; gap:4px; margin-bottom:4px;">
+                                    <span class="badge ${sb}" style="font-size:.62rem; padding:1px 6px;">${h.status}</span>
+                                    ${stars ? `<span style="color:#eab308; font-size:.7rem; letter-spacing:1px;">${stars}</span>` : ''}
+                                </div>
+                                <div style="font-weight:600; font-size:.8rem; margin-bottom:3px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${(h.title || 'Untitled').replace(/"/g, '&quot;')}">${h.title || 'Untitled'}</div>
+                                <p style="font-size:.68rem; color:var(--muted); margin-bottom:auto;">${h.courses?.title || 'General'} · ${new Date(h.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}</p>
+                                ${h.feedback ? `<div style="margin-top:6px; padding:4px 8px; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:6px;">
+                                    <p style="font-size:.65rem; color:#14532d; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${h.feedback}</p>
+                                </div>` : ''}
+                                <div style="display:flex; gap:4px; margin-top:8px; padding-top:8px; border-top:1px solid #f5f5f5;">
+                                    ${h.file_url ? `<a href="${h.file_url}" target="_blank" class="btn btn-ghost" style="flex:1; justify-content:center; font-size:.68rem; padding:4px;" title="View"><i class="fa-solid fa-eye"></i></a>` : ''}
+                                    <button class="btn btn-primary" style="flex:1; justify-content:center; font-size:.65rem; padding:4px 6px;" onclick="openHwReview('${h.id}')"><i class="fa-solid fa-pen"></i> Review</button>
+                                    <button class="btn btn-danger btn-ghost" style="padding:4px 6px; font-size:.68rem;" onclick="deleteHomework('${h.id}')"><i class="fa-solid fa-trash"></i></button>
                                 </div>
                             </div>`;
                         }).join('')}
                     </div>
                 </div>`;
-            }).join('');
+            }).join('') + `</div>`;
         }
 
         let hwReviewId = null;
@@ -2619,9 +2640,10 @@
             const avatar = h.students?.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(studentName)}&background=a7e169&color=000&size=88`;
             const statusBadge = { pending: 'badge-yellow', reviewed: 'badge-green', revision: 'badge-red' };
             const sb = statusBadge[h.status] || 'badge-gray';
+            const reviewDisplayId = h.students?.student_id || (h.student_id ? h.student_id.substring(0, 8).toUpperCase() : '');
 
             document.getElementById('hw-review-avatar').src = avatar;
-            document.getElementById('hw-review-student-name').textContent = studentName;
+            document.getElementById('hw-review-student-name').innerHTML = studentName + (reviewDisplayId ? ` <span class="code-pill" style="font-size:.7rem; padding:2px 8px; margin-left:4px;">${reviewDisplayId}</span>` : '');
             document.getElementById('hw-review-course-date').textContent = (h.courses?.title || 'General') + ' · ' + new Date(h.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
             const badgeEl = document.getElementById('hw-review-status-badge');
             badgeEl.className = 'badge ' + sb;
