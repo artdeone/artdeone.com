@@ -1759,7 +1759,7 @@
                 </div>
                 <!-- Preview image or file icon -->
                 <div id="hwd-preview" class="w-full rounded-xl overflow-hidden bg-gray-50 dark:bg-brand-dark hidden">
-                    <img id="hwd-preview-img" src="" class="w-full max-h-72 object-contain" alt="">
+                    <img id="hwd-preview-img" src="" class="w-full max-h-72 object-contain" alt="" referrerpolicy="no-referrer">
                 </div>
                 <div id="hwd-file-icon-block" class="w-full py-6 rounded-xl bg-gray-50 dark:bg-brand-dark flex items-center justify-center hidden">
                     <i class="fa-solid fa-file-lines text-4xl text-gray-300 dark:text-gray-600"></i>
@@ -1902,6 +1902,10 @@
                     }
                 }
             }
+            // If student record has no avatar, fall back to OAuth metadata avatar
+            if (student && !s.avatar_url && fallbackAvatar) {
+                s.avatar_url = fallbackAvatar;
+            }
 
             currentUser = s;
             updateProfileUI(s);
@@ -1949,10 +1953,9 @@
                 el.classList.remove('hidden');
                 el.referrerPolicy = 'no-referrer';
             });
-            if (avatar) {
-                const icon = document.getElementById('detail-profile-icon');
-                if (icon) icon.classList.add('hidden');
-            }
+            // Always hide the placeholder icon once the img element is shown
+            const icon = document.getElementById('detail-profile-icon');
+            if (icon) icon.classList.add('hidden');
         }
 
         function setText(id, val) { const el = document.getElementById(id); if (el) el.textContent = val; }
@@ -2570,11 +2573,11 @@
             list.innerHTML = data.map(h => {
                 const statusColors = { pending: '#f59e0b', reviewed: '#16a34a', revision: '#ef4444' };
                 const statusColor = statusColors[h.status] || '#6b7280';
-                const isImage = /\.(jpg|jpeg|png|gif|webp)$/i.test(h.file_url || '');
+                const isImage = /\.(jpg|jpeg|png|gif|webp)(\?.*)?$/i.test(h.file_url || '');
                 const hasFeedback = !!h.feedback;
                 return `<div class="bg-white dark:bg-brand-card rounded-2xl border border-gray-100 dark:border-brand-border hover:border-brand-green dark:hover:border-brand-green hover:shadow-md transition-all flex flex-col overflow-hidden cursor-pointer" onclick="openHwDetailModal('${h.id}')">
                     ${isImage ? `<div class="w-full h-40 bg-gray-50 dark:bg-brand-dark overflow-hidden flex-shrink-0">
-                        <img src="${h.file_url}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" alt="">
+                        <img src="${h.file_url}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" alt="" referrerpolicy="no-referrer" onerror="this.onerror=null;this.parentElement.innerHTML='<i class=\\'fa-solid fa-image-slash text-3xl text-gray-300 dark:text-gray-600\\'></i>';this.parentElement.classList.add('flex','items-center','justify-center');">
                     </div>` : `<div class="w-full h-28 bg-gray-50 dark:bg-brand-dark flex items-center justify-center flex-shrink-0">
                         <i class="fa-solid fa-file-lines text-3xl text-gray-300 dark:text-gray-600"></i>
                     </div>`}
@@ -2601,7 +2604,7 @@
             if (!h) return;
             const statusColors = { pending: '#f59e0b', reviewed: '#16a34a', revision: '#ef4444' };
             const statusColor = statusColors[h.status] || '#6b7280';
-            const isImage = /\.(jpg|jpeg|png|gif|webp)$/i.test(h.file_url || '');
+            const isImage = /\.(jpg|jpeg|png|gif|webp)(\?.*)?$/i.test(h.file_url || '');
 
             // Title & meta
             document.getElementById('hwd-title').textContent = h.title || 'Untitled';
