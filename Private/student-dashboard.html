@@ -1930,6 +1930,37 @@
             return '';
         }
 
+        function extractStoragePath(value, bucket) {
+            if (typeof value !== 'string') return '';
+            const trimmed = value.trim();
+            if (!trimmed) return '';
+            if (!/^(https?:)?\/\//i.test(trimmed)) {
+                return trimmed.replace(/^\/+/, '').replace(new RegExp(`^${bucket}/`, 'i'), '');
+            }
+
+            const markers = [
+                `/storage/v1/object/public/${bucket}/`,
+                `/storage/v1/object/sign/${bucket}/`,
+                `/storage/v1/object/authenticated/${bucket}/`
+            ];
+            for (const marker of markers) {
+                const idx = trimmed.indexOf(marker);
+                if (idx === -1) continue;
+                const remainder = trimmed.slice(idx + marker.length);
+                return remainder.split('?')[0].replace(/^\/+/, '');
+            }
+            return '';
+        }
+
+        async function resolveHomeworkAssetUrl(submission) {
+            const directUrl = resolveHomeworkFileUrl(submission);
+            const storagePath = extractStoragePath(submission?.image_url, 'homework') || extractStoragePath(submission?.file_url, 'homework');
+            if (!storagePath) return directUrl;
+
+            const { data, error } = await supabase.storage.from('homework').createSignedUrl(storagePath, 60 * 60);
+            return !error && data?.signedUrl ? data.signedUrl : directUrl;
+        }
+
         function isHomeworkImage(submission, url) {
             return Boolean(submission?.image_url) || /\.(jpg|jpeg|png|gif|webp|bmp|svg|avif|jfif|heic|heif)(\?.*)?$/i.test(url || '');
         }
@@ -2624,14 +2655,14 @@
                 return;
             }
             // Store all homework data for modal access
-            const normalizedData = data.map(h => {
-                const resolvedFileUrl = resolveHomeworkFileUrl(h);
+            const normalizedData = await Promise.all(data.map(async h => {
+                const resolvedFileUrl = await resolveHomeworkAssetUrl(h);
                 return {
                     ...h,
                     _resolvedFileUrl: resolvedFileUrl,
                     _isImageFile: isHomeworkImage(h, resolvedFileUrl)
                 };
-            });
+            }));
             window._hwDataMap = Object.fromEntries(normalizedData.map(h => [h.id, h]));
 
             list.innerHTML = normalizedData.map(h => {

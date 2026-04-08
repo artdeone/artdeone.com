@@ -2489,6 +2489,47 @@
         window.handleSoftwareFileSelect = handleSoftwareFileSelect;
         window.selectPlatform = selectPlatform;
 
+        function normalizeHomeworkUrl(value) {
+            if (typeof value !== 'string') return '';
+            const trimmed = value.trim();
+            if (!trimmed) return '';
+            return trimmed;
+        }
+
+        function extractHomeworkStoragePath(value) {
+            const trimmed = normalizeHomeworkUrl(value);
+            if (!trimmed) return '';
+            if (!/^(https?:)?\/\//i.test(trimmed)) {
+                return trimmed.replace(/^\/+/, '').replace(/^homework\//i, '');
+            }
+
+            const markers = [
+                '/storage/v1/object/public/homework/',
+                '/storage/v1/object/sign/homework/',
+                '/storage/v1/object/authenticated/homework/'
+            ];
+            for (const marker of markers) {
+                const idx = trimmed.indexOf(marker);
+                if (idx === -1) continue;
+                const remainder = trimmed.slice(idx + marker.length);
+                return remainder.split('?')[0].replace(/^\/+/, '');
+            }
+            return '';
+        }
+
+        async function resolveHomeworkAssetUrl(submission) {
+            const rawUrl = normalizeHomeworkUrl(submission?.image_url || submission?.file_url);
+            const storagePath = extractHomeworkStoragePath(submission?.image_url) || extractHomeworkStoragePath(submission?.file_url);
+            if (!storagePath) return rawUrl;
+
+            const { data, error } = await supabase.storage.from('homework').createSignedUrl(storagePath, 60 * 60);
+            return !error && data?.signedUrl ? data.signedUrl : rawUrl;
+        }
+
+        function isHomeworkImage(submission, resolvedUrl) {
+            return Boolean(submission?.image_url) || /\.(jpg|jpeg|png|gif|webp|bmp|svg|avif|jfif|heic|heif)(\?.*)?$/i.test(resolvedUrl || '');
+        }
+
         // ── Homework Review ──
         async function loadHomework() {
             const statusFilter = document.getElementById('hw-filter-status')?.value || '';
@@ -2519,10 +2560,19 @@
                 return;
             }
 
+            const normalizedData = await Promise.all(data.map(async h => {
+                const resolvedFileUrl = await resolveHomeworkAssetUrl(h);
+                return {
+                    ...h,
+                    _resolvedFileUrl: resolvedFileUrl,
+                    _isImageFile: isHomeworkImage(h, resolvedFileUrl)
+                };
+            }));
+
             // Group submissions by student
             const grouped = {};
             const studentOrder = [];
-            data.forEach(h => {
+            normalizedData.forEach(h => {
                 const sid = h.student_id || 'unknown';
                 if (!grouped[sid]) {
                     grouped[sid] = {
@@ -2543,8 +2593,8 @@
                 ? studentOrder.filter(sid => grouped[sid].name.toLowerCase().includes(searchQuery) || grouped[sid].email.toLowerCase().includes(searchQuery))
                 : studentOrder;
 
-            const totalPending = data.filter(h => h.status === 'pending').length;
-            if (summaryEl) summaryEl.textContent = `${filteredOrder.length} student${filteredOrder.length !== 1 ? 's' : ''} · ${data.length} total · ${totalPending} pending`;
+            const totalPending = normalizedData.filter(h => h.status === 'pending').length;
+            if (summaryEl) summaryEl.textContent = `${filteredOrder.length} student${filteredOrder.length !== 1 ? 's' : ''} · ${normalizedData.length} total · ${totalPending} pending`;
 
             if (!filteredOrder.length) {
                 container.innerHTML = '<div class="empty-state"><i class="fa-solid fa-search"></i><p>No students match your search</p></div>';
@@ -2581,10 +2631,11 @@
                             const statusBadge = { pending: 'badge-yellow', reviewed: 'badge-green', revision: 'badge-red' };
                             const sb = statusBadge[h.status] || 'badge-gray';
                             const stars = h.rating ? '★'.repeat(h.rating) + '☆'.repeat(5 - h.rating) : '';
-                            const isImage = /\.(jpg|jpeg|png|gif|webp)$/i.test(h.file_url || '');
+                            const fileUrl = h._resolvedFileUrl;
+                            const isImage = h._isImageFile;
                             return `<div style="padding:10px; border:1px solid #f0f0f0; border-radius:10px; display:flex; flex-direction:column; transition:var(--transition); background:#fff; font-size:.78rem;" onmouseenter="this.style.borderColor='var(--green)';this.style.boxShadow='0 3px 10px rgba(167,225,105,.1)'" onmouseleave="this.style.borderColor='#f0f0f0';this.style.boxShadow='none'">
                                 ${isImage ? `<div style="border-radius:6px; overflow:hidden; margin-bottom:8px; background:#f9f9f9; height:90px;">
-                                    <a href="${h.file_url}" target="_blank"><img src="${h.file_url}" style="width:100%; height:100%; object-fit:cover;" alt=""></a>
+                                    <a href="${fileUrl}" target="_blank"><img src="${fileUrl}" style="width:100%; height:100%; object-fit:cover;" alt=""></a>
                                 </div>` : ''}
                                 <div style="display:flex; align-items:center; gap:4px; margin-bottom:4px;">
                                     <span class="badge ${sb}" style="font-size:.62rem; padding:1px 6px;">${h.status}</span>
@@ -2596,7 +2647,7 @@
                                     <p style="font-size:.65rem; color:#14532d; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${h.feedback}</p>
                                 </div>` : ''}
                                 <div style="display:flex; gap:4px; margin-top:8px; padding-top:8px; border-top:1px solid #f5f5f5;">
-                                    ${h.file_url ? `<a href="${h.file_url}" target="_blank" class="btn btn-ghost" style="flex:1; justify-content:center; font-size:.68rem; padding:4px;" title="View"><i class="fa-solid fa-eye"></i></a>` : ''}
+                                    ${fileUrl ? `<a href="${fileUrl}" target="_blank" class="btn btn-ghost" style="flex:1; justify-content:center; font-size:.68rem; padding:4px;" title="View"><i class="fa-solid fa-eye"></i></a>` : ''}
                                     <button class="btn btn-primary" style="flex:1; justify-content:center; font-size:.65rem; padding:4px 6px;" onclick="openHwReview('${h.id}')"><i class="fa-solid fa-pen"></i> Review</button>
                                     <button class="btn btn-danger btn-ghost" style="padding:4px 6px; font-size:.68rem;" onclick="deleteHomework('${h.id}')"><i class="fa-solid fa-trash"></i></button>
                                 </div>
@@ -2636,6 +2687,8 @@
             // Fetch the submission data
             const { data: h, error } = await supabase.from('homework_submissions').select('*, courses(title), students(full_name, email, avatar_url)').eq('id', id).maybeSingle();
             if (error || !h) { alert('Could not load submission.'); return; }
+            const resolvedFileUrl = await resolveHomeworkAssetUrl(h);
+            const isImageFile = isHomeworkImage(h, resolvedFileUrl);
 
             const studentName = h.students?.full_name || h.students?.email || 'Unknown';
             const avatar = h.students?.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(studentName)}&background=a7e169&color=000&size=88`;
@@ -2659,14 +2712,13 @@
             // File preview
             const fileWrap = document.getElementById('hw-review-file-wrap');
             const filePreview = document.getElementById('hw-review-file-preview');
-            if (h.file_url) {
+            if (resolvedFileUrl) {
                 fileWrap.style.display = 'block';
-                const isImage = /\.(jpg|jpeg|png|gif|webp)$/i.test(h.file_url);
-                if (isImage) {
-                    filePreview.innerHTML = `<a href="${h.file_url}" target="_blank"><img src="${h.file_url}" style="width:100%; max-height:280px; object-fit:contain; display:block;"></a>`;
+                if (isImageFile) {
+                    filePreview.innerHTML = `<a href="${resolvedFileUrl}" target="_blank"><img src="${resolvedFileUrl}" style="width:100%; max-height:280px; object-fit:contain; display:block;"></a>`;
                 } else {
-                    const fileName = h.file_name || h.file_url.split('/').pop();
-                    filePreview.innerHTML = `<a href="${h.file_url}" target="_blank" style="display:flex; align-items:center; gap:12px; padding:16px; text-decoration:none; color:var(--text);">
+                    const fileName = h.file_name || resolvedFileUrl.split('/').pop();
+                    filePreview.innerHTML = `<a href="${resolvedFileUrl}" target="_blank" style="display:flex; align-items:center; gap:12px; padding:16px; text-decoration:none; color:var(--text);">
                         <div style="width:44px; height:44px; border-radius:10px; background:var(--green-dim); display:flex; align-items:center; justify-content:center; flex-shrink:0;"><i class="fa-solid fa-file-arrow-down" style="color:#2d5a00; font-size:1.1rem;"></i></div>
                         <div style="flex:1; min-width:0;"><div style="font-weight:500; font-size:.875rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${fileName}</div><div style="font-size:.75rem; color:var(--muted);">Click to view / download</div></div>
                         <i class="fa-solid fa-arrow-up-right-from-square" style="color:var(--muted);"></i>
