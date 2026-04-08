@@ -1880,15 +1880,71 @@
             loadDashboardAnnouncement();
         });
 
+        function normalizeAssetUrl(value, bucket) {
+            if (typeof value !== 'string') return '';
+            const trimmed = value.trim();
+            if (!trimmed) return '';
+            if (/^(https?:|data:|blob:)/i.test(trimmed)) return trimmed;
+
+            const storageMarker = `/storage/v1/object/public/${bucket}/`;
+            if (trimmed.includes(storageMarker)) return trimmed;
+
+            const normalizedPath = trimmed
+                .replace(/^\/+/, '')
+                .replace(new RegExp(`^${bucket}/`, 'i'), '');
+
+            const { data } = supabase.storage.from(bucket).getPublicUrl(normalizedPath);
+            return data?.publicUrl || '';
+        }
+
+        function resolveAvatarUrl(student, authUser) {
+            const authMeta = authUser?.user_metadata || {};
+            const identityData = authUser?.identities?.find(i => i?.identity_data)?.identity_data || {};
+            const candidates = [
+                student?.avatar_url,
+                authMeta.avatar_url,
+                authMeta.picture,
+                authMeta.picture_url,
+                identityData.avatar_url,
+                identityData.picture,
+                identityData.picture_url
+            ];
+
+            for (const candidate of candidates) {
+                const url = normalizeAssetUrl(candidate, 'avatars');
+                if (url) return url;
+            }
+            return '';
+        }
+
+        function resolveHomeworkFileUrl(submission) {
+            const candidates = [
+                submission?.image_url,
+                submission?.file_url
+            ];
+
+            for (const candidate of candidates) {
+                const url = normalizeAssetUrl(candidate, 'homework');
+                if (url) return url;
+            }
+            return '';
+        }
+
+        function isHomeworkImage(submission, url) {
+            return Boolean(submission?.image_url) || /\.(jpg|jpeg|png|gif|webp|bmp|svg|avif|jfif|heic|heif)(\?.*)?$/i.test(url || '');
+        }
+
         // ── PROFILE LOADING ──
         async function loadUserProfile(authUser) {
             // Fallback to auth metadata (Google OAuth users)
             const fallbackName = authUser.user_metadata?.full_name || authUser.email?.split('@')[0] || 'Student';
-            const fallbackAvatar = authUser.user_metadata?.avatar_url || null;
+            const fallbackAvatar = resolveAvatarUrl(null, authUser) || null;
 
             // Try to load from students table
             const { data: student } = await supabase.from('students').select('*').eq('id', authUser.id).maybeSingle();
-            const s = student || { full_name: fallbackName, avatar_url: fallbackAvatar, email: authUser.email };
+            const s = student
+                ? { ...student, avatar_url: resolveAvatarUrl(student, authUser) || student.avatar_url || null }
+                : { full_name: fallbackName, avatar_url: fallbackAvatar, email: authUser.email };
 
             // Sync latest Google avatar into DB if the stored one is a stale Google URL or empty
             const freshGoogleAvatar = authUser.user_metadata?.avatar_url || authUser.user_metadata?.picture || null;
@@ -1913,7 +1969,7 @@
 
         function updateProfileUI(s) {
             const name = s.full_name || s.email?.split('@')[0] || 'Student';
-            const avatar = s.avatar_url;
+            const avatar = s.avatar_url || '';
 
             setText('welcome-name', name.split(' ')[0]);
             setText('student-name', name);
@@ -1944,7 +2000,7 @@
             setText('profile-att-absent', s.absent_days ?? 0);
 
             const fallbackSrc = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=a7e169&color=000&size=96`;
-            const imgs = ['sidebar-avatar', 'detail-profile-img', 'profile-avatar'];
+            const imgs = ['sidebar-avatar', 'sidebar-avatar-collapsed', 'detail-profile-img', 'profile-avatar'];
             imgs.forEach(id => {
                 const el = document.getElementById(id);
                 if (!el) return;
@@ -2568,16 +2624,25 @@
                 return;
             }
             // Store all homework data for modal access
-            window._hwDataMap = Object.fromEntries(data.map(h => [h.id, h]));
+            const normalizedData = data.map(h => {
+                const resolvedFileUrl = resolveHomeworkFileUrl(h);
+                return {
+                    ...h,
+                    _resolvedFileUrl: resolvedFileUrl,
+                    _isImageFile: isHomeworkImage(h, resolvedFileUrl)
+                };
+            });
+            window._hwDataMap = Object.fromEntries(normalizedData.map(h => [h.id, h]));
 
-            list.innerHTML = data.map(h => {
+            list.innerHTML = normalizedData.map(h => {
                 const statusColors = { pending: '#f59e0b', reviewed: '#16a34a', revision: '#ef4444' };
                 const statusColor = statusColors[h.status] || '#6b7280';
-                const isImage = /\.(jpg|jpeg|png|gif|webp)(\?.*)?$/i.test(h.file_url || '');
+                const fileUrl = h._resolvedFileUrl;
+                const isImage = h._isImageFile;
                 const hasFeedback = !!h.feedback;
                 return `<div class="bg-white dark:bg-brand-card rounded-2xl border border-gray-100 dark:border-brand-border hover:border-brand-green dark:hover:border-brand-green hover:shadow-md transition-all flex flex-col overflow-hidden cursor-pointer" onclick="openHwDetailModal('${h.id}')">
                     ${isImage ? `<div class="w-full h-40 bg-gray-50 dark:bg-brand-dark overflow-hidden flex-shrink-0">
-                        <img src="${h.file_url}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" alt="" referrerpolicy="no-referrer" onerror="this.onerror=null;this.parentElement.innerHTML='<i class=\\'fa-solid fa-image-slash text-3xl text-gray-300 dark:text-gray-600\\'></i>';this.parentElement.classList.add('flex','items-center','justify-center');">
+                        <img src="${fileUrl}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" alt="" referrerpolicy="no-referrer" onerror="this.onerror=null;this.parentElement.innerHTML='<i class=\\'fa-solid fa-image-slash text-3xl text-gray-300 dark:text-gray-600\\'></i>';this.parentElement.classList.add('flex','items-center','justify-center');">
                     </div>` : `<div class="w-full h-28 bg-gray-50 dark:bg-brand-dark flex items-center justify-center flex-shrink-0">
                         <i class="fa-solid fa-file-lines text-3xl text-gray-300 dark:text-gray-600"></i>
                     </div>`}
@@ -2604,7 +2669,8 @@
             if (!h) return;
             const statusColors = { pending: '#f59e0b', reviewed: '#16a34a', revision: '#ef4444' };
             const statusColor = statusColors[h.status] || '#6b7280';
-            const isImage = /\.(jpg|jpeg|png|gif|webp)(\?.*)?$/i.test(h.file_url || '');
+            const fileUrl = h._resolvedFileUrl || resolveHomeworkFileUrl(h);
+            const isImage = typeof h._isImageFile === 'boolean' ? h._isImageFile : isHomeworkImage(h, fileUrl);
 
             // Title & meta
             document.getElementById('hwd-title').textContent = h.title || 'Untitled';
@@ -2637,11 +2703,16 @@
             // Preview
             const previewWrap = document.getElementById('hwd-preview');
             const fileIconBlock = document.getElementById('hwd-file-icon-block');
-            if (isImage && h.file_url) {
-                document.getElementById('hwd-preview-img').src = h.file_url;
+            const previewImg = document.getElementById('hwd-preview-img');
+            previewImg.onerror = function () {
+                previewWrap.classList.add('hidden');
+                fileIconBlock.classList.remove('hidden');
+            };
+            if (isImage && fileUrl) {
+                previewImg.src = fileUrl;
                 previewWrap.classList.remove('hidden');
                 fileIconBlock.classList.add('hidden');
-            } else if (h.file_url) {
+            } else if (fileUrl) {
                 previewWrap.classList.add('hidden');
                 fileIconBlock.classList.remove('hidden');
             } else {
@@ -2669,8 +2740,8 @@
 
             // View file button
             const viewBtn = document.getElementById('hwd-view-file-btn');
-            if (h.file_url) {
-                viewBtn.href = h.file_url;
+            if (fileUrl) {
+                viewBtn.href = fileUrl;
                 viewBtn.classList.remove('hidden');
                 viewBtn.style.display = 'inline-flex';
             } else {
