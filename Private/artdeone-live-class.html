@@ -96,6 +96,18 @@ h1,h2,h3,h4 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em;
   display: none; flex-direction: column;
 }
 #callscreen.active { display: flex; }
+#callscreen.minimized {
+  inset: auto; bottom: 24px; right: 24px;
+  width: 280px; height: 180px;
+  border-radius: 16px; overflow: hidden;
+  border: 1px solid #2a2a35;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+  z-index: 9999; cursor: grab;
+  animation: popIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+#callscreen.minimized .call-header,
+#callscreen.minimized .toolbar,
+#callscreen.minimized .network-badge { display: none; }
 
 #jitsi-frame {
   flex: 1; width: 100%; border: none;
@@ -441,7 +453,7 @@ h1,h2,h3,h4 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em;
 </div>
 
 <!-- Jitsi External API -->
-<script src="https://8x8.vc/external_api.js"></script>
+<script src="https://8x8.vc/vpaas-magic-cookie-90638203af1945a7ae64a99c456097b7/external_api.js" async></script>
 
 <script>
 let jitsiApi = null;
@@ -693,17 +705,8 @@ function minimizeCall() {
 
   const callscreen = document.getElementById('callscreen');
   const miniPopup = document.getElementById('mini-popup');
-  const miniContainer = document.getElementById('mini-container');
 
-  // Move jitsi iframe into mini container
-  const jitsiFrame = callscreen.querySelector('iframe');
-  if (jitsiFrame) {
-    jitsiFrame.style.width = '100%';
-    jitsiFrame.style.height = '100%';
-    miniContainer.appendChild(jitsiFrame);
-  }
-
-  callscreen.classList.remove('active');
+  callscreen.classList.add('minimized');
   miniPopup.classList.add('active');
   showToast('Class minimized', 'fa-compress');
 }
@@ -714,17 +717,13 @@ function restoreCall() {
 
   const callscreen = document.getElementById('callscreen');
   const miniPopup = document.getElementById('mini-popup');
-  const jitsiContainer = document.getElementById('jitsi-container');
 
-  const jitsiFrame = miniPopup.querySelector('iframe');
-  if (jitsiFrame) {
-    jitsiFrame.style.width = '100%';
-    jitsiFrame.style.height = '100%';
-    jitsiContainer.prepend(jitsiFrame);
-  }
-
+  callscreen.classList.remove('minimized');
+  callscreen.style.left = '';
+  callscreen.style.top = '';
+  callscreen.style.right = '';
+  callscreen.style.bottom = '';
   miniPopup.classList.remove('active');
-  callscreen.classList.add('active');
 }
 
 // ─────────────────────── End Call ───────────────────────
@@ -742,7 +741,9 @@ function cleanupCall() {
   clearInterval(durationTimer);
   durationSec = 0;
 
-  document.getElementById('callscreen').classList.remove('active');
+  const cs = document.getElementById('callscreen');
+  cs.classList.remove('active', 'minimized');
+  cs.style.left = ''; cs.style.top = ''; cs.style.right = ''; cs.style.bottom = '';
   document.getElementById('mini-popup').classList.remove('active');
   document.getElementById('prejoin').style.display = 'flex';
   document.getElementById('join-btn').disabled = false;
@@ -774,37 +775,43 @@ function startDurationTimer() {
 // ─────────────────────── Draggable Mini Popup ───────────────────────
 (function() {
   const popup = document.getElementById('mini-popup');
+  const callscreen = document.getElementById('callscreen');
   let dragging = false, ox = 0, oy = 0;
+
+  function getTarget() { return callscreen.classList.contains('minimized') ? callscreen : popup; }
 
   popup.addEventListener('mousedown', (e) => {
     if (e.target.closest('.mini-btn, .mini-ctrl')) return;
     dragging = true;
-    const rect = popup.getBoundingClientRect();
+    const target = getTarget();
+    const rect = target.getBoundingClientRect();
     ox = e.clientX - rect.left;
     oy = e.clientY - rect.top;
-    popup.style.cursor = 'grabbing';
+    target.style.cursor = 'grabbing';
     e.preventDefault();
   });
 
   document.addEventListener('mousemove', (e) => {
     if (!dragging) return;
-    const x = Math.max(0, Math.min(window.innerWidth - popup.offsetWidth, e.clientX - ox));
-    const y = Math.max(0, Math.min(window.innerHeight - popup.offsetHeight, e.clientY - oy));
-    popup.style.right = 'auto';
-    popup.style.bottom = 'auto';
-    popup.style.left = x + 'px';
-    popup.style.top = y + 'px';
+    const target = getTarget();
+    const x = Math.max(0, Math.min(window.innerWidth - target.offsetWidth, e.clientX - ox));
+    const y = Math.max(0, Math.min(window.innerHeight - target.offsetHeight, e.clientY - oy));
+    target.style.right = 'auto';
+    target.style.bottom = 'auto';
+    target.style.left = x + 'px';
+    target.style.top = y + 'px';
   });
 
   document.addEventListener('mouseup', () => {
     dragging = false;
-    popup.style.cursor = 'grab';
+    getTarget().style.cursor = 'grab';
   });
 
   // Touch drag
   popup.addEventListener('touchstart', (e) => {
     const t = e.touches[0];
-    const rect = popup.getBoundingClientRect();
+    const target = getTarget();
+    const rect = target.getBoundingClientRect();
     ox = t.clientX - rect.left;
     oy = t.clientY - rect.top;
     dragging = true;
@@ -813,12 +820,13 @@ function startDurationTimer() {
   document.addEventListener('touchmove', (e) => {
     if (!dragging) return;
     const t = e.touches[0];
-    const x = Math.max(0, Math.min(window.innerWidth - popup.offsetWidth, t.clientX - ox));
-    const y = Math.max(0, Math.min(window.innerHeight - popup.offsetHeight, t.clientY - oy));
-    popup.style.right = 'auto';
-    popup.style.bottom = 'auto';
-    popup.style.left = x + 'px';
-    popup.style.top = y + 'px';
+    const target = getTarget();
+    const x = Math.max(0, Math.min(window.innerWidth - target.offsetWidth, t.clientX - ox));
+    const y = Math.max(0, Math.min(window.innerHeight - target.offsetHeight, t.clientY - oy));
+    target.style.right = 'auto';
+    target.style.bottom = 'auto';
+    target.style.left = x + 'px';
+    target.style.top = y + 'px';
   }, { passive: true });
 
   document.addEventListener('touchend', () => { dragging = false; });

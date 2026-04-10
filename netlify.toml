@@ -12,11 +12,10 @@
   for = "/*"
   [headers.values]
     Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-    X-Frame-Options = "SAMEORIGIN"
     X-Content-Type-Options = "nosniff"
     X-XSS-Protection = "1; mode=block"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "geolocation=(), microphone=(self \"https://8x8.vc\" \"https://*.8x8.vc\"), camera=(self \"https://8x8.vc\" \"https://*.8x8.vc\"), display-capture=(self \"https://8x8.vc\" \"https://*.8x8.vc\")"
+    Permissions-Policy = "geolocation=(), microphone=(self \"https://8x8.vc\"), camera=(self \"https://8x8.vc\"), display-capture=(self \"https://8x8.vc\")"
     Content-Security-Policy = """
       default-src 'self';
       script-src 'self' 'unsafe-inline' 'unsafe-eval'
@@ -107,4 +106,5 @@
         https://8x8.vc
         https://*.8x8.vc
         https://*.jitsi.net;
-      worker-src 'self' blob:"""
+      worker-src 'self' blob:;
+      frame-ancestors 'self'"""
