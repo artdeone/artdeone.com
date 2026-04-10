@@ -16,7 +16,7 @@
     X-Content-Type-Options = "nosniff"
     X-XSS-Protection = "1; mode=block"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+    Permissions-Policy = "geolocation=(), microphone=(self \"https://8x8.vc\" \"https://*.8x8.vc\"), camera=(self \"https://8x8.vc\" \"https://*.8x8.vc\"), display-capture=(self \"https://8x8.vc\" \"https://*.8x8.vc\")"
     Content-Security-Policy = """
       default-src 'self';
       script-src 'self' 'unsafe-inline' 'unsafe-eval'
@@ -32,15 +32,22 @@
         https://*.tiktokcdn.com
         https://*.ttwstatic.com
         https://*.tiktokv.com
-        https://js.puter.com;
+        https://js.puter.com
+        https://8x8.vc
+        https://*.8x8.vc
+        https://*.jitsi.net
+        https://*.onet.pl;
       style-src 'self' 'unsafe-inline'
         https://cdn.tailwindcss.com
         https://cdnjs.cloudflare.com
         https://fonts.googleapis.com
         https://unpkg.com
         https://*.ttwstatic.com
-        https://*.tiktokcdn.com;
-      img-src 'self' data:
+        https://*.tiktokcdn.com
+        https://8x8.vc
+        https://*.8x8.vc
+        https://*.jitsi.net;
+      img-src 'self' data: blob:
         https://res.cloudinary.com
         https://*.supabase.co
         https://upload.wikimedia.org
@@ -50,15 +57,26 @@
         https://lh3.googleusercontent.com
         https://*.tiktokcdn.com
         https://*.ttwstatic.com
-        https://*.tiktokv.com;
+        https://*.tiktokv.com
+        https://8x8.vc
+        https://*.8x8.vc
+        https://*.onet.pl
+        https://*.onetcdn.com
+        https://*.gravatar.com;
       font-src 'self' data:
         https://fonts.gstatic.com
         https://cdnjs.cloudflare.com
-        https://*.ttwstatic.com;
-      media-src 'self'
+        https://*.ttwstatic.com
+        https://8x8.vc
+        https://*.8x8.vc
+        https://*.jitsi.net;
+      media-src 'self' blob:
         https://res.cloudinary.com
         https://*.tiktokcdn.com
-        https://*.tiktokv.com;
+        https://*.tiktokv.com
+        https://8x8.vc
+        https://*.8x8.vc
+        https://*.jitsi.net;
       connect-src 'self'
         https://*.supabase.co
         wss://*.supabase.co
@@ -72,9 +90,21 @@
         https://*.tiktokv.com
         https://*.ttwstatic.com
         https://js.puter.com
-        https://*.puter.com;
+        https://*.puter.com
+        https://8x8.vc
+        https://*.8x8.vc
+        wss://8x8.vc
+        wss://*.8x8.vc
+        https://*.jitsi.net
+        wss://*.jitsi.net
+        https://*.onet.pl
+        wss://*.onet.pl;
       frame-src 'self'
         https://www.youtube.com
         https://www.youtube-nocookie.com
         https://www.tiktok.com
-        https://*.tiktokv.com"""
+        https://*.tiktokv.com
+        https://8x8.vc
+        https://*.8x8.vc
+        https://*.jitsi.net;
+      worker-src 'self' blob:"""

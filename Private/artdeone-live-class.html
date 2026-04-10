@@ -543,7 +543,7 @@ function initJitsi(room, name, startMic, startCam) {
             frameRate: { ideal: 30, min: 15 }
           }
         },
-        p2p: { enabled: true, stunServers: [{ urls: 'stun:meet-jit-si-turnrelay.jitsi.net:443' }] },
+        p2p: { enabled: true },
         channelLastN: 8,
         adaptiveLastN: true,
         adaptiveBandwidth: true,
@@ -587,7 +587,7 @@ function initJitsi(room, name, startMic, startCam) {
     // Network quality detection
     jitsiApi.addEventListener('connectionQualityChanged', (data) => {
       const badge = document.getElementById('network-badge');
-      if (data.localStats && data.localStats.packetLoss > 15) {
+      if (data.local && data.local.packetLoss && data.local.packetLoss.total > 15) {
         badge.classList.add('visible');
         setTimeout(() => badge.classList.remove('visible'), 5000);
       }
