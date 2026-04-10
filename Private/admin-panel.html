@@ -823,6 +823,86 @@
                 padding: 20px;
             }
         }
+
+        /* ── Batch Management ── */
+        #batches-container { padding: 16px; }
+        .batch-card { padding:16px; border:1px solid var(--border); border-radius:12px; margin-bottom:12px; transition:var(--transition); display:flex; justify-content:space-between; align-items:center; }
+        .batch-card:hover { border-color:var(--green); }
+        .batch-card-info h3 { font-size:.9rem; font-weight:600; margin-bottom:4px; }
+        .batch-card-info p { font-size:.78rem; color:var(--muted); }
+        .batch-card-info .batch-date { font-size:.72rem; color:#bbb; margin-top:6px; }
+        #assign-batch-student-list label { display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:8px; cursor:pointer; transition:var(--transition); }
+        #assign-batch-student-list label:hover { background:var(--bg); }
+        /* ── Software Card Grid ── */
+        .sw-card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+        .sw-card {
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: var(--transition);
+            background: var(--card);
+        }
+        .sw-card:hover {
+            border-color: var(--green);
+            box-shadow: 0 4px 20px rgba(0,0,0,.06);
+        }
+        .sw-card-thumb {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            display: block;
+            background: #f3f4f6;
+        }
+        .sw-card-thumb-fallback {
+            width: 100%;
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #e0e7ff 0%, #f3f4f6 100%);
+            color: #4f46e5;
+            font-size: 3rem;
+        }
+        .sw-card-body {
+            padding: 16px;
+        }
+        .sw-card-body h4 {
+            font-size: .9rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .sw-card-body p {
+            font-size: .78rem;
+            color: var(--muted);
+            margin-bottom: 12px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .sw-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .sw-card-badges {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .sw-card-actions {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
     </style>
 </head>
 
@@ -911,6 +991,9 @@
             </div>
             <div class="sidebar-link" data-section="homework">
                 <i class="fa-solid fa-file-lines"></i> Homework
+            </div>
+            <div class="sidebar-link" data-section="batches">
+                <i class="fa-solid fa-layer-group"></i> Batches
             </div>
         </aside>
 
@@ -1249,6 +1332,21 @@
                 </div>
             </section>
 
+            <!-- ─── Batches ─── -->
+            <section id="batches-section" class="section">
+                <div class="page-header">
+                    <div>
+                        <h1>Batches</h1>
+                        <p>Organize students into batches for targeted management</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openModal('add-batch')"><i class="fa-solid fa-plus"></i> New Batch</button>
+                </div>
+                <div class="stat-grid" id="batch-stats-grid"></div>
+                <div class="card" id="batches-container">
+                    <div class="empty-state"><i class="fa-solid fa-circle-notch fa-spin"></i><p>Loading…</p></div>
+                </div>
+            </section>
+
         </main>
     </div>
 
@@ -1418,6 +1516,12 @@
                 <input type="datetime-local" name="expires_at" class="form-input">
                 <p class="form-hint">Leave blank for no expiry</p>
 
+                <label class="form-label">Assign to Batch (Optional)</label>
+                <select name="batch_id" class="form-input" id="invite-code-batch-select">
+                    <option value="">— No batch —</option>
+                </select>
+                <p class="form-hint">Students using this code will be auto-assigned to this batch</p>
+
                 <label class="form-label">How many codes?</label>
                 <input type="number" name="count" class="form-input" value="1" min="1" max="50">
 
@@ -1499,6 +1603,16 @@
                     <option value="high">High</option>
                     <option value="urgent">Urgent</option>
                 </select>
+                <div id="announcement-student-wrap" style="display:none;">
+                    <label class="form-label">Target Student</label>
+                    <select name="student_id" class="form-input" id="announcement-student-select">
+                        <option value="">— Select a student —</option>
+                    </select>
+                </div>
+                <label class="form-label">Target Batch (Optional)</label>
+                <select name="batch_id" class="form-input" id="announcement-batch-select">
+                    <option value="">— No specific batch —</option>
+                </select>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i>
                         Publish</button>
@@ -1557,6 +1671,10 @@
 
                 <label class="form-label">Description (Optional)</label>
                 <input type="text" id="sw-description" class="form-input" placeholder="e.g. Version 25.0, Required for Module 3">
+
+                <label class="form-label">Thumbnail URL (Optional)</label>
+                <input type="url" id="sw-thumbnail-url" class="form-input" placeholder="https://res.cloudinary.com/...">
+                <p class="form-hint">Paste a Cloudinary image URL for the software thumbnail</p>
 
                 <label class="form-label">Platform</label>
                 <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:16px;">
@@ -1649,6 +1767,46 @@
                 <button class="btn btn-primary" id="hw-review-save-btn" onclick="saveHwReview()"><i class="fa-solid fa-paper-plane"></i> Submit Review</button>
                 <button class="btn btn-secondary" onclick="closeModal('hw-review')">Cancel</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Add Batch -->
+    <div id="add-batch-modal" class="modal">
+        <div class="modal-box" style="max-width:440px;">
+            <div class="modal-header">
+                <h2>New Batch</h2><button class="modal-close" onclick="closeModal('add-batch')">&times;</button>
+            </div>
+            <div id="add-batch-alert"></div>
+            <form id="add-batch-form">
+                <label class="form-label">Batch Name</label>
+                <input type="text" name="name" class="form-input" required placeholder="e.g. Batch 1 — January 2026">
+                <label class="form-label">Description (Optional)</label>
+                <textarea name="description" class="form-input" rows="2" placeholder="Brief description of this batch"></textarea>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Create Batch</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('add-batch')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Assign Batch Modal -->
+    <div id="assign-batch-modal" class="modal">
+        <div class="modal-box" style="max-width:480px;">
+            <div class="modal-header">
+                <h2>Assign Students to Batch</h2><button class="modal-close" onclick="closeModal('assign-batch')">&times;</button>
+            </div>
+            <div id="assign-batch-alert"></div>
+            <form id="assign-batch-form">
+                <label class="form-label">Batch</label>
+                <select id="assign-batch-select" class="form-input" required></select>
+                <label class="form-label">Students</label>
+                <div id="assign-batch-student-list" style="max-height:300px; overflow-y:auto; border:1px solid var(--border); border-radius:10px; padding:8px;"></div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Save Assignments</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('assign-batch')">Cancel</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -2059,6 +2217,113 @@
         let currentFileMode = 'upload';
         let selectedFile = null;
 
+        function sanitizeBaseUrl(value) {
+            const trimmed = typeof value === 'string' ? value.trim() : '';
+            if (!trimmed) return '';
+            try {
+                const url = new URL(trimmed);
+                return `${url.origin}${url.pathname}`.replace(/\/+$/, '');
+            } catch {
+                return trimmed.replace(/\/+$/, '');
+            }
+        }
+
+        function encodeUrlPath(path) {
+            return path
+                .split('/')
+                .filter(Boolean)
+                .map(part => {
+                    try {
+                        return encodeURIComponent(decodeURIComponent(part));
+                    } catch {
+                        return encodeURIComponent(part);
+                    }
+                })
+                .join('/');
+        }
+
+        function extractR2ObjectPath(rawUrl, workerUrl = '') {
+            const trimmed = typeof rawUrl === 'string' ? rawUrl.trim() : '';
+            if (!trimmed) return '';
+            if (!/^(https?:)?\/\//i.test(trimmed)) return trimmed.replace(/^\/+/, '');
+
+            try {
+                const parsed = new URL(trimmed);
+                let path = parsed.pathname.replace(/^\/+/, '');
+                const normalizedWorker = sanitizeBaseUrl(workerUrl);
+                if (normalizedWorker) {
+                    const workerPath = new URL(normalizedWorker).pathname.replace(/^\/+|\/+$/g, '');
+                    if (workerPath && path.toLowerCase().startsWith(workerPath.toLowerCase() + '/')) {
+                        path = path.slice(workerPath.length + 1);
+                    } else if (workerPath && path.toLowerCase() === workerPath.toLowerCase()) {
+                        path = '';
+                    }
+                }
+                return path;
+            } catch {
+                return '';
+            }
+        }
+
+        function buildR2PublicUrl(path, publicBaseUrl) {
+            const normalizedBase = sanitizeBaseUrl(publicBaseUrl);
+            const normalizedPath = encodeUrlPath((path || '').replace(/^\/+/, ''));
+            return normalizedBase && normalizedPath ? `${normalizedBase}/${normalizedPath}` : '';
+        }
+
+        function normalizeR2FileUrl(rawUrl, { publicBaseUrl = '', workerUrl = '' } = {}) {
+            const trimmed = typeof rawUrl === 'string' ? rawUrl.trim() : '';
+            if (!trimmed) return '';
+            if (/drive\.google\.com/i.test(trimmed)) return trimmed;
+
+            const normalizedPublicBase = sanitizeBaseUrl(publicBaseUrl);
+            const normalizedWorker = sanitizeBaseUrl(workerUrl);
+            if (!normalizedPublicBase) return trimmed;
+
+            if (!/^(https?:)?\/\//i.test(trimmed)) {
+                const objectPath = extractR2ObjectPath(trimmed, normalizedWorker);
+                return objectPath ? buildR2PublicUrl(objectPath, normalizedPublicBase) : trimmed;
+            }
+
+            try {
+                const parsed = new URL(trimmed);
+                const publicParsed = new URL(normalizedPublicBase);
+                if (parsed.origin === publicParsed.origin) {
+                    return buildR2PublicUrl(parsed.pathname, normalizedPublicBase) || trimmed;
+                }
+
+                const workerHost = normalizedWorker ? new URL(normalizedWorker).hostname.toLowerCase() : '';
+                const host = parsed.hostname.toLowerCase();
+                const shouldRewrite = host.endsWith('.r2.dev') || (workerHost && host === workerHost);
+                if (!shouldRewrite) return trimmed;
+
+                const objectPath = extractR2ObjectPath(trimmed, normalizedWorker);
+                return objectPath ? buildR2PublicUrl(objectPath, normalizedPublicBase) : trimmed;
+            } catch {
+                return trimmed;
+            }
+        }
+
+        async function migrateStoredR2Links() {
+            if (!r2PublicUrl) return 0;
+            const { data, error } = await supabase.from('course_files').select('id, file_url');
+            if (error) throw error;
+
+            const updates = (data || []).map(row => {
+                const nextUrl = normalizeR2FileUrl(row.file_url, { publicBaseUrl: r2PublicUrl, workerUrl: r2WorkerUrl });
+                return nextUrl && nextUrl !== row.file_url ? { id: row.id, file_url: nextUrl } : null;
+            }).filter(Boolean);
+
+            if (!updates.length) return 0;
+
+            const results = await Promise.all(
+                updates.map(row => supabase.from('course_files').update({ file_url: row.file_url }).eq('id', row.id))
+            );
+            const failed = results.find(result => result.error);
+            if (failed?.error) throw failed.error;
+            return updates.length;
+        }
+
         function loadR2Settings() {
             r2WorkerUrl = localStorage.getItem('r2_worker_url') || '';
             r2PublicUrl = localStorage.getItem('r2_public_url') || '';
@@ -2068,12 +2333,25 @@
             if (pEl) pEl.value = r2PublicUrl;
         }
 
-        function saveR2Settings() {
-            r2WorkerUrl = document.getElementById('r2-worker-url').value.trim();
-            r2PublicUrl = document.getElementById('r2-public-url').value.trim();
-            localStorage.setItem('r2_worker_url', r2WorkerUrl);
-            localStorage.setItem('r2_public_url', r2PublicUrl);
-            closeModal('r2-settings');
+        async function saveR2Settings() {
+            try {
+                r2WorkerUrl = sanitizeBaseUrl(document.getElementById('r2-worker-url').value);
+                r2PublicUrl = sanitizeBaseUrl(document.getElementById('r2-public-url').value);
+                localStorage.setItem('r2_worker_url', r2WorkerUrl);
+                localStorage.setItem('r2_public_url', r2PublicUrl);
+                let migratedCount = 0;
+                if (r2PublicUrl) {
+                    migratedCount = await migrateStoredR2Links();
+                    loadFiles();
+                    loadSoftware();
+                }
+                closeModal('r2-settings');
+                if (migratedCount > 0) {
+                    window.alert(`R2 settings saved. Updated ${migratedCount} existing file link${migratedCount === 1 ? '' : 's'} to use the public download URL.`);
+                }
+            } catch (err) {
+                window.alert(err?.message || 'Failed to save R2 settings.');
+            }
         }
 
         function setFileTab(mode) {
@@ -2125,7 +2403,7 @@
             </div>
             <span class="badge badge-dot ${f.is_active !== false ? 'badge-green' : 'badge-gray'}" style="flex-shrink:0;">${f.is_active !== false ? 'Active' : 'Hidden'}</span>
             <div class="action-btns" style="flex-shrink:0;">
-                <a href="${f.file_url}" target="_blank" class="btn btn-ghost" title="Preview"><i class="fa-solid fa-eye"></i></a>
+                <a href="${normalizeR2FileUrl(f.file_url, { publicBaseUrl: r2PublicUrl, workerUrl: r2WorkerUrl }) || f.file_url}" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" title="Preview"><i class="fa-solid fa-eye"></i></a>
                 <button class="btn btn-ghost" onclick="toggleFileActive('${f.id}', ${f.is_active !== false})" title="Toggle visibility"><i class="fa-solid fa-toggle-${f.is_active !== false ? 'on' : 'off'}" style="color:${f.is_active !== false ? 'var(--green)' : 'var(--muted)'};"></i></button>
                 <button class="btn btn-danger btn-ghost" onclick="deleteFile('${f.id}')" title="Delete"><i class="fa-solid fa-trash"></i></button>
             </div>
@@ -2142,7 +2420,7 @@
 
         // ── Software Downloads ──
         let selectedSoftwareFile = null;
-        let currentSoftwareTab = 'upload';
+        let currentSoftwareTab = 'url';
         let currentPlatform = 'win';
 
         function openAddSoftwareModal() {
@@ -2218,6 +2496,7 @@
                     fileUrl = document.getElementById('sw-manual-url').value.trim();
                     if (!fileUrl) { modalAlert('add-software', 'Please paste a valid R2 URL.'); return; }
                 }
+                fileUrl = normalizeR2FileUrl(fileUrl, { publicBaseUrl: r2PublicUrl, workerUrl: r2WorkerUrl });
 
                 // Store platform as prefix in description: [win], [mac], [both]
                 const descWithPlatform = `[${platform}]${description}`;
@@ -2225,7 +2504,7 @@
                 const { error } = await supabase.from('course_files').insert([{
                     title, description: descWithPlatform, file_url: fileUrl,
                     file_name: fileName || null, file_size_kb: fileSize ? Math.round(fileSize / 1024) : null,
-                    file_type: 'software', course_id: null, is_active: true,
+                    file_type: 'Software / App', course_id: null, is_active: true,
                     file_description: descWithPlatform
                 }]);
                 if (error) throw error;
@@ -2278,7 +2557,7 @@
                 ${platLabel}
                 <span class="badge badge-dot ${f.is_active !== false ? 'badge-green' : 'badge-gray'}" style="flex-shrink:0;">${f.is_active !== false ? 'Active' : 'Hidden'}</span>
                 <div class="action-btns" style="flex-shrink:0;">
-                    <a href="${f.file_url}" target="_blank" class="btn btn-ghost" title="Preview"><i class="fa-solid fa-eye"></i></a>
+                    <a href="${normalizeR2FileUrl(f.file_url, { publicBaseUrl: r2PublicUrl, workerUrl: r2WorkerUrl }) || f.file_url}" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" title="Preview"><i class="fa-solid fa-eye"></i></a>
                     <button class="btn btn-ghost" onclick="toggleSoftwareActive('${f.id}', ${f.is_active !== false})"><i class="fa-solid fa-toggle-${f.is_active !== false ? 'on' : 'off'}" style="color:${f.is_active !== false ? 'var(--green)' : 'var(--muted)'};"></i></button>
                     <button class="btn btn-danger btn-ghost" onclick="deleteSoftware('${f.id}')"><i class="fa-solid fa-trash"></i></button>
                 </div>
@@ -2348,6 +2627,7 @@
                     fileUrl = document.getElementById('manual-file-url').value.trim();
                     if (!fileUrl) { modalAlert('add-file', 'Please paste a valid R2 URL.'); return; }
                 }
+                fileUrl = normalizeR2FileUrl(fileUrl, { publicBaseUrl: r2PublicUrl, workerUrl: r2WorkerUrl });
 
                 const { error } = await supabase.from('course_files').insert([{
                     title, description: description || null, file_url: fileUrl,
@@ -2796,6 +3076,582 @@
         window.generateAdminRoom = generateAdminRoom;
         window.joinAdminLiveClass = joinAdminLiveClass;
         window.copyAdminInviteLink = copyAdminInviteLink;
+
+        // ── Batches ──
+        let allBatches = [];
+
+        async function loadBatches() {
+            const { data } = await supabase.from('batches').select('*').order('created_at', { ascending: false });
+            allBatches = data || [];
+            renderBatches();
+            return allBatches;
+        }
+
+        function renderBatches() {
+            const container = document.getElementById('batches-container');
+            if (!allBatches.length) {
+                container.innerHTML = '<div class="empty-state"><i class="fa-solid fa-layer-group"></i><p>No batches yet. Create one to organize your students.</p></div>';
+                return;
+            }
+            container.innerHTML = allBatches.map(b => `
+                <div class="batch-card">
+                    <div class="batch-card-info">
+                        <h3>${b.name}</h3>
+                        <p>${b.description || 'No description'}</p>
+                        <div class="batch-date">Created: ${new Date(b.created_at).toLocaleDateString()}</div>
+                    </div>
+                    <div style="display:flex; gap:8px;">
+                        <button class="btn btn-ghost" onclick="deleteBatch('${b.id}')" title="Delete"><i class="fa-solid fa-trash" style="color:var(--red);"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        document.getElementById('add-batch-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const d = Object.fromEntries(new FormData(e.target));
+            try {
+                const { error } = await supabase.from('batches').insert([d]);
+                if (error) throw error;
+                modalAlert('add-batch', 'Batch created!', 'success');
+                setTimeout(() => { closeModal('add-batch'); e.target.reset(); loadBatches(); populateBatchSelects(); }, 1200);
+            } catch (err) { modalAlert('add-batch', err.message); }
+        });
+
+        window.deleteBatch = async function(id) {
+            if (!confirm('Delete this batch? Students in this batch will be unassigned.')) return;
+            const { error } = await supabase.from('batches').delete().eq('id', id);
+            if (error) { alert('Error: ' + error.message); return; }
+            loadBatches();
+            populateBatchSelects();
+        };
+
+        async function populateBatchSelects() {
+            if (!allBatches.length) await loadBatches();
+            const options = '<option value="">— No specific batch —</option>' + allBatches.map(b => `<option value="${b.id}">${b.name}</option>`).join('');
+
+            const announcementSelect = document.getElementById('announcement-batch-select');
+            if (announcementSelect) announcementSelect.innerHTML = options;
+
+            const assignSelect = document.getElementById('assign-batch-select');
+            if (assignSelect) assignSelect.innerHTML = allBatches.map(b => `<option value="${b.id}">${b.name}</option>`).join('');
+        }
+
+        // Handle empty batch_id in announcement form (prevent empty string for UUID column)
+        const announcementBatchSelect = document.getElementById('announcement-batch-select');
+        if (announcementBatchSelect) {
+            announcementBatchSelect.addEventListener('change', function() {
+                if (!this.value) {
+                    this.removeAttribute('name');
+                } else {
+                    this.setAttribute('name', 'batch_id');
+                }
+            });
+            // Initial state: no name attribute so empty value doesn't get submitted
+            announcementBatchSelect.removeAttribute('name');
+        }
+
+        // Assign batch modal
+        window.openAssignBatchModal = async function() {
+            await populateBatchSelects();
+            if (!allStudents.length) await loadStudents();
+            const list = document.getElementById('assign-batch-student-list');
+            list.innerHTML = allStudents.map(s => `
+                <label>
+                    <input type="checkbox" value="${s.id}" class="assign-batch-checkbox" ${s.batch_id ? 'checked' : ''} style="accent-color:var(--green);">
+                    <img src="${s.avatar_url || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(s.full_name || s.email) + '&background=a7e169&color=000&size=28'}" style="width:28px; height:28px; border-radius:50%; object-fit:cover;">
+                    <div>
+                        <div style="font-size:.82rem; font-weight:500;">${s.full_name || s.email}</div>
+                        <div style="font-size:.7rem; color:var(--muted);">${s.batch_id ? 'Assigned' : 'Unassigned'}</div>
+                    </div>
+                </label>
+            `).join('');
+            openModal('assign-batch');
+        };
+
+        document.getElementById('assign-batch-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const batchId = document.getElementById('assign-batch-select').value;
+            if (!batchId) { modalAlert('assign-batch', 'Please select a batch'); return; }
+            const checked = [...document.querySelectorAll('.assign-batch-checkbox:checked')].map(c => c.value);
+            if (!checked.length) { modalAlert('assign-batch', 'Please select at least one student'); return; }
+            try {
+                const { error } = await supabase.from('students').update({ batch_id: batchId }).in('id', checked);
+                if (error) throw error;
+                modalAlert('assign-batch', `${checked.length} student(s) assigned!`, 'success');
+                setTimeout(() => { closeModal('assign-batch'); loadStudents(); }, 1200);
+            } catch (err) { modalAlert('assign-batch', err.message); }
+        });
+
+        // Load batches when the batches sidebar link is clicked
+        const batchesSidebarLink = document.querySelector('.sidebar-link[data-section="batches"]');
+        if (batchesSidebarLink) {
+            batchesSidebarLink.addEventListener('click', () => {
+                loadBatches();
+                populateBatchSelects();
+            });
+        }
+
+        // Dynamically add Batch column to students table
+        function addBatchColumnToStudentsTable() {
+            const thead = document.querySelector('#students-section table thead tr');
+            if (thead && !thead.querySelector('.batch-th')) {
+                const th = document.createElement('th');
+                th.className = 'batch-th';
+                th.textContent = 'Batch';
+                const refTh = thead.children[3]; // Insert before Status column
+                thead.insertBefore(th, refTh);
+            }
+        }
+
+        // After students render, inject batch info into each row
+        function injectBatchColumn() {
+            addBatchColumnToStudentsTable();
+            const rows = document.querySelectorAll('#students-tbody tr');
+            rows.forEach(row => {
+                if (row.querySelector('.batch-td')) return;
+                const emailEl = row.querySelector('td:first-child div div:last-child');
+                const email = emailEl ? emailEl.textContent.trim() : '';
+                const student = allStudents.find(s => s.email === email);
+                const batch = student?.batch_id ? allBatches.find(b => b.id === student.batch_id) : null;
+                const td = document.createElement('td');
+                td.className = 'batch-td';
+                td.innerHTML = batch ? `<span class="badge badge-green">${batch.name}</span>` : '<span style="color:var(--muted);">—</span>';
+                const refTd = row.children[3];
+                if (refTd) row.insertBefore(td, refTd);
+            });
+        }
+
+        // Observe students tbody for changes to inject batch column
+        const studentsTbody = document.getElementById('students-tbody');
+        if (studentsTbody) {
+            new MutationObserver(() => {
+                setTimeout(injectBatchColumn, 50);
+            }).observe(studentsTbody, { childList: true });
+        }
+
+        // Pre-load batches data
+        loadBatches().then(() => populateBatchSelects());
+
+        // ── Invite Code Batch Integration ──
+        // Populate batch dropdown when gen-code modal opens
+        const _origOpenModal = openModal;
+        window.openModal = function(name) {
+            _origOpenModal(name);
+            if (name === 'gen-code') {
+                populateInviteCodeBatchSelect();
+            }
+            if (name === 'add-announcement') {
+                populateAnnouncementStudentSelect();
+                populateBatchSelects();
+            }
+        };
+
+        async function populateInviteCodeBatchSelect() {
+            if (!allBatches.length) await loadBatches();
+            const sel = document.getElementById('invite-code-batch-select');
+            if (!sel) return;
+            sel.innerHTML = '<option value="">— No batch —</option>' + allBatches.map(b => `<option value="${b.id}">${b.name}</option>`).join('');
+        }
+
+        // Handle empty batch_id in invite code form (prevent empty string for UUID column)
+        const inviteCodeBatchSelect = document.getElementById('invite-code-batch-select');
+        if (inviteCodeBatchSelect) {
+            inviteCodeBatchSelect.removeAttribute('name');
+            inviteCodeBatchSelect.addEventListener('change', function() {
+                if (!this.value) {
+                    this.removeAttribute('name');
+                } else {
+                    this.setAttribute('name', 'batch_id');
+                }
+            });
+        }
+
+        // Intercept gen-code form to include batch_id in the insert
+        // The existing handler uses FormData which won't include batch_id when name is removed
+        // We need to patch the insert to include batch_id from the select
+        // Since we can't modify the existing submit handler, we add a listener that
+        // stores the batch_id before the form submits and patches it after
+        const genCodeForm = document.getElementById('gen-code-form');
+        if (genCodeForm) {
+            genCodeForm.addEventListener('submit', function() {
+                const sel = document.getElementById('invite-code-batch-select');
+                if (sel && sel.value) {
+                    // Temporarily set the name so FormData picks it up
+                    sel.setAttribute('name', 'batch_id');
+                } else if (sel) {
+                    sel.removeAttribute('name');
+                }
+            }, true); // capture phase — runs BEFORE the existing handler
+        }
+
+        // ── Individual Student Announcement Targeting ──
+        async function populateAnnouncementStudentSelect() {
+            if (!allStudents.length) await loadStudents();
+            const sel = document.getElementById('announcement-student-select');
+            if (!sel) return;
+            sel.innerHTML = '<option value="">— Select a student —</option>' + allStudents.map(s => `<option value="${s.id}">${s.full_name || s.email}</option>`).join('');
+        }
+
+        // Show/hide student select based on target_audience
+        const targetAudienceSelect = document.querySelector('#add-announcement-form select[name="target_audience"]');
+        if (targetAudienceSelect) {
+            targetAudienceSelect.addEventListener('change', function() {
+                const wrap = document.getElementById('announcement-student-wrap');
+                const studentSel = document.getElementById('announcement-student-select');
+                if (this.value === 'individual') {
+                    if (wrap) wrap.style.display = '';
+                    if (studentSel) studentSel.setAttribute('name', 'student_id');
+                } else {
+                    if (wrap) wrap.style.display = 'none';
+                    if (studentSel) {
+                        studentSel.removeAttribute('name');
+                        studentSel.value = '';
+                    }
+                }
+            });
+        }
+
+        // Handle empty student_id — remove name when empty so UUID column gets null
+        const announcementStudentSelect = document.getElementById('announcement-student-select');
+        if (announcementStudentSelect) {
+            announcementStudentSelect.removeAttribute('name');
+            announcementStudentSelect.addEventListener('change', function() {
+                if (!this.value) {
+                    this.removeAttribute('name');
+                } else {
+                    this.setAttribute('name', 'student_id');
+                }
+            });
+        }
+
+        // After invite code generation, update batch_id on newly created codes
+        // We observe the gen-code-result element for changes (it becomes visible after generation)
+        const genCodeResult = document.getElementById('gen-code-result');
+        if (genCodeResult) {
+            new MutationObserver(async function(mutations) {
+                for (const m of mutations) {
+                    if (m.type === 'attributes' && m.attributeName === 'class') {
+                        if (!genCodeResult.classList.contains('hidden')) {
+                            // Codes were just generated — check if batch was selected
+                            const batchSel = document.getElementById('invite-code-batch-select');
+                            const batchId = batchSel ? batchSel.value : '';
+                            if (batchId) {
+                                const codeText = document.getElementById('gen-code-display').textContent;
+                                const codes = codeText.split(' · ').map(c => c.trim()).filter(Boolean);
+                                for (const code of codes) {
+                                    await supabase.from('invite_codes').update({ batch_id: batchId }).eq('code', code);
+                                }
+                            }
+                        }
+                    }
+                }
+            }).observe(genCodeResult, { attributes: true, attributeFilter: ['class'] });
+        }
+
+    // ── Override loadSoftware to fix file_type mismatch & add Edit button ──
+    loadSoftware = async function loadSoftware() {
+        let { data } = await supabase.from('course_files').select('*')
+            .or('file_type.eq.software,file_type.eq.Software / App')
+            .order('upload_date', { ascending: false });
+        const container = document.getElementById('software-list-container');
+        if (!data?.length) {
+            container.innerHTML = `<div class="empty-state"><i class="fa-solid fa-floppy-disk"></i><p>No software added yet — click "Add Software" to upload</p></div>`;
+            return;
+        }
+
+        const renderItem = (f) => {
+            const plat = getSoftwarePlatform(f);
+            const desc = getSoftwareCleanDesc(f);
+            const platLabel = plat === 'win' ? '<span class="badge badge-blue"><i class="fa-brands fa-windows"></i> Windows</span>' : plat === 'mac' ? '<span class="badge badge-gray"><i class="fa-brands fa-apple"></i> Mac</span>' : '<span class="badge badge-gray">Win + Mac</span>';
+            return `<div class="file-item">
+                <div class="file-icon" style="background:#e0e7ff; color:#4f46e5;"><i class="fa-solid fa-floppy-disk"></i></div>
+                <div class="file-info">
+                    <h4>${f.title || f.file_name || 'Untitled'}</h4>
+                    <p>${desc ? desc + (f.file_size_kb ? ' · ' : '') : ''}${f.file_size_kb ? formatSize(f.file_size_kb * 1024) : ''}</p>
+                </div>
+                ${platLabel}
+                <span class="badge badge-dot ${f.is_active !== false ? 'badge-green' : 'badge-gray'}" style="flex-shrink:0;">${f.is_active !== false ? 'Active' : 'Hidden'}</span>
+                <div class="action-btns" style="flex-shrink:0;">
+                    <a href="${normalizeR2FileUrl(f.file_url, { publicBaseUrl: r2PublicUrl, workerUrl: r2WorkerUrl }) || f.file_url}" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" title="Preview"><i class="fa-solid fa-eye"></i></a>
+                    <button class="btn btn-ghost" onclick="editSoftware('${f.id}')" title="Edit"><i class="fa-solid fa-pen"></i></button>
+                    <button class="btn btn-ghost" onclick="toggleSoftwareActive('${f.id}', ${f.is_active !== false})"><i class="fa-solid fa-toggle-${f.is_active !== false ? 'on' : 'off'}" style="color:${f.is_active !== false ? 'var(--green)' : 'var(--muted)'};"></i></button>
+                    <button class="btn btn-danger btn-ghost" onclick="deleteSoftware('${f.id}')"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            </div>`;
+        };
+
+        container.innerHTML = data.map(renderItem).join('');
+    };
+
+    // ── Inject Edit Software Modal ──
+    (function injectEditSoftwareModal() {
+        const modalDiv = document.createElement('div');
+        modalDiv.id = 'edit-software-modal';
+        modalDiv.className = 'modal';
+        modalDiv.innerHTML = `
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2>Edit Software</h2><button class="modal-close" onclick="closeModal('edit-software')">&times;</button>
+            </div>
+            <div id="edit-software-alert"></div>
+            <form id="edit-software-form" onsubmit="event.preventDefault(); saveEditSoftware();">
+                <input type="hidden" id="edit-sw-id">
+                <label class="form-label">Software Name</label>
+                <input type="text" id="edit-sw-title" class="form-input" required placeholder="e.g. Adobe Photoshop 2025">
+                <label class="form-label">Description (Optional)</label>
+                <input type="text" id="edit-sw-description" class="form-input" placeholder="e.g. Version 25.0, Required for Module 3">
+                <label class="form-label">Google Drive Link (URL)</label>
+                <input type="url" id="edit-sw-url" class="form-input" required placeholder="https://drive.google.com/file/d/...">
+                <label class="form-label">Platform</label>
+                <select id="edit-sw-platform" class="form-input">
+                    <option value="win">Windows</option>
+                    <option value="mac">Mac OS</option>
+                    <option value="both">Both</option>
+                </select>
+                <label class="form-label" style="margin-top:12px;">Active</label>
+                <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                    <input type="checkbox" id="edit-sw-active" style="width:18px; height:18px;">
+                    <span>Visible to students</span>
+                </label>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Save</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('edit-software')">Cancel</button>
+                </div>
+            </form>
+        </div>`;
+        document.body.appendChild(modalDiv);
+    })();
+
+    // ── editSoftware: fetch record & open modal ──
+    async function editSoftware(id) {
+        const { data, error } = await supabase.from('course_files').select('*').eq('id', id).single();
+        if (error || !data) { alert('Could not load software record.'); return; }
+        document.getElementById('edit-sw-id').value = data.id;
+        document.getElementById('edit-sw-title').value = data.title || '';
+        document.getElementById('edit-sw-description').value = getSoftwareCleanDesc(data);
+        document.getElementById('edit-sw-url').value = data.file_url || '';
+        document.getElementById('edit-sw-platform').value = getSoftwarePlatform(data);
+        document.getElementById('edit-sw-active').checked = data.is_active !== false;
+        openModal('edit-software');
+    }
+
+    // ── saveEditSoftware: update record in Supabase ──
+    async function saveEditSoftware() {
+        const id = document.getElementById('edit-sw-id').value;
+        const title = document.getElementById('edit-sw-title').value.trim();
+        const description = document.getElementById('edit-sw-description').value.trim();
+        const fileUrl = document.getElementById('edit-sw-url').value.trim();
+        const platform = document.getElementById('edit-sw-platform').value;
+        const isActive = document.getElementById('edit-sw-active').checked;
+
+        if (!title || !fileUrl) { modalAlert('edit-software', 'Name and URL are required.'); return; }
+
+        const descWithPlatform = `[${platform}]${description}`;
+
+        try {
+            const { error } = await supabase.from('course_files').update({
+                title,
+                description: descWithPlatform,
+                file_url: fileUrl,
+                file_description: descWithPlatform,
+                is_active: isActive
+            }).eq('id', id);
+            if (error) throw error;
+            modalAlert('edit-software', 'Software updated successfully!', 'success');
+            setTimeout(() => {
+                closeModal('edit-software');
+                loadSoftware();
+            }, 800);
+        } catch (err) {
+            modalAlert('edit-software', err.message);
+        }
+    }
+
+    // ── Expose to global scope ──
+    window.editSoftware = editSoftware;
+    window.saveEditSoftware = saveEditSoftware;
+
+    // ── Override loadFiles to exclude software from Course Files section ──
+    loadFiles = async function loadFiles() {
+        const courseFilter = document.getElementById('file-filter-course')?.value;
+        const typeFilter = document.getElementById('file-filter-type')?.value;
+
+        let query = supabase.from('course_files').select('*').order('upload_date', { ascending: false });
+        if (courseFilter) query = query.eq('course_id', courseFilter);
+        if (typeFilter) query = query.eq('file_type', typeFilter);
+
+        const { data } = await query;
+        const filtered = (data || []).filter(f => !f.file_type || !f.file_type.toLowerCase().includes('software'));
+        const container = document.getElementById('files-list-container');
+
+        if (!filtered.length) {
+            container.innerHTML = `<div class="empty-state"><i class="fa-solid fa-folder-open"></i><p>No files yet — upload your first course material</p></div>`;
+            return;
+        }
+
+        container.innerHTML = filtered.map(f => {
+            const icons = {
+                'PDF': 'fa-file-pdf pdf',
+                'Video': 'fa-file-video video',
+                'ZIP / Archive': 'fa-file-zipper zip',
+                'Document / PPT': 'fa-file-word doc',
+                'Other': 'fa-file other'
+            };
+            const iconInfo = icons[f.file_type] || 'fa-file other';
+            const [iconClass, colorClass] = iconInfo.split(' ');
+            return `
+        <div class="file-item">
+            <div class="file-icon ${colorClass || 'other'}"><i class="fa-solid ${iconClass}"></i></div>
+            <div class="file-info">
+                <h4>${f.title || f.file_name || 'Untitled'}</h4>
+                <p>${'No course'} ${f.file_description ? '— ' + f.file_description : ''} ${f.file_size_kb ? '· ' + formatSize(f.file_size_kb * 1024) : ''}</p>
+            </div>
+            <span class="badge badge-dot ${f.is_active !== false ? 'badge-green' : 'badge-gray'}" style="flex-shrink:0;">${f.is_active !== false ? 'Active' : 'Hidden'}</span>
+            <div class="action-btns" style="flex-shrink:0;">
+                <a href="${normalizeR2FileUrl(f.file_url, { publicBaseUrl: r2PublicUrl, workerUrl: r2WorkerUrl }) || f.file_url}" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" title="Preview"><i class="fa-solid fa-eye"></i></a>
+                <button class="btn btn-ghost" onclick="toggleFileActive('${f.id}', ${f.is_active !== false})" title="Toggle visibility"><i class="fa-solid fa-toggle-${f.is_active !== false ? 'on' : 'off'}" style="color:${f.is_active !== false ? 'var(--green)' : 'var(--muted)'};"></i></button>
+                <button class="btn btn-danger btn-ghost" onclick="deleteFile('${f.id}')" title="Delete"><i class="fa-solid fa-trash"></i></button>
+            </div>
+        </div>
+        `;
+        }).join('');
+    };
+
+    // ── Patch add-software-form to include thumbnail_url ──
+    const _origSwForm = document.getElementById('add-software-form');
+    if (_origSwForm) {
+        _origSwForm.addEventListener('submit', async function() {
+            // Wait for the original handler to complete (record inserted)
+            // Then update the latest record with thumbnail_url
+            const thumbUrl = document.getElementById('sw-thumbnail-url')?.value.trim();
+            if (!thumbUrl) return;
+            // Small delay to let original insert complete
+            await new Promise(r => setTimeout(r, 600));
+            const { data } = await supabase.from('course_files').select('id')
+                .or('file_type.eq.software,file_type.eq.Software / App')
+                .order('upload_date', { ascending: false }).limit(1);
+            if (data?.[0]) {
+                await supabase.from('course_files').update({ thumbnail_url: thumbUrl }).eq('id', data[0].id);
+            }
+        });
+    }
+
+    // ── Override loadSoftware with thumbnail card grid ──
+    loadSoftware = async function loadSoftware() {
+        let { data } = await supabase.from('course_files').select('*')
+            .or('file_type.eq.software,file_type.eq.Software / App')
+            .order('upload_date', { ascending: false });
+        const container = document.getElementById('software-list-container');
+        if (!data?.length) {
+            container.innerHTML = `<div class="empty-state"><i class="fa-solid fa-floppy-disk"></i><p>No software added yet — click "Add Software" to upload</p></div>`;
+            return;
+        }
+
+        const renderCard = (f) => {
+            const plat = getSoftwarePlatform(f);
+            const desc = getSoftwareCleanDesc(f);
+            const platBadge = plat === 'win' ? '<span class="badge badge-blue"><i class="fa-brands fa-windows"></i> Windows</span>' : plat === 'mac' ? '<span class="badge badge-gray"><i class="fa-brands fa-apple"></i> Mac</span>' : '<span class="badge badge-gray">Win + Mac</span>';
+            const statusBadge = `<span class="badge badge-dot ${f.is_active !== false ? 'badge-green' : 'badge-gray'}">${f.is_active !== false ? 'Active' : 'Hidden'}</span>`;
+            const thumbHtml = f.thumbnail_url
+                ? `<img src="${f.thumbnail_url}" alt="${f.title || 'Software'}" class="sw-card-thumb" onerror="this.outerHTML='<div class=\\'sw-card-thumb-fallback\\'><i class=\\'fa-solid fa-floppy-disk\\'></i></div>'">`
+                : `<div class="sw-card-thumb-fallback"><i class="fa-solid fa-floppy-disk"></i></div>`;
+
+            return `<div class="sw-card">
+                ${thumbHtml}
+                <div class="sw-card-body">
+                    <h4>${f.title || f.file_name || 'Untitled'}</h4>
+                    <p>${desc || 'Software Download'}</p>
+                    <div class="sw-card-footer">
+                        <div class="sw-card-badges">${platBadge} ${statusBadge}</div>
+                        <div class="sw-card-actions">
+                            <a href="${normalizeR2FileUrl(f.file_url, { publicBaseUrl: r2PublicUrl, workerUrl: r2WorkerUrl }) || f.file_url}" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" title="Preview"><i class="fa-solid fa-eye"></i></a>
+                            <button class="btn btn-ghost" onclick="editSoftware('${f.id}')" title="Edit"><i class="fa-solid fa-pen"></i></button>
+                            <button class="btn btn-ghost" onclick="toggleSoftwareActive('${f.id}', ${f.is_active !== false})"><i class="fa-solid fa-toggle-${f.is_active !== false ? 'on' : 'off'}" style="color:${f.is_active !== false ? 'var(--green)' : 'var(--muted)'};"></i></button>
+                            <button class="btn btn-danger btn-ghost" onclick="deleteSoftware('${f.id}')"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+        };
+
+        container.innerHTML = `<div class="sw-card-grid">${data.map(renderCard).join('')}</div>`;
+    };
+
+    // ── Patch edit-software modal to include thumbnail URL ──
+    (function patchEditModal() {
+        const editForm = document.getElementById('edit-software-form');
+        if (!editForm) return;
+        const platformSelect = document.getElementById('edit-sw-platform');
+        if (!platformSelect) return;
+        const thumbLabel = document.createElement('label');
+        thumbLabel.className = 'form-label';
+        thumbLabel.textContent = 'Thumbnail URL (Optional)';
+        const thumbInput = document.createElement('input');
+        thumbInput.type = 'url';
+        thumbInput.id = 'edit-sw-thumbnail';
+        thumbInput.className = 'form-input';
+        thumbInput.placeholder = 'https://res.cloudinary.com/...';
+        const thumbHint = document.createElement('p');
+        thumbHint.className = 'form-hint';
+        thumbHint.textContent = 'Paste a Cloudinary image URL';
+        // Insert before the Platform label (which is before the select)
+        const platLabel = platformSelect.previousElementSibling;
+        editForm.insertBefore(thumbHint, platLabel);
+        editForm.insertBefore(thumbInput, thumbHint);
+        editForm.insertBefore(thumbLabel, thumbInput);
+    })();
+
+    // ── Override editSoftware to include thumbnail ──
+    editSoftware = async function(id) {
+        const { data, error } = await supabase.from('course_files').select('*').eq('id', id).single();
+        if (error || !data) { alert('Could not load software record.'); return; }
+        document.getElementById('edit-sw-id').value = data.id;
+        document.getElementById('edit-sw-title').value = data.title || '';
+        document.getElementById('edit-sw-description').value = getSoftwareCleanDesc(data);
+        document.getElementById('edit-sw-url').value = data.file_url || '';
+        document.getElementById('edit-sw-platform').value = getSoftwarePlatform(data);
+        document.getElementById('edit-sw-active').checked = data.is_active !== false;
+        const thumbEl = document.getElementById('edit-sw-thumbnail');
+        if (thumbEl) thumbEl.value = data.thumbnail_url || '';
+        openModal('edit-software');
+    };
+    window.editSoftware = editSoftware;
+
+    // ── Override saveEditSoftware to include thumbnail_url ──
+    saveEditSoftware = async function() {
+        const id = document.getElementById('edit-sw-id').value;
+        const title = document.getElementById('edit-sw-title').value.trim();
+        const description = document.getElementById('edit-sw-description').value.trim();
+        const fileUrl = document.getElementById('edit-sw-url').value.trim();
+        const platform = document.getElementById('edit-sw-platform').value;
+        const isActive = document.getElementById('edit-sw-active').checked;
+        const thumbnailUrl = document.getElementById('edit-sw-thumbnail')?.value.trim() || null;
+
+        if (!title || !fileUrl) { modalAlert('edit-software', 'Name and URL are required.'); return; }
+
+        const descWithPlatform = `[${platform}]${description}`;
+
+        try {
+            const { error } = await supabase.from('course_files').update({
+                title,
+                description: descWithPlatform,
+                file_url: fileUrl,
+                file_description: descWithPlatform,
+                is_active: isActive,
+                thumbnail_url: thumbnailUrl
+            }).eq('id', id);
+            if (error) throw error;
+            modalAlert('edit-software', 'Software updated successfully!', 'success');
+            setTimeout(() => {
+                closeModal('edit-software');
+                loadSoftware();
+            }, 800);
+        } catch (err) {
+            modalAlert('edit-software', err.message);
+        }
+    };
+    window.saveEditSoftware = saveEditSoftware;
     </script>
 </body>
 

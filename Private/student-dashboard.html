@@ -741,6 +741,24 @@
             border-radius: 24px !important;
         }
 
+        /* ── Homework Submit Button — correct brand colors ── */
+        #hw-submit-btn {
+            background-color: #a7e169 !important;
+            color: #000 !important;
+        }
+        #hw-submit-btn:hover {
+            background-color: #ed2939 !important;
+            color: #fff !important;
+        }
+        .dark #hw-submit-btn {
+            background-color: #a7e169 !important;
+            color: #000 !important;
+        }
+        .dark #hw-submit-btn:hover {
+            background-color: #ed2939 !important;
+            color: #fff !important;
+        }
+
         /* ── Dashboard profile card — prevent email overflow on mobile ── */
         #detail-email {
             overflow: hidden;
@@ -780,6 +798,177 @@
             position: relative;
             overflow: visible;
         }
+        /* ── Announcement Toast Notification ── */
+        #announcement-toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            pointer-events: none;
+        }
+        .announcement-toast {
+            pointer-events: auto;
+            width: 340px;
+            max-width: calc(100vw - 40px);
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            box-shadow: 0 16px 48px -12px rgba(0,0,0,0.15);
+            padding: 16px 18px;
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .announcement-toast.toast-visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .announcement-toast.toast-dismiss {
+            opacity: 0;
+            transform: translateX(40px);
+        }
+        .dark .announcement-toast {
+            background: #1a1a20;
+            border-color: #2a2a35;
+            box-shadow: 0 16px 48px -12px rgba(0,0,0,0.4);
+        }
+        .announcement-toast .toast-priority-bar {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+        }
+        .announcement-toast .toast-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: none;
+            background: #f3f4f6;
+            color: #6b7280;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.15s ease, color 0.15s ease;
+            line-height: 1;
+        }
+        .announcement-toast .toast-close:hover {
+            background: #e5e7eb;
+            color: #111;
+        }
+        .dark .announcement-toast .toast-close {
+            background: #2a2a35;
+            color: #9ca3af;
+        }
+        .dark .announcement-toast .toast-close:hover {
+            background: #333;
+            color: #fff;
+        }
+        .announcement-toast .toast-title {
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 4px;
+            padding-right: 28px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .announcement-toast .toast-body {
+            font-size: 12px;
+            color: #6b7280;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .dark .announcement-toast .toast-body {
+            color: #9ca3af;
+        }
+        .announcement-toast .toast-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #9ca3af;
+            margin-bottom: 8px;
+        }
+
+        /* ── Welcome banner centering ── */
+        #dashboard-section > .relative.overflow-hidden {
+            justify-content: center;
+        }
+        #dashboard-section > .relative.overflow-hidden > .relative.z-10 {
+            text-align: center;
+            width: 100%;
+        }
+
+/* ── Software Thumbnail Cards ── */
+.sw-thumb-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+}
+.sw-thumb-card {
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all .25s ease;
+    cursor: pointer;
+}
+.sw-thumb-card:hover {
+    box-shadow: 0 8px 30px rgba(0,0,0,.08);
+}
+.sw-thumb-img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    display: block;
+}
+.sw-thumb-fallback {
+    width: 100%;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+}
+.sw-thumb-body {
+    padding: 16px;
+}
+.sw-thumb-body h4 {
+    font-weight: 600;
+    font-size: .9rem;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.sw-thumb-body p {
+    font-size: .8rem;
+    margin-bottom: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.sw-thumb-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
     </style>
 </head>
 
@@ -816,7 +1005,7 @@
                         <rect width="7" height="9" x="14" y="12" rx="1" />
                         <rect width="7" height="5" x="3" y="16" rx="1" />
                     </svg>
-                    <span>Dashboard</span>
+                    <span>ပင်မစာမျက်နှာ</span>
                 </a>
                 <a href="#"
                     class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-700 dark:text-gray-300 text-sm font-medium transition hover:text-black dark:hover:text-white"
@@ -825,7 +1014,7 @@
                         <polygon points="23 7 16 12 23 17 23 7"></polygon>
                         <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
                     </svg>
-                    <span>Live Class</span>
+                    <span>သင်တန်း Join ရန်</span>
                 </a>
                 <a href="#"
                     class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-700 dark:text-gray-300 text-sm font-medium transition hover:text-black dark:hover:text-white"
@@ -836,7 +1025,7 @@
                         <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
                         <path d="M6 12v5c3 3 9 3 12 0v-5" />
                     </svg>
-                    <span>My Courses</span>
+                    <span>Course များ</span>
                 </a>
                 <a href="#"
                     class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-700 dark:text-gray-300 text-sm font-medium transition hover:text-black dark:hover:text-white"
@@ -848,7 +1037,7 @@
                         <polyline points="7 10 12 15 17 10" />
                         <line x1="12" x2="12" y1="15" y2="3" />
                     </svg>
-                    <span class="flex-1">Downloads</span>
+                    <span class="flex-1">ဒေါင်းလုဒ်ရယူရန်</span>
                 </a>
                 <a href="#"
                     class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-700 dark:text-gray-300 text-sm font-medium transition hover:text-black dark:hover:text-white"
@@ -859,7 +1048,7 @@
                         <rect x="2" y="3" width="20" height="14" rx="2"/>
                         <path d="M8 21h8M12 17v4"/>
                     </svg>
-                    <span class="flex-1">Software</span>
+                    <span class="flex-1">ဆော့ဖ်ဝဲလ်</span>
                 </a>
                 <a href="#"
                     class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-700 dark:text-gray-300 text-sm font-medium transition hover:text-black dark:hover:text-white"
@@ -874,7 +1063,7 @@
                         <path d="M3 5h4" />
                         <path d="M17 19h4" />
                     </svg>
-                    <span>AI Studio</span>
+                    <span>AI စတူဒီယို</span>
                 </a>
                 <a href="#"
                     class="sidebar-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-gray-700 dark:text-gray-300 text-sm font-medium transition hover:text-black dark:hover:text-white"
@@ -888,7 +1077,7 @@
                         <line x1="16" x2="8" y1="17" y2="17"/>
                         <line x1="10" x2="8" y1="9" y2="9"/>
                     </svg>
-                    <span class="flex-1">Homework</span>
+                    <span class="flex-1">အိမ်စာတင်ရန်</span>
                     <span class="bg-brand-green text-black text-[10px] font-bold px-2 py-0.5 rounded-full">NEW</span>
                 </a>
                 <a href="#"
@@ -900,7 +1089,7 @@
                         <path d="m3 11 18-5v12L3 14v-3z" />
                         <path d="M11.6 16.8a3 3 0 1 1-5.8-1.6" />
                     </svg>
-                    <span class="flex-1">Announcements</span>
+                    <span class="flex-1">ကြေညာချက်များ</span>
                     <span id="desktop-noti"
                         class="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full hidden">0</span>
                 </a>
@@ -1188,6 +1377,7 @@
                                 <div>
                                     <h3 class="text-xl font-semibold mb-1" id="detail-full-name">Loading…</h3>
                                     <p class="text-sm text-gray-400 font-light" id="detail-student-id">–</p>
+                                    <p class="text-sm text-gray-500 mt-1 flex items-center gap-2" id="detail-batch-name" style="display:none;"><i class="fa-solid fa-layer-group text-xs text-brand-green"></i><span id="detail-batch-text">–</span></p>
                                     <p class="text-sm text-gray-500 mt-1 flex items-center gap-2"><i
                                             class="fa-regular fa-envelope text-xs"></i><span id="detail-email">–</span>
                                     </p>
@@ -1208,18 +1398,18 @@
                             class="mt-8 pt-8 border-t border-gray-50 dark:border-brand-border grid grid-cols-2 md:grid-cols-4 gap-4">
                             <div class="text-center md:text-left"><span class="block text-2xl font-light"
                                     id="stat-attendance-total">0</span><span
-                                    class="text-xs text-gray-400 uppercase tracking-wide">Present</span></div>
+                                    class="text-xs text-gray-400 uppercase tracking-wide">တက်ရောက်</span></div>
                             <div class="text-center md:text-left"><span
                                     class="block text-2xl font-light text-yellow-600"
                                     id="stat-attendance-late">0</span><span
-                                    class="text-xs text-gray-400 uppercase tracking-wide">Late</span></div>
+                                    class="text-xs text-gray-400 uppercase tracking-wide">နောက်ကျ</span></div>
                             <div class="text-center md:text-left"><span
                                     class="block text-2xl font-light text-orange-600"
                                     id="stat-attendance-undertime">0</span><span
-                                    class="text-xs text-gray-400 uppercase tracking-wide">Undertime</span></div>
+                                    class="text-xs text-gray-400 uppercase tracking-wide">စောထွက်</span></div>
                             <div class="text-center md:text-left"><span class="block text-2xl font-light text-red-500"
                                     id="stat-attendance-absent">0</span><span
-                                    class="text-xs text-gray-400 uppercase tracking-wide">Absent</span></div>
+                                    class="text-xs text-gray-400 uppercase tracking-wide">ပျက်ကွက်</span></div>
                         </div>
                     </div>
 
@@ -1278,7 +1468,7 @@
                                         class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                                     <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
                                 </span>
-                                Latest Announcement
+                                နောက်ဆုံးရရှိသော ကြေညာချက်များ
                             </h2>
                             <button onclick="switchSection('announcements')"
                                 class="text-xs text-gray-400 hover:text-black dark:hover:text-white transition flex items-center gap-2">VIEW
@@ -1557,7 +1747,7 @@
                             </div>
                             <div>
                                 <label class="block text-xs uppercase tracking-widest text-gray-400 font-medium mb-2">Title</label>
-                                <input type="text" id="hw-title" placeholder="e.g. Week 3 — Vector Illustration" class="w-full bg-gray-50 dark:bg-brand-dark border border-gray-200 dark:border-brand-border rounded-xl p-3 text-sm focus:outline-none focus:border-brand-green transition">
+                                <input type="text" id="hw-title" placeholder="e.g. Week 3 ရဲ့ အိမ်စာ" class="w-full bg-gray-50 dark:bg-brand-dark border border-gray-200 dark:border-brand-border rounded-xl p-3 text-sm focus:outline-none focus:border-brand-green transition">
                             </div>
                             <div>
                                 <label class="block text-xs uppercase tracking-widest text-gray-400 font-medium mb-2">Notes (optional)</label>
@@ -1656,19 +1846,19 @@
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 <div class="bg-gray-50 dark:bg-brand-dark rounded-xl p-4 text-center border border-gray-100 dark:border-brand-border">
                                     <span class="block text-2xl font-light text-green-600" id="profile-att-present">0</span>
-                                    <span class="text-[10px] text-gray-400 uppercase tracking-wide">Present</span>
+                                    <span class="text-[10px] text-gray-400 uppercase tracking-wide">တက်ရောက်</span>
                                 </div>
                                 <div class="bg-gray-50 dark:bg-brand-dark rounded-xl p-4 text-center border border-gray-100 dark:border-brand-border">
                                     <span class="block text-2xl font-light text-yellow-600" id="profile-att-late">0</span>
-                                    <span class="text-[10px] text-gray-400 uppercase tracking-wide">Late</span>
+                                    <span class="text-[10px] text-gray-400 uppercase tracking-wide">နောက်ကျ</span>
                                 </div>
                                 <div class="bg-gray-50 dark:bg-brand-dark rounded-xl p-4 text-center border border-gray-100 dark:border-brand-border">
                                     <span class="block text-2xl font-light text-orange-600" id="profile-att-undertime">0</span>
-                                    <span class="text-[10px] text-gray-400 uppercase tracking-wide">Undertime</span>
+                                    <span class="text-[10px] text-gray-400 uppercase tracking-wide">စောထွက်</span>
                                 </div>
                                 <div class="bg-gray-50 dark:bg-brand-dark rounded-xl p-4 text-center border border-gray-100 dark:border-brand-border">
                                     <span class="block text-2xl font-light text-red-500" id="profile-att-absent">0</span>
-                                    <span class="text-[10px] text-gray-400 uppercase tracking-wide">Absent</span>
+                                    <span class="text-[10px] text-gray-400 uppercase tracking-wide">ပျက်ကွက်</span>
                                 </div>
                             </div>
                         </div>
@@ -1822,6 +2012,8 @@
         let myEnrollments = [];
         let allFiles = [];
         let currentBlob = null;
+        let announcementsRealtimeChannel = null;
+        let announcementsRefreshTimer = null;
 
         // ── INIT ──
         window.addEventListener('load', async () => {
@@ -1859,6 +2051,7 @@
             loadSoftware();
             fetchAnnouncementCount();
             loadDashboardAnnouncement();
+            setupAnnouncementsRealtime();
         });
 
         function normalizeAssetUrl(value, bucket) {
@@ -1876,6 +2069,101 @@
 
             const { data } = supabase.storage.from(bucket).getPublicUrl(normalizedPath);
             return data?.publicUrl || '';
+        }
+
+        function sanitizeBaseUrl(value) {
+            const trimmed = typeof value === 'string' ? value.trim() : '';
+            if (!trimmed) return '';
+            try {
+                const url = new URL(trimmed);
+                return `${url.origin}${url.pathname}`.replace(/\/+$/, '');
+            } catch {
+                return trimmed.replace(/\/+$/, '');
+            }
+        }
+
+        function encodeUrlPath(path) {
+            return path
+                .split('/')
+                .filter(Boolean)
+                .map(part => {
+                    try {
+                        return encodeURIComponent(decodeURIComponent(part));
+                    } catch {
+                        return encodeURIComponent(part);
+                    }
+                })
+                .join('/');
+        }
+
+        function extractR2ObjectPath(rawUrl, workerUrl = '') {
+            const trimmed = typeof rawUrl === 'string' ? rawUrl.trim() : '';
+            if (!trimmed) return '';
+            if (!/^(https?:)?\/\//i.test(trimmed)) return trimmed.replace(/^\/+/, '');
+
+            try {
+                const parsed = new URL(trimmed);
+                let path = parsed.pathname.replace(/^\/+/, '');
+                const normalizedWorker = sanitizeBaseUrl(workerUrl);
+                if (normalizedWorker) {
+                    const workerPath = new URL(normalizedWorker).pathname.replace(/^\/+|\/+$/g, '');
+                    if (workerPath && path.toLowerCase().startsWith(workerPath.toLowerCase() + '/')) {
+                        path = path.slice(workerPath.length + 1);
+                    } else if (workerPath && path.toLowerCase() === workerPath.toLowerCase()) {
+                        path = '';
+                    }
+                }
+                return path;
+            } catch {
+                return '';
+            }
+        }
+
+        function buildR2PublicUrl(path, publicBaseUrl) {
+            const normalizedBase = sanitizeBaseUrl(publicBaseUrl);
+            const normalizedPath = encodeUrlPath((path || '').replace(/^\/+/, ''));
+            return normalizedBase && normalizedPath ? `${normalizedBase}/${normalizedPath}` : '';
+        }
+
+        function getStoredR2Setting(key) {
+            try {
+                return localStorage.getItem(key) || '';
+            } catch {
+                return '';
+            }
+        }
+
+        function normalizeDownloadUrl(rawUrl) {
+            const trimmed = typeof rawUrl === 'string' ? rawUrl.trim() : '';
+            if (!trimmed) return '';
+            if (/drive\.google\.com/i.test(trimmed)) return trimmed;
+
+            const publicBaseUrl = sanitizeBaseUrl(getStoredR2Setting('r2_public_url'));
+            const workerUrl = sanitizeBaseUrl(getStoredR2Setting('r2_worker_url'));
+            if (!publicBaseUrl) return trimmed;
+
+            if (!/^(https?:)?\/\//i.test(trimmed)) {
+                const objectPath = extractR2ObjectPath(trimmed, workerUrl);
+                return objectPath ? buildR2PublicUrl(objectPath, publicBaseUrl) : trimmed;
+            }
+
+            try {
+                const parsed = new URL(trimmed);
+                const publicParsed = new URL(publicBaseUrl);
+                if (parsed.origin === publicParsed.origin) {
+                    return buildR2PublicUrl(parsed.pathname, publicBaseUrl) || trimmed;
+                }
+
+                const workerHost = workerUrl ? new URL(workerUrl).hostname.toLowerCase() : '';
+                const host = parsed.hostname.toLowerCase();
+                const shouldRewrite = host.endsWith('.r2.dev') || (workerHost && host === workerHost);
+                if (!shouldRewrite) return trimmed;
+
+                const objectPath = extractR2ObjectPath(trimmed, workerUrl);
+                return objectPath ? buildR2PublicUrl(objectPath, publicBaseUrl) : trimmed;
+            } catch {
+                return trimmed;
+            }
         }
 
         function resolveAvatarUrl(student, authUser) {
@@ -2149,17 +2437,18 @@
         }
 
         function makeSoftwareCard(f) {
+            const downloadUrl = normalizeDownloadUrl(f.file_url) || f.file_url || '';
             const plat = getSoftwarePlatform(f);
             const desc = getSoftwareCleanDesc(f);
             const isWin = plat === 'win' || plat === 'both';
             const iconBg = isWin ? '#e8f4ff' : '#f5f5f5';
             const iconColor = isWin ? '#0078D4' : '#333';
             const iconClass = isWin ? 'fa-brands fa-windows' : 'fa-brands fa-apple';
-            const isGDrive = f.file_url && f.file_url.includes('drive.google.com');
+            const isGDrive = downloadUrl.includes('drive.google.com');
             const gDriveIcon = isGDrive ? `<i class="fa-brands fa-google-drive text-2xl" style="color: #0F9D58;"></i>` : `<i class="${iconClass} text-xl" style="color:${iconColor};"></i>`;
             const bgDrive = isGDrive ? '#0F9D5812' : iconBg;
             
-            return `<div class="file-card bg-white dark:bg-brand-card border border-gray-100 dark:border-brand-border rounded-2xl hover:border-brand-green dark:hover:border-brand-green hover:shadow-md cursor-pointer" style="transition:all .25s ease;" onclick="window.open('${f.file_url}', '_blank')">
+            return `<div class="file-card bg-white dark:bg-brand-card border border-gray-100 dark:border-brand-border rounded-2xl hover:border-brand-green dark:hover:border-brand-green hover:shadow-md cursor-pointer" style="transition:all .25s ease;" onclick='window.open(${JSON.stringify(downloadUrl)}, "_blank")'>
                 <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:${bgDrive};">
                     ${gDriveIcon}
                 </div>
@@ -2167,7 +2456,7 @@
                     <h4 class="font-medium text-sm mb-1 truncate">${f.title || f.file_name || 'Untitled'}</h4>
                     <p class="text-xs text-gray-400 font-light truncate">${desc || (isGDrive ? 'Google Drive Link' : 'Software Download')}</p>
                 </div>
-                <a href="${f.file_url}" target="_blank"
+                <a href="${downloadUrl}" target="_blank" rel="noopener noreferrer"
                     class="flex-shrink-0 flex items-center gap-2 px-4 py-2.5 bg-black dark:bg-brand-green dark:text-black text-white text-xs font-semibold rounded-xl hover:bg-gray-800 dark:hover:bg-green-400 transition active:scale-95"
                     onclick="event.stopPropagation()">
                     <i class="fa-solid fa-arrow-up-right-from-square"></i><span class="hidden sm:inline">Open</span>
@@ -2236,7 +2525,8 @@
         }
 
         function renderFileCard(f, showCourse = false) {
-            const isGDrive = f.file_url && f.file_url.includes('drive.google.com');
+            const downloadUrl = normalizeDownloadUrl(f.file_url) || f.file_url || '';
+            const isGDrive = downloadUrl.includes('drive.google.com');
             const fileIcons = { pdf: 'fa-file-pdf', video: 'fa-file-video', zip: 'fa-file-zipper', doc: 'fa-file-word', other: 'fa-file', software: 'fa-file-code' };
             const fileColors = { pdf: '#ef4444', video: '#8b5cf6', zip: '#f59e0b', doc: '#3b82f6', other: '#6b7280', software: '#10b981' };
             const typeKey = f.file_type ? f.file_type.toLowerCase() : 'other';
@@ -2244,7 +2534,7 @@
             const color = fileColors[typeKey] || '#6b7280';
             const driveColor = isGDrive ? '#0F9D58' : color;
 
-            return `<div class="dl-card bg-white dark:bg-brand-card border border-gray-100 dark:border-brand-border hover:border-brand-green dark:hover:border-brand-green cursor-pointer shadow-sm hover:shadow-md transition-all" onclick="window.open('${f.file_url}', '_blank')">
+            return `<div class="dl-card bg-white dark:bg-brand-card border border-gray-100 dark:border-brand-border hover:border-brand-green dark:hover:border-brand-green cursor-pointer shadow-sm hover:shadow-md transition-all" onclick='window.open(${JSON.stringify(downloadUrl)}, "_blank")'>
             <div class="dl-icon" style="background:${driveColor}12; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
                 ${isGDrive ? `<i class="fa-brands fa-google-drive text-2xl" style="color: ${driveColor};"></i>` : `<i class="fa-solid ${icon} text-xl" style="color:${color};"></i>`}
             </div>
@@ -2255,7 +2545,7 @@
             </div>
             <div class="dl-footer mt-auto pt-3 border-t border-gray-50 dark:border-brand-border flex items-center justify-between">
                 <span class="text-[10px] uppercase tracking-widest font-bold px-2.5 py-1 rounded-full" style="background:${color}14; color:${color};">${f.file_type || 'file'}</span>
-                <a href="${f.file_url}" target="_blank"
+                <a href="${downloadUrl}" target="_blank" rel="noopener noreferrer"
                     class="flex items-center gap-2 px-4 py-2 bg-black dark:bg-brand-green dark:text-black text-white text-xs font-semibold rounded-xl hover:bg-gray-800 dark:hover:bg-green-400 transition active:scale-95"
                     onclick="event.stopPropagation()">
                     <i class="fa-solid fa-arrow-up-right-from-square"></i> Open
@@ -2303,9 +2593,13 @@
         // ── ANNOUNCEMENTS ──
         async function loadAnnouncements() {
             const { data: { user } } = await supabase.auth.getUser();
-            const { data: studentData } = await supabase.from('students').select('student_type').eq('id', user.id).maybeSingle();
+            const { data: studentData } = await supabase.from('students').select('student_type,batch_id').eq('id', user.id).maybeSingle();
             const type = studentData?.student_type || 'individual';
-            const { data } = await supabase.from('announcements').select('*').or(`target_audience.eq.all,target_audience.eq.${type}`).order('published_at', { ascending: false });
+            const studentBatchId = studentData?.batch_id;
+            const announcementFilter = studentBatchId
+                ? `target_audience.eq.all,target_audience.eq.${type},batch_id.eq.${studentBatchId},student_id.eq.${user.id}`
+                : `target_audience.eq.all,target_audience.eq.${type},student_id.eq.${user.id}`;
+            const { data } = await supabase.from('announcements').select('*').or(announcementFilter).order('published_at', { ascending: false });
             const list = document.getElementById('announcements-list');
             if (!data?.length) { list.innerHTML = '<p class="text-gray-400 text-center font-light py-12">No announcements at this time.</p>'; return; }
             const priorityColor = { urgent: '#ef4444', high: '#f97316', normal: '#6b7280', low: '#9ca3af' };
@@ -2338,22 +2632,48 @@
             }
         }
 
+        function scheduleAnnouncementRefresh() {
+            if (announcementsRefreshTimer) clearTimeout(announcementsRefreshTimer);
+            announcementsRefreshTimer = setTimeout(async () => {
+                await Promise.all([
+                    loadAnnouncements(),
+                    loadDashboardAnnouncement()
+                ]);
+                fetchAnnouncementCount();
+            }, 150);
+        }
+
+        function setupAnnouncementsRealtime() {
+            if (announcementsRealtimeChannel) return;
+            announcementsRealtimeChannel = supabase
+                .channel('student-announcements-live')
+                .on('postgres_changes', { event: '*', schema: 'public', table: 'announcements' }, () => {
+                    scheduleAnnouncementRefresh();
+                })
+                .subscribe();
+        }
+
         // ── DASHBOARD ANNOUNCEMENT PREVIEW ──
         async function loadDashboardAnnouncement() {
             const { data: { user } } = await supabase.auth.getUser();
             if (!user) return;
-            const { data: s } = await supabase.from('students').select('student_type').eq('id', user.id).maybeSingle();
+            const { data: s } = await supabase.from('students').select('student_type,batch_id').eq('id', user.id).maybeSingle();
             const type = s?.student_type || 'individual';
             const { data } = await supabase
                 .from('announcements')
                 .select('*')
-                .or(`target_audience.eq.all,target_audience.eq.${type}`)
+                .or(s?.batch_id ? `target_audience.eq.all,target_audience.eq.${type},batch_id.eq.${s.batch_id},student_id.eq.${user.id}` : `target_audience.eq.all,target_audience.eq.${type},student_id.eq.${user.id}`)
                 .order('published_at', { ascending: false })
                 .limit(1);
 
             const widget = document.getElementById('dashboard-announcement-widget');
             const content = document.getElementById('dashboard-announcement-content');
-            if (!data?.length || !widget || !content) return;
+            if (!widget || !content) return;
+            if (!data?.length) {
+                widget.classList.add('hidden');
+                content.innerHTML = '';
+                return;
+            }
 
             widget.classList.remove('hidden');
             const a = data[0];
@@ -2433,6 +2753,14 @@
             document.getElementById('announcement-modal').classList.add('hidden');
         };
 
+        window.addEventListener('beforeunload', () => {
+            if (announcementsRefreshTimer) clearTimeout(announcementsRefreshTimer);
+            if (announcementsRealtimeChannel) {
+                supabase.removeChannel(announcementsRealtimeChannel);
+                announcementsRealtimeChannel = null;
+            }
+        });
+
         // ── BLOG ──
         function renderBlogPosts() {
             const container = document.getElementById('blog-posts-container');
@@ -2495,6 +2823,9 @@
             const isCollapsed = sidebar.classList.contains('sidebar-collapsed');
             localStorage.setItem('sidebarCollapsed', isCollapsed ? '1' : '0');
             closeSidebarPopover();
+            // Re-center welcome banner after sidebar width transition
+            const banner = document.querySelector('#dashboard-section > .relative.overflow-hidden > .relative.z-10');
+            if (banner) { banner.style.transition = 'all 0.35s ease'; }
         };
 
         // ── Sidebar Popover ──
@@ -2915,6 +3246,171 @@
                 if (sidebar) sidebar.classList.add('sidebar-collapsed');
             }
         })();
+
+        // ── BATCH DISPLAY ──
+        async function loadStudentBatch() {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) return;
+            const { data: student } = await supabase.from('students').select('batch_id').eq('id', user.id).maybeSingle();
+            if (!student?.batch_id) return;
+            const { data: batch } = await supabase.from('batches').select('name').eq('id', student.batch_id).maybeSingle();
+            if (!batch) return;
+            const batchEl = document.getElementById('detail-batch-name');
+            const batchText = document.getElementById('detail-batch-text');
+            if (batchEl && batchText) {
+                batchText.textContent = batch.name;
+                batchEl.style.display = '';
+            }
+        }
+        loadStudentBatch();
+
+        // ── Override loadAllFiles to handle 'Software / App' file_type ──
+        const _origLoadAllFiles = loadAllFiles;
+        loadAllFiles = async function(userId) {
+            const { data: enrollments } = await supabase.from('enrollments').select('course_id').eq('student_id', userId);
+            const enrolledIds = (enrollments || []).map(e => e.course_id);
+
+            const { data } = await supabase.from('course_files').select('*').eq('is_active', true).order('upload_date', { ascending: false });
+            allFiles = (data || []).filter(f => {
+                if (f.file_type && f.file_type.toLowerCase().includes('software')) return false;
+                return !f.course_id || enrolledIds.includes(f.course_id);
+            });
+
+            setText('stat-files', allFiles.length);
+
+            const courses = [...new Map(allFiles.filter(f => f.course).map(f => [f.course_id, f.course])).entries()].map(([id, c]) => ({ id, title: c.title }));
+            const courseOpts = '<option value="">All Courses</option>' + courses.map(c => `<option value="${c.id}">${c.title}</option>`).join('');
+            const filterSel = document.getElementById('file-course-filter');
+            if (filterSel) filterSel.innerHTML = courseOpts;
+            const filterSelM = document.getElementById('file-course-filter-m');
+            if (filterSelM) filterSelM.innerHTML = courseOpts;
+
+            renderDownloads(allFiles);
+        };
+
+        // ── Override loadSoftware to handle 'Software / App' file_type ──
+        const _origLoadSoftware = loadSoftware;
+        loadSoftware = async function() {
+            const { data } = await supabase.from('course_files').select('*').eq('is_active', true).order('upload_date', { ascending: false });
+            allSoftware = (data || []).filter(f => f.file_type && f.file_type.toLowerCase().includes('software'));
+            renderSoftware(allSoftware);
+        };
+
+        // ── Override makeSoftwareCard with thumbnail card design ──
+        const _origMakeSoftwareCard = makeSoftwareCard;
+        makeSoftwareCard = function(f) {
+            const downloadUrl = normalizeDownloadUrl(f.file_url) || f.file_url || '';
+            const plat = getSoftwarePlatform(f);
+            const desc = getSoftwareCleanDesc(f);
+            const isWin = plat === 'win' || plat === 'both';
+            const fallbackBg = isWin ? 'background:linear-gradient(135deg,#e8f4ff,#f0f4ff);color:#0078D4;' : 'background:linear-gradient(135deg,#f5f5f5,#e8e8e8);color:#333;';
+            const fallbackIcon = isWin ? 'fa-brands fa-windows' : 'fa-brands fa-apple';
+
+            const thumbHtml = f.thumbnail_url
+                ? `<img src="${f.thumbnail_url}" alt="${f.title || 'Software'}" class="sw-thumb-img" onerror="this.outerHTML='<div class=\\'sw-thumb-fallback\\' style=\\'${fallbackBg}\\'><i class=\\'${fallbackIcon}\\'></i></div>'">`
+                : `<div class="sw-thumb-fallback" style="${fallbackBg}"><i class="${fallbackIcon}"></i></div>`;
+
+            return `<div class="sw-thumb-card bg-white dark:bg-brand-card border border-gray-100 dark:border-brand-border hover:border-brand-green dark:hover:border-brand-green" onclick='window.open(${JSON.stringify(downloadUrl)}, "_blank")'>
+                ${thumbHtml}
+                <div class="sw-thumb-body">
+                    <h4 class="text-gray-900 dark:text-gray-100">${f.title || f.file_name || 'Untitled'}</h4>
+                    <p class="text-gray-400 dark:text-gray-500 font-light">${desc || 'Software Download'}</p>
+                    <div class="sw-thumb-footer">
+                        <span class="text-[10px] uppercase tracking-widest font-bold px-2.5 py-1 rounded-full" style="background:${isWin ? '#e8f4ff' : '#f5f5f5'};color:${isWin ? '#0078D4' : '#333'};">
+                            <i class="${fallbackIcon}" style="margin-right:4px;"></i>${plat === 'both' ? 'Win + Mac' : isWin ? 'Windows' : 'Mac'}
+                        </span>
+                        <a href="${downloadUrl}" target="_blank" rel="noopener noreferrer"
+                            class="flex items-center gap-2 px-4 py-2 bg-black dark:bg-brand-green dark:text-black text-white text-xs font-semibold rounded-xl hover:bg-gray-800 dark:hover:bg-green-400 transition active:scale-95"
+                            onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-arrow-down-to-bracket"></i> Download
+                        </a>
+                    </div>
+                </div>
+            </div>`;
+        };
+
+        // ── Override renderSoftware to use grid layout ──
+        const _origRenderSoftware = renderSoftware;
+        renderSoftware = function(items) {
+            const winItems = items.filter(f => { const p = getSoftwarePlatform(f); return p === 'win' || p === 'both'; });
+            const macItems = items.filter(f => { const p = getSoftwarePlatform(f); return p === 'mac' || p === 'both'; });
+
+            const winList = document.getElementById('sw-windows-list');
+            const macList = document.getElementById('sw-mac-list');
+            const winBlock = document.getElementById('sw-windows-block');
+            const macBlock = document.getElementById('sw-mac-block');
+
+            if (currentSwFilter === 'win') { winBlock?.classList.remove('hidden'); macBlock?.classList.add('hidden'); }
+            else if (currentSwFilter === 'mac') { winBlock?.classList.add('hidden'); macBlock?.classList.remove('hidden'); }
+            else { winBlock?.classList.remove('hidden'); macBlock?.classList.remove('hidden'); }
+
+            if (winList) winList.innerHTML = winItems.length ? `<div class="sw-thumb-grid">${winItems.map(f => makeSoftwareCard(f)).join('')}</div>` : makeSoftwareEmpty('Windows');
+            if (macList) macList.innerHTML = macItems.length ? `<div class="sw-thumb-grid">${macItems.map(f => makeSoftwareCard(f)).join('')}</div>` : makeSoftwareEmpty('Mac');
+        };
+
+        // ── Re-trigger with corrected functions (initial load used originals) ──
+        (async function() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.user?.id) {
+                loadAllFiles(session.user.id);
+                loadSoftware();
+            }
+        })();
+    </script>
+
+    <!-- Announcement Toast Container -->
+    <div id="announcement-toast-container"></div>
+
+    <!-- Announcement Toast Realtime Listener -->
+    <script type="module">
+        import { supabase } from '../js/supabase-config.js';
+
+        const TOAST_PRIORITY_COLORS = { urgent: '#ef4444', high: '#f97316', normal: '#a7e169', low: '#9ca3af' };
+
+        function showAnnouncementToast(announcement) {
+            const container = document.getElementById('announcement-toast-container');
+            if (!container) return;
+
+            const color = TOAST_PRIORITY_COLORS[announcement.priority] || TOAST_PRIORITY_COLORS.normal;
+            const toast = document.createElement('div');
+            toast.className = 'announcement-toast';
+            toast.innerHTML =
+                '<div class="toast-priority-bar" style="background:' + color + ';"></div>' +
+                '<button class="toast-close" onclick="this.parentElement.classList.remove(\'toast-visible\');this.parentElement.classList.add(\'toast-dismiss\');setTimeout(function(){this.remove()}.bind(this.parentElement),400)">&times;</button>' +
+                '<div class="toast-label"><i class="fa-solid fa-bullhorn" style="font-size:10px;color:' + color + ';"></i> New Announcement</div>' +
+                '<div class="toast-title">' + (announcement.title || 'Announcement') + '</div>' +
+                '<div class="toast-body">' + (announcement.content || '') + '</div>';
+
+            container.appendChild(toast);
+
+            requestAnimationFrame(function () {
+                requestAnimationFrame(function () {
+                    toast.classList.add('toast-visible');
+                });
+            });
+
+            const autoDismissTimer = setTimeout(function () {
+                if (toast.parentElement) {
+                    toast.classList.remove('toast-visible');
+                    toast.classList.add('toast-dismiss');
+                    setTimeout(function () { toast.remove(); }, 400);
+                }
+            }, 15000);
+
+            toast.querySelector('.toast-close').addEventListener('click', function () {
+                clearTimeout(autoDismissTimer);
+            });
+        }
+
+        // Separate realtime channel for toast notifications (INSERT only)
+        supabase
+            .channel('student-announcement-toast')
+            .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'announcements' }, function (payload) {
+                if (payload.new) {
+                    showAnnouncementToast(payload.new);
+                }
+            })
+            .subscribe();
     </script>
 </body>
 

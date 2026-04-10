@@ -735,7 +735,8 @@
                 avatar_url: user.user_metadata?.avatar_url || user.user_metadata?.picture || '',
                 status: 'active',
                 invite_code_used: pendingCode,
-                student_type: 'online'
+                student_type: 'online',
+                batch_id: codeData.batch_id || null
             }]);
 
         if (insertError) {
