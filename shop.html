@@ -76,8 +76,6 @@
 
         .icon-circle { background-color: #ed2939; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; width: 3rem; height: 3rem; }
 
-        .shop-alert { background: linear-gradient(135deg, #fde8ea 0%, #fdd5d9 100%); border: 1px solid #f5a3ab; border-radius: 0.75rem; overflow: hidden; max-height: 200px; opacity: 1; transform: translateY(0); transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease, transform 0.4s ease, padding 0.5s ease, margin 0.5s ease, border 0.4s ease; }
-        .shop-alert.hiding { opacity: 0; transform: translateY(-12px); max-height: 0; padding-top: 0; padding-bottom: 0; margin: 0; border-color: transparent; }
 
         .cat-tab { background-color: transparent; color: #555; border: 1px solid #ddd; padding: 0.5rem 1.25rem; border-radius: 2rem; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: all 0.3s ease; white-space: nowrap; }
         .cat-tab.active { background-color: #a7e169; color: #000; border-color: #a7e169; }
@@ -105,16 +103,6 @@
         .icon-menu { opacity: 1; transform: rotate(0deg) scale(1); }
         .icon-close { opacity: 0; transform: rotate(-90deg) scale(0.5); }
 
-        .shop-alert-centered {
-            text-align: center;
-            position: relative;
-        }
-        .shop-alert-centered .alert-dismiss {
-            position: absolute;
-            right: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
 
         .glass-dropdown {
             position: relative;
@@ -895,6 +883,105 @@
             height: 32px;
             font-size: 0.7rem;
         }
+
+        /* ===== Free Products Floating Notification ===== */
+        .free-notify {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: linear-gradient(135deg, #fff 0%, #fafff7 100%);
+            border: 1px solid rgba(167,225,105,0.5);
+            border-radius: 1rem;
+            padding: 16px 20px;
+            max-width: 360px;
+            z-index: 150;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.10), 0 2px 8px rgba(167,225,105,0.15);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: notifyFadeIn 0.6s ease 1s forwards;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .free-notify.dismissed {
+            animation: notifyFadeOut 0.4s ease forwards;
+        }
+        .free-notify-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #fde8ea, #fdd5d9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: #ed2939;
+            font-size: 0.9rem;
+        }
+        .free-notify-body {
+            flex: 1;
+            min-width: 0;
+        }
+        .free-notify-text {
+            font-size: 0.82rem;
+            color: #323232;
+            line-height: 1.65;
+        }
+        .free-notify-text strong {
+            color: #ed2939;
+        }
+        .free-notify-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #999;
+            font-size: 1rem;
+            padding: 0;
+            flex-shrink: 0;
+            margin-top: -2px;
+            transition: color 0.2s;
+            line-height: 1;
+        }
+        .free-notify-close:hover {
+            color: #323232;
+        }
+        @keyframes notifyFadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes notifyFadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(20px); pointer-events: none; }
+        }
+        @media (max-width: 640px) {
+            .free-notify {
+                bottom: 16px;
+                right: 16px;
+                left: 16px;
+                max-width: none;
+            }
+        }
+
+        /* ===== Search & Filter Bar Inline Layout ===== */
+        .search-filter-bar {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        @media (min-width: 640px) {
+            .search-filter-bar {
+                flex-direction: row;
+                align-items: center;
+            }
+            .search-filter-bar .search-wrap {
+                flex: 1;
+                min-width: 0;
+            }
+        }
+        .search-filter-bar .filter-group {
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
+        }
     </style>
 </head>
 <body class="bg-white text-[#323232]">
@@ -988,24 +1075,8 @@
     </nav>
 
     <main>
-        <!-- Alert Banner -->
-        <div class="pt-20 px-4" id="alertWrapper">
-            <div class="shop-alert shop-alert-centered max-w-7xl mx-auto px-12 py-4" id="shopAlert">
-                <p class="text-sm text-[#323232] leading-relaxed">
-                    <i class="fas fa-gift text-[#ed2939] mr-2"></i>
-                    <strong>Free Products</strong> များကို Sign in ဝင်ရောက်ပြီး အခမဲ့ Download ရယူနိုင်ပါတယ်။
-                </p>
-                <button onclick="toggleAlert()" class="alert-dismiss text-[#ed2939] hover:text-[#000] transition-colors">
-                    <i class="fas fa-chevron-up"></i>
-                </button>
-            </div>
-            <button id="alertToggleBtn" onclick="toggleAlert()" style="display:none; margin:0.5rem auto 0; background:#ed2939; color:#fff; border:none; border-radius:2rem; padding:0.35rem 1rem; font-size:0.75rem; font-weight:600; cursor:pointer; transition:all 0.3s ease;" class="max-w-7xl">
-                <i class="fas fa-gift mr-1"></i> Notice
-            </button>
-        </div>
-
         <!-- Hero -->
-        <section class="relative overflow-hidden pt-10 pb-16 md:pt-14 md:pb-20 section-dark px-4">
+        <section class="relative overflow-hidden min-h-[50vh] md:min-h-[65vh] flex flex-col items-center justify-center section-dark px-4 py-20 md:py-28">
 
             <!-- Header Glow Orbs -->
             <div class="absolute rounded-full pointer-events-none" style="width:550px;height:550px;bottom:-250px;left:-50px;background:radial-gradient(circle at center,rgba(167,225,105,0.25) 0%,rgba(167,225,105,0.12) 30%,rgba(167,225,105,0.04) 55%,transparent 75%);filter:blur(60px);animation:orbDrift1 12s ease-in-out infinite;z-index:0"></div>
@@ -1016,7 +1087,7 @@
                 <h1 class="text-5xl sm:text-6xl md:text-7xl font-bold leading-tight mb-6 artdeone-font">
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-black to-[#a7e169]">Digital Shop</span>
                 </h1>
-                <div class="flex flex-wrap gap-3 justify-center mt-6">
+                <div class="flex flex-wrap gap-3 justify-center mt-10">
                     <a href="#products" class="btn-primary hidden md:inline-flex">Browse Products</a>
                     <a href="#how-it-works" class="btn-secondary hidden md:inline-flex">How It Works</a>
                     <a href="customer-dashboard.html" class="btn-secondary md:hidden" id="heroMobileBtn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
@@ -1027,12 +1098,12 @@
         <!-- Products Section -->
         <section id="products" class="py-10 section-darker px-4">
             <div class="max-w-7xl mx-auto">
-                <div class="max-w-md mx-auto mb-8 relative" data-aos="fade-up">
-                    <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                    <input type="text" class="search-input" placeholder="Search products..." id="searchInput" oninput="filterProducts()">
-                </div>
-
-                <div class="flex flex-wrap gap-3 justify-center mb-10 relative" style="z-index:100" data-aos="fade-up">
+                <div class="search-filter-bar mb-10 relative" style="z-index:100" data-aos="fade-up">
+                    <div class="search-wrap relative">
+                        <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                        <input type="text" class="search-input" placeholder="Search products..." id="searchInput" oninput="filterProducts()">
+                    </div>
+                    <div class="filter-group">
                     <!-- Category Dropdown -->
                     <div class="glass-dropdown" id="catDropdown">
                         <button class="glass-dropdown-btn" onclick="toggleDropdown('catDropdown')">
@@ -1064,6 +1135,7 @@
                             <div class="glass-dropdown-item" data-value="10k-50k" onclick="selectPrice(this)">10,000 - 50,000 MMK</div>
                             <div class="glass-dropdown-item" data-value="above50k" onclick="selectPrice(this)">&gt; 50,000 MMK</div>
                         </div>
+                    </div>
                     </div>
                 </div>
 
@@ -1131,6 +1203,19 @@
 
 
         
+        <!-- Free Products Floating Notification -->
+        <div class="free-notify" id="freeNotify">
+            <div class="free-notify-icon">
+                <i class="fas fa-gift"></i>
+            </div>
+            <div class="free-notify-body">
+                <p class="free-notify-text"><strong>Free Products</strong> များကို Sign in ဝင်ရောက်ပြီး အခမဲ့ Download ရယူနိုင်ပါတယ်။</p>
+            </div>
+            <button class="free-notify-close" onclick="dismissNotify()" aria-label="Dismiss notification">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
     </main>
 
     <!-- Product Detail Modal -->
@@ -1184,7 +1269,7 @@
     <div class="footer-orb footer-orb-3"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-4 gap-8">
+            <div class="grid md:grid-cols-5 gap-8">
                 <div>
                     <span class="text-xl font-bold mb-4 block text-black">ART de ONE</span>
                     <p class="text-gray-500 text-sm">
@@ -1214,6 +1299,14 @@
                     <ul class="space-y-2 text-sm">
                         <li><a href="/index.html#about" class="text-gray-500 hover:text-black transition duration-300">About</a></li>
                         <li><a href="/index.html#contact" class="text-gray-500 hover:text-black transition duration-300">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Legal</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/privacy-policy.html" class="text-gray-500 hover:text-black transition duration-300">Privacy Policy</a></li>
+                        <li><a href="/terms-of-service.html" class="text-gray-500 hover:text-black transition duration-300">Terms of Service</a></li>
                     </ul>
                 </div>
             </div>
@@ -1286,18 +1379,11 @@
             this.classList.toggle('open');
         });
 
-        let alertHidden = false;
-        function toggleAlert() {
-            const alert = document.getElementById('shopAlert');
-            const toggleBtn = document.getElementById('alertToggleBtn');
-            if (!alertHidden) {
-                alert.classList.add('hiding');
-                alertHidden = true;
-                setTimeout(() => { toggleBtn.style.display = 'block'; }, 500);
-            } else {
-                toggleBtn.style.display = 'none';
-                alert.classList.remove('hiding');
-                alertHidden = false;
+        function dismissNotify() {
+            const notify = document.getElementById('freeNotify');
+            if (notify) {
+                notify.classList.add('dismissed');
+                setTimeout(() => { notify.remove(); }, 500);
             }
         }
 
