@@ -1136,8 +1136,10 @@
                         <h1>Students</h1>
                         <p>Manage registered student accounts</p>
                     </div>
-                    <button class="btn btn-primary" onclick="openModal('add-student')"><i class="fa-solid fa-plus"></i>
-                        Add Student</button>
+                    <div style="display:flex; gap:10px;">
+                        <button class="btn btn-secondary" onclick="openAssignBatchModal()"><i class="fa-solid fa-layer-group"></i> Assign to Batch</button>
+                        <button class="btn btn-primary" onclick="openModal('add-student')"><i class="fa-solid fa-plus"></i> Add Student</button>
+                    </div>
                 </div>
                 <div class="card">
                     <input type="text" id="student-search" class="form-input" placeholder="Search by name or email…"
@@ -1149,6 +1151,7 @@
                                     <th>Student</th>
                                     <th>Student ID</th>
                                     <th>Type</th>
+                                    <th>Batch</th>
                                     <th>Status</th>
                                     <th>Invite Code</th>
                                     <th>Joined</th>
@@ -1408,6 +1411,10 @@
                 </select>
                 <label class="form-label">Phone Number</label>
                 <input type="tel" name="phone_number" class="form-input">
+                <label class="form-label">Assign to Batch (Optional)</label>
+                <select name="batch_id" id="add-student-batch-select" class="form-input">
+                    <option value="">— No batch —</option>
+                </select>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Add Student</button>
                     <button type="button" class="btn btn-secondary" onclick="closeModal('add-student')">Cancel</button>
@@ -1920,7 +1927,7 @@
         window.navigateTo = navigateTo;
 
         async function loadSection(s) {
-            const map = { dashboard: loadDashboardStats, students: loadStudents, courses: loadCourses, enrollments: loadEnrollments, 'invite-codes': loadInviteCodes, files: loadFiles, software: loadSoftware, announcements: loadAnnouncements, homework: loadHomework };
+            const map = { dashboard: loadDashboardStats, students: loadStudents, courses: loadCourses, enrollments: loadEnrollments, 'invite-codes': loadInviteCodes, files: loadFiles, software: loadSoftware, announcements: loadAnnouncements, homework: loadHomework, batches: loadBatches };
             map[s]?.();
         }
 
@@ -1928,6 +1935,7 @@
         function openModal(name) {
             document.getElementById(`${name}-modal`).classList.add('active');
             if (name === 'add-enrollment') { loadStudentsForSelect(); loadCoursesForSelect('enrollment-course-select'); }
+            if (name === 'add-student') { populateBatchSelects(); }
             if (name === 'add-file') { loadCoursesForSelect('file-course-id'); loadR2Settings(); }
             if (name === 'r2-settings') { loadR2Settings(); }
         }
@@ -1969,8 +1977,10 @@
 
         function renderStudents(list) {
             const tbody = document.getElementById('students-tbody');
-            if (!list.length) { tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:40px; color:var(--muted);">No students found</td></tr>`; return; }
-            tbody.innerHTML = list.map(s => `
+            if (!list.length) { tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:40px; color:var(--muted);">No students found</td></tr>`; return; }
+            tbody.innerHTML = list.map(s => {
+                const batch = s.batch_id ? allBatches.find(b => b.id === s.batch_id) : null;
+                return `
         <tr>
             <td>
                 <div style="display:flex; align-items:center; gap:10px;">
@@ -1983,6 +1993,7 @@
             </td>
             <td><span class="code-pill" style="font-size:.75rem;">${s.student_id || s.id?.substring(0, 8).toUpperCase() || '—'}</span></td>
             <td><span class="badge badge-blue">${s.student_type || 'N/A'}</span></td>
+            <td>${batch ? `<span class="badge badge-green">${batch.name}</span>` : '<span style="color:var(--muted);">—</span>'}</td>
             <td><span class="badge badge-dot ${s.status === 'active' ? 'badge-green' : 'badge-gray'}">${s.status || 'N/A'}</span></td>
             <td>${s.invite_code_used ? `<span class="code-pill">${s.invite_code_used}</span>` : '<span style="color:var(--muted);">—</span>'}</td>
             <td style="font-size:.78rem; color:var(--muted);">${s.created_at ? new Date(s.created_at).toLocaleDateString() : '—'}</td>
@@ -1991,7 +2002,7 @@
                 <button class="btn btn-ghost" onclick="openStatsModal('${s.id}','${(s.full_name || '').replace(/'/g, "\\'")}',${s.total_attendance || 0},${s.late_attendance || 0},${s.undertime || 0},${s.absent_days || 0})"><i class="fa-solid fa-chart-bar"></i></button>
             </td>
         </tr>
-    `).join('');
+    `; }).join('');
         }
 
         function searchStudents() {
@@ -2036,7 +2047,7 @@
                 const { data: auth, error: ae } = await supabaseNoSession.auth.signUp({ email: d.email, password: d.password, options: { emailRedirectTo: location.origin + '/Private/student-dashboard.html' } });
                 if (ae) throw ae;
                 if (auth.user) {
-                    const { error: de } = await supabase.from('students').insert([{ id: auth.user.id, email: d.email, full_name: d.full_name, student_type: d.student_type, phone_number: d.phone_number || null, status: 'active' }]);
+                    const { error: de } = await supabase.from('students').insert([{ id: auth.user.id, email: d.email, full_name: d.full_name, student_type: d.student_type, phone_number: d.phone_number || null, batch_id: d.batch_id || null, status: 'active' }]);
                     if (de) throw de;
                 }
                 modalAlert('add-student', 'Student added!', 'success');
@@ -3172,6 +3183,9 @@
             const announcementSelect = document.getElementById('announcement-batch-select');
             if (announcementSelect) announcementSelect.innerHTML = options;
 
+            const addStudentSelect = document.getElementById('add-student-batch-select');
+            if (addStudentSelect) addStudentSelect.innerHTML = '<option value="">— No batch —</option>' + allBatches.map(b => `<option value="${b.id}">${b.name}</option>`).join('');
+
             const assignSelect = document.getElementById('assign-batch-select');
             if (assignSelect) assignSelect.innerHTML = allBatches.map(b => `<option value="${b.id}">${b.name}</option>`).join('');
         }
@@ -3229,44 +3243,6 @@
                 loadBatches();
                 populateBatchSelects();
             });
-        }
-
-        // Dynamically add Batch column to students table
-        function addBatchColumnToStudentsTable() {
-            const thead = document.querySelector('#students-section table thead tr');
-            if (thead && !thead.querySelector('.batch-th')) {
-                const th = document.createElement('th');
-                th.className = 'batch-th';
-                th.textContent = 'Batch';
-                const refTh = thead.children[3]; // Insert before Status column
-                thead.insertBefore(th, refTh);
-            }
-        }
-
-        // After students render, inject batch info into each row
-        function injectBatchColumn() {
-            addBatchColumnToStudentsTable();
-            const rows = document.querySelectorAll('#students-tbody tr');
-            rows.forEach(row => {
-                if (row.querySelector('.batch-td')) return;
-                const emailEl = row.querySelector('td:first-child div div:last-child');
-                const email = emailEl ? emailEl.textContent.trim() : '';
-                const student = allStudents.find(s => s.email === email);
-                const batch = student?.batch_id ? allBatches.find(b => b.id === student.batch_id) : null;
-                const td = document.createElement('td');
-                td.className = 'batch-td';
-                td.innerHTML = batch ? `<span class="badge badge-green">${batch.name}</span>` : '<span style="color:var(--muted);">—</span>';
-                const refTd = row.children[3];
-                if (refTd) row.insertBefore(td, refTd);
-            });
-        }
-
-        // Observe students tbody for changes to inject batch column
-        const studentsTbody = document.getElementById('students-tbody');
-        if (studentsTbody) {
-            new MutationObserver(() => {
-                setTimeout(injectBatchColumn, 50);
-            }).observe(studentsTbody, { childList: true });
         }
 
         // Pre-load batches data
