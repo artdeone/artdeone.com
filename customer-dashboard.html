@@ -373,6 +373,39 @@
         .auth-link-create:hover { color:#c41f2f; }
         .password-hint { font-size:.72em; color:var(--text-muted); margin-top:4px; margin-bottom:12px; }
 
+        /* Agreement Checkboxes */
+        .auth-agreements { margin-bottom:14px; display:flex; flex-direction:column; gap:10px; }
+        .auth-checkbox-label {
+            display:flex; align-items:flex-start; gap:10px; cursor:pointer;
+            font-size:.78em; line-height:1.5; color:var(--text-secondary);
+        }
+        .auth-checkbox-label input[type="checkbox"] {
+            position:absolute; opacity:0; width:0; height:0;
+        }
+        .auth-checkbox-custom {
+            flex-shrink:0; width:18px; height:18px; border-radius:5px;
+            border:1.5px solid var(--border-strong); background:var(--surface-2);
+            display:flex; align-items:center; justify-content:center;
+            transition:all .2s var(--ease); margin-top:1px;
+        }
+        .auth-checkbox-custom::after {
+            content:''; display:none; width:5px; height:9px;
+            border:solid #000; border-width:0 2px 2px 0;
+            transform:rotate(45deg); margin-top:-2px;
+        }
+        .auth-checkbox-label input:checked + .auth-checkbox-custom {
+            background:var(--accent-green); border-color:var(--accent-green);
+        }
+        .auth-checkbox-label input:checked + .auth-checkbox-custom::after { display:block; }
+        .auth-checkbox-label input:focus-visible + .auth-checkbox-custom {
+            outline:2px solid var(--accent-green); outline-offset:2px;
+        }
+        .auth-checkbox-text a {
+            color:var(--text-primary); text-decoration:underline;
+            text-decoration-color:var(--accent-green); text-underline-offset:2px;
+        }
+        .auth-checkbox-text a:hover { color:var(--accent-green); }
+
         /* Trust Badges */
         .trust-badges {
             display:flex; flex-wrap:wrap; justify-content:center; gap:12px;
@@ -2158,6 +2191,18 @@
                     <div class="auth-form-group"><input type="email" id="regEmail" class="auth-input" placeholder="Email"></div>
                     <div class="auth-form-group"><input type="password" id="regPassword" class="auth-input" placeholder="Password"></div>
                     <p class="password-hint"><i class="fas fa-info-circle"></i> Password အနည်းဆုံး ၆ လုံး ထည့်ပါ</p>
+                    <div class="auth-agreements">
+                        <label class="auth-checkbox-label">
+                            <input type="checkbox" id="agreePrivacy">
+                            <span class="auth-checkbox-custom"></span>
+                            <span class="auth-checkbox-text"><a href="/privacy-policy.html" target="_blank">ကိုယ်ရေးအချက်အလက် လုံခြုံမှုဆိုင်ရာ မူဝါဒ</a> ကို ဖတ်ပြီး သဘောတူပါသည်။</span>
+                        </label>
+                        <label class="auth-checkbox-label">
+                            <input type="checkbox" id="agreeTerms">
+                            <span class="auth-checkbox-custom"></span>
+                            <span class="auth-checkbox-text"><a href="/terms-of-service.html" target="_blank">ဝန်ဆောင်မှု သဘောတူညီချက်</a> ကို ဖတ်ပြီး သဘောတူပါသည်။</span>
+                        </label>
+                    </div>
                     <button onclick="registerWithEmail()" class="login-create-btn grain-btn" id="emailRegBtn">
                         <span class="btn-text">Create Account</span>
                         <span class="btn-loading"><i class="fas fa-spinner fa-spin"></i> Creating...</span>
@@ -2572,6 +2617,7 @@
         const btn = document.getElementById('emailRegBtn'), err = document.getElementById('loginError');
         if (!name || !email || !password) { err.textContent = 'အချက်အလက်အားလုံး ဖြည့်ပေးပါ'; err.style.display = 'block'; return; }
         if (password.length < 6) { err.textContent = 'Password အနည်းဆုံး ၆ လုံး ထည့်ပေးပါ'; err.style.display = 'block'; return; }
+        if (!document.getElementById('agreePrivacy').checked || !document.getElementById('agreeTerms').checked) { err.textContent = 'ကိုယ်ရေးအချက်အလက် လုံခြုံမှုဆိုင်ရာ မူဝါဒနှင့် ဝန်ဆောင်မှု သဘောတူညီချက်ကို သဘောတူပေးရန် လိုပါသည်'; err.style.display = 'block'; return; }
         btn.classList.add('loading'); btn.disabled = true; err.style.display = 'none';
         const { data, error } = await signUpWithEmail(email, password, name);
         btn.classList.remove('loading'); btn.disabled = false;

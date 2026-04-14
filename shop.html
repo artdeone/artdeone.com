@@ -69,8 +69,8 @@
         .btn-secondary { background-color: #ed2939; color: #fff; font-weight: 600; border: 1px solid #ed2939; border-radius: 2rem; padding: 0.55rem 1.5rem; font-size: 0.85rem; transition: all 0.3s ease; display: inline-flex; align-items: center; justify-content: center; }
         .btn-secondary:hover { background-color: #a7e169; color: #323232; border-color: #a7e169; transform: translateY(-3px); box-shadow: 0 12px 24px rgba(167, 225, 105, 0.25); }
 
-        .minimalist-card { background-color: #ffffff; border: 1px solid #e5e5e5; border-radius: 1rem; padding: 0; transition: all 0.4s ease; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); overflow: hidden; }
-        .minimalist-card:hover { transform: translateY(-8px); box-shadow: 0 10px 15px -3px rgba(167, 225, 105, 0.3); }
+        .minimalist-card { background-color: #ffffff; border: 1px solid #e5e5e5; border-radius: 1rem; padding: 0; transition: all 0.35s ease; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02); overflow: hidden; }
+        .minimalist-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06); }
 
         html, body { overflow-x: hidden; max-width: 100%; }
 
@@ -199,26 +199,11 @@
         html { scroll-behavior: smooth; }
 
         .minimalist-card {
-            transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.45s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease;
+            transition: all 0.35s ease;
         }
         .minimalist-card:hover {
-            transform: translateY(-10px) scale(1.015);
-            box-shadow:
-                0 20px 40px -12px rgba(167, 225, 105, 0.28),
-                0 8px 20px -6px rgba(0,0,0,0.08);
-            border-color: rgba(167, 225, 105, 0.5);
-        }
-        .minimalist-card .product-card-img {
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .minimalist-card:hover .product-card-img {
-            transform: scale(1.06);
-        }
-        .minimalist-card .product-card-body {
-            transition: background 0.3s ease;
-        }
-        .minimalist-card:hover .product-card-body {
-            background: #fefffe;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
         }
 
         .modal-overlay {
@@ -1089,7 +1074,7 @@
                 </h1>
                 <div class="flex flex-wrap gap-3 justify-center mt-10">
                     <a href="#products" class="btn-primary hidden md:inline-flex">Browse Products</a>
-                    <a href="#how-it-works" class="btn-secondary hidden md:inline-flex">How It Works</a>
+                    <a href="#student-artworks" class="btn-secondary hidden md:inline-flex">Student Artworks</a>
                     <a href="customer-dashboard.html" class="btn-secondary md:hidden" id="heroMobileBtn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
                 </div>
             </div>
@@ -1148,54 +1133,63 @@
             </div>
         </section>
 
-        <!-- How It Works -->
-<section id="how-it-works" class="py-20 section-dark px-4">
-    <div class="max-w-3xl mx-auto">
-        <div class="text-center mb-16" data-aos="fade-up">
-            <h2 class="section-title">How It Works</h2>
-            <p class="section-subtitle">ရိုးရှင်းတဲ့ အဆင့် ၄ ဆင့်နဲ့ သင့်ပစ္စည်းများကို ရယူပါ</p>
+        <!-- Student Artworks -->
+<section id="student-artworks" class="py-20 section-dark px-4">
+    <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="section-title">Student Artworks</h2>
+            <p class="section-subtitle">ART de ONE Illustrator မှ သင်ယူနေသော ကျောင်းသားများ၏ ဖန်တီးမှုလက်ရာများ</p>
         </div>
 
-        <div data-aos="fade-up">
-            <div class="flex items-start gap-4">
-                <div class="step-number">1</div>
-                <div class="pt-0.5">
-                    <h4 class="font-bold text-black text-base mb-0.5">Account ဖွင့်ပါ</h4>
-                    <p class="text-[#555] text-xs">Google Account သို့မဟုတ် Email/Password ဖြင့် အလွယ်တကူ Register/Login ၀င်ပါ</p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-14" data-aos="fade-up">
+            <!-- Featured large artwork -->
+            <div class="col-span-2 row-span-2 rounded-2xl overflow-hidden group cursor-pointer relative" onclick="window.location.href='portfolio/student-gallery.html'">
+                <img src="portfolio/student-gallery/sumyat-2.jpeg" alt="Student Artwork - Understood the Lighting" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5">
+                    <div>
+                        <p class="text-white font-semibold text-sm">Understood the Lighting</p>
+                        <p class="text-white/70 text-xs">ART de ONE Student</p>
+                    </div>
                 </div>
             </div>
-            <div class="step-connector"></div>
-            <div class="flex items-start gap-4">
-                <div class="step-number">2</div>
-                <div class="pt-0.5">
-                    <h4 class="font-bold text-black text-base mb-0.5">Product ရွေးပြီး Order တင်ပါ</h4>
-                    <p class="text-[#555] text-xs">Dashboard ထဲမှာ ကြိုက်နှစ်သက်ရာ Products ကို Cart ထဲထည့်ပြီး Order တင်ပါ</p>
+            <!-- Small artworks -->
+            <div class="rounded-2xl overflow-hidden group cursor-pointer relative" onclick="window.location.href='portfolio/student-gallery.html'">
+                <img src="portfolio/student-gallery/whitney-phyu.jpeg" alt="Student Artwork - Vector Illustration" class="w-full h-full object-cover aspect-square transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                    <p class="text-white font-medium text-xs">Vector Illustration</p>
                 </div>
             </div>
-            <div class="step-connector"></div>
-            <div class="flex items-start gap-4">
-                <div class="step-number">3</div>
-                <div class="pt-0.5">
-                    <h4 class="font-bold text-black text-base mb-0.5">ငွေလွှဲပါ</h4>
-                    <p class="text-[#555] text-xs">KBZ Pay / Wave / Bank Transfer ဖြင့် ငွေလွှဲပြီး Admin ကို Screenshot ပို့ပေးပါ</p>
+            <div class="rounded-2xl overflow-hidden group cursor-pointer relative" onclick="window.location.href='portfolio/student-gallery.html'">
+                <img src="portfolio/student-gallery/ayesandar.jpg" alt="Student Artwork - Custom Typography" class="w-full h-full object-cover aspect-square transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                    <p class="text-white font-medium text-xs">Custom Typography</p>
                 </div>
             </div>
-            <div class="step-connector"></div>
-            <div class="flex items-start gap-4">
-                <div class="step-number">4</div>
-                <div class="pt-0.5">
-                    <h4 class="font-bold text-black text-base mb-0.5">Download / Watch ရယူပါ</h4>
-                    <p class="text-[#555] text-xs">Admin အတည်ပြုပြီးပါက Customer Dashboard ကနေ Download ရယူ သို့မဟုတ် Course ကြည့်ရှုနိုင်ပါပြီ</p>
+            <div class="rounded-2xl overflow-hidden group cursor-pointer relative" onclick="window.location.href='portfolio/student-gallery.html'">
+                <img src="portfolio/student-gallery/wahwah.jpg" alt="Student Artwork - Vector Artwork" class="w-full h-full object-cover aspect-square transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                    <p class="text-white font-medium text-xs">Vector Artwork</p>
+                </div>
+            </div>
+            <div class="rounded-2xl overflow-hidden group cursor-pointer relative" onclick="window.location.href='portfolio/student-gallery.html'">
+                <img src="portfolio/student-gallery/tharhteaung.jpg" alt="Student Artwork - Ads Design" class="w-full h-full object-cover aspect-square transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                    <p class="text-white font-medium text-xs">Ads Design</p>
                 </div>
             </div>
         </div>
 
-        <div class="text-center mt-12" data-aos="fade-up">
+        <!-- CTA: Join ART de ONE Illustrator -->
+        <div class="text-center" data-aos="fade-up">
+            <h3 class="text-2xl md:text-3xl font-bold text-[#323232] mb-3 artdeone-font">Join ART de ONE Illustrator</h3>
+            <p class="text-[#777] text-sm md:text-base mb-8 max-w-lg mx-auto leading-relaxed">Illustrator ကို ပိုမိုကျွမ်းကျင်စေမည့် သင်တန်းများ၊ Brush များ၊ Resource များနှင့် အသိုင်းအ၀ိုင်းနှင့်အတူ ဖန်တီးမှုခရီးကို စတင်ပါ။</p>
             <div class="flex flex-wrap gap-3 justify-center">
-                <button onclick="handleAuthAction()" class="btn-primary" id="btnHowItWorks">
-                    <i class="fas fa-user-plus mr-2"></i>Register / Login
-                </button>
-                <button onclick="openContactModal()" class="btn-secondary cursor-pointer"><i class="fas fa-phone mr-2"></i>ဆက်သွယ်ရန်</button>
+                <a href="portfolio/student-gallery.html" class="btn-primary" style="padding:0.65rem 1.75rem; font-size:0.9rem;">
+                    View All Artworks
+                </a>
+                <a href="customer-dashboard.html" class="btn-secondary" style="padding:0.65rem 1.75rem; font-size:0.9rem;">
+                    Join Now
+                </a>
             </div>
         </div>
     </div>
@@ -1898,7 +1892,6 @@
         const userInfoDesktop  = document.getElementById('userInfoDesktop');
         const btnLoginMobile   = document.getElementById('btnLoginMobile');
         const userInfoMobile   = document.getElementById('userInfoMobile');
-        const btnHowItWorks    = document.getElementById('btnHowItWorks');
 
         if (session && session.user) {
             const name = session.user.user_metadata?.full_name
@@ -1944,10 +1937,6 @@
                 }
             }
 
-            // How It Works button
-            if (btnHowItWorks) {
-                btnHowItWorks.innerHTML = '<i class="fas fa-th-large mr-2"></i>Go to Dashboard';
-            }
         } else {
             // Desktop
             btnLoginDesktop.style.display = 'inline-flex';
@@ -1957,10 +1946,6 @@
             btnLoginMobile.style.display  = 'inline-flex';
             userInfoMobile.style.display  = 'none';
 
-            // How It Works button
-            if (btnHowItWorks) {
-                btnHowItWorks.innerHTML = '<i class="fas fa-user-plus mr-2"></i>Register / Login';
-            }
         }
     }
 

@@ -231,20 +231,6 @@
             filter: blur(0);
         }
 
-        /* Outdoor cards */
-        .outdoor-card {
-            opacity: 0;
-            transform: translateX(60px) scale(0.92);
-            filter: blur(5px);
-            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
-                        transform 1.2s cubic-bezier(0.16, 1, 0.3, 1),
-                        filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .outdoor-card.is-visible {
-            opacity: 1;
-            transform: translateX(0) scale(1);
-            filter: blur(0);
-        }
 
         /* CTA cards */
         .cta-card {
@@ -436,14 +422,14 @@
 
         /* ===== MASONRY GALLERY ===== */
         .masonry-grid {
-            columns: 4 250px;
-            column-gap: 1rem;
+            columns: 3 320px;
+            column-gap: 1.25rem;
         }
         @media (max-width: 1024px) {
-            .masonry-grid { columns: 3 200px; }
+            .masonry-grid { columns: 2 280px; }
         }
         @media (max-width: 640px) {
-            .masonry-grid { columns: 2 150px; }
+            .masonry-grid { columns: 1 1fr; }
         }
         .masonry-item {
             break-inside: avoid;
@@ -546,57 +532,113 @@
             font-weight: 600;
         }
 
-        /* ===== OUTDOOR ACTIVITIES SECTION ===== */
-        .outdoor-scroll {
-            display: flex;
-            gap: 1rem;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-            padding-bottom: 1rem;
-        }
-        .outdoor-scroll::-webkit-scrollbar {
-            display: none;
-        }
-        .outdoor-card {
-            scroll-snap-align: start;
-            flex: 0 0 auto;
-            width: 300px;
-            height: 400px;
+        /* ===== FAQ / HOW YOU'LL LEARN ===== */
+        .faq-item {
+            background: #fff;
+            border: 1px solid var(--gray-200);
             border-radius: 1.25rem;
             overflow: hidden;
-            position: relative;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .faq-item:hover {
+            border-color: rgba(167,225,105,0.4);
+        }
+        .faq-item.active {
+            border-color: var(--green);
+            box-shadow: 0 8px 24px rgba(167,225,105,0.08);
+        }
+        .faq-question {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem 1.75rem;
             cursor: pointer;
+            user-select: none;
+            transition: background 0.2s ease;
+        }
+        .faq-question:hover {
+            background: rgba(167,225,105,0.03);
+        }
+        .faq-icon {
             flex-shrink: 0;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(167,225,105,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--green);
+            font-size: 1.1rem;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .faq-item.active .faq-icon {
+            background: var(--green);
+            color: #000;
+        }
+        .faq-question-text {
+            flex: 1;
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--dark);
+            line-height: 1.4;
+        }
+        .faq-toggle {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1.5px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.35s var(--ease-out), border-color 0.3s ease, background 0.3s ease;
+        }
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+            border-color: var(--green);
+            background: rgba(167,225,105,0.1);
+        }
+        .faq-toggle svg {
+            width: 14px;
+            height: 14px;
+            color: var(--gray-500);
+            transition: color 0.3s ease;
+        }
+        .faq-item.active .faq-toggle svg {
+            color: #000;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+            opacity: 0;
+        }
+        .faq-item.active .faq-answer {
+            opacity: 1;
+        }
+        .faq-answer-inner {
+            padding: 0 1.75rem 1.75rem;
+            padding-left: calc(1.75rem + 44px + 1rem);
+            color: var(--gray-500);
+            font-size: 0.9rem;
+            line-height: 1.75;
+        }
+        .faq-answer-inner a {
+            color: var(--green);
+            font-weight: 600;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            transition: color 0.2s ease;
+        }
+        .faq-answer-inner a:hover {
+            color: var(--red);
         }
         @media (max-width: 640px) {
-            .outdoor-card {
-                width: 260px;
-                height: 340px;
-            }
-        }
-        .outdoor-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.7s var(--ease-out);
-        }
-        .outdoor-card:hover img {
-            transform: scale(1.08);
-        }
-        .outdoor-card-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 1.5rem;
-            transition: background 0.4s ease;
-        }
-        .outdoor-card:hover .outdoor-card-overlay {
-            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.15) 70%);
+            .faq-question { padding: 1.25rem 1.25rem; gap: 0.75rem; }
+            .faq-icon { width: 38px; height: 38px; font-size: 0.95rem; border-radius: 10px; }
+            .faq-answer-inner { padding: 0 1.25rem 1.25rem; padding-left: calc(1.25rem + 38px + 0.75rem); font-size: 0.85rem; }
+            .faq-question-text { font-size: 0.9rem; }
         }
 
         /* ===== SECTION HEADERS ===== */
@@ -643,12 +685,13 @@
             box-shadow: 0 20px 40px rgba(167,225,105,0.15);
         }
         .cta-card--dark {
-            background: var(--black);
+            background: linear-gradient(135deg, #1a2e12 0%, #243b1a 50%, #1a2e12 100%);
             color: #fff;
-            border: 1px solid #222;
+            border: 1px solid rgba(167, 225, 105, 0.15);
         }
         .cta-card--dark:hover {
-            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+            box-shadow: 0 20px 40px rgba(26, 46, 18, 0.35);
+            border-color: rgba(167, 225, 105, 0.3);
         }
 
         /* ===== LIGHTBOX ===== */
@@ -692,19 +735,6 @@
             65%       { transform: translate(15px, -10px) scale(0.95); }
         }
 
-        /* Marquee for outdoor section */
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        .marquee-track {
-            display: flex;
-            animation: marquee 30s linear infinite;
-            width: max-content;
-        }
-        .marquee-track:hover {
-            animation-play-state: paused;
-        }
 
         /* ===== SCROLL PROGRESS BAR ===== */
         .scroll-progress {
@@ -729,6 +759,118 @@
             font-size: 0.75rem;
             letter-spacing: 0.08em;
             color: rgba(255,255,255,0.5);
+        }
+
+        /* ===== HERO BUTTONS — INNER GLOW + GRAIN ===== */
+        .hero-btn-primary,
+        .hero-btn-secondary {
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            border-radius: 2rem;
+            padding: 0.55rem 1.5rem;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+        .hero-btn-primary {
+            background-color: #a7e169;
+            color: #000;
+            border: 1px solid #a7e169;
+            box-shadow: inset 0 0 12px 3px rgba(255,255,255,0.40), inset 0 0 28px 6px rgba(255,255,255,0.12), 0 0 18px 4px rgba(167,225,105,0.12);
+        }
+        .hero-btn-primary:hover {
+            background-color: #ed2939;
+            border-color: #ed2939;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: inset 0 0 14px 4px rgba(255,255,255,0.45), inset 0 0 32px 8px rgba(255,255,255,0.15), 0 0 25px 6px rgba(237,41,57,0.15);
+        }
+        .hero-btn-secondary {
+            background-color: #ed2939;
+            color: #fff;
+            border: 1px solid #ed2939;
+            box-shadow: inset 0 0 12px 3px rgba(255,255,255,0.35), inset 0 0 28px 6px rgba(255,255,255,0.10), 0 0 18px 4px rgba(237,41,57,0.10);
+        }
+        .hero-btn-secondary:hover {
+            background-color: #a7e169;
+            color: #323232;
+            border-color: #a7e169;
+            transform: translateY(-3px);
+            box-shadow: inset 0 0 14px 4px rgba(255,255,255,0.45), inset 0 0 32px 8px rgba(255,255,255,0.15), 0 0 25px 6px rgba(167,225,105,0.18);
+        }
+        .hero-btn-primary::after,
+        .hero-btn-secondary::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            border-radius: inherit;
+            opacity: 0.07;
+            mix-blend-mode: overlay;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+            background-size: 128px 128px;
+        }
+        .hero-btn-primary:hover::after,
+        .hero-btn-secondary:hover::after {
+            opacity: 0.10;
+        }
+
+        /* ===== LEARN CARDS (Horizontal FAQ) ===== */
+        .learn-card {
+            background: #fff;
+            border: 1px solid var(--gray-200);
+            border-radius: 1.25rem;
+            padding: 2rem 1.75rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        .learn-card:hover {
+            border-color: var(--green);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(167, 225, 105, 0.12);
+        }
+        .learn-card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            background: rgba(167, 225, 105, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--green);
+            font-size: 1.2rem;
+            margin-bottom: 1.25rem;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .learn-card:hover .learn-card-icon {
+            background: var(--green);
+            color: #000;
+        }
+        .learn-card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--dark);
+            line-height: 1.4;
+            margin-bottom: 0.75rem;
+        }
+        .learn-card-desc {
+            font-size: 0.85rem;
+            color: var(--gray-500);
+            line-height: 1.75;
+        }
+        .learn-card-desc a {
+            color: var(--green);
+            font-weight: 600;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+        .learn-card-desc a:hover {
+            color: var(--red);
         }
     </style>
 </head>
@@ -834,40 +976,38 @@
             <section class="hero-section">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="max-w-3xl mx-auto text-center">
-                        <h1 class="hero-title mb-6 hero-animate" style="transition-delay: 0ms;">
-                            <span class="gradient-text artdeone-font">ART de ONE</span><br>
-                            <span style="font-size: clamp(1.5rem, 3.5vw, 2.5rem); font-weight: 600; color: #323232; letter-spacing: -0.01em;">ကျောင်းသား၊ ကျောင်းသူများ</span>
+                        <h1 class="hero-title mb-8 hero-animate" style="transition-delay: 0ms;">
+                            <span class="gradient-text artdeone-font">ART de ONE Students</span>
                         </h1>
-                        <p class="text-base sm:text-lg text-[#555] max-w-xl mx-auto font-light leading-relaxed mb-2 hero-animate" style="transition-delay: 150ms;">
-                            Login ဝင်ပြီး class materials များ download ရယူနိုင်သည်၊ homework တင်နိုင်သည်၊ instructor feedback များ တိုက်ရိုက်ရယူနိုင်သည်။
-                        </p>
-                        
-                        <div class="flex justify-center gap-4 mt-10 hero-animate" style="transition-delay: 400ms;">
-                            <a href="/Private/student-login.html"
-                               class="group inline-flex items-center gap-2.5 bg-[#a7e169] text-black font-semibold text-sm rounded-full px-8 py-3.5 hover:bg-[#ed2939] hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-black/10">
-                                <i class="fas fa-user-graduate text-sm"></i>
+
+                        <div class="flex items-center justify-center gap-6 sm:gap-10 mb-10 hero-animate" style="transition-delay: 200ms;">
+                            <div class="text-center">
+                                <span class="text-2xl sm:text-3xl font-bold text-black" data-count="100">0</span><span class="text-[#a7e169] font-bold text-lg">+</span>
+                                <p class="text-[0.65rem] uppercase tracking-[0.15em] text-gray-400 mt-1">Students</p>
+                            </div>
+                            <div class="w-px h-8 bg-gray-200"></div>
+                            <div class="text-center">
+                                <span class="text-2xl sm:text-3xl font-bold text-black" data-count="7">0</span><span class="text-[#a7e169] font-bold text-lg">+</span>
+                                <p class="text-[0.65rem] uppercase tracking-[0.15em] text-gray-400 mt-1">Batches</p>
+                            </div>
+                            <div class="w-px h-8 bg-gray-200"></div>
+                            <div class="text-center">
+                                <span class="text-2xl sm:text-3xl font-bold text-black" data-count="58">0</span><span class="text-[#a7e169] font-bold text-lg">+</span>
+                                <p class="text-[0.65rem] uppercase tracking-[0.15em] text-gray-400 mt-1">Artworks</p>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap justify-center gap-3 hero-animate" style="transition-delay: 400ms;">
+                            <a href="/Private/student-login.html" class="hero-btn-primary group">
+                                <i class="fas fa-user-graduate" style="font-size:0.8rem;"></i>
                                 Student Login
                                 <i class="fas fa-arrow-right text-xs transition-transform duration-300 group-hover:translate-x-1"></i>
                             </a>
-                        </div>
-                    </div>
-
-                    <!-- Stats -->
-                    <div class="max-w-2xl mx-auto mt-14 grid grid-cols-3 gap-3 sm:gap-5 fade-in">
-                        <div class="stat-card">
-                            <div class="stat-number" data-count="100">0</div>
-                            <div class="text-[#a7e169] text-xl font-bold -mt-1">+</div>
-                            <div class="stat-label">Students</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number" data-count="7">0</div>
-                            <div class="text-[#a7e169] text-xl font-bold -mt-1">+</div>
-                            <div class="stat-label">Batches</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number" data-count="58">0</div>
-                            <div class="text-[#a7e169] text-xl font-bold -mt-1">+</div>
-                            <div class="stat-label">Artworks</div>
+                            <a href="#how-youll-learn" class="hero-btn-secondary group">
+                                <i class="fas fa-graduation-cap" style="font-size:0.8rem;"></i>
+                                သင်ကြားမည့်ပုံစံ
+                                <i class="fas fa-arrow-right text-xs transition-transform duration-300 group-hover:translate-x-1"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -934,15 +1074,15 @@
                         </div>
                     </div>
 
-                    <div class="bento-card bento-card--small stagger-item" onclick="openLightboxByUrl('student-gallery/phoochit.jpg')">
-                        <img src="student-gallery/phoochit.jpg" alt="Photo Manipulation" loading="lazy">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/phoochit.jpg')" class="share-btn" title="Share on Facebook">
+                    <div class="bento-card bento-card--small stagger-item" onclick="openLightboxByUrl('student-gallery/lwinoomg-3.jpg')">
+                        <img src="student-gallery/lwinoomg.jpg" alt="Vector Artwork" loading="lazy">
+                        <button onclick="shareSpecificImage(event, 'student-gallery/lwinoomg-3.jpg')" class="share-btn" title="Share on Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </button>
                         <div class="bento-overlay">
-                            <div class="bento-tag">Best Photo Manipulation</div>
-                            <h3 class="text-base font-bold text-white">Photo Manipulation</h3>
-                            <p class="text-xs text-gray-400">Batch 2 & By One Student</p>
+                            <div class="bento-tag">Best Understanding for Lighting</div>
+                            <h3 class="text-base font-bold text-white">Vector Artwork</h3>
+                            <p class="text-xs text-gray-400">Ko Lwin Oo Maung &middot; By 1 Student</p>
                         </div>
                     </div>
 
@@ -1266,99 +1406,39 @@
                 </div>
             </section>
 
-            <!-- ===== OUTDOOR ACTIVITIES — NEW SECTION ===== -->
-            <section class="mb-24 fade-in">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
-                    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-                        <div>
-                            <span class="section-tag">
-                                <i class="fas fa-mountain-sun"></i> Beyond the Classroom
-                            </span>
-                            <h2 class="section-title">Outdoor Activities</h2>
-                            <p class="section-desc">Learning goes beyond screens — our students explore, collaborate, and create together</p>
-                        </div>
-                        <div class="flex items-center gap-2 text-xs text-gray-400 flex-shrink-0">
-                            <span>Scroll to explore</span>
-                            <i class="fas fa-arrow-right text-[#a7e169]"></i>
-                        </div>
-                    </div>
+            <!-- ===== သင်ကြားမည့်ပုံစံ — HOW YOU'LL LEARN ===== -->
+            <section id="how-youll-learn" class="mb-24" style="background: #f7f7f7; padding: 5rem 0;">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-10 fade-in">
+                    <span class="section-tag" style="margin-bottom: 1rem;">
+                        <i class="fas fa-graduation-cap"></i> How You'll Learn
+                    </span>
+                    <h2 class="section-title" style="margin-bottom: 1.25rem;">သင်ကြားမည့်ပုံစံ</h2>
+                    <p class="section-desc" style="margin-top: 0;">ART de ONE တွင် သင်ကြားပုံစံအကြောင်း သိရှိလိုပါသလား</p>
                 </div>
 
-                <!-- Horizontal scroll gallery -->
-                <div class="outdoor-scroll pl-4 sm:pl-8 lg:pl-[max(2rem,calc((100vw-1280px)/2+2rem))]">
-
-                    <div class="outdoor-card" id="outdoor-1">
-                        <div class="w-full h-full bg-gradient-to-br from-[#a7e169]/20 to-[#a7e169]/5 flex items-center justify-center">
-                            <div class="text-center px-6">
-                                <i class="fas fa-camera text-4xl text-[#a7e169]/40 mb-4"></i>
-                                <p class="text-sm text-gray-400 font-medium">Add your outdoor photos here</p>
-                                <p class="text-xs text-gray-300 mt-1">Replace this placeholder</p>
-                            </div>
-                        </div>
-                        <div class="outdoor-card-overlay">
-                            <p class="text-xs text-[#a7e169] uppercase tracking-wider font-bold mb-1">Team Building</p>
-                            <h3 class="text-lg font-bold text-white">Group Activity Day</h3>
-                        </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 fade-in" style="padding-top: 8px; padding-bottom: 8px;">
+                    <!-- Card 1 -->
+                    <div class="learn-card stagger-item">
+                        <div class="learn-card-icon"><i class="fas fa-video"></i></div>
+                        <h3 class="learn-card-title">Live Class က Zoom လား?</h3>
+                        <p class="learn-card-desc">ART de ONE ရဲ့ ကိုယ်ပိုင် Live နဲ့သင်ကြားမှာဖြစ်ပါတယ်။ Zoom, Discord မဟုတ်ပါ။ ART de ONE ရဲ့ကိုယ်တိုင် Create လုပ်ထားတဲ့ <strong>ART de ONE Live</strong> နဲ့သင်ကြားမှာဖြစ်ပါတယ်။ ဖုန်း၊ Laptop နှစ်ခုလုံးနဲ့ Live ကိုကြည့်လို့ရပါတယ်။</p>
                     </div>
 
-                    <div class="outdoor-card" id="outdoor-2">
-                        <div class="w-full h-full bg-gradient-to-br from-[#ed2939]/10 to-[#ed2939]/5 flex items-center justify-center">
-                            <div class="text-center px-6">
-                                <i class="fas fa-palette text-4xl text-[#ed2939]/30 mb-4"></i>
-                                <p class="text-sm text-gray-400 font-medium">Outdoor sketching session</p>
-                                <p class="text-xs text-gray-300 mt-1">Replace this placeholder</p>
-                            </div>
-                        </div>
-                        <div class="outdoor-card-overlay">
-                            <p class="text-xs text-[#a7e169] uppercase tracking-wider font-bold mb-1">Sketching Trip</p>
-                            <h3 class="text-lg font-bold text-white">Plein Air Drawing</h3>
-                        </div>
+                    <!-- Card 2 -->
+                    <div class="learn-card stagger-item">
+                        <div class="learn-card-icon"><i class="fas fa-laptop"></i></div>
+                        <h3 class="learn-card-title">သင်တန်းတက်ဖို့ ဘာတွေလိုအပ်လဲ?</h3>
+                        <p class="learn-card-desc"><strong>Ram 4GB</strong> နဲ့အထက်ရှိတဲ့ Laptop တစ်လုံးလိုအပ်ပါတယ်။ ဒါပါပဲ။ လိုအပ်တဲ့ Software တွေကို သင်တန်းသား၊ သင်တန်းသူတိုင်း ART de ONE ရဲ့ <strong>Student Dashboard</strong> ကနေ လွယ်လွယ်ကူကူ Download ဆွဲပြီး Install လုပ်လို့ရပါတယ်။</p>
                     </div>
 
-                    <div class="outdoor-card" id="outdoor-3">
-                        <div class="w-full h-full bg-gradient-to-br from-black/10 to-black/5 flex items-center justify-center">
-                            <div class="text-center px-6">
-                                <i class="fas fa-users text-4xl text-black/20 mb-4"></i>
-                                <p class="text-sm text-gray-400 font-medium">Student gathering</p>
-                                <p class="text-xs text-gray-300 mt-1">Replace this placeholder</p>
-                            </div>
-                        </div>
-                        <div class="outdoor-card-overlay">
-                            <p class="text-xs text-[#a7e169] uppercase tracking-wider font-bold mb-1">Student Life</p>
-                            <h3 class="text-lg font-bold text-white">Batch Gathering</h3>
-                        </div>
+                    <!-- Card 3 -->
+                    <div class="learn-card stagger-item">
+                        <div class="learn-card-icon"><i class="fas fa-user-lock"></i></div>
+                        <h3 class="learn-card-title">အိမ်စာက Facebook, Telegram Group ကနေတင်ရမှာလား?</h3>
+                        <p class="learn-card-desc">Group မလိုအပ်ပါခင်ဗျ။ ART de ONE မှာသင်တန်းအပ်လိုက်ပြီဆိုတာနဲ့ ကျောင်းသား၊ ကျောင်းသူတွေအတွက် <strong>Private Dashboard</strong> လုပ်ပေးထားပါတယ်။ ကိုယ့်ရဲ့ Artwork တွေကို ဆရာကလွဲပြီးဘယ်သူမှမမြင်နိုင်ပါ။ ဆရာက <strong>Rating နဲ့ Reviewed</strong> လုပ်ပြီးမှတ်ချက်တွေပေးပါလိမ့်မယ်။</p>
                     </div>
-
-                    <div class="outdoor-card" id="outdoor-4">
-                        <div class="w-full h-full bg-gradient-to-br from-[#a7e169]/15 to-[#a7e169]/5 flex items-center justify-center">
-                            <div class="text-center px-6">
-                                <i class="fas fa-trophy text-4xl text-[#a7e169]/30 mb-4"></i>
-                                <p class="text-sm text-gray-400 font-medium">Award ceremony</p>
-                                <p class="text-xs text-gray-300 mt-1">Replace this placeholder</p>
-                            </div>
-                        </div>
-                        <div class="outdoor-card-overlay">
-                            <p class="text-xs text-[#a7e169] uppercase tracking-wider font-bold mb-1">Celebration</p>
-                            <h3 class="text-lg font-bold text-white">Certificate Day</h3>
-                        </div>
-                    </div>
-
-                    <div class="outdoor-card" id="outdoor-5">
-                        <div class="w-full h-full bg-gradient-to-br from-[#ed2939]/10 to-[#a7e169]/10 flex items-center justify-center">
-                            <div class="text-center px-6">
-                                <i class="fas fa-heart text-4xl text-[#ed2939]/25 mb-4"></i>
-                                <p class="text-sm text-gray-400 font-medium">Fun moments</p>
-                                <p class="text-xs text-gray-300 mt-1">Replace this placeholder</p>
-                            </div>
-                        </div>
-                        <div class="outdoor-card-overlay">
-                            <p class="text-xs text-[#a7e169] uppercase tracking-wider font-bold mb-1">Fun Times</p>
-                            <h3 class="text-lg font-bold text-white">Behind the Scenes</h3>
-                        </div>
-                    </div>
-
-                    <!-- Spacer for scroll end -->
-                    <div class="flex-shrink-0 w-8"></div>
+                </div>
                 </div>
             </section>
 
@@ -1753,46 +1833,50 @@
         // Stat cards
         document.querySelectorAll('.stat-card').forEach(el => scrollAnimObserver.observe(el));
 
-        // Outdoor cards with stagger
-        document.querySelectorAll('.outdoor-card').forEach((el, i) => {
-            const outdoorObs = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        setTimeout(() => entry.target.classList.add('is-visible'), i * 200);
-                        outdoorObs.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.15 });
-            outdoorObs.observe(el);
-        });
+        // ===== FAQ TOGGLE =====
+        function toggleFaq(questionEl) {
+            const item = questionEl.closest('.faq-item');
+            const answer = item.querySelector('.faq-answer');
+            const isActive = item.classList.contains('active');
 
-        // ===== OUTDOOR SCROLL DRAG =====
-        const scrollContainer = document.querySelector('.outdoor-scroll');
-        let isDown = false;
-        let startX;
-        let scrollLeft;
+            // Close all other items
+            document.querySelectorAll('.faq-item[data-faq]').forEach(other => {
+                if (other !== item) {
+                    other.classList.remove('active');
+                    const otherAnswer = other.querySelector('.faq-answer');
+                    otherAnswer.style.maxHeight = '0';
+                    otherAnswer.style.opacity = '0';
+                }
+            });
 
-        scrollContainer.addEventListener('mousedown', (e) => {
-            isDown = true;
-            scrollContainer.style.cursor = 'grabbing';
-            startX = e.pageX - scrollContainer.offsetLeft;
-            scrollLeft = scrollContainer.scrollLeft;
-        });
-        scrollContainer.addEventListener('mouseleave', () => {
-            isDown = false;
-            scrollContainer.style.cursor = '';
-        });
-        scrollContainer.addEventListener('mouseup', () => {
-            isDown = false;
-            scrollContainer.style.cursor = '';
-        });
-        scrollContainer.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - scrollContainer.offsetLeft;
-            const walk = (x - startX) * 1.5;
-            scrollContainer.scrollLeft = scrollLeft - walk;
-        });
+            if (isActive) {
+                item.classList.remove('active');
+                answer.style.maxHeight = '0';
+                answer.style.opacity = '0';
+            } else {
+                item.classList.add('active');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                answer.style.opacity = '1';
+            }
+        }
+        // ===== SHUFFLE BENTO CARDS =====
+        (function shuffleBentoCards() {
+            const grid = document.querySelector('.bento-grid');
+            if (!grid) return;
+            const cards = Array.from(grid.children);
+            // Fisher-Yates shuffle
+            for (let i = cards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [cards[i], cards[j]] = [cards[j], cards[i]];
+            }
+            // Re-append in shuffled order
+            cards.forEach(card => grid.appendChild(card));
+            // Ensure the first card (now random) gets the large class
+            grid.querySelectorAll('.bento-card').forEach((card, i) => {
+                card.classList.toggle('bento-card--large', i === 0);
+                card.classList.toggle('bento-card--small', i !== 0);
+            });
+        })();
     </script>
     <script>
         function toggleMobileResourcesDropdown() {
