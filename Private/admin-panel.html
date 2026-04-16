@@ -1015,6 +1015,12 @@
                 <div class="card">
                     <div style="display:flex; flex-direction:column; gap:16px; max-width:400px;">
                         <div>
+                            <label class="form-label">Select Batch (Optional)</label>
+                            <select id="admin-batch-select" class="form-input" onchange="onAdminBatchSelect()">
+                                <option value="">— Enter room code manually —</option>
+                            </select>
+                        </div>
+                        <div>
                             <label class="form-label">Room Code</label>
                             <div style="display:flex; gap:10px;">
                                 <input type="text" id="admin-room-code" class="form-input" style="margin-bottom:0;" placeholder="e.g. artdeone-class-123">
@@ -1152,6 +1158,7 @@
                                     <th>Student ID</th>
                                     <th>Type</th>
                                     <th>Batch</th>
+                                    <th>Level</th>
                                     <th>Status</th>
                                     <th>Invite Code</th>
                                     <th>Joined</th>
@@ -1282,6 +1289,14 @@
                     </div>
                 </div>
 
+                <!-- Level Tabs -->
+                <div style="display:flex; gap:6px; margin-bottom:16px; flex-wrap:wrap;">
+                    <button class="btn btn-primary file-level-tab" data-level="" onclick="filterFilesByLevel('')" style="font-size:.8rem; padding:6px 16px; border-radius:999px;">All</button>
+                    <button class="btn btn-ghost file-level-tab" data-level="beginner" onclick="filterFilesByLevel('beginner')" style="font-size:.8rem; padding:6px 16px; border-radius:999px; display:flex; align-items:center; gap:6px;"><span style="width:8px; height:8px; border-radius:50%; background:#60a5fa; display:inline-block;"></span> Beginner</button>
+                    <button class="btn btn-ghost file-level-tab" data-level="intermediate" onclick="filterFilesByLevel('intermediate')" style="font-size:.8rem; padding:6px 16px; border-radius:999px; display:flex; align-items:center; gap:6px;"><span style="width:8px; height:8px; border-radius:50%; background:#fbbf24; display:inline-block;"></span> Intermediate</button>
+                    <button class="btn btn-ghost file-level-tab" data-level="advanced" onclick="filterFilesByLevel('advanced')" style="font-size:.8rem; padding:6px 16px; border-radius:999px; display:flex; align-items:center; gap:6px;"><span style="width:8px; height:8px; border-radius:50%; background:#a78bfa; display:inline-block;"></span> Advanced</button>
+                </div>
+
                 <!-- Filter row -->
                 <div style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
                     <select id="file-filter-course" class="form-input" style="width:auto; min-width:180px; margin:0;"
@@ -1362,6 +1377,15 @@
                     <select id="hw-filter-course" class="form-input" style="width:auto; min-width:180px; margin:0;" onchange="loadHomework()">
                         <option value="">All Courses</option>
                     </select>
+                    <select id="hw-filter-batch" class="form-input" style="width:auto; min-width:160px; margin:0;" onchange="loadHomework()">
+                        <option value="">All Batches</option>
+                    </select>
+                    <select id="hw-filter-level" class="form-input" style="width:auto; min-width:150px; margin:0;" onchange="loadHomework()">
+                        <option value="">All Levels</option>
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
                 </div>
 
                 <div id="homework-container">
@@ -1414,6 +1438,13 @@
                 <label class="form-label">Assign to Batch (Optional)</label>
                 <select name="batch_id" id="add-student-batch-select" class="form-input">
                     <option value="">— No batch —</option>
+                </select>
+                <label class="form-label">Level (Optional)</label>
+                <select name="level" id="add-student-level-select" class="form-input">
+                    <option value="">— No level —</option>
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="advanced">Advanced</option>
                 </select>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Add Student</button>
@@ -1608,6 +1639,14 @@
                     <option value="Other">Other</option>
                 </select>
 
+                <label class="form-label">Level</label>
+                <select id="file-level-select" class="form-input">
+                    <option value="">— No level —</option>
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="advanced">Advanced</option>
+                </select>
+
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Save File</button>
                     <button type="button" class="btn btn-secondary" onclick="closeModal('add-file')">Cancel</button>
@@ -1650,9 +1689,17 @@
                         <option value="">— Select a student —</option>
                     </select>
                 </div>
-                <label class="form-label">Target Batch (Optional)</label>
-                <select name="batch_id" class="form-input" id="announcement-batch-select">
-                    <option value="">— No specific batch —</option>
+                <label class="form-label">Target Batch</label>
+                <select name="batch_id" class="form-input" id="announcement-batch-select" required>
+                    <option value="">— Select a batch —</option>
+                    <option value="all">All Students</option>
+                </select>
+                <label class="form-label">Target Level (Optional)</label>
+                <select name="level" class="form-input" id="announcement-level-select">
+                    <option value="">— All levels —</option>
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="advanced">Advanced</option>
                 </select>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i>
@@ -1823,6 +1870,12 @@
                 <input type="text" name="name" class="form-input" required placeholder="e.g. Batch 1 — January 2026">
                 <label class="form-label">Description (Optional)</label>
                 <textarea name="description" class="form-input" rows="2" placeholder="Brief description of this batch"></textarea>
+                <label class="form-label">Room / Class Code (Optional)</label>
+                <div style="display:flex; gap:10px;">
+                    <input type="text" name="room_code" id="add-batch-room-code" class="form-input" style="margin-bottom:0;" placeholder="e.g. artdeone-batch1-101">
+                    <button type="button" class="btn btn-secondary" onclick="generateBatchRoomCode()"><i class="fa-solid fa-shuffle"></i></button>
+                </div>
+                <p style="font-size:.72rem; color:var(--muted); margin-top:4px;">Students in this batch will see this code automatically in their Live Class section.</p>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Create Batch</button>
                     <button type="button" class="btn btn-secondary" onclick="closeModal('add-batch')">Cancel</button>
@@ -1841,11 +1894,80 @@
             <form id="assign-batch-form">
                 <label class="form-label">Batch</label>
                 <select id="assign-batch-select" class="form-input" required></select>
+                <label class="form-label">Level</label>
+                <select id="assign-level-select" class="form-input">
+                    <option value="">— No level —</option>
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="advanced">Advanced</option>
+                </select>
                 <label class="form-label">Students</label>
                 <div id="assign-batch-student-list" style="max-height:300px; overflow-y:auto; border:1px solid var(--border); border-radius:10px; padding:8px;"></div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Save Assignments</button>
                     <button type="button" class="btn btn-secondary" onclick="closeModal('assign-batch')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Recorded Video -->
+    <div id="add-recorded-video-modal" class="modal">
+        <div class="modal-box" style="max-width:580px;">
+            <div class="modal-header">
+                <h2 id="recorded-video-modal-title">Add Recorded Video</h2><button class="modal-close" onclick="closeModal('add-recorded-video')">&times;</button>
+            </div>
+            <div id="add-recorded-video-alert"></div>
+            <form id="add-recorded-video-form" onsubmit="event.preventDefault(); saveRecordedVideo();">
+                <input type="hidden" id="rv-id" value="">
+
+                <label class="form-label">YouTube URL</label>
+                <div style="display:flex; gap:10px; margin-bottom:16px;">
+                    <input type="url" id="rv-youtube-url" class="form-input" style="margin-bottom:0;" placeholder="https://www.youtube.com/watch?v=..." required>
+                    <button type="button" class="btn btn-secondary" onclick="fetchYoutubeMeta()" style="flex-shrink:0;"><i class="fa-solid fa-wand-magic-sparkles"></i> Fetch</button>
+                </div>
+                <p class="form-hint">Paste a YouTube link and click Fetch to auto-fill title & thumbnail</p>
+
+                <label class="form-label">Title</label>
+                <input type="text" id="rv-title" class="form-input" required placeholder="Video title">
+
+                <label class="form-label">Thumbnail Preview</label>
+                <input type="hidden" id="rv-thumbnail-url" value="">
+                <div id="rv-preview-area" style="display:none; align-items:center; gap:16px; padding:12px; background:var(--bg); border-radius:12px; border:1px solid var(--border); margin-bottom:16px;">
+                    <img id="rv-thumbnail" src="" style="width:120px; height:68px; object-fit:cover; border-radius:8px; border:1px solid var(--border);">
+                    <span style="font-size:.78rem; color:var(--muted);">Auto-detected thumbnail</span>
+                </div>
+
+                <label class="form-label">Assignment Type</label>
+                <select id="rv-assign-type" class="form-input" onchange="toggleRvAssignType()">
+                    <option value="batch">By Batch</option>
+                    <option value="individual">By Individual Student</option>
+                </select>
+
+                <div id="rv-assign-batch-section">
+                    <label class="form-label">Select Batches</label>
+                    <div id="rv-batch-checkboxes" style="max-height:180px; overflow-y:auto; border:1px solid var(--border); border-radius:10px; padding:10px; margin-bottom:16px;">
+                        <p style="color:var(--muted); font-size:.8rem;">Loading batches…</p>
+                    </div>
+                </div>
+
+                <div id="rv-assign-individual-section" style="display:none;">
+                    <label class="form-label">Select Students <span style="font-weight:400; color:var(--muted);">(hold Ctrl/Cmd to multi-select)</span></label>
+                    <select id="rv-student-multi" multiple class="form-input" style="height:160px; min-height:120px;">
+                    </select>
+                </div>
+
+                <label class="form-label">Level (Optional)</label>
+                <select id="rv-level-select" class="form-input">
+                    <option value="">— All levels —</option>
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="advanced">Advanced</option>
+                </select>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Save Video</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('add-recorded-video')">Cancel</button>
                 </div>
             </form>
         </div>
@@ -1927,7 +2049,7 @@
         window.navigateTo = navigateTo;
 
         async function loadSection(s) {
-            const map = { dashboard: loadDashboardStats, students: loadStudents, courses: loadCourses, enrollments: loadEnrollments, 'invite-codes': loadInviteCodes, files: loadFiles, software: loadSoftware, announcements: loadAnnouncements, homework: loadHomework, batches: loadBatches };
+            const map = { dashboard: loadDashboardStats, students: loadStudents, courses: loadCourses, enrollments: loadEnrollments, 'invite-codes': loadInviteCodes, files: loadFiles, software: loadSoftware, announcements: loadAnnouncements, homework: loadHomework, batches: loadBatches, 'recorded-videos': loadRecordedVideos, 'live-class': populateAdminBatchSelect };
             map[s]?.();
         }
 
@@ -1938,6 +2060,8 @@
             if (name === 'add-student') { populateBatchSelects(); }
             if (name === 'add-file') { loadCoursesForSelect('file-course-id'); loadR2Settings(); }
             if (name === 'r2-settings') { loadR2Settings(); }
+            if (name === 'add-recorded-video') { resetRecordedVideoForm(); loadRvDependencyLists(); }
+            if (name === 'add-announcement') { populateBatchSelects(); loadStudentsForAnnouncementSelect(); }
         }
         function closeModal(name) {
             document.getElementById(`${name}-modal`).classList.remove('active');
@@ -1994,6 +2118,7 @@
             <td><span class="code-pill" style="font-size:.75rem;">${s.student_id || s.id?.substring(0, 8).toUpperCase() || '—'}</span></td>
             <td><span class="badge badge-blue">${s.student_type || 'N/A'}</span></td>
             <td>${batch ? `<span class="badge badge-green">${batch.name}</span>` : '<span style="color:var(--muted);">—</span>'}</td>
+            <td>${s.level ? `<span class="badge" style="background:${s.level === 'beginner' ? '#dbeafe' : s.level === 'intermediate' ? '#fef3c7' : '#ede9fe'}; color:${s.level === 'beginner' ? '#1d4ed8' : s.level === 'intermediate' ? '#b45309' : '#6d28d9'}; font-size:.75rem; padding:2px 10px; border-radius:999px; font-weight:500;">${s.level.charAt(0).toUpperCase() + s.level.slice(1)}</span>` : '<span style="color:var(--muted);">—</span>'}</td>
             <td><span class="badge badge-dot ${s.status === 'active' ? 'badge-green' : 'badge-gray'}">${s.status || 'N/A'}</span></td>
             <td>${s.invite_code_used ? `<span class="code-pill">${s.invite_code_used}</span>` : '<span style="color:var(--muted);">—</span>'}</td>
             <td style="font-size:.78rem; color:var(--muted);">${s.created_at ? new Date(s.created_at).toLocaleDateString() : '—'}</td>
@@ -2019,7 +2144,7 @@
                 <img src="${s.avatar_url || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(s.full_name || s.email) + '&background=a7e169&color=000&size=64'}" style="width:64px; height:64px; border-radius:50%; object-fit:cover;">
                 <div><div style="font-size:1.1rem; font-weight:600;">${s.full_name || 'No name'}</div><div style="color:var(--muted); font-size:.875rem;">${s.email}</div></div>
             </div>
-            ${[['Type', s.student_type], ['Status', s.status], ['Phone', s.phone_number || '—'], ['Invite Code', s.invite_code_used || '—'], ['Joined', s.created_at ? new Date(s.created_at).toLocaleString() : '—']].map(([k, v]) => `
+            ${[['Type', s.student_type], ['Level', s.level ? s.level.charAt(0).toUpperCase() + s.level.slice(1) : '—'], ['Status', s.status], ['Phone', s.phone_number || '—'], ['Invite Code', s.invite_code_used || '—'], ['Joined', s.created_at ? new Date(s.created_at).toLocaleString() : '—']].map(([k, v]) => `
             <div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--border);">
                 <span style="color:var(--muted); font-size:.875rem;">${k}</span>
                 <span style="font-size:.875rem; font-weight:500;">${v}</span>
@@ -2047,7 +2172,7 @@
                 const { data: auth, error: ae } = await supabaseNoSession.auth.signUp({ email: d.email, password: d.password, options: { emailRedirectTo: location.origin + '/Private/student-dashboard.html' } });
                 if (ae) throw ae;
                 if (auth.user) {
-                    const { error: de } = await supabase.from('students').insert([{ id: auth.user.id, email: d.email, full_name: d.full_name, student_type: d.student_type, phone_number: d.phone_number || null, batch_id: d.batch_id || null, status: 'active' }]);
+                    const { error: de } = await supabase.from('students').insert([{ id: auth.user.id, email: d.email, full_name: d.full_name, student_type: d.student_type, phone_number: d.phone_number || null, batch_id: d.batch_id || null, level: d.level || null, status: 'active' }]);
                     if (de) throw de;
                 }
                 modalAlert('add-student', 'Student added!', 'success');
@@ -2629,6 +2754,7 @@
             const description = document.getElementById('file-description').value.trim();
             const courseId = document.getElementById('file-course-id').value;
             const fileType = document.getElementById('file-type-select').value;
+            const fileLevel = document.getElementById('file-level-select').value;
 
             if (!title) { modalAlert('add-file', 'Please enter a file title.'); return; }
 
@@ -2677,7 +2803,7 @@
                 const { error } = await supabase.from('course_files').insert([{
                     title, description: description || null, file_url: fileUrl,
                     file_name: fileName || null, file_size_kb: fileSize ? Math.round(fileSize / 1024) : null,
-                    file_type: fileType, course_id: courseId || null, is_active: true
+                    file_type: fileType, course_id: courseId || null, level: fileLevel || null, is_active: true
                 }]);
                 if (error) throw error;
 
@@ -2708,10 +2834,12 @@
         <div style="padding:16px; border:1px solid var(--border); border-radius:12px; margin-bottom:12px; transition:var(--transition);" onmouseenter="this.style.borderColor='var(--green)'" onmouseleave="this.style.borderColor='var(--border)'">
             <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px;">
                 <div>
-                    <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+                    <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px; flex-wrap:wrap;">
                         <span style="font-weight:600; font-size:.9rem;">${a.title}</span>
                         <span class="badge ${a.priority === 'urgent' ? 'badge-red' : a.priority === 'high' ? 'badge-yellow' : 'badge-gray'}">${a.priority}</span>
                         <span class="badge badge-blue">${a.target_audience}</span>
+                        ${a.level ? `<span style="font-size:.7rem; padding:2px 10px; border-radius:999px; font-weight:500; background:${a.level === 'beginner' ? '#dbeafe' : a.level === 'intermediate' ? '#fef3c7' : '#ede9fe'}; color:${a.level === 'beginner' ? '#1d4ed8' : a.level === 'intermediate' ? '#b45309' : '#6d28d9'};">${a.level.charAt(0).toUpperCase() + a.level.slice(1)}</span>` : ''}
+                        ${a.batch_id ? `<span class="badge badge-green"><i class="fa-solid fa-layer-group" style="margin-right:4px;"></i>Batch</span>` : ''}
                     </div>
                     <p style="font-size:.875rem; color:var(--muted); line-height:1.6; overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;">${a.content}</p>
                     <p style="font-size:.75rem; color:#bbb; margin-top:8px;">${new Date(a.published_at || a.created_at || new Date()).toLocaleString()}</p>
@@ -2725,6 +2853,11 @@
         document.getElementById('add-announcement-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const d = Object.fromEntries(new FormData(e.target));
+            // Clean up batch_id: "all" means no specific batch (broadcast to everyone)
+            if (d.batch_id === 'all' || !d.batch_id) d.batch_id = null;
+            // Clean up empty optional fields to avoid inserting empty strings into UUID columns
+            if (!d.student_id) delete d.student_id;
+            if (!d.level) delete d.level;
             try {
                 const { error } = await supabase.from('announcements').insert([{ ...d, is_active: true }]);
                 if (error) throw error;
@@ -2859,6 +2992,8 @@
         async function loadHomework() {
             const statusFilter = document.getElementById('hw-filter-status')?.value || '';
             const courseFilter = document.getElementById('hw-filter-course')?.value || '';
+            const batchFilter = document.getElementById('hw-filter-batch')?.value || '';
+            const levelFilter = document.getElementById('hw-filter-level')?.value || '';
             const searchQuery = (document.getElementById('hw-search')?.value || '').toLowerCase().trim();
 
             // Populate course filter dropdown
@@ -2870,7 +3005,16 @@
                 }
             }
 
-            let query = supabase.from('homework_submissions').select('*, courses(title), students(full_name, email, avatar_url, student_id)').order('created_at', { ascending: false });
+            // Populate batch filter dropdown
+            const batchSel = document.getElementById('hw-filter-batch');
+            if (batchSel && batchSel.options.length <= 1) {
+                const { data: batches } = await supabase.from('batches').select('id, name').order('name');
+                if (batches?.length) {
+                    batchSel.innerHTML = '<option value="">All Batches</option>' + batches.map(b => `<option value="${b.id}">${b.name}</option>`).join('');
+                }
+            }
+
+            let query = supabase.from('homework_submissions').select('*, courses(title), students(full_name, email, avatar_url, student_id, batch_id, level)').order('created_at', { ascending: false });
             if (statusFilter) query = query.eq('status', statusFilter);
             if (courseFilter) query = query.eq('course_id', courseFilter);
 
@@ -2913,10 +3057,22 @@
                 grouped[sid].items.push(h);
             });
 
-            // Apply search filter on student name
-            const filteredOrder = searchQuery
-                ? studentOrder.filter(sid => grouped[sid].name.toLowerCase().includes(searchQuery) || grouped[sid].email.toLowerCase().includes(searchQuery))
-                : studentOrder;
+            // Apply search, batch, and level filters on student groups
+            const filteredOrder = studentOrder.filter(sid => {
+                const g = grouped[sid];
+                if (searchQuery && !g.name.toLowerCase().includes(searchQuery) && !g.email.toLowerCase().includes(searchQuery)) return false;
+                // Batch filter: check if any submission's student has the matching batch_id
+                if (batchFilter) {
+                    const studentBatchId = g.items[0]?.students?.batch_id;
+                    if (studentBatchId !== batchFilter) return false;
+                }
+                // Level filter: check if any submission's student has the matching level
+                if (levelFilter) {
+                    const studentLevel = g.items[0]?.students?.level;
+                    if (studentLevel !== levelFilter) return false;
+                }
+                return true;
+            });
 
             const totalPending = normalizedData.filter(h => h.status === 'pending').length;
             if (summaryEl) summaryEl.textContent = `${filteredOrder.length} student${filteredOrder.length !== 1 ? 's' : ''} · ${normalizedData.length} total · ${totalPending} pending`;
@@ -3127,6 +3283,68 @@
         window.joinAdminLiveClass = joinAdminLiveClass;
         window.copyAdminInviteLink = copyAdminInviteLink;
 
+        // ── Batch Room Code helpers ──
+        function generateBatchRoomCode() {
+            const input = document.getElementById('add-batch-room-code');
+            if (input.value.trim()) return;
+            const adj = ['drawing','painting','sculpture','design','watercolor','digital','portrait','landscape'];
+            const pick = adj[Math.floor(Math.random() * adj.length)];
+            const num = Math.floor(100 + Math.random() * 900);
+            input.value = `artdeone-${pick}-${num}`;
+        }
+        window.generateBatchRoomCode = generateBatchRoomCode;
+
+        window.editBatchRoomCode = async function(batchId, currentCode) {
+            const newCode = prompt('Enter new Room / Class Code for this batch:', currentCode || '');
+            if (newCode === null) return; // cancelled
+            const trimmed = newCode.trim();
+            try {
+                const { error } = await supabase.from('batches').update({ room_code: trimmed || null }).eq('id', batchId);
+                if (error) throw error;
+                loadBatches();
+                populateBatchSelects();
+                populateAdminBatchSelect();
+            } catch (err) { alert('Error updating room code: ' + err.message); }
+        };
+
+        // Safe handlers that read from data attributes on the batch card
+        window.copyBatchRoomCodeFromCard = function(btn) {
+            const card = btn.closest('.batch-card');
+            if (!card) return;
+            const code = card.dataset.roomCode;
+            if (code) {
+                navigator.clipboard.writeText(code).then(() => alert('Room code copied!'));
+            }
+        };
+        window.editBatchRoomCodeFromCard = function(btn) {
+            const card = btn.closest('.batch-card');
+            if (!card) return;
+            const batchId = card.dataset.batchId;
+            const currentCode = card.dataset.roomCode || '';
+            editBatchRoomCode(batchId, currentCode);
+        };
+
+        // ── Admin Live Class: Batch selector ──
+        async function populateAdminBatchSelect() {
+            if (!allBatches.length) await loadBatches();
+            const sel = document.getElementById('admin-batch-select');
+            if (!sel) return;
+            sel.innerHTML = '<option value="">— Enter room code manually —</option>' +
+                allBatches.filter(b => b.room_code).map(b =>
+                    `<option value="${b.id}" data-room="${b.room_code}">${b.name} (${b.room_code})</option>`
+                ).join('');
+        }
+        window.onAdminBatchSelect = function() {
+            const sel = document.getElementById('admin-batch-select');
+            const roomInput = document.getElementById('admin-room-code');
+            if (!sel || !roomInput) return;
+            const opt = sel.options[sel.selectedIndex];
+            if (opt && opt.dataset.room) {
+                roomInput.value = opt.dataset.room;
+            }
+        };
+        window.populateAdminBatchSelect = populateAdminBatchSelect;
+
         // ── Batches ──
         let allBatches = [];
 
@@ -3143,28 +3361,34 @@
                 container.innerHTML = '<div class="empty-state"><i class="fa-solid fa-layer-group"></i><p>No batches yet. Create one to organize your students.</p></div>';
                 return;
             }
-            container.innerHTML = allBatches.map(b => `
-                <div class="batch-card">
+            container.innerHTML = allBatches.map(b => {
+                const escCode = (b.room_code || '').replace(/'/g, "\\'").replace(/"/g, '"');
+                return `
+                <div class="batch-card" data-batch-id="${b.id}" data-room-code="${b.room_code || ''}">
                     <div class="batch-card-info">
                         <h3>${b.name}</h3>
                         <p>${b.description || 'No description'}</p>
+                        ${b.room_code ? `<div style="display:flex;align-items:center;gap:6px;margin-top:6px;"><span style="font-size:.72rem;color:var(--green);font-weight:600;"><i class="fa-solid fa-door-open" style="margin-right:3px;"></i>Room Code:</span><code style="font-size:.78rem;background:rgba(167,225,105,.1);padding:2px 8px;border-radius:6px;color:var(--green);font-family:'Poppins',monospace;">${b.room_code}</code><button onclick="copyBatchRoomCodeFromCard(this)" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:.72rem;" title="Copy room code"><i class="fa-regular fa-copy"></i></button><button onclick="editBatchRoomCodeFromCard(this)" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:.72rem;" title="Edit room code"><i class="fa-solid fa-pen"></i></button></div>` : `<div style="margin-top:6px;"><button onclick="editBatchRoomCodeFromCard(this)" style="font-size:.72rem;color:var(--muted);background:none;border:1px dashed var(--border);border-radius:6px;padding:2px 8px;cursor:pointer;transition:var(--transition);" onmouseover="this.style.borderColor='var(--green)';this.style.color='var(--green)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'"><i class="fa-solid fa-plus" style="margin-right:3px;"></i>Add Room Code</button></div>`}
                         <div class="batch-date">Created: ${new Date(b.created_at).toLocaleDateString()}</div>
                     </div>
                     <div style="display:flex; gap:8px;">
                         <button class="btn btn-ghost" onclick="deleteBatch('${b.id}')" title="Delete"><i class="fa-solid fa-trash" style="color:var(--red);"></i></button>
                     </div>
-                </div>
-            `).join('');
+                </div>`;
+            }).join('');
         }
 
         document.getElementById('add-batch-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const d = Object.fromEntries(new FormData(e.target));
+            // Convert empty room_code to null for Supabase
+            if (!d.room_code || !d.room_code.trim()) d.room_code = null;
+            else d.room_code = d.room_code.trim();
             try {
                 const { error } = await supabase.from('batches').insert([d]);
                 if (error) throw error;
                 modalAlert('add-batch', 'Batch created!', 'success');
-                setTimeout(() => { closeModal('add-batch'); e.target.reset(); loadBatches(); populateBatchSelects(); }, 1200);
+                setTimeout(() => { closeModal('add-batch'); e.target.reset(); loadBatches(); populateBatchSelects(); populateAdminBatchSelect(); }, 1200);
             } catch (err) { modalAlert('add-batch', err.message); }
         });
 
@@ -3174,6 +3398,7 @@
             if (error) { alert('Error: ' + error.message); return; }
             loadBatches();
             populateBatchSelects();
+            populateAdminBatchSelect();
         };
 
         async function populateBatchSelects() {
@@ -3181,7 +3406,7 @@
             const options = '<option value="">— No specific batch —</option>' + allBatches.map(b => `<option value="${b.id}">${b.name}</option>`).join('');
 
             const announcementSelect = document.getElementById('announcement-batch-select');
-            if (announcementSelect) announcementSelect.innerHTML = options;
+            if (announcementSelect) announcementSelect.innerHTML = '<option value="">— Select a batch —</option><option value="all">All Students</option>' + allBatches.map(b => `<option value="${b.id}">${b.name}</option>`).join('');
 
             const addStudentSelect = document.getElementById('add-student-batch-select');
             if (addStudentSelect) addStudentSelect.innerHTML = '<option value="">— No batch —</option>' + allBatches.map(b => `<option value="${b.id}">${b.name}</option>`).join('');
@@ -3190,18 +3415,11 @@
             if (assignSelect) assignSelect.innerHTML = allBatches.map(b => `<option value="${b.id}">${b.name}</option>`).join('');
         }
 
-        // Handle empty batch_id in announcement form (prevent empty string for UUID column)
-        const announcementBatchSelect = document.getElementById('announcement-batch-select');
-        if (announcementBatchSelect) {
-            announcementBatchSelect.addEventListener('change', function() {
-                if (!this.value) {
-                    this.removeAttribute('name');
-                } else {
-                    this.setAttribute('name', 'batch_id');
-                }
-            });
-            // Initial state: no name attribute so empty value doesn't get submitted
-            announcementBatchSelect.removeAttribute('name');
+        // Load students for the announcement target student dropdown
+        async function loadStudentsForAnnouncementSelect() {
+            if (!allStudents.length) await loadStudents();
+            const sel = document.getElementById('announcement-student-select');
+            if (sel) sel.innerHTML = '<option value="">— Select a student —</option>' + allStudents.map(s => `<option value="${s.id}">${s.full_name || s.email}</option>`).join('');
         }
 
         // Assign batch modal
@@ -3215,7 +3433,7 @@
                     <img src="${s.avatar_url || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(s.full_name || s.email) + '&background=a7e169&color=000&size=28'}" style="width:28px; height:28px; border-radius:50%; object-fit:cover;">
                     <div>
                         <div style="font-size:.82rem; font-weight:500;">${s.full_name || s.email}</div>
-                        <div style="font-size:.7rem; color:var(--muted);">${s.batch_id ? 'Assigned' : 'Unassigned'}</div>
+                        <div style="font-size:.7rem; color:var(--muted);">${s.batch_id ? 'Assigned' : 'Unassigned'}${s.level ? ' · ' + s.level.charAt(0).toUpperCase() + s.level.slice(1) : ''}</div>
                     </div>
                 </label>
             `).join('');
@@ -3226,10 +3444,13 @@
             e.preventDefault();
             const batchId = document.getElementById('assign-batch-select').value;
             if (!batchId) { modalAlert('assign-batch', 'Please select a batch'); return; }
+            const levelVal = document.getElementById('assign-level-select').value;
             const checked = [...document.querySelectorAll('.assign-batch-checkbox:checked')].map(c => c.value);
             if (!checked.length) { modalAlert('assign-batch', 'Please select at least one student'); return; }
             try {
-                const { error } = await supabase.from('students').update({ batch_id: batchId }).in('id', checked);
+                const updateData = { batch_id: batchId };
+                if (levelVal) updateData.level = levelVal;
+                const { error } = await supabase.from('students').update(updateData).in('id', checked);
                 if (error) throw error;
                 modalAlert('assign-batch', `${checked.length} student(s) assigned!`, 'success');
                 setTimeout(() => { closeModal('assign-batch'); loadStudents(); }, 1200);
@@ -3242,11 +3463,12 @@
             batchesSidebarLink.addEventListener('click', () => {
                 loadBatches();
                 populateBatchSelects();
+                populateAdminBatchSelect();
             });
         }
 
         // Pre-load batches data
-        loadBatches().then(() => populateBatchSelects());
+        loadBatches().then(() => { populateBatchSelects(); populateAdminBatchSelect(); });
 
         // ── Invite Code Batch Integration ──
         // Populate batch dropdown when gen-code modal opens
@@ -3487,6 +3709,18 @@
     window.editSoftware = editSoftware;
     window.saveEditSoftware = saveEditSoftware;
 
+    // ── Active level filter state ──
+    let activeFileLevelFilter = '';
+
+    // ── Level tab click handler ──
+    window.filterFilesByLevel = function(level) {
+        activeFileLevelFilter = level;
+        document.querySelectorAll('.file-level-tab').forEach(btn => {
+            btn.className = 'btn ' + (btn.dataset.level === level ? 'btn-primary' : 'btn-ghost') + ' file-level-tab';
+        });
+        loadFiles();
+    };
+
     // ── Override loadFiles to exclude software from Course Files section ──
     loadFiles = async function loadFiles() {
         const courseFilter = document.getElementById('file-filter-course')?.value;
@@ -3495,6 +3729,7 @@
         let query = supabase.from('course_files').select('*').order('upload_date', { ascending: false });
         if (courseFilter) query = query.eq('course_id', courseFilter);
         if (typeFilter) query = query.eq('file_type', typeFilter);
+        if (activeFileLevelFilter) query = query.eq('level', activeFileLevelFilter);
 
         const { data } = await query;
         const filtered = (data || []).filter(f => !f.file_type || !f.file_type.toLowerCase().includes('software'));
@@ -3504,6 +3739,15 @@
             container.innerHTML = `<div class="empty-state"><i class="fa-solid fa-folder-open"></i><p>No files yet — upload your first course material</p></div>`;
             return;
         }
+
+        // Level badge helper
+        const levelBadge = (level) => {
+            if (!level) return '';
+            const colors = { beginner: { bg: '#dbeafe', color: '#1d4ed8' }, intermediate: { bg: '#fef3c7', color: '#b45309' }, advanced: { bg: '#ede9fe', color: '#6d28d9' } };
+            const c = colors[level] || { bg: '#f3f4f6', color: '#6b7280' };
+            const label = level.charAt(0).toUpperCase() + level.slice(1);
+            return `<span style="font-size:.7rem; padding:2px 10px; border-radius:999px; font-weight:500; background:${c.bg}; color:${c.color}; margin-left:8px;">${label}</span>`;
+        };
 
         container.innerHTML = filtered.map(f => {
             const icons = {
@@ -3519,7 +3763,7 @@
         <div class="file-item">
             <div class="file-icon ${colorClass || 'other'}"><i class="fa-solid ${iconClass}"></i></div>
             <div class="file-info">
-                <h4>${f.title || f.file_name || 'Untitled'}</h4>
+                <h4>${f.title || f.file_name || 'Untitled'}${levelBadge(f.level)}</h4>
                 <p>${'No course'} ${f.file_description ? '— ' + f.file_description : ''} ${f.file_size_kb ? '· ' + formatSize(f.file_size_kb * 1024) : ''}</p>
             </div>
             <span class="badge badge-dot ${f.is_active !== false ? 'badge-green' : 'badge-gray'}" style="flex-shrink:0;">${f.is_active !== false ? 'Active' : 'Hidden'}</span>
@@ -3784,7 +4028,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td style="font-size:13px;">${assignedStr || '<span style="color:#9ca3af;">—</span>'}</td>
+                        <td style="font-size:13px;">${assignedStr || '<span style="color:#9ca3af;">—</span>'}${v.level ? `<span style="font-size:.7rem; padding:2px 10px; border-radius:999px; font-weight:500; background:${v.level === 'beginner' ? '#dbeafe' : v.level === 'intermediate' ? '#fef3c7' : '#ede9fe'}; color:${v.level === 'beginner' ? '#1d4ed8' : v.level === 'intermediate' ? '#b45309' : '#6d28d9'}; margin-left:8px;">${v.level.charAt(0).toUpperCase() + v.level.slice(1)}</span>` : ''}</td>
                         <td style="font-size:13px; color:#6b7280;">${new Date(v.created_at).toLocaleDateString()}</td>
                         <td style="text-align:right;">
                             <div class="action-buttons">
@@ -3828,6 +4072,11 @@
             });
         }
         
+        // Restore level selection
+        const rvLevelSelect = document.getElementById('rv-level-select');
+        if (rvLevelSelect && v.level) rvLevelSelect.value = v.level;
+        else if (rvLevelSelect) rvLevelSelect.value = '';
+
         document.getElementById('recorded-video-modal-title').textContent = 'Edit Recorded Video';
         openModal('add-recorded-video');
     }
@@ -3858,13 +4107,15 @@
             if(assigned_students.length === 0) { alert("Select at least one student"); return; }
         }
         
+        const level = document.getElementById('rv-level-select')?.value || null;
         const payload = {
             title,
             youtube_url,
             thumbnail_url,
             assignment_type,
             assigned_batches,
-            assigned_students
+            assigned_students,
+            level
         };
         
         try {
@@ -3902,6 +4153,30 @@
             loadRvDependencyLists(); // fresh fetch batches & students
         });
     }
+
+    function resetRecordedVideoForm() {
+        document.getElementById('rv-id').value = '';
+        document.getElementById('rv-youtube-url').value = '';
+        document.getElementById('rv-title').value = '';
+        document.getElementById('rv-thumbnail-url').value = '';
+        document.getElementById('rv-thumbnail').src = '';
+        document.getElementById('rv-preview-area').style.display = 'none';
+        document.getElementById('rv-assign-type').value = 'batch';
+        toggleRvAssignType();
+        document.querySelectorAll('.rv-batch-checkbox').forEach(cb => cb.checked = false);
+        Array.from(document.getElementById('rv-student-multi').options).forEach(opt => opt.selected = false);
+        document.getElementById('recorded-video-modal-title').textContent = 'Add Recorded Video';
+    }
+
+    // Expose recorded video functions to window (module scope → inline onclick)
+    window.fetchYoutubeMeta = fetchYoutubeMeta;
+    window.toggleRvAssignType = toggleRvAssignType;
+    window.loadRvDependencyLists = loadRvDependencyLists;
+    window.loadRecordedVideos = loadRecordedVideos;
+    window.editRecordedVideo = editRecordedVideo;
+    window.saveRecordedVideo = saveRecordedVideo;
+    window.deleteRecordedVideo = deleteRecordedVideo;
+    window.resetRecordedVideoForm = resetRecordedVideoForm;
 
 </script>
 </body>

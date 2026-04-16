@@ -1345,6 +1345,21 @@ window.addEventListener('DOMContentLoaded', () => {
   padding: 9px 8px; border-radius: 10px; margin-bottom: 3px; transition: background 0.15s;
 }
 .att-student-row:hover { background: var(--hover-bg); }
+.att-filter-bar {
+  display: flex; gap: 6px; padding: 8px 12px; overflow-x: auto;
+  border-bottom: 1px solid var(--border-color); flex-shrink: 0;
+}
+.att-filter-bar::-webkit-scrollbar { height: 0; display: none; }
+.att-filter-pill {
+  padding: 4px 10px; border-radius: 100px;
+  background: var(--input-bg); border: 1px solid var(--border-color);
+  color: var(--text-muted); font-family: 'Poppins', sans-serif;
+  font-size: 11px; font-weight: 600; cursor: pointer; white-space: nowrap;
+  transition: all 0.2s;
+}
+.att-filter-pill:hover { color: var(--text-color); border-color: var(--accent); }
+.att-filter-pill.active { background: var(--accent); border-color: var(--accent); color: #111116; }
+
 .att-avatar {
   width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
   background: var(--accent); color: #111116;
@@ -1489,6 +1504,7 @@ window.addEventListener('DOMContentLoaded', () => {
         <i class="fa-solid fa-user-xmark"></i> Mark Absent
       </button>
     </div>
+    <div class="att-filter-bar" id="att-auto-filter-bar"></div>
     <div id="att-absent-list">
       <div class="att-empty" style="padding:14px 20px; font-size:11px;">
         Load students in Manual tab first, then switch back.
@@ -1502,6 +1518,7 @@ window.addEventListener('DOMContentLoaded', () => {
       <i class="fa-solid fa-magnifying-glass att-search-icon"></i>
       <input class="att-search" id="att-search-input" type="text" placeholder="Search by name or ID…" oninput="attFilterStudents(this.value)">
     </div>
+    <div class="att-filter-bar" id="att-manual-filter-bar"></div>
     <div class="att-student-list" id="att-student-list">
       <div class="att-empty"><i class="fa-solid fa-spinner fa-spin" style="margin-bottom:8px;display:block;font-size:18px;color:var(--accent);"></i>Loading students…</div>
     </div>
@@ -1575,17 +1592,66 @@ window.addEventListener('DOMContentLoaded', () => {
         <i class="fa-solid fa-id-badge" style="margin-right:6px;font-size:12px;"></i>Student ID
       </label>
       <input id="att-student-id-input" class="field-input" type="text"
-        placeholder="e.g. STU001 (optional — enables auto attendance)" autocomplete="off">
+        placeholder="e.g. D7FED9FE (မထည့်လဲရပါတယ်)" autocomplete="off">
       <div class="field-hint" style="font-size:11px;color:var(--text-muted);margin-top:5px;display:flex;align-items:center;gap:4px;">
         <i class="fa-solid fa-circle-info" style="font-size:10px;color:var(--accent);"></i>
-        Enter your Student ID to have attendance recorded automatically
+        Student ID ထည့်ခြင်းဖြင့် တက်ရောက်မှတ်တမ်းကို အလိုအလျောက် မှတ်သွားပါမည်။ မထည့်လဲရပါတယ်။
       </div>`;
     micRow.insertAdjacentElement('beforebegin', wrap);
   }
 });
 
+// ── Inject Batch selector for Admin into prejoin form ──────
+if (isAdmin) {
+  window.addEventListener('DOMContentLoaded', async () => {
+    const roomCodeWrap = document.getElementById('room-code')?.closest('.field-wrap');
+    if (!roomCodeWrap) return;
+
+    const batchWrap = document.createElement('div');
+    batchWrap.className = 'field-wrap';
+    batchWrap.id = 'admin-batch-select-wrap';
+    batchWrap.style.marginBottom = '16px';
+    batchWrap.innerHTML = `
+      <label class="field-label">
+        <i class="fa-solid fa-layer-group" style="margin-right:6px;font-size:12px;"></i>Select Batch
+      </label>
+      <select id="admin-batch-select-live" class="field-input" style="cursor:pointer;">
+        <option value="">— Enter room code manually —</option>
+      </select>
+      <div class="field-hint" style="font-size:11px;color:var(--text-muted);margin-top:5px;display:flex;align-items:center;gap:4px;">
+        <i class="fa-solid fa-circle-info" style="font-size:10px;color:var(--accent);"></i>
+        Select a batch to auto-fill its assigned Room Code.
+      </div>`;
+    roomCodeWrap.insertAdjacentElement('beforebegin', batchWrap);
+
+    // Fetch batches with room_code
+    try {
+      const { data: batches } = await supabase.from('batches').select('id, name, room_code').order('name');
+      const sel = document.getElementById('admin-batch-select-live');
+      if (sel && batches?.length) {
+        batches.filter(b => b.room_code).forEach(b => {
+          const opt = document.createElement('option');
+          opt.value = b.id;
+          opt.dataset.room = b.room_code;
+          opt.textContent = `${b.name} (${b.room_code})`;
+          sel.appendChild(opt);
+        });
+        sel.addEventListener('change', () => {
+          const opt = sel.options[sel.selectedIndex];
+          const roomInput = document.getElementById('room-code');
+          if (opt?.dataset?.room && roomInput) {
+            roomInput.value = opt.dataset.room;
+          }
+        });
+      }
+    } catch (err) { console.warn('Could not load batches for admin selector:', err); }
+  });
+}
+
 // ── State ──────────────────────────────────────────────────────────
 let attAllStudents   = [];
+let attAllBatches    = [];
+let attCurrentFilter = 'all';
 let attPanelOpen     = false;
 let attCurrentTab    = 'auto';
 let attSessionStart  = 0;       // ms timestamp, 0 = not started
@@ -1626,17 +1692,21 @@ window.attSwitchTab = function(tab) {
   if (tab === 'auto') attRenderAutoLists();
 };
 
-// ── Load students ──────────────────────────────────────────────────
+// ── Load students ───────────────────���──────────────────────────────
 async function attLoadStudents() {
   const list = document.getElementById('att-student-list');
   if (list) list.innerHTML = '<div class="att-empty"><i class="fa-solid fa-spinner fa-spin" style="margin-bottom:8px;display:block;font-size:18px;color:var(--accent);"></i>Loading…</div>';
   try {
+    const { data: batchData } = await supabase.from('batches').select('id, name').order('name');
+    attAllBatches = batchData || [];
+
     const { data, error } = await supabase
       .from('students')
-      .select('id, full_name, email, student_id, batch_id, total_attendance, late_attendance, undertime, absent_days')
+      .select('id, full_name, email, student_id, batch_id, avatar_url, total_attendance, late_attendance, undertime, absent_days')
       .order('full_name', { ascending: true });
     if (error) throw error;
     attAllStudents = data || [];
+    attRenderFilters();
     attRenderManualList(attAllStudents);
     attRenderAutoLists();
     const absentBtn = document.getElementById('att-mark-absent-btn');
@@ -1645,6 +1715,27 @@ async function attLoadStudents() {
     if (list) list.innerHTML = `<div class="att-empty"><i class="fa-solid fa-triangle-exclamation" style="color:#ef4444;display:block;margin-bottom:6px;font-size:18px;"></i>Failed to load.<br><span style="font-size:10px;">${err.message}</span></div>`;
   }
 }
+
+// ── Filter UI ──────────────────────────────────────────────────────
+function attRenderFilters() {
+  const html = `
+    <button class="att-filter-pill ${attCurrentFilter === 'all' ? 'active' : ''}" onclick="attSetFilter('all')">All</button>
+    ${attAllBatches.map(b => `<button class="att-filter-pill ${attCurrentFilter === b.id ? 'active' : ''}" onclick="attSetFilter('${b.id}')">${b.name}</button>`).join('')}
+    <button class="att-filter-pill ${attCurrentFilter === 'individual' ? 'active' : ''}" onclick="attSetFilter('individual')">Individual</button>
+  `;
+  const mBar = document.getElementById('att-manual-filter-bar');
+  const aBar = document.getElementById('att-auto-filter-bar');
+  if (mBar) mBar.innerHTML = html;
+  if (aBar) aBar.innerHTML = html;
+}
+
+window.attSetFilter = function(val) {
+  attCurrentFilter = val;
+  attRenderFilters();
+  const q = document.getElementById('att-search-input')?.value || '';
+  attFilterStudents(q);
+  attRenderAutoLists();
+};
 
 // ── Manual: render student list ────────────────────────────────────
 function attRenderManualList(list) {
@@ -1656,13 +1747,16 @@ function attRenderManualList(list) {
   }
   container.innerHTML = list.map(s => {
     const initial  = (s.full_name || s.email || '?').charAt(0).toUpperCase();
+    const avatarHtml = s.avatar_url 
+      ? `<img src="${s.avatar_url}" referrerpolicy="no-referrer" style="width:100%; height:100%; object-fit:cover; border-radius:50%; display:block;">`
+      : initial;
     const hasBatch = !!s.batch_id;
     const idCode   = s.student_id ? `<span style="font-family:'Poppins',sans-serif;font-size:9px;background:var(--input-bg);border:1px solid var(--border-color);border-radius:4px;padding:1px 5px;">${s.student_id}</span>` : '';
     const batchTag = hasBatch
       ? `<i class="fa-solid fa-layer-group" style="font-size:9px;color:var(--accent);"></i>Batch`
       : `<i class="fa-solid fa-user" style="font-size:9px;"></i>Individual`;
     return `<div class="att-student-row" id="att-row-${s.id}">
-        <div class="att-avatar ${hasBatch ? '' : 'individual'}">${initial}</div>
+        <div class="att-avatar ${hasBatch ? '' : 'individual'}">${avatarHtml}</div>
         <div class="att-info">
           <div class="att-info-name">${s.full_name || '(No name)'} ${idCode}</div>
           <div class="att-info-meta">${batchTag} · Sessions: <strong style="color:var(--text-color);">${s.total_attendance ?? 0}</strong></div>
@@ -1677,11 +1771,15 @@ function attRenderManualList(list) {
 
 window.attFilterStudents = function(q) {
   const term = q.toLowerCase();
-  attRenderManualList(attAllStudents.filter(s =>
-    (s.full_name || '').toLowerCase().includes(term) ||
-    (s.email || '').toLowerCase().includes(term) ||
-    (s.student_id || '').toLowerCase().includes(term)
-  ));
+  attRenderManualList(attAllStudents.filter(s => {
+    const matchQ = (s.full_name || '').toLowerCase().includes(term) ||
+                   (s.email || '').toLowerCase().includes(term) ||
+                   (s.student_id || '').toLowerCase().includes(term);
+    const matchF = attCurrentFilter === 'all' ? true :
+                   attCurrentFilter === 'individual' ? !s.batch_id :
+                   s.batch_id === attCurrentFilter;
+    return matchQ && matchF;
+  }));
 };
 
 // ── Auto tab: render joined & absent lists ─────────────────────────
@@ -1702,6 +1800,9 @@ function attRenderAutoLists() {
     } else {
       joinedList.innerHTML = joined.map(p => {
         const initial   = (p.name || '?').charAt(0).toUpperCase();
+        const avatarHtml = p.student && p.student.avatar_url
+          ? `<img src="${p.student.avatar_url}" referrerpolicy="no-referrer" style="width:100%; height:100%; object-fit:cover; border-radius:50%; display:block;">`
+          : initial;
         const matched   = !!p.student;
         const isSaved   = p.student && attSavedIds.has(p.student.id);
         const elapsedStr = attSessionStart
@@ -1717,7 +1818,7 @@ function attRenderAutoLists() {
           : '';
         return `<div class="att-p-row">
           <div class="att-status-dot ${p.isLate ? 'late' : 'ontime'}"></div>
-          <div class="att-avatar-sm ${matched ? 'matched' : 'unmatched'}">${initial}</div>
+          <div class="att-avatar-sm ${matched ? 'matched' : 'unmatched'}">${avatarHtml}</div>
           <div class="att-p-info">
             <div class="att-p-name">${p.name}</div>
             <div class="att-p-meta">${badge}${elapsedStr ? `<span>${elapsedStr}</span>` : ''}${p.studentIdCode ? `<span style="font-family:'Poppins',sans-serif;font-size:9px;background:var(--input-bg);border:1px solid var(--border-color);border-radius:4px;padding:1px 4px;">${p.studentIdCode}</span>` : ''}</div>
@@ -1733,7 +1834,13 @@ function attRenderAutoLists() {
 
   // Absent rows (students not joined)
   const joinedStudentIds = new Set(joined.filter(p => p.student).map(p => p.student.id));
-  const absentStudents   = attAllStudents.filter(s => !joinedStudentIds.has(s.id));
+  const absentStudents   = attAllStudents.filter(s => {
+    if (joinedStudentIds.has(s.id)) return false;
+    const matchF = attCurrentFilter === 'all' ? true :
+                   attCurrentFilter === 'individual' ? !s.batch_id :
+                   s.batch_id === attCurrentFilter;
+    return matchF;
+  });
   if (absentCount) absentCount.textContent = absentStudents.length || '–';
   if (absentList) {
     if (!attAllStudents.length) {
@@ -1743,10 +1850,13 @@ function attRenderAutoLists() {
     } else {
       absentList.innerHTML = absentStudents.slice(0, 30).map(s => {
         const initial   = (s.full_name || '?').charAt(0).toUpperCase();
+        const avatarHtml = s.avatar_url
+          ? `<img src="${s.avatar_url}" referrerpolicy="no-referrer" style="width:100%; height:100%; object-fit:cover; border-radius:50%; display:block;">`
+          : initial;
         const isSavedAbs = attAbsentSavedIds.has(s.id);
         return `<div class="att-p-row" style="opacity:${isSavedAbs ? 0.5 : 0.75};">
           <div class="att-status-dot absent"></div>
-          <div class="att-avatar-sm absent-av">${initial}</div>
+          <div class="att-avatar-sm absent-av">${avatarHtml}</div>
           <div class="att-p-info">
             <div class="att-p-name">${s.full_name || '(No name)'}${isSavedAbs ? ' <span class="att-p-badge saved" style="margin-left:4px;">Absent ✓</span>' : ''}</div>
             <div class="att-p-meta">${s.student_id ? `<span style="font-family:'Poppins',sans-serif;font-size:9px;">${s.student_id}</span>` : ''}</div>

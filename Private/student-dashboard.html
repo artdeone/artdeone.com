@@ -988,6 +988,191 @@
     justify-content: space-between;
 }
 
+/* ── Profile section Batch & Level badges ── */
+#profile-batch-badge {
+    background: rgba(167,225,105,0.15);
+    border: 1px solid rgba(167,225,105,0.3);
+    color: #4d7c0f;
+}
+.dark #profile-batch-badge {
+    background: rgba(167,225,105,0.12);
+    border-color: rgba(167,225,105,0.25);
+    color: #a7e169;
+}
+#profile-level-badge {
+    background: rgba(251,191,36,0.15);
+    border: 1px solid rgba(251,191,36,0.3);
+    color: #92400e;
+}
+.dark #profile-level-badge {
+    background: rgba(251,191,36,0.12);
+    border-color: rgba(251,191,36,0.25);
+    color: #fbbf24;
+}
+#profile-level-badge.level-beginner {
+    background: rgba(96,165,250,0.12);
+    border-color: rgba(96,165,250,0.25);
+    color: #2563eb;
+}
+.dark #profile-level-badge.level-beginner {
+    background: rgba(96,165,250,0.12);
+    border-color: rgba(96,165,250,0.25);
+    color: #60a5fa;
+}
+#profile-level-badge.level-intermediate {
+    background: rgba(251,191,36,0.12);
+    border-color: rgba(251,191,36,0.25);
+    color: #d97706;
+}
+.dark #profile-level-badge.level-intermediate {
+    background: rgba(251,191,36,0.12);
+    border-color: rgba(251,191,36,0.25);
+    color: #fbbf24;
+}
+#profile-level-badge.level-advanced {
+    background: rgba(167,139,250,0.12);
+    border-color: rgba(167,139,250,0.25);
+    color: #7c3aed;
+}
+.dark #profile-level-badge.level-advanced {
+    background: rgba(167,139,250,0.12);
+    border-color: rgba(167,139,250,0.25);
+    color: #a78bfa;
+}
+
+/* ── Profile editable fields ── */
+.profile-field-display {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+.profile-field-display .field-value {
+    flex: 1;
+    min-width: 0;
+}
+.profile-edit-btn {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: #9ca3af;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    font-size: 11px;
+}
+.profile-edit-btn:hover {
+    background: rgba(167,225,105,0.12);
+    color: #a7e169;
+}
+.profile-field-edit {
+    display: none;
+}
+.profile-field-edit.active {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.profile-field-edit input {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    border: 1.5px solid #e5e7eb;
+    background: #fff;
+    color: #111;
+    transition: border-color 0.2s ease;
+}
+.dark .profile-field-edit input {
+    background: #0b0b0f;
+    border-color: #2a2a35;
+    color: #fff;
+}
+.profile-field-edit input:focus {
+    outline: none;
+    border-color: #a7e169;
+}
+.profile-field-edit input.input-error {
+    border-color: #ef4444;
+}
+.profile-field-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.profile-field-actions .pf-save {
+    padding: 6px 16px;
+    border-radius: 8px;
+    border: none;
+    background: #a7e169;
+    color: #000;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.profile-field-actions .pf-save:hover {
+    background: #8bcc4e;
+}
+.profile-field-actions .pf-cancel {
+    padding: 6px 14px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    background: transparent;
+    color: #6b7280;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.dark .profile-field-actions .pf-cancel {
+    border-color: #2a2a35;
+    color: #9ca3af;
+}
+.profile-field-error {
+    font-size: 11px;
+    color: #ef4444;
+    display: none;
+    line-height: 1.4;
+}
+.profile-field-error.visible {
+    display: block;
+}
+.profile-saved-toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #111;
+    color: #a7e169;
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 9999;
+    pointer-events: none;
+}
+.dark .profile-saved-toast {
+    background: #1a1a20;
+    border: 1px solid #2a2a35;
+}
+.profile-saved-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
     </style>
 </head>
 
@@ -1369,12 +1554,30 @@
                     </div>
                     <div class="bg-white dark:bg-brand-card p-8 rounded-2xl border border-gray-100 dark:border-brand-border">
                         <div class="max-w-md">
+                            <!-- Batch Room Code Display -->
+                            <div id="batch-room-code-display" class="hidden mb-5 p-4 rounded-xl border-2 border-green-300 dark:border-green-700/50 bg-green-50 dark:bg-green-900/20 relative">
+                                <div class="flex items-center justify-between mb-1">
+                                    <span class="text-xs font-semibold text-green-700 dark:text-green-400 uppercase tracking-wider"><i class="fa-solid fa-layer-group mr-1"></i>သင့်ရဲ့သင်တန်း Room Code ဖြစ်ပါတယ်</span>
+                                    <button onclick="copyBatchRoomCode()" class="text-xs text-gray-400 hover:text-green-700 dark:hover:text-green-400 transition" title="Copy room code"><i class="fa-regular fa-copy"></i></button>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <code id="batch-room-code-value" class="text-lg font-bold text-green-800 dark:text-green-300 font-mono tracking-wide"></code>
+                                </div>
+                                <button onclick="useBatchRoomCode()" class="mt-2 text-xs font-medium text-green-700 dark:text-green-400 hover:text-white bg-green-100 dark:bg-green-900/30 hover:bg-green-600 px-3 py-1.5 rounded-lg transition"><i class="fa-solid fa-arrow-right mr-1"></i>Use This Code</button>
+                            </div>
                             <label class="block text-sm font-medium mb-2">Room Code</label>
                             <input type="text" id="student-room-code" class="w-full bg-gray-50 dark:bg-brand-dark border border-gray-200 dark:border-brand-border rounded-xl p-3 text-sm focus:outline-none focus:border-brand-green transition mb-2" placeholder="Enter room code provided by instructor">
                             <!-- Room code guidance hint -->
                             <p class="text-xs text-gray-400 dark:text-gray-500 mb-4 text-left" style="line-height:1.6;">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#a7e169" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;display:inline;vertical-align:middle;margin-right:4px;position:relative;top:-1px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg><button onclick="switchSection('announcements')" style="background:none;border:none;padding:0;font-size:inherit;font-family:inherit;color:inherit;cursor:pointer;text-decoration:underline;text-underline-offset:2px;text-decoration-color:rgba(167,225,105,0.5);" onmouseover="this.style.color='#a7e169';" onmouseout="this.style.color='';">သင့် Room Code ကို ဆရာ/ဆရာမ ပို့သော <strong style="font-weight:600;color:#6b7280;">Announcements</strong> တွင် ရှာဖွေနိုင်ပါသည်။</button>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#a7e169" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;display:inline;vertical-align:middle;margin-right:4px;position:relative;top:-1px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>Room Code ထည့်ပြီးမှသင်တန်း Join ပါ။ Room Code မထည့်ပဲ join မိပါက မှန်ကန်သော သင်တန်းသို့ ကျောင်းသား၊ ကျောင်းသူများအနေဖြင့် ၀င်ရောက်နိုင်မည်မဟုတ်ပါ။
                             </p>
+                            <!-- Save / Remember Room Code -->
+                            <div id="save-room-code-area" class="hidden mb-4">
+                                <button onclick="toggleSaveRoomCode()" id="save-room-code-btn" class="w-full flex items-center justify-center gap-2 text-sm font-medium py-2.5 rounded-xl border border-gray-200 dark:border-brand-border bg-gray-50 dark:bg-brand-dark hover:border-brand-green hover:text-brand-green transition">
+                                    <i class="fa-regular fa-bookmark" id="save-room-code-icon"></i>
+                                    <span id="save-room-code-text">Remember Room Code</span>
+                                </button>
+                            </div>
                             <button onclick="joinStudentLiveClass()"
                                 class="w-full bg-brand-green text-black font-medium py-3 rounded-xl transition flex items-center justify-center gap-2"
                                 onmouseover="this.style.background='#ed2939';this.style.color='#fff';"
@@ -1397,6 +1600,19 @@
                             <h1 class="text-3xl md:text-4xl font-light text-white">Welcome back,<br>
                                 <span id="welcome-name" class="font-medium text-brand-green">Student</span>
                             </h1>
+                            <!-- FEATURE 1 START -->
+                            <div class="flex items-center gap-3 mt-4 flex-wrap justify-center">
+                                <div id="banner-student-id" class="hidden items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono font-medium" style="background: rgba(167,225,105,0.15); border: 1px solid rgba(167,225,105,0.3); color: #a7e169;">
+                                    <i class="fa-solid fa-id-badge"></i> Student ID : <span></span>
+                                </div>
+                                <div id="banner-batch-name" class="hidden items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium text-white" style="background: rgba(255,255,255,0.1);">
+                                    <i class="fa-solid fa-layer-group"></i> <span></span>
+                                </div>
+                                <div id="banner-level" class="hidden items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium" style="background: rgba(251,191,36,0.15); border: 1px solid rgba(251,191,36,0.3); color: #fbbf24;">
+                                    <i class="fa-solid fa-signal"></i> <span></span>
+                                </div>
+                            </div>
+                            <!-- FEATURE 1 END -->
                         </div>
                     </div>
 
@@ -1423,6 +1639,7 @@
                                         <h3 class="text-xl font-semibold mb-1" id="detail-full-name">Loading…</h3>
                                         <p class="text-sm text-gray-400 font-light" id="detail-student-id">–</p>
                                         <p class="text-sm text-gray-500 mt-1 flex items-center gap-2" id="detail-batch-name" style="display:none;"><i class="fa-solid fa-layer-group text-xs text-brand-green"></i><span id="detail-batch-text">–</span></p>
+                                        <p class="text-sm text-gray-500 mt-1 flex items-center gap-2" id="detail-level-name" style="display:none;"><i class="fa-solid fa-signal text-xs text-yellow-500"></i><span id="detail-level-text">–</span></p>
                                         <p class="text-sm text-gray-500 mt-1 flex items-center gap-2"><i
                                                 class="fa-regular fa-envelope text-xs"></i><span id="detail-email">–</span>
                                         </p>
@@ -1459,7 +1676,7 @@
                         </div>
 
                         <!-- Dashboard Announcement Preview (Right Column) -->
-                        <div id="dashboard-announcement-widget" class="hidden self-start bg-white dark:bg-brand-card rounded-2xl p-6 border border-gray-100 dark:border-brand-border">
+                        <div id="dashboard-announcement-widget" class="self-start bg-white dark:bg-brand-card rounded-2xl p-6 border border-gray-100 dark:border-brand-border">
                             <div class="flex justify-between items-center mb-4">
                                 <h2 class="text-base font-semibold flex items-center gap-2">
                                     <span class="relative flex h-2.5 w-2.5">
@@ -1473,7 +1690,15 @@
                                     class="text-xs text-gray-400 hover:text-black dark:hover:text-white transition flex items-center gap-2">VIEW
                                     ALL <i class="fa-solid fa-arrow-right"></i></button>
                             </div>
-                            <div id="dashboard-announcement-content"></div>
+                            <div id="dashboard-announcement-content">
+                                <div id="dashboard-announcement-empty" class="flex flex-col items-center justify-center py-8 text-center">
+                                    <div class="w-12 h-12 rounded-full bg-gray-50 dark:bg-brand-dark flex items-center justify-center mb-3">
+                                        <i class="fa-regular fa-bell-slash text-lg text-gray-300 dark:text-gray-600"></i>
+                                    </div>
+                                    <p class="text-sm text-gray-400 font-light">No announcements yet</p>
+                                    <p class="text-xs text-gray-300 dark:text-gray-600 font-light mt-1">Check back later for updates</p>
+                                </div>
+                            </div>
                         </div>
 
                     </div><!-- /end two-column grid: Profile Card + Announcements -->
@@ -1518,7 +1743,7 @@
                                         id="stat-files">–</h3>
                                 </div>
                                 <div class="w-12 h-12 rounded-2xl flex items-center justify-center" style="background:rgba(245,158,11,0.1);">
-                                    <i class="fa-solid fa-folder-arrow-down text-xl" style="color:#f59e0b;"></i>
+                                    <i class="fa-solid fa-cloud-arrow-down text-xl" style="color:#f59e0b;"></i>
                                 </div>
                             </div>
                         </div>
@@ -1546,6 +1771,13 @@
                                 <!-- ── RECORDED VIDEOS ── -->
                 <div id="recorded-videos-section" class="section space-y-8 max-w-7xl mx-auto hidden fade-in-up">
                     <h2 class="text-2xl font-light border-b border-gray-100 dark:border-brand-border pb-4">Class Recordings</h2>
+                    <!-- FEATURE 5B START -->
+                    <div id="rv-filter-tabs" class="flex items-center gap-2 mb-6 hidden">
+                        <button class="rv-filter-btn px-4 py-2 rounded-xl text-[13px] font-semibold font-['Poppins'] transition-colors" data-filter="all" style="background: #a7e169; color: #111116;">All Videos</button>
+                        <button class="rv-filter-btn px-4 py-2 rounded-xl text-[13px] font-semibold font-['Poppins'] transition-colors bg-white dark:bg-brand-card text-gray-500 hover:text-gray-900 dark:hover:text-white" data-filter="batch" style="display:none;">My Batch</button>
+                        <button class="rv-filter-btn px-4 py-2 rounded-xl text-[13px] font-semibold font-['Poppins'] transition-colors bg-white dark:bg-brand-card text-gray-500 hover:text-gray-900 dark:hover:text-white" data-filter="individual">For Me</button>
+                    </div>
+                    <!-- FEATURE 5B END -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="student-rv-grid">
                         <!-- Loading State -->
                         <div class="col-span-full text-center py-12 text-gray-400">
@@ -1871,6 +2103,15 @@
                                 <span
                                     class="mt-3 inline-block text-[10px] uppercase tracking-widest font-semibold text-brand-green"
                                     id="profile-type">Student</span>
+                                <!-- Batch & Level Badges -->
+                                <div class="flex items-center gap-2 mt-3 flex-wrap">
+                                    <div id="profile-batch-badge" class="hidden items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium">
+                                        <i class="fa-solid fa-layer-group"></i> <span id="profile-batch-badge-text"></span>
+                                    </div>
+                                    <div id="profile-level-badge" class="hidden items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium">
+                                        <i class="fa-solid fa-signal"></i> <span id="profile-level-badge-text"></span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="space-y-6">
@@ -1881,10 +2122,22 @@
                                     id="profile-student-id">–</div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div><label
-                                        class="block text-xs uppercase tracking-widest text-gray-400 font-medium mb-2">Phone</label>
-                                    <div class="p-4 bg-gray-50 dark:bg-brand-dark rounded-xl text-sm font-medium border border-gray-100 dark:border-brand-border"
-                                        id="profile-phone">–</div>
+                                <div>
+                                    <label class="block text-xs uppercase tracking-widest text-gray-400 font-medium mb-2">Phone</label>
+                                    <!-- Display mode -->
+                                    <div class="p-4 bg-gray-50 dark:bg-brand-dark rounded-xl text-sm font-medium border border-gray-100 dark:border-brand-border profile-field-display" id="profile-phone-display">
+                                        <span class="field-value" id="profile-phone">–</span>
+                                        <button class="profile-edit-btn" onclick="editProfileField('phone')" title="Edit phone"><i class="fa-solid fa-pen"></i></button>
+                                    </div>
+                                    <!-- Edit mode -->
+                                    <div class="profile-field-edit" id="profile-phone-edit">
+                                        <input type="text" id="profile-phone-input" placeholder="e.g. 09 953 681 497" maxlength="20">
+                                        <div class="profile-field-error" id="profile-phone-error"></div>
+                                        <div class="profile-field-actions">
+                                            <button class="pf-save" onclick="saveProfileField('phone')"><i class="fa-solid fa-check mr-1"></i>Save</button>
+                                            <button class="pf-cancel" onclick="cancelProfileEdit('phone')">Cancel</button>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div><label
                                         class="block text-xs uppercase tracking-widest text-gray-400 font-medium mb-2">Joined</label>
@@ -1892,10 +2145,22 @@
                                         id="profile-joined">–</div>
                                 </div>
                             </div>
-                            <div><label
-                                    class="block text-xs uppercase tracking-widest text-gray-400 font-medium mb-2">Address</label>
-                                <div class="p-4 bg-gray-50 dark:bg-brand-dark rounded-xl text-sm font-medium border border-gray-100 dark:border-brand-border"
-                                    id="profile-address">–</div>
+                            <div>
+                                <label class="block text-xs uppercase tracking-widest text-gray-400 font-medium mb-2">Address</label>
+                                <!-- Display mode -->
+                                <div class="p-4 bg-gray-50 dark:bg-brand-dark rounded-xl text-sm font-medium border border-gray-100 dark:border-brand-border profile-field-display" id="profile-address-display">
+                                    <span class="field-value" id="profile-address">–</span>
+                                    <button class="profile-edit-btn" onclick="editProfileField('address')" title="Edit address"><i class="fa-solid fa-pen"></i></button>
+                                </div>
+                                <!-- Edit mode -->
+                                <div class="profile-field-edit" id="profile-address-edit">
+                                    <input type="text" id="profile-address-input" placeholder="e.g. Yangon, Myanmar" maxlength="60">
+                                    <div class="profile-field-error" id="profile-address-error"></div>
+                                    <div class="profile-field-actions">
+                                        <button class="pf-save" onclick="saveProfileField('address')"><i class="fa-solid fa-check mr-1"></i>Save</button>
+                                        <button class="pf-cancel" onclick="cancelProfileEdit('address')">Cancel</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -2670,13 +2935,28 @@
         // ── ANNOUNCEMENTS ──
         async function loadAnnouncements() {
             const { data: { user } } = await supabase.auth.getUser();
-            const { data: studentData } = await supabase.from('students').select('student_type,batch_id').eq('id', user.id).maybeSingle();
+            const { data: studentData } = await supabase.from('students').select('student_type,batch_id,level').eq('id', user.id).maybeSingle();
             const type = studentData?.student_type || 'individual';
             const studentBatchId = studentData?.batch_id;
-            const announcementFilter = studentBatchId
-                ? `target_audience.eq.all,target_audience.eq.${type},batch_id.eq.${studentBatchId},student_id.eq.${user.id}`
-                : `target_audience.eq.all,target_audience.eq.${type},student_id.eq.${user.id}`;
-            const { data } = await supabase.from('announcements').select('*').or(announcementFilter).order('published_at', { ascending: false });
+            const studentLevel = studentData?.level || null;
+            let { data } = await supabase.from('announcements').select('*').eq('is_active', true).order('published_at', { ascending: false });
+            // Client-side filtering for proper targeting
+            if (data) data = data.filter(a => {
+                // Target audience filter
+                if (a.target_audience === 'individual') {
+                    // Specific student targeted — batch/level are redundant
+                    if (a.student_id) return a.student_id === user.id;
+                    // All individual-type students — still apply batch/level below
+                    if (type !== 'individual') return false;
+                } else if (a.target_audience !== 'all' && a.target_audience !== type) {
+                    return false;
+                }
+                // Batch filter: if announcement targets a specific batch, student must be in that batch
+                if (a.batch_id && a.batch_id !== studentBatchId) return false;
+                // Level filter: show if no level set OR matches student's level
+                if (a.level && a.level !== studentLevel) return false;
+                return true;
+            });
             const list = document.getElementById('announcements-list');
             if (!data?.length) { list.innerHTML = '<p class="text-gray-400 text-center font-light py-12">No announcements at this time.</p>'; return; }
             const priorityColor = { urgent: '#ef4444', high: '#f97316', normal: '#6b7280', low: '#9ca3af' };
@@ -2734,21 +3014,46 @@
         async function loadDashboardAnnouncement() {
             const { data: { user } } = await supabase.auth.getUser();
             if (!user) return;
-            const { data: s } = await supabase.from('students').select('student_type,batch_id').eq('id', user.id).maybeSingle();
+            const { data: s } = await supabase.from('students').select('student_type,batch_id,level').eq('id', user.id).maybeSingle();
             const type = s?.student_type || 'individual';
-            const { data } = await supabase
+            const studentBatchId = s?.batch_id;
+            const studentLevel = s?.level || null;
+            let { data } = await supabase
                 .from('announcements')
                 .select('*')
-                .or(s?.batch_id ? `target_audience.eq.all,target_audience.eq.${type},batch_id.eq.${s.batch_id},student_id.eq.${user.id}` : `target_audience.eq.all,target_audience.eq.${type},student_id.eq.${user.id}`)
-                .order('published_at', { ascending: false })
-                .limit(1);
+                .eq('is_active', true)
+                .order('published_at', { ascending: false });
+            // Client-side filtering for proper targeting
+            if (data) data = data.filter(a => {
+                // Target audience filter
+                if (a.target_audience === 'individual') {
+                    // Specific student targeted — batch/level are redundant
+                    if (a.student_id) return a.student_id === user.id;
+                    // All individual-type students — still apply batch/level below
+                    if (type !== 'individual') return false;
+                } else if (a.target_audience !== 'all' && a.target_audience !== type) {
+                    return false;
+                }
+                // Batch filter: if announcement targets a specific batch, student must be in that batch
+                if (a.batch_id && a.batch_id !== studentBatchId) return false;
+                // Level filter: show if no level set OR matches student's level
+                if (a.level && a.level !== studentLevel) return false;
+                return true;
+            });
+            if (data) data = data.slice(0, 1);
 
             const widget = document.getElementById('dashboard-announcement-widget');
             const content = document.getElementById('dashboard-announcement-content');
             if (!widget || !content) return;
             if (!data?.length) {
-                widget.classList.add('hidden');
-                content.innerHTML = '';
+                widget.classList.remove('hidden');
+                content.innerHTML = `<div class="flex flex-col items-center justify-center py-8 text-center">
+                    <div class="w-12 h-12 rounded-full bg-gray-50 dark:bg-brand-dark flex items-center justify-center mb-3">
+                        <i class="fa-regular fa-bell-slash text-lg text-gray-300 dark:text-gray-600"></i>
+                    </div>
+                    <p class="text-sm text-gray-400 font-light">No announcements yet</p>
+                    <p class="text-xs text-gray-300 dark:text-gray-600 font-light mt-1">Check back later for updates</p>
+                </div>`;
                 return;
             }
 
@@ -3328,9 +3633,49 @@
         async function loadStudentBatch() {
             const { data: { user } } = await supabase.auth.getUser();
             if (!user) return;
-            const { data: student } = await supabase.from('students').select('batch_id').eq('id', user.id).maybeSingle();
+            const { data: student } = await supabase.from('students').select('batch_id, level').eq('id', user.id).maybeSingle();
+            // Display level in banner and profile card if present
+            if (student?.level) {
+                const levelLabel = student.level.charAt(0).toUpperCase() + student.level.slice(1);
+                // Banner badge
+                const bannerLevel = document.getElementById('banner-level');
+                if (bannerLevel) {
+                    bannerLevel.querySelector('span').textContent = levelLabel;
+                    // Adjust badge color based on level
+                    if (student.level === 'beginner') {
+                        bannerLevel.style.background = 'rgba(96,165,250,0.15)';
+                        bannerLevel.style.border = '1px solid rgba(96,165,250,0.3)';
+                        bannerLevel.style.color = '#60a5fa';
+                    } else if (student.level === 'intermediate') {
+                        bannerLevel.style.background = 'rgba(251,191,36,0.15)';
+                        bannerLevel.style.border = '1px solid rgba(251,191,36,0.3)';
+                        bannerLevel.style.color = '#fbbf24';
+                    } else if (student.level === 'advanced') {
+                        bannerLevel.style.background = 'rgba(167,139,250,0.15)';
+                        bannerLevel.style.border = '1px solid rgba(167,139,250,0.3)';
+                        bannerLevel.style.color = '#a78bfa';
+                    }
+                    bannerLevel.classList.remove('hidden');
+                    bannerLevel.classList.add('flex');
+                }
+                // Profile card detail
+                const detailLevelEl = document.getElementById('detail-level-name');
+                const detailLevelText = document.getElementById('detail-level-text');
+                if (detailLevelEl && detailLevelText) {
+                    detailLevelText.textContent = levelLabel;
+                    detailLevelEl.style.display = '';
+                }
+                // Profile section level badge
+                const profileLevelBadge = document.getElementById('profile-level-badge');
+                const profileLevelBadgeText = document.getElementById('profile-level-badge-text');
+                if (profileLevelBadge && profileLevelBadgeText) {
+                    profileLevelBadgeText.textContent = levelLabel;
+                    profileLevelBadge.className = 'flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium level-' + student.level;
+                    profileLevelBadge.classList.remove('hidden');
+                }
+            }
             if (!student?.batch_id) return;
-            const { data: batch } = await supabase.from('batches').select('name').eq('id', student.batch_id).maybeSingle();
+            const { data: batch } = await supabase.from('batches').select('name, room_code').eq('id', student.batch_id).maybeSingle();
             if (!batch) return;
             const batchEl = document.getElementById('detail-batch-name');
             const batchText = document.getElementById('detail-batch-text');
@@ -3338,8 +3683,99 @@
                 batchText.textContent = batch.name;
                 batchEl.style.display = '';
             }
+            // Profile section batch badge
+            const profileBatchBadge = document.getElementById('profile-batch-badge');
+            const profileBatchBadgeText = document.getElementById('profile-batch-badge-text');
+            if (profileBatchBadge && profileBatchBadgeText) {
+                profileBatchBadgeText.textContent = batch.name;
+                profileBatchBadge.classList.remove('hidden');
+                profileBatchBadge.classList.add('flex');
+            }
+            // Show batch room code in Live Class section
+            if (batch.room_code) {
+                const display = document.getElementById('batch-room-code-display');
+                const value = document.getElementById('batch-room-code-value');
+                if (display && value) {
+                    value.textContent = batch.room_code;
+                    display.classList.remove('hidden');
+                }
+            }
+            // Show save-room-code area and restore saved code
+            initSaveRoomCode();
         }
         loadStudentBatch();
+
+        // ── BATCH ROOM CODE HELPERS ──
+        window.useBatchRoomCode = function() {
+            const codeEl = document.getElementById('batch-room-code-value');
+            const input = document.getElementById('student-room-code');
+            if (codeEl && input) {
+                input.value = codeEl.textContent.trim();
+                input.focus();
+            }
+        };
+        window.copyBatchRoomCode = function() {
+            const codeEl = document.getElementById('batch-room-code-value');
+            if (codeEl) {
+                navigator.clipboard.writeText(codeEl.textContent.trim()).then(() => {
+                    const btn = codeEl.closest('#batch-room-code-display').querySelector('button[onclick="copyBatchRoomCode()"]');
+                    if (btn) { const orig = btn.innerHTML; btn.innerHTML = '<i class="fa-solid fa-check"></i>'; setTimeout(() => btn.innerHTML = orig, 1500); }
+                });
+            }
+        };
+
+        // ── SAVE / REMEMBER ROOM CODE (localStorage) ──
+        const ROOM_CODE_STORAGE_KEY = 'artdeone_saved_room_code';
+
+        function initSaveRoomCode() {
+            const area = document.getElementById('save-room-code-area');
+            const input = document.getElementById('student-room-code');
+            if (!area || !input) return;
+            area.classList.remove('hidden');
+            // Restore saved room code
+            const saved = localStorage.getItem(ROOM_CODE_STORAGE_KEY);
+            if (saved && !input.value.trim()) {
+                input.value = saved;
+            }
+            updateSaveButtonState();
+            // Listen for input changes to update save button state
+            input.addEventListener('input', updateSaveButtonState);
+        }
+
+        function updateSaveButtonState() {
+            const input = document.getElementById('student-room-code');
+            const icon = document.getElementById('save-room-code-icon');
+            const text = document.getElementById('save-room-code-text');
+            const btn = document.getElementById('save-room-code-btn');
+            if (!input || !icon || !text || !btn) return;
+            const current = input.value.trim();
+            const saved = localStorage.getItem(ROOM_CODE_STORAGE_KEY);
+            if (saved && saved === current) {
+                icon.className = 'fa-solid fa-bookmark';
+                text.textContent = 'Room Code Saved ✓';
+                btn.classList.add('border-brand-green', 'text-brand-green');
+            } else {
+                icon.className = 'fa-regular fa-bookmark';
+                text.textContent = current ? 'Remember Room Code' : 'No Code to Save';
+                btn.classList.remove('border-brand-green', 'text-brand-green');
+            }
+        }
+
+        window.toggleSaveRoomCode = function() {
+            const input = document.getElementById('student-room-code');
+            if (!input) return;
+            const current = input.value.trim();
+            if (!current) return;
+            const saved = localStorage.getItem(ROOM_CODE_STORAGE_KEY);
+            if (saved === current) {
+                // Unsave
+                localStorage.removeItem(ROOM_CODE_STORAGE_KEY);
+            } else {
+                // Save
+                localStorage.setItem(ROOM_CODE_STORAGE_KEY, current);
+            }
+            updateSaveButtonState();
+        };
 
         // ── Override loadAllFiles to handle 'Software / App' file_type ──
         const _origLoadAllFiles = loadAllFiles;
@@ -3480,14 +3916,47 @@
         }
 
         // Separate realtime channel for toast notifications (INSERT only)
-        supabase
-            .channel('student-announcement-toast')
-            .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'announcements' }, function (payload) {
-                if (payload.new) {
-                    showAnnouncementToast(payload.new);
+        // Subscription is set up immediately; student profile is fetched async in background
+        (function() {
+            let studentProfile = null; // populated async
+
+            supabase.auth.getUser().then(function(result) {
+                var user = result.data.user;
+                if (!user) return;
+                supabase.from('students').select('student_type,batch_id,level').eq('id', user.id).maybeSingle().then(function(result2) {
+                    var s = result2.data;
+                    studentProfile = {
+                        userId: user.id,
+                        type: s?.student_type || 'individual',
+                        batchId: s?.batch_id,
+                        level: s?.level || null
+                    };
+                });
+            });
+
+            function isAnnouncementForStudent(a) {
+                if (!studentProfile) return false; // skip until profile loaded
+                var sp = studentProfile;
+                if (a.target_audience === 'individual') {
+                    if (a.student_id) return a.student_id === sp.userId;
+                    if (sp.type !== 'individual') return false;
+                } else if (a.target_audience !== 'all' && a.target_audience !== sp.type) {
+                    return false;
                 }
-            })
-            .subscribe();
+                if (a.batch_id && a.batch_id !== sp.batchId) return false;
+                if (a.level && a.level !== sp.level) return false;
+                return true;
+            }
+
+            supabase
+                .channel('student-announcement-toast')
+                .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'announcements' }, function (payload) {
+                    if (payload.new && isAnnouncementForStudent(payload.new)) {
+                        showAnnouncementToast(payload.new);
+                    }
+                })
+                .subscribe();
+        })();
     
         // ─── RECORDED VIDEOS LOGIC ───
 
@@ -3505,14 +3974,18 @@
                     window.user = session.user;
                 }
 
-                // Get student's batch_id
-                const { data: std } = await supabase.from('students').select('batch_id').eq('id', user.id).maybeSingle();
+                // Get student's batch_id and level
+                const { data: std } = await supabase.from('students').select('batch_id,level').eq('id', user.id).maybeSingle();
+                const studentLevel = std?.level || null;
                 
                 // Construct the RLS-compatible query
                 // Actually, our RLS policy handles all the filtering! We just select everything we are allowed to see.
-                const { data, error } = await supabase.from('recorded_videos').select('*').order('created_at', { ascending: false });
+                let { data, error } = await supabase.from('recorded_videos').select('*').order('created_at', { ascending: false });
                 
                 if (error) throw error;
+
+                // Filter by level: show videos with no level restriction OR matching the student's level
+                if (data) data = data.filter(v => !v.level || v.level === studentLevel);
 
                 if (!data || data.length === 0) {
                     grid.innerHTML = '<div class="col-span-full text-center py-16"><div class="w-16 h-16 mx-auto bg-gray-50 dark:bg-brand-dark rounded-full flex items-center justify-center mb-4"><i class="fa-solid fa-film text-2xl text-gray-300 dark:text-gray-600"></i></div><h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2">No videos yet</h3><p class="text-gray-500 font-light">Recorded classes will appear here once assigned.</p></div>';
@@ -3674,6 +4147,310 @@
   });
 </script>
 <!-- NEW REALTIME ATTENDANCE END -->
+
+<!-- FEATURE 1 SCRIPT START -->
+<script>
+    (function() {
+        const interval = setInterval(() => {
+            const studentIdEl = document.getElementById('profile-student-id');
+            const batchTextEl = document.getElementById('detail-batch-text');
+            const batchNameEl = document.getElementById('detail-batch-name');
+            
+            if (studentIdEl && studentIdEl.textContent && studentIdEl.textContent !== '–') {
+                const bannerId = document.getElementById('banner-student-id');
+                if (bannerId) {
+                    bannerId.querySelector('span').textContent = studentIdEl.textContent;
+                    bannerId.classList.remove('hidden');
+                    bannerId.classList.add('flex');
+                }
+                
+                const bannerBatch = document.getElementById('banner-batch-name');
+                if (bannerBatch && batchNameEl && batchNameEl.style.display !== 'none' && batchTextEl.textContent && batchTextEl.textContent !== '–') {
+                    bannerBatch.querySelector('span').textContent = batchTextEl.textContent;
+                    bannerBatch.classList.remove('hidden');
+                    bannerBatch.classList.add('flex');
+                }
+                
+                clearInterval(interval);
+            }
+        }, 300);
+        setTimeout(() => clearInterval(interval), 10000);
+    })();
+</script>
+<!-- FEATURE 1 SCRIPT END -->
+
+<!-- FEATURE 5B SCRIPT START -->
+<script type="module">
+    import { supabase } from '../js/supabase-config.js';
+    
+    let rvStudentId = null;
+    let rvBatchId = null;
+    let rvStudentLevel = null;
+    
+    async function initRvFilters() {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) return;
+        rvStudentId = session.user.id;
+        
+        const { data: std } = await supabase.from('students').select('batch_id,level').eq('id', rvStudentId).maybeSingle();
+        rvBatchId = std?.batch_id;
+        rvStudentLevel = std?.level || null;
+        
+        const tabsContainer = document.getElementById('rv-filter-tabs');
+        if (tabsContainer) tabsContainer.classList.remove('hidden');
+        
+        if (rvBatchId) {
+            const batchBtn = document.querySelector('.rv-filter-btn[data-filter="batch"]');
+            if (batchBtn) batchBtn.style.display = 'block';
+        }
+        
+        document.querySelectorAll('.rv-filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.rv-filter-btn').forEach(b => {
+                    b.style.background = '';
+                    b.style.color = '';
+                    b.classList.add('bg-white', 'dark:bg-brand-card', 'text-gray-500');
+                });
+                e.target.style.background = '#a7e169';
+                e.target.style.color = '#111116';
+                e.target.classList.remove('bg-white', 'dark:bg-brand-card', 'text-gray-500');
+                
+                loadRvWithFilter(e.target.dataset.filter);
+            });
+        });
+        
+        const observer = new MutationObserver((mutations) => {
+            for (let m of mutations) {
+                if (m.addedNodes.length > 0 && m.target.id === 'student-rv-grid') {
+                    if (m.target.innerHTML.includes('fa-circle-notch')) return;
+                    if (!m.target.innerHTML.includes('rv-badge')) {
+                        const activeBtn = document.querySelector('.rv-filter-btn[style*="background: rgb(167, 225, 105)"]') || document.querySelector('.rv-filter-btn[style*="background: #a7e169"]');
+                        const filter = activeBtn ? activeBtn.dataset.filter : 'all';
+                        loadRvWithFilter(filter);
+                    }
+                }
+            }
+        });
+        const grid = document.getElementById('student-rv-grid');
+        if (grid) {
+            observer.observe(grid, { childList: true });
+        }
+    }
+    
+    window.loadRvWithFilter = async function(filter) {
+        const grid = document.getElementById('student-rv-grid');
+        grid.innerHTML = '<div class="col-span-full text-center py-12 text-gray-400 rv-badge"><i class="fa-solid fa-circle-notch fa-spin text-2xl mb-3"></i><p>Loading your videos...</p></div>';
+        
+        try {
+            const { data, error } = await supabase.from('recorded_videos').select('*').order('created_at', { ascending: false });
+            if (error) throw error;
+            
+            let filtered = data || [];
+            if (filter === 'batch') {
+                filtered = filtered.filter(v => v.assignment_type === 'batch' && v.assigned_batches?.includes(rvBatchId));
+            } else if (filter === 'individual') {
+                filtered = filtered.filter(v => v.assignment_type === 'individual' && v.assigned_students?.includes(rvStudentId));
+            }
+            // Filter by level: show videos with no level restriction OR matching the student's level
+            filtered = filtered.filter(v => !v.level || v.level === rvStudentLevel);
+            
+            if (!filtered || filtered.length === 0) {
+                grid.innerHTML = '<div class="col-span-full text-center py-16 rv-badge"><div class="w-16 h-16 mx-auto bg-gray-50 dark:bg-brand-dark rounded-full flex items-center justify-center mb-4"><i class="fa-solid fa-film text-2xl text-gray-300 dark:text-gray-600"></i></div><h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2">No videos found</h3><p class="text-gray-500 font-light">Try selecting a different filter.</p></div>';
+                return;
+            }
+            
+            grid.innerHTML = filtered.map(v => {
+                const dateStr = new Date(v.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+                const match = v.youtube_url.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/);
+                const yid = (match && match[2].length === 11) ? match[2] : null;
+                const embedUrl = yid ? `https://www.youtube.com/embed/${yid}?autoplay=1&rel=0` : '';
+                
+                const badgeHtml = v.assignment_type === 'batch' 
+                    ? '<div class="rv-badge absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider z-10 shadow-md" style="background: rgba(167,225,105,0.9); color: #111116;">Batch</div>'
+                    : '<div class="rv-badge absolute top-3 left-3 bg-blue-500 text-white px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider z-10 shadow-md">Individual</div>';
+                
+                return `
+                    <div class="bg-white dark:bg-brand-card rounded-2xl overflow-hidden border border-gray-100 dark:border-brand-border hover-lift card-hover-glow cursor-pointer group rv-badge" onclick="openRvPlayer('${embedUrl}', '${v.title.replace(/'/g, "\\'")}')">
+                        <div class="relative w-full" style="padding-top: 56.25%;">
+                            ${badgeHtml}
+                            <img src="${v.thumbnail_url || 'https://via.placeholder.com/640x360?text=No+Thumbnail'}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                            <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-300"></div>
+                            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <div class="w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-brand-green shadow-lg">
+                                    <i class="fa-solid fa-play ml-1"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-5">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-gray-50 text-gray-500 dark:bg-brand-dark dark:text-gray-400 mb-3">
+                                <i class="fa-regular fa-clock"></i> ${dateStr}
+                            </span>
+                            <h3 class="font-medium text-gray-900 dark:text-white leading-snug line-clamp-2">${v.title}</h3>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        } catch (e) {
+            console.error("Error loading recorded videos", e);
+            grid.innerHTML = '<div class="col-span-full text-center py-12 text-red-500 rv-badge">Failed to load recorded videos. Please try again later.</div>';
+        }
+    }
+    
+    setTimeout(initRvFilters, 1000);
+</script>
+<!-- FEATURE 5B SCRIPT END -->
+
+<!-- Profile Saved Toast -->
+<div id="profile-saved-toast" class="profile-saved-toast"><i class="fa-solid fa-check-circle mr-1"></i> Saved successfully</div>
+
+<!-- Editable Profile Fields Script -->
+<script type="module">
+    import { supabase } from '../js/supabase-config.js';
+
+    // ── Editable Profile Fields: Phone & Address ──
+
+    window.editProfileField = function(field) {
+        const displayEl = document.getElementById(`profile-${field}-display`);
+        const editEl = document.getElementById(`profile-${field}-edit`);
+        const inputEl = document.getElementById(`profile-${field}-input`);
+        const errorEl = document.getElementById(`profile-${field}-error`);
+
+        if (!displayEl || !editEl || !inputEl) return;
+
+        // Pre-fill current value
+        const currentVal = document.getElementById(`profile-${field}`);
+        inputEl.value = currentVal && currentVal.textContent !== '–' ? currentVal.textContent.trim() : '';
+        inputEl.classList.remove('input-error');
+        if (errorEl) { errorEl.textContent = ''; errorEl.classList.remove('visible'); }
+
+        displayEl.style.display = 'none';
+        editEl.classList.add('active');
+        inputEl.focus();
+    };
+
+    window.cancelProfileEdit = function(field) {
+        const displayEl = document.getElementById(`profile-${field}-display`);
+        const editEl = document.getElementById(`profile-${field}-edit`);
+        const inputEl = document.getElementById(`profile-${field}-input`);
+        const errorEl = document.getElementById(`profile-${field}-error`);
+
+        if (inputEl) inputEl.classList.remove('input-error');
+        if (errorEl) { errorEl.textContent = ''; errorEl.classList.remove('visible'); }
+        if (displayEl) displayEl.style.display = '';
+        if (editEl) editEl.classList.remove('active');
+    };
+
+    function validatePhone(value) {
+        if (!value.trim()) return 'Phone number is required.';
+        // Allow digits, spaces, dashes, parentheses, plus sign
+        if (!/^[\d\s\-\+\(\)]+$/.test(value.trim())) return 'Phone must contain only numbers, spaces, or dashes.';
+        // Must start with 0 or +
+        if (!/^[0\+]/.test(value.trim())) return 'Phone must start with 0 or +.';
+        // Must have at least 7 digits
+        const digitsOnly = value.replace(/\D/g, '');
+        if (digitsOnly.length < 7) return 'Phone number is too short (min 7 digits).';
+        if (digitsOnly.length > 15) return 'Phone number is too long (max 15 digits).';
+        return '';
+    }
+
+    function validateAddress(value) {
+        if (!value.trim()) return 'City is required.';
+        const v = value.trim();
+        // Reject if contains street-level details
+        const forbidden = /\b(no\.?|street|st\.?|road|rd\.?|avenue|ave\.?|block|lane|ln\.?|bus\s*stop|quarter|township|ward|unit|flat|room|#)\b/i;
+        if (forbidden.test(v)) return 'Please enter city only (e.g. Yangon, Myanmar). Street details are not accepted.';
+        // Reject if contains numbers (likely house numbers)
+        if (/\d/.test(v)) return 'Please enter city only (e.g. Yangon, Myanmar). Numbers are not accepted.';
+        // Must contain at least one letter
+        if (!/[a-zA-Z\u1000-\u109F]/.test(v)) return 'Please enter a valid city name.';
+        // Max length
+        if (v.length > 60) return 'City name is too long.';
+        return '';
+    }
+
+    window.saveProfileField = async function(field) {
+        const inputEl = document.getElementById(`profile-${field}-input`);
+        const errorEl = document.getElementById(`profile-${field}-error`);
+        const displayEl = document.getElementById(`profile-${field}-display`);
+        const editEl = document.getElementById(`profile-${field}-edit`);
+
+        if (!inputEl) return;
+
+        const value = inputEl.value.trim();
+
+        // Validate
+        let error = '';
+        if (field === 'phone') {
+            error = validatePhone(value);
+        } else if (field === 'address') {
+            error = validateAddress(value);
+        }
+
+        if (error) {
+            inputEl.classList.add('input-error');
+            if (errorEl) { errorEl.textContent = error; errorEl.classList.add('visible'); }
+            return;
+        }
+
+        inputEl.classList.remove('input-error');
+        if (errorEl) { errorEl.textContent = ''; errorEl.classList.remove('visible'); }
+
+        // Save to Supabase
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return;
+
+        const dbField = field === 'phone' ? 'phone_number' : 'address';
+        const { error: updateError } = await supabase
+            .from('students')
+            .update({ [dbField]: value })
+            .eq('id', user.id);
+
+        if (updateError) {
+            if (errorEl) { errorEl.textContent = 'Save failed. Please try again.'; errorEl.classList.add('visible'); }
+            return;
+        }
+
+        // Update display
+        const displayValueEl = document.getElementById(`profile-${field}`);
+        if (displayValueEl) displayValueEl.textContent = value;
+
+        // Also update dashboard profile card
+        if (field === 'phone') {
+            const detailPhone = document.getElementById('detail-phone');
+            if (detailPhone) detailPhone.textContent = value;
+        }
+        if (field === 'address') {
+            const detailAddress = document.getElementById('detail-address');
+            if (detailAddress) detailAddress.textContent = value;
+        }
+
+        // Switch back to display mode
+        if (displayEl) displayEl.style.display = '';
+        if (editEl) editEl.classList.remove('active');
+
+        // Show toast
+        showProfileSavedToast();
+    };
+
+    function showProfileSavedToast() {
+        const toast = document.getElementById('profile-saved-toast');
+        if (!toast) return;
+        toast.classList.add('show');
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    // Allow Enter key to save, Escape to cancel
+    ['phone', 'address'].forEach(field => {
+        const inputEl = document.getElementById(`profile-${field}-input`);
+        if (inputEl) {
+            inputEl.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') { e.preventDefault(); saveProfileField(field); }
+                if (e.key === 'Escape') { cancelProfileEdit(field); }
+            });
+        }
+    });
+</script>
 
 </body>
 
