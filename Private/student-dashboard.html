@@ -1173,6 +1173,337 @@
     transform: translateX(-50%) translateY(0);
 }
 
+    /* ── LIVE CHAT PANEL STYLES ── */
+    .chat-panel {
+        display: flex;
+        flex-direction: column;
+        min-height: 520px;
+        background: var(--chat-bg, #fff);
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        overflow: hidden;
+    }
+    @media (min-width: 1280px) {
+        .chat-panel {
+            height: 100%;
+        }
+    }
+    .dark .chat-panel { --chat-bg: #1a1a20; --chat-bubble-sent: #a7e169; --chat-bubble-recv: #2a2a35; --chat-input-bg: #111116; }
+    .chat-panel { --chat-bubble-sent: #a7e169; --chat-bubble-recv: #f3f4f6; --chat-input-bg: #fff; }
+
+    .chat-tabs { display: flex; border-bottom: 1px solid var(--border); background: var(--chat-bg); }
+    .chat-tab {
+        flex: 1; padding: 10px 8px; font-size: 12px; font-weight: 600; text-align: center;
+        cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s;
+        color: var(--muted, #9ca3af); background: transparent; position: relative;
+    }
+    .chat-tab:hover { color: var(--fg, #111); }
+    .dark .chat-tab:hover { color: #e5e5e5; }
+    .chat-tab.active { color: #111; border-bottom-color: #a7e169; }
+    .dark .chat-tab.active { color: #a7e169; border-bottom-color: #a7e169; }
+    .chat-tab .unread-dot {
+        position: absolute; top: 6px; right: calc(50% - 24px);
+        min-width: 16px; height: 16px; border-radius: 99px; font-size: 9px;
+        background: #ef4444; color: #fff; display: flex; align-items: center;
+        justify-content: center; padding: 0 4px; font-weight: 700;
+    }
+
+    .chat-presence {
+        display: flex; align-items: center; gap: 6px; padding: 8px 14px;
+        font-size: 11px; color: var(--muted, #9ca3af); border-bottom: 1px solid var(--border);
+    }
+    .chat-presence .online-dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; }
+    .chat-presence .offline-dot { width: 7px; height: 7px; border-radius: 50%; background: #6b7280; }
+
+    .chat-messages {
+        flex: 1; overflow-y: auto; padding: 12px 14px; display: flex;
+        flex-direction: column; gap: 8px; scroll-behavior: smooth;
+    }
+    .chat-messages::-webkit-scrollbar { width: 4px; }
+    .chat-messages::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
+    .dark .chat-messages::-webkit-scrollbar-thumb { background: #3a3a45; }
+
+    .chat-msg { display: flex; gap: 8px; max-width: 88%; animation: chatMsgIn 0.25s ease; }
+    .chat-msg.sent { align-self: flex-end; flex-direction: row-reverse; }
+    .chat-msg.received { align-self: flex-start; }
+
+    @keyframes chatMsgIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    .chat-msg-avatar {
+        width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 11px; font-weight: 700; color: #fff;
+        overflow: hidden; background: var(--border, #e5e7eb);
+    }
+    .chat-msg-avatar img {
+        width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
+    }
+    .chat-msg.sent .chat-msg-avatar { background: #a7e169; color: #111; }
+
+    .chat-msg-bubble {
+        padding: 8px 12px; border-radius: 14px; font-size: 13px; line-height: 1.45;
+        word-break: break-word; position: relative;
+    }
+    .chat-msg.sent .chat-msg-bubble {
+        background: var(--chat-bubble-sent); color: #111; border-bottom-right-radius: 4px;
+    }
+    .chat-msg.received .chat-msg-bubble {
+        background: var(--chat-bubble-recv); color: var(--fg, #111); border-bottom-left-radius: 4px;
+    }
+    .dark .chat-msg.received .chat-msg-bubble { color: #e5e5e5; }
+
+    .chat-msg-meta {
+        display: flex; align-items: center; gap: 6px; margin-top: 3px;
+        font-size: 10px; color: var(--muted, #9ca3af);
+    }
+    .chat-msg.sent .chat-msg-meta { justify-content: flex-end; }
+
+    .chat-msg-reactions {
+        display: flex; gap: 4px; margin-top: 4px; flex-wrap: wrap;
+    }
+    .chat-msg.sent .chat-msg-reactions { justify-content: flex-end; }
+    .chat-reaction-btn {
+        display: inline-flex; align-items: center; gap: 2px; padding: 2px 6px;
+        border-radius: 99px; font-size: 12px; cursor: pointer; border: 1px solid var(--border);
+        background: var(--chat-bg); transition: all 0.15s;
+    }
+    .chat-reaction-btn:hover { background: #f3f4f6; }
+    .dark .chat-reaction-btn:hover { background: #2a2a35; }
+    .chat-reaction-btn.active { border-color: #a7e169; background: rgba(167,225,105,0.1); }
+    .chat-reaction-count { font-size: 10px; font-weight: 600; color: var(--muted, #9ca3af); }
+
+    .chat-msg-file {
+        display: flex; align-items: center; gap: 8px; padding: 8px 10px;
+        border-radius: 10px; background: rgba(0,0,0,0.04); margin-top: 4px;
+        font-size: 12px; cursor: pointer; transition: background 0.15s;
+    }
+    .chat-msg-file:hover { background: rgba(0,0,0,0.08); }
+    .dark .chat-msg-file { background: rgba(255,255,255,0.06); }
+    .dark .chat-msg-file:hover { background: rgba(255,255,255,0.1); }
+    .chat-msg-file img { max-width: 180px; max-height: 120px; border-radius: 8px; }
+    .chat-file-timer { font-size: 9px; color: #ef4444; font-weight: 600; }
+    .chat-msg-file.expired { opacity: 0.5; pointer-events: none; }
+    .chat-msg-file.expired i { color: #9ca3af; }
+    .chat-file-notice { font-size: 10px; color: #9ca3af; white-space: nowrap; padding: 2px 14px 6px; text-align: right; }
+    .dark .chat-file-notice { color: #6b7280; }
+
+    .chat-input-area {
+        display: flex; align-items: flex-end; gap: 8px; padding: 10px 14px;
+        border-top: 1px solid var(--border); background: var(--chat-bg);
+    }
+    .chat-input-wrap {
+        flex: 1; display: flex; align-items: flex-end; gap: 6px;
+        background: var(--chat-input-bg); border: 1.5px solid var(--border);
+        border-radius: 14px; padding: 8px 12px; min-height: 42px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.04); transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .chat-input-wrap:focus-within {
+        border-color: #a7e169; box-shadow: 0 0 0 2px rgba(167,225,105,0.18);
+    }
+    .dark .chat-input-wrap { background: #111116; }
+    .dark .chat-input-wrap:focus-within { border-color: #a7e169; box-shadow: 0 0 0 2px rgba(167,225,105,0.12); }
+    .chat-input-wrap textarea {
+        flex: 1; border: none; outline: none; resize: none; font-size: 13px;
+        background: transparent; color: inherit; line-height: 1.4; max-height: 80px;
+        font-family: 'DM Sans', sans-serif;
+    }
+    .chat-input-wrap textarea::placeholder { color: var(--muted, #9ca3af); }
+    .chat-input-btn {
+        width: 32px; height: 32px; border-radius: 8px; border: none; cursor: pointer;
+        display: flex; align-items: center; justify-content: center; transition: all 0.15s;
+        background: transparent; color: var(--muted, #9ca3af); flex-shrink: 0;
+    }
+    .chat-input-btn:hover { color: #a7e169; background: rgba(167,225,105,0.1); }
+    .chat-send-btn {
+        width: 36px; height: 36px; border-radius: 10px; border: none; cursor: pointer;
+        display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+        background: #a7e169; color: #111; flex-shrink: 0;
+    }
+    .chat-send-btn:hover { background: #8ed44e; transform: scale(1.05); }
+    .chat-send-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+    /* Emoji Picker */
+    .chat-emoji-picker {
+        position: absolute; bottom: 60px; left: 14px; right: 14px;
+        background: var(--chat-bg); border: 1px solid var(--border);
+        border-radius: 12px; padding: 10px; display: none; z-index: 50;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+    .chat-emoji-picker.open { display: block; }
+    .chat-emoji-grid {
+        display: grid; grid-template-columns: repeat(8, 1fr); gap: 2px;
+        max-height: 160px; overflow-y: auto;
+    }
+    .chat-emoji-grid button {
+        width: 100%; aspect-ratio: 1; border: none; background: transparent;
+        border-radius: 6px; font-size: 18px; cursor: pointer; transition: background 0.1s;
+        display: flex; align-items: center; justify-content: center;
+    }
+    .chat-emoji-grid button:hover { background: rgba(167,225,105,0.15); }
+
+    /* Reaction Picker */
+    .chat-reaction-picker {
+        position: absolute; display: none; gap: 4px; padding: 4px 8px;
+        background: var(--chat-bg); border: 1px solid var(--border);
+        border-radius: 99px; box-shadow: 0 4px 12px rgba(0,0,0,0.12); z-index: 60;
+    }
+    .chat-reaction-picker.open { display: flex; }
+    .chat-reaction-picker button {
+        width: 30px; height: 30px; border: none; background: transparent;
+        border-radius: 50%; font-size: 16px; cursor: pointer; transition: transform 0.1s;
+        display: flex; align-items: center; justify-content: center;
+    }
+    .chat-reaction-picker button:hover { transform: scale(1.3); }
+
+    /* Chat Skeleton */
+    .chat-skeleton { padding: 12px 14px; }
+    .chat-skeleton-row { display: flex; gap: 8px; margin-bottom: 12px; }
+    .chat-skeleton-row.right { flex-direction: row-reverse; }
+    .chat-skeleton-avatar { width: 28px; height: 28px; border-radius: 50%; background: #e5e7eb; }
+    .dark .chat-skeleton-avatar { background: #2a2a35; }
+    .chat-skeleton-bubble { height: 36px; border-radius: 12px; background: #e5e7eb; }
+    .dark .chat-skeleton-bubble { background: #2a2a35; }
+    .chat-skeleton-row.right .chat-skeleton-bubble { background: #d1fae5; }
+    .dark .chat-skeleton-row.right .chat-skeleton-bubble { background: rgba(167,225,105,0.15); }
+
+    @keyframes skeletonPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    .chat-skeleton-avatar, .chat-skeleton-bubble { animation: skeletonPulse 1.5s ease-in-out infinite; }
+
+    /* Announcement Banner (relocated) */
+    .announcement-banner {
+        background: var(--chat-bg); border-radius: 14px; padding: 12px 18px;
+        border: 1px solid var(--border); display: flex; align-items: center; gap: 12px;
+        cursor: pointer; transition: all 0.2s;
+    }
+    .announcement-banner:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+    .dark .announcement-banner:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.2); }
+    .announcement-banner-icon {
+        width: 36px; height: 36px; border-radius: 10px; display: flex;
+        align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .announcement-banner-content { flex: 1; min-width: 0; }
+    .announcement-banner-title { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .announcement-banner-text { font-size: 11px; color: var(--muted, #9ca3af); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .announcement-banner-time { font-size: 10px; color: var(--muted, #9ca3af); flex-shrink: 0; }
+    .announcement-banner-badge {
+        width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+    }
+
+    /* ── Profile Card: Enrolled Courses Mini-Section ── */
+    .profile-enrolled-list {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        max-height: 280px;
+        overflow-y: auto;
+    }
+    .profile-enrolled-list::-webkit-scrollbar { width: 3px; }
+    .profile-enrolled-list::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
+    .dark .profile-enrolled-list::-webkit-scrollbar-thumb { background: #2a2a35; }
+    .profile-enrolled-item {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 12px 0;
+    }
+    .profile-enrolled-item + .profile-enrolled-item {
+        border-top: 1px solid #f3f4f6;
+    }
+    .dark .profile-enrolled-item + .profile-enrolled-item {
+        border-top-color: #202028;
+    }
+    .profile-enrolled-info {
+        flex: 1;
+        min-width: 0;
+    }
+    .profile-enrolled-name {
+        font-size: 14px;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.4;
+    }
+    .profile-enrolled-meta {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 6px;
+    }
+    .profile-enrolled-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        padding: 3px 10px;
+        border-radius: 7px;
+        line-height: 1.5;
+    }
+    .profile-enrolled-badge.badge-active {
+        background: rgba(34,197,94,0.12);
+        color: #16a34a;
+        border: 1px solid rgba(34,197,94,0.25);
+    }
+    .dark .profile-enrolled-badge.badge-active {
+        background: rgba(34,197,94,0.1);
+        color: #4ade80;
+        border-color: rgba(34,197,94,0.2);
+    }
+    .profile-enrolled-badge.badge-completed {
+        background: rgba(96,165,250,0.12);
+        color: #2563eb;
+        border: 1px solid rgba(96,165,250,0.25);
+    }
+    .dark .profile-enrolled-badge.badge-completed {
+        background: rgba(96,165,250,0.1);
+        color: #60a5fa;
+        border-color: rgba(96,165,250,0.2);
+    }
+    .profile-enrolled-badge.badge-inactive {
+        background: rgba(107,114,128,0.1);
+        color: #6b7280;
+        border: 1px solid rgba(107,114,128,0.2);
+    }
+    .dark .profile-enrolled-badge.badge-inactive {
+        background: rgba(107,114,128,0.08);
+        color: #9ca3af;
+        border-color: rgba(107,114,128,0.15);
+    }
+    .profile-enrolled-progress-wrap {
+        width: 100px;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 5px;
+    }
+    .profile-enrolled-progress-bar {
+        width: 100%;
+        height: 7px;
+        background: #e5e7eb;
+        border-radius: 6px;
+        overflow: hidden;
+    }
+    .dark .profile-enrolled-progress-bar {
+        background: #202028;
+    }
+    .profile-enrolled-progress-fill {
+        height: 100%;
+        border-radius: 6px;
+        transition: width 0.5s ease;
+    }
+    .profile-enrolled-progress-text {
+        font-size: 11px;
+        color: #6b7280;
+        font-weight: 600;
+    }
+    .dark .profile-enrolled-progress-text {
+        color: #9ca3af;
+    }
+
     </style>
 </head>
 
@@ -1616,8 +1947,13 @@
                         </div>
                     </div>
 
-                    <!-- Profile Card + Announcements: Two-column side-by-side layout -->
-                    <div class="grid grid-cols-1 xl:grid-cols-[1fr_300px] gap-6 items-start">
+                    <!-- Relocated Announcement Banner (full-width, above the two-column grid) -->
+                    <div id="dashboard-announcement-widget" class="hidden">
+                        <div id="dashboard-announcement-content"></div>
+                    </div>
+
+                    <!-- Profile Card + Live Chat: Two-column side-by-side layout -->
+                    <div class="grid grid-cols-1 xl:grid-cols-[1fr_340px] gap-6">
 
                         <!-- Profile Card -->
                         <div
@@ -1673,38 +2009,75 @@
                                         id="stat-attendance-absent">0</span><span
                                         class="text-xs text-gray-400 uppercase tracking-wide">ပျက်ကွက်</span></div>
                             </div>
-                        </div>
-
-                        <!-- Dashboard Announcement Preview (Right Column) -->
-                        <div id="dashboard-announcement-widget" class="self-start bg-white dark:bg-brand-card rounded-2xl p-6 border border-gray-100 dark:border-brand-border">
-                            <div class="flex justify-between items-center mb-4">
-                                <h2 class="text-base font-semibold flex items-center gap-2">
-                                    <span class="relative flex h-2.5 w-2.5">
-                                        <span
-                                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
-                                    </span>
-                                    နောက်ဆုံးရရှိသော ကြေညာချက်များ
-                                </h2>
-                                <button onclick="switchSection('announcements')"
-                                    class="text-xs text-gray-400 hover:text-black dark:hover:text-white transition flex items-center gap-2">VIEW
-                                    ALL <i class="fa-solid fa-arrow-right"></i></button>
-                            </div>
-                            <div id="dashboard-announcement-content">
-                                <div id="dashboard-announcement-empty" class="flex flex-col items-center justify-center py-8 text-center">
-                                    <div class="w-12 h-12 rounded-full bg-gray-50 dark:bg-brand-dark flex items-center justify-center mb-3">
-                                        <i class="fa-regular fa-bell-slash text-lg text-gray-300 dark:text-gray-600"></i>
-                                    </div>
-                                    <p class="text-sm text-gray-400 font-light">No announcements yet</p>
-                                    <p class="text-xs text-gray-300 dark:text-gray-600 font-light mt-1">Check back later for updates</p>
+                            <!-- Enrolled Courses Mini-Section -->
+                            <div class="mt-8 pt-8 border-t border-gray-50 dark:border-brand-border">
+                                <p class="text-xs text-gray-400 uppercase tracking-[0.16em] mb-4 font-semibold">Enrolled Courses</p>
+                                <div class="profile-enrolled-list" id="profile-enrolled-list">
+                                    <div class="text-center py-4 text-gray-300 font-light text-xs"><i class="fa-regular fa-folder-open text-lg mb-1 block"></i>Loading…</div>
                                 </div>
                             </div>
                         </div>
 
-                    </div><!-- /end two-column grid: Profile Card + Announcements -->
+                        <!-- Live Chat Panel (Right Column) -->
+                        <div>
+                            <div class="chat-panel relative" id="chat-panel">
+                                <!-- Chat Tabs -->
+                                <div class="chat-tabs">
+                                    <div class="chat-tab active" data-room="batch" id="chat-tab-batch" onclick="switchChatRoom('batch')">
+                                        <i class="fa-solid fa-users" style="margin-right:4px;font-size:11px;"></i> <span id="chat-tab-batch-label">Batch Chat</span>
+                                        <span class="unread-dot hidden" id="unread-batch"></span>
+                                    </div>
+                                    <div class="chat-tab" data-room="ask-admin" id="chat-tab-ask-admin" onclick="switchChatRoom('ask-admin')">
+                                        <i class="fa-solid fa-headset" style="margin-right:4px;font-size:11px;"></i> Ask Instructor
+                                        <span class="unread-dot hidden" id="unread-ask-admin"></span>
+                                    </div>
+                                </div>
+                                <!-- Online Presence -->
+                                <div class="chat-presence" id="chat-presence">
+                                    <span class="online-dot"></span>
+                                    <span id="chat-online-count">0</span> online
+                                </div>
+                                <!-- Messages Area -->
+                                <div class="chat-messages" id="chat-messages">
+                                    <!-- Skeleton shown initially -->
+                                    <div class="chat-skeleton" id="chat-skeleton">
+                                        <div class="chat-skeleton-row"><div class="chat-skeleton-avatar"></div><div class="chat-skeleton-bubble" style="width:60%;"></div></div>
+                                        <div class="chat-skeleton-row right"><div class="chat-skeleton-avatar"></div><div class="chat-skeleton-bubble" style="width:45%;"></div></div>
+                                        <div class="chat-skeleton-row"><div class="chat-skeleton-avatar"></div><div class="chat-skeleton-bubble" style="width:55%;"></div></div>
+                                        <div class="chat-skeleton-row right"><div class="chat-skeleton-avatar"></div><div class="chat-skeleton-bubble" style="width:50%;"></div></div>
+                                    </div>
+                                </div>
+                                <!-- Emoji Picker -->
+                                <div class="chat-emoji-picker" id="chat-emoji-picker">
+                                    <div class="chat-emoji-grid" id="chat-emoji-grid"></div>
+                                </div>
+                                <!-- Reaction Picker -->
+                                <div class="chat-reaction-picker" id="chat-reaction-picker">
+                                    <button onclick="addReaction('👍')">👍</button>
+                                    <button onclick="addReaction('❤️')">❤️</button>
+                                    <button onclick="addReaction('😂')">😂</button>
+                                    <button onclick="addReaction('😮')">😮</button>
+                                    <button onclick="addReaction('😢')">😢</button>
+                                    <button onclick="addReaction('🙏')">🙏</button>
+                                </div>
+                                <!-- Input Area -->
+                                <div class="chat-input-area">
+                                    <div class="chat-input-wrap">
+                                        <textarea id="chat-input" rows="1" placeholder="Type a message…" onkeydown="handleChatKeydown(event)" oninput="autoResizeChatInput()"></textarea>
+                                        <button class="chat-input-btn" onclick="toggleEmojiPicker()" title="Emoji"><i class="fa-regular fa-face-smile"></i></button>
+                                        <button class="chat-input-btn" onclick="triggerFileUpload()" title="Attach file"><i class="fa-solid fa-paperclip"></i></button>
+                                        <input type="file" id="chat-file-input" class="hidden" accept="image/*,.pdf,.doc,.docx,.txt,.zip" onchange="handleFileUpload(event)">
+                                    </div>
+                                    <button class="chat-send-btn" id="chat-send-btn" onclick="sendChatMessage()" title="Send"><i class="fa-solid fa-paper-plane" style="font-size:14px;"></i></button>
+                                </div>
+                                <div class="chat-file-notice"><i class="fa-solid fa-clock"></i> Attachments auto-delete after 7 days</div>
+                            </div>
+                        </div>
+
+                    </div><!-- /end two-column grid: Profile Card + Live Chat -->
 
                     <!-- Stat Cards -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 -mt-6">
                         <div
                             class="bg-white dark:bg-brand-card p-6 rounded-2xl border border-gray-100 dark:border-brand-border hover-lift group stat-card-accent card-hover-glow" style="--stat-accent:#60a5fa;">
                             <div class="flex justify-between items-start">
@@ -2700,11 +3073,42 @@
             };
             if (dashGrid) dashGrid.innerHTML = active.slice(0, 3).map(makeCard).join('') || empty;
             if (allGrid) allGrid.innerHTML = enrollments.map(makeCard).join('') || empty;
+            renderProfileEnrolledList(enrollments);
         }
 
         function updateStats(enrollments) {
             setText('stat-enrolled', enrollments.length);
             setText('stat-active', enrollments.filter(e => e.status === 'active').length);
+        }
+
+        function renderProfileEnrolledList(enrollments) {
+            const container = document.getElementById('profile-enrolled-list');
+            if (!container) return;
+            if (!enrollments?.length) {
+                container.innerHTML = '<div class="text-center py-4 text-gray-300 font-light text-xs"><i class="fa-regular fa-folder-open text-lg mb-1 block"></i>No courses enrolled yet</div>';
+                return;
+            }
+            const progressColors = { active: '#a7e169', completed: '#60a5fa', inactive: '#9ca3af' };
+            container.innerHTML = enrollments.slice(0, 5).map(e => {
+                const c = e.courses;
+                if (!c) return '';
+                const status = e.status || 'inactive';
+                const badgeClass = status === 'active' ? 'badge-active' : status === 'completed' ? 'badge-completed' : 'badge-inactive';
+                const progress = Math.min(100, Math.max(0, e.progress_percentage ?? 0));
+                const barColor = progressColors[status] || progressColors.inactive;
+                return `<div class="profile-enrolled-item">
+                    <div class="profile-enrolled-info">
+                        <div class="profile-enrolled-name">${c.title}</div>
+                        <div class="profile-enrolled-meta">
+                            <span class="profile-enrolled-badge ${badgeClass}"><span class="w-1 h-1 rounded-full inline-block" style="background:currentColor;"></span>${status}</span>
+                        </div>
+                    </div>
+                    <div class="profile-enrolled-progress-wrap">
+                        <div class="profile-enrolled-progress-bar"><div class="profile-enrolled-progress-fill" style="width:${progress}%;background:${barColor};"></div></div>
+                        <span class="profile-enrolled-progress-text">${progress}%</span>
+                    </div>
+                </div>`;
+            }).join('');
         }
 
         window.openCourse = async function (courseId) {
@@ -3046,14 +3450,7 @@
             const content = document.getElementById('dashboard-announcement-content');
             if (!widget || !content) return;
             if (!data?.length) {
-                widget.classList.remove('hidden');
-                content.innerHTML = `<div class="flex flex-col items-center justify-center py-8 text-center">
-                    <div class="w-12 h-12 rounded-full bg-gray-50 dark:bg-brand-dark flex items-center justify-center mb-3">
-                        <i class="fa-regular fa-bell-slash text-lg text-gray-300 dark:text-gray-600"></i>
-                    </div>
-                    <p class="text-sm text-gray-400 font-light">No announcements yet</p>
-                    <p class="text-xs text-gray-300 dark:text-gray-600 font-light mt-1">Check back later for updates</p>
-                </div>`;
+                widget.classList.add('hidden');
                 return;
             }
 
@@ -3068,21 +3465,17 @@
             window.announcementDataMap = window.announcementDataMap || {};
             window.announcementDataMap[a.id] = a;
             content.innerHTML = `
-            <div class="bg-white dark:bg-brand-card rounded-xl p-4 border border-gray-100 dark:border-brand-border hover:shadow-sm transition-all cursor-pointer overflow-hidden" style="border-left:3px solid ${meta.color};" onclick="openAnnouncementModal('${a.id}')">
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background:${meta.color}18;">
-                        <i class="fa-solid fa-bullhorn text-xs" style="color:${meta.color};"></i>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex items-center justify-between gap-2 mb-1">
-                            <h3 class="font-medium text-sm text-gray-900 dark:text-white truncate">${a.title}</h3>
-                            <span class="text-[9px] uppercase tracking-wider font-bold px-1.5 py-0.5 rounded flex-shrink-0" style="background:${meta.color}18; color:${meta.color};">${a.priority}</span>
-                        </div>
-                        <p class="text-gray-500 dark:text-gray-400 text-xs font-light leading-relaxed line-clamp-1 mb-1">${a.content}</p>
-                        <p class="text-[10px] text-gray-400 dark:text-gray-500">${new Date(a.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
-                    </div>
-                    <i class="fa-solid fa-chevron-right text-gray-300 dark:text-gray-600 text-xs flex-shrink-0 ml-2"></i>
+            <div class="announcement-banner" onclick="openAnnouncementModal('${a.id}')">
+                <div class="announcement-banner-icon" style="background:${meta.color}15;">
+                    <i class="fa-solid fa-bullhorn" style="color:${meta.color}; font-size:13px;"></i>
                 </div>
+                <div class="announcement-banner-content">
+                    <div class="announcement-banner-title">${a.title}</div>
+                    <div class="announcement-banner-text">${a.content}</div>
+                </div>
+                <span class="announcement-banner-time">${new Date(a.created_at).toLocaleDateString('en-GB', { day:'numeric', month:'short' })}</span>
+                <div class="announcement-banner-badge" style="background:${meta.color};"></div>
+                <i class="fa-solid fa-chevron-right text-gray-300 dark:text-gray-600 text-xs flex-shrink-0"></i>
             </div>`;
         }
 
@@ -4450,6 +4843,652 @@
             });
         }
     });
+</script>
+
+<!-- ── LIVE CHAT MODULE ── -->
+<script type="module">
+    import { db, rtdb } from '../js/firebase-config.js';
+    import { supabase } from '../js/supabase-config.js';
+    import {
+        collection, doc, addDoc, onSnapshot, query, orderBy, limit,
+        serverTimestamp, updateDoc, arrayUnion, getDocs, where, getDoc
+    } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+    import {
+        ref, set, onDisconnect, onValue, get, off
+    } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
+
+    // ── State ──
+    let currentUserId = null;
+    let currentUserFullName = null;
+    let currentUserAvatar = null;
+    let currentBatchId = null;
+    let currentLevel = null;
+    let currentBatchName = '';
+    let currentRoom = 'batch'; // 'batch' or 'ask-admin'
+    let batchRoomId = '';
+    let unsubChat = null;
+    let presenceRef = null;
+    let chatKnownMsgIds = new Set(); // Track known message IDs for notification
+    let chatIsVisible = true; // Whether the chat panel is in view
+    let chatLastUserActivity = Date.now(); // Last time user sent/typed in chat
+    const EMOJIS = ['😀','😂','🥰','😎','🤔','😢','🔥','❤️','👍','🙏','🎉','💯','✨','🙌','😊','🥳','😏','🤗','😴','🤯'];
+    const REACTION_EMOJIS = ['👍','❤️','😂','😮','😢','🙏'];
+    const AVATAR_COLORS = ['#6366f1','#ec4899','#f97316','#14b8a6','#8b5cf6','#ef4444','#06b6d4','#84cc16'];
+
+    // ── Notification Sound (Web Audio API – no external file needed) ──
+    let _chatAudioCtx = null;
+    function playChatNotificationSound() {
+        try {
+            if (!_chatAudioCtx) _chatAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const ctx = _chatAudioCtx;
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(880, ctx.currentTime);      // A5
+            osc.frequency.setValueAtTime(1100, ctx.currentTime + 0.08); // ~C#6
+            osc.frequency.setValueAtTime(880, ctx.currentTime + 0.16);  // A5
+            gain.gain.setValueAtTime(0.18, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+            osc.start(ctx.currentTime);
+            osc.stop(ctx.currentTime + 0.35);
+        } catch (e) { /* ignore audio errors */ }
+    }
+
+    // ── Track chat visibility ──
+    function setupChatVisibilityTracking() {
+        const chatPanel = document.getElementById('chat-panel');
+        if (!chatPanel) return;
+        const observer = new IntersectionObserver(([entry]) => {
+            chatIsVisible = entry.isIntersecting;
+        }, { threshold: 0.3 });
+        observer.observe(chatPanel);
+
+        // Also track document visibility
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) chatIsVisible = false;
+        });
+    }
+
+    // ── Init ──
+    async function initChat() {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return;
+        currentUserId = user.id;
+
+        const { data: s } = await supabase.from('students').select('full_name, avatar_url, batch_id, level, student_type').eq('id', user.id).maybeSingle();
+        if (!s) return;
+        currentUserFullName = s.full_name || 'Student';
+        currentUserAvatar = s.avatar_url || null;
+        currentBatchId = s.batch_id;
+        currentLevel = s.level || 'beginner';
+
+        // Get batch name
+        if (currentBatchId) {
+            const { data: b } = await supabase.from('batches').select('name').eq('id', currentBatchId).maybeSingle();
+            currentBatchName = b?.name || '';
+        }
+
+        // Build batch room ID
+        batchRoomId = `batch_${currentBatchId || 'none'}_${currentLevel}`;
+        const batchLabel = document.getElementById('chat-tab-batch-label');
+        if (batchLabel) {
+            const lvl = currentLevel ? currentLevel.charAt(0).toUpperCase() + currentLevel.slice(1) : '';
+            batchLabel.textContent = currentBatchName ? `${currentBatchName} · ${lvl}` : `Batch Chat`;
+        }
+
+        setupEmojiPicker();
+        setupPresence();
+        setupChatVisibilityTracking();
+        cleanupExpiredAttachments(); // Clean up attachments older than 7 days
+        setInterval(cleanupExpiredAttachments, 30 * 60 * 1000); // Re-check every 30 min
+        switchChatRoom('batch');
+    }
+
+    // ── Room Switching ──
+    window.switchChatRoom = function(room) {
+        currentRoom = room;
+        // Update tab UI
+        document.querySelectorAll('.chat-tab').forEach(t => t.classList.remove('active'));
+        const activeTab = document.getElementById(`chat-tab-${room}`);
+        if (activeTab) activeTab.classList.add('active');
+
+        // Clear unread for this room
+        const unreadEl = document.getElementById(`unread-${room}`);
+        if (unreadEl) unreadEl.classList.add('hidden');
+
+        // Unsubscribe previous listener
+        if (unsubChat) { unsubChat(); unsubChat = null; }
+        chatKnownMsgIds.clear(); // Reset known messages for new room
+
+        // Clear messages and show skeleton
+        const messagesEl = document.getElementById('chat-messages');
+        messagesEl.innerHTML = document.getElementById('chat-skeleton')?.outerHTML || '<div class="chat-skeleton"><div class="chat-skeleton-row"><div class="chat-skeleton-avatar"></div><div class="chat-skeleton-bubble" style="width:60%;"></div></div><div class="chat-skeleton-row right"><div class="chat-skeleton-avatar"></div><div class="chat-skeleton-bubble" style="width:45%;"></div></div></div>';
+
+        // Determine collection path
+        const roomId = room === 'batch' ? batchRoomId : 'ask-admin';
+        const colRef = collection(db, 'chatRooms', roomId, 'messages');
+        const q = query(colRef, orderBy('createdAt', 'desc'), limit(50));
+
+        unsubChat = onSnapshot(q, (snap) => {
+            const msgs = [];
+            snap.forEach(d => msgs.push({ id: d.id, ...d.data() }));
+            msgs.reverse();
+
+            // ── Notification sound for new messages from others ──
+            // Only play sound if: message is from someone else, chat is not visible or user hasn't been active in the last 5 seconds
+            const newMsgs = msgs.filter(m => !chatKnownMsgIds.has(m.id));
+            for (const m of newMsgs) {
+                chatKnownMsgIds.add(m.id);
+                if (m.uid !== currentUserId) {
+                    const timeSinceActivity = Date.now() - chatLastUserActivity;
+                    if (!chatIsVisible || timeSinceActivity > 5000) {
+                        playChatNotificationSound();
+                        break; // Only play once per batch
+                    }
+                }
+            }
+
+            renderMessages(msgs);
+        }, (err) => {
+            console.error('Chat snapshot error:', err);
+            messagesEl.innerHTML = '<div class="text-center py-8 text-red-400 text-sm">Failed to load messages. Please check Firebase config.</div>';
+        });
+
+        // Update presence room
+        updatePresenceRoom(roomId);
+    };
+
+    // ── Render Messages ──
+    function renderMessages(msgs) {
+        const messagesEl = document.getElementById('chat-messages');
+        const wasAtBottom = messagesEl.scrollHeight - messagesEl.scrollTop - messagesEl.clientHeight < 60;
+
+        messagesEl.innerHTML = '';
+        if (msgs.length === 0) {
+            messagesEl.innerHTML = '<div class="flex flex-col items-center justify-center flex-1 text-center py-12"><div class="w-14 h-14 rounded-full bg-gray-50 dark:bg-brand-dark flex items-center justify-center mb-3"><i class="fa-regular fa-comments text-xl text-gray-300 dark:text-gray-600"></i></div><p class="text-sm text-gray-400 font-light">No messages yet</p><p class="text-xs text-gray-300 dark:text-gray-600 font-light mt-1">Start the conversation!</p></div>';
+            return;
+        }
+
+        msgs.forEach(msg => {
+            const isSent = msg.uid === currentUserId;
+            const div = document.createElement('div');
+            div.className = `chat-msg ${isSent ? 'sent' : 'received'}`;
+            div.dataset.msgId = msg.id;
+
+            const avatarLetter = (msg.senderName || '?').charAt(0).toUpperCase();
+            const avatarColor = AVATAR_COLORS[(msg.uid || '').charCodeAt(0) % AVATAR_COLORS.length];
+            const timeStr = msg.createdAt ? formatTime(msg.createdAt) : '';
+            const avatarUrl = isSent ? currentUserAvatar : (msg.avatarUrl || null);
+
+            let fileHtml = '';
+            if (msg.fileURL) {
+                const isExpired = msg.expiresAt && msg.expiresAt < Date.now();
+                if (isExpired) {
+                    fileHtml = `<div class="chat-msg-file expired"><i class="fa-solid fa-file-circle-xmark text-sm"></i><span class="flex-1 truncate text-xs text-gray-400">File expired</span></div>`;
+                } else if (msg.fileType && msg.fileType.startsWith('image/')) {
+                    fileHtml = `<div class="chat-msg-file" onclick="window.open('${msg.fileURL}','_blank')"><img src="${msg.fileURL}" alt="attachment" loading="lazy"><span class="chat-file-timer"><i class="fa-solid fa-clock"></i> 7d</span></div>`;
+                } else {
+                    fileHtml = `<div class="chat-msg-file" onclick="window.open('${msg.fileURL}','_blank')"><i class="fa-solid fa-file text-sm"></i><span class="flex-1 truncate text-xs">${msg.fileName || 'File'}</span><span class="chat-file-timer"><i class="fa-solid fa-clock"></i> 7d</span></div>`;
+                }
+            }
+
+            let reactionsHtml = '';
+            if (msg.reactions && Object.keys(msg.reactions).length > 0) {
+                reactionsHtml = '<div class="chat-msg-reactions">';
+                for (const [emoji, uids] of Object.entries(msg.reactions)) {
+                    const isActive = uids.includes(currentUserId);
+                    reactionsHtml += `<span class="chat-reaction-btn ${isActive ? 'active' : ''}" onclick="toggleReaction('${msg.id}','${emoji}')">${emoji} <span class="chat-reaction-count">${uids.length}</span></span>`;
+                }
+                reactionsHtml += '</div>';
+            }
+
+            const avatarHtml = avatarUrl
+                ? `<div class="chat-msg-avatar"><img src="${avatarUrl}" alt="" referrerpolicy="no-referrer" onerror="this.parentElement.innerHTML='${avatarLetter}';this.parentElement.style.background='${avatarColor}';"></div>`
+                : `<div class="chat-msg-avatar" style="background:${avatarColor};">${avatarLetter}</div>`;
+            div.innerHTML = `
+                ${avatarHtml}
+                <div>
+                    ${!isSent ? `<div style="font-size:11px;font-weight:600;margin-bottom:2px;color:${avatarColor};">${msg.senderName || 'Unknown'}</div>` : ''}
+                    <div class="chat-msg-bubble" oncontextmenu="openReactionPicker(event, '${msg.id}')">
+                        ${fileHtml}
+                        ${msg.text ? `<div>${escapeHtml(msg.text)}</div>` : ''}
+                    </div>
+                    ${reactionsHtml}
+                    <div class="chat-msg-meta">
+                        <span>${timeStr}</span>
+                    </div>
+                </div>
+            `;
+            messagesEl.appendChild(div);
+        });
+
+        // Auto-scroll to bottom if was near bottom
+        if (wasAtBottom) {
+            messagesEl.scrollTop = messagesEl.scrollHeight;
+        }
+
+        // Update unread for inactive tab
+        updateUnreadBadges(msgs);
+    }
+
+    // ── Send Message ──
+    window.sendChatMessage = async function() {
+        const input = document.getElementById('chat-input');
+        const text = input.value.trim();
+        chatLastUserActivity = Date.now(); // User is actively chatting
+        if (!text && !window._pendingFileURL) return;
+        if (!currentUserId) return;
+
+        const roomId = currentRoom === 'batch' ? batchRoomId : 'ask-admin';
+        const colRef = collection(db, 'chatRooms', roomId, 'messages');
+
+        const msgData = {
+            uid: currentUserId,
+            senderName: currentUserFullName,
+            avatarUrl: currentUserAvatar || null,
+            text: text,
+            createdAt: serverTimestamp(),
+            reactions: {}
+        };
+
+        if (window._pendingFileURL) {
+            msgData.fileURL = window._pendingFileURL;
+            msgData.filePath = window._pendingFilePath || null;
+            msgData.fileName = window._pendingFileName || 'File';
+            msgData.fileType = window._pendingFileType || null;
+            msgData.autoDelete = true; // All chat attachments auto-delete after 7 days
+            msgData.expiresAt = Date.now() + 7 * 24 * 60 * 60 * 1000; // 7 days from now
+            window._pendingFileURL = null;
+            window._pendingFilePath = null;
+            window._pendingFileName = null;
+            window._pendingFileType = null;
+            window._pendingAutoDelete = false;
+        }
+
+        input.value = '';
+        autoResizeChatInput();
+
+        try {
+            const docRef = await addDoc(colRef, msgData);
+
+            // No client-side setTimeout for 7-day auto-delete (browser won't stay open that long).
+            // Instead, cleanupExpiredAttachments() runs on chat init and periodically.
+            // The expiresAt timestamp is stored in the message document.
+        } catch (e) {
+            console.error('Send message error:', e);
+        }
+    };
+
+    // ── Key Handler ──
+    window.handleChatKeydown = function(e) {
+        chatLastUserActivity = Date.now(); // User is typing
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendChatMessage();
+        }
+    };
+
+    // ── Auto Resize Input ──
+    window.autoResizeChatInput = function() {
+        chatLastUserActivity = Date.now(); // User is typing
+        const input = document.getElementById('chat-input');
+        input.style.height = 'auto';
+        input.style.height = Math.min(input.scrollHeight, 80) + 'px';
+    };
+
+    // ── Emoji Picker ──
+    function setupEmojiPicker() {
+        const grid = document.getElementById('chat-emoji-grid');
+        if (!grid) return;
+        grid.innerHTML = EMOJIS.map(e => `<button type="button" onclick="insertEmoji('${e}')">${e}</button>`).join('');
+    }
+
+    window.toggleEmojiPicker = function() {
+        const picker = document.getElementById('chat-emoji-picker');
+        if (picker) picker.classList.toggle('open');
+    };
+
+    window.insertEmoji = function(emoji) {
+        const input = document.getElementById('chat-input');
+        input.value += emoji;
+        input.focus();
+        document.getElementById('chat-emoji-picker')?.classList.remove('open');
+    };
+
+    // ── Reaction Picker ──
+    let reactionTargetMsgId = null;
+
+    window.openReactionPicker = function(e, msgId) {
+        e.preventDefault();
+        reactionTargetMsgId = msgId;
+        const picker = document.getElementById('chat-reaction-picker');
+        if (!picker) return;
+
+        // Position near the message
+        const rect = e.currentTarget.getBoundingClientRect();
+        const panelRect = document.getElementById('chat-panel').getBoundingClientRect();
+        picker.style.top = (rect.top - panelRect.top - 40) + 'px';
+        picker.style.left = (rect.left - panelRect.left) + 'px';
+        picker.classList.add('open');
+
+        // Close on click outside
+        setTimeout(() => {
+            document.addEventListener('click', closeReactionPicker, { once: true });
+        }, 10);
+    };
+
+    function closeReactionPicker(e) {
+        const picker = document.getElementById('chat-reaction-picker');
+        if (picker) picker.classList.remove('open');
+        reactionTargetMsgId = null;
+    }
+
+    window.addReaction = function(emoji) {
+        if (!reactionTargetMsgId) return;
+        toggleReaction(reactionTargetMsgId, emoji);
+        closeReactionPicker();
+    };
+
+    window.toggleReaction = async function(msgId, emoji) {
+        const roomId = currentRoom === 'batch' ? batchRoomId : 'ask-admin';
+        const msgRef = doc(db, 'chatRooms', roomId, 'messages', msgId);
+
+        try {
+            const msgSnap = await getDoc(msgRef);
+            if (!msgSnap.exists()) return;
+            const data = msgSnap.data();
+            const reactions = data.reactions || {};
+
+            if (!reactions[emoji]) {
+                reactions[emoji] = [currentUserId];
+            } else {
+                if (reactions[emoji].includes(currentUserId)) {
+                    reactions[emoji] = reactions[emoji].filter(id => id !== currentUserId);
+                    if (reactions[emoji].length === 0) delete reactions[emoji];
+                } else {
+                    reactions[emoji].push(currentUserId);
+                }
+            }
+            await updateDoc(msgRef, { reactions });
+        } catch (e) {
+            console.error('Toggle reaction error:', e);
+        }
+    };
+
+    // ── File Upload ──
+    window.triggerFileUpload = function() {
+        document.getElementById('chat-file-input')?.click();
+    };
+
+    window.handleFileUpload = async function(e) {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        // Limit file size to 5MB
+        if (file.size > 5 * 1024 * 1024) {
+            alert('File size must be under 5MB');
+            e.target.value = '';
+            return;
+        }
+
+        const isImage = file.type.startsWith('image/');
+        const ext = file.name.split('.').pop();
+        const filePath = `chat/${currentRoom}/${currentUserId}_${Date.now()}.${ext}`;
+
+        try {
+            const { error: uploadErr } = await supabase.storage
+                .from('chat-attachments')
+                .upload(filePath, file, { upsert: false });
+            if (uploadErr) throw uploadErr;
+
+            const { data: { publicUrl } } = supabase.storage
+                .from('chat-attachments')
+                .getPublicUrl(filePath);
+
+            window._pendingFileURL = publicUrl;
+            window._pendingFilePath = filePath; // Store path for deletion
+            window._pendingFileName = file.name;
+            window._pendingFileType = file.type;
+            window._pendingAutoDelete = true; // Auto-delete after 7 days
+
+            // Auto-send the file message
+            await sendChatMessage();
+        } catch (err) {
+            console.error('File upload error:', err);
+            alert('Failed to upload file. Please try again.');
+        }
+
+        e.target.value = '';
+    };
+
+    // ── Cleanup Expired Attachments (7-day auto-delete) ──
+    async function cleanupExpiredAttachments() {
+        const now = Date.now();
+        const rooms = [batchRoomId || 'batch_none_beginner', 'ask-admin'];
+        const { deleteDoc } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
+
+        for (const roomId of rooms) {
+            try {
+                const colRef = collection(db, 'chatRooms', roomId, 'messages');
+                const q = query(colRef, orderBy('createdAt', 'desc'), limit(100));
+                const snap = await getDocs(q);
+
+                for (const d of snap.docs) {
+                    const data = d.data();
+                    if (data.expiresAt && data.expiresAt < now) {
+                        // Delete file from Supabase Storage
+                        if (data.filePath) {
+                            await supabase.storage.from('chat-attachments').remove([data.filePath]).catch(() => {});
+                        }
+                        // Remove file fields from message (keep text if any)
+                        if (data.text && data.text.trim()) {
+                            await updateDoc(d.ref, {
+                                fileURL: null,
+                                filePath: null,
+                                fileName: null,
+                                fileType: null,
+                                autoDelete: false,
+                                expiresAt: null
+                            }).catch(() => {});
+                        } else {
+                            // Message was file-only, delete entire doc
+                            await deleteDoc(d.ref).catch(() => {});
+                        }
+                    }
+                }
+            } catch (e) {
+                console.warn('Cleanup error for room', roomId, e);
+            }
+        }
+    }
+
+    // ── Online Presence ──
+    function setupPresence() {
+        if (!currentUserId) return;
+        presenceRef = ref(rtdb, `presence/chat_${currentUserId}`);
+
+        set(presenceRef, {
+            uid: currentUserId,
+            name: currentUserFullName,
+            currentRoom: currentRoom === 'batch' ? batchRoomId : 'ask-admin',
+            lastSeen: Date.now(),
+            online: true
+        });
+
+        onDisconnect(presenceRef).set({
+            uid: currentUserId,
+            name: currentUserFullName,
+            currentRoom: '',
+            lastSeen: Date.now(),
+            online: false
+        });
+
+        // Listen for online users
+        const presenceListRef = ref(rtdb, 'presence');
+        onValue(presenceListRef, (snap) => {
+            const data = snap.val();
+            if (!data) {
+                updateOnlineCount(0);
+                return;
+            }
+            const users = Object.values(data);
+            const roomId = currentRoom === 'batch' ? batchRoomId : 'ask-admin';
+            const onlineInRoom = users.filter(u => u.online && u.currentRoom === roomId);
+            updateOnlineCount(onlineInRoom.length);
+        });
+    }
+
+    function updatePresenceRoom(roomId) {
+        if (presenceRef) {
+            set(presenceRef, {
+                uid: currentUserId,
+                name: currentUserFullName,
+                currentRoom: roomId,
+                lastSeen: Date.now(),
+                online: true
+            });
+        }
+    }
+
+    function updateOnlineCount(count) {
+        const el = document.getElementById('chat-online-count');
+        if (el) el.textContent = count;
+        const dot = document.querySelector('.chat-presence .online-dot, .chat-presence .offline-dot');
+        if (dot) {
+            dot.className = count > 0 ? 'online-dot' : 'offline-dot';
+        }
+    }
+
+    // ── Unread Badges ──
+    let lastSeenTimestamps = { batch: Date.now(), 'ask-admin': Date.now() };
+
+    function updateUnreadBadges(msgs) {
+        if (msgs.length === 0) return;
+        const latestMsg = msgs[msgs.length - 1];
+        if (!latestMsg || !latestMsg.createdAt) return;
+
+        const roomKey = currentRoom;
+        // Only update badge for the OTHER room
+        const otherRoom = roomKey === 'batch' ? 'ask-admin' : 'batch';
+        const otherRoomId = otherRoom === 'batch' ? batchRoomId : 'ask-admin';
+
+        // Check if there are new messages in the other room
+        // We use a simple approach: listen to the other room too
+    }
+
+    // Listen to the inactive room for unread badges
+    function setupUnreadListener() {
+        // Listen to ask-admin room for unread when on batch tab and vice versa
+        const askAdminCol = collection(db, 'chatRooms', 'ask-admin', 'messages');
+        const askAdminQ = query(askAdminCol, orderBy('createdAt', 'desc'), limit(1));
+
+        onSnapshot(askAdminQ, (snap) => {
+            if (currentRoom === 'ask-admin') return; // Don't show badge for active room
+            snap.forEach(d => {
+                const msg = d.data();
+                if (msg.uid === currentUserId) return;
+                if (msg.createdAt) {
+                    const msgTime = msg.createdAt.toDate?.()?.getTime() || 0;
+                    const lastSeen = lastSeenTimestamps['ask-admin'] || 0;
+                    if (msgTime > lastSeen) {
+                        const badge = document.getElementById('unread-ask-admin');
+                        if (badge) { badge.classList.remove('hidden'); badge.textContent = '1'; }
+                    }
+                }
+            });
+        });
+
+        if (batchRoomId) {
+            const batchCol = collection(db, 'chatRooms', batchRoomId, 'messages');
+            const batchQ = query(batchCol, orderBy('createdAt', 'desc'), limit(1));
+
+            onSnapshot(batchQ, (snap) => {
+                if (currentRoom === 'batch') return;
+                snap.forEach(d => {
+                    const msg = d.data();
+                    if (msg.uid === currentUserId) return;
+                    if (msg.createdAt) {
+                        const msgTime = msg.createdAt.toDate?.()?.getTime() || 0;
+                        const lastSeen = lastSeenTimestamps['batch'] || 0;
+                        if (msgTime > lastSeen) {
+                            const badge = document.getElementById('unread-batch');
+                            if (badge) { badge.classList.remove('hidden'); badge.textContent = '1'; }
+                        }
+                    }
+                });
+            });
+        }
+    }
+
+    // ── Time Formatting ──
+    function formatTime(timestamp) {
+        if (!timestamp) return '';
+        const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+        const now = new Date();
+        const diffMs = now - date;
+        const diffMin = Math.floor(diffMs / 60000);
+        const diffHrs = Math.floor(diffMs / 3600000);
+        const diffDays = Math.floor(diffMs / 86400000);
+
+        if (diffMin < 1) return 'just now';
+        if (diffMin < 60) return `${diffMin}m ago`;
+        if (diffHrs < 24 && date.getDate() === now.getDate()) return `${diffHrs}h ago`;
+        if (diffDays < 30) return `${diffDays}d ago`;
+        return 'Long time ago';
+    }
+
+    // ── Presence Time Display ──
+    function formatPresenceTime(lastSeen) {
+        if (!lastSeen) return '';
+        const date = new Date(lastSeen);
+        const now = new Date();
+        const diffMs = now - date;
+        const diffMin = Math.floor(diffMs / 60000);
+        const diffHrs = Math.floor(diffMs / 3600000);
+        const diffDays = Math.floor(diffMs / 86400000);
+
+        if (diffMin < 1) return 'online';
+        if (diffMin < 60) return `${diffMin} min ago`;
+        if (diffHrs < 24 && date.getDate() === now.getDate()) return `${diffHrs} hours ago`;
+        if (diffDays < 30) return `${diffDays} days ago`;
+        return 'Long time ago';
+    }
+
+    // ── HTML Escape ──
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // ── Close pickers on outside click ──
+    document.addEventListener('click', (e) => {
+        const emojiPicker = document.getElementById('chat-emoji-picker');
+        const emojiBtn = e.target.closest('.chat-input-btn');
+        if (emojiPicker && !emojiPicker.contains(e.target) && !emojiBtn) {
+            emojiPicker.classList.remove('open');
+        }
+    });
+
+    // ── Cleanup on page unload ──
+    window.addEventListener('beforeunload', () => {
+        if (presenceRef) {
+            set(presenceRef, {
+                uid: currentUserId,
+                name: currentUserFullName,
+                currentRoom: '',
+                lastSeen: Date.now(),
+                online: false
+            });
+        }
+        if (unsubChat) unsubChat();
+    });
+
+    // ── Initialize ──
+    setTimeout(initChat, 1500);
+    setTimeout(setupUnreadListener, 2000);
 </script>
 
 </body>
