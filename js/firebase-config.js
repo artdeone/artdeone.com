@@ -8,7 +8,7 @@ import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.12.2/firebas
 import { getDatabase } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAbE-EAUCsBRASj2iTm9pGiN2Vb2ROSZOw",
+    apiKey: "__FIREBASE_API_KEY__",
     authDomain: "ado-chat-app.firebaseapp.com",
     databaseURL: "https://ado-chat-app-default-rtdb.firebaseio.com",
     projectId: "ado-chat-app",

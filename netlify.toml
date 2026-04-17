@@ -1,4 +1,5 @@
 [build]
+  command = "sed -i \"s/__FIREBASE_API_KEY__/$FIREBASE_API_KEY/g\" js/firebase-config.js"
   functions = "netlify/functions"
   publish = "."
 
