@@ -1487,15 +1487,9 @@
                 <div class="admin-chat-container">
                     <!-- Room List -->
                     <div class="admin-chat-rooms" id="admin-chat-rooms">
-                        <div class="admin-chat-room-btn active" data-room="ask-admin" onclick="adminSwitchRoom('ask-admin')">
-                            <div class="room-icon"><i class="fa-solid fa-headset"></i></div>
-                            <div class="room-info">
-                                <div class="room-name">Ask Instructor</div>
-                                <div class="room-count" id="admin-presence-ask-admin">0 online</div>
-                            </div>
-                            <span class="room-unread hidden" id="admin-unread-ask-admin">0</span>
-                        </div>
-                        <!-- Batch rooms will be populated dynamically -->
+                        <div style="font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); padding:4px 2px 2px;">Ask Instructor</div>
+                        <div id="admin-direct-rooms"></div>
+                        <div style="font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); padding:10px 2px 2px;">Batch Rooms</div>
                         <div id="admin-batch-rooms"></div>
                     </div>
                     <!-- Chat Main Area -->
@@ -4307,11 +4301,39 @@
     } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
 
     // ── State ──
-    let adminCurrentRoom = 'ask-admin';
+    let adminCurrentRoom = '';
     let adminUnsubChat = null;
     let adminKnownMsgIds = new Set();
+    let adminInitialLoadDone = false;
     let adminLastActivity = Date.now();
+    let adminRoomMeta = new Map();
     const AVATAR_COLORS = ['#6366f1','#ec4899','#f97316','#14b8a6','#8b5cf6','#ef4444','#06b6d4','#84cc16'];
+
+    function adminSafeRoomId(roomId) {
+        return roomId.replace(/[^a-zA-Z0-9]/g, '_');
+    }
+
+    function setAdminComposerDisabled(isDisabled) {
+        const input = document.getElementById('admin-chat-input');
+        const sendBtn = document.querySelector('.admin-chat-send');
+        if (input) {
+            input.disabled = isDisabled;
+            input.placeholder = isDisabled ? 'Select a conversation to reply…' : 'Type a reply as Instructor…';
+        }
+        if (sendBtn) sendBtn.disabled = isDisabled;
+    }
+
+    function adminRenderEmptyState(message, title = 'Ask Instructor') {
+        const titleEl = document.getElementById('admin-chat-title');
+        if (titleEl) titleEl.textContent = title;
+        const messagesEl = document.getElementById('admin-chat-messages');
+        if (messagesEl) {
+            messagesEl.innerHTML = `<div class="flex flex-col items-center justify-center flex-1 text-center py-12"><div class="w-14 h-14 rounded-full flex items-center justify-center mb-3" style="background:var(--border);"><i class="fa-regular fa-comments text-xl" style="color:var(--muted);"></i></div><p style="color:var(--muted);font-size:13px;">${message}</p></div>`;
+        }
+        const onlineCountEl = document.getElementById('admin-online-count');
+        if (onlineCountEl) onlineCountEl.textContent = '0';
+        setAdminComposerDisabled(true);
+    }
 
     // ── Notification Sound (Web Audio API) ──
     let _adminAudioCtx = null;
@@ -4339,47 +4361,88 @@
 
     // ── Init ──
     async function initAdminChat() {
-        // Load batch rooms from Supabase
-        const { data: batches } = await supabase.from('batches').select('id, name');
-        const { data: levels } = await supabase.from('students').select('level').neq('level', null);
+        const [
+            { data: batches },
+            { data: students },
+            { data: levels }
+        ] = await Promise.all([
+            supabase.from('batches').select('id, name'),
+            supabase.from('students').select('id, full_name, email, batch_id, level').order('full_name', { ascending: true }),
+            supabase.from('students').select('level').neq('level', null)
+        ]);
 
-        // Get unique levels
+        const batchContainer = document.getElementById('admin-batch-rooms');
+        const directContainer = document.getElementById('admin-direct-rooms');
+        if (!batchContainer || !directContainer) return;
+
+        adminRoomMeta = new Map();
+
+        const batchNameMap = new Map((batches || []).map(batch => [batch.id, batch.name]));
         const uniqueLevels = [...new Set((levels || []).map(s => s.level).filter(Boolean))];
+        const fallbackLevels = uniqueLevels.length > 0 ? uniqueLevels : ['beginner', 'intermediate', 'advanced'];
 
-        const container = document.getElementById('admin-batch-rooms');
-        if (!container) return;
+        const directRooms = (students || []).map(student => {
+            const roomId = `ask_admin_${student.id}`;
+            const safeId = adminSafeRoomId(roomId);
+            const displayName = student.full_name || student.email || 'Student';
+            const levelLabel = student.level ? student.level.charAt(0).toUpperCase() + student.level.slice(1) : '';
+            const batchName = student.batch_id ? batchNameMap.get(student.batch_id) : '';
+            const subtitle = [batchName, levelLabel].filter(Boolean).join(' · ') || (student.email || 'Private conversation');
+            adminRoomMeta.set(roomId, { type: 'direct', title: `Ask Instructor · ${displayName}`, subtitle });
+            return `
+                <div class="admin-chat-room-btn" data-room="${roomId}" onclick="adminSwitchRoom('${roomId}')">
+                    <div class="room-icon"><i class="fa-solid fa-user"></i></div>
+                    <div class="room-info">
+                        <div class="room-name">${displayName}</div>
+                        <div class="room-count" id="admin-presence-${safeId}">${subtitle}</div>
+                    </div>
+                    <span class="room-unread hidden" id="admin-unread-${safeId}">0</span>
+                </div>`;
+        });
 
-        // Build batch room buttons
-        let roomHtml = '';
-        if (batches) {
-            for (const batch of batches) {
-                for (const level of uniqueLevels.length > 0 ? uniqueLevels : ['beginner', 'intermediate', 'advanced']) {
-                    const roomId = `batch_${batch.id}_${level}`;
-                    const label = `${batch.name} · ${level.charAt(0).toUpperCase() + level.slice(1)}`;
-                    roomHtml += `
-                        <div class="admin-chat-room-btn" data-room="${roomId}" onclick="adminSwitchRoom('${roomId}')">
-                            <div class="room-icon"><i class="fa-solid fa-users"></i></div>
-                            <div class="room-info">
-                                <div class="room-name">${label}</div>
-                                <div class="room-count" id="admin-presence-${roomId.replace(/[^a-zA-Z0-9]/g, '_')}">0 online</div>
-                            </div>
-                            <span class="room-unread hidden" id="admin-unread-${roomId.replace(/[^a-zA-Z0-9]/g, '_')}">0</span>
-                        </div>`;
-                }
+        const batchRooms = [];
+        for (const batch of batches || []) {
+            for (const level of fallbackLevels) {
+                const roomId = `batch_${batch.id}_${level}`;
+                const safeId = adminSafeRoomId(roomId);
+                const label = `${batch.name} · ${level.charAt(0).toUpperCase() + level.slice(1)}`;
+                adminRoomMeta.set(roomId, { type: 'batch', title: `Batch Chat · ${batch.name} · ${level.charAt(0).toUpperCase() + level.slice(1)}` });
+                batchRooms.push(`
+                    <div class="admin-chat-room-btn" data-room="${roomId}" onclick="adminSwitchRoom('${roomId}')">
+                        <div class="room-icon"><i class="fa-solid fa-users"></i></div>
+                        <div class="room-info">
+                            <div class="room-name">${label}</div>
+                            <div class="room-count" id="admin-presence-${safeId}">0 online</div>
+                        </div>
+                        <span class="room-unread hidden" id="admin-unread-${safeId}">0</span>
+                    </div>`);
             }
         }
-        container.innerHTML = roomHtml;
+
+        directContainer.innerHTML = directRooms.join('') || '<div style="padding:10px 12px; border:1px dashed var(--border); border-radius:12px; color:var(--muted); font-size:12px;">No student accounts yet.</div>';
+        batchContainer.innerHTML = batchRooms.join('') || '<div style="padding:10px 12px; border:1px dashed var(--border); border-radius:12px; color:var(--muted); font-size:12px;">No batch rooms yet.</div>';
 
         // Setup presence listener
         setupAdminPresence();
 
-        // Default to ask-admin room
-        adminSwitchRoom('ask-admin');
+        const defaultRoom = (students && students[0] && `ask_admin_${students[0].id}`) || (batches && batches[0] && `batch_${batches[0].id}_${fallbackLevels[0]}`) || '';
+        if (defaultRoom) {
+            adminSwitchRoom(defaultRoom);
+        } else {
+            adminRenderEmptyState('Student conversations will appear here once accounts are available.');
+        }
     }
 
     // ── Room Switching ──
     window.adminSwitchRoom = function(roomId) {
+        if (!roomId) {
+            adminCurrentRoom = '';
+            adminRenderEmptyState('Select a conversation to view messages.');
+            return;
+        }
+
         adminCurrentRoom = roomId;
+        setAdminComposerDisabled(false);
 
         // Update active state
         document.querySelectorAll('.admin-chat-room-btn').forEach(btn => {
@@ -4389,28 +4452,18 @@
         // Update title
         const titleEl = document.getElementById('admin-chat-title');
         if (titleEl) {
-            if (roomId === 'ask-admin') {
-                titleEl.textContent = 'Ask Instructor';
-            } else {
-                // Parse room ID: batch_BATCHID_LEVEL
-                const parts = roomId.split('_');
-                if (parts.length >= 3) {
-                    const level = parts[parts.length - 1];
-                    titleEl.textContent = `Batch Chat · ${level.charAt(0).toUpperCase() + level.slice(1)}`;
-                } else {
-                    titleEl.textContent = roomId;
-                }
-            }
+            titleEl.textContent = adminRoomMeta.get(roomId)?.title || roomId;
         }
 
         // Clear unread
-        const safeId = roomId.replace(/[^a-zA-Z0-9]/g, '_');
+        const safeId = adminSafeRoomId(roomId);
         const unreadEl = document.getElementById(`admin-unread-${safeId}`);
         if (unreadEl) unreadEl.classList.add('hidden');
 
         // Unsubscribe previous
         if (adminUnsubChat) { adminUnsubChat(); adminUnsubChat = null; }
         adminKnownMsgIds.clear();
+        adminInitialLoadDone = false;
 
         // Show skeleton
         const messagesEl = document.getElementById('admin-chat-messages');
@@ -4427,16 +4480,15 @@
 
             // Notification sound for new messages from students
             const newMsgs = msgs.filter(m => !adminKnownMsgIds.has(m.id));
-            for (const m of newMsgs) {
-                adminKnownMsgIds.add(m.id);
-                if (m.uid !== 'admin') {
-                    const timeSinceActivity = Date.now() - adminLastActivity;
-                    const chatSection = document.getElementById('live-chat-section');
-                    const isChatVisible = chatSection && chatSection.classList.contains('active');
-                    if (!isChatVisible || timeSinceActivity > 5000) {
-                        playAdminNotifSound();
-                        break;
-                    }
+            for (const m of newMsgs) adminKnownMsgIds.add(m.id);
+            if (!adminInitialLoadDone) {
+                adminInitialLoadDone = true;
+            } else if (newMsgs.some(m => m.uid !== 'admin')) {
+                const timeSinceActivity = Date.now() - adminLastActivity;
+                const chatSection = document.getElementById('live-chat-section');
+                const isChatVisible = chatSection && chatSection.classList.contains('active');
+                if (!isChatVisible || timeSinceActivity > 5000) {
+                    playAdminNotifSound();
                 }
             }
 
@@ -4510,6 +4562,7 @@
 
     // ── Send Message as Admin ──
     window.adminSendMessage = async function() {
+        if (!adminCurrentRoom) return;
         const input = document.getElementById('admin-chat-input');
         const text = input.value.trim();
         if (!text) return;
@@ -4540,8 +4593,7 @@
         const presenceRef = dbRef(rtdb, 'presence');
         onValue(presenceRef, (snap) => {
             const data = snap.val();
-            if (!data) return;
-            const users = Object.values(data);
+            const users = data ? Object.values(data) : [];
 
             // Count online per room
             const roomCounts = {};
@@ -4551,23 +4603,19 @@
                 }
             });
 
-            // Update ask-admin count
-            const askAdminCount = roomCounts['ask-admin'] || 0;
-            const askAdminEl = document.getElementById('admin-presence-ask-admin');
-            if (askAdminEl) askAdminEl.textContent = `${askAdminCount} online`;
-
             // Update current room online count
             const onlineCountEl = document.getElementById('admin-online-count');
-            if (onlineCountEl) onlineCountEl.textContent = roomCounts[adminCurrentRoom] || 0;
+            if (onlineCountEl) onlineCountEl.textContent = adminCurrentRoom ? (roomCounts[adminCurrentRoom] || 0) : 0;
 
-            // Update batch room counts
-            document.querySelectorAll('[id^="admin-presence-batch_"]').forEach(el => {
-                // The ID uses underscores instead of the original format
-                // We need to reconstruct the room ID
-                const elId = el.id.replace('admin-presence-', '');
-                // Convert back: batch_BATCHID_LEVEL format
-                const roomId = elId.replace(/_/g, '_'); // already in safe format
-                el.textContent = `${roomCounts[roomId] || 0} online`;
+            document.querySelectorAll('.admin-chat-room-btn[data-room]').forEach(btn => {
+                const roomId = btn.dataset.room || '';
+                const meta = adminRoomMeta.get(roomId);
+                const countEl = document.getElementById(`admin-presence-${adminSafeRoomId(roomId)}`);
+                if (!countEl || !meta) return;
+                const onlineCount = roomCounts[roomId] || 0;
+                countEl.textContent = meta.type === 'direct'
+                    ? (onlineCount > 0 ? 'Student is here now' : (meta.subtitle || 'Private conversation'))
+                    : `${onlineCount} online`;
             });
         });
     }

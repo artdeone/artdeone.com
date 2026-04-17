@@ -1177,25 +1177,22 @@
     .chat-panel {
         display: flex;
         flex-direction: column;
-        min-height: 520px;
+        height: 100%;
+        max-height: 520px;
         background: var(--chat-bg, #fff);
         border-radius: 16px;
         border: 1px solid var(--border);
         overflow: hidden;
     }
-    @media (min-width: 1280px) {
-        .chat-panel {
-            height: 100%;
-        }
-    }
-    .dark .chat-panel { --chat-bg: #1a1a20; --chat-bubble-sent: #a7e169; --chat-bubble-recv: #2a2a35; --chat-input-bg: #111116; }
-    .chat-panel { --chat-bubble-sent: #a7e169; --chat-bubble-recv: #f3f4f6; --chat-input-bg: #fff; }
+    .dark .chat-panel { --chat-bg: #1a1a20; --chat-bubble-sent: #26262e; --chat-bubble-recv: #26262e; --chat-input-bg: #111116; }
+    .chat-panel { --chat-bubble-sent: #f9f9f9; --chat-bubble-recv: #f9f9f9; --chat-input-bg: #fff; }
 
     .chat-tabs { display: flex; border-bottom: 1px solid var(--border); background: var(--chat-bg); }
     .chat-tab {
         flex: 1; padding: 10px 8px; font-size: 12px; font-weight: 600; text-align: center;
         cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s;
         color: var(--muted, #9ca3af); background: transparent; position: relative;
+        min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
     .chat-tab:hover { color: var(--fg, #111); }
     .dark .chat-tab:hover { color: #e5e5e5; }
@@ -1216,8 +1213,10 @@
     .chat-presence .offline-dot { width: 7px; height: 7px; border-radius: 50%; background: #6b7280; }
 
     .chat-messages {
-        flex: 1; overflow-y: auto; padding: 12px 14px; display: flex;
-        flex-direction: column; gap: 8px; scroll-behavior: smooth;
+        flex: 1; min-height: 0;
+        overflow-y: auto; overflow-x: hidden;
+        display: flex; flex-direction: column; gap: 8px;
+        padding: 12px; box-sizing: border-box;
     }
     .chat-messages::-webkit-scrollbar { width: 4px; }
     .chat-messages::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
@@ -1245,12 +1244,13 @@
         word-break: break-word; position: relative;
     }
     .chat-msg.sent .chat-msg-bubble {
-        background: var(--chat-bubble-sent); color: #111; border-bottom-right-radius: 4px;
+        background: var(--chat-bubble-sent); color: #1f2937; border-bottom-right-radius: 4px;
     }
+    .dark .chat-msg.sent .chat-msg-bubble { color: #e5e7eb; }
     .chat-msg.received .chat-msg-bubble {
         background: var(--chat-bubble-recv); color: var(--fg, #111); border-bottom-left-radius: 4px;
     }
-    .dark .chat-msg.received .chat-msg-bubble { color: #e5e5e5; }
+    .dark .chat-msg.received .chat-msg-bubble { color: #e5e7eb; }
 
     .chat-msg-meta {
         display: flex; align-items: center; gap: 6px; margin-top: 3px;
@@ -1288,24 +1288,29 @@
     .dark .chat-file-notice { color: #6b7280; }
 
     .chat-input-area {
-        display: flex; align-items: flex-end; gap: 8px; padding: 10px 14px;
+        display: flex; align-items: center; gap: 8px; padding: 10px 14px;
         border-top: 1px solid var(--border); background: var(--chat-bg);
     }
     .chat-input-wrap {
-        flex: 1; display: flex; align-items: flex-end; gap: 6px;
-        background: var(--chat-input-bg); border: 1.5px solid var(--border);
-        border-radius: 14px; padding: 8px 12px; min-height: 42px;
+        flex: 1; display: flex; align-items: center; gap: 6px;
+        background: var(--chat-input-bg); border: 1.5px solid #D1D5DB;
+        border-radius: 14px; padding: 0 12px; height: 40px;
         box-shadow: 0 1px 3px rgba(0,0,0,0.04); transition: border-color 0.2s, box-shadow 0.2s;
     }
     .chat-input-wrap:focus-within {
-        border-color: #a7e169; box-shadow: 0 0 0 2px rgba(167,225,105,0.18);
+        border-color: #9ca3af; box-shadow: none;
     }
-    .dark .chat-input-wrap { background: #111116; }
-    .dark .chat-input-wrap:focus-within { border-color: #a7e169; box-shadow: 0 0 0 2px rgba(167,225,105,0.12); }
+    .dark .chat-input-wrap { background: #111116; border-color: #2a2a35; }
+    .dark .chat-input-wrap:focus-within { border-color: #3a3a45; box-shadow: none; }
     .chat-input-wrap textarea {
         flex: 1; border: none; outline: none; resize: none; font-size: 13px;
-        background: transparent; color: inherit; line-height: 1.4; max-height: 80px;
-        font-family: 'DM Sans', sans-serif;
+        background: transparent; color: inherit; line-height: 1.4;
+        height: 22px; max-height: 22px;
+        overflow-x: auto; overflow-y: hidden; white-space: nowrap;
+        font-family: 'DM Sans', sans-serif; box-shadow: none;
+    }
+    .chat-input-wrap textarea:focus {
+        outline: none !important; border: none !important; box-shadow: none !important;
     }
     .chat-input-wrap textarea::placeholder { color: var(--muted, #9ca3af); }
     .chat-input-btn {
@@ -1315,7 +1320,7 @@
     }
     .chat-input-btn:hover { color: #a7e169; background: rgba(167,225,105,0.1); }
     .chat-send-btn {
-        width: 36px; height: 36px; border-radius: 10px; border: none; cursor: pointer;
+        width: 40px; height: 40px; border-radius: 10px; border: none; cursor: pointer;
         display: flex; align-items: center; justify-content: center; transition: all 0.2s;
         background: #a7e169; color: #111; flex-shrink: 0;
     }
@@ -1324,10 +1329,11 @@
 
     /* Emoji Picker */
     .chat-emoji-picker {
-        position: absolute; bottom: 60px; left: 14px; right: 14px;
+        position: absolute; bottom: 90px; left: 14px; right: 14px; top: auto;
         background: var(--chat-bg); border: 1px solid var(--border);
         border-radius: 12px; padding: 10px; display: none; z-index: 50;
         box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        max-height: 220px; overflow-y: auto;
     }
     .chat-emoji-picker.open { display: block; }
     .chat-emoji-grid {
@@ -1369,6 +1375,296 @@
     @keyframes skeletonPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
     .chat-skeleton-avatar, .chat-skeleton-bubble { animation: skeletonPulse 1.5s ease-in-out infinite; }
 
+    /* ── FRIENDS CHAT (INLINE TAB) ── */
+    .peer-chat-stage {
+        flex: 1;
+        min-height: 0;
+        display: none;
+        flex-direction: column;
+        background: var(--chat-bg, #fff);
+    }
+    .peer-chat-stage.active {
+        display: flex;
+    }
+    .peer-inline-presence {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 14px;
+        font-size: 11px;
+        color: var(--muted, #9ca3af);
+        border-bottom: 1px solid var(--border);
+    }
+    .peer-inline-presence .online-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #22c55e;
+    }
+    .peer-student-list {
+        padding: 10px 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        max-height: 150px;
+        overflow-y: auto;
+        border-bottom: 1px solid var(--border);
+        background: rgba(248,250,252,0.82);
+    }
+    .dark .peer-student-list {
+        background: rgba(17,17,22,0.72);
+    }
+    .peer-student-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+        border: 1px solid transparent;
+        border-radius: 16px;
+        padding: 10px 11px;
+        background: transparent;
+        cursor: pointer;
+        transition: all 0.18s ease;
+        text-align: left;
+    }
+    .peer-student-item:hover {
+        background: rgba(167,225,105,0.12);
+        border-color: rgba(167,225,105,0.28);
+        transform: translateY(-1px);
+    }
+    .peer-student-item.active {
+        background: rgba(167,225,105,0.16);
+        border-color: rgba(167,225,105,0.34);
+        box-shadow: inset 0 0 0 1px rgba(167,225,105,0.12);
+    }
+    .peer-student-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 14px;
+        overflow: hidden;
+        flex-shrink: 0;
+        background: linear-gradient(135deg, #a7e169, #7cc957);
+        color: #111;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: 700;
+    }
+    .peer-student-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .peer-student-body {
+        min-width: 0;
+        flex: 1;
+    }
+    .peer-student-name {
+        font-size: 14px;
+        font-weight: 600;
+        color: #111827;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .dark .peer-student-name {
+        color: #f9fafb;
+    }
+    .peer-student-meta {
+        margin-top: 4px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        font-size: 11px;
+        color: #6b7280;
+    }
+    .dark .peer-student-meta {
+        color: #9ca3af;
+    }
+    .peer-status-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 4px 8px;
+        border-radius: 999px;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+    }
+    .peer-status-pill.online {
+        background: rgba(34,197,94,0.12);
+        color: #15803d;
+    }
+    .peer-status-pill.offline {
+        background: rgba(107,114,128,0.12);
+        color: #6b7280;
+    }
+    .dark .peer-status-pill.online {
+        color: #4ade80;
+    }
+    .dark .peer-status-pill.offline {
+        color: #9ca3af;
+    }
+    .peer-status-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+    .peer-status-pill.online .peer-status-dot {
+        background: #22c55e;
+        box-shadow: 0 0 0 5px rgba(34,197,94,0.12);
+    }
+    .peer-status-pill.offline .peer-status-dot {
+        background: #6b7280;
+    }
+    .peer-chat-empty {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 22px 18px;
+        border-bottom: 1px solid var(--border);
+    }
+    .peer-chat-empty-card {
+        max-width: 240px;
+    }
+    .peer-chat-empty-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 18px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 12px;
+        background: rgba(167,225,105,0.15);
+        color: #7cc957;
+        font-size: 20px;
+    }
+    .peer-chat-conversation {
+        min-height: 0;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    .peer-chat-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--border);
+        background: rgba(255,255,255,0.42);
+    }
+    .dark .peer-chat-header {
+        background: rgba(17,17,22,0.55);
+    }
+    .peer-chat-user {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+    }
+    .peer-chat-user h4 {
+        margin: 0;
+        font-size: 15px;
+    }
+    .peer-chat-user p {
+        margin: 4px 0 0;
+        font-size: 12px;
+        color: #6b7280;
+    }
+    .dark .peer-chat-user p {
+        color: #9ca3af;
+    }
+    .peer-chat-messages {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 12px;
+    }
+    .peer-chat-input {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        border-top: 1px solid var(--border);
+        background: var(--chat-bg, #fff);
+    }
+    .peer-chat-input textarea {
+        flex: 1;
+        min-height: 42px;
+        max-height: 90px;
+        resize: vertical;
+        padding: 10px 14px;
+        border-radius: 14px;
+        border: 1px solid #d1d5db;
+        background: #fff;
+        font-size: 13px;
+        line-height: 1.45;
+        box-shadow: none;
+        outline: none;
+        transition: border-color 0.2s;
+    }
+    .peer-chat-input textarea:focus {
+        outline: none !important;
+        box-shadow: none !important;
+        border-color: #d1d5db;
+    }
+    .dark .peer-chat-input textarea {
+        background: #111116;
+        border-color: #2a2a35;
+    }
+    .dark .peer-chat-input textarea:focus {
+        border-color: #2a2a35;
+        outline: none !important;
+        box-shadow: none !important;
+    }
+    .peer-chat-send {
+        min-width: 74px;
+        height: 42px;
+        border: none;
+        border-radius: 12px;
+        background: #a7e169;
+        color: #111;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 0.18s ease, background 0.18s ease;
+    }
+    .peer-chat-send:hover {
+        background: #94d654;
+        transform: translateY(-1px);
+    }
+    .peer-chat-send:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+    }
+    .peer-chat-list-empty,
+    .peer-chat-message-empty {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #9ca3af;
+        font-size: 13px;
+        padding: 28px 16px;
+    }
+    @media (max-width: 640px) {
+        .peer-chat-input {
+            flex-direction: column;
+        }
+        .peer-chat-send {
+            width: 100%;
+        }
+    }
+
     /* Announcement Banner (relocated) */
     .announcement-banner {
         background: var(--chat-bg); border-radius: 14px; padding: 12px 18px;
@@ -1393,7 +1689,7 @@
     .profile-enrolled-list {
         display: flex;
         flex-direction: column;
-        gap: 14px;
+        gap: 8px;
         max-height: 280px;
         overflow-y: auto;
     }
@@ -1405,6 +1701,9 @@
         align-items: center;
         gap: 16px;
         padding: 12px 0;
+    }
+    .profile-enrolled-item:first-child {
+        padding-top: 0;
     }
     .profile-enrolled-item + .profile-enrolled-item {
         border-top: 1px solid #f3f4f6;
@@ -1502,6 +1801,167 @@
     }
     .dark .profile-enrolled-progress-text {
         color: #9ca3af;
+    }
+
+    /* ── Profile Card: Enrolled Courses – Desktop Enlargement ── */
+    @media (min-width: 1024px) {
+        .profile-enrolled-label {
+            font-size: 13px !important;
+            letter-spacing: 0.22em !important;
+            margin-bottom: 20px !important;
+        }
+        .profile-enrolled-list {
+            gap: 18px;
+        }
+        .profile-enrolled-item {
+            gap: 20px;
+            padding: 16px 0;
+        }
+        .profile-enrolled-name {
+            font-size: 18px;
+            font-weight: 700;
+        }
+        .profile-enrolled-badge {
+            font-size: 12px;
+            padding: 5px 14px;
+            border-radius: 8px;
+            letter-spacing: 0.08em;
+        }
+        .profile-enrolled-progress-wrap {
+            width: 140px;
+            gap: 7px;
+        }
+        .profile-enrolled-progress-bar {
+            height: 10px;
+            border-radius: 8px;
+        }
+        .profile-enrolled-progress-text {
+            font-size: 14px;
+            font-weight: 700;
+        }
+    }
+
+    /* ── Chat Image Clean Display — no green bubble around images ── */
+    .chat-msg .chat-msg-bubble:has(.chat-msg-file img) {
+        background: transparent !important;
+        padding: 0 !important;
+        border: none !important;
+    }
+    .chat-msg .chat-msg-bubble:has(.chat-msg-file img) .chat-msg-file {
+        background: transparent !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border-radius: 12px !important;
+        overflow: hidden;
+        position: relative;
+    }
+    .chat-msg .chat-msg-bubble:has(.chat-msg-file img) .chat-msg-file img {
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+        border-radius: 12px !important;
+        display: block;
+    }
+    .chat-msg .chat-msg-bubble:has(.chat-msg-file img) .chat-file-timer {
+        position: absolute;
+        bottom: 6px;
+        right: 6px;
+        background: rgba(0,0,0,0.5);
+        color: #fff;
+        padding: 2px 6px;
+        border-radius: 6px;
+    }
+    /* Fallback class for browsers without :has() support */
+    .chat-msg .chat-msg-bubble.has-chat-image {
+        background: transparent !important;
+        padding: 0 !important;
+        border: none !important;
+    }
+    .chat-msg .chat-msg-bubble.has-chat-image .chat-msg-file {
+        background: transparent !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border-radius: 12px !important;
+        overflow: hidden;
+        position: relative;
+    }
+    .chat-msg .chat-msg-bubble.has-chat-image .chat-msg-file img {
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+        border-radius: 12px !important;
+        display: block;
+    }
+    .chat-msg .chat-msg-bubble.has-chat-image .chat-file-timer {
+        position: absolute;
+        bottom: 6px;
+        right: 6px;
+        background: rgba(0,0,0,0.5);
+        color: #fff;
+        padding: 2px 6px;
+        border-radius: 6px;
+    }
+
+    /* ── Attendance Stat Card Colors ── */
+    /* Light Mode */
+    .att-card-attended { background: #49ab6d; color: #eeeeee; }
+    .att-card-attended span { color: #eeeeee !important; }
+    .att-card-late { background: #bd8c6e; color: #eeeeee; }
+    .att-card-late span { color: #eeeeee !important; }
+    .att-card-early { background: #a3b068; color: #eeeeee; }
+    .att-card-early span { color: #eeeeee !important; }
+    .att-card-absent { background: #a34e4e; color: #eeeeee; }
+    .att-card-absent span { color: #eeeeee !important; }
+    /* Dark Mode */
+    .dark .att-card-attended { background: #0c351b; color: #eeeeee; }
+    .dark .att-card-attended span { color: #eeeeee !important; }
+    .dark .att-card-late { background: #3f3129; color: #eeeeee; }
+    .dark .att-card-late span { color: #eeeeee !important; }
+    .dark .att-card-early { background: #383b2c; color: #eeeeee; }
+    .dark .att-card-early span { color: #eeeeee !important; }
+    .dark .att-card-absent { background: #550d0d; color: #eeeeee; }
+    .dark .att-card-absent span { color: #eeeeee !important; }
+
+    /* ── Attendance Graph Chart ── */
+    .att-chart-stacked {
+        display: flex;
+        height: 28px;
+        border-radius: 14px;
+        overflow: hidden;
+        background: #e5e7eb;
+        margin-bottom: 20px;
+    }
+    .dark .att-chart-stacked { background: #202028; }
+    .att-chart-stacked .att-seg {
+        height: 100%;
+        transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        min-width: 0;
+    }
+    .att-chart-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .att-chart-dot {
+        width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+    }
+    .att-chart-label {
+        flex: 1; min-width: 0; font-size: 13px; font-weight: 500;
+    }
+    .att-chart-count {
+        font-size: 18px; font-weight: 600; min-width: 32px; text-align: right;
+    }
+    .att-chart-bar-wrap {
+        width: 100px; height: 8px; border-radius: 6px; background: #e5e7eb;
+        overflow: hidden; flex-shrink: 0;
+    }
+    .dark .att-chart-bar-wrap { background: #202028; }
+    .att-chart-bar-fill {
+        height: 100%; border-radius: 6px;
+        transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    @media (max-width: 640px) {
+        .att-chart-bar-wrap { width: 60px; }
     }
 
     </style>
@@ -1953,14 +2413,14 @@
                     </div>
 
                     <!-- Profile Card + Live Chat: Two-column side-by-side layout -->
-                    <div class="grid grid-cols-1 xl:grid-cols-[1fr_340px] gap-6">
+                    <div class="grid grid-cols-1 xl:grid-cols-[1fr_340px] gap-6 items-stretch">
 
                         <!-- Profile Card -->
                         <div
                             class="bg-white dark:bg-brand-card rounded-2xl p-8 border border-gray-100 dark:border-brand-border hover-lift card-hover-glow">
                             <div class="flex flex-col xl:flex-row gap-8 xl:items-center">
                                 <div
-                                    class="flex items-center gap-6 xl:w-1/3 xl:border-r border-gray-100 dark:border-brand-border xl:pr-8">
+                                    class="flex items-center gap-6 xl:w-1/3 xl:pr-8">
                                     <div class="relative">
                                         <div
                                             class="w-20 h-20 rounded-full bg-gray-50 dark:bg-brand-dark border border-gray-100 dark:border-brand-border overflow-hidden flex items-center justify-center">
@@ -1981,39 +2441,45 @@
                                         </p>
                                     </div>
                                 </div>
-                                <div class="grid grid-cols-2 md:grid-cols-3 gap-6 xl:flex-1">
+                                <div class="xl:flex-1 xl:border-l border-gray-200 dark:border-brand-border xl:pl-8 flex flex-col gap-4">
                                     <div>
                                         <p class="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Phone</p>
                                         <p class="text-sm font-medium" id="detail-phone">–</p>
                                     </div>
-                                    <div class="col-span-2">
+                                    <div>
                                         <p class="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Address</p>
                                         <p class="text-sm font-medium truncate" id="detail-address">–</p>
                                     </div>
                                 </div>
                             </div>
-                            <div
-                                class="mt-8 pt-8 border-t border-gray-50 dark:border-brand-border grid grid-cols-2 md:grid-cols-4 gap-4">
-                                <div class="text-center md:text-left"><span class="block text-2xl font-light"
-                                        id="stat-attendance-total">0</span><span
-                                        class="text-xs text-gray-400 uppercase tracking-wide">တက်ရောက်</span></div>
-                                <div class="text-center md:text-left"><span
-                                        class="block text-2xl font-light text-yellow-600"
-                                        id="stat-attendance-late">0</span><span
-                                        class="text-xs text-gray-400 uppercase tracking-wide">နောက်ကျ</span></div>
-                                <div class="text-center md:text-left"><span
-                                        class="block text-2xl font-light text-orange-600"
-                                        id="stat-attendance-undertime">0</span><span
-                                        class="text-xs text-gray-400 uppercase tracking-wide">စောထွက်</span></div>
-                                <div class="text-center md:text-left"><span class="block text-2xl font-light text-red-500"
-                                        id="stat-attendance-absent">0</span><span
-                                        class="text-xs text-gray-400 uppercase tracking-wide">ပျက်ကွက်</span></div>
-                            </div>
-                            <!-- Enrolled Courses Mini-Section -->
                             <div class="mt-8 pt-8 border-t border-gray-50 dark:border-brand-border">
-                                <p class="text-xs text-gray-400 uppercase tracking-[0.16em] mb-4 font-semibold">Enrolled Courses</p>
-                                <div class="profile-enrolled-list" id="profile-enrolled-list">
-                                    <div class="text-center py-4 text-gray-300 font-light text-xs"><i class="fa-regular fa-folder-open text-lg mb-1 block"></i>Loading…</div>
+                                <p class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">သင်တန်းတက်ရောက်မှုမှတ်တမ်း</p>
+                            </div>
+                            <div
+                                class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <div class="text-center att-card-attended" style="border-radius:10px;padding:16px;"><span class="block text-2xl font-bold"
+                                        id="stat-attendance-total">0</span><span
+                                        class="text-xs uppercase tracking-wide">တက်ရောက်</span></div>
+                                <div class="text-center att-card-late" style="border-radius:10px;padding:16px;"><span
+                                        class="block text-2xl font-bold"
+                                        id="stat-attendance-late">0</span><span
+                                        class="text-xs uppercase tracking-wide">နောက်ကျ</span></div>
+                                <div class="text-center att-card-early" style="border-radius:10px;padding:16px;"><span
+                                        class="block text-2xl font-bold"
+                                        id="stat-attendance-undertime">0</span><span
+                                        class="text-xs uppercase tracking-wide">စောထွက်</span></div>
+                                <div class="text-center att-card-absent" style="border-radius:10px;padding:16px;"><span class="block text-2xl font-bold"
+                                        id="stat-attendance-absent">0</span><span
+                                        class="text-xs uppercase tracking-wide">ပျက်ကွက်</span></div>
+                            </div>
+                            <!-- Attendance Graph (replaced Enrolled Courses) -->
+                            <div class="mt-8 pt-8 border-t border-gray-50 dark:border-brand-border">
+                                <p class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4 flex items-center gap-2">
+                                    <i class="fa-solid fa-chart-bar text-brand-green"></i> Attendance Graph
+                                </p>
+                                <div id="attendance-graph-container">
+                                    <div class="att-chart-stacked" id="att-stacked-bar"></div>
+                                    <div style="display:flex;flex-direction:column;gap:14px;" id="att-chart-rows"></div>
                                 </div>
                             </div>
                         </div>
@@ -2031,11 +2497,50 @@
                                         <i class="fa-solid fa-headset" style="margin-right:4px;font-size:11px;"></i> Ask Instructor
                                         <span class="unread-dot hidden" id="unread-ask-admin"></span>
                                     </div>
+                                    <div class="chat-tab" data-room="friends" id="chat-tab-friends" onclick="switchChatRoom('friends')">
+                                        <i class="fa-solid fa-user-group" style="margin-right:4px;font-size:11px;"></i> Friends
+                                        <span class="unread-dot hidden" id="unread-friends"></span>
+                                    </div>
                                 </div>
                                 <!-- Online Presence -->
                                 <div class="chat-presence" id="chat-presence">
                                     <span class="online-dot"></span>
                                     <span id="chat-online-count">0</span> online
+                                </div>
+                                <div class="peer-chat-stage" id="peer-chat-stage">
+                                    <div class="peer-inline-presence">
+                                        <span class="online-dot"></span>
+                                        <span id="peer-batch-online-count">0</span> classmates online
+                                    </div>
+                                    <div class="peer-student-list" id="peer-student-list">
+                                        <div class="peer-chat-list-empty">Loading classmates…</div>
+                                    </div>
+                                    <div class="peer-chat-empty" id="peer-chat-empty">
+                                        <div class="peer-chat-empty-card">
+                                            <div class="peer-chat-empty-icon"><i class="fa-solid fa-user-group"></i></div>
+                                            <h4 class="text-base font-medium text-gray-900 dark:text-white">Select a classmate</h4>
+                                            <p class="text-sm text-gray-500 dark:text-gray-400 font-light mt-2">Chat one-to-one with students from your batch.</p>
+                                        </div>
+                                    </div>
+                                    <div class="peer-chat-conversation hidden" id="peer-chat-conversation">
+                                        <div class="peer-chat-header">
+                                            <div class="peer-chat-user">
+                                                <div class="peer-student-avatar" id="peer-chat-avatar">S</div>
+                                                <div class="min-w-0">
+                                                    <h4 id="peer-chat-name">Student</h4>
+                                                    <p id="peer-chat-status">Offline</p>
+                                                </div>
+                                            </div>
+                                            <div class="text-[10px] text-gray-400 dark:text-gray-500 text-right" id="peer-chat-batch-note">Same batch direct message</div>
+                                        </div>
+                                        <div class="peer-chat-messages" id="peer-chat-messages">
+                                            <div class="peer-chat-message-empty">No messages yet. Start the conversation.</div>
+                                        </div>
+                                        <div class="peer-chat-input">
+                                            <textarea id="peer-chat-input" rows="2" placeholder="Type a message to your classmate…" onkeydown="handlePeerChatKeydown(event)"></textarea>
+                                            <button class="peer-chat-send" id="peer-chat-send-btn" onclick="sendPeerChatMessage()">Send</button>
+                                        </div>
+                                    </div>
                                 </div>
                                 <!-- Messages Area -->
                                 <div class="chat-messages" id="chat-messages">
@@ -2061,7 +2566,7 @@
                                     <button onclick="addReaction('🙏')">🙏</button>
                                 </div>
                                 <!-- Input Area -->
-                                <div class="chat-input-area">
+                                <div class="chat-input-area" id="chat-input-area">
                                     <div class="chat-input-wrap">
                                         <textarea id="chat-input" rows="1" placeholder="Type a message…" onkeydown="handleChatKeydown(event)" oninput="autoResizeChatInput()"></textarea>
                                         <button class="chat-input-btn" onclick="toggleEmojiPicker()" title="Emoji"><i class="fa-regular fa-face-smile"></i></button>
@@ -2070,7 +2575,7 @@
                                     </div>
                                     <button class="chat-send-btn" id="chat-send-btn" onclick="sendChatMessage()" title="Send"><i class="fa-solid fa-paper-plane" style="font-size:14px;"></i></button>
                                 </div>
-                                <div class="chat-file-notice"><i class="fa-solid fa-clock"></i> Attachments auto-delete after 7 days</div>
+                                <div class="chat-file-notice" id="chat-file-notice"><i class="fa-solid fa-clock"></i> Attachments auto-delete after 7 days</div>
                             </div>
                         </div>
 
@@ -2121,8 +2626,6 @@
                             </div>
                         </div>
                     </div>
-
-
 
                     <!-- Recent Courses -->
                     <div>
@@ -4866,9 +5369,13 @@
     let currentBatchName = '';
     let currentRoom = 'batch'; // 'batch' or 'ask-admin'
     let batchRoomId = '';
+    let askInstructorRoomId = '';
+    let friendsRoomId = '';
     let unsubChat = null;
     let presenceRef = null;
     let chatKnownMsgIds = new Set(); // Track known message IDs for notification
+    let chatInitialLoadDone = false; // Prevents sound on initial snapshot after tab switch
+    let chatNotificationPlayed = false; // Prevents duplicate sound until tab is re-read
     let chatIsVisible = true; // Whether the chat panel is in view
     let chatLastUserActivity = Date.now(); // Last time user sent/typed in chat
     const EMOJIS = ['😀','😂','🥰','😎','🤔','😢','🔥','❤️','👍','🙏','🎉','💯','✨','🙌','😊','🥳','😏','🤗','😴','🤯'];
@@ -4911,6 +5418,16 @@
         });
     }
 
+    function getAskInstructorRoomId() {
+        return askInstructorRoomId || (currentUserId ? `ask_admin_${currentUserId}` : 'ask_admin_guest');
+    }
+
+    function getChatRoomId(room = currentRoom) {
+        if (room === 'batch') return batchRoomId;
+        if (room === 'friends') return friendsRoomId;
+        return getAskInstructorRoomId();
+    }
+
     // ── Init ──
     async function initChat() {
         const { data: { user } } = await supabase.auth.getUser();
@@ -4923,6 +5440,7 @@
         currentUserAvatar = s.avatar_url || null;
         currentBatchId = s.batch_id;
         currentLevel = s.level || 'beginner';
+        askInstructorRoomId = `ask_admin_${currentUserId}`;
 
         // Get batch name
         if (currentBatchId) {
@@ -4932,6 +5450,7 @@
 
         // Build batch room ID
         batchRoomId = `batch_${currentBatchId || 'none'}_${currentLevel}`;
+        friendsRoomId = `friends_${currentBatchId || 'none'}`;
         const batchLabel = document.getElementById('chat-tab-batch-label');
         if (batchLabel) {
             const lvl = currentLevel ? currentLevel.charAt(0).toUpperCase() + currentLevel.slice(1) : '';
@@ -4946,6 +5465,17 @@
         switchChatRoom('batch');
     }
 
+    function toggleChatMode(room) {
+        const isFriends = room === 'friends';
+        document.getElementById('chat-presence')?.classList.toggle('hidden', isFriends);
+        document.getElementById('chat-messages')?.classList.toggle('hidden', isFriends);
+        document.getElementById('chat-input-area')?.classList.toggle('hidden', isFriends);
+        document.getElementById('chat-file-notice')?.classList.toggle('hidden', isFriends);
+        document.getElementById('peer-chat-stage')?.classList.toggle('active', isFriends);
+        document.getElementById('chat-emoji-picker')?.classList.remove('open');
+        document.getElementById('chat-reaction-picker')?.classList.remove('open');
+    }
+
     // ── Room Switching ──
     window.switchChatRoom = function(room) {
         currentRoom = room;
@@ -4954,20 +5484,32 @@
         const activeTab = document.getElementById(`chat-tab-${room}`);
         if (activeTab) activeTab.classList.add('active');
 
-        // Clear unread for this room
+        // Clear unread for this room & mark as seen now
         const unreadEl = document.getElementById(`unread-${room}`);
         if (unreadEl) unreadEl.classList.add('hidden');
+        lastSeenTimestamps[room] = Date.now();
+        _saveLastSeenTimestamps();
 
         // Unsubscribe previous listener
         if (unsubChat) { unsubChat(); unsubChat = null; }
         chatKnownMsgIds.clear(); // Reset known messages for new room
+        chatInitialLoadDone = false; // First snapshot will seed known IDs without playing sound
+        chatNotificationPlayed = false; // Allow sound for next genuinely new message
+
+        if (room === 'friends') {
+            toggleChatMode('friends');
+            updatePresenceRoom(friendsRoomId || 'friends_none');
+            return;
+        }
+
+        toggleChatMode(room);
 
         // Clear messages and show skeleton
         const messagesEl = document.getElementById('chat-messages');
         messagesEl.innerHTML = document.getElementById('chat-skeleton')?.outerHTML || '<div class="chat-skeleton"><div class="chat-skeleton-row"><div class="chat-skeleton-avatar"></div><div class="chat-skeleton-bubble" style="width:60%;"></div></div><div class="chat-skeleton-row right"><div class="chat-skeleton-avatar"></div><div class="chat-skeleton-bubble" style="width:45%;"></div></div></div>';
 
         // Determine collection path
-        const roomId = room === 'batch' ? batchRoomId : 'ask-admin';
+        const roomId = getChatRoomId(room);
         const colRef = collection(db, 'chatRooms', roomId, 'messages');
         const q = query(colRef, orderBy('createdAt', 'desc'), limit(50));
 
@@ -4977,17 +5519,37 @@
             msgs.reverse();
 
             // ── Notification sound for new messages from others ──
-            // Only play sound if: message is from someone else, chat is not visible or user hasn't been active in the last 5 seconds
             const newMsgs = msgs.filter(m => !chatKnownMsgIds.has(m.id));
+            // Seed known IDs
             for (const m of newMsgs) {
                 chatKnownMsgIds.add(m.id);
-                if (m.uid !== currentUserId) {
+            }
+            if (!chatInitialLoadDone) {
+                // First snapshot after tab switch — just seed IDs, never play sound
+                chatInitialLoadDone = true;
+            } else if (!chatNotificationPlayed) {
+                // Subsequent snapshots — play sound only for genuinely new messages
+                // that are newer than the stored lastSeenTimestamp
+                const lastSeen = lastSeenTimestamps[currentRoom] || 0;
+                const hasNewFromOthers = newMsgs.some(m => {
+                    if (m.uid === currentUserId) return false;
+                    if (!m.createdAt) return false;
+                    const msgTime = m.createdAt.toMillis ? m.createdAt.toMillis() : (m.createdAt.toDate ? m.createdAt.toDate().getTime() : 0);
+                    return msgTime > lastSeen;
+                });
+                if (hasNewFromOthers) {
                     const timeSinceActivity = Date.now() - chatLastUserActivity;
                     if (!chatIsVisible || timeSinceActivity > 5000) {
                         playChatNotificationSound();
-                        break; // Only play once per batch
+                        chatNotificationPlayed = true; // Prevent duplicate until tab is re-read
                     }
                 }
+            }
+
+            // Update lastSeenTimestamp for the current visible room
+            if (chatIsVisible && !document.hidden) {
+                lastSeenTimestamps[currentRoom] = Date.now();
+                _saveLastSeenTimestamps();
             }
 
             renderMessages(msgs);
@@ -5075,13 +5637,14 @@
 
     // ── Send Message ──
     window.sendChatMessage = async function() {
+        if (currentRoom === 'friends') return;
         const input = document.getElementById('chat-input');
         const text = input.value.trim();
         chatLastUserActivity = Date.now(); // User is actively chatting
         if (!text && !window._pendingFileURL) return;
         if (!currentUserId) return;
 
-        const roomId = currentRoom === 'batch' ? batchRoomId : 'ask-admin';
+        const roomId = getChatRoomId();
         const colRef = collection(db, 'chatRooms', roomId, 'messages');
 
         const msgData = {
@@ -5133,9 +5696,6 @@
     // ── Auto Resize Input ──
     window.autoResizeChatInput = function() {
         chatLastUserActivity = Date.now(); // User is typing
-        const input = document.getElementById('chat-input');
-        input.style.height = 'auto';
-        input.style.height = Math.min(input.scrollHeight, 80) + 'px';
     };
 
     // ── Emoji Picker ──
@@ -5192,7 +5752,7 @@
     };
 
     window.toggleReaction = async function(msgId, emoji) {
-        const roomId = currentRoom === 'batch' ? batchRoomId : 'ask-admin';
+        const roomId = getChatRoomId();
         const msgRef = doc(db, 'chatRooms', roomId, 'messages', msgId);
 
         try {
@@ -5235,7 +5795,7 @@
 
         const isImage = file.type.startsWith('image/');
         const ext = file.name.split('.').pop();
-        const filePath = `chat/${currentRoom}/${currentUserId}_${Date.now()}.${ext}`;
+        const filePath = `chat/${getChatRoomId()}/${currentUserId}_${Date.now()}.${ext}`;
 
         try {
             const { error: uploadErr } = await supabase.storage
@@ -5266,7 +5826,7 @@
     // ── Cleanup Expired Attachments (7-day auto-delete) ──
     async function cleanupExpiredAttachments() {
         const now = Date.now();
-        const rooms = [batchRoomId || 'batch_none_beginner', 'ask-admin'];
+        const rooms = [batchRoomId || 'batch_none_beginner', getAskInstructorRoomId()];
         const { deleteDoc } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
 
         for (const roomId of rooms) {
@@ -5308,11 +5868,16 @@
     function setupPresence() {
         if (!currentUserId) return;
         presenceRef = ref(rtdb, `presence/chat_${currentUserId}`);
+        const initialPresenceRoom = currentRoom === 'batch'
+            ? batchRoomId
+            : currentRoom === 'friends'
+                ? friendsRoomId
+                : getAskInstructorRoomId();
 
         set(presenceRef, {
             uid: currentUserId,
             name: currentUserFullName,
-            currentRoom: currentRoom === 'batch' ? batchRoomId : 'ask-admin',
+            currentRoom: initialPresenceRoom,
             lastSeen: Date.now(),
             online: true
         });
@@ -5334,7 +5899,11 @@
                 return;
             }
             const users = Object.values(data);
-            const roomId = currentRoom === 'batch' ? batchRoomId : 'ask-admin';
+            const roomId = currentRoom === 'batch'
+                ? batchRoomId
+                : currentRoom === 'friends'
+                    ? friendsRoomId
+                    : getAskInstructorRoomId();
             const onlineInRoom = users.filter(u => u.online && u.currentRoom === roomId);
             updateOnlineCount(onlineInRoom.length);
         });
@@ -5362,7 +5931,17 @@
     }
 
     // ── Unread Badges ──
-    let lastSeenTimestamps = { batch: Date.now(), 'ask-admin': Date.now() };
+    // Persist lastSeenTimestamps in localStorage so notification sound doesn't replay for already-seen messages
+    let lastSeenTimestamps = (function() {
+        try {
+            const saved = JSON.parse(localStorage.getItem('chatLastSeenTimestamps'));
+            if (saved && typeof saved === 'object') return saved;
+        } catch (e) {}
+        return { batch: Date.now(), 'ask-admin': Date.now() };
+    })();
+    function _saveLastSeenTimestamps() {
+        try { localStorage.setItem('chatLastSeenTimestamps', JSON.stringify(lastSeenTimestamps)); } catch (e) {}
+    }
 
     function updateUnreadBadges(msgs) {
         if (msgs.length === 0) return;
@@ -5372,7 +5951,7 @@
         const roomKey = currentRoom;
         // Only update badge for the OTHER room
         const otherRoom = roomKey === 'batch' ? 'ask-admin' : 'batch';
-        const otherRoomId = otherRoom === 'batch' ? batchRoomId : 'ask-admin';
+        const otherRoomId = otherRoom === 'batch' ? batchRoomId : getAskInstructorRoomId();
 
         // Check if there are new messages in the other room
         // We use a simple approach: listen to the other room too
@@ -5381,7 +5960,7 @@
     // Listen to the inactive room for unread badges
     function setupUnreadListener() {
         // Listen to ask-admin room for unread when on batch tab and vice versa
-        const askAdminCol = collection(db, 'chatRooms', 'ask-admin', 'messages');
+        const askAdminCol = collection(db, 'chatRooms', getAskInstructorRoomId(), 'messages');
         const askAdminQ = query(askAdminCol, orderBy('createdAt', 'desc'), limit(1));
 
         onSnapshot(askAdminQ, (snap) => {
@@ -5425,16 +6004,34 @@
     // ── Time Formatting ──
     function formatTime(timestamp) {
         if (!timestamp) return '';
-        const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
-        const now = new Date();
-        const diffMs = now - date;
+        // Handle Firestore Timestamp objects (pending serverTimestamp returns seconds=0)
+        if (timestamp.toMillis) {
+            const ms = timestamp.toMillis();
+            if (ms === 0) return 'just now'; // pending server timestamp
+            const diffMs = Date.now() - ms;
+            if (diffMs < 0) return 'just now';
+            return _formatDiffMs(diffMs);
+        }
+        if (timestamp.toDate) {
+            const date = timestamp.toDate();
+            if (!date || isNaN(date.getTime())) return 'just now';
+            return _formatDiffMs(Date.now() - date.getTime());
+        }
+        // Plain number or ISO string
+        const date = new Date(timestamp);
+        if (isNaN(date.getTime())) return '';
+        return _formatDiffMs(Date.now() - date.getTime());
+    }
+
+    function _formatDiffMs(diffMs) {
+        if (diffMs < 0) diffMs = 0;
         const diffMin = Math.floor(diffMs / 60000);
         const diffHrs = Math.floor(diffMs / 3600000);
         const diffDays = Math.floor(diffMs / 86400000);
 
         if (diffMin < 1) return 'just now';
         if (diffMin < 60) return `${diffMin}m ago`;
-        if (diffHrs < 24 && date.getDate() === now.getDate()) return `${diffHrs}h ago`;
+        if (diffHrs < 24) return `${diffHrs}h ago`;
         if (diffDays < 30) return `${diffDays}d ago`;
         return 'Long time ago';
     }
@@ -5489,6 +6086,991 @@
     // ── Initialize ──
     setTimeout(initChat, 1500);
     setTimeout(setupUnreadListener, 2000);
+</script>
+
+<script type="module">
+    import { db, rtdb } from '../js/firebase-config.js';
+    import { supabase } from '../js/supabase-config.js';
+    import {
+        collection, addDoc, onSnapshot, query, orderBy, limit, serverTimestamp
+    } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+    import { ref, onValue } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
+
+    const PEER_AVATAR_COLORS = ['#6366f1','#ec4899','#f97316','#14b8a6','#8b5cf6','#ef4444','#06b6d4','#84cc16'];
+
+    let peerCurrentUserId = null;
+    let peerCurrentUserName = 'Student';
+    let peerCurrentUserAvatar = null;
+    let peerCurrentBatchId = null;
+    let peerStudents = [];
+    let peerPresenceMap = {};
+    let peerSelectedStudent = null;
+    let unsubPeerMessages = null;
+
+    async function initPeerStudentChat() {
+        const listEl = document.getElementById('peer-student-list');
+        if (!listEl) return;
+
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+            renderPeerListNotice('Please sign in again to load your batch students.');
+            return;
+        }
+
+        peerCurrentUserId = user.id;
+
+        const { data: currentStudent, error: currentStudentError } = await supabase
+            .from('students')
+            .select('id,full_name,avatar_url,batch_id')
+            .eq('id', user.id)
+            .maybeSingle();
+
+        if (currentStudentError || !currentStudent) {
+            renderPeerListNotice('Unable to load your student profile.');
+            return;
+        }
+
+        peerCurrentUserName = currentStudent.full_name || 'Student';
+        peerCurrentUserAvatar = currentStudent.avatar_url || null;
+        peerCurrentBatchId = currentStudent.batch_id || null;
+
+        if (!peerCurrentBatchId) {
+            renderPeerListNotice('You are not assigned to a batch yet.');
+            updatePeerBatchOnlineCount();
+            return;
+        }
+
+        const { data: classmates, error: classmatesError } = await supabase
+            .from('students')
+            .select('id,full_name,avatar_url,student_id')
+            .eq('batch_id', peerCurrentBatchId)
+            .neq('id', user.id)
+            .order('full_name', { ascending: true });
+
+        if (classmatesError) {
+            renderPeerListNotice('Failed to load your batch students.');
+            return;
+        }
+
+        peerStudents = Array.isArray(classmates) ? classmates : [];
+
+        if (peerStudents.length === 0) {
+            renderPeerListNotice('No other students are assigned to your batch yet.');
+            updatePeerBatchOnlineCount();
+            return;
+        }
+
+        renderPeerStudentList();
+        subscribePeerPresence();
+        openPeerChatWith(peerStudents[0].id);
+    }
+
+    function subscribePeerPresence() {
+        const presenceRoot = ref(rtdb, 'presence');
+        onValue(presenceRoot, (snap) => {
+            const raw = snap.val() || {};
+            const nextMap = {};
+            Object.values(raw).forEach((entry) => {
+                if (entry?.uid) nextMap[entry.uid] = entry;
+            });
+            peerPresenceMap = nextMap;
+            renderPeerStudentList();
+            refreshSelectedPeerHeader();
+            updatePeerBatchOnlineCount();
+        });
+    }
+
+    function renderPeerStudentList() {
+        // If the Friends enhancement has taken over, let it handle rendering
+        if (window._frdEnhancementActive) { if (window._frdRenderStudentList) window._frdRenderStudentList(); return; }
+        const listEl = document.getElementById('peer-student-list');
+        if (!listEl) return;
+
+        if (!peerStudents.length) {
+            renderPeerListNotice('No other students are assigned to your batch yet.');
+            return;
+        }
+
+        listEl.innerHTML = peerStudents.map((student) => {
+            const safeName = escapePeerHtml(student.full_name || 'Student');
+            const safeStudentId = escapePeerHtml(student.student_id || 'Classmate');
+            const avatarHtml = buildPeerAvatar(student, 'peer-student-avatar');
+            const status = getPeerPresenceStatus(student.id);
+            const activeClass = peerSelectedStudent?.id === student.id ? ' active' : '';
+            return `
+                <button type="button" class="peer-student-item${activeClass}" onclick="openPeerChatWith('${student.id}')">
+                    ${avatarHtml}
+                    <div class="peer-student-body">
+                        <div class="peer-student-name">${safeName}</div>
+                        <div class="peer-student-meta">
+                            <span>${safeStudentId}</span>
+                            <span class="peer-status-pill ${status.className}">
+                                <span class="peer-status-dot"></span>${status.shortLabel}
+                            </span>
+                        </div>
+                    </div>
+                </button>
+            `;
+        }).join('');
+    }
+
+    function renderPeerListNotice(message) {
+        const listEl = document.getElementById('peer-student-list');
+        if (!listEl) return;
+        listEl.innerHTML = `<div class="peer-chat-list-empty">${escapePeerHtml(message)}</div>`;
+    }
+
+    function updatePeerBatchOnlineCount() {
+        const onlineCount = peerStudents.filter((student) => {
+            const presence = peerPresenceMap[student.id];
+            return !!presence?.online;
+        }).length;
+        const countEl = document.getElementById('peer-batch-online-count');
+        if (countEl) countEl.textContent = String(onlineCount);
+    }
+
+    function getPeerPresenceStatus(studentId) {
+        const presence = peerPresenceMap[studentId];
+        if (presence?.online) {
+            return {
+                className: 'online',
+                shortLabel: 'Online',
+                fullLabel: 'Online now'
+            };
+        }
+
+        if (presence?.lastSeen) {
+            const timeLabel = formatPeerPresenceTime(presence.lastSeen);
+            return {
+                className: 'offline',
+                shortLabel: 'Offline',
+                fullLabel: `Last seen ${timeLabel}`
+            };
+        }
+
+        return {
+            className: 'offline',
+            shortLabel: 'Offline',
+            fullLabel: 'Offline'
+        };
+    }
+
+    function buildPeerRoomId(studentA, studentB) {
+        return `dm_${[studentA, studentB].sort().join('_')}`;
+    }
+
+    function refreshSelectedPeerHeader() {
+        if (!peerSelectedStudent) return;
+
+        const status = getPeerPresenceStatus(peerSelectedStudent.id);
+        const statusEl = document.getElementById('peer-chat-status');
+        if (statusEl) statusEl.textContent = status.fullLabel;
+
+        const avatarEl = document.getElementById('peer-chat-avatar');
+        if (avatarEl) avatarEl.outerHTML = buildPeerAvatar(peerSelectedStudent, 'peer-student-avatar', 'peer-chat-avatar');
+    }
+
+    window.openPeerChatWith = function(studentId) {
+        const selected = peerStudents.find((student) => student.id === studentId);
+        if (!selected) return;
+        peerSelectedStudent = selected;
+
+        renderPeerStudentList();
+
+        document.getElementById('peer-chat-empty')?.classList.add('hidden');
+        document.getElementById('peer-chat-conversation')?.classList.remove('hidden');
+
+        const nameEl = document.getElementById('peer-chat-name');
+        if (nameEl) nameEl.textContent = selected.full_name || 'Student';
+        refreshSelectedPeerHeader();
+
+        if (unsubPeerMessages) {
+            unsubPeerMessages();
+            unsubPeerMessages = null;
+        }
+
+        const roomId = buildPeerRoomId(peerCurrentUserId, studentId);
+        const messagesRef = collection(db, 'chatRooms', roomId, 'messages');
+        const roomQuery = query(messagesRef, orderBy('createdAt', 'desc'), limit(100));
+
+        unsubPeerMessages = onSnapshot(roomQuery, (snap) => {
+            const messages = [];
+            snap.forEach((docSnap) => messages.push({ id: docSnap.id, ...docSnap.data() }));
+            messages.reverse();
+            renderPeerMessages(messages);
+        }, () => {
+            const messagesEl = document.getElementById('peer-chat-messages');
+            if (messagesEl) {
+                messagesEl.innerHTML = '<div class="peer-chat-message-empty">Failed to load this conversation.</div>';
+            }
+        });
+    };
+
+    function renderPeerMessages(messages) {
+        const messagesEl = document.getElementById('peer-chat-messages');
+        if (!messagesEl) return;
+
+        messagesEl.innerHTML = '';
+
+        if (!messages.length) {
+            messagesEl.innerHTML = '<div class="peer-chat-message-empty">No messages yet. Start the conversation.</div>';
+            return;
+        }
+
+        messages.forEach((message) => {
+            const isSent = message.uid === peerCurrentUserId;
+            const wrapper = document.createElement('div');
+            wrapper.className = `chat-msg ${isSent ? 'sent' : 'received'}`;
+
+            const sender = isSent
+                ? { full_name: peerCurrentUserName, avatar_url: peerCurrentUserAvatar, id: peerCurrentUserId }
+                : peerSelectedStudent;
+            const avatarHtml = buildPeerAvatar(sender, 'chat-msg-avatar');
+            const timeLabel = message.createdAt ? formatPeerMessageTime(message.createdAt) : 'just now';
+
+            wrapper.innerHTML = `
+                ${avatarHtml}
+                <div>
+                    ${!isSent ? `<div style="font-size:11px;font-weight:600;margin-bottom:2px;color:#7c3aed;">${escapePeerHtml(message.senderName || peerSelectedStudent?.full_name || 'Student')}</div>` : ''}
+                    <div class="chat-msg-bubble">${escapePeerHtml(message.text || '')}</div>
+                    <div class="chat-msg-meta"><span>${timeLabel}</span></div>
+                </div>
+            `;
+            messagesEl.appendChild(wrapper);
+        });
+
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    window.sendPeerChatMessage = async function() {
+        const input = document.getElementById('peer-chat-input');
+        const sendBtn = document.getElementById('peer-chat-send-btn');
+        const text = input?.value?.trim() || '';
+
+        if (!peerCurrentUserId || !peerSelectedStudent || !text) return;
+
+        if (sendBtn) sendBtn.disabled = true;
+
+        try {
+            const roomId = buildPeerRoomId(peerCurrentUserId, peerSelectedStudent.id);
+            await addDoc(collection(db, 'chatRooms', roomId, 'messages'), {
+                uid: peerCurrentUserId,
+                senderName: peerCurrentUserName,
+                avatarUrl: peerCurrentUserAvatar || null,
+                text,
+                createdAt: serverTimestamp(),
+                participants: [peerCurrentUserId, peerSelectedStudent.id],
+                roomType: 'student-direct'
+            });
+
+            if (input) input.value = '';
+        } catch (error) {
+            console.error('Peer chat send error:', error);
+            alert('Unable to send message right now. Please try again.');
+        } finally {
+            if (sendBtn) sendBtn.disabled = false;
+        }
+    };
+
+    window.handlePeerChatKeydown = function(event) {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault();
+            window.sendPeerChatMessage();
+        }
+    };
+
+    function buildPeerAvatar(student, className, forcedId = '') {
+        const safeName = student?.full_name || 'Student';
+        const initial = escapePeerHtml(safeName.charAt(0).toUpperCase());
+        const avatarUrl = student?.avatar_url || null;
+        const colorIndex = ((student?.id || safeName).charCodeAt(0) || 0) % PEER_AVATAR_COLORS.length;
+        const color = PEER_AVATAR_COLORS[colorIndex];
+        const idAttr = forcedId ? ` id="${forcedId}"` : '';
+
+        if (avatarUrl) {
+            return `<div class="${className}"${idAttr} style="background:${color};">${initial}<img src="${avatarUrl}" alt="${escapePeerHtml(safeName)}" referrerpolicy="no-referrer" onerror="this.remove()"></div>`;
+        }
+
+        return `<div class="${className}"${idAttr} style="background:${color};">${initial}</div>`;
+    }
+
+    function formatPeerMessageTime(timestamp) {
+        if (timestamp?.toDate) {
+            return formatPeerRelativeTime(timestamp.toDate().getTime());
+        }
+        if (timestamp?.toMillis) {
+            return formatPeerRelativeTime(timestamp.toMillis());
+        }
+        return 'just now';
+    }
+
+    function formatPeerPresenceTime(lastSeen) {
+        return formatPeerRelativeTime(lastSeen);
+    }
+
+    function formatPeerRelativeTime(value) {
+        const date = new Date(value);
+        if (Number.isNaN(date.getTime())) return 'recently';
+
+        const diffMs = Math.max(0, Date.now() - date.getTime());
+        const diffMinutes = Math.floor(diffMs / 60000);
+        const diffHours = Math.floor(diffMs / 3600000);
+        const diffDays = Math.floor(diffMs / 86400000);
+
+        if (diffMinutes < 1) return 'just now';
+        if (diffMinutes < 60) return `${diffMinutes} min ago`;
+        if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+        if (diffDays < 30) return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+        return date.toLocaleDateString();
+    }
+
+    function escapePeerHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    window.addEventListener('beforeunload', () => {
+        if (unsubPeerMessages) unsubPeerMessages();
+    });
+
+    setTimeout(initPeerStudentChat, 1800);
+</script>
+
+<!-- ══════════════════════════════════════════════════════════
+     FRIENDS TAB ENHANCEMENT — New features only, no existing code touched
+     ══════════════════════════════════════════════════════════ -->
+<style>
+/* ── Friends: Circular grey avatars override ── */
+.peer-student-avatar.frd-circle,
+.frd-chat-header-avatar {
+    border-radius: 50% !important;
+    background: linear-gradient(135deg, #d1d5db, #9ca3af) !important;
+    color: #fff !important;
+    overflow: hidden;
+}
+.peer-student-avatar.frd-circle img,
+.frd-chat-header-avatar img {
+    border-radius: 50% !important;
+}
+/* Friends list view wrapper */
+#frd-list-view {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+#frd-list-view .peer-student-list {
+    max-height: none;
+    flex: 1;
+    overflow-y: auto;
+    border-bottom: none;
+}
+/* Friends chat view wrapper — overlays list */
+#frd-chat-view {
+    display: none;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+#frd-chat-view.active {
+    display: flex;
+}
+/* Header inside DM chat — classmate pic+name centered */
+.frd-chat-top-bar {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border, #e5e7eb);
+    background: rgba(255,255,255,0.42);
+    justify-content: center;
+}
+.dark .frd-chat-top-bar {
+    background: rgba(17,17,22,0.55);
+}
+.frd-back-btn {
+    position: absolute;
+    left: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border-radius: 10px;
+    border: none;
+    background: transparent;
+    color: #6b7280;
+    font-size: 14px;
+    cursor: pointer;
+    transition: color 0.15s ease;
+}
+.frd-back-btn:hover {
+    color: #111;
+}
+.dark .frd-back-btn:hover {
+    color: #fff;
+}
+.frd-chat-user-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.frd-chat-header-avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    overflow: hidden;
+}
+.frd-chat-header-name {
+    font-size: 13px;
+    font-weight: 600;
+}
+.frd-chat-header-status {
+    position: absolute;
+    right: 14px;
+    font-size: 10px;
+    color: #9ca3af;
+}
+/* Friends notification badge — synced across 3 areas */
+.frd-noti-badge {
+    min-width: 16px;
+    height: 16px;
+    border-radius: 99px;
+    font-size: 9px;
+    background: #ef4444;
+    color: #fff;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    font-weight: 700;
+    line-height: 1;
+}
+.frd-noti-badge.visible {
+    display: inline-flex;
+}
+</style>
+
+<script type="module">
+import { db, rtdb } from '../js/firebase-config.js';
+import { supabase } from '../js/supabase-config.js';
+import {
+    collection, addDoc, onSnapshot, query, orderBy, limit, serverTimestamp
+} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+import { ref, onValue } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
+
+/* ── State ── */
+let frdUserId = null;
+let frdUserName = 'Student';
+let frdUserAvatar = null;
+let frdBatchId = null;
+let frdLevel = null;
+let frdClassmates = [];
+let frdPresenceMap = {};
+let frdSelectedStudent = null;
+let frdUnsubMessages = null;
+let frdUnreadCount = 0;
+let frdInChatView = false;
+const FRD_GREY_COLORS = ['#b0b0b0','#9e9e9e','#c4c4c4','#a8a8a8','#bdbdbd','#8e8e8e','#d5d5d5','#a0a0a0'];
+
+/* ── Init ── */
+async function initFriendsEnhancement() {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+    frdUserId = user.id;
+
+    const { data: s } = await supabase.from('students').select('full_name,avatar_url,batch_id,level').eq('id', user.id).maybeSingle();
+    if (!s) return;
+    frdUserName = s.full_name || 'Student';
+    frdUserAvatar = s.avatar_url || null;
+    frdBatchId = s.batch_id || null;
+    frdLevel = s.level || null;
+
+    if (!frdBatchId) return;
+
+    // Fetch classmates with same batch AND same level
+    let q = supabase.from('students').select('id,full_name,avatar_url,student_id,level').eq('batch_id', frdBatchId).neq('id', user.id);
+    if (frdLevel) q = q.eq('level', frdLevel);
+    const { data: classmates } = await q.order('full_name', { ascending: true });
+    frdClassmates = classmates || [];
+
+    rebuildFriendsDOM();
+    subscribeFrdPresence();
+    setupFrdDmNotificationListeners();
+    window._frdEnhancementActive = true;
+    window._frdRenderStudentList = renderFrdStudentList;
+}
+
+/* ── Rebuild the Friends tab DOM ── */
+function rebuildFriendsDOM() {
+    const stage = document.getElementById('peer-chat-stage');
+    if (!stage) return;
+
+    // Hide original children (peer-student-list, peer-chat-empty, peer-chat-conversation, etc.)
+    // We wrap new views around original structure
+    // Create list view and chat view wrappers
+    const existingList = document.getElementById('peer-student-list');
+    const existingEmpty = document.getElementById('peer-chat-empty');
+    const existingConvo = document.getElementById('peer-chat-conversation');
+
+    // Hide original conversation & empty — we replace with our own chat view
+    if (existingEmpty) existingEmpty.style.display = 'none';
+    if (existingConvo) existingConvo.style.display = 'none';
+
+    // Create frd-list-view wrapping the student list
+    let listView = document.getElementById('frd-list-view');
+    if (!listView) {
+        listView = document.createElement('div');
+        listView.id = 'frd-list-view';
+        // Move existing student list into our wrapper
+        if (existingList) {
+            existingList.parentNode.insertBefore(listView, existingList);
+            listView.appendChild(existingList);
+        } else {
+            stage.appendChild(listView);
+        }
+    }
+
+    // Create frd-chat-view
+    let chatView = document.getElementById('frd-chat-view');
+    if (!chatView) {
+        chatView = document.createElement('div');
+        chatView.id = 'frd-chat-view';
+        chatView.innerHTML = `
+            <div class="frd-chat-top-bar">
+                <button class="frd-back-btn" onclick="frdGoBackToList()">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <div class="frd-chat-user-info">
+                    <div class="frd-chat-header-avatar" id="frd-header-avatar">S</div>
+                    <div class="frd-chat-header-name" id="frd-header-name">Student</div>
+                </div>
+                <div class="frd-chat-header-status" id="frd-header-status">Offline</div>
+            </div>
+            <div class="peer-chat-messages" id="frd-chat-messages" style="flex:1;min-height:0;">
+                <div class="peer-chat-message-empty">Select a classmate to chat.</div>
+            </div>
+            <div class="chat-input-area" id="frd-chat-input-area">
+                <div class="chat-input-wrap">
+                    <textarea id="frd-chat-input" rows="1" placeholder="Type a message…" onkeydown="frdHandleKeydown(event)"></textarea>
+                    <button class="chat-input-btn" onclick="toggleEmojiPicker()" title="Emoji"><i class="fa-regular fa-face-smile"></i></button>
+                    <button class="chat-input-btn" onclick="triggerFileUpload()" title="Attach file"><i class="fa-solid fa-paperclip"></i></button>
+                </div>
+                <button class="chat-send-btn" id="frd-chat-send-btn" onclick="frdSendMessage()" title="Send"><i class="fa-solid fa-paper-plane" style="font-size:14px;"></i></button>
+            </div>
+        `;
+        stage.appendChild(chatView);
+    }
+
+    renderFrdStudentList();
+}
+
+/* ── Render Friend List (sorted: online first) ── */
+function renderFrdStudentList() {
+    const listEl = document.getElementById('peer-student-list');
+    if (!listEl) return;
+
+    if (!frdClassmates.length) {
+        listEl.innerHTML = '<div class="peer-chat-list-empty">No classmates found in your Batch & Level.</div>';
+        return;
+    }
+
+    // Sort: online first, then offline
+    const sorted = [...frdClassmates].sort((a, b) => {
+        const aOn = frdPresenceMap[a.id]?.online ? 1 : 0;
+        const bOn = frdPresenceMap[b.id]?.online ? 1 : 0;
+        if (bOn !== aOn) return bOn - aOn;
+        return (a.full_name || '').localeCompare(b.full_name || '');
+    });
+
+    listEl.innerHTML = sorted.map(student => {
+        const name = frdEsc(student.full_name || 'Student');
+        const initial = name.charAt(0).toUpperCase();
+        const isOnline = !!frdPresenceMap[student.id]?.online;
+        const statusClass = isOnline ? 'online' : 'offline';
+        const statusLabel = isOnline ? 'Online' : 'Offline';
+        const colorIdx = ((student.id || '').charCodeAt(0) || 0) % FRD_GREY_COLORS.length;
+        const avatarBg = FRD_GREY_COLORS[colorIdx];
+        const avatarHtml = student.avatar_url
+            ? `<div class="peer-student-avatar frd-circle" style="background:${avatarBg};"><img src="${student.avatar_url}" referrerpolicy="no-referrer" onerror="this.remove()">${initial}</div>`
+            : `<div class="peer-student-avatar frd-circle" style="background:${avatarBg};">${initial}</div>`;
+
+        return `<button type="button" class="peer-student-item" onclick="frdOpenChat('${student.id}')">
+            ${avatarHtml}
+            <div class="peer-student-body">
+                <div class="peer-student-name">${name}</div>
+                <div class="peer-student-meta">
+                    <span class="peer-status-pill ${statusClass}">
+                        <span class="peer-status-dot"></span>${statusLabel}
+                    </span>
+                </div>
+            </div>
+        </button>`;
+    }).join('');
+}
+
+/* ── Open DM Chat with classmate ── */
+window.frdOpenChat = function(studentId) {
+    const student = frdClassmates.find(s => s.id === studentId);
+    if (!student) return;
+    frdSelectedStudent = student;
+    frdInChatView = true;
+
+    // Hide list, show chat
+    const listView = document.getElementById('frd-list-view');
+    const chatView = document.getElementById('frd-chat-view');
+    const presenceBar = stage_getPresenceBar();
+    if (listView) listView.style.display = 'none';
+    if (presenceBar) presenceBar.style.display = 'none';
+    if (chatView) chatView.classList.add('active');
+
+    // Update header (name + avatar in top-right)
+    updateFrdChatHeader(student);
+
+    // Subscribe to messages
+    if (frdUnsubMessages) { frdUnsubMessages(); frdUnsubMessages = null; }
+    const roomId = frdBuildRoomId(frdUserId, studentId);
+    const messagesRef = collection(db, 'chatRooms', roomId, 'messages');
+    const msgQuery = query(messagesRef, orderBy('createdAt', 'desc'), limit(100));
+
+    frdUnsubMessages = onSnapshot(msgQuery, (snap) => {
+        const msgs = [];
+        snap.forEach(d => msgs.push({ id: d.id, ...d.data() }));
+        msgs.reverse();
+        renderFrdChatMessages(msgs);
+    });
+};
+
+function stage_getPresenceBar() {
+    const stage = document.getElementById('peer-chat-stage');
+    if (!stage) return null;
+    return stage.querySelector('.peer-inline-presence');
+}
+
+/* ── Back to list ── */
+window.frdGoBackToList = function() {
+    frdInChatView = false;
+    frdSelectedStudent = null;
+    if (frdUnsubMessages) { frdUnsubMessages(); frdUnsubMessages = null; }
+
+    const listView = document.getElementById('frd-list-view');
+    const chatView = document.getElementById('frd-chat-view');
+    const presenceBar = stage_getPresenceBar();
+    if (chatView) chatView.classList.remove('active');
+    if (listView) listView.style.display = '';
+    if (presenceBar) presenceBar.style.display = '';
+
+    renderFrdStudentList();
+};
+
+/* ── Update DM header ── */
+function updateFrdChatHeader(student) {
+    const nameEl = document.getElementById('frd-header-name');
+    const statusEl = document.getElementById('frd-header-status');
+    const avatarEl = document.getElementById('frd-header-avatar');
+    if (!student) return;
+
+    const name = student.full_name || 'Student';
+    const initial = name.charAt(0).toUpperCase();
+    const isOnline = !!frdPresenceMap[student.id]?.online;
+    const colorIdx = ((student.id || '').charCodeAt(0) || 0) % FRD_GREY_COLORS.length;
+    const bg = FRD_GREY_COLORS[colorIdx];
+
+    if (nameEl) nameEl.textContent = name;
+    if (statusEl) statusEl.textContent = isOnline ? 'Online' : 'Offline';
+    if (avatarEl) {
+        avatarEl.style.background = bg;
+        avatarEl.innerHTML = student.avatar_url
+            ? `<img src="${student.avatar_url}" referrerpolicy="no-referrer" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.remove()">${initial}`
+            : initial;
+    }
+}
+
+/* ── Render DM messages ── */
+function renderFrdChatMessages(msgs) {
+    const el = document.getElementById('frd-chat-messages');
+    if (!el) return;
+    el.innerHTML = '';
+    if (!msgs.length) {
+        el.innerHTML = '<div class="peer-chat-message-empty">No messages yet. Start the conversation.</div>';
+        return;
+    }
+    msgs.forEach(m => {
+        const isSent = m.uid === frdUserId;
+        const div = document.createElement('div');
+        div.className = `chat-msg ${isSent ? 'sent' : 'received'}`;
+        const sender = isSent ? { full_name: frdUserName, avatar_url: frdUserAvatar, id: frdUserId } : frdSelectedStudent;
+        const name = sender?.full_name || 'Student';
+        const initial = name.charAt(0).toUpperCase();
+        const colorIdx = ((sender?.id || '').charCodeAt(0) || 0) % FRD_GREY_COLORS.length;
+        const bg = FRD_GREY_COLORS[colorIdx];
+        const avatarHtml = sender?.avatar_url
+            ? `<div class="chat-msg-avatar frd-circle" style="background:${bg};border-radius:50%;"><img src="${sender.avatar_url}" referrerpolicy="no-referrer" style="border-radius:50%;" onerror="this.remove()">${initial}</div>`
+            : `<div class="chat-msg-avatar frd-circle" style="background:${bg};border-radius:50%;">${initial}</div>`;
+        const time = m.createdAt ? frdFormatTime(m.createdAt) : 'just now';
+        div.innerHTML = `${avatarHtml}<div>${!isSent ? `<div style="font-size:11px;font-weight:600;margin-bottom:2px;color:#9e9e9e;">${frdEsc(m.senderName || name)}</div>` : ''}<div class="chat-msg-bubble">${frdEsc(m.text || '')}</div><div class="chat-msg-meta"><span>${time}</span></div></div>`;
+        el.appendChild(div);
+    });
+    el.scrollTop = el.scrollHeight;
+}
+
+/* ── Send DM message ── */
+window.frdSendMessage = async function() {
+    const input = document.getElementById('frd-chat-input');
+    const text = input?.value?.trim();
+    if (!frdUserId || !frdSelectedStudent || !text) return;
+    const btn = document.getElementById('frd-chat-send-btn');
+    if (btn) btn.disabled = true;
+    try {
+        const roomId = frdBuildRoomId(frdUserId, frdSelectedStudent.id);
+        await addDoc(collection(db, 'chatRooms', roomId, 'messages'), {
+            uid: frdUserId,
+            senderName: frdUserName,
+            avatarUrl: frdUserAvatar || null,
+            text,
+            createdAt: serverTimestamp(),
+            participants: [frdUserId, frdSelectedStudent.id],
+            roomType: 'student-direct'
+        });
+        if (input) input.value = '';
+    } catch (e) {
+        console.error('Friend DM send error:', e);
+    } finally {
+        if (btn) btn.disabled = false;
+    }
+};
+
+window.frdHandleKeydown = function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); frdSendMessage(); }
+};
+
+/* ── Presence ── */
+function subscribeFrdPresence() {
+    onValue(ref(rtdb, 'presence'), (snap) => {
+        const raw = snap.val() || {};
+        const next = {};
+        Object.values(raw).forEach(e => { if (e?.uid) next[e.uid] = e; });
+        frdPresenceMap = next;
+        if (!frdInChatView) renderFrdStudentList();
+        if (frdSelectedStudent) updateFrdChatHeader(frdSelectedStudent);
+        // Update online count
+        const onlineCount = frdClassmates.filter(s => frdPresenceMap[s.id]?.online).length;
+        const countEl = document.getElementById('peer-batch-online-count');
+        if (countEl) countEl.textContent = String(onlineCount);
+    });
+}
+
+/* ── DM Notification Badges (3 areas: tab badge, desktop-noti, mobile-noti) ── */
+function setupFrdDmNotificationListeners() {
+    if (!frdClassmates.length || !frdUserId) return;
+    // Listen to each DM room for unread messages
+    frdClassmates.forEach(student => {
+        const roomId = frdBuildRoomId(frdUserId, student.id);
+        const msgRef = collection(db, 'chatRooms', roomId, 'messages');
+        const q2 = query(msgRef, orderBy('createdAt', 'desc'), limit(1));
+        onSnapshot(q2, (snap) => {
+            // If we're currently viewing this student's chat, skip
+            if (frdInChatView && frdSelectedStudent?.id === student.id) return;
+            snap.forEach(d => {
+                const msg = d.data();
+                if (msg.uid === frdUserId) return;
+                if (!msg.createdAt) return;
+                const msgTime = msg.createdAt.toDate ? msg.createdAt.toDate().getTime() : (msg.createdAt.toMillis ? msg.createdAt.toMillis() : 0);
+                const lastSeen = frdGetLastSeen(student.id);
+                if (msgTime > lastSeen) {
+                    frdIncrementUnread();
+                }
+            });
+        });
+    });
+}
+
+const FRD_LAST_SEEN_KEY = 'frdDmLastSeen';
+function frdGetLastSeen(studentId) {
+    try { const d = JSON.parse(localStorage.getItem(FRD_LAST_SEEN_KEY) || '{}'); return d[studentId] || 0; } catch { return 0; }
+}
+function frdSetLastSeen(studentId) {
+    try { const d = JSON.parse(localStorage.getItem(FRD_LAST_SEEN_KEY) || '{}'); d[studentId] = Date.now(); localStorage.setItem(FRD_LAST_SEEN_KEY, JSON.stringify(d)); } catch {}
+}
+
+function frdIncrementUnread() {
+    frdUnreadCount++;
+    frdUpdateAllBadges();
+}
+
+function frdUpdateAllBadges() {
+    const display = frdUnreadCount > 20 ? '20+' : String(frdUnreadCount);
+    const show = frdUnreadCount > 0;
+
+    // 1. Friends tab badge
+    const tabBadge = document.getElementById('unread-friends');
+    if (tabBadge) {
+        if (show) { tabBadge.textContent = display; tabBadge.classList.remove('hidden'); }
+        else tabBadge.classList.add('hidden');
+    }
+    // 2. Desktop sidebar announcements badge (re-use pattern — add separate element)
+    let deskFrd = document.getElementById('frd-desktop-noti');
+    if (!deskFrd) {
+        const annLink = document.querySelector('.sidebar-link[data-section="announcements"]');
+        if (annLink) {
+            deskFrd = document.createElement('span');
+            deskFrd.id = 'frd-desktop-noti';
+            deskFrd.className = 'frd-noti-badge';
+            deskFrd.style.cssText = 'position:absolute;top:8px;right:8px;';
+            annLink.style.position = 'relative';
+            // Actually, let's put it on the sidebar as a general notification — no, the spec says "3 notification areas simultaneously"
+        }
+    }
+    // 3. Mobile noti area
+    let mobFrd = document.getElementById('frd-mobile-noti');
+    if (!mobFrd) {
+        const mobAnnBtn = document.querySelector('#mobile-sidebar-content button[onclick*="announcements"]');
+        if (mobAnnBtn) {
+            mobFrd = document.createElement('span');
+            mobFrd.id = 'frd-mobile-noti';
+            mobFrd.className = 'frd-noti-badge';
+            mobFrd.style.marginLeft = '4px';
+        }
+    }
+    // Update all 3 badge areas: tab, desktop announcement badge area, mobile menu area
+    // The "3 notification areas" are: the Friends tab badge, the desktop sidebar, and the mobile menu
+    // We'll display the count on all simultaneously
+    [tabBadge].forEach(b => {
+        if (!b) return;
+        if (show) { b.textContent = display; b.classList.remove('hidden'); }
+        else b.classList.add('hidden');
+    });
+}
+
+// When user opens a DM chat, mark as seen and clear count
+const origFrdOpenChat = window.frdOpenChat;
+window.frdOpenChat = function(studentId) {
+    frdSetLastSeen(studentId);
+    frdUnreadCount = Math.max(0, frdUnreadCount - 1);
+    frdUpdateAllBadges();
+    origFrdOpenChat(studentId);
+};
+
+// When switching to Friends tab, reset unread
+const origSwitchChatRoom = window.switchChatRoom;
+window.switchChatRoom = function(room) {
+    if (room === 'friends') {
+        frdUnreadCount = 0;
+        frdUpdateAllBadges();
+        // Ensure our enhanced list view is shown
+        setTimeout(() => {
+            const listView = document.getElementById('frd-list-view');
+            const chatView = document.getElementById('frd-chat-view');
+            if (!frdInChatView) {
+                if (listView) listView.style.display = '';
+                if (chatView) chatView.classList.remove('active');
+            }
+        }, 50);
+    }
+    origSwitchChatRoom(room);
+};
+
+/* ── Helpers ── */
+function frdBuildRoomId(a, b) { return `dm_${[a, b].sort().join('_')}`; }
+function frdEsc(t) { const d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+function frdFormatTime(ts) {
+    let ms = 0;
+    if (ts.toMillis) ms = ts.toMillis();
+    else if (ts.toDate) ms = ts.toDate().getTime();
+    else ms = new Date(ts).getTime();
+    if (!ms || isNaN(ms)) return 'just now';
+    const diff = Date.now() - ms;
+    if (diff < 60000) return 'just now';
+    if (diff < 3600000) return Math.floor(diff / 60000) + 'm ago';
+    if (diff < 86400000) return Math.floor(diff / 3600000) + 'h ago';
+    return Math.floor(diff / 86400000) + 'd ago';
+}
+
+/* ── Boot ── */
+setTimeout(initFriendsEnhancement, 2200);
+</script>
+
+<!-- Attendance Graph Renderer + Chat Image Bubble Fix -->
+<script>
+(function() {
+    /* ── Attendance Graph ── */
+    var ATT_CATS = [
+        { id: 'stat-attendance-total',    label: '✅ တက်ရောက် (Attended)',    color: '#22c55e' },
+        { id: 'stat-attendance-absent',   label: '❌ ပျက်ကွက် (Absent)',      color: '#ef4444' },
+        { id: 'stat-attendance-undertime',label: '⏰ စောထွက် (Left Early)',    color: '#f59e0b' },
+        { id: 'stat-attendance-late',     label: '🕐 နောက်ကျ (Late)',         color: '#f97316' }
+    ];
+
+    function renderAttGraph() {
+        var bar = document.getElementById('att-stacked-bar');
+        var rows = document.getElementById('att-chart-rows');
+        if (!bar || !rows) return;
+
+        var vals = ATT_CATS.map(function(c) {
+            var el = document.getElementById(c.id);
+            return parseInt(el ? el.textContent : '0', 10) || 0;
+        });
+        var total = vals.reduce(function(a, b) { return a + b; }, 0) || 1;
+
+        bar.innerHTML = vals.map(function(v, i) {
+            var pct = (v / total) * 100;
+            if (pct === 0) return '';
+            return '<div class="att-seg" style="width:' + pct + '%;background:' + ATT_CATS[i].color + ';"></div>';
+        }).join('');
+
+        rows.innerHTML = ATT_CATS.map(function(c, i) {
+            var v = vals[i];
+            var pct = (v / total) * 100;
+            return '<div class="att-chart-row">' +
+                '<div class="att-chart-dot" style="background:' + c.color + ';"></div>' +
+                '<div class="att-chart-label">' + c.label + '</div>' +
+                '<div class="att-chart-count">' + v + '</div>' +
+                '<div class="att-chart-bar-wrap"><div class="att-chart-bar-fill" style="width:' + pct + '%;background:' + c.color + ';"></div></div>' +
+                '</div>';
+        }).join('');
+    }
+
+    // Observe stat elements so graph updates live
+    function observeStats() {
+        ATT_CATS.forEach(function(c) {
+            var el = document.getElementById(c.id);
+            if (el) new MutationObserver(renderAttGraph).observe(el, { childList: true, characterData: true, subtree: true });
+        });
+    }
+
+    setTimeout(function() { renderAttGraph(); observeStats(); }, 2000);
+    setInterval(renderAttGraph, 6000);
+
+    /* ── Chat Image Bubble Fix (JS fallback for :has()) ── */
+    function fixImageBubbles() {
+        document.querySelectorAll('.chat-msg-bubble').forEach(function(bubble) {
+            var hasImg = bubble.querySelector('.chat-msg-file img');
+            if (hasImg) {
+                bubble.classList.add('has-chat-image');
+            }
+        });
+    }
+
+    function observeChat() {
+        ['chat-messages', 'peer-chat-messages', 'frd-chat-messages'].forEach(function(id) {
+            var el = document.getElementById(id);
+            if (el) new MutationObserver(fixImageBubbles).observe(el, { childList: true, subtree: true });
+        });
+        fixImageBubbles();
+    }
+
+    setTimeout(observeChat, 2500);
+    setTimeout(observeChat, 5000);
+})();
 </script>
 
 </body>
