@@ -2084,7 +2084,6 @@
     <!-- ══════════════════ SCRIPTS ══════════════════ -->
     <script type="module">
         import { supabase, supabaseNoSession } from '../js/supabase-config.js';
-        import { signInToFirebase } from '../js/firebase-config.js';
 
         let allStudents = [], allCourses = [];
 
@@ -2096,8 +2095,6 @@
             if (session && session.user.email === ADMIN_EMAIL) {
                 showPanel();
                 document.getElementById('admin-name').textContent = session.user.email.split('@')[0];
-                // ── Firebase Auth ကိုပါ sign in (chat security အတွက်) ──
-                try { await signInToFirebase(session.access_token); } catch (e) { console.warn('Firebase auth failed:', e); }
             } else {
                 if (session) await supabase.auth.signOut();
                 document.getElementById('login-screen').classList.remove('hidden');
@@ -2121,8 +2118,6 @@
                     throw new Error('Admin access only. Please use the admin email.');
                 }
                 document.getElementById('admin-name').textContent = data.user.email.split('@')[0];
-                // ── Firebase Auth ကိုပါ sign in (chat security အတွက်) ──
-                try { await signInToFirebase(data.session.access_token); } catch (e) { console.warn('Firebase auth failed:', e); }
                 showPanel();
             } catch (err) {
                 showLoginAlert(err.message, 'error');
