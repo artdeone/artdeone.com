@@ -64,9 +64,9 @@ exports.handler = async (event) => {
 
         let decoded;
         try {
-            // Supabase JWT ကို verify — algorithms HS256 specified
+            // Supabase JWT ကို verify — algorithms RS256 (Supabase uses asymmetric signing)
             decoded = jwt.verify(supabaseToken, jwtSecret, {
-                algorithms: ['HS256']
+                algorithms: ['RS256']
             });
         } catch (jwtError) {
             console.error('JWT verification failed:', jwtError.message);
