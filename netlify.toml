@@ -1,5 +1,5 @@
 [build]
-  command = "node -e \"const fs=require('fs');const key=process.env.FIREBASE_API_KEY;console.log('FIREBASE_API_KEY exists:',!!key);console.log('FIREBASE_API_KEY length:',key?key.length:0);console.log('FIREBASE_API_KEY starts with:',key?key.substring(0,8):'EMPTY');let f=fs.readFileSync('js/firebase-config.js','utf8');console.log('Before replace - has placeholder:',f.includes('__FIREBASE_API_KEY__'));f=f.replace('__FIREBASE_API_KEY__',key||'');fs.writeFileSync('js/firebase-config.js',f);console.log('After replace - has AIza:',f.includes('AIza'));console.log('After replace - apiKey line:',f.match(/apiKey:.*/)?.[0]);\""
+  command = "node -e \"const fs=require('fs');const key=process.env.FIREBASE_API_KEY||'';let f=fs.readFileSync('js/firebase-config.js','utf8');f=f.replace('__FIREBASE_API_KEY__',key);fs.writeFileSync('js/firebase-config.js',f);console.log('Build: API key replacement done, length:',key.length);\""
   functions = "netlify/functions"
   publish = "."
 
@@ -37,7 +37,8 @@
         https://8x8.vc
         https://*.8x8.vc
         https://*.jitsi.net
-        https://*.onet.pl;
+        https://*.onet.pl
+        https://*.firebaseio.com;
       style-src 'self' 'unsafe-inline'
         https://cdn.tailwindcss.com
         https://cdnjs.cloudflare.com
