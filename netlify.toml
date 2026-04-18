@@ -1,5 +1,5 @@
 [build]
-  command = "node -e \"const fs=require('fs');const key=process.env.FIREBASE_API_KEY||'';let f=fs.readFileSync('js/firebase-config.js','utf8');f=f.replace('__FIREBASE_API_KEY__',key);fs.writeFileSync('js/firebase-config.js',f);console.log('Build: API key replacement done, length:',key.length);\""
+  command = "sed -i \"s/__FIREBASE_API_KEY__/$FIREBASE_API_KEY/g\" js/firebase-config.js"
   functions = "netlify/functions"
   publish = "."
 
@@ -37,13 +37,7 @@
         https://8x8.vc
         https://*.8x8.vc
         https://*.jitsi.net
-        https://*.onet.pl
-        https://*.firebaseio.com
-        https://*.firebasedatabase.app;
-      script-src-elem 'self'
-        https://*.firebaseio.com
-        https://*.firebasedatabase.app
-        https://*.firebaseapp.com;
+        https://*.onet.pl;
       style-src 'self' 'unsafe-inline'
         https://cdn.tailwindcss.com
         https://cdnjs.cloudflare.com
@@ -91,12 +85,7 @@
         https://*.firebaseio.com
         wss://*.firebaseio.com
         https://*.firebaseapp.com
-        https://*.firebasedatabase.app
-        wss://*.firebasedatabase.app
         https://firestore.googleapis.com
-        https://identitytoolkit.googleapis.com
-        https://securetoken.googleapis.com
-        https://www.gstatic.com
         https://www.google-analytics.com
         https://region1.google-analytics.com
         https://unpkg.com

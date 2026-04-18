@@ -64,34 +64,13 @@ exports.handler = async (event) => {
 
         let decoded;
         try {
-            // Supabase JWT ကို verify — algorithms RS256 (Supabase uses asymmetric signing)
-            decoded = jwt.verify(supabaseToken, jwtSecret, {
-                algorithms: ['RS256']
-            });
+            decoded = jwt.verify(supabaseToken, jwtSecret);
         } catch (jwtError) {
             console.error('JWT verification failed:', jwtError.message);
-            console.error('JWT secret length:', jwtSecret.length);
-            console.error('Token preview:', supabaseToken.substring(0, 20) + '...');
-            
-            // If verification fails, try decoding without verification to check structure
-            try {
-                const unverified = jwt.decode(supabaseToken);
-                console.error('Token decoded (unverified):', JSON.stringify({
-                    sub: unverified?.sub,
-                    email: unverified?.email,
-                    iss: unverified?.iss,
-                    exp: unverified?.exp,
-                    aud: unverified?.aud
-                }));
-            } catch(e) {}
-            
             return {
                 statusCode: 401,
                 headers,
-                body: JSON.stringify({ 
-                    error: 'Invalid or expired token',
-                    detail: jwtError.message 
-                })
+                body: JSON.stringify({ error: 'Invalid or expired token' })
             };
         }
 
