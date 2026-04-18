@@ -1,0 +1,123 @@
+// ═══════════════════════════════════════════════════════════════════
+// 🔒 FIRESTORE SECURITY RULES — ADO Chat App (Option B: Firebase Auth)
+// ═══════════════════════════════════════════════════════════════════
+//
+// လိုအပ်ချက်များ (ဒီ rules publish မလုပ်ခင်):
+//   ✅ Netlify env vars set ပြီး  (FIREBASE_*, SUPABASE_JWT_SECRET, ADMIN_EMAIL)
+//   ✅ netlify/functions/firebase-auth-token.js ရှိ
+//   ✅ js/firebase-config.js ထဲ signInToFirebase() ရှိ
+//   ✅ student-dashboard.html + admin-panel.html တွင် signInToFirebase() ခေါ်ထား
+//
+// Publish လုပ်နည်း:
+//   Firebase Console → Firestore Database → Rules tab → ဒီ file ရဲ့ content ကို
+//   paste → "Publish" button နှိပ်
+//
+// ═══════════════════════════════════════════════════════════════════
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ───────────────────────────────────────────────────────────────
+    // HELPER FUNCTIONS
+    // ───────────────────────────────────────────────────────────────
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.isAdmin == true;
+    }
+
+    function isMessageOwner() {
+      return request.auth != null
+        && resource.data.uid == request.auth.uid;
+    }
+
+    // ───────────────────────────────────────────────────────────────
+    // DEFAULT — ကျန်တဲ့ collection အကုန်လုံး DENY
+    // ───────────────────────────────────────────────────────────────
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // ───────────────────────────────────────────────────────────────
+    // CHATROOMS
+    // ───────────────────────────────────────────────────────────────
+    match /chatRooms/{roomId} {
+
+      // Room document ကို authenticated user တိုင်း ဖတ်ခွင့်ပြု
+      allow read: if isAuthenticated();
+
+      // Room document ကို admin ပဲ create/modify ခွင့်ပြု
+      allow write: if isAdmin();
+
+      // ─────────────────────────────────────────────────────────────
+      // MESSAGES SUBCOLLECTION
+      // ─────────────────────────────────────────────────────────────
+      match /messages/{messageId} {
+
+        // ═══ READ ═══
+        // Authenticated user တိုင်း ဖတ်ခွင့်ရှိ
+        allow read: if isAuthenticated();
+
+        // ═══ CREATE ═══
+        // Authenticated user ကိုယ်ပိုင် uid နဲ့ message ရေးခွင့်
+        allow create: if
+          isAuthenticated()
+          && (
+            // Normal user — uid က login ၀င်ထားတဲ့ user နဲ့ တူရမယ်
+            request.resource.data.uid == request.auth.uid
+            ||
+            // Admin — "admin" UID သုံးခွင့်ရှိ
+            (isAdmin() && request.resource.data.uid == 'admin')
+          )
+          && request.resource.data.senderName is string
+          && request.resource.data.senderName.size() > 0
+          && request.resource.data.senderName.size() <= 100
+          && (
+            // text သို့မဟုတ် fileURL အနည်းဆုံး တစ်ခု ရှိရမယ်
+            (
+              request.resource.data.keys().hasAny(['text'])
+              && request.resource.data.text is string
+              && request.resource.data.text.size() > 0
+              && request.resource.data.text.size() <= 10000
+            )
+            || request.resource.data.keys().hasAny(['fileURL'])
+          )
+          // createdAt က server timestamp ဖြစ်ရမယ်
+          && request.resource.data.createdAt == request.time;
+
+        // ═══ UPDATE ═══
+        allow update: if
+          isAuthenticated()
+          && (
+            // Case 1: ဘယ် user မဆို reactions ထည့်/ဖြုတ်ခွင့်
+            request.resource.data.diff(resource.data).affectedKeys().hasOnly(['reactions'])
+
+            // Case 2: Message owner က ကိုယ့် message ပြင်ခွင့်
+            //         (uid, senderName, createdAt ကို ပြောင်းခွင့်မပြု)
+            || (
+              isMessageOwner()
+              && !request.resource.data.diff(resource.data)
+                   .affectedKeys().hasAny(['uid', 'senderName', 'createdAt'])
+            )
+
+            // Case 3: Admin ဆိုရင် ဘာမဆို ပြင်ခွင့်
+            || isAdmin()
+          );
+
+        // ═══ DELETE ═══
+        // ကိုယ့် message ကိုယ် ဖျက်ခွင့် / Admin က ဘာမဆို ဖျက်ခွင့်
+        allow delete: if
+          isAuthenticated()
+          && (
+            isMessageOwner()
+            || isAdmin()
+          );
+      }
+    }
+  }
+}

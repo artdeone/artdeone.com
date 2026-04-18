@@ -2084,6 +2084,7 @@
     <!-- ══════════════════ SCRIPTS ══════════════════ -->
     <script type="module">
         import { supabase, supabaseNoSession } from '../js/supabase-config.js';
+        import { signInToFirebase } from '../js/firebase-config.js';
 
         let allStudents = [], allCourses = [];
 
@@ -2093,6 +2094,8 @@
         window.addEventListener('load', async () => {
             const { data: { session } } = await supabase.auth.getSession();
             if (session && session.user.email === ADMIN_EMAIL) {
+                // ── Firebase Auth ကိုပါ sign in (background) ──
+                try { await signInToFirebase(session.access_token); } catch (e) { console.warn('Firebase auth failed:', e); }
                 showPanel();
                 document.getElementById('admin-name').textContent = session.user.email.split('@')[0];
             } else {
@@ -2117,6 +2120,8 @@
                     await supabase.auth.signOut();
                     throw new Error('Admin access only. Please use the admin email.');
                 }
+                // Firebase Auth sign in for Firestore security
+                try { await signInToFirebase(data.session.access_token); } catch (e) { console.warn('Firebase auth failed:', e); }
                 document.getElementById('admin-name').textContent = data.user.email.split('@')[0];
                 showPanel();
             } catch (err) {

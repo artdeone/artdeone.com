@@ -3225,6 +3225,7 @@
     <script type="module">
         import { supabase } from '../js/supabase-config.js';
         import { blogPosts } from '../js/premium-blog.js';
+        import { signInToFirebase } from '../js/firebase-config.js';
 
         let currentUser = null;
         let myEnrollments = [];
@@ -3237,6 +3238,9 @@
         window.addEventListener('load', async () => {
             const { data: { session } } = await supabase.auth.getSession();
             if (!session) { window.location.href = 'student-login.html'; return; }
+
+            // ── Firebase Auth ကိုပါ sign in (background — login flow မထိခိုက်) ──
+            try { await signInToFirebase(session.access_token); } catch (e) { console.warn('Firebase auth failed, chat may not work:', e); }
 
 
             // Guard: students table ထဲမှ��ရှိမှ student dashboard ဝင်ခွင့်ပေး
