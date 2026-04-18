@@ -1,11 +1,13 @@
 // ═══════════════════════════════════════════════════════════════
 // Firebase Custom Auth Token Generator
 // ═══════════════════════════════════════════════════════════════
-// Supabase JWT token ကို verify လုပ်ပြီး Firebase Custom Token generate ပေးတယ်
-// Student/Admin login ပြီးတိုင်း ဒီ endpoint ကို ခေါ်ပြီး Firebase Auth ကိုပါ sign in လုပ်တယ်
+// Supabase access_token ကို verify လုပ်ပြီး Firebase Custom Token generate ပေးတယ်
+//
+// ✅ Fix: jwt.verify() (HS256 only) မသုံးတော့ဘဲ
+//         Supabase /auth/v1/user endpoint ကို ခေါ်ပြီး token ကို server-side validate လုပ်တယ်
+//         ဒါဟာ ပိုပြီး secure & reliable ပါ
 
 const admin = require('firebase-admin');
-const jwt = require('jsonwebtoken');
 
 // Initialize Firebase Admin (once)
 if (!admin.apps.length) {
@@ -39,9 +41,9 @@ exports.handler = async (event) => {
     }
 
     try {
-        // ── Supabase JWT token ကို extract ──
+        // ── Supabase access_token extract ──
         const authHeader = event.headers.authorization || event.headers.Authorization || '';
-        const supabaseToken = authHeader.replace('Bearer ', '');
+        const supabaseToken = authHeader.replace('Bearer ', '').trim();
 
         if (!supabaseToken) {
             return {
@@ -51,31 +53,44 @@ exports.handler = async (event) => {
             };
         }
 
-        // ── Supabase JWT ကို verify ──
-        const jwtSecret = process.env.SUPABASE_JWT_SECRET;
-        if (!jwtSecret) {
-            console.error('SUPABASE_JWT_SECRET is not configured');
+        // ── Supabase env vars check ──
+        const supabaseUrl = process.env.SUPABASE_URL;
+        const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+        if (!supabaseUrl || !supabaseServiceKey) {
+            console.error('Missing Supabase env vars:', {
+                hasUrl: !!supabaseUrl,
+                hasKey: !!supabaseServiceKey
+            });
             return {
                 statusCode: 500,
                 headers,
-                body: JSON.stringify({ error: 'Server configuration error' })
+                body: JSON.stringify({ error: 'Server configuration error: missing Supabase config' })
             };
         }
 
-        let decoded;
-        try {
-            decoded = jwt.verify(supabaseToken, jwtSecret);
-        } catch (jwtError) {
-            console.error('JWT verification failed:', jwtError.message);
+        // ── Supabase /auth/v1/user ကို ခေါ်ပြီး token validate ──
+        // ဒါက jwt.verify() ထက် reliable ပါ — RS256/HS256 algorithm ပြဿနာ မရှိ
+        const supabaseUserResp = await fetch(`${supabaseUrl}/auth/v1/user`, {
+            headers: {
+                'Authorization': `Bearer ${supabaseToken}`,
+                'apikey': supabaseServiceKey
+            }
+        });
+
+        if (!supabaseUserResp.ok) {
+            const errText = await supabaseUserResp.text();
+            console.error('Supabase token validation failed:', supabaseUserResp.status, errText);
             return {
                 statusCode: 401,
                 headers,
-                body: JSON.stringify({ error: 'Invalid or expired token' })
+                body: JSON.stringify({ error: 'Invalid or expired Supabase token' })
             };
         }
 
-        const userId = decoded.sub; // Supabase user ID
-        const email = decoded.email;
+        const supabaseUser = await supabaseUserResp.json();
+        const userId = supabaseUser.id;
+        const email = supabaseUser.email;
 
         if (!userId) {
             return {
@@ -87,13 +102,15 @@ exports.handler = async (event) => {
 
         // ── Admin check ──
         const adminEmail = process.env.ADMIN_EMAIL || '';
-        const isAdmin = email && email === adminEmail;
+        const isAdmin = !!(email && email === adminEmail);
 
         // ── Firebase Custom Token generate ──
         const customToken = await admin.auth().createCustomToken(userId, {
             isAdmin: isAdmin,
             email: email || '',
         });
+
+        console.log(`✅ Firebase token generated for user: ${userId} (admin: ${isAdmin})`);
 
         return {
             statusCode: 200,
@@ -109,7 +126,7 @@ exports.handler = async (event) => {
         return {
             statusCode: 500,
             headers,
-            body: JSON.stringify({ error: 'Failed to generate Firebase token' })
+            body: JSON.stringify({ error: 'Failed to generate Firebase token', detail: error.message })
         };
     }
 };
