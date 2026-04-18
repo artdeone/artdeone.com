@@ -1,5 +1,5 @@
 [build]
-  command = "sed -i \"s/__FIREBASE_API_KEY__/$FIREBASE_API_KEY/g\" js/firebase-config.js"
+  command = "node -e \"const fs=require('fs');let f=fs.readFileSync('js/firebase-config.js','utf8');f=f.replace('__FIREBASE_API_KEY__',process.env.FIREBASE_API_KEY||'');fs.writeFileSync('js/firebase-config.js',f);console.log('API key replaced:',f.includes('AIza'));\""
   functions = "netlify/functions"
   publish = "."
 
