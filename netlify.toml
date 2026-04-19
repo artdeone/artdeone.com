@@ -9,6 +9,17 @@
   status = 200
   force = true
 
+# -----------------------------------------------
+# Agent Discovery Link Headers (RFC 8288)
+# -----------------------------------------------
+[[headers]]
+  for = "/"
+  [headers.values]
+    Link = """</.well-known/agent-skills/index.json>; rel="agent-skills-index", \
+</.well-known/mcp/server-card.json>; rel="mcp-server-card", \
+</robots.txt>; rel="robots", \
+</privacy-policy.html>; rel="privacy-policy\""""
+
 [[headers]]
   for = "/*"
   [headers.values]

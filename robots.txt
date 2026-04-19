@@ -1,0 +1,89 @@
+# robots.txt for artdeone.com
+# https://www.rfc-editor.org/rfc/rfc9309
+
+# -----------------------------------------------
+# General crawlers (Google, Bing, etc.)
+# -----------------------------------------------
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /blog.html
+Allow: /instructor.html
+Allow: /privacy-policy.html
+Allow: /portfolio/
+Allow: /posts/
+Allow: /resources/
+Allow: /css-and-js/
+Allow: /js/
+Allow: /nav-bar/
+
+# Block private/admin areas from all crawlers
+Disallow: /Private/
+Disallow: /admin-shop.html
+Disallow: /client-dashboard.html
+Disallow: /customer-dashboard.html
+Disallow: /designer-dashboard.html
+Disallow: /reset-password.html
+Disallow: /prompt.html
+Disallow: /auth/
+Disallow: /netlify/
+Disallow: /.netlify/
+
+# -----------------------------------------------
+# AI Training Crawlers — Disallow training use
+# -----------------------------------------------
+
+# OpenAI GPTBot
+User-agent: GPTBot
+Disallow: /
+
+# OpenAI SearchBot (used for search, allow)
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /Private/
+Disallow: /admin-shop.html
+Disallow: /auth/
+Disallow: /netlify/
+
+# Anthropic Claude
+User-agent: Claude-Web
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+# Google AI (Gemini training)
+User-agent: Google-Extended
+Disallow: /
+
+# Meta AI
+User-agent: FacebookBot
+Disallow: /
+
+# Common Crawl (used for AI training datasets)
+User-agent: CCBot
+Disallow: /
+
+# Bytedance / TikTok AI
+User-agent: Bytespider
+Disallow: /
+
+# Apple AI
+User-agent: Applebot-Extended
+Disallow: /
+
+# Perplexity AI
+User-agent: PerplexityBot
+Allow: /
+Disallow: /Private/
+Disallow: /admin-shop.html
+Disallow: /auth/
+
+# -----------------------------------------------
+# Content Signals — AI content usage preferences
+# https://contentsignals.org/
+# -----------------------------------------------
+Content-Signal: ai-train=no, search=yes, ai-input=no
+
+# -----------------------------------------------
+Sitemap: https://artdeone.com/sitemap.xml
