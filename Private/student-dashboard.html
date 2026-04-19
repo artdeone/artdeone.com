@@ -5879,23 +5879,10 @@
                 ? friendsRoomId
                 : getAskInstructorRoomId();
 
-        set(presenceRef, {
-            uid: currentUserId,
-            name: currentUserFullName,
-            currentRoom: initialPresenceRoom,
-            lastSeen: Date.now(),
-            online: true
-        });
+        // Write initial online state and register onDisconnect in one atomic step
+        _writePresenceOnline(initialPresenceRoom);
 
-        onDisconnect(presenceRef).set({
-            uid: currentUserId,
-            name: currentUserFullName,
-            currentRoom: '',
-            lastSeen: Date.now(),
-            online: false
-        });
-
-        // Listen for online users
+        // Listen for online users — reads currentRoom dynamically so tab switches are reflected
         const presenceListRef = ref(rtdb, 'presence');
         onValue(presenceListRef, (snap) => {
             const data = snap.val();
@@ -5904,6 +5891,7 @@
                 return;
             }
             const users = Object.values(data);
+            // Always read the live module-level variables, not a stale closure
             const roomId = currentRoom === 'batch'
                 ? batchRoomId
                 : currentRoom === 'friends'
@@ -5914,16 +5902,28 @@
         });
     }
 
+    // Write online state AND re-register onDisconnect every time we update presence.
+    // Calling set() on a ref cancels any previously registered onDisconnect for that ref,
+    // so we must re-register it after every write to guarantee offline cleanup on disconnect.
+    function _writePresenceOnline(roomId) {
+        if (!presenceRef) return;
+        set(presenceRef, {
+            uid: currentUserId,
+            name: currentUserFullName,
+            currentRoom: roomId,
+            online: true
+        });
+        // Re-register onDisconnect after every set() call
+        onDisconnect(presenceRef).set({
+            uid: currentUserId,
+            name: currentUserFullName,
+            currentRoom: '',
+            online: false
+        });
+    }
+
     function updatePresenceRoom(roomId) {
-        if (presenceRef) {
-            set(presenceRef, {
-                uid: currentUserId,
-                name: currentUserFullName,
-                currentRoom: roomId,
-                lastSeen: Date.now(),
-                online: true
-            });
-        }
+        _writePresenceOnline(roomId);
     }
 
     function updateOnlineCount(count) {
@@ -6075,16 +6075,11 @@
     });
 
     // ── Cleanup on page unload ──
+    // NOTE: We do NOT manually set online:false here because:
+    //   1. The async set() call races with page close and often doesn't complete.
+    //   2. The onDisconnect() handler registered in _writePresenceOnline() is the
+    //      correct, reliable mechanism — Firebase executes it server-side on disconnect.
     window.addEventListener('beforeunload', () => {
-        if (presenceRef) {
-            set(presenceRef, {
-                uid: currentUserId,
-                name: currentUserFullName,
-                currentRoom: '',
-                lastSeen: Date.now(),
-                online: false
-            });
-        }
         if (unsubChat) unsubChat();
     });
 
