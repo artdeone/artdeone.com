@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADO AI — Under Construction | ART de ONE</title>
+    <meta name="description"
+        content="ADO AI is under construction. We're building something amazing — stay tuned for your creative AI assistant.">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/png"
+        href="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769316272/fav-icon_n00lji.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css-and-js/theme.css">
+    <link rel="stylesheet" href="css-and-js/mobile-smooth-nav.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+        body {
+            background-color: #ffffff;
+            color: #323232;
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: #000000;
+        }
+
+        .artdeone-font {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* ── Navigation ── */
+        nav {
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            border-bottom: 1px solid #e5e5e5;
+            backdrop-filter: blur(12px);
+        }
+
+        .nav-link {
+            color: #323232 !important;
+            font-weight: 400 !important;
+            letter-spacing: 0.04em;
+            font-size: 0.9rem !important;
+        }
+
+        .nav-link:hover {
+            color: #000 !important;
+            font-weight: 600 !important;
+        }
+
+        .nav-btn {
+            background-color: #a7e169;
+            color: #000;
+            font-weight: 600;
+            border-radius: 2rem;
+            padding: 0.5rem 1.25rem;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #a7e169;
+            height: auto;
+            line-height: 1;
+        }
+
+        .nav-btn:hover {
+            background-color: #ed2939;
+            border-color: #ed2939;
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* ── Construction Page ── */
+        .construction-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Background Video */
+        .construction-bg-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.15;
+        }
+
+        .construction-bg-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.85) 0%, rgba(249,249,249,0.9) 100%);
+        }
+
+        /* Glow Orbs */
+        .construction-orb {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .construction-orb-1 {
+            width: 500px;
+            height: 500px;
+            top: -150px;
+            left: -100px;
+            background: radial-gradient(circle at center,
+                    rgba(167, 225, 105, 0.20) 0%,
+                    rgba(167, 225, 105, 0.08) 35%,
+                    rgba(167, 225, 105, 0.02) 60%,
+                    transparent 80%);
+            filter: blur(60px);
+            animation: orbFloat1 14s ease-in-out infinite;
+        }
+
+        .construction-orb-2 {
+            width: 450px;
+            height: 450px;
+            bottom: -120px;
+            right: -80px;
+            background: radial-gradient(circle at center,
+                    rgba(237, 41, 57, 0.12) 0%,
+                    rgba(255, 140, 50, 0.06) 35%,
+                    rgba(237, 41, 57, 0.02) 60%,
+                    transparent 80%);
+            filter: blur(55px);
+            animation: orbFloat2 16s ease-in-out infinite;
+        }
+
+        @keyframes orbFloat1 {
+            0%, 100% { transform: translate(0, 0); }
+            33% { transform: translate(20px, 15px); }
+            66% { transform: translate(-15px, -8px); }
+        }
+
+        @keyframes orbFloat2 {
+            0%, 100% { transform: translate(0, 0); }
+            40% { transform: translate(-18px, 12px); }
+            70% { transform: translate(12px, -6px); }
+        }
+
+        /* Content */
+        .construction-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 2rem;
+            max-width: 640px;
+        }
+
+        /* Animated Icon */
+        .construction-icon-wrap {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2.5rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #a7e169 0%, #8cca50 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow:
+                0 0 40px rgba(167, 225, 105, 0.25),
+                0 0 80px rgba(167, 225, 105, 0.10);
+            animation: iconPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 40px rgba(167, 225, 105, 0.25), 0 0 80px rgba(167, 225, 105, 0.10); }
+            50% { transform: scale(1.05); box-shadow: 0 0 50px rgba(167, 225, 105, 0.35), 0 0 100px rgba(167, 225, 105, 0.15); }
+        }
+
+        .construction-icon-wrap i {
+            font-size: 3rem;
+            color: #000;
+        }
+
+        /* Badge */
+        .construction-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(167, 225, 105, 0.12);
+            color: #6aaf2e;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            padding: 5px 14px;
+            border-radius: 50px;
+            margin-bottom: 1.5rem;
+        }
+
+        .construction-badge-dot {
+            width: 6px;
+            height: 6px;
+            background: #a7e169;
+            border-radius: 50%;
+            animation: badgePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+        }
+
+        /* Title */
+        .construction-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.75rem;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 1rem;
+            line-height: 1.15;
+        }
+
+        .construction-title-highlight {
+            background: linear-gradient(135deg, #6aaf2e, #8cca50);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .construction-desc {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Back Button */
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #fff;
+            background: #323232;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+        }
+
+        .btn-back:hover {
+            background: #a7e169;
+            color: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(167, 225, 105, 0.25);
+        }
+
+        /* Progress Bar Animation */
+        .progress-track {
+            width: 200px;
+            height: 4px;
+            background: #e5e5e5;
+            border-radius: 4px;
+            margin: 2rem auto 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 30%;
+            background: linear-gradient(90deg, #a7e169, #8cca50);
+            border-radius: 4px;
+            animation: progressSlide 2s ease-in-out infinite;
+        }
+
+        @keyframes progressSlide {
+            0% { width: 10%; margin-left: 0; }
+            50% { width: 40%; margin-left: 30%; }
+            100% { width: 10%; margin-left: 90%; }
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            background-color: #ffffff !important;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .mobile-nav-link {
+            color: #323232 !important;
+            font-weight: 400;
+            font-size: 0.9rem;
+        }
+
+        .mobile-menu-btn {
+            color: #000 !important;
+        }
+
+        .mobile-menu-btn:hover {
+            background-color: #f3f4f6;
+        }
+
+        /* Grain overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            pointer-events: none;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 256px 256px;
+            mix-blend-mode: multiply;
+        }
+
+        @media (max-width: 768px) {
+            .construction-title {
+                font-size: 2rem;
+            }
+            .construction-desc {
+                font-size: 1rem;
+            }
+            .construction-icon-wrap {
+                width: 90px;
+                height: 90px;
+            }
+            .construction-icon-wrap i {
+                font-size: 2.25rem;
+            }
+            .construction-orb-1 {
+                width: 300px;
+                height: 300px;
+                top: -100px;
+                left: -60px;
+            }
+            .construction-orb-2 {
+                width: 250px;
+                height: 250px;
+                bottom: -80px;
+                right: -50px;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-white text-[#323232]">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 nav-container">
+            <div class="nav-wrapper">
+                <div class="flex justify-between h-16 items-center">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <a href="index.html#home" class="flex items-center">
+                                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png"
+                                    alt="ART de ONE" class="h-10 w-auto">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="hidden md:flex items-center space-x-6 nav-center">
+                        <a href="/index.html#home" class="nav-link">Home</a>
+                        <a href="/shop.html" class="nav-link">Shop</a>
+                        <a href="/portfolio/student-gallery.html" class="nav-link">Student</a>
+                        <a href="/blog.html" class="nav-link">Blog</a>
+                        <a href="/ado-ai.html" class="nav-link" style="color: #6aaf2e !important; font-weight: 600 !important;">Ai</a>
+                        <div class="nav-dropdown-wrapper">
+                            <a href="/resources/resources-collection.html" class="nav-link" style="display:inline-flex;align-items:center;gap:4px;">Resources <i class="fas fa-chevron-down nav-dropdown-arrow"></i></a>
+                            <div class="nav-dropdown">
+                                <a href="/resources/resources-collection.html">All Resources</a>
+                                <a href="/prompt.html">AI Prompts</a>
+                            </div>
+                        </div>
+                        <a href="/index.html#contact" class="nav-link">Contact</a>
+                    </div>
+
+                    <div class="hidden md:flex items-center gap-3">
+                        <a href="/customer-dashboard.html" class="nav-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="mr-1.5">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>Sign in</a>
+                    </div>
+
+                    <div class="md:hidden flex items-center">
+                        <button type="button"
+                            class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md hover:bg-gray-100 focus:outline-none"
+                            id="mobile-menu-button">
+                            <div class="icon-container text-black">
+                                <i data-feather="menu" class="icon-menu"></i>
+                                <i data-feather="x" class="icon-close"></i>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mobile-menu md:hidden hidden" id="mobile-menu">
+            <div class="py-2 px-4 space-y-1">
+                <a href="/index.html#home" class="block py-2 mobile-nav-link">Home</a>
+                <a href="/shop.html" class="block py-2 mobile-nav-link">Shop</a>
+                <a href="/portfolio/student-gallery.html" class="block py-2 mobile-nav-link">Student</a>
+                <a href="/blog.html" class="block py-2 mobile-nav-link">Blog</a>
+                <a href="/ado-ai.html" class="block py-2 mobile-nav-link" style="color: #6aaf2e; font-weight: 600;">Ai</a>
+                <div>
+                    <button onclick="toggleMobileResourcesDropdown()" class="block py-2 mobile-nav-link w-full text-left" style="display:flex;align-items:center;gap:6px;">
+                        <span>Resources</span>
+                        <i class="fas fa-chevron-down mobile-dropdown-arrow" id="mobile-res-arrow"></i>
+                    </button>
+                    <div class="mobile-sub-menu hidden" id="mobile-resources-sub">
+                        <a href="/resources/resources-collection.html" class="block py-2 pl-6 text-sm text-gray-500 hover:text-black transition">All Resources</a>
+                        <a href="/prompt.html" class="block py-2 pl-6 text-sm text-gray-500 hover:text-black transition">AI Prompts</a>
+                    </div>
+                </div>
+                <a href="/index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Construction Page Content -->
+    <main class="construction-page">
+        <!-- Background Video -->
+        <video autoplay muted loop playsinline preload="metadata" class="construction-bg-video">
+            <source src="https://res.cloudinary.com/dy7vubtji/video/upload/q_auto/f_auto/v1774454154/DNA_epdxf4.mp4" type="video/mp4">
+        </video>
+        <div class="construction-bg-overlay"></div>
+
+        <!-- Glow Orbs -->
+        <div class="construction-orb construction-orb-1"></div>
+        <div class="construction-orb construction-orb-2"></div>
+
+        <!-- Content -->
+        <div class="construction-content">
+            <div class="construction-icon-wrap">
+                <i class="fas fa-hard-hat"></i>
+            </div>
+
+            <div class="construction-badge">
+                <span class="construction-badge-dot"></span>
+                UNDER CONSTRUCTION
+            </div>
+
+            <h1 class="construction-title">
+                We're Building<br>
+                <span class="construction-title-highlight">ADO AI</span>
+            </h1>
+
+            <p class="construction-desc">
+                Our AI-powered creative assistant is currently under construction.
+                We're working hard to bring you an intelligent tool for logo concepts,
+                design feedback, and brand strategy. Stay tuned!
+            </p>
+
+            <a href="index.html" class="btn-back">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+                <span>Back to Home</span>
+            </a>
+
+            <div class="progress-track">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="css-and-js/mobile-smooth-nav.js"></script>
+    <script>
+        feather.replace();
+
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function () {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Mobile Resources Dropdown
+        function toggleMobileResourcesDropdown() {
+            const sub = document.getElementById('mobile-resources-sub');
+            const arrow = document.getElementById('mobile-res-arrow');
+            sub.classList.toggle('hidden');
+            arrow.classList.toggle('rotate-180');
+        }
+    </script>
+</body>
+
+</html>

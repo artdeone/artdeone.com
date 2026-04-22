@@ -432,7 +432,6 @@
             color: #000;
             border-color: #a7e169;
             box-shadow: 0 4px 18px rgba(167, 225, 105, 0.35);
-            transform: scale(1.03);
         }
 
         .service-tab:hover:not(.active) {
@@ -586,12 +585,12 @@
         .service-panels-wrapper {
             position: relative;
             overflow: hidden;
-            transition: height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: height 0.45s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         /* Exit animations — panel goes absolute so new panel can measure naturally */
         .panel-exit-left {
-            animation: panelSlideOutLeft 0.3s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+            animation: panelSlideOutLeft 0.25s cubic-bezier(0.4, 0, 0.6, 1) forwards;
             pointer-events: none;
             position: absolute !important;
             top: 0;
@@ -601,7 +600,7 @@
         }
 
         .panel-exit-right {
-            animation: panelSlideOutRight 0.3s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+            animation: panelSlideOutRight 0.25s cubic-bezier(0.4, 0, 0.6, 1) forwards;
             pointer-events: none;
             position: absolute !important;
             top: 0;
@@ -612,13 +611,13 @@
 
         /* Enter animations */
         .panel-enter-from-right {
-            animation: panelSlideInFromRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: panelSlideInFromRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             position: relative;
             z-index: 2;
         }
 
         .panel-enter-from-left {
-            animation: panelSlideInFromLeft 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: panelSlideInFromLeft 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             position: relative;
             z-index: 2;
         }
@@ -631,7 +630,7 @@
 
             100% {
                 opacity: 0;
-                transform: translateX(-50px) translateZ(0);
+                transform: translateX(-28px) translateZ(0);
             }
         }
 
@@ -643,14 +642,14 @@
 
             100% {
                 opacity: 0;
-                transform: translateX(50px) translateZ(0);
+                transform: translateX(28px) translateZ(0);
             }
         }
 
         @keyframes panelSlideInFromRight {
             0% {
                 opacity: 0;
-                transform: translateX(50px) translateZ(0);
+                transform: translateX(28px) translateZ(0);
             }
 
             100% {
@@ -662,7 +661,7 @@
         @keyframes panelSlideInFromLeft {
             0% {
                 opacity: 0;
-                transform: translateX(-50px) translateZ(0);
+                transform: translateX(-28px) translateZ(0);
             }
 
             100% {
@@ -1491,7 +1490,7 @@
                         <a href="/shop.html" class="nav-link">Shop</a>
                         <a href="/portfolio/student-gallery.html" class="nav-link">Student</a>
                         <a href="/blog.html" class="nav-link">Blog</a>
-                        <a href="https://ai.artdeone.com/" class="nav-link">Ai</a>
+                        <a href="/ado-ai.html" class="nav-link">Ai</a>
                         <div class="nav-dropdown-wrapper">
                             <a href="/resources/resources-collection.html" class="nav-link" style="display:inline-flex;align-items:center;gap:4px;">Resources <i class="fas fa-chevron-down nav-dropdown-arrow"></i></a>
                             <div class="nav-dropdown">
@@ -1540,7 +1539,7 @@
                 <a href="/shop.html" class="block py-2 mobile-nav-link">Shop</a>
                 <a href="/portfolio/student-gallery.html" class="block py-2 mobile-nav-link">Student</a>
                 <a href="/blog.html" class="block py-2 mobile-nav-link">Blog</a>
-                <a href="https://ai.artdeone.com/" class="block py-2 mobile-nav-link">Ai</a>
+                <a href="/ado-ai.html" class="block py-2 mobile-nav-link">Ai</a>
                 <div>
                     <button onclick="toggleMobileResourcesDropdown()" class="block py-2 mobile-nav-link w-full text-left" style="display:flex;align-items:center;gap:6px;">
                         <span>Resources</span>
@@ -1694,7 +1693,7 @@
                 <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl font-light" data-aos="fade-up" data-aos-delay="300">
                     Your creative AI assistant for logo concepts, design feedback &amp; brand strategy.
                 </p>
-                <a href="https://ai.artdeone.com/" target="_blank" rel="noopener noreferrer" class="ado-ai-cta" data-aos="fade-up" data-aos-delay="400">
+                <a href="/ado-ai.html" class="ado-ai-cta" data-aos="fade-up" data-aos-delay="400">
                     <span>It's Free</span>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                 </a>
@@ -2226,16 +2225,16 @@
                     data-aos="fade-up">
                     <button
                         class="service-tab px-3 md:px-6 py-3 rounded-full text-xs md:text-sm font-semibold active whitespace-nowrap flex-shrink-0"
-                        onclick="switchService('logo')">Logo Design</button>
+                        onclick="switchService('logo', this)">Logo Design</button>
                     <button
                         class="service-tab px-3 md:px-6 py-3 rounded-full text-xs md:text-sm font-semibold whitespace-nowrap flex-shrink-0"
-                        onclick="switchService('social')">Social Media</button>
+                        onclick="switchService('social', this)">Social Media</button>
                     <button
                         class="service-tab px-3 md:px-6 py-3 rounded-full text-xs md:text-sm font-semibold whitespace-nowrap flex-shrink-0"
-                        onclick="switchService('website')">Website Design</button>
+                        onclick="switchService('website', this)">Website Design</button>
                     <button
                         class="service-tab px-3 md:px-6 py-3 rounded-full text-xs md:text-sm font-semibold whitespace-nowrap flex-shrink-0"
-                        onclick="switchService('printing')">Printing</button>
+                        onclick="switchService('printing', this)">Printing</button>
                 </div>
 
                 <!-- SERVICE PANELS WRAPPER -->
@@ -2334,170 +2333,144 @@
 
 
                     <div id="social-panel" class="service-panel hidden">
-                        <div class="mb-6 panel-child-stagger" data-aos="fade-up">
-                            <div class="flex items-center mb-4">
-                                <div class="icon-circle mr-4"><i class="fas fa-hashtag"></i></div>
-                                <h3 class="text-2xl font-bold text-black">Social Media Design</h3>
+
+                        <!-- Section Header -->
+                        <div class="mb-10 panel-child-stagger">
+                            <div class="flex items-center mb-3">
+                                <div class="icon-circle mr-4 flex-shrink-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                                </div>
+                                <h3 class="text-2xl font-bold text-black">Social Media Design + Content</h3>
                             </div>
-                            <p class="text-[#323232]">Social Media အတွက် visual design များ</p>
+                            <p class="text-sm text-[#555] leading-relaxed">Professional designs paired with engaging content — keep your brand active and consistent online.</p>
                         </div>
 
-                        <div class="grid md:grid-cols-3 gap-6 mt-8">
-                            <div class="minimalist-card panel-child-stagger data-aosfade-up data-aos-delay100">
-                                <div class="flex items-center justify-between mb-3">
-                                    <h4 class="font-semibold text-black text-lg">Starter Pack</h4>
+                        <!-- Pricing Cards -->
+                        <div class="grid md:grid-cols-2 gap-5 items-stretch">
 
-                                </div>
-                                <div class="flex items-baseline gap-2 mb-2">
-                                    <span class="text-3xl font-bold text-black">240,000</span>
-                                    <span class="text-sm text-gray-500">MMK/month</span>
-                                </div>
-
-                                <ul class="text-sm text-[#555] space-y-3 mb-6">
-                                    <li class="flex items-start">
-                                        <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
-                                        <span>တစ်လလျှင် social media design ၈ ခု</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
-                                        <span>Revision ၂ ကြိမ် အခမဲ့ပြင်ဆင်ပေးခြင်း</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
-                                        <span>Final graphics (PNG/JPG)</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
-                                        <span>Content ကိုယ်တိုင်ရေးပေးရမည်</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
-                                        <span>နံနက် ၈:၃၀ - ည ၆း၃၀</span>
-                                    </li>
-                                </ul>
-                                <a href="#contact" class="btn-primary w-full block text-center">Starter ရွေးမည်</a>
-                            </div>
-
-                            <div class="minimalist-card panel-child-stagger data-aosfade-up data-aos-delay100"
-                                style="border: 2px solid #ed2939;">
-
-                                <div class="flex items-center justify-between mb-3">
-                                    <h4 class="font-semibold text-black text-lg">Growth Pack</h4>
-                                    <div class="flex items-center bg-gray-100 px-3 py-1 rounded-full">
-                                        <div class="flex mr-1" style="color: #ed2939;">
-                                            <i class="fas fa-star text-xs"></i>
-                                            <i class="fas fa-star text-xs"></i>
-                                            <i class="fas fa-star text-xs"></i>
-                                            <i class="fas fa-star text-xs"></i>
-                                            <i class="fas fa-star text-xs"></i>
-                                        </div>
-                                        <span class="text-xs font-semibold text-gray-700">Top Rated</span>
+                            <!-- Standard -->
+                            <div class="panel-child-stagger flex flex-col bg-white rounded-2xl border border-gray-200 p-8">
+                                <div class="flex items-start justify-between mb-7">
+                                    <div>
+                                        <span class="text-[10px] font-semibold uppercase tracking-[0.18em] text-gray-400">Package 1 · Standard</span>
+                                        <p class="text-sm text-[#555] mt-1.5">8 Designs + 8 Content pieces / month</p>
                                     </div>
                                 </div>
-                                <div class="flex items-baseline gap-2 mb-2">
-                                    <span class="text-3xl font-bold text-black">432,000</span>
-                                    <span class="text-sm text-gray-500">MMK/month</span>
+
+                                <!-- Price -->
+                                <div class="mb-7">
+                                    <span class="text-4xl font-bold text-black tracking-tight">336,000</span>
+                                    <span class="text-sm text-gray-400 ml-1.5">Kyats / month</span>
                                 </div>
-                                <div class="flex items-baseline gap-2 mb-6">
-                                    <span class="text-sm text-gray-400 line-through">480,000 MMK</span>
-                                    <span class="text-sm text-green-600 font-semibold">10% OFF</span>
+
+                                <!-- Rate Breakdown Table -->
+                                <div class="rounded-xl border border-gray-100 overflow-hidden mb-7">
+                                    <div class="flex justify-between px-4 py-2.5 bg-gray-50 border-b border-gray-100">
+                                        <span class="text-[10px] font-semibold uppercase tracking-widest text-gray-400">Service</span>
+                                        <span class="text-[10px] font-semibold uppercase tracking-widest text-gray-400">Rate</span>
+                                    </div>
+                                    <div class="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+                                        <div class="flex items-center gap-2.5">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a7e169" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                                            <span class="text-sm text-[#323232]">Design × 8</span>
+                                        </div>
+                                        <span class="text-sm text-[#555]">25,000 Ks/post</span>
+                                    </div>
+                                    <div class="flex items-center justify-between px-4 py-3">
+                                        <div class="flex items-center gap-2.5">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a7e169" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                                            <span class="text-sm text-[#323232]">Content × 8</span>
+                                        </div>
+                                        <span class="text-sm text-[#555]">17,000 Ks/piece</span>
+                                    </div>
                                 </div>
-                                <ul class="text-sm text-[#555] space-y-3 mb-6">
-                                    <li class="flex items-start">
-                                        <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
-                                        <span>တစ်လလျှင် social media design ၁၆ ခု</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
-                                        <span>Revision ၂ ကြိမ် အခမဲ့ပြင်ဆင်ပေးခြင်း</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
-                                        <span>Final graphics (PNG/JPG)</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
-                                        <span>Content ကိုယ်တိုင်ရေးပေးရမည်</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
-                                        <span>နံနက် ၈:၃၀ - ည ၆း၃၀</span>
-                                    </li>
-                                </ul>
-                                <a href="#contact" class="btn-primary w-full block text-center">Growth ရွေးမည်</a>
+
+                                <!-- Bonus -->
+                                <div class="flex items-center gap-2.5 py-3.5 border-t border-gray-100 mb-7 mt-auto">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a7e169" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                    <span class="text-sm text-[#555]">Free Content Calendar</span>
+                                </div>
+
+                                <a href="#contact" class="btn-primary w-full block text-center">Get Started</a>
                             </div>
 
-                            <div class="minimalist-card panel-child-stagger data-aosfade-up data-aos-delay100">
-                                <h4 class="font-semibold text-black text-lg mb-3">Pro Pack</h4>
-                                <div class="flex items-baseline gap-2 mb-2">
-                                    <span class="text-3xl font-bold text-black">648,000</span>
-                                    <span class="text-sm text-gray-500">MMK/month</span>
+                            <!-- Premium -->
+                            <div class="panel-child-stagger flex flex-col bg-white rounded-2xl border border-gray-200 p-8 relative" style="border-top: 3px solid #a7e169;">
+                                <!-- Recommended Tag -->
+                                <div class="absolute -top-3.5 left-8">
+                                    <span class="inline-flex items-center gap-1.5 bg-[#a7e169] text-black text-xs font-semibold px-4 py-1 rounded-full">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                        Recommended
+                                    </span>
                                 </div>
-                                <div class="flex items-baseline gap-2 mb-6">
-                                    <span class="text-sm text-gray-400 line-through">720,000 MMK</span>
-                                    <span class="text-sm text-green-600 font-semibold">10% OFF</span>
+
+                                <div class="flex items-start justify-between mb-7 mt-1">
+                                    <div>
+                                        <span class="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#6aaf2e]">Package 2 · Premium</span>
+                                        <p class="text-sm text-[#555] mt-1.5">12 Designs + 12 Content pieces / month</p>
+                                    </div>
                                 </div>
-                                <ul class="text-sm text-[#555] space-y-3 mb-6">
-                                    <li class="flex items-start">
-                                        <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
-                                        <span>တစ်လလျှင် social media design ၂၀ ခု</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
-                                        <span>Revision ၂ ကြိမ် အခမဲ့ပြင်ဆင်ပေးခြင်း</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
-                                        <span>Final graphics (PNG/JPG)</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
-                                        <span>Content ကိုယ်တိုင်ရေးပေးရမည်</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
-                                        <span>နံနက် ၈:၃၀ - ည ၉:၃၀</span>
-                                    </li>
-                                </ul>
-                                <a href="#contact" class="btn-primary w-full block text-center">Pro ရွေးမည်</a>
+
+                                <!-- Price -->
+                                <div class="mb-7">
+                                    <span class="text-4xl font-bold text-black tracking-tight">504,000</span>
+                                    <span class="text-sm text-gray-400 ml-1.5">Kyats / month</span>
+                                </div>
+
+                                <!-- Included Table -->
+                                <div class="rounded-xl border border-gray-100 overflow-hidden mb-7">
+                                    <div class="flex justify-between px-4 py-2.5 bg-gray-50 border-b border-gray-100">
+                                        <span class="text-[10px] font-semibold uppercase tracking-widest text-gray-400">Included</span>
+                                        <span class="text-[10px] font-semibold uppercase tracking-widest text-gray-400">Qty</span>
+                                    </div>
+                                    <div class="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+                                        <div class="flex items-center gap-2.5">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6aaf2e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                                            <span class="text-sm text-[#323232]">Social Media Designs</span>
+                                        </div>
+                                        <span class="text-sm font-semibold text-[#323232]">12</span>
+                                    </div>
+                                    <div class="flex items-center justify-between px-4 py-3">
+                                        <div class="flex items-center gap-2.5">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6aaf2e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                                            <span class="text-sm text-[#323232]">Content Pieces</span>
+                                        </div>
+                                        <span class="text-sm font-semibold text-[#323232]">12</span>
+                                    </div>
+                                </div>
+
+                                <!-- Bonuses -->
+                                <div class="space-y-2.5 py-3.5 border-t border-gray-100 mb-7 mt-auto">
+                                    <div class="flex items-center gap-2.5">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a7e169" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                        <span class="text-sm text-[#555]">Free Boosting Service Charge</span>
+                                    </div>
+                                    <div class="flex items-center gap-2.5">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a7e169" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                        <span class="text-sm text-[#555]">Free Content Calendar</span>
+                                    </div>
+                                </div>
+
+                                <a href="#contact" class="btn-secondary w-full block text-center">Get Started</a>
                             </div>
                         </div>
 
-                        <div class="mt-8 p-6 bg-white rounded-xl border border-gray-200 shadow-sm panel-child-stagger"
-                            data-aos="fade-up" data-aos-delay="100">
-                            <h4 class="font-semibold text-black mb-4 flex items-center text-lg">
-                                <i class="fas fa-info-circle text-[#a7e169] mr-3"></i> Social Media Design အတွက်
-                                သိထားသင့်တဲ့အချက်အလက်များ
-                            </h4>
-                            <ul class="space-y-3 text-[#555] text-sm">
-                                <li class="flex items-start">
-                                    <span class="text-[#a7e169] mr-3 mt-1">→</span>
-                                    <span>လစဉ် content calendar ဖြင့် design direction ကို ရှင်းလင်းဆွေးနွေးခြင်း</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="text-[#a7e169] mr-3 mt-1">→</span>
-                                    <span>Post designs များကို batch လိုက် ပေးအပ်ပြီး review လုပ်ခြင်း</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="text-[#a7e169] mr-3 mt-1">→</span>
-                                    <span>Package ထက်ကျော်လွန်သောပို့စ် များကို
-                                        တစ်ပုံစျေးနူန်းဖြင့်ပြုလုပ်ပေးခြင်း</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="text-[#a7e169] mr-3 mt-1">→</span>
-                                    <span>လစဉ် package - အသုံးမပြုသော posts များ နောက်လသို့ ရွှေ့ယူလို့မရပါ</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="text-[#a7e169] mr-3 mt-1">→</span>
-                                    <span>၃ လ commitment ပြုလုပ်ပါက စုစုပေါင်း package ဈေးနှုန်းတွင် 10%
-                                        လျှော့စျေးရရှိမည်</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="text-[#a7e169] mr-3 mt-1">→</span>
-                                    <span>Content copywriting ကို လူကြီးမင်းတို့ဆီမှ ပေးအပ်ရမည် (design-only
-                                        service)</span>
-                                </li>
-                            </ul>
+                        <!-- Add-On Service -->
+                        <div class="mt-6 panel-child-stagger">
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-5 p-6 bg-white rounded-2xl border border-gray-200">
+                                <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-[#323232] flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a7e169" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-gray-400 mb-0.5">Add-On Service</p>
+                                    <h4 class="font-semibold text-black text-base">Video Editing</h4>
+                                    <p class="text-sm text-gray-400 mt-0.5">Professional video editing for your social media content</p>
+                                </div>
+                                <div class="flex items-baseline gap-1.5 flex-shrink-0">
+                                    <span class="text-2xl font-bold text-black">30,000</span>
+                                    <span class="text-xs text-gray-400">Kyats / video</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -2821,10 +2794,10 @@
                                             class="fas fa-star"></i><i class="fas fa-star"></i><i
                                             class="fas fa-star"></i>
                                     </div>
-                                    <p class="text-[#323232] mb-6 italic flex-1">"Batch 1 ဆိုပေမဲ့ စိတ်ရှည်ရှည်နဲ့
+                                    <p class="text-[#323232] mb-6 italic flex-1">Batch 1 ဆိုပေမဲ့ စိတ်ရှည်ရှည်နဲ့
                                         သင်ပြတဲ့အတွက် Illustrator အခြေခံတဲ့မသိတဲ့သူတောင် ၄ ပတ်လောက်နဲ့ တော်တော်
                                         ဆွဲနိုင်နေတယ် tools တခုချင်းစီ စိတ်ရှည်ရှည်နဲ့ အလိုလိုက်တဲ့အတွက် basic
-                                        သင်ချင်တဲ့သူတွေအတွက် တကယ်ထိရောက်တဲ့ သင်တန်းပါ"</p>
+                                        သင်ချင်တဲ့သူတွေအတွက် တကယ်ထိရောက်တဲ့ သင်တန်းပါ</p>
                                     <div class="flex items-center border-t border-gray-200 pt-4">
                                         <div
                                             class="w-10 h-10 rounded-full bg-gray-200 mr-4 overflow-hidden flex-shrink-0">
@@ -2847,10 +2820,10 @@
                                             class="fas fa-star"></i><i class="fas fa-star"></i><i
                                             class="fas fa-star"></i>
                                     </div>
-                                    <p class="text-[#323232] mb-6 italic flex-1">"illustratorကိုအခုမှစလေ့လာမယ်ဆိုတဲ့
+                                    <p class="text-[#323232] mb-6 italic flex-1">illustratorကိုအခုမှစလေ့လာမယ်ဆိုတဲ့
                                         ညီကိုမောင်နှမတွေလည်း batch2မှာ လာတက်စေချင်တယ် စေသနာပါပါနဲ့ သေချာသင်ပေးတဲ့ဆရာမို့
                                         recommendပေးတာပါ အခြေခံကစပြီးသေချာသင်ပေးတာမလို့ တကယ်တက်ကြည့်စေချင်တယ်
-                                        မသိတာရှိရင်လည်းအချိန်မရွေးမေးလို့ရတယ် ဆရာကတော်တော်သဘောကောင်းတယ်"</p>
+                                        မသိတာရှိရင်လည်းအချိန်မရွေးမေးလို့ရတယ် ဆရာကတော်တော်သဘောကောင်းတယ်</p>
                                     <div class="flex items-center border-t border-gray-200 pt-4">
                                         <div
                                             class="w-10 h-10 rounded-full bg-gray-200 mr-4 overflow-hidden flex-shrink-0">
@@ -2873,10 +2846,10 @@
                                             class="fas fa-star"></i><i class="fas fa-star"></i><i
                                             class="fas fa-star"></i>
                                     </div>
-                                    <p class="text-[#323232] mb-6 italic flex-1">"illustratorကိုအခုမှစလေ့လာမယ်ဆိုတဲ့
+                                    <p class="text-[#323232] mb-6 italic flex-1">illustratorကိုအခုမှစလေ့လာမယ်ဆိုတဲ့
                                         ညီကိုမောင်နှမတွေလည်း 24ARTမှာ လာတက်စေချင်တယ် စေသနာပါပါနဲ့ သေချာသင်ပေးတဲ့ဆရာမို့
                                         recommendပေးတာပါ အခြေခံကစပြီးသေချာသင်ပေးတာမလို့ တကယ်တက်ကြည့်စေချင်တယ်
-                                        မသိတာရှိရင်လည်းအချိန်မရွေးမေးလို့ရတယ် ဆရာကတော်တော်သဘောကောင်းပါတယ်ရှင့်။"</p>
+                                        မသိတာရှိရင်လည်းအချိန်မရွေးမေးလို့ရတယ် ဆရာကတော်တော်သဘောကောင်းပါတယ်ရှင့်။</p>
                                     <div class="flex items-center border-t border-gray-200 pt-4">
                                         <div
                                             class="w-10 h-10 rounded-full bg-gray-200 mr-4 overflow-hidden flex-shrink-0">
@@ -2899,10 +2872,10 @@
                                             class="fas fa-star"></i><i class="fas fa-star"></i><i
                                             class="fas fa-star"></i>
                                     </div>
-                                    <p class="text-[#323232] mb-6 italic flex-1">"Illustrator
+                                    <p class="text-[#323232] mb-6 italic flex-1">Illustrator
                                         ကိုအခုမှစလေ့လာမယ့်သူတွေအတွက်တကယ်အဆင်ပြေတဲ့ သင်တန်းပါ။ By one ဆရာနဲ့သင်တာပါ။
                                         ဆရာကစိတ်ရှည်ပြီးသေသေချာချာလေးရှင်းပြပေးတယ်။ စေတနာပါပါနဲ့သင်ပေးတဲ့ဆရာမို့ လုံး၀
-                                        Highly recommend ပေးပါတယ်။ 👏👏"</p>
+                                        Highly recommend ပေးပါတယ်။ 👏👏</p>
                                     <div class="flex items-center border-t border-gray-200 pt-4">
                                         <div
                                             class="w-10 h-10 rounded-full bg-gray-200 mr-4 overflow-hidden flex-shrink-0">
@@ -2925,9 +2898,9 @@
                                             class="fas fa-star"></i><i class="fas fa-star"></i><i
                                             class="fas fa-star"></i>
                                     </div>
-                                    <p class="text-[#323232] mb-6 italic flex-1">"ဆရာနဲ့စာသင်ရတာစိတ်ချမ်းသာတယ်။ Basic
-                                        ကနေ Intermediate နဲ့ Advanced ကိုဆွဲခေါ်သွားတာလေးစားပါတယ်ဆရာ။ အမ်မာတွေ့
-                                        တော်တော်လုပ်လိုက်ရတယ် 😁 ဒီထက်မကအောင်မြင်ပါစေဆရာ 🥳🤩"</p>
+                                    <p class="text-[#323232] mb-6 italic flex-1">ဆရာနဲ့စာသင်ရတာစိတ်ချမ်းသာတယ်။ Basic
+                                        ကနေ Intermediate နဲ့ Advanced ကိုဆွဲခေါ်သွားတာလေးစားပါတယ်ဆရာ။ အိမ်စာတွေတော့
+                                        တော်တော်လုပ်လိုက်ရတယ် 😁 ဒီထက်မကအောင်မြင်ပါစေဆရာ 🥳🤩</p>
                                     <div class="flex items-center border-t border-gray-200 pt-4">
                                         <div
                                             class="w-10 h-10 rounded-full bg-gray-200 mr-4 overflow-hidden flex-shrink-0">
@@ -2950,9 +2923,9 @@
                                             class="fas fa-star"></i><i class="fas fa-star"></i><i
                                             class="fas fa-star"></i>
                                     </div>
-                                    <p class="text-[#323232] mb-6 italic flex-1">"24 Artမှာ Adobe illustrator ကိုbasic
+                                    <p class="text-[#323232] mb-6 italic flex-1">24 Artမှာ Adobe illustrator ကိုbasic
                                         to advanced သွားလိုရတဲ့အတွက် အရမ်းအဆင်ပြေပါတယ်။ ဆရာရဲ့ အတွေ့အကြုံတွေနဲ့
-                                        စနစ်တကျသင်ပေးတဲ့အပေါ် မာလည်း highly recommended ပေးပါတယ်ရှင်ꩫ"</p>
+                                        စနစ်တကျသင်ပေးတဲ့အပေါ် မာလည်း highly recommended ပေးပါတယ်ရှင့်</p>
                                     <div class="flex items-center border-t border-gray-200 pt-4">
                                         <div
                                             class="w-10 h-10 rounded-full bg-gray-200 mr-4 overflow-hidden flex-shrink-0">
@@ -2975,9 +2948,9 @@
                                             class="fas fa-star"></i><i class="fas fa-star"></i><i
                                             class="fas fa-star"></i>
                                     </div>
-                                    <p class="text-[#323232] mb-6 italic flex-1">"1 by 1 သင်တာ မေးချင်တာမေးလိုရလို့
+                                    <p class="text-[#323232] mb-6 italic flex-1">1 on 1 သင်တာ မေးချင်တာမေးလိုရလို့
                                         အရမ်းအဆင်ပြေပါတယ် ဆရာလဲ သဘောကောင်းပြီး စိတ်ရှည်ရှည်နဲ့ သင်ပြပေးလို့ကျေးဇူးများ
-                                        ꩫပါ 24art ဒီထက်မကအောင်မြင်ပါစေရင်ꩫ"</p>
+                                        ꩫပါ 24art ဒီထက်မကအောင်မြင်ပါစေရှင့်</p>
                                     <div class="flex items-center border-t border-gray-200 pt-4">
                                         <div
                                             class="w-10 h-10 rounded-full bg-gray-200 mr-4 overflow-hidden flex-shrink-0">
@@ -3000,11 +2973,11 @@
                                             class="fas fa-star"></i><i class="fas fa-star"></i><i
                                             class="fas fa-star"></i>
                                     </div>
-                                    <p class="text-[#323232] mb-6 italic flex-1">"24art မှာ adobe illustrator basic to
+                                    <p class="text-[#323232] mb-6 italic flex-1">24art မှာ adobe illustrator basic to
                                         advanced အတန်း join လိုက်တာတော်တော်လေးဆည်သွားတယ် သင်တဲ့ဆရာလဲတကယ်သဘောကောင်းပါတယ်
                                         ဖြစ်သလိုသင်တာမဟုတ်ပဲ သင်တန်းသူ သင်တန်းသားတွေကို
-                                        တကယ်ဂရုစိုက်ပြီးသင်ပေးတာဖြတ်တဲ့အတွက် recommended ပေးပါတယ်. နောက်လဲ
-                                        အတန်းသစ်တွေရှိရင် 24art မှာလာတကဦးမမယ် 🤩"</p>
+                                        တကယ်ဂရုစိုက်ပြီးသင်ပေးတာဖြတ်တဲ့အတွက် recommended ပေးပါတယ်... နောက်လဲ
+                                        အတန်းသစ်တွေရှိရင် 24art မှာလာတက်ဦးမယ် 🤩</p>
                                     <div class="flex items-center border-t border-gray-200 pt-4">
                                         <div
                                             class="w-10 h-10 rounded-full bg-gray-200 mr-4 overflow-hidden flex-shrink-0">
@@ -3029,10 +3002,10 @@
                                             class="fas fa-star"></i><i class="fas fa-star"></i><i
                                             class="fas fa-star"></i>
                                     </div>
-                                    <p class="text-[#323232] mb-6 italic flex-1">"Batch 1 ဆိုပေမဲ့ စိတ်ရှည်ရှည်နဲ့
+                                    <p class="text-[#323232] mb-6 italic flex-1">Batch 1 ဆိုပေမဲ့ စိတ်ရှည်ရှည်နဲ့
                                         သင်ပြတဲ့အတွက် Illustrator အခြေခံတဲ့မသိတဲ့သူတောင် ၄ ပတ်လောက်နဲ့ တော်တော်
                                         ဆွဲနိုင်နေတယ် tools တခုချင်းစီ စိတ်ရှည်ရှည်နဲ့ အလိုလိုက်တဲ့အတွက် basic
-                                        သင်ချင်တဲ့သူတွေအတွက် တကယ်ထိရောက်တဲ့ သင်တန်းပါ"</p>
+                                        သင်ချင်တဲ့သူတွေအတွက် တကယ်ထိရောက်တဲ့ သင်တန်းပါ</p>
                                     <div class="flex items-center border-t border-gray-200 pt-4">
                                         <div class="w-10 h-10 rounded-full bg-gray-200 mr-4 overflow-hidden flex-shrink-0">
                                             <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768369639/review-1_jnh9b3.jpg"
@@ -3054,10 +3027,10 @@
                                             class="fas fa-star"></i><i class="fas fa-star"></i><i
                                             class="fas fa-star"></i>
                                     </div>
-                                    <p class="text-[#323232] mb-6 italic flex-1">"illustratorကိုအခုမှစလေ့လာမယ်ဆိုတဲ့
+                                    <p class="text-[#323232] mb-6 italic flex-1">illustratorကိုအခုမှစလေ့လာမယ်ဆိုတဲ့
                                         ညီကိုမောင်နှမတွေလည်း batch2မှာ လာတက်စေချင်တယ် စေသနာပါပါနဲ့ သေချာသင်ပေးတဲ့ဆရာမို့
                                         recommendပေးတာပါ အခြေခံကစပြီးသေချာသင်ပေးတာမလို့ တကယ်တက်ကြည့်စေချင်တယ်
-                                        မသိတာရှိရင်လည်းအချိန်မရွေးမေးလို့ရတယ် ဆရာကတော်တော်သဘောကောင်းတယ်"</p>
+                                        မသိတာရှိရင်လည်းအချိန်မရွေးမေးလို့ရတယ် ဆရာကတော်တော်သဘောကောင်းတယ်</p>
                                     <div class="flex items-center border-t border-gray-200 pt-4">
                                         <div class="w-10 h-10 rounded-full bg-gray-200 mr-4 overflow-hidden flex-shrink-0">
                                             <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768369637/review-2_ynnmgo.jpg"
@@ -3079,10 +3052,10 @@
                                             class="fas fa-star"></i><i class="fas fa-star"></i><i
                                             class="fas fa-star"></i>
                                     </div>
-                                    <p class="text-[#323232] mb-6 italic flex-1">"illustratorကိုအခုမှစလေ့လာမယ်ဆိုတဲ့
+                                    <p class="text-[#323232] mb-6 italic flex-1">illustratorကိုအခုမှစလေ့လာမယ်ဆိုတဲ့
                                         ညီကိုမောင်နှမတွေလည်း 24ARTမှာ လာတက်စေချင်တယ် စေသနာပါပါနဲ့ သေချာသင်ပေးတဲ့ဆရာမို့
                                         recommendပေးတာပါ အခြေခံကစပြီးသေချာသင်ပေးတာမလို့ တကယ်တက်ကြည့်စေချင်တယ်
-                                        မသိတာရှိရင်လည်းအချိန်မရွေးမေးလို့ရတယ် ဆရာကတော်တော်သဘောကောင်းပါတယ်ရှင့်။"</p>
+                                        မသိတာရှိရင်လည်းအချိန်မရွေးမေးလို့ရတယ် ဆရာကတော်တော်သဘောကောင်းပါတယ်ရှင့်။</p>
                                     <div class="flex items-center border-t border-gray-200 pt-4">
                                         <div class="w-10 h-10 rounded-full bg-gray-200 mr-4 overflow-hidden flex-shrink-0">
                                             <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768369639/review-3_pz6hvq.jpg"
@@ -3104,10 +3077,10 @@
                                             class="fas fa-star"></i><i class="fas fa-star"></i><i
                                             class="fas fa-star"></i>
                                     </div>
-                                    <p class="text-[#323232] mb-6 italic flex-1">"Illustrator
+                                    <p class="text-[#323232] mb-6 italic flex-1">Illustrator
                                         ကိုအခုမှစလေ့လာမယ့်သူတွေအတွက်တကယ်အဆင်ပြေတဲ့ သင်တန်းပါ။ By one ဆရာနဲ့သင်တာပါ။
                                         ဆရာကစိတ်ရှည်ပြီးသေသေချာချာလေးရှင်းပြပေးတယ်။ စေတနာပါပါနဲ့သင်ပေးတဲ့ဆရာမို့ လုံး၀
-                                        Highly recommend ပေးပါတယ်။ 👏👏"</p>
+                                        Highly recommend ပေးပါတယ်။ 👏👏</p>
                                     <div class="flex items-center border-t border-gray-200 pt-4">
                                         <div class="w-10 h-10 rounded-full bg-gray-200 mr-4 overflow-hidden flex-shrink-0">
                                             <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768369638/review-4_mmpa8x.jpg"
@@ -3130,7 +3103,7 @@
                                             class="fas fa-star"></i>
                                     </div>
                                     <p class="text-[#323232] mb-6 italic flex-1">"ဆရာနဲ့စာသင်ရတာစိတ်ချမ်းသာတယ်။ Basic
-                                        ကနေ Intermediate နဲ့ Advanced ကိုဆွဲခေါ်သွားတာလေးစားပါတယ်ဆရာ။ အမ်မာတွေ့
+                                        ကနေ Intermediate နဲ့ Advanced ကိုဆွဲခေါ်သွားတာလေးစားပါတယ်ဆရာ။ အိမ်စာတွေတော့
                                         တော်တော်လုပ်လိုက်ရတယ် 😁 ဒီထက်မကအောင်မြင်ပါစေဆရာ 🥳🤩"</p>
                                     <div class="flex items-center border-t border-gray-200 pt-4">
                                         <div class="w-10 h-10 rounded-full bg-gray-200 mr-4 overflow-hidden flex-shrink-0">
@@ -3153,9 +3126,9 @@
                                             class="fas fa-star"></i><i class="fas fa-star"></i><i
                                             class="fas fa-star"></i>
                                     </div>
-                                    <p class="text-[#323232] mb-6 italic flex-1">"24 Artမှာ Adobe illustrator ကိုbasic
+                                    <p class="text-[#323232] mb-6 italic flex-1">24 Artမှာ Adobe illustrator ကိုbasic
                                         to advanced သွားလိုရတဲ့အတွက် အရမ်းအဆင်ပြေပါတယ်။ ဆရာရဲ့ အတွေ့အကြုံတွေနဲ့
-                                        စနစ်တကျသင်ပေးတဲ့အပေါ် မာလည်း highly recommended ပေးပါတယ်ရှင်ꩫ"</p>
+                                        စနစ်တကျသင်ပေးတဲ့အပေါ် မှာလည်း highly recommended ပေးပါတယ်ရှင့်"</p>
                                     <div class="flex items-center border-t border-gray-200 pt-4">
                                         <div class="w-10 h-10 rounded-full bg-gray-200 mr-4 overflow-hidden flex-shrink-0">
                                             <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771725157/review-7_lmf30r.jpg"
@@ -3177,9 +3150,9 @@
                                             class="fas fa-star"></i><i class="fas fa-star"></i><i
                                             class="fas fa-star"></i>
                                     </div>
-                                    <p class="text-[#323232] mb-6 italic flex-1">"1 by 1 သင်တာ မေးချင်တာမေးလိုရလို့
+                                    <p class="text-[#323232] mb-6 italic flex-1">1 on 1 သင်တာ မေးချင်တာမေးလိုရလို့
                                         အရမ်းအဆင်ပြေပါတယ် ဆရာလဲ သဘောကောင်းပြီး စိတ်ရှည်ရှည်နဲ့ သင်ပြပေးလို့ကျေးဇူးများ
-                                        ꩫပါ 24art ဒီထက်မကအောင်မြင်ပါစေရင်ꩫ"</p>
+                                        ကြီးတင်ပါတယ်ရှင့် 24art ဒီထက်မကအောင်မြင်ပါစေရှင့်"</p>
                                     <div class="flex items-center border-t border-gray-200 pt-4">
                                         <div class="w-10 h-10 rounded-full bg-gray-200 mr-4 overflow-hidden flex-shrink-0">
                                             <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771725158/review-8_kw7pdk.jpg"
@@ -3201,11 +3174,11 @@
                                             class="fas fa-star"></i><i class="fas fa-star"></i><i
                                             class="fas fa-star"></i>
                                     </div>
-                                    <p class="text-[#323232] mb-6 italic flex-1">"24art မှာ adobe illustrator basic to
-                                        advanced အတန်း join လိုက်တာတော်တော်လေးဆည်သွားတယ် သင်တဲ့ဆရာလဲတကယ်သဘောကောင်းပါတယ်
+                                    <p class="text-[#323232] mb-6 italic flex-1">24art မှာ adobe illustrator basic to
+                                        advanced အတန်း join လိုက်တာတော်တော်လေးနားလည်သွားတယ် သင်တဲ့ဆရာလဲတကယ်သဘောကောင်းပါတယ်
                                         ဖြစ်သလိုသင်တာမဟုတ်ပဲ သင်တန်းသူ သင်တန်းသားတွေကို
-                                        တကယ်ဂရုစိုက်ပြီးသင်ပေးတာဖြတ်တဲ့အတွက် recommended ပေးပါတယ်. နောက်လဲ
-                                        အတန်းသစ်တွေရှိရင် 24art မှာလာတကဦးမမယ် 🤩"</p>
+                                        တကယ်ဂရုစိုက်ပြီးသင်ပေးတာဖြတ်တဲ့အတွက် recommended ပေးပါတယ်... နောက်လဲ
+                                        အတန်းသစ်တွေရှိရင် 24art မှာလာတက်ဦးမယ် 🤩</p>
                                     <div class="flex items-center border-t border-gray-200 pt-4">
                                         <div class="w-10 h-10 rounded-full bg-gray-200 mr-4 overflow-hidden flex-shrink-0">
                                             <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771725158/review-6_jlshwn.jpg"
@@ -3613,6 +3586,13 @@
 
         // Helper: reveal children with stagger
         function revealPanelChildren(panel) {
+            // FIX: AOS uses IntersectionObserver which never fires for elements inside
+            // display:none panels. Manually complete their AOS state so they don't
+            // stay permanently invisible when the panel is first revealed.
+            panel.querySelectorAll('[data-aos]').forEach(function(el) {
+                el.classList.add('aos-init', 'aos-animate');
+            });
+
             const children = panel.querySelectorAll('.panel-child-stagger');
             children.forEach((child, index) => {
                 child.style.animationDelay = (index * ANIMATION_CONFIG.staggerDelay + 80) + 'ms';
@@ -3628,7 +3608,7 @@
         }
 
         // ====== MAIN SWITCH FUNCTION ======
-        function switchService(service) {
+        function switchService(service, btn) {
             if (isServiceSwitching) return;
 
             const newIndex = serviceOrder.indexOf(service);
@@ -3640,9 +3620,9 @@
             const exitClass = goingForward ? 'panel-exit-left' : 'panel-exit-right';
             const enterClass = goingForward ? 'panel-enter-from-right' : 'panel-enter-from-left';
 
-            // Update tabs
-            document.querySelectorAll('.service-tab').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            // Update tabs — use the button element passed via onclick
+            document.querySelectorAll('.service-tab').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
 
             const wrapper = document.querySelector('.service-panels-wrapper');
             const currentPanel = document.querySelector('.service-panel:not(.hidden)');
@@ -3658,25 +3638,26 @@
             wrapper.style.height = currentHeight + 'px';
 
             // ── STEP 2: Start exit animation on current panel ──
-            // The CSS class makes it position:absolute so it overlays
             currentPanel.classList.add(exitClass);
 
-            // ── STEP 3: Prepare & show new panel (hidden by enter animation's opacity:0 start) ──
+            // ── STEP 3: Prepare new panel ──
             resetPanelChildren(newPanel);
             newPanel.style.opacity = '0';
+            newPanel.style.transform = 'translateZ(0)';
             newPanel.classList.remove('hidden');
 
             // Measure the new panel's natural height while it's in the DOM
             const newHeight = newPanel.offsetHeight;
 
-            // ── STEP 4: Start enter animation + height transition (next frame for smoothness) ──
+            // ── STEP 4: Start enter animation + height transition ──
             requestAnimationFrame(() => {
+                // Smoothly animate wrapper to new height
+                wrapper.style.height = newHeight + 'px';
+
                 requestAnimationFrame(() => {
                     newPanel.style.opacity = '';
+                    newPanel.style.transform = '';
                     newPanel.classList.add(enterClass);
-
-                    // Smoothly animate wrapper to new height
-                    wrapper.style.height = newHeight + 'px';
 
                     // Start staggering children concurrently with the panel slide
                     revealPanelChildren(newPanel);
@@ -3688,7 +3669,7 @@
                 currentPanel.classList.add('hidden');
                 cleanPanelClasses(currentPanel);
                 resetPanelChildren(currentPanel);
-            }, ANIMATION_CONFIG.exitDuration + 50);
+            }, ANIMATION_CONFIG.exitDuration + 60);
 
             // ── STEP 6: Finalize new panel after its enter animation finishes ──
             setTimeout(() => {
@@ -3697,7 +3678,7 @@
 
                 currentServiceIndex = newIndex;
                 isServiceSwitching = false;
-            }, ANIMATION_CONFIG.enterDuration + 100);
+            }, ANIMATION_CONFIG.enterDuration + 120);
         }
 
         // Mobile Menu
