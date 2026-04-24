@@ -69,8 +69,8 @@
         .btn-secondary { background-color: #ed2939; color: #fff; font-weight: 600; border: 1px solid #ed2939; border-radius: 2rem; padding: 0.55rem 1.5rem; font-size: 0.85rem; transition: all 0.3s ease; display: inline-flex; align-items: center; justify-content: center; }
         .btn-secondary:hover { background-color: #a7e169; color: #323232; border-color: #a7e169; transform: translateY(-3px); box-shadow: 0 12px 24px rgba(167, 225, 105, 0.25); }
 
-        .minimalist-card { background-color: #ffffff; border: 1px solid #e5e5e5; border-radius: 1rem; padding: 0; transition: all 0.35s ease; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02); overflow: hidden; }
-        .minimalist-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06); }
+        .minimalist-card { background-color: #ffffff; border: 1px solid #e5e5e5; border-radius: 0.75rem; padding: 0; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: none; overflow: hidden; }
+        .minimalist-card:hover { transform: translateY(-2px); border-color: #a7e169; }
 
         html, body { overflow-x: hidden; max-width: 100%; }
 
@@ -92,7 +92,7 @@
 
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; display: none; align-items: center; justify-content: center; padding: 1rem; backdrop-filter: blur(4px); }
         .modal-overlay.active { display: flex; }
-        .modal-box { background: #fff; border-radius: 1rem; max-width: 550px; width: 100%; max-height: 90vh; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.15); display: flex; flex-direction: column; }
+        .modal-box { background: #fff; border-radius: 1rem; max-width: 550px; width: 100%; max-height: 90vh; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.06); border: 1px solid #e5e5e5; display: flex; flex-direction: column; }
         .modal-box-inner { overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; flex: 1; }
 
         .step-number { width: 2.25rem; height: 2.25rem; border-radius: 50%; background: #a7e169; color: #000; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0; }
@@ -398,8 +398,8 @@
             max-width: 380px;
             width: 100%;
             padding: 36px 32px 28px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.12);
-            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+            border: 1px solid #e5e5e5;
             text-align: center;
             transform: translateY(40px) scale(0.92);
             opacity: 0;
@@ -874,13 +874,13 @@
             position: fixed;
             bottom: 24px;
             right: 24px;
-            background: linear-gradient(135deg, #fff 0%, #fafff7 100%);
-            border: 1px solid rgba(167,225,105,0.5);
-            border-radius: 1rem;
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 0.75rem;
             padding: 16px 20px;
             max-width: 360px;
             z-index: 150;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.10), 0 2px 8px rgba(167,225,105,0.15);
+            box-shadow: none;
             opacity: 0;
             transform: translateY(20px);
             animation: notifyFadeIn 0.6s ease 1s forwards;
@@ -1061,18 +1061,13 @@
 
     <main>
         <!-- Hero -->
-        <section class="relative overflow-hidden min-h-[50vh] md:min-h-[65vh] flex flex-col items-center justify-center section-dark px-4 py-20 md:py-28">
-
-            <!-- Header Glow Orbs -->
-            <div class="absolute rounded-full pointer-events-none" style="width:550px;height:550px;bottom:-250px;left:-50px;background:radial-gradient(circle at center,rgba(167,225,105,0.25) 0%,rgba(167,225,105,0.12) 30%,rgba(167,225,105,0.04) 55%,transparent 75%);filter:blur(60px);animation:orbDrift1 12s ease-in-out infinite;z-index:0"></div>
-            <div class="absolute rounded-full pointer-events-none" style="width:600px;height:600px;bottom:-300px;left:50%;transform:translateX(-50%);background:radial-gradient(circle at center,rgba(237,41,57,0.18) 0%,rgba(255,140,50,0.10) 30%,rgba(237,41,57,0.04) 55%,transparent 75%);filter:blur(70px);animation:orbDrift2 15s ease-in-out infinite;z-index:0"></div>
-            <div class="absolute rounded-full pointer-events-none" style="width:450px;height:450px;bottom:-180px;right:-30px;background:radial-gradient(circle at center,rgba(167,225,105,0.15) 0%,rgba(200,235,180,0.08) 35%,rgba(167,225,105,0.02) 60%,transparent 80%);filter:blur(55px);animation:orbDrift3 18s ease-in-out infinite;z-index:0"></div>
+        <section class="relative overflow-hidden min-h-[42vh] md:min-h-[56vh] flex flex-col items-center justify-center section-dark px-4 py-14 md:py-20">
 
             <div class="relative z-10 max-w-7xl mx-auto text-center" data-aos="fade-up">
-                <h1 class="text-5xl sm:text-6xl md:text-7xl font-bold leading-tight mb-6 artdeone-font">
+                <h1 class="text-5xl sm:text-6xl md:text-7xl font-bold leading-tight mb-4 artdeone-font">
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-black to-[#a7e169]">Digital Shop</span>
                 </h1>
-                <div class="flex flex-wrap gap-3 justify-center mt-10">
+                <div class="flex flex-wrap gap-2.5 justify-center mt-7">
                     <a href="#products" class="btn-primary hidden md:inline-flex">Browse Products</a>
                     <a href="#student-artworks" class="btn-secondary hidden md:inline-flex">Student Artworks</a>
                     <a href="customer-dashboard.html" class="btn-secondary md:hidden" id="heroMobileBtn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
@@ -1081,9 +1076,9 @@
         </section>
 
         <!-- Products Section -->
-        <section id="products" class="py-10 section-darker px-4">
+        <section id="products" class="py-8 section-darker px-4">
             <div class="max-w-7xl mx-auto">
-                <div class="search-filter-bar mb-10 relative" style="z-index:100" data-aos="fade-up">
+                <div class="search-filter-bar mb-8 relative" style="z-index:100" data-aos="fade-up">
                     <div class="search-wrap relative">
                         <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
                         <input type="text" class="search-input" placeholder="Search products..." id="searchInput" oninput="filterProducts()">
@@ -1124,9 +1119,9 @@
                     </div>
                 </div>
 
-                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8" id="productGrid"></div>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" id="productGrid"></div>
 
-                <div class="text-center py-16 hidden" id="emptyState">
+                <div class="text-center py-12 hidden" id="emptyState">
                     <i class="fas fa-box-open text-4xl text-gray-300 mb-4"></i>
                     <p class="text-gray-400">ရှာဖွေမှု နှင့် ကိုက်ညီသော ပစ္စည်းမတွေ့ပါ</p>
                 </div>
@@ -1143,7 +1138,7 @@
 
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-14" data-aos="fade-up">
             <!-- Featured large artwork -->
-            <div class="col-span-2 row-span-2 rounded-2xl overflow-hidden group cursor-pointer relative" onclick="window.location.href='portfolio/student-gallery.html'">
+            <div class="col-span-2 row-span-2 rounded-xl overflow-hidden group cursor-pointer relative border border-gray-200" onclick="window.location.href='portfolio/student-gallery.html'">
                 <img src="portfolio/student-gallery/sumyat-2.jpeg" alt="Student Artwork - Understood the Lighting" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5">
                     <div>
@@ -1153,25 +1148,25 @@
                 </div>
             </div>
             <!-- Small artworks -->
-            <div class="rounded-2xl overflow-hidden group cursor-pointer relative" onclick="window.location.href='portfolio/student-gallery.html'">
+            <div class="rounded-xl overflow-hidden group cursor-pointer relative border border-gray-200" onclick="window.location.href='portfolio/student-gallery.html'">
                 <img src="portfolio/student-gallery/whitney-phyu.jpeg" alt="Student Artwork - Vector Illustration" class="w-full h-full object-cover aspect-square transition-transform duration-500 group-hover:scale-105" loading="lazy">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
                     <p class="text-white font-medium text-xs">Vector Illustration</p>
                 </div>
             </div>
-            <div class="rounded-2xl overflow-hidden group cursor-pointer relative" onclick="window.location.href='portfolio/student-gallery.html'">
+            <div class="rounded-xl overflow-hidden group cursor-pointer relative border border-gray-200" onclick="window.location.href='portfolio/student-gallery.html'">
                 <img src="portfolio/student-gallery/ayesandar.jpg" alt="Student Artwork - Custom Typography" class="w-full h-full object-cover aspect-square transition-transform duration-500 group-hover:scale-105" loading="lazy">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
                     <p class="text-white font-medium text-xs">Custom Typography</p>
                 </div>
             </div>
-            <div class="rounded-2xl overflow-hidden group cursor-pointer relative" onclick="window.location.href='portfolio/student-gallery.html'">
+            <div class="rounded-xl overflow-hidden group cursor-pointer relative border border-gray-200" onclick="window.location.href='portfolio/student-gallery.html'">
                 <img src="portfolio/student-gallery/wahwah.jpg" alt="Student Artwork - Vector Artwork" class="w-full h-full object-cover aspect-square transition-transform duration-500 group-hover:scale-105" loading="lazy">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
                     <p class="text-white font-medium text-xs">Vector Artwork</p>
                 </div>
             </div>
-            <div class="rounded-2xl overflow-hidden group cursor-pointer relative" onclick="window.location.href='portfolio/student-gallery.html'">
+            <div class="rounded-xl overflow-hidden group cursor-pointer relative border border-gray-200" onclick="window.location.href='portfolio/student-gallery.html'">
                 <img src="portfolio/student-gallery/tharhteaung.jpg" alt="Student Artwork - Ads Design" class="w-full h-full object-cover aspect-square transition-transform duration-500 group-hover:scale-105" loading="lazy">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
                     <p class="text-white font-medium text-xs">Ads Design</p>

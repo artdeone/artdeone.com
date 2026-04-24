@@ -488,15 +488,10 @@
     <!-- Hero Section — CLEANED: No badge, no dots -->
     <section class="relative pt-40 pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
 
-        <!-- Header Glow Orbs -->
-        <div class="absolute rounded-full pointer-events-none" style="width:550px;height:550px;bottom:-250px;left:-50px;background:radial-gradient(circle at center,rgba(167,225,105,0.25) 0%,rgba(167,225,105,0.12) 30%,rgba(167,225,105,0.04) 55%,transparent 75%);filter:blur(60px);animation:orbDrift1 12s ease-in-out infinite;z-index:0"></div>
-        <div class="absolute rounded-full pointer-events-none" style="width:600px;height:600px;bottom:-300px;left:50%;transform:translateX(-50%);background:radial-gradient(circle at center,rgba(237,41,57,0.18) 0%,rgba(255,140,50,0.10) 30%,rgba(237,41,57,0.04) 55%,transparent 75%);filter:blur(70px);animation:orbDrift2 15s ease-in-out infinite;z-index:0"></div>
-        <div class="absolute rounded-full pointer-events-none" style="width:450px;height:450px;bottom:-180px;right:-30px;background:radial-gradient(circle at center,rgba(167,225,105,0.15) 0%,rgba(200,235,180,0.08) 35%,rgba(167,225,105,0.02) 60%,transparent 80%);filter:blur(55px);animation:orbDrift3 18s ease-in-out infinite;z-index:0"></div>
-
         <!-- Floating Abstract Shapes (kept) -->
-        <div class="absolute top-20 left-10 md:left-20 w-24 h-24 bg-gray-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-        <div class="absolute top-40 right-10 md:right-20 w-32 h-32 bg-[#a7e169] rounded-full mix-blend-multiply filter blur-2xl opacity-20 animate-blob animation-delay-2000"></div>
-        <div class="absolute -bottom-8 left-1/3 w-32 h-32 bg-gray-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+        <div class="absolute top-20 left-10 md:left-20 w-24 h-24 bg-gray-100 rounded-full filter blur-xl opacity-45 animate-blob"></div>
+        <div class="absolute top-40 right-10 md:right-20 w-32 h-32 bg-gray-200 rounded-full filter blur-2xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div class="absolute -bottom-12 left-1/3 w-28 h-28 bg-gray-100 rounded-full filter blur-2xl opacity-18 animate-blob animation-delay-4000"></div>
 
         <div class="relative z-10 max-w-7xl mx-auto text-center">
             <h1 class="text-5xl sm:text-6xl md:text-7xl font-bold leading-tight mb-6 artdeone-font" data-aos="fade-up">
@@ -791,7 +786,7 @@
     </script>
 
     <!-- Prompts Gallery Section -->
-    <section class="py-16 px-4 sm:px-6 lg:px-8">
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50/60">
         <div class="max-w-7xl mx-auto">
             <div id="prompts-gallery" class="masonry-grid"></div>
             <div class="text-center mt-12">
@@ -928,21 +923,30 @@
                 <h2 class="text-3xl font-bold text-black mb-3">Latest Industry Trends</h2>
                 <p class="text-gray-500 max-w-2xl mx-auto">Top companies shaping the future of design, AI, and digital innovation.</p>
             </div>
-            <div class="flex flex-wrap items-center justify-center gap-10 md:gap-16">
-                <a href="https://openai.com" target="_blank" class="opacity-60 hover:opacity-100 transition-opacity duration-300" data-aos="fade-up">
-                    <img src="https://cdn.worldvectorlogo.com/logos/openai-2.svg" alt="OpenAI" class="h-9 w-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-x-5 gap-y-5 max-w-5xl mx-auto">
+                <a href="https://claude.ai" target="_blank" class="flex items-center justify-center h-12 md:h-14 px-4 rounded-2xl border border-gray-200 bg-white/80 opacity-70 hover:opacity-100 hover:border-gray-300 transition-all duration-300" data-aos="fade-up">
+                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772902667/cdnlogo.com_claude_enkkqm.png" alt="Claude" class="max-h-6 md:max-h-7 w-auto object-contain">
                 </a>
-                <a href="https://www.midjourney.com" target="_blank" class="opacity-60 hover:opacity-100 transition-opacity duration-300" data-aos="fade-up" data-aos-delay="100">
-                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772902667/cdnlogo.com_midjourney_aznsa1.png" alt="Midjourney" class="h-14 w-auto">
+                <a href="https://openai.com" target="_blank" class="flex items-center justify-center h-12 md:h-14 px-4 rounded-2xl border border-gray-200 bg-white/80 opacity-70 hover:opacity-100 hover:border-gray-300 transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777023521/OpenAI_Logo.svg_uub6zo.png" alt="OpenAI" class="max-h-6 md:max-h-7 w-auto object-contain">
                 </a>
-                <a href="https://claude.ai" target="_blank" class="opacity-60 hover:opacity-100 transition-opacity duration-300" data-aos="fade-up" data-aos-delay="200">
-                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772902667/cdnlogo.com_claude_enkkqm.png" alt="Claude" class="h-7 w-auto">
+                <a href="https://www.z.ai/" target="_blank" class="flex items-center justify-center h-12 md:h-14 px-4 rounded-2xl border border-gray-200 bg-white/80 opacity-70 hover:opacity-100 hover:border-gray-300 transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777023839/zai_m1jtw3.png" alt="z.ai" class="max-h-6 md:max-h-7 w-auto object-contain">
                 </a>
-                <a href="https://www.perplexity.ai" target="_blank" class="opacity-60 hover:opacity-100 transition-opacity duration-300" data-aos="fade-up" data-aos-delay="300">
-                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772902666/Perplexity_AI_logo.svg_l6woef.png" alt="Perplexity AI" class="h-9 w-auto">
+                <a href="https://www.minimax.io/" target="_blank" class="flex items-center justify-center h-12 md:h-14 px-4 rounded-2xl border border-gray-200 bg-white/80 opacity-70 hover:opacity-100 hover:border-gray-300 transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777023141/minimax-text_ytg5bj.png" alt="MiniMax" class="max-h-6 md:max-h-7 w-auto object-contain">
                 </a>
-                <a href="https://gemini.google.com" target="_blank" class="opacity-60 hover:opacity-100 transition-opacity duration-300" data-aos="fade-up" data-aos-delay="400">
-                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772902756/cdnlogo.com_gemini_utk3l9.png" alt="Google Gemini" class="h-8 w-auto relative -top-0.5">
+                <a href="https://www.midjourney.com" target="_blank" class="flex items-center justify-center h-12 md:h-14 px-4 rounded-2xl border border-gray-200 bg-white/80 opacity-70 hover:opacity-100 hover:border-gray-300 transition-all duration-300" data-aos="fade-up" data-aos-delay="400">
+                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777024478/midjourney_ehwxfc.png" alt="Midjourney" class="max-h-7 md:max-h-8 w-auto object-contain">
+                </a>
+                <a href="https://www.perplexity.ai" target="_blank" class="flex items-center justify-center h-12 md:h-14 px-4 rounded-2xl border border-gray-200 bg-white/80 opacity-70 hover:opacity-100 hover:border-gray-300 transition-all duration-300" data-aos="fade-up" data-aos-delay="500">
+                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772902666/Perplexity_AI_logo.svg_l6woef.png" alt="Perplexity AI" class="max-h-6 md:max-h-7 w-auto object-contain">
+                </a>
+                <a href="https://gemini.google.com" target="_blank" class="flex items-center justify-center h-12 md:h-14 px-4 rounded-2xl border border-gray-200 bg-white/80 opacity-70 hover:opacity-100 hover:border-gray-300 transition-all duration-300" data-aos="fade-up" data-aos-delay="600">
+                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772902756/cdnlogo.com_gemini_utk3l9.png" alt="Google Gemini" class="max-h-6 md:max-h-7 w-auto object-contain">
+                </a>
+                <a href="https://www.kimi.com/" target="_blank" class="flex items-center justify-center h-12 md:h-14 px-4 rounded-2xl border border-gray-200 bg-white/80 opacity-70 hover:opacity-100 hover:border-gray-300 transition-all duration-300" data-aos="fade-up" data-aos-delay="700">
+                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777023071/kimi-text_1_eh0zwf.png" alt="Kimi" class="max-h-6 md:max-h-7 w-auto object-contain">
                 </a>
             </div>
         </div>

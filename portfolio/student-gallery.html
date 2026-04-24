@@ -165,19 +165,15 @@
         .masonry-item {
             opacity: 0;
             transform: translateY(50px) scale(0.95);
-            filter: blur(5px);
             transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
                         transform 1.2s cubic-bezier(0.16, 1, 0.3, 1),
-                        filter 1.2s cubic-bezier(0.16, 1, 0.3, 1),
                         box-shadow 0.4s var(--ease-out);
         }
         .masonry-item.is-visible {
             opacity: 1;
             transform: translateY(0) scale(1);
-            filter: blur(0);
             transition: opacity 0.4s var(--ease-out),
                         transform 0.5s var(--ease-out),
-                        filter 0.4s var(--ease-out),
                         box-shadow 0.5s var(--ease-out);
         }
 
@@ -342,117 +338,55 @@
             flex-wrap: wrap;
         }
 
-        /* ===== BENTO GRID — Featured Picks ===== */
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: auto auto;
-            gap: 1rem;
-        }
-        @media (max-width: 768px) {
-            .bento-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        .bento-card {
-            position: relative;
-            border-radius: 1.25rem;
-            overflow: hidden;
-            cursor: pointer;
-            background: var(--gray-100);
-        }
-        .bento-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.7s var(--ease-out);
-        }
-        .bento-card:hover img {
-            transform: scale(1.06);
-        }
-        .bento-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 40%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.4s var(--ease-out);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 1.5rem;
-        }
-        .bento-card:hover .bento-overlay {
-            opacity: 1;
-        }
-        .bento-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
-            background: rgba(167,225,105,0.2);
-            backdrop-filter: blur(8px);
-            color: var(--green);
-            font-size: 0.6rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            padding: 0.25rem 0.6rem;
-            border-radius: 100px;
-            width: fit-content;
-            margin-bottom: 0.5rem;
-        }
-        /* Large featured card spans 2 columns and 2 rows */
-        .bento-card--large {
-            grid-column: span 2;
-            grid-row: span 2;
-            min-height: 500px;
-        }
-        .bento-card--small {
-            min-height: 240px;
-        }
-        @media (max-width: 768px) {
-            .bento-card--large {
-                grid-column: span 1;
-                grid-row: span 1;
-                min-height: 300px;
-            }
-            .bento-card--small {
-                min-height: 240px;
-            }
-        }
-
-        /* ===== MASONRY GALLERY ===== */
+        /* ===== FULL GALLERY — JUSTIFIED PHOTO WALL ===== */
         .masonry-grid {
-            columns: 3 320px;
-            column-gap: 1.25rem;
+            --gallery-gap: 0.45rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: stretch;
+            margin: calc(var(--gallery-gap) * -1);
+            padding: 0;
         }
-        @media (max-width: 1024px) {
-            .masonry-grid { columns: 2 280px; }
-        }
-        @media (max-width: 640px) {
-            .masonry-grid { columns: 1 1fr; }
+        .masonry-grid::after {
+            content: '';
+            display: block;
+            flex-grow: 10;
+            min-width: 12rem;
+            height: 0;
+            margin: var(--gallery-gap);
         }
         .masonry-item {
-            break-inside: avoid;
-            margin-bottom: 1rem;
-            border-radius: 1rem;
+            flex-grow: 1;
+            height: clamp(220px, 34vh, 380px);
+            min-width: 15rem;
+            max-width: 100%;
+            margin: var(--gallery-gap);
+            border-radius: 1.15rem;
             overflow: hidden;
             position: relative;
             cursor: pointer;
+            background: #eef2e7;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            content-visibility: auto;
+            contain-intrinsic-size: 320px 260px;
             transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
         }
         .masonry-item:hover {
-            transform: translateY(-6px) scale(1.02);
+            transform: translateY(-6px) scale(1.01);
             box-shadow: 0 16px 40px rgba(0,0,0,0.12);
             z-index: 10;
         }
         .masonry-item img {
-            width: 100%;
-            height: auto;
+            min-width: 100%;
+            width: auto;
+            height: 100%;
             display: block;
-            transition: transform 0.6s var(--ease-out);
+            object-fit: cover;
+            transition: transform 0.7s var(--ease-out), filter 0.5s var(--ease-out);
         }
         .masonry-item:hover img {
-            transform: scale(1.05);
+            transform: scale(1.04);
+            filter: saturate(1.04);
         }
         .masonry-overlay {
             position: absolute;
@@ -467,6 +401,84 @@
         }
         .masonry-item:hover .masonry-overlay {
             opacity: 1;
+        }
+        @media (max-width: 1024px) {
+            .masonry-item {
+                height: clamp(200px, 30vh, 320px);
+                min-width: 13rem;
+            }
+        }
+        @media (max-aspect-ratio: 1/1) {
+            .masonry-item {
+                height: clamp(190px, 28vh, 280px);
+            }
+        }
+        @media (max-height: 480px) {
+            .masonry-item {
+                height: 72vh;
+            }
+        }
+        @media (max-width: 640px) {
+            .masonry-grid {
+                display: block;
+                margin: 0;
+            }
+            .masonry-grid::after {
+                display: none;
+            }
+            .masonry-item {
+                width: 100%;
+                min-width: 0;
+                height: auto;
+                margin: 0 0 0.85rem;
+            }
+            .masonry-item img {
+                width: 100%;
+                max-height: 75vh;
+                min-width: 0;
+                height: auto;
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .scroll-progress {
+                display: none;
+            }
+            .fade-in,
+            .slide-up,
+            .slide-left,
+            .slide-right,
+            .scale-up,
+            .blur-in,
+            .reveal-up,
+            .hero-animate,
+            .stagger-item,
+            .masonry-item,
+            .section-tag,
+            .section-title,
+            .section-desc,
+            .cta-card,
+            .stat-card {
+                opacity: 1 !important;
+                transform: none !important;
+                filter: none !important;
+                transition: none !important;
+                animation: none !important;
+                clip-path: none !important;
+            }
+            #lightbox {
+                backdrop-filter: none;
+            }
+            .masonry-item:hover,
+            .cta-card:hover,
+            .stat-card:hover,
+            .learn-card:hover {
+                transform: none;
+            }
+            .masonry-item:hover img,
+            .bento-card:hover img {
+                transform: none;
+                filter: none;
+            }
         }
 
         /* Share Button */
@@ -489,8 +501,7 @@
             transform: translateY(-8px);
             transition: opacity 0.3s var(--ease-out), transform 0.3s var(--ease-out), background-color var(--transition-interactive), color var(--transition-interactive);
         }
-        .masonry-item:hover .share-btn,
-        .bento-card:hover .share-btn {
+        .masonry-item:hover .share-btn {
             opacity: 1;
             transform: translateY(0);
         }
@@ -668,30 +679,117 @@
 
         /* ===== CTA CARDS ===== */
         .cta-card {
-            border-radius: 1.5rem;
-            padding: 2.5rem;
+            border-radius: 1rem;
+            padding: 2rem;
             position: relative;
             overflow: hidden;
-            transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            min-height: 100%;
+            background: transparent;
+            border: 1px solid var(--gray-200);
+            transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out), border-color 0.3s ease;
         }
         .cta-card:hover {
             transform: translateY(-4px);
+            border-color: rgba(167,225,105,0.45);
         }
         .cta-card--light {
-            background: linear-gradient(135deg, rgba(167,225,105,0.12) 0%, rgba(167,225,105,0.04) 100%);
-            border: 1px solid rgba(167,225,105,0.3);
+            background: rgba(255,255,255,0.82);
         }
         .cta-card--light:hover {
-            box-shadow: 0 20px 40px rgba(167,225,105,0.15);
+            box-shadow: 0 16px 34px rgba(167,225,105,0.10);
         }
         .cta-card--dark {
-            background: linear-gradient(135deg, #1a2e12 0%, #243b1a 50%, #1a2e12 100%);
-            color: #fff;
-            border: 1px solid rgba(167, 225, 105, 0.15);
+            background: rgba(247,247,247,0.9);
+            color: var(--dark);
         }
         .cta-card--dark:hover {
-            box-shadow: 0 20px 40px rgba(26, 46, 18, 0.35);
-            border-color: rgba(167, 225, 105, 0.3);
+            box-shadow: 0 16px 34px rgba(0,0,0,0.06);
+        }
+        .cta-card-head {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        .cta-card-icon {
+            width: 2.6rem;
+            height: 2.6rem;
+            border-radius: 999px;
+            background: rgba(167,225,105,0.12);
+            color: var(--green);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.95rem;
+        }
+        .cta-card-kicker {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--green);
+            margin-bottom: 0.45rem;
+        }
+        .cta-card-title {
+            font-size: 1.35rem;
+            line-height: 1.2;
+            font-weight: 700;
+            color: var(--black);
+        }
+        .cta-card-copy {
+            color: var(--gray-500);
+            font-size: 0.92rem;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+        .cta-card-meta {
+            padding-top: 0.25rem;
+            color: var(--gray-400);
+            font-size: 0.76rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .cta-card-action {
+            margin-top: auto;
+            width: fit-content;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            border-radius: 999px;
+            padding: 0.9rem 1.2rem;
+            border: 1px solid var(--gray-200);
+            background: #fff;
+            color: var(--black);
+            font-size: 0.88rem;
+            font-weight: 600;
+            transition: border-color 0.3s ease, background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+        }
+        .cta-card-action:hover {
+            border-color: var(--green);
+            background: rgba(167,225,105,0.08);
+            transform: translateY(-1px);
+        }
+        .cta-card-action--accent {
+            background: rgba(167,225,105,0.12);
+            border-color: rgba(167,225,105,0.3);
+        }
+        .cta-card-action--accent:hover {
+            background: var(--green);
+            color: #000;
+        }
+        @media (max-width: 640px) {
+            .cta-card {
+                padding: 1.5rem;
+            }
+            .cta-card-title {
+                font-size: 1.15rem;
+            }
+            .cta-card-copy {
+                font-size: 0.88rem;
+            }
         }
 
         /* ===== LIGHTBOX ===== */
@@ -965,10 +1063,6 @@
     <!-- ===== MAIN CONTENT ===== -->
     <main style="position: relative; overflow-x: clip;">
 
-        <!-- Background Orbs -->
-        <div class="absolute rounded-full pointer-events-none" style="width:600px;height:600px;top:-100px;left:-150px;background:radial-gradient(circle at center,rgba(167,225,105,0.22) 0%,rgba(167,225,105,0.10) 35%,rgba(167,225,105,0.03) 60%,transparent 78%);filter:blur(65px);animation:orbDrift1 14s ease-in-out infinite;z-index:0;"></div>
-        <div class="absolute rounded-full pointer-events-none" style="width:650px;height:650px;top:200px;left:50%;transform:translateX(-50%);background:radial-gradient(circle at center,rgba(237,41,57,0.12) 0%,rgba(255,140,50,0.07) 35%,rgba(237,41,57,0.02) 60%,transparent 78%);filter:blur(75px);animation:orbDrift2 17s ease-in-out infinite;z-index:0;"></div>
-        <div class="absolute rounded-full pointer-events-none" style="width:500px;height:500px;top:50px;right:-100px;background:radial-gradient(circle at center,rgba(167,225,105,0.18) 0%,rgba(200,235,180,0.08) 40%,rgba(167,225,105,0.02) 65%,transparent 82%);filter:blur(60px);animation:orbDrift3 20s ease-in-out infinite;z-index:0;"></div>
 
         <div style="position:relative;z-index:1;">
 
@@ -1013,94 +1107,7 @@
                 </div>
             </section>
 
-            <!-- ===== FEATURED PICKS — BENTO GRID ===== -->
-            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
-                <div class="text-center mb-10 fade-in">
-                    <span class="section-tag">
-                        <i class="fas fa-trophy"></i> Instructor Picks
-                    </span>
-                    <h2 class="section-title">Selected Artwork</h2>
-                    <p class="section-desc">Handpicked by ART de ONE Instructors — outstanding work from each batch</p>
-                </div>
-
-                <div class="bento-grid fade-in">
-                    <!-- Large featured card -->
-                    <div class="bento-card bento-card--large stagger-item" onclick="openLightboxByUrl('student-gallery/sumyat-2.jpeg')">
-                        <img src="student-gallery/sumyat-2.jpeg" alt="Understood the Lighting" loading="lazy">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/sumyat-2.jpeg')" class="share-btn" title="Share on Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <div class="bento-overlay">
-                            <div class="bento-tag"><i class="fas fa-star text-[0.5rem]"></i> Best Artwork Ever</div>
-                            <h3 class="text-xl font-bold text-white mb-0.5">Understood the Lighting</h3>
-                            <p class="text-xs text-gray-300 uppercase tracking-wider font-medium">By One Student</p>
-                        </div>
-                    </div>
-
-                    <!-- Small cards -->
-                    <div class="bento-card bento-card--small stagger-item" onclick="openLightboxByUrl('student-gallery/whitney-phyu.jpeg')">
-                        <img src="student-gallery/whitney-phyu.jpeg" alt="Vector Illustration" loading="lazy">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/whitney-phyu.jpeg')" class="share-btn" title="Share on Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <div class="bento-overlay">
-                            <div class="bento-tag">Best Character Design</div>
-                            <h3 class="text-base font-bold text-white">Vector Illustration</h3>
-                            <p class="text-xs text-gray-400">Batch 4 Student</p>
-                        </div>
-                    </div>
-
-                    <div class="bento-card bento-card--small stagger-item" onclick="openLightboxByUrl('student-gallery/wahwah.jpg')">
-                        <img src="student-gallery/wahwah.jpg" alt="Vector Artwork" loading="lazy">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/wahwah.jpg')" class="share-btn" title="Share on Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <div class="bento-overlay">
-                            <div class="bento-tag">Best Vector Artwork</div>
-                            <h3 class="text-base font-bold text-white">Vector Illustration</h3>
-                            <p class="text-xs text-gray-400">Batch 1 & 2 Student</p>
-                        </div>
-                    </div>
-
-                    <div class="bento-card bento-card--small stagger-item" onclick="openLightboxByUrl('student-gallery/lwinoomg-2.jpg')">
-                        <img src="student-gallery/lwinoomg-2.jpg" alt="Advanced Vector" loading="lazy">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/lwinoomg-2.jpg')" class="share-btn" title="Share on Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <div class="bento-overlay">
-                            <div class="bento-tag">Best Advanced Vector</div>
-                            <h3 class="text-base font-bold text-white">Vector Illustration</h3>
-                            <p class="text-xs text-gray-400">Batch 1 & 2 Student</p>
-                        </div>
-                    </div>
-
-                    <div class="bento-card bento-card--small stagger-item" onclick="openLightboxByUrl('student-gallery/lwinoomg-3.jpg')">
-                        <img src="student-gallery/lwinoomg.jpg" alt="Vector Artwork" loading="lazy">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/lwinoomg-3.jpg')" class="share-btn" title="Share on Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <div class="bento-overlay">
-                            <div class="bento-tag">Best Understanding for Lighting</div>
-                            <h3 class="text-base font-bold text-white">Vector Artwork</h3>
-                            <p class="text-xs text-gray-400">Ko Lwin Oo Maung &middot; By 1 Student</p>
-                        </div>
-                    </div>
-
-                    <div class="bento-card bento-card--small stagger-item" onclick="openLightboxByUrl('student-gallery/tharhteaung.jpg')">
-                        <img src="student-gallery/tharhteaung.jpg" alt="Ads Design" loading="lazy">
-                        <button onclick="shareSpecificImage(event, 'student-gallery/tharhteaung.jpg')" class="share-btn" title="Share on Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <div class="bento-overlay">
-                            <div class="bento-tag">Best Ad Design in AI</div>
-                            <h3 class="text-base font-bold text-white">Ads Design</h3>
-                            <p class="text-xs text-gray-400">Batch 2 Student</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ===== FULL STUDENT GALLERY — MASONRY ===== -->
+            <!-- ===== FULL STUDENT GALLERY — JUSTIFIED WALL ===== -->
             <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
                 <div class="border-t border-gray-200 pt-16">
                     <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 fade-in">
@@ -1109,7 +1116,7 @@
                                 <i class="fas fa-images"></i> All Artworks
                             </span>
                             <h2 class="section-title">Full Student Gallery</h2>
-                            <p class="section-desc">Click any artwork to view full size</p>
+                            <p class="section-desc">Inspired by a flexible contact-sheet wall. Click any artwork to view full size.</p>
                         </div>
                         <div class="filter-tabs" id="filterTabs">
                             <button class="filter-tab active" data-filter="all">All</button>
@@ -1123,7 +1130,7 @@
                     <div class="masonry-grid" id="masonryGrid">
 
                         <div class="masonry-item" data-category="typo" onclick="openLightbox(0)">
-                            <img src="student-gallery/ayesandar.jpg" alt="Custom Typography" loading="lazy">
+                            <img src="student-gallery/thumbs/ayesandar.jpg" data-full="student-gallery/ayesandar.jpg" alt="Custom Typography" loading="lazy">
                             <button onclick="shareSpecificImage(event, 'student-gallery/ayesandar.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
                             <div class="masonry-overlay">
                                 <h3 class="text-base font-bold text-white">Ma Aye Sandar</h3>
@@ -1133,7 +1140,7 @@
                         </div>
 
                         <div class="masonry-item" data-category="vector" onclick="openLightbox(1)">
-                            <img src="student-gallery/wahwah.jpg" alt="Vector Artwork" loading="lazy">
+                            <img src="student-gallery/thumbs/wahwah.jpg" data-full="student-gallery/wahwah.jpg" alt="Vector Artwork" loading="lazy">
                             <button onclick="shareSpecificImage(event, 'student-gallery/wahwah.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
                             <div class="masonry-overlay">
                                 <h3 class="text-base font-bold text-white">Ma Wah Wah</h3>
@@ -1143,7 +1150,7 @@
                         </div>
 
                         <div class="masonry-item" data-category="vector" onclick="openLightbox(2)">
-                            <img src="student-gallery/lwinoomg-2.jpg" alt="Vector Artwork" loading="lazy">
+                            <img src="student-gallery/thumbs/lwinoomg-2.jpg" data-full="student-gallery/lwinoomg-2.jpg" alt="Vector Artwork" loading="lazy">
                             <button onclick="shareSpecificImage(event, 'student-gallery/lwinoomg-2.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
                             <div class="masonry-overlay">
                                 <h3 class="text-base font-bold text-white">Ko Lwin Oo Maung</h3>
@@ -1153,7 +1160,7 @@
                         </div>
 
                         <div class="masonry-item" data-category="photo" onclick="openLightbox(3)">
-                            <img src="student-gallery/phoochit.jpg" alt="Photo Manipulation" loading="lazy">
+                            <img src="student-gallery/thumbs/phoochit.jpg" data-full="student-gallery/phoochit.jpg" alt="Photo Manipulation" loading="lazy">
                             <button onclick="shareSpecificImage(event, 'student-gallery/phoochit.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
                             <div class="masonry-overlay">
                                 <h3 class="text-base font-bold text-white">Ma Phoo Phoo Chit</h3>
@@ -1163,7 +1170,7 @@
                         </div>
 
                         <div class="masonry-item" data-category="vector" onclick="openLightbox(4)">
-                            <img src="student-gallery/lwinoomg.jpg" alt="Vector Artwork" loading="lazy">
+                            <img src="student-gallery/thumbs/lwinoomg.jpg" data-full="student-gallery/lwinoomg.jpg" alt="Vector Artwork" loading="lazy">
                             <button onclick="shareSpecificImage(event, 'student-gallery/lwinoomg.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
                             <div class="masonry-overlay">
                                 <h3 class="text-base font-bold text-white">Ko Lwin Oo Maung</h3>
@@ -1173,7 +1180,7 @@
                         </div>
 
                         <div class="masonry-item" data-category="vector" onclick="openLightbox(5)">
-                            <img src="student-gallery/tharhtetaung-3.jpg" alt="Minimalist Vector" loading="lazy">
+                            <img src="student-gallery/thumbs/tharhtetaung-3.jpg" data-full="student-gallery/tharhtetaung-3.jpg" alt="Minimalist Vector" loading="lazy">
                             <button onclick="shareSpecificImage(event, 'student-gallery/tharhtetaung-3.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
                             <div class="masonry-overlay">
                                 <h3 class="text-base font-bold text-white">Ko Thar Htet Aung</h3>
@@ -1183,7 +1190,7 @@
                         </div>
 
                         <div class="masonry-item" data-category="ui" onclick="openLightbox(6)">
-                            <img src="student-gallery/mintawa.jpeg" alt="UI Design" loading="lazy">
+                            <img src="student-gallery/thumbs/mintawa.jpeg" data-full="student-gallery/mintawa.jpeg" alt="UI Design" loading="lazy">
                             <button onclick="shareSpecificImage(event, 'student-gallery/mintawa.jpeg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
                             <div class="masonry-overlay">
                                 <h3 class="text-base font-bold text-white">Ko Min Ta Waw Marn</h3>
@@ -1193,7 +1200,7 @@
                         </div>
 
                         <div class="masonry-item" data-category="typo" onclick="openLightbox(7)">
-                            <img src="student-gallery/thura-aung.jpg" alt="Custom Typo" loading="lazy">
+                            <img src="student-gallery/thumbs/thura-aung.jpg" data-full="student-gallery/thura-aung.jpg" alt="Custom Typo" loading="lazy">
                             <button onclick="shareSpecificImage(event, 'student-gallery/thura-aung.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
                             <div class="masonry-overlay">
                                 <h3 class="text-base font-bold text-white">Ko Thura Aung</h3>
@@ -1203,7 +1210,7 @@
                         </div>
 
                         <div class="masonry-item" data-category="vector" onclick="openLightbox(8)">
-                            <img src="student-gallery/mmwoman.jpg" alt="Vector Artwork" loading="lazy">
+                            <img src="student-gallery/thumbs/mmwoman.jpg" data-full="student-gallery/mmwoman.jpg" alt="Vector Artwork" loading="lazy">
                             <button onclick="shareSpecificImage(event, 'student-gallery/mmwoman.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
                             <div class="masonry-overlay">
                                 <h3 class="text-base font-bold text-white">Yvonne</h3>
@@ -1213,7 +1220,7 @@
                         </div>
 
                         <div class="masonry-item" data-category="vector" onclick="openLightbox(9)">
-                            <img src="student-gallery/whitney-phyu.jpeg" alt="Vector Artwork" loading="lazy">
+                            <img src="student-gallery/thumbs/whitney-phyu.jpeg" data-full="student-gallery/whitney-phyu.jpeg" alt="Vector Artwork" loading="lazy">
                             <button onclick="shareSpecificImage(event, 'student-gallery/whitney-phyu.jpeg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
                             <div class="masonry-overlay">
                                 <h3 class="text-base font-bold text-white">Whitney Phyu</h3>
@@ -1223,7 +1230,7 @@
                         </div>
 
                         <div class="masonry-item" data-category="vector" onclick="openLightbox(10)">
-                            <img src="student-gallery/poly-1.jpeg" alt="Vector Artwork" loading="lazy">
+                            <img src="student-gallery/thumbs/poly-1.jpeg" data-full="student-gallery/poly-1.jpeg" alt="Vector Artwork" loading="lazy">
                             <button onclick="shareSpecificImage(event, 'student-gallery/poly-1.jpeg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
                             <div class="masonry-overlay">
                                 <h3 class="text-base font-bold text-white">Poly Lin</h3>
@@ -1233,7 +1240,7 @@
                         </div>
 
                         <div class="masonry-item" data-category="vector" onclick="openLightbox(11)">
-                            <img src="student-gallery/poly-2.jpeg" alt="Vector Artwork" loading="lazy">
+                            <img src="student-gallery/thumbs/poly-2.jpeg" data-full="student-gallery/poly-2.jpeg" alt="Vector Artwork" loading="lazy">
                             <button onclick="shareSpecificImage(event, 'student-gallery/poly-2.jpeg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
                             <div class="masonry-overlay">
                                 <h3 class="text-base font-bold text-white">Poly Lin</h3>
@@ -1243,7 +1250,7 @@
                         </div>
 
                         <div class="masonry-item" data-category="vector" onclick="openLightbox(12)">
-                            <img src="student-gallery/poly-3.jpeg" alt="Vector Artwork" loading="lazy">
+                            <img src="student-gallery/thumbs/poly-3.jpeg" data-full="student-gallery/poly-3.jpeg" alt="Vector Artwork" loading="lazy">
                             <button onclick="shareSpecificImage(event, 'student-gallery/poly-3.jpeg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
                             <div class="masonry-overlay">
                                 <h3 class="text-base font-bold text-white">Poly Lin</h3>
@@ -1253,7 +1260,7 @@
                         </div>
 
                         <div class="masonry-item" data-category="vector" onclick="openLightbox(13)">
-                            <img src="student-gallery/thura-aung-2.jpg" alt="Vector Artwork" loading="lazy">
+                            <img src="student-gallery/thumbs/thura-aung-2.jpg" data-full="student-gallery/thura-aung-2.jpg" alt="Vector Artwork" loading="lazy">
                             <button onclick="shareSpecificImage(event, 'student-gallery/thura-aung-2.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
                             <div class="masonry-overlay">
                                 <h3 class="text-base font-bold text-white">Ko Thura Aung</h3>
@@ -1263,7 +1270,7 @@
                         </div>
 
                         <div class="masonry-item" data-category="vector" onclick="openLightbox(14)">
-                            <img src="student-gallery/sumyat-1.jpeg" alt="Vector Artwork" loading="lazy">
+                            <img src="student-gallery/thumbs/sumyat-1.jpeg" data-full="student-gallery/sumyat-1.jpeg" alt="Vector Artwork" loading="lazy">
                             <button onclick="shareSpecificImage(event, 'student-gallery/sumyat-1.jpeg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
                             <div class="masonry-overlay">
                                 <h3 class="text-base font-bold text-white">Ma Su Myat Mon</h3>
@@ -1273,7 +1280,7 @@
                         </div>
 
                         <div class="masonry-item" data-category="vector" onclick="openLightbox(15)">
-                            <img src="student-gallery/sumyat-2.jpeg" alt="Vector Artwork" loading="lazy">
+                            <img src="student-gallery/thumbs/sumyat-2.jpeg" data-full="student-gallery/sumyat-2.jpeg" alt="Vector Artwork" loading="lazy">
                             <button onclick="shareSpecificImage(event, 'student-gallery/sumyat-2.jpeg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
                             <div class="masonry-overlay">
                                 <h3 class="text-base font-bold text-white">Ma Su Myat Mon</h3>
@@ -1283,7 +1290,7 @@
                         </div>
 
                         <div class="masonry-item" data-category="vector" onclick="openLightbox(16)">
-                            <img src="student-gallery/Aileen-1.jpeg" alt="Vector Artwork" loading="lazy">
+                            <img src="student-gallery/thumbs/Aileen-1.jpeg" data-full="student-gallery/Aileen-1.jpeg" alt="Vector Artwork" loading="lazy">
                             <button onclick="shareSpecificImage(event, 'student-gallery/Aileen-1.jpeg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
                             <div class="masonry-overlay">
                                 <h3 class="text-base font-bold text-white">Aileen</h3>
@@ -1293,7 +1300,7 @@
                         </div>
 
                         <div class="masonry-item" data-category="vector" onclick="openLightbox(17)">
-                            <img src="student-gallery/Aileen-2.jpeg" alt="Vector Artwork" loading="lazy">
+                            <img src="student-gallery/thumbs/Aileen-2.jpeg" data-full="student-gallery/Aileen-2.jpeg" alt="Vector Artwork" loading="lazy">
                             <button onclick="shareSpecificImage(event, 'student-gallery/Aileen-2.jpeg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
                             <div class="masonry-overlay">
                                 <h3 class="text-base font-bold text-white">Aileen</h3>
@@ -1303,7 +1310,7 @@
                         </div>
 
                         <div class="masonry-item" data-category="vector" onclick="openLightbox(18)">
-                            <img src="student-gallery/Gee Lay.jpg" alt="Student Artwork" loading="lazy">
+                            <img src="student-gallery/thumbs/Gee Lay.jpg" data-full="student-gallery/Gee Lay.jpg" alt="Student Artwork" loading="lazy">
                             <button onclick="shareSpecificImage(event, 'student-gallery/Gee Lay.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
                             <div class="masonry-overlay">
                                 <h3 class="text-base font-bold text-white">Gee Lay</h3>
@@ -1313,7 +1320,7 @@
                         </div>
 
                         <div class="masonry-item" data-category="vector" onclick="openLightbox(19)">
-                            <img src="student-gallery/Ko Lwin Oo Maung-02.jpg" alt="Student Artwork" loading="lazy">
+                            <img src="student-gallery/thumbs/Ko Lwin Oo Maung-02.jpg" data-full="student-gallery/Ko Lwin Oo Maung-02.jpg" alt="Student Artwork" loading="lazy">
                             <button onclick="shareSpecificImage(event, 'student-gallery/Ko Lwin Oo Maung-02.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
                             <div class="masonry-overlay">
                                 <h3 class="text-base font-bold text-white">Ko Lwin Oo Maung</h3>
@@ -1323,7 +1330,7 @@
                         </div>
 
                         <div class="masonry-item" data-category="vector" onclick="openLightbox(20)">
-                            <img src="student-gallery/lwinoomg-3.jpg" alt="Student Artwork" loading="lazy">
+                            <img src="student-gallery/thumbs/lwinoomg-3.jpg" data-full="student-gallery/lwinoomg-3.jpg" alt="Student Artwork" loading="lazy">
                             <button onclick="shareSpecificImage(event, 'student-gallery/lwinoomg-3.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
                             <div class="masonry-overlay">
                                 <h3 class="text-base font-bold text-white">Ko Lwin Oo Maung</h3>
@@ -1333,7 +1340,7 @@
                         </div>
 
                         <div class="masonry-item" data-category="vector" onclick="openLightbox(21)">
-                            <img src="student-gallery/lwinoomg-4.jpg" alt="Student Artwork" loading="lazy">
+                            <img src="student-gallery/thumbs/lwinoomg-4.jpg" data-full="student-gallery/lwinoomg-4.jpg" alt="Student Artwork" loading="lazy">
                             <button onclick="shareSpecificImage(event, 'student-gallery/lwinoomg-4.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
                             <div class="masonry-overlay">
                                 <h3 class="text-base font-bold text-white">Ko Lwin Oo Maung</h3>
@@ -1343,7 +1350,7 @@
                         </div>
 
                         <div class="masonry-item" data-category="photo" onclick="openLightbox(22)">
-                            <img src="student-gallery/phoochit-3.jpeg" alt="Student Artwork" loading="lazy">
+                            <img src="student-gallery/thumbs/phoochit-3.jpeg" data-full="student-gallery/phoochit-3.jpeg" alt="Student Artwork" loading="lazy">
                             <button onclick="shareSpecificImage(event, 'student-gallery/phoochit-3.jpeg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
                             <div class="masonry-overlay">
                                 <h3 class="text-base font-bold text-white">Ma Phoo Phoo Chit</h3>
@@ -1353,7 +1360,7 @@
                         </div>
 
                         <div class="masonry-item" data-category="photo" onclick="openLightbox(23)">
-                            <img src="student-gallery/phoochit=2.jpg" alt="Student Artwork" loading="lazy">
+                            <img src="student-gallery/thumbs/phoochit=2.jpg" data-full="student-gallery/phoochit=2.jpg" alt="Student Artwork" loading="lazy">
                             <button onclick="shareSpecificImage(event, 'student-gallery/phoochit=2.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
                             <div class="masonry-overlay">
                                 <h3 class="text-base font-bold text-white">Ma Phoo Phoo Chit</h3>
@@ -1363,7 +1370,7 @@
                         </div>
 
                         <div class="masonry-item" data-category="photo" onclick="openLightbox(24)">
-                            <img src="student-gallery/phooochit-2.jpg" alt="Student Artwork" loading="lazy">
+                            <img src="student-gallery/thumbs/phooochit-2.jpg" data-full="student-gallery/phooochit-2.jpg" alt="Student Artwork" loading="lazy">
                             <button onclick="shareSpecificImage(event, 'student-gallery/phooochit-2.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
                             <div class="masonry-overlay">
                                 <h3 class="text-base font-bold text-white">Ma Phoo Phoo Chit</h3>
@@ -1373,7 +1380,7 @@
                         </div>
 
                         <div class="masonry-item" data-category="vector" onclick="openLightbox(25)">
-                            <img src="student-gallery/sumyat-3.jpeg" alt="Student Artwork" loading="lazy">
+                            <img src="student-gallery/thumbs/sumyat-3.jpeg" data-full="student-gallery/sumyat-3.jpeg" alt="Student Artwork" loading="lazy">
                             <button onclick="shareSpecificImage(event, 'student-gallery/sumyat-3.jpeg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
                             <div class="masonry-overlay">
                                 <h3 class="text-base font-bold text-white">Ma Su Myat Mon</h3>
@@ -1383,7 +1390,7 @@
                         </div>
 
                         <div class="masonry-item" data-category="vector" onclick="openLightbox(26)">
-                            <img src="student-gallery/tharhtetaung-2.jpg" alt="Student Artwork" loading="lazy">
+                            <img src="student-gallery/thumbs/tharhtetaung-2.jpg" data-full="student-gallery/tharhtetaung-2.jpg" alt="Student Artwork" loading="lazy">
                             <button onclick="shareSpecificImage(event, 'student-gallery/tharhtetaung-2.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
                             <div class="masonry-overlay">
                                 <h3 class="text-base font-bold text-white">Ko Thar Htet Aung</h3>
@@ -1393,7 +1400,7 @@
                         </div>
 
                         <div class="masonry-item" data-category="vector" onclick="openLightbox(27)">
-                            <img src="student-gallery/wahwah-2.jpg" alt="Student Artwork" loading="lazy">
+                            <img src="student-gallery/thumbs/wahwah-2.jpg" data-full="student-gallery/wahwah-2.jpg" alt="Student Artwork" loading="lazy">
                             <button onclick="shareSpecificImage(event, 'student-gallery/wahwah-2.jpg')" class="share-btn" title="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
                             <div class="masonry-overlay">
                                 <h3 class="text-base font-bold text-white">Ma Wah Wah</h3>
@@ -1447,23 +1454,38 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <!-- Enroll CTA -->
                     <div class="cta-card cta-card--light">
-                        <span class="section-tag mb-3 block"><i class="fas fa-rocket"></i> New Students</span>
-                        <h4 class="text-xl font-bold text-black mb-2">Master Vector ART</h4>
-                        <p class="text-gray-500 text-sm mt-1 mb-8 leading-relaxed">Learn the advanced techniques used in this gallery. Join the next batch today.</p>
-                        <a href="tel:09953681497" class="inline-flex items-center gap-2 bg-[#a7e169] text-black font-bold py-3 px-8 rounded-full hover:bg-[#ed2939] hover:text-white transition-all duration-300 shadow-sm">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                        <div class="cta-card-head">
+                            <div class="cta-card-icon">
+                                <i class="fas fa-pen-nib"></i>
+                            </div>
+                            <div>
+                                <p class="cta-card-kicker">New Students</p>
+                                <h4 class="cta-card-title">Master Vector ART</h4>
+                            </div>
+                        </div>
+                        <p class="cta-card-copy">Learn the advanced vector process behind the artworks in this gallery and join the next batch with a clear, guided path.</p>
+                        <p class="cta-card-meta">Call for enrollment</p>
+                        <a href="tel:09953681497" class="cta-card-action cta-card-action--accent">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
                                 <path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd" />
                             </svg>
-                            <span>09953681497</span>
+                            <span>Call 09953681497</span>
                         </a>
                     </div>
                     <!-- Student Login CTA -->
                     <div class="cta-card cta-card--dark">
-                        <span class="section-tag mb-3 block" style="color: #a7e169;"><i class="fas fa-graduation-cap"></i> Current Students</span>
-                        <h4 class="text-xl font-bold text-white mb-2">Student Dashboard</h4>
-                        <p class="text-gray-400 text-sm mt-1 mb-8 leading-relaxed">Class materials ကြည့်ရှုရန်၊ homework တင်ရန်နှင့် instructor feedback ရယူရန် login ဝင်ပါ။</p>
-                        <a href="/Private/student-login.html" class="group inline-flex items-center gap-2 bg-[#a7e169] text-black font-bold py-3 px-8 rounded-full hover:bg-white hover:text-black transition-all duration-300 shadow-sm">
-                            <i class="fas fa-user-graduate"></i>
+                        <div class="cta-card-head">
+                            <div class="cta-card-icon">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <div>
+                                <p class="cta-card-kicker">Current Students</p>
+                                <h4 class="cta-card-title">Student Dashboard</h4>
+                            </div>
+                        </div>
+                        <p class="cta-card-copy">Class materials ကြည့်ရှုရန်၊ homework တင်ရန်နှင့် instructor feedback ရယူရန် private dashboard ထဲကို login ဝင်ပါ။</p>
+                        <p class="cta-card-meta">Private access</p>
+                        <a href="/Private/student-login.html" class="cta-card-action group">
                             Student Login
                             <i class="fas fa-arrow-right text-xs transition-transform duration-300 group-hover:translate-x-1"></i>
                         </a>
@@ -1693,23 +1715,18 @@
             const items = document.querySelectorAll('.masonry-item');
             items.forEach((item) => {
                 const img = item.querySelector('img');
+                img.decoding = 'async';
+                img.fetchPriority = 'low';
                 const title = item.querySelector('h3').innerText;
                 const desc = item.querySelector('p').innerText;
-                images.push({ src: img.src, title, desc });
+                const fullSrc = img.dataset.full ? new URL(img.dataset.full, window.location.href).href : img.src;
+                images.push({ src: fullSrc, title, desc });
             });
         });
 
         function openLightbox(index) {
             currentIdx = index;
             showLightboxImage();
-        }
-
-        function openLightboxByUrl(url) {
-            const idx = images.findIndex(img => img.src.includes(url));
-            if (idx >= 0) {
-                currentIdx = idx;
-                showLightboxImage();
-            }
         }
 
         function showLightboxImage() {
@@ -1818,16 +1835,19 @@
         });
 
         // Masonry items with stagger delay
+        const masonryObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const index = Number(entry.target.dataset.index || '0');
+                    setTimeout(() => entry.target.classList.add('is-visible'), (index % 4) * 120);
+                    masonryObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08 });
+
         document.querySelectorAll('.masonry-item').forEach((el, i) => {
-            const masonryObs = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        setTimeout(() => entry.target.classList.add('is-visible'), (i % 4) * 180);
-                        masonryObs.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.08 });
-            masonryObs.observe(el);
+            el.dataset.index = i;
+            masonryObserver.observe(el);
         });
 
         // Stat cards
@@ -1859,24 +1879,6 @@
                 answer.style.opacity = '1';
             }
         }
-        // ===== SHUFFLE BENTO CARDS =====
-        (function shuffleBentoCards() {
-            const grid = document.querySelector('.bento-grid');
-            if (!grid) return;
-            const cards = Array.from(grid.children);
-            // Fisher-Yates shuffle
-            for (let i = cards.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [cards[i], cards[j]] = [cards[j], cards[i]];
-            }
-            // Re-append in shuffled order
-            cards.forEach(card => grid.appendChild(card));
-            // Ensure the first card (now random) gets the large class
-            grid.querySelectorAll('.bento-card').forEach((card, i) => {
-                card.classList.toggle('bento-card--large', i === 0);
-                card.classList.toggle('bento-card--small', i !== 0);
-            });
-        })();
     </script>
     <script>
         function toggleMobileResourcesDropdown() {

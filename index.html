@@ -352,6 +352,21 @@
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
         }
 
+        /* Smooth entrance animation for About section cards only */
+        #about .minimalist-card {
+            opacity: 0;
+            transform: translate3d(0, 38px, 0);
+            filter: blur(8px);
+            transition: opacity 850ms ease, transform 850ms cubic-bezier(0.22, 1, 0.36, 1), filter 850ms ease;
+            will-change: opacity, transform, filter;
+        }
+
+        #about .minimalist-card.about-card-visible {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+            filter: blur(0);
+        }
+
         /* --- UPDATED PORTFOLIO STYLES (MATCHING REFERENCE) --- */
         .portfolio-card-clean {
             position: relative;
@@ -377,6 +392,35 @@
 
         .portfolio-card-clean:hover .portfolio-image-wrapper img {
             transform: scale(1.05);
+        }
+
+        /* Smooth entrance animation for portfolio cards only */
+        #portfolio .portfolio-card-clean[data-aos="fade-up"] {
+            opacity: 0;
+            transform: translate3d(0, 42px, 0);
+            transition-property: opacity, transform, filter;
+            transition-duration: 900ms;
+            transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+            filter: blur(8px);
+            will-change: opacity, transform, filter;
+        }
+
+        #portfolio .portfolio-card-clean[data-aos="fade-up"] .mt-5 {
+            opacity: 0;
+            transform: translate3d(0, 18px, 0);
+            transition: opacity 700ms ease, transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        #portfolio .portfolio-card-clean[data-aos="fade-up"].aos-animate {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+            filter: blur(0);
+        }
+
+        #portfolio .portfolio-card-clean[data-aos="fade-up"].aos-animate .mt-5 {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+            transition-delay: 120ms;
         }
 
         /* Overlay Logic for Button */
@@ -689,6 +733,85 @@
 
         .panel-child-stagger.stagger-show {
             animation: panelChildReveal 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* ═══ FREELANCE SERVICE CARDS — THIN STROKE ═══ */
+        #freelance .minimalist-card {
+            background: transparent;
+            border: 1px solid #e5e5e5;
+            box-shadow: none;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #freelance .minimalist-card:hover {
+            border-color: #a7e169;
+            transform: translateY(-2px);
+        }
+        #freelance .service-panel .bg-gray-50 {
+            background: #fafafa;
+            border: 1px solid #eaeaea;
+            border-radius: 0.5rem;
+        }
+
+        /* Social Media pricing cards */
+        #social-panel .rounded-2xl.border-gray-200 {
+            background: transparent;
+            border: 1px solid #e5e5e5;
+            box-shadow: none;
+            border-radius: 0.75rem;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #social-panel .rounded-2xl.border-gray-200:hover {
+            border-color: #a7e169;
+            transform: translateY(-2px);
+        }
+
+        /* Add-On Service card */
+        #social-panel .flex.flex-col.sm\:flex-row.items-start.sm\:items-center.gap-5 {
+            background: transparent;
+            border: 1px solid #e5e5e5;
+            box-shadow: none;
+            border-radius: 0.75rem;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #social-panel .flex.flex-col.sm\:flex-row.items-start.sm\:items-center.gap-5:hover {
+            border-color: #a7e169;
+            transform: translateY(-2px);
+        }
+
+        /* ═══ PORTFOLIO CARDS — CLEAN & MINIMALIST ═══ */
+        #portfolio .portfolio-card-clean {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #portfolio .portfolio-image-wrapper {
+            background: transparent;
+            border: 1px solid #e5e5e5;
+            border-radius: 0.75rem;
+            box-shadow: none;
+            transition: border-color 0.4s ease;
+        }
+        #portfolio .portfolio-card-clean:hover .portfolio-image-wrapper {
+            border-color: #a7e169;
+        }
+        #portfolio .portfolio-image-wrapper img {
+            border-radius: 0.75rem;
+        }
+        #portfolio .mt-5 h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+        #portfolio .mt-5 p {
+            font-size: 0.8rem;
+            color: #999;
+            font-weight: 400;
+        }
+        #portfolio .case-study-btn {
+            box-shadow: none;
+            border: 1px solid #e5e5e5;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(8px);
         }
 
         /* ========================================
@@ -1348,6 +1471,135 @@
             }
         }
 
+        /* ═══ MODERN HERO SECTION ═══ */
+        .hero-shape {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            animation: heroShapeReveal 2s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+                       heroShapeFloat 20s ease-in-out infinite;
+        }
+        .hero-shape-1 {
+            width: 500px; height: 500px;
+            top: -150px; left: -100px;
+            background: radial-gradient(circle at center, rgba(167,225,105,0.15) 0%, rgba(167,225,105,0.05) 40%, transparent 70%);
+            filter: blur(60px);
+            animation-delay: 0s, 2.5s;
+        }
+        .hero-shape-2 {
+            width: 400px; height: 400px;
+            bottom: -100px; right: -80px;
+            background: radial-gradient(circle at center, rgba(237,41,57,0.10) 0%, rgba(237,41,57,0.03) 40%, transparent 70%);
+            filter: blur(50px);
+            animation-delay: 0.4s, 3s;
+        }
+        .hero-shape-3 {
+            width: 300px; height: 300px;
+            top: 40%; right: 10%;
+            background: radial-gradient(circle at center, rgba(167,225,105,0.08) 0%, transparent 60%);
+            filter: blur(45px);
+            animation-delay: 0.8s, 3.5s;
+        }
+        .hero-shape-4 {
+            width: 250px; height: 250px;
+            bottom: 30%; left: 8%;
+            background: radial-gradient(circle at center, rgba(200,200,200,0.10) 0%, transparent 60%);
+            filter: blur(40px);
+            animation-delay: 1.2s, 4s;
+        }
+        @keyframes heroShapeReveal {
+            0% { opacity: 0; transform: scale(0.6); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        @keyframes heroShapeFloat {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(15px, -10px); }
+            50% { transform: translate(-10px, 15px); }
+            75% { transform: translate(8px, 8px); }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(167, 225, 105, 0.10);
+            border: 1px solid rgba(167, 225, 105, 0.25);
+            color: #6aaf2e;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            padding: 6px 16px;
+            border-radius: 50px;
+            text-transform: uppercase;
+        }
+        .hero-badge-dot {
+            width: 6px; height: 6px;
+            background: #a7e169;
+            border-radius: 50%;
+            animation: heroBadgePulse 2s ease-in-out infinite;
+        }
+        @keyframes heroBadgePulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        .hero-headline {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(3rem, 8vw, 6.5rem);
+            font-weight: 700;
+            line-height: 1.05;
+            color: #000;
+        }
+        .hero-line {
+            display: block;
+        }
+        .hero-line-accent {
+            color: #a7e169;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            color: #666;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .hero-collab {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .hero-collab-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #aaa;
+            font-weight: 600;
+        }
+        .hero-collab-logos {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .hero-collab-logo {
+            height: 44px;
+            object-fit: contain;
+            opacity: 0.4;
+            filter: grayscale(100%);
+            transition: all 0.4s ease;
+        }
+        .hero-collab-logo:hover {
+            opacity: 0.8;
+            filter: grayscale(0%);
+        }
+        .hero-collab-x {
+            font-size: 1.75rem;
+            color: #ccc;
+            font-weight: 200;
+        }
+
         /* ═══ ADO AI PROMO SECTION ═══ */
         .ado-ai-section {
             position: relative;
@@ -1575,193 +1827,164 @@
     </nav>
 
     <main>
-        <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden bg-white">
-            <div class="absolute inset-0 w-full h-full z-0">
-                <video autoplay muted loop playsinline preload="metadata" class="w-full h-full object-cover opacity-50">
-                    <source
-                        src="https://res.cloudinary.com/ddkd9lxpr/video/upload/v1768369564/hero-animation_ozxvd5.mp4"
-                        type="video/webm">
-                    <source
-                        src="https://res.cloudinary.com/ddkd9lxpr/video/upload/v1768369564/hero-animation_ozxvd5.mp4"
-                        type="video/mp4">
-                </video>
-                <div class="absolute inset-0 bg-gradient-to-b from-white/60 via-white/80 to-white"></div>
+        <!-- ═══ MODERN HERO SECTION ═══ -->
+        <section id="home" class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-white">
+            <!-- Subtle animated background shapes -->
+            <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+                <div class="hero-shape hero-shape-1"></div>
+                <div class="hero-shape hero-shape-2"></div>
+                <div class="hero-shape hero-shape-3"></div>
+                <div class="hero-shape hero-shape-4"></div>
             </div>
 
-
-            <div class="relative z-10 text-center px-4">
-                <h1
-                    class="text-6xl sm:text-7xl md:text-8xl font-bold leading-tight artdeone-font mb-4 transition-transform duration-500 hover:scale-105 hero-title-enter">
-                    <span class="text-[#a7e169]">ART de ONE</span>
+            <!-- Main content -->
+            <div class="relative z-10 text-center px-4 max-w-5xl mx-auto pt-20 pb-32">
+                <!-- Headline -->
+                <h1 class="hero-headline mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <span class="hero-line hero-line-accent">ART de ONE</span>
                 </h1>
-                <p
-                    class="text-xl md:text-2xl text-[#323232] mb-10 max-w-2xl mx-auto font-light tracking-wide hero-subtitle-enter">
-                    The Art of Intelligence</p>
-                <div class="flex flex-wrap gap-3 md:gap-4 justify-center hero-buttons-enter">
-                    <a href="blog.html" class="btn-primary text-sm md:text-base py-2 px-5 md:py-3 md:px-8">Read Our
-                        Blog</a>
-                    <a href="#freelance" class="btn-secondary text-sm md:text-base py-2 px-5 md:py-3 md:px-8">Our
-                        Services</a>
+
+                <!-- Subtitle -->
+                <p class="hero-subtitle max-w-2xl mx-auto mb-10" data-aos="fade-up" data-aos-delay="200">
+                    The Art of Intelligence
+                </p>
+
+                <!-- CTA Buttons -->
+                <div class="flex flex-wrap gap-4 justify-center mb-16" data-aos="fade-up" data-aos-delay="300">
+                    <a href="#portfolio" class="btn-primary text-sm md:text-base py-3 px-8 md:px-10">
+                        View Portfolio
+                    </a>
+                    <a href="#freelance" class="btn-secondary text-sm md:text-base py-3 px-8 md:px-10">
+                        Our Services
+                    </a>
                 </div>
-                <div class="mt-6 md:mt-10 hero-buttons-enter" style="animation-delay: 1.1s;">
-                    <p class="text-gray-400 text-xs md:text-sm uppercase tracking-widest mb-3 md:mb-4">Official
-                        Collaboration with</p>
-                    <div class="flex flex-wrap items-center justify-center gap-4 md:gap-6">
-                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379061/huion-1_bifxjo.png"
-                            alt="Huion"
-                            class="h-7 md:h-10 object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
-                        <span class="text-gray-400 text-base md:text-xl font-light">x</span>
-                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379061/artdeone-1_plyge7.png"
-                            alt="Art de One"
-                            class="h-7 md:h-10 object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 invert">
+
+                <!-- Collaboration -->
+                <div class="hero-collab" data-aos="fade-up" data-aos-delay="400">
+                    <p class="hero-collab-label">Official Collaboration</p>
+                    <div class="hero-collab-logos">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379061/huion-1_bifxjo.png" alt="Huion" class="hero-collab-logo">
+                        <span class="hero-collab-x">×</span>
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379061/artdeone-1_plyge7.png" alt="Art de One" class="hero-collab-logo invert">
                     </div>
                 </div>
-
             </div>
 
             <!-- ═══ TRUSTED BY (bottom of hero) ═══ -->
-            <div class="absolute bottom-8 left-0 right-0 z-10 text-center">
-                <p class="text-sm uppercase tracking-widest text-gray-400 font-medium mb-4">Trusted by businesses across
-                    Southeast Asia</p>
-                    <div class="logo-marquee-track">
-                        <div class="logo-marquee-inner">
-                            <!-- Set 1 -->
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379518/logo-1_pamyyo.png"
-                                alt="Air Thinlwin" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379517/logo-2_w8mmgo.png"
-                                alt="Jackery" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379517/logo-3_xejmzs.png"
-                                alt="VENUCIA" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379635/logo-4_h9myqh.png"
-                                alt="Yealink" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379516/logo-5_brafmc.png"
-                                alt="CHANGAN" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379517/logo-6_ipkciz.png"
-                                alt="AVer" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/lady_may_jctvnh.png"
-                                alt="Lady May" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/mnvenus_puiiyb.png"
-                                alt="MN Venus" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/syk_tx6ijr.png" alt="SYK"
-                                class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/royal_cyhkwx.png"
-                                alt="Royal" class="logo-marquee-img">
-                            <!-- Set 2 (duplicate for seamless loop) -->
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379518/logo-1_pamyyo.png"
-                                alt="Air Thinlwin" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379517/logo-2_w8mmgo.png"
-                                alt="Jackery" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379517/logo-3_xejmzs.png"
-                                alt="VENUCIA" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379635/logo-4_h9myqh.png"
-                                alt="Yealink" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379516/logo-5_brafmc.png"
-                                alt="CHANGAN" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379517/logo-6_ipkciz.png"
-                                alt="AVer" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/lady_may_jctvnh.png"
-                                alt="Lady May" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/mnvenus_puiiyb.png"
-                                alt="MN Venus" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/syk_tx6ijr.png" alt="SYK"
-                                class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/royal_cyhkwx.png"
-                                alt="Royal" class="logo-marquee-img">
-                        </div>
+            <div class="absolute bottom-0 left-0 right-0 z-10 pb-8">
+                <p class="text-center text-xs uppercase tracking-[0.2em] text-gray-400 font-medium mb-5">Trusted by businesses across Southeast Asia</p>
+                <div class="logo-marquee-track">
+                    <div class="logo-marquee-inner">
+                        <!-- Set 1 -->
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379518/logo-1_pamyyo.png" alt="Air Thinlwin" class="logo-marquee-img">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379517/logo-2_w8mmgo.png" alt="Jackery" class="logo-marquee-img">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379517/logo-3_xejmzs.png" alt="VENUCIA" class="logo-marquee-img">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379635/logo-4_h9myqh.png" alt="Yealink" class="logo-marquee-img">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379516/logo-5_brafmc.png" alt="CHANGAN" class="logo-marquee-img">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379517/logo-6_ipkciz.png" alt="AVer" class="logo-marquee-img">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/lady_may_jctvnh.png" alt="Lady May" class="logo-marquee-img">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/mnvenus_puiiyb.png" alt="MN Venus" class="logo-marquee-img">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/syk_tx6ijr.png" alt="SYK" class="logo-marquee-img">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/royal_cyhkwx.png" alt="Royal" class="logo-marquee-img">
+                        <!-- Set 2 (duplicate for seamless loop) -->
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379518/logo-1_pamyyo.png" alt="Air Thinlwin" class="logo-marquee-img">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379517/logo-2_w8mmgo.png" alt="Jackery" class="logo-marquee-img">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379517/logo-3_xejmzs.png" alt="VENUCIA" class="logo-marquee-img">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379635/logo-4_h9myqh.png" alt="Yealink" class="logo-marquee-img">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379516/logo-5_brafmc.png" alt="CHANGAN" class="logo-marquee-img">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379517/logo-6_ipkciz.png" alt="AVer" class="logo-marquee-img">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/lady_may_jctvnh.png" alt="Lady May" class="logo-marquee-img">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/mnvenus_puiiyb.png" alt="MN Venus" class="logo-marquee-img">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/syk_tx6ijr.png" alt="SYK" class="logo-marquee-img">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/royal_cyhkwx.png" alt="Royal" class="logo-marquee-img">
                     </div>
+                </div>
             </div>
         </section>
 
         <!-- ═══ ADO AI PROMO ═══ -->
-        <section class="relative overflow-hidden ado-ai-section" style="min-height: 480px;">
-            <!-- Background Video -->
-            <video autoplay muted loop playsinline preload="metadata"
-                class="absolute inset-0 w-full h-full object-cover">
-                <source src="https://res.cloudinary.com/dy7vubtji/video/upload/q_auto/f_auto/v1774454154/DNA_epdxf4.mp4" type="video/mp4">
-            </video>
-            <!-- Dark Overlay -->
-            <div class="absolute inset-0" style="background: rgba(0,0,0,0.45);"></div>
-            <!-- Centered Content -->
-            <div class="relative z-10 flex flex-col items-center justify-center text-center px-4 py-24" style="min-height: 480px;">
-                <div class="ado-ai-badge mb-6" data-aos="fade-up" data-aos-delay="100">
-                    <span class="ado-ai-badge-dot"></span>
-                    NEW
+        <section class="relative overflow-hidden bg-[#f9f9f9] border-y border-gray-100" style="min-height: 420px;">
+            <!-- Content -->
+            <div class="relative z-10 flex flex-col items-center justify-center text-center px-4 py-24 max-w-4xl mx-auto" style="min-height: 420px;">
+                <div class="inline-flex items-center gap-2 bg-[#a7e169]/10 border border-[#a7e169]/25 rounded-full px-4 py-1.5 mb-8" data-aos="fade-up" data-aos-delay="100">
+                    <span class="w-1.5 h-1.5 bg-[#a7e169] rounded-full animate-pulse"></span>
+                    <span class="text-xs font-semibold text-[#6aaf2e] uppercase tracking-widest">New Feature</span>
                 </div>
-                <h2 class="text-4xl md:text-5xl font-bold text-white mb-4 artdeone-font" data-aos="fade-up" data-aos-delay="200">
+                <h2 class="text-4xl md:text-6xl font-bold text-black mb-5 tracking-tight" data-aos="fade-up" data-aos-delay="200">
                     Meet <span class="text-[#a7e169]">ADO AI</span>
                 </h2>
-                <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl font-light" data-aos="fade-up" data-aos-delay="300">
-                    Your creative AI assistant for logo concepts, design feedback &amp; brand strategy.
+                <p class="text-base md:text-lg text-gray-500 mb-10 max-w-lg font-light leading-relaxed" data-aos="fade-up" data-aos-delay="300">
+                    Your creative AI assistant for logo concepts, design feedback & brand strategy.
                 </p>
-                <a href="/ado-ai.html" class="ado-ai-cta" data-aos="fade-up" data-aos-delay="400">
-                    <span>It's Free</span>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                <a href="/ado-ai.html" class="group inline-flex items-center gap-2 bg-[#a7e169] text-black font-semibold text-sm px-7 py-3 rounded-full transition-all duration-300 hover:bg-black hover:text-white hover:gap-3" data-aos="fade-up" data-aos-delay="400">
+                    <span>Try It Free</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-0.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                 </a>
             </div>
         </section>
 
-        <section id="about" class="py-24 section-darker px-4">
-            <div class="max-w-7xl mx-auto">
+        <!-- ═══ ABOUT ═══ -->
+        <section id="about" class="py-24 bg-white px-4">
+            <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-16" data-aos="fade-up">
-                    <h2 class="section-title">About ART de ONE</h2>
-                    <p class="section-subtitle">Transforming creative passion into professional skills for students
-                        worldwide.</p>
+                    <p class="text-xs font-semibold text-[#a7e169] uppercase tracking-[0.2em] mb-3">Who We Are</p>
+                    <h2 class="text-4xl md:text-5xl font-bold text-black mb-4 tracking-tight">About ART de ONE</h2>
+                    <p class="text-gray-500 max-w-lg mx-auto font-light">Transforming creative passion into professional skills for students worldwide.</p>
                 </div>
-                <div class="grid md:grid-cols-2 gap-8 mb-16">
-                    <div class="minimalist-card data-aosfade-up data-aos-delay100">
-                        <div class="icon-circle mb-6">
-                            <i class="fas fa-bullseye text-xl"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-black mb-4">Our Mission</h3>
-                        <p class="text-[#323232] leading-relaxed">To help people discover their passion for digital art
-                            and learn professional vector drawing skills. We welcome anyone who loves to draw or wants
-                            to explore their creative side.</p>
-                    </div>
-                    <div class="minimalist-card data-aosfade-up data-aos-delay100">
-                        <div class="icon-circle mb-6">
-                            <i class="fas fa-eye text-xl"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-black mb-4">Our Vision</h3>
-                        <p class="text-[#323232] leading-relaxed">To become Myanmar's leading creative hub where anyone
-                            with a passion for drawing can build a successful career in digital art and design.</p>
-                    </div>
-                </div>
-
-                <div
-                    class="minimalist-card flex flex-col lg:flex-row gap-12 items-center data-aosfade-up data-aos-delay100">
-                    <div class="w-full lg:w-1/3">
-                        <div class="rounded-xl overflow-hidden aspect-square">
+                <!-- Meet Your Instructor -->
+                <div class="flex flex-col lg:flex-row gap-0 items-start mb-10 border border-gray-200 rounded-xl overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-full lg:w-1/3 flex-shrink-0 relative">
+                        <div class="aspect-[4/5] w-full max-w-[300px] mx-auto lg:mx-0">
                             <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119870/instructor-02_a7snby.jpg"
                                 alt="Instructor"
-                                class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500">
+                                class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700">
+                        </div>
+                        <!-- Smooth fade-out gradient covering full photo width -->
+                        <div class="hidden lg:block absolute inset-0 pointer-events-none" style="background: linear-gradient(to right, transparent 30%, rgba(255,255,255,0.4) 60%, rgba(255,255,255,0.95) 90%, rgba(255,255,255,1) 100%);"></div>
+                    </div>
+                    <div class="w-full lg:w-2/3 p-8 md:p-10 flex flex-col justify-center">
+                        <p class="text-xs font-semibold text-[#a7e169] uppercase tracking-[0.2em] mb-3">The Instructor</p>
+                        <h3 class="text-3xl md:text-4xl font-bold text-black mb-2">Meet Your Instructor</h3>
+                        <p class="text-gray-400 font-medium mb-8 text-sm">Lead Instructor & Design Lead</p>
+                        <p class="text-gray-500 mb-10 leading-relaxed font-light">With 9 years of professional design experience and 3 years of teaching, I guide students from countries like Germany, Thailand, and Myanmar to achieve exceptional results, building a shared reputation for quality education and creative excellence.</p>
+                        <div class="flex flex-row gap-3">
+                            <a href="instructor.html" class="btn-primary text-sm py-3 px-7">View Profile</a>
+                            <a href="#contact" class="btn-secondary text-sm py-3 px-7">Contact</a>
                         </div>
                     </div>
-                    <div class="w-full lg:w-2/3">
-                        <h3 class="text-2xl font-bold text-black mb-2">Meet Your Instructor</h3>
-                        <p class="text-[#7fae2e] font-medium mb-6">Lead Instructor & Design Lead</p>
-                        <p class="text-[#323232] mb-8 leading-relaxed">With 9 years of professional design experience
-                            and 3 years of teaching, I guide students from countries like Germany, Thailand, and Myanmar
-                            to achieve exceptional results, building a shared reputation for quality education and
-                            creative excellence.</p>
-                        <div class="flex flex-row gap-3 md:gap-4">
-                            <a href="instructor.html"
-                                class="btn-primary text-sm md:text-base py-2 px-5 md:py-3 md:px-8">View Profile</a>
-                            <a href="#contact"
-                                class="btn-secondary text-sm md:text-base py-2 px-5 md:py-3 md:px-8">Contact</a>
-                        </div>
+                </div>
 
+                <!-- Our Mission & Our Vision -->
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="border border-gray-200 rounded-xl p-8 md:p-10 bg-transparent flex items-start gap-5" data-aos="fade-up" data-aos-delay="100">
+                        <div class="w-10 h-10 rounded-full bg-[#a7e169]/10 flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-bullseye text-[#a7e169] text-sm"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-black mb-3">Our Mission</h3>
+                            <p class="text-gray-500 leading-relaxed font-light text-sm">To help people discover their passion for digital art and learn professional vector drawing skills. We welcome anyone who loves to draw or wants to explore their creative side.</p>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-xl p-8 md:p-10 bg-transparent flex items-start gap-5" data-aos="fade-up" data-aos-delay="200">
+                        <div class="w-10 h-10 rounded-full bg-[#a7e169]/10 flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-eye text-[#a7e169] text-sm"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-black mb-3">Our Vision</h3>
+                            <p class="text-gray-500 leading-relaxed font-light text-sm">To become Myanmar's leading creative hub where anyone with a passion for drawing can build a successful career in digital art and design.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- NEW UPDATED PORTFOLIO SECTION -->
-        <section id="portfolio" class="py-24 section-dark px-4">
+        <!-- ═══ PORTFOLIO ═══ -->
+        <section id="portfolio" class="py-24 bg-[#f9f9f9] px-4">
             <div class="max-w-7xl mx-auto">
                 <div class="text-center mb-16" data-aos="fade-up">
-                    <h2 class="section-title">Our Portfolio</h2>
-                    <p class="section-subtitle">Creative solutions that transform ideas into compelling visual stories.
-                    </p>
+                    <p class="text-xs font-semibold text-[#a7e169] uppercase tracking-[0.2em] mb-3">Selected Works</p>
+                    <h2 class="text-4xl md:text-5xl font-bold text-black mb-4 tracking-tight">Our Portfolio</h2>
+                    <p class="text-gray-500 max-w-lg mx-auto font-light">Creative solutions that transform ideas into compelling visual stories.</p>
                 </div>
 
                 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -1944,7 +2167,7 @@
                             <div class="tool-icon-wrap"><span class="tool-grain"></span>
                                 <svg class="tool-svg" viewBox="0 0 44 44" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
-                                    <rect width="44" height="44" rx="9" fill="#CC785C" />
+                                    <rect width="44" height="44" rx="6" fill="#CC785C" />
                                     <g transform="translate(22,22)">
                                         <line x1="0" y1="-13" x2="0" y2="13" stroke="#F5E6DC" stroke-width="3.2"
                                             stroke-linecap="round" />
@@ -1969,7 +2192,7 @@
                             <div class="tool-icon-wrap"><span class="tool-grain"></span>
                                 <svg class="tool-svg" viewBox="0 0 44 44" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
-                                    <rect width="44" height="44" rx="10" fill="#111111" />
+                                    <rect width="44" height="44" rx="7" fill="#111111" />
                                     <path
                                         d="M22 8 C23.2 15 29 20.5 36 22 C29 23.5 23.2 29 22 36 C20.8 29 15 23.5 8 22 C15 20.5 20.8 15 22 8Z"
                                         fill="white" />
@@ -1983,7 +2206,7 @@
                             <div class="tool-icon-wrap"><span class="tool-grain"></span>
                                 <svg class="tool-svg" viewBox="0 0 44 44" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
-                                    <rect width="44" height="44" rx="9" fill="#7C3AED" />
+                                    <rect width="44" height="44" rx="6" fill="#7C3AED" />
                                     <path d="M12 18L18 22L12 26" stroke="white" stroke-width="2.5"
                                         stroke-linecap="round" stroke-linejoin="round" />
                                     <path d="M22 28H32" stroke="white" stroke-width="2.5" stroke-linecap="round" />
@@ -1997,7 +2220,7 @@
                             <div class="tool-icon-wrap"><span class="tool-grain"></span>
                                 <svg class="tool-svg" viewBox="0 0 44 44" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
-                                    <rect width="44" height="44" rx="9" fill="#0F0F0F" />
+                                    <rect width="44" height="44" rx="6" fill="#0F0F0F" />
                                     <polygon points="17,11 17,33 34,22" fill="white" />
                                     <rect x="10" y="11" width="5" height="22" rx="2" fill="white" />
                                 </svg>
@@ -2010,7 +2233,7 @@
                             <div class="tool-icon-wrap"><span class="tool-grain"></span>
                                 <svg class="tool-svg" viewBox="0 0 44 44" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
-                                    <rect width="44" height="44" rx="9" fill="#0EA5E9" />
+                                    <rect width="44" height="44" rx="6" fill="#0EA5E9" />
                                     <rect x="6" y="9" width="32" height="20" rx="3" stroke="white" stroke-width="2"
                                         fill="none" />
                                     <path d="M15 38H29" stroke="white" stroke-width="2" stroke-linecap="round" />
@@ -2028,7 +2251,7 @@
                             <div class="tool-icon-wrap"><span class="tool-grain"></span>
                                 <svg class="tool-svg" viewBox="0 0 44 44" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
-                                    <rect width="44" height="44" rx="9" fill="#0078D4" />
+                                    <rect width="44" height="44" rx="6" fill="#0078D4" />
                                     <path d="M30 6L17 19L10 14L6 16V28L10 30L17 25L30 38L38 35V9L30 6Z" fill="white" />
                                     <path d="M30 16V28L22 22L30 16Z" fill="#0078D4" />
                                     <path d="M10 18L17 22L10 26V18Z" fill="#0078D4" />
@@ -2042,7 +2265,7 @@
                             <div class="tool-icon-wrap"><span class="tool-grain"></span>
                                 <svg class="tool-svg" viewBox="0 0 44 44" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
-                                    <rect width="44" height="44" rx="9" fill="#E44D26" />
+                                    <rect width="44" height="44" rx="6" fill="#E44D26" />
                                     <path d="M8 6H36L33.5 33L22 37L10.5 33Z" fill="#F16529" />
                                     <path d="M22 34.5L31.5 31.5L33.5 9H22V34.5Z" fill="#EBEBEB" />
                                     <path d="M22 9V34.5L12.5 31.5L10.5 9H22Z" fill="white" />
@@ -2060,7 +2283,7 @@
                             <div class="tool-icon-wrap"><span class="tool-grain"></span>
                                 <svg class="tool-svg" viewBox="0 0 44 44" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
-                                    <rect width="44" height="44" rx="9" fill="#264DE4" />
+                                    <rect width="44" height="44" rx="6" fill="#264DE4" />
                                     <path d="M8 6H36L33.5 33L22 37L10.5 33Z" fill="#2965F1" />
                                     <path d="M22 34.5L31.5 31.5L33.5 9H22V34.5Z" fill="#EBEBEB" />
                                     <path d="M22 9V34.5L12.5 31.5L10.5 9H22Z" fill="white" />
@@ -2077,7 +2300,7 @@
                         <div class="tool-item group">
                             <div class="tool-icon-wrap"><span class="tool-grain"></span>
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png"
-                                    alt="JavaScript" class="tool-img" style="border-radius:6px;">
+                                    alt="JavaScript" class="tool-img" style="border-radius:4px;">
                             </div>
                             <span class="tool-name">JavaScript</span>
                         </div>
@@ -2088,23 +2311,24 @@
                         .tools-grid {
                             display: grid;
                             grid-template-columns: repeat(7, 1fr);
-                            gap: 1.5rem 1rem;
+                            gap: 1.1rem 0.75rem;
                             justify-items: center;
                             align-items: start;
-                            max-width: 900px;
+                            max-width: 820px;
                             margin: 0 auto;
                         }
 
                         @media (max-width: 1024px) {
                             .tools-grid {
                                 grid-template-columns: repeat(5, 1fr);
+                                gap: 1rem 0.7rem;
                             }
                         }
 
                         @media (max-width: 640px) {
                             .tools-grid {
                                 grid-template-columns: repeat(4, 1fr);
-                                gap: 1.2rem 0.5rem;
+                                gap: 0.9rem 0.45rem;
                             }
                         }
 
@@ -2118,13 +2342,23 @@
                             display: flex;
                             flex-direction: column;
                             align-items: center;
-                            gap: 0.5rem;
+                            gap: 0.35rem;
                             cursor: default;
+                            opacity: 0;
+                            transform: translate3d(0, 18px, 0) scale(0.96);
+                            filter: blur(6px);
+                            transition: opacity 650ms ease, transform 650ms cubic-bezier(0.22, 1, 0.36, 1), filter 650ms ease;
+                        }
+
+                        .mt-24[data-aos].aos-animate .tool-item {
+                            opacity: 1;
+                            transform: translate3d(0, 0, 0) scale(1);
+                            filter: blur(0);
                         }
 
                         .tool-icon-wrap {
-                            width: 52px;
-                            height: 52px;
+                            width: 44px;
+                            height: 44px;
                             display: flex;
                             align-items: center;
                             justify-content: center;
@@ -2133,16 +2367,16 @@
                             position: relative;
                             isolation: isolate;
                             overflow: hidden;
-                            border-radius: 10px;
+                            border-radius: 6px;
                         }
 
                         .tool-img,
                         .tool-svg {
-                            width: 44px;
-                            height: 44px;
+                            width: 36px;
+                            height: 36px;
                             object-fit: contain;
                             display: block;
-                            border-radius: 10px;
+                            border-radius: 6px;
                             filter: grayscale(1);
                             opacity: 0.38;
                             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -2151,8 +2385,20 @@
                                 inset 0 0 24px 5px rgba(255, 255, 255, 0.12);
                         }
 
+                        .tool-img[alt="Adobe Illustrator"],
+                        .tool-img[alt="Photoshop"],
+                        .tool-img[alt="Premiere Pro"],
+                        .tool-img[alt="After Effects"],
+                        .tool-img[alt="Creative Cloud"] {
+                            border-radius: 7px;
+                            clip-path: inset(0 round 7px);
+                            transform: translateZ(0);
+                            backface-visibility: hidden;
+                            -webkit-mask-image: -webkit-radial-gradient(white, black);
+                        }
+
                         .tool-item:hover .tool-icon-wrap {
-                            transform: scale(1.12) translateY(-3px);
+                            transform: scale(1.1) translateY(-2px);
                         }
 
                         .tool-item:hover .tool-img,
@@ -2170,7 +2416,7 @@
                             inset: 0;
                             z-index: 3;
                             pointer-events: none;
-                            border-radius: 10px;
+                            border-radius: 6px;
                             opacity: 0.07;
                             mix-blend-mode: overlay;
                             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
@@ -2184,21 +2430,21 @@
 
                         .tool-img,
                         .tool-svg {
-                            width: 44px;
-                            height: 44px;
+                            width: 36px;
+                            height: 36px;
                             object-fit: contain;
                             display: block;
                         }
 
                         .tool-name {
-                            font-size: 0.6rem;
+                            font-size: 0.55rem;
                             font-weight: 600;
                             color: #999;
                             text-align: center;
                             letter-spacing: 0.02em;
                             transition: color 0.3s ease;
                             white-space: nowrap;
-                            max-width: 70px;
+                            max-width: 64px;
                             overflow: hidden;
                             text-overflow: ellipsis;
                             line-height: 1.2;
@@ -2207,22 +2453,38 @@
                         .tool-item:hover .tool-name {
                             color: #323232;
                         }
+
+                        .tool-item:nth-child(1) { transition-delay: 0ms; }
+                        .tool-item:nth-child(2) { transition-delay: 40ms; }
+                        .tool-item:nth-child(3) { transition-delay: 80ms; }
+                        .tool-item:nth-child(4) { transition-delay: 120ms; }
+                        .tool-item:nth-child(5) { transition-delay: 160ms; }
+                        .tool-item:nth-child(6) { transition-delay: 200ms; }
+                        .tool-item:nth-child(7) { transition-delay: 240ms; }
+                        .tool-item:nth-child(8) { transition-delay: 280ms; }
+                        .tool-item:nth-child(9) { transition-delay: 320ms; }
+                        .tool-item:nth-child(10) { transition-delay: 360ms; }
+                        .tool-item:nth-child(11) { transition-delay: 400ms; }
+                        .tool-item:nth-child(12) { transition-delay: 440ms; }
+                        .tool-item:nth-child(13) { transition-delay: 480ms; }
+                        .tool-item:nth-child(14) { transition-delay: 520ms; }
                     </style>
                 </div>
 
             </div>
         </section>
 
-        <section id="freelance" class="py-24 section-darker px-4">
+        <!-- ═══ FREELANCE SERVICES ═══ -->
+        <section id="freelance" class="py-24 bg-white px-4">
             <div class="max-w-7xl mx-auto">
                 <div class="text-center mb-16" data-aos="fade-up">
-                    <h2 class="section-title">Freelance Services</h2>
-                    <p class="section-subtitle">Professional design services tailored to your business needs.</p>
+                    <p class="text-xs font-semibold text-[#a7e169] uppercase tracking-[0.2em] mb-3">What We Offer</p>
+                    <h2 class="text-4xl md:text-5xl font-bold text-black mb-4 tracking-tight">Freelance Services</h2>
+                    <p class="text-gray-500 max-w-lg mx-auto font-light">Professional design services tailored to your business needs.</p>
                 </div>
 
                 <!-- Tabs Container (Updated for Horizontal View) -->
-                <div class="flex flex-nowrap justify-center gap-2 md:gap-4 mb-12 overflow-x-auto md:overflow-visible pb-2 md:pb-0"
-                    data-aos="fade-up">
+                <div class="flex flex-nowrap justify-center gap-2 md:gap-4 mb-12 overflow-x-auto md:overflow-visible pb-2 md:pb-0">
                     <button
                         class="service-tab px-3 md:px-6 py-3 rounded-full text-xs md:text-sm font-semibold active whitespace-nowrap flex-shrink-0"
                         onclick="switchService('logo', this)">Logo Design</button>
@@ -2243,7 +2505,7 @@
                     <div id="logo-panel" class="service-panel block">
                         <!-- MAIN LOGO SERVICE CARD -->
                         <div class="minimalist-card flex flex-col md:flex-row gap-8 items-center panel-child-stagger"
-                            data-aos="fade-up" data-aos-delay="100">
+                            data-aos="fade-up" data-aos-delay="100" style="box-shadow: none;">
                             <div class="flex-1">
                                 <div class="flex items-center mb-6">
                                     <div class="icon-circle mr-4"><i class="fas fa-pen-nib"></i></div>
@@ -2486,251 +2748,65 @@
                                 နဲ့ တင်ဆက်ပြီး Fans၊ ဖောက်သည်နှင့် Business Opportunities တိုးပွားစေပါ။</p>
                         </div>
 
-                        <!-- Packages -->
-                        <div class="grid md:grid-cols-3 gap-6 mt-8">
-
-                            <!-- Starter -->
-                            <div class="minimalist-card panel-child-stagger flex flex-col">
-                                <div class="mb-3">
-                                    <h4 class="font-semibold text-black text-lg">Starter</h4>
-                                    <p class="text-xs text-gray-500 mt-1">Personal Profile / Bio Site</p>
-                                </div>
-                                <div class="flex items-baseline gap-2 mb-6">
-                                    <span class="text-3xl font-bold text-black">1,500,000</span>
-                                    <span class="text-sm text-gray-500">MMK</span>
-                                </div>
-                                <ul class="text-sm text-[#555] space-y-3 mb-6 flex-1">
-                                    <li class="flex items-start"><i
-                                            class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>1
-                                            Page (Home) — Hero, About, Gallery, Contact</span></li>
-                                    <li class="flex items-start"><i
-                                            class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>Mobile
-                                            Responsive Design</span></li>
-                                    <li class="flex items-start"><i
-                                            class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>Domain
-                                            Name (1 နှစ်)</span></li>
-                                    <li class="flex items-start"><i
-                                            class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>Web
-                                            Hosting (1 နှစ်)</span></li>
-                                    <li class="flex items-start"><i
-                                            class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>SSL
-                                            Certificate (HTTPS)</span></li>
-                                    <li class="flex items-start"><i
-                                            class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>Social
-                                            Media Links Integration</span></li>
-                                    <li class="flex items-start"><i
-                                            class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>Contact
-                                            Form</span></li>
-                                    <li class="flex items-start"><i
-                                            class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>Revision
-                                            2 ကြိမ်</span></li>
-                                    <li class="flex items-start"><i
-                                            class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>ကြာချိန်
-                                            — ၅–၇ ရက်</span></li>
-                                </ul>
-                                <a href="#contact" class="btn-primary w-full block text-center">Starter ရွေးမည်</a>
-                            </div>
-
-                            <!-- Pro (Featured) -->
-                            <div class="minimalist-card panel-child-stagger flex flex-col"
-                                style="border: 2px solid #ed2939;">
-                                <div class="flex items-center justify-between mb-3">
-                                    <div>
-                                        <h4 class="font-semibold text-black text-lg">Pro</h4>
-                                        <p class="text-xs text-gray-500 mt-1">Multi-Page Brand Website</p>
+                        <!-- Package -->
+                        <div class="mt-8">
+                            <div class="minimalist-card panel-child-stagger flex flex-col md:flex-row gap-8 items-center" style="box-shadow: none;">
+                                <div class="flex-1">
+                                    <div class="mb-3">
+                                        <h4 class="font-semibold text-black text-lg">One-Page Website</h4>
+                                        <p class="text-xs text-gray-500 mt-1">Personal Profile / Bio Site</p>
                                     </div>
-                                    <span
-                                        class="bg-[#ed2939] text-white text-xs font-bold px-3 py-1 rounded-full">POPULAR</span>
+                                    <ul class="text-sm text-[#555] space-y-3 mb-6">
+                                        <li class="flex items-start"><i
+                                                class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>1
+                                                Page (Home) — Hero, About, Gallery, Contact</span></li>
+                                        <li class="flex items-start"><i
+                                                class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>Mobile
+                                                Responsive Design</span></li>
+                                        <li class="flex items-start"><i
+                                                class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>Domain
+                                                Name (1 နှစ်)</span></li>
+                                        <li class="flex items-start"><i
+                                                class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>Web
+                                                Hosting (1 နှစ်)</span></li>
+                                        <li class="flex items-start"><i
+                                                class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>SSL
+                                                Certificate (HTTPS)</span></li>
+                                        <li class="flex items-start"><i
+                                                class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>Social
+                                                Media Links Integration</span></li>
+                                        <li class="flex items-start"><i
+                                                class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>Contact
+                                                Form</span></li>
+                                        <li class="flex items-start"><i
+                                                class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>Revision
+                                                2 ကြိမ်</span></li>
+                                        <li class="flex items-start"><i
+                                                class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>ကြာချိန်
+                                                — ၅–၇ ရက်</span></li>
+                                    </ul>
                                 </div>
-                                <div class="mb-5">
-                                    <p class="text-sm text-gray-500 uppercase tracking-widest mb-1">စျေးနှုန်း</p>
-                                    <p class="text-2xl font-bold text-black">Quote on Request</p>
-                                    <p class="text-xs text-gray-400 mt-1">Project scope အပေါ် မူတည်၍ ကောက်ခံပါသည်</p>
-                                </div>
-                                <ul class="text-sm text-[#555] space-y-3 mb-6 flex-1">
-                                    <li class="flex items-start"><i
-                                            class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>Starter
-                                            ထဲမှ အကုန်ပါဝင် +</span></li>
-                                    <li class="flex items-start"><i
-                                            class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>5
-                                            Pages (Home, About, Gallery, Events, Contact)</span></li>
-                                    <li class="flex items-start"><i
-                                            class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>Fan
-                                            Engagement Section (Fan Wall / Messages)</span></li>
-                                    <li class="flex items-start"><i
-                                            class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>Photo
-                                            & Video Gallery</span></li>
-                                    <li class="flex items-start"><i
-                                            class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>News
-                                            / Blog Section</span></li>
-                                    <li class="flex items-start"><i
-                                            class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>Events
-                                            & Appearances Calendar</span></li>
-                                    <li class="flex items-start"><i
-                                            class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>Press
-                                            / Media Kit (PDF Download)</span></li>
-                                    <li class="flex items-start"><i
-                                            class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>Instagram
-                                            Feed Auto-Sync</span></li>
-                                    <li class="flex items-start"><i
-                                            class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>Basic
-                                            SEO Setup</span></li>
-                                    <li class="flex items-start"><i
-                                            class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>Google
-                                            Analytics Integration</span></li>
-                                    <li class="flex items-start"><i
-                                            class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>Revision
-                                            5 ကြိမ်</span></li>
-                                </ul>
-                                <a href="#contact" class="btn-secondary w-full block text-center">စျေးနှုန်းမေးမည်</a>
-                            </div>
-
-                            <!-- Elite -->
-                            <div class="minimalist-card panel-child-stagger flex flex-col">
-                                <div class="mb-3">
-                                    <h4 class="font-semibold text-black text-lg">Elite</h4>
-                                    <p class="text-xs text-gray-500 mt-1">Full Digital Presence</p>
-                                </div>
-                                <div class="mb-5">
-                                    <p class="text-sm text-gray-500 uppercase tracking-widest mb-1">စျေးနှုန်း</p>
-                                    <p class="text-2xl font-bold text-black">Quote on Request</p>
-                                    <p class="text-xs text-gray-400 mt-1">Project scope အပေါ် မူတည်၍ ကောက်ခံပါသည်</p>
-                                </div>
-                                <ul class="text-sm text-[#555] space-y-3 mb-6 flex-1">
-                                    <li class="flex items-start"><i
-                                            class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>Pro
-                                            ထဲမှ အကုန်ပါဝင် +</span></li>
-                                    <li class="flex items-start"><i
-                                            class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>Custom
-                                            Pages — Unlimited</span></li>
-                                    <li class="flex items-start"><i
-                                            class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>Merch
-                                            / Product Store (E-commerce)</span></li>
-                                    <li class="flex items-start"><i
-                                            class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>Membership
-                                            / Fan Club Area</span></li>
-                                    <li class="flex items-start"><i
-                                            class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>Business
-                                            Email (@yourdomain.com)</span></li>
-                                    <li class="flex items-start"><i
-                                            class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>Cloud
-                                            File & Asset Storage</span></li>
-                                    <li class="flex items-start"><i
-                                            class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>Advanced
-                                            SEO + Speed Optimization</span></li>
-                                    <li class="flex items-start"><i
-                                            class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>Brand
-                                            Identity Guideline Integration</span></li>
-                                    <li class="flex items-start"><i
-                                            class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>1
-                                            Year Priority Support & Maintenance</span></li>
-                                    <li class="flex items-start"><i
-                                            class="fas fa-check-circle text-[#a7e169] mr-3 mt-0.5 pop-in-icon"></i><span>Revision
-                                            Unlimited</span></li>
-                                </ul>
-                                <a href="#contact" class="btn-primary w-full block text-center">စျေးနှုန်းမေးမည်</a>
-                            </div>
-                        </div>
-
-                        <!-- What's Included Info Box -->
-                        <div class="mt-8 p-6 bg-white rounded-xl border border-gray-200 shadow-sm panel-child-stagger">
-                            <h4 class="font-semibold text-black mb-5 flex items-center text-lg">
-                                <i class="fas fa-info-circle text-[#a7e169] mr-3"></i> Website တစ်ခုအတွက်
-                                လိုအပ်သောအရာများ (ကျွန်တော်တို့ စီမံဆောင်ရွက်ပေးပါသည်)
-                            </h4>
-                            <div class="grid md:grid-cols-2 gap-x-12 gap-y-3 text-[#555] text-sm">
-                                <div class="flex items-start"><span
-                                        class="text-[#a7e169] mr-3 mt-1">→</span><span><strong class="text-black">Domain
-                                            Name</strong> — သင့် website address (e.g. yourname.com) — 1 နှစ်</span>
-                                </div>
-                                <div class="flex items-start"><span
-                                        class="text-[#a7e169] mr-3 mt-1">→</span><span><strong class="text-black">Web
-                                            Hosting</strong> — Website ကို 24/7 online ထားနိုင်သော server space</span>
-                                </div>
-                                <div class="flex items-start"><span
-                                        class="text-[#a7e169] mr-3 mt-1">→</span><span><strong class="text-black">SSL
-                                            Certificate</strong> — Visitors များ၏ data ကာကွယ်ပေးသော HTTPS
-                                        security</span></div>
-                                <div class="flex items-start"><span
-                                        class="text-[#a7e169] mr-3 mt-1">→</span><span><strong class="text-black">Cloud
-                                            Storage</strong> — ဓာတ်ပုံ၊ ဗီဒီယိုများ သိမ်းဆည်းနိုင်သော space</span></div>
-                                <div class="flex items-start"><span
-                                        class="text-[#a7e169] mr-3 mt-1">→</span><span><strong
-                                            class="text-black">Business Email</strong> — @yourname.com email address
-                                        (Elite Package)</span></div>
-                                <div class="flex items-start"><span
-                                        class="text-[#a7e169] mr-3 mt-1">→</span><span><strong class="text-black">SEO
-                                            Setup</strong> — Google တွင် ရှာဖွေတွေ့ရှိနိုင်မည့် Optimization</span>
-                                </div>
-                                <div class="flex items-start"><span
-                                        class="text-[#a7e169] mr-3 mt-1">→</span><span><strong class="text-black">Google
-                                            Analytics</strong> — Visitors Statistics & Insights
-                                        ကြည့်ရှုနိုင်ခြင်း</span></div>
-                                <div class="flex items-start"><span
-                                        class="text-[#a7e169] mr-3 mt-1">→</span><span><strong class="text-black">Annual
-                                            Renewal</strong> — Domain + Hosting နှစ်စဉ်သက်တမ်းတိုး
-                                        (သီးခြားကောက်ခံ)</span></div>
-                            </div>
-                        </div>
-
-                        <!-- Why Celebrity Needs a Website -->
-                        <div class="mt-6 p-6 bg-[#f9f9f9] rounded-xl border border-gray-100 panel-child-stagger">
-                            <h4 class="font-semibold text-black mb-5 flex items-center text-lg">
-                                <i class="fas fa-star text-[#a7e169] mr-3"></i> Website တစ်ခု ဘာကြောင့် လိုအပ်သလဲ?
-                            </h4>
-                            <div class="grid md:grid-cols-2 gap-4 text-sm text-[#555]">
-                                <div class="flex items-start gap-3">
-                                    <div
-                                        class="w-8 h-8 rounded-full bg-[#a7e169] flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-shield-alt text-black text-xs"></i></div>
-                                    <div><strong class="text-black block mb-1">Official Presence</strong>Fake account
-                                        များနှင့် ကွဲပြားသော တရားဝင် platform တစ်ခု ရှိသင့်ပါသည်။</div>
-                                </div>
-                                <div class="flex items-start gap-3">
-                                    <div
-                                        class="w-8 h-8 rounded-full bg-[#a7e169] flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-users text-black text-xs"></i></div>
-                                    <div><strong class="text-black block mb-1">Fan Connection</strong>Fans များနှင့်
-                                        directly ချိတ်ဆက်ကာ community တည်ဆောက်နိုင်ပါသည်။</div>
-                                </div>
-                                <div class="flex items-start gap-3">
-                                    <div
-                                        class="w-8 h-8 rounded-full bg-[#a7e169] flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-briefcase text-black text-xs"></i></div>
-                                    <div><strong class="text-black block mb-1">Brand & Business</strong>Sponsors,
-                                        Agencies, Media များ ဆက်သွယ်ရန် Professional contact point ရှိမည်။</div>
-                                </div>
-                                <div class="flex items-start gap-3">
-                                    <div
-                                        class="w-8 h-8 rounded-full bg-[#a7e169] flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-image text-black text-xs"></i></div>
-                                    <div><strong class="text-black block mb-1">Content Control</strong>Social media
-                                        algorithm မှ သွယ်ဝိုက်မနေဘဲ သင့် content ကို ထိန်းချုပ်နိုင်မည်။</div>
+                                <div class="flex-1 w-full bg-gray-50 p-6 rounded-xl border border-gray-200">
+                                    <div class="text-center">
+                                        <p class="text-sm text-gray-500 uppercase tracking-widest mb-2">စျေးနှုန်း</p>
+                                        <h4 class="text-3xl font-bold text-black mb-6">1,500,000 MMK</h4>
+                                        <a href="#contact" class="btn-primary w-full block text-center">Contact Us</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Notes -->
-                        <div class="mt-6 p-6 bg-white rounded-xl border border-gray-200 shadow-sm panel-child-stagger">
-                            <h4 class="font-semibold text-black mb-4 flex items-center text-lg">
-                                <i class="fas fa-info-circle text-[#a7e169] mr-3"></i> Website Design အတွက်
-                                သိထားသင့်တဲ့အချက်များ
-                            </h4>
-                            <ul class="space-y-3 text-[#555] text-sm">
-                                <li class="flex items-start"><span class="text-[#a7e169] mr-3 mt-1">→</span><span>Social
-                                        Media မှ တဆင့် client မဆုံးရှုံးအောင် သင့် own platform တစ်ခုဖြစ်ပါသည်</span>
-                                </li>
-                                <li class="flex items-start"><span class="text-[#a7e169] mr-3 mt-1">→</span><span>Logo,
-                                        Brand Colors, Photos/Videos များ ကြိုတင်ပေးအပ်ရပါမည်</span></li>
-                                <li class="flex items-start"><span class="text-[#a7e169] mr-3 mt-1">→</span><span>Domain
-                                        + Hosting နှစ်စဉ်သက်တမ်းတိုးကြေး (ခန့်မှန်း 100,000–200,000 MMK/year)
-                                        သီးခြားကောက်ခံပါသည်</span></li>
-                                <li class="flex items-start"><span class="text-[#a7e169] mr-3 mt-1">→</span><span>Social
-                                        Media Design Package နှင့် တွဲဖက်ယူပါက Special Discount ရရှိနိုင်သည်</span></li>
-                                <li class="flex items-start"><span
-                                        class="text-[#a7e169] mr-3 mt-1">→</span><span>ကြိုတင်ငွေ ၅၀% + ပြီးစီးမှ
-                                        ၅၀%</span></li>
-                            </ul>
+                        <!-- Essential Info -->
+                        <div class="mt-8 panel-child-stagger">
+                            <div class="grid md:grid-cols-2 gap-x-12 gap-y-2 text-[#555] text-sm">
+                                <div class="flex items-start"><span class="text-[#a7e169] mr-3 mt-1">→</span><span><strong class="text-black">Domain + Hosting</strong> — 1 နှစ် included, နှစ်စဉ်သက်တမ်းတိုး သီးခြား</span></div>
+                                <div class="flex items-start"><span class="text-[#a7e169] mr-3 mt-1">→</span><span><strong class="text-black">SSL Certificate</strong> — HTTPS security included</span></div>
+                                <div class="flex items-start"><span class="text-[#a7e169] mr-3 mt-1">→</span><span><strong class="text-black">Logo, Brand Colors, Photos</strong> — ကြိုတင်ပေးအပ်ရပါမည်</span></div>
+                                <div class="flex items-start"><span class="text-[#a7e169] mr-3 mt-1">→</span><span><strong class="text-black">Mobile Responsive</strong> — All devices မှာ အလုပ်လုပ်မည်</span></div>
+                                <div class="flex items-start"><span class="text-[#a7e169] mr-3 mt-1">→</span><span><strong class="text-black">SEO + Google Analytics</strong> — Search တွေ့ရှိမှု မြှင့်တင်မည်</span></div>
+                                <div class="flex items-start"><span class="text-[#a7e169] mr-3 mt-1">→</span><span><strong class="text-black">Social Media Package</strong> — တွဲဖက်ယူပါက Special Discount</span></div>
+                                <div class="flex items-start"><span class="text-[#a7e169] mr-3 mt-1">→</span><span><strong class="text-black">Payment</strong> — ကြိုတင်ငွေ ၅၀% + ပြီးစီးမှ ၅၀%</span></div>
+                            </div>
                         </div>
 
                     </div><!-- end website-panel -->
@@ -2764,7 +2840,7 @@
                                     <p class="text-sm text-gray-500 uppercase tracking-widest mb-2">စတင်သည့်စျေးနှုန်း
                                     </p>
                                     <h4 class="text-3xl font-bold text-black mb-6">70,000 MMK</h4>
-                                    <a href="#contact" class="btn-primary w-full block text-center">စျေးနှုန်းမေးမည်</a>
+                                    <a href="#contact" class="btn-primary w-full block text-center">Contact Us</a>
                                 </div>
                             </div>
                         </div>
@@ -2775,11 +2851,13 @@
             </div>
         </section>
 
-        <section id="testimonials" class="py-24 section-dark px-4">
+        <!-- ═══ TESTIMONIALS ═══ -->
+        <section id="testimonials" class="py-24 bg-[#f9f9f9] px-4">
             <div class="max-w-7xl mx-auto">
                 <div class="text-center mb-16" data-aos="fade-up">
-                    <h2 class="section-title">Community Reviews</h2>
-                    <p class="section-subtitle">Hear from our students about their learning journey.</p>
+                    <p class="text-xs font-semibold text-[#a7e169] uppercase tracking-[0.2em] mb-3">Testimonials</p>
+                    <h2 class="text-4xl md:text-5xl font-bold text-black mb-4 tracking-tight">Community Reviews</h2>
+                    <p class="text-gray-500 max-w-lg mx-auto font-light">Hear from our students about their learning journey.</p>
                 </div>
 
                 <!-- CAROUSEL WRAPPER (Infinite Loop) -->
@@ -3203,27 +3281,11 @@
             ======================================== */
             .reviews-marquee-outer {
                 overflow: hidden;
-                width: 100%;
+                width: 100vw;
                 position: relative;
-                padding: 8px 0;
-            }
-            .reviews-marquee-outer::before,
-            .reviews-marquee-outer::after {
-                content: '';
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                width: 60px;
-                z-index: 2;
-                pointer-events: none;
-            }
-            .reviews-marquee-outer::before {
-                left: 0;
-                background: linear-gradient(to right, #fff, transparent);
-            }
-            .reviews-marquee-outer::after {
-                right: 0;
-                background: linear-gradient(to left, #fff, transparent);
+                padding: 20px 0;
+                margin-left: calc(-50vw + 50%);
+                margin-right: calc(-50vw + 50%);
             }
             .reviews-marquee-track {
                 display: flex;
@@ -3241,8 +3303,36 @@
                 transform: none;
             }
             .reviews-carousel-slide .minimalist-card {
+                background: transparent;
                 border: 1px solid #e5e5e5;
-                padding: 1.5rem 2rem;
+                box-shadow: none;
+                padding: 1.5rem;
+                border-radius: 0.75rem;
+                transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+            .reviews-carousel-slide .minimalist-card:hover {
+                border-color: #a7e169;
+                transform: translateY(-2px);
+            }
+            .reviews-carousel-slide .minimalist-card .flex.text-\[\#a7e169\] {
+                margin-bottom: 0.75rem;
+                font-size: 0.65rem;
+                letter-spacing: 0.1em;
+            }
+            .reviews-carousel-slide .minimalist-card p.italic {
+                font-style: normal;
+                font-weight: 300;
+                line-height: 1.6;
+                color: #666;
+                margin-bottom: 1.25rem;
+            }
+            .reviews-carousel-slide .minimalist-card .border-t {
+                border-top: none;
+                padding-top: 0;
+            }
+            .reviews-carousel-slide .minimalist-card .rounded-full {
+                width: 32px;
+                height: 32px;
             }
             @media (max-width: 767px) {
                 .reviews-carousel-slide {
@@ -3255,12 +3345,13 @@
             }
         </style>
 
-        <section id="contact" class="py-24 section-darker px-4">
+        <!-- ═══ CONTACT ═══ -->
+        <section id="contact" class="py-24 bg-white px-4">
             <div class="max-w-7xl mx-auto">
                 <div class="text-center mb-16" data-aos="fade-up">
-                    <h2 class="section-title">Get In Touch</h2>
-                    <p class="section-subtitle">သိလိုသောအကြောင်းအရာများကို ဖုန်းဆက်ပြီးမေးမြန်းနိုင်သလို၊
-                        အီးမေးလ်ပို့ခြင်းဖြင့်လည်း ဆက်သွယ်နိုင်ပါသည်။</p>
+                    <p class="text-xs font-semibold text-[#a7e169] uppercase tracking-[0.2em] mb-3">Contact Us</p>
+                    <h2 class="text-4xl md:text-5xl font-bold text-black mb-4 tracking-tight">Get In Touch</h2>
+                    <p class="text-gray-500 max-w-lg mx-auto font-light">သိလိုသောအကြောင်းအရာများကို ဖုန်းဆက်ပြီးမေးမြန်းနိုင်သလို၊ အီးမေးလ်ပို့ခြင်းဖြင့်လည်း ဆက်သွယ်နိုင်ပါသည်။</p>
                 </div>
 
                 <div class="max-w-4xl mx-auto">
@@ -3518,6 +3609,38 @@
     <script>
         AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
         feather.replace();
+
+        (function initAboutCardReveal() {
+            const aboutCards = document.querySelectorAll('#about .minimalist-card');
+            if (!aboutCards.length) return;
+
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduceMotion || !('IntersectionObserver' in window)) {
+                aboutCards.forEach(card => card.classList.add('about-card-visible'));
+                return;
+            }
+
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+
+                    const card = entry.target;
+                    const delay = Number(card.dataset.aboutDelay || 0);
+                    window.setTimeout(() => {
+                        card.classList.add('about-card-visible');
+                    }, delay);
+                    obs.unobserve(card);
+                });
+            }, {
+                threshold: 0.18,
+                rootMargin: '0px 0px -8% 0px'
+            });
+
+            aboutCards.forEach((card, index) => {
+                card.dataset.aboutDelay = String(index * 120);
+                observer.observe(card);
+            });
+        })();
 
         // ====== SMOOTH SERVICE SWITCHER (Rebuilt for butter-smooth transitions) ======
         let currentServiceIndex = 0;
