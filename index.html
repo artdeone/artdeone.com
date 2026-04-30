@@ -512,7 +512,11 @@
         }
 
         /* Fix horizontal scrolling/wiggling */
-        html,
+        html {
+            overflow-x: hidden;
+            max-width: 100%;
+            scroll-behavior: smooth;
+        }
         body {
             overflow-x: hidden;
             max-width: 100%;
