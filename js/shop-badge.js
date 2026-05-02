@@ -1,4 +1,14 @@
 // Shop "New!" badge — auto-inject on all pages
+(function loadThemeMode() {
+    if (window.ADOThemeMode || document.getElementById('ado-theme-mode-script')) return;
+
+    var script = document.createElement('script');
+    script.id = 'ado-theme-mode-script';
+    script.src = '/js/theme-mode.js';
+    script.defer = true;
+    document.head.appendChild(script);
+})();
+
 (function() {
     if (localStorage.getItem('shop_visited')) return;
 

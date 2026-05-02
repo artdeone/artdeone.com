@@ -1423,8 +1423,6 @@
         .logo-marquee-track {
             overflow: hidden;
             width: 100%;
-            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
-            mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
         }
 
         .logo-marquee-inner {
@@ -1486,31 +1484,31 @@
                        heroShapeFloat 20s ease-in-out infinite;
         }
         .hero-shape-1 {
-            width: 500px; height: 500px;
-            top: -150px; left: -100px;
-            background: radial-gradient(circle at center, rgba(167,225,105,0.15) 0%, rgba(167,225,105,0.05) 40%, transparent 70%);
-            filter: blur(60px);
+            width: 900px; height: 900px;
+            top: -300px; left: -200px;
+            background: radial-gradient(circle at center, rgba(167,225,105,0.18) 0%, rgba(167,225,105,0.06) 40%, transparent 70%);
+            filter: blur(80px);
             animation-delay: 0s, 2.5s;
         }
         .hero-shape-2 {
-            width: 400px; height: 400px;
-            bottom: -100px; right: -80px;
-            background: radial-gradient(circle at center, rgba(237,41,57,0.10) 0%, rgba(237,41,57,0.03) 40%, transparent 70%);
-            filter: blur(50px);
+            width: 800px; height: 800px;
+            bottom: -250px; right: -150px;
+            background: radial-gradient(circle at center, rgba(237,41,57,0.12) 0%, rgba(237,41,57,0.04) 40%, transparent 70%);
+            filter: blur(70px);
             animation-delay: 0.4s, 3s;
         }
         .hero-shape-3 {
-            width: 300px; height: 300px;
-            top: 40%; right: 10%;
-            background: radial-gradient(circle at center, rgba(167,225,105,0.08) 0%, transparent 60%);
-            filter: blur(45px);
+            width: 650px; height: 650px;
+            top: 30%; right: 5%;
+            background: radial-gradient(circle at center, rgba(167,225,105,0.10) 0%, transparent 60%);
+            filter: blur(65px);
             animation-delay: 0.8s, 3.5s;
         }
         .hero-shape-4 {
-            width: 250px; height: 250px;
-            bottom: 30%; left: 8%;
-            background: radial-gradient(circle at center, rgba(200,200,200,0.10) 0%, transparent 60%);
-            filter: blur(40px);
+            width: 550px; height: 550px;
+            bottom: 20%; left: 3%;
+            background: radial-gradient(circle at center, rgba(200,200,200,0.12) 0%, transparent 60%);
+            filter: blur(55px);
             animation-delay: 1.2s, 4s;
         }
         @keyframes heroShapeReveal {
@@ -1598,6 +1596,10 @@
         .hero-collab-logo:hover {
             opacity: 0.8;
             filter: grayscale(0%);
+        }
+        .hero-collab-logo.invert:hover {
+            filter: grayscale(100%) invert(1);
+            opacity: 0.7;
         }
         .hero-collab-x {
             font-size: 1.75rem;
@@ -1725,125 +1727,6 @@
             transition-delay: 0.4s;
         }
 
-        /* ═══ ADO AI PROMO SECTION ═══ */
-        .ado-ai-section {
-            position: relative;
-        }
-        .ado-ai-promo-inner {
-            display: flex;
-            align-items: center;
-            gap: 3rem;
-        }
-        .ado-ai-promo-text {
-            flex: 1;
-            min-width: 0;
-        }
-        .ado-ai-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(167, 225, 105, 0.12);
-            color: #a7e169;
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 0.12em;
-            padding: 5px 14px;
-            border-radius: 50px;
-            margin-bottom: 1.25rem;
-        }
-        .ado-ai-badge-dot {
-            width: 6px; height: 6px;
-            background: #a7e169;
-            border-radius: 50%;
-            animation: adoBadgePulse 2s ease-in-out infinite;
-        }
-        @keyframes adoBadgePulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(0.8); }
-        }
-        .ado-ai-title {
-            font-family: 'Poppins', sans-serif;
-            font-size: 2.25rem;
-            font-weight: 700;
-            color: #000;
-            margin-bottom: 1rem;
-        }
-        .ado-ai-highlight {
-            background: linear-gradient(135deg, #6aaf2e, #8cca50);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .ado-ai-desc {
-            color: #666;
-            font-size: 1.05rem;
-            line-height: 1.7;
-            margin-bottom: 1.75rem;
-        }
-        .ado-ai-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: #fff;
-            background: #6aaf2e;
-            font-weight: 600;
-            font-size: 0.9rem;
-            padding: 10px 24px;
-            border-radius: 50px;
-            text-decoration: none;
-            transition: gap 0.3s ease, background 0.2s, transform 0.2s;
-        }
-        .ado-ai-cta:hover {
-            background: #5a9a24;
-            gap: 14px;
-            transform: translateY(-1px);
-        }
-        .ado-ai-models {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 1.5rem;
-        }
-        .ado-ai-model-logo {
-            height: 22px;
-            width: auto;
-            opacity: 0.5;
-            transition: opacity 0.2s;
-            filter: grayscale(100%);
-        }
-        .ado-ai-model-logo:hover {
-            opacity: 0.85;
-            filter: grayscale(0%);
-        }
-        .ado-ai-promo-img {
-            flex: 1.2;
-            min-width: 0;
-        }
-        .ado-ai-promo-img a {
-            display: block;
-        }
-        .ado-ai-promo-img img {
-            width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .ado-ai-promo-img img:hover {
-            transform: scale(1.01);
-        }
-        @media (max-width: 768px) {
-            .ado-ai-promo-inner {
-                flex-direction: column;
-                gap: 2rem;
-            }
-            .ado-ai-title {
-                font-size: 1.75rem;
-            }
-            .ado-ai-desc {
-                font-size: 0.95rem;
-            }
-        }
     </style>
 </head>
 
@@ -2027,27 +1910,6 @@
             </div>
         </section>
 
-        <!-- ═══ ADO AI PROMO ═══ -->
-        <section class="relative overflow-hidden bg-[#f9f9f9] border-y border-gray-100" style="min-height: 420px;">
-            <!-- Content -->
-            <div class="relative z-10 flex flex-col items-center justify-center text-center px-4 py-24 max-w-4xl mx-auto" style="min-height: 420px;">
-                <div class="inline-flex items-center gap-2 bg-[#a7e169]/10 border border-[#a7e169]/25 rounded-full px-4 py-1.5 mb-8" data-aos="fade-up" data-aos-delay="100">
-                    <span class="w-1.5 h-1.5 bg-[#a7e169] rounded-full animate-pulse"></span>
-                    <span class="text-xs font-semibold text-[#6aaf2e] uppercase tracking-widest">New Feature</span>
-                </div>
-                <h2 class="text-4xl md:text-6xl font-bold text-black mb-5 tracking-tight" data-aos="fade-up" data-aos-delay="200">
-                    Meet <span class="text-[#a7e169]">ADO AI</span>
-                </h2>
-                <p class="text-base md:text-lg text-gray-500 mb-10 max-w-lg font-light leading-relaxed" data-aos="fade-up" data-aos-delay="300">
-                    Your creative AI assistant for logo concepts, design feedback & brand strategy.
-                </p>
-                <a href="/ado-ai.html" class="group inline-flex items-center gap-2 bg-[#a7e169] text-black font-semibold text-sm px-7 py-3 rounded-full transition-all duration-300 hover:bg-black hover:text-white hover:gap-3" data-aos="fade-up" data-aos-delay="400">
-                    <span>Try It Free</span>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-0.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </a>
-            </div>
-        </section>
-
         <!-- ═══ ABOUT ═══ -->
         <section id="about" class="py-24 bg-white px-4">
             <div class="max-w-6xl mx-auto">
@@ -2065,7 +1927,7 @@
                                 class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700">
                         </div>
                         <!-- Smooth fade-out gradient covering full photo width -->
-                        <div class="hidden lg:block absolute inset-0 pointer-events-none" style="background: linear-gradient(to right, transparent 30%, rgba(255,255,255,0.4) 60%, rgba(255,255,255,0.95) 90%, rgba(255,255,255,1) 100%);"></div>
+                        <div class="hidden lg:block absolute inset-0 pointer-events-none instructor-photo-fade" style="background: linear-gradient(to right, transparent 30%, rgba(255,255,255,0.4) 60%, rgba(255,255,255,0.95) 90%, rgba(255,255,255,1) 100%);"></div>
                     </div>
                     <div class="w-full lg:w-2/3 p-8 md:p-10 flex flex-col justify-center">
                         <p class="text-xs font-semibold text-[#a7e169] uppercase tracking-[0.2em] mb-3">The Instructor</p>
@@ -2082,7 +1944,7 @@
                 <!-- Our Mission & Our Vision -->
                 <div class="grid md:grid-cols-2 gap-6">
                     <div class="border border-gray-200 rounded-xl p-8 md:p-10 bg-transparent flex items-start gap-5" data-aos="fade-up" data-aos-delay="100">
-                        <div class="w-10 h-10 rounded-full bg-[#a7e169]/10 flex items-center justify-center flex-shrink-0">
+                        <div class="w-10 h-10 rounded-full bg-[#323232] flex items-center justify-center flex-shrink-0">
                             <i class="fas fa-bullseye text-[#a7e169] text-sm"></i>
                         </div>
                         <div>
@@ -2091,7 +1953,7 @@
                         </div>
                     </div>
                     <div class="border border-gray-200 rounded-xl p-8 md:p-10 bg-transparent flex items-start gap-5" data-aos="fade-up" data-aos-delay="200">
-                        <div class="w-10 h-10 rounded-full bg-[#a7e169]/10 flex items-center justify-center flex-shrink-0">
+                        <div class="w-10 h-10 rounded-full bg-[#323232] flex items-center justify-center flex-shrink-0">
                             <i class="fas fa-eye text-[#a7e169] text-sm"></i>
                         </div>
                         <div>
@@ -3623,7 +3485,7 @@
 
                 <div class="max-w-4xl mx-auto">
 
-                    <div class="space-y-6 mb-12" data-aos="fade-up" data-aos-delay="100">
+                    <div class="space-y-6 mb-0" data-aos="fade-up" data-aos-delay="100">
 
                         <a href="tel:09953681497" class="simple-contact-item group">
                             <div class="flex items-center gap-4">
@@ -3647,8 +3509,8 @@
                                 </div>
                                 <div class="flex-1">
                                     <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Email</p>
-                                    <p class="text-black text-lg font-medium break-all">artdeone.educators@gmail.com</p>
-                                    <p class="text-gray-500 text-sm">Response within 24 hours</p>
+                                    <p class="text-black text-lg font-medium break-all leading-snug">artdeone.educators@gmail.com</p>
+                                    <p class="text-gray-500 text-sm -mt-0.5">Response within 24 hours</p>
                                 </div>
                                 <i
                                     class="fas fa-arrow-right text-gray-400 group-hover:text-black group-hover:translate-x-1 transition-all"></i>
@@ -3662,15 +3524,15 @@
                                 </div>
                                 <div class="flex-1">
                                     <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Location</p>
-                                    <p class="text-black text-lg font-medium">Yangon, Myanmar</p>
-                                    <p class="text-gray-500 text-sm">Studio & Teaching Space</p>
+                                    <p class="text-black text-lg font-medium leading-tight">Yangon, Myanmar</p>
+                                    <p class="text-gray-500 text-sm mt-0.5">Studio & Teaching Space</p>
                                 </div>
                             </div>
                         </div>
 
                     </div>
 
-                    <div class="border-t border-gray-300 my-12" data-aos="fade-up" data-aos-delay="200"></div>
+                    <div class="border-t border-gray-300 my-8" data-aos="fade-up" data-aos-delay="200"></div>
 
                     <div class="text-center" data-aos="fade-up" data-aos-delay="300">
                         <p class="text-gray-500 text-sm uppercase tracking-wider mb-6">Connect With Us</p>
@@ -4078,255 +3940,8 @@
         });
     </script>
 
-    <!-- ART de ONE SMART CHATBOT (FIXED RESPONSIVE & ANIMATION) -->
-    <div id="artdeone-chatbot-container"
-        class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[9999] font-sans flex flex-col items-end gap-4"
-        style="font-family: 'Space Grotesk', sans-serif;">
-
-        <!-- Chat Window -->
-        <div id="chat-window"
-            class="hidden flex-col w-[350px] max-w-[calc(100vw-32px)] h-[500px] max-h-[80vh] bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-200 origin-bottom-right transform transition-all duration-300 ease-in-out scale-90 opacity-0 translate-y-4">
-
-            <!-- Header (Fixed Height, Green) -->
-            <div class="bg-[#a7e169] p-4 flex justify-between items-center text-[#323232] shrink-0 h-16">
-                <div class="flex items-center gap-3">
-                    <div class="relative">
-                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769316272/fav-icon_n00lji.png"
-                            class="w-8 h-8 rounded-full bg-white p-1 object-cover" alt="Bot">
-                        <!-- Status Dot -->
-                        <span
-                            class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-white rounded-full"></span>
-                    </div>
-                    <div class="leading-tight">
-                        <h3 class="font-bold text-sm">ART de ONE Assistant</h3>
-                        <p class="text-[10px] opacity-80">Online | Replies instantly</p>
-                    </div>
-                </div>
-                <button onclick="toggleChat()" class="text-[#323232] hover:text-white transition-colors p-1">
-                    <i data-feather="x" class="w-5 h-5"></i>
-                </button>
-            </div>
-
-            <!-- Messages Area (Flex-1 to fill space) -->
-            <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 scroll-smooth w-full">
-                <!-- Messages will appear here via JS -->
-            </div>
-
-            <!-- Options Area (Auto Height) -->
-            <div id="chat-options"
-                class="p-3 bg-white border-t border-gray-100 min-h-[60px] flex flex-wrap gap-2 justify-center items-center shrink-0 w-full z-10">
-                <!-- Options buttons will appear here -->
-            </div>
-
-            <!-- Branding Footer -->
-            <div class="bg-gray-50 py-1 text-center border-t border-gray-100 shrink-0">
-                <p class="text-[10px] text-gray-400">Powered by ART de ONE</p>
-            </div>
-        </div>
-
-        <!-- Toggle Button (No Border, Green) -->
-        <button id="chat-toggle-btn" onclick="toggleChat()"
-            class="w-14 h-14 rounded-full bg-[#a7e169] hover:bg-[#ed2939] text-[#323232] hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 group relative z-50"
-            style="overflow:hidden; isolation:isolate; box-shadow: inset 0 0 12px 3px rgba(255,255,255,0.40), inset 0 0 28px 6px rgba(255,255,255,0.12), 0 0 18px 4px rgba(167,225,105,0.20), 0 8px 24px rgba(0,0,0,0.15);">
-            <i data-feather="message-circle" class="w-7 h-7 group-hover:hidden transition-all absolute"></i>
-            <i data-feather="chevron-down" class="w-7 h-7 hidden group-hover:block transition-all absolute"></i>
-            <!-- Grain texture overlay -->
-            <span
-                style="content:''; position:absolute; inset:0; z-index:1; pointer-events:none; border-radius:inherit; opacity:0.07; mix-blend-mode:overlay; background-image:url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22g%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23g)%22/%3E%3C/svg%3E'); background-size:128px 128px;"></span>
-        </button>
-    </div>
-
-    <style>
-        /* Custom Scrollbar */
-        #chat-messages::-webkit-scrollbar {
-            width: 5px;
-        }
-
-        #chat-messages::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        #chat-messages::-webkit-scrollbar-thumb {
-            background: #d1d5db;
-            border-radius: 10px;
-        }
-
-        #chat-messages::-webkit-scrollbar-thumb:hover {
-            background: #a7e169;
-        }
-
-        /* Chat Toggle Button — Glow Effects */
-        #chat-toggle-btn:hover {
-            box-shadow:
-                inset 0 0 14px 4px rgba(255, 255, 255, 0.45),
-                inset 0 0 32px 8px rgba(255, 255, 255, 0.15),
-                0 0 25px 6px rgba(237, 41, 57, 0.25),
-                0 8px 28px rgba(0, 0, 0, 0.20) !important;
-        }
-
-        /* Animation Classes */
-        .chat-visible {
-            opacity: 1 !important;
-            transform: scale(1) translateY(0) !important;
-            pointer-events: auto !important;
-        }
-
-        /* Message Bubbles */
-        .bot-msg {
-            background: white;
-            color: #323232;
-            border-radius: 12px 12px 12px 2px;
-            border: 1px solid #e5e5e5;
-            padding: 10px 14px;
-            font-size: 0.9rem;
-            max-width: 85%;
-            width: fit-content;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-            animation: slideInLeft 0.3s ease-out;
-        }
-
-        .user-msg {
-            background: #323232;
-            color: white;
-            border-radius: 12px 12px 2px 12px;
-            padding: 10px 14px;
-            font-size: 0.9rem;
-            max-width: 85%;
-            width: fit-content;
-            margin-left: auto;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            animation: slideInRight 0.3s ease-out;
-        }
-
-        /* Option Buttons */
-        .chat-opt-btn {
-            background: white;
-            border: 1px solid #a7e169;
-            color: #323232;
-            padding: 8px 14px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-            white-space: nowrap;
-            margin: 2px;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-        }
-
-        .chat-opt-btn:hover {
-            background: #a7e169;
-            color: black;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        /* Typing Indicator */
-        .typing-dot {
-            display: inline-block;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background-color: #aaa;
-            animation: typing 1.4s infinite ease-in-out both;
-            margin: 0 2px;
-        }
-
-        .typing-dot:nth-child(1) {
-            animation-delay: -0.32s;
-        }
-
-        .typing-dot:nth-child(2) {
-            animation-delay: -0.16s;
-        }
-
-        @keyframes typing {
-
-            0%,
-            80%,
-            100% {
-                transform: scale(0);
-            }
-
-            40% {
-                transform: scale(1);
-            }
-        }
-
-        /* Icon Animation */
-        @keyframes popIcon {
-            0% {
-                transform: scale(0);
-                opacity: 0;
-            }
-
-            80% {
-                transform: scale(1.2);
-                opacity: 1;
-            }
-
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        .pop-in-icon {
-            display: inline-block;
-            opacity: 0;
-            /* Hidden initially */
-        }
-
-        .pop-in-icon.animate {
-            animation: popIcon 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-
-
-        /* DMCA Badge Styling to match SSL badge */
-        .dmca-official-wrapper {
-            padding: 0.35rem 0.5rem !important;
-        }
-
-        .dmca-official-wrapper a.dmca-badge {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            line-height: 1;
-        }
-
-        .dmca-official-wrapper:hover {
-            transform: translateY(-1px);
-        }
-    </style>
-
-    <script src="/js/chatbot.js"></script>
     <script type="text/javascript" src="https://cdn.ywxi.net/js/1.js" async></script>
     <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"></script>
-    <!-- ART de ONE SMART CHATBOT END -->
     <script src="/js/shop-badge.js"></script>
 
     <script type="module">
