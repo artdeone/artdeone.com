@@ -399,6 +399,18 @@ body.dark-mode .hero-collab-logo:hover {
     filter: grayscale(100%) brightness(0) invert(86%) sepia(5%) saturate(120%) hue-rotate(45deg) brightness(96%) contrast(88%);
 }
 
+/* Invert class override: in dark mode the white logo is already visible, remove invert */
+html[data-theme="dark"] .hero-collab-logo.invert,
+body.dark-mode .hero-collab-logo.invert {
+    filter: grayscale(100%) brightness(0) invert(72%) sepia(7%) saturate(180%) hue-rotate(45deg) brightness(92%) contrast(86%);
+}
+
+html[data-theme="dark"] .hero-collab-logo.invert:hover,
+body.dark-mode .hero-collab-logo.invert:hover {
+    opacity: 1;
+    filter: grayscale(100%) brightness(0) invert(86%) sepia(5%) saturate(120%) hue-rotate(45deg) brightness(96%) contrast(88%);
+}
+
 html[data-theme="dark"] .hero-collab-x,
 body.dark-mode .hero-collab-x {
     color: var(--ado-dark-muted) !important;
@@ -868,6 +880,225 @@ body.dark-mode footer {
 html[data-theme="dark"] .instructor-photo-fade,
 body.dark-mode .instructor-photo-fade {
     background: linear-gradient(to right, transparent 30%, rgba(17,19,15,0.4) 60%, rgba(17,19,15,0.95) 90%, rgba(17,19,15,1) 100%) !important;
+}
+
+/* ==========================================
+   🛒 SHOP — Dark Mode Overrides
+   ========================================== */
+
+/* Product card body text */
+html[data-theme="dark"] .product-card-body .text-sm,
+html[data-theme="dark"] .product-card-body p,
+body.dark-mode .product-card-body .text-sm,
+body.dark-mode .product-card-body p {
+    color: var(--ado-dark-muted) !important;
+}
+
+/* Modal detail body */
+html[data-theme="dark"] .modal-detail-body h2,
+body.dark-mode .modal-detail-body h2 {
+    color: var(--ado-dark-text) !important;
+}
+
+html[data-theme="dark"] .modal-detail-body .desc,
+body.dark-mode .modal-detail-body .desc {
+    color: var(--ado-dark-muted) !important;
+}
+
+/* Modal features section */
+html[data-theme="dark"] .modal-features,
+body.dark-mode .modal-features {
+    background: var(--ado-dark-surface-2) !important;
+    border-color: var(--ado-dark-border-soft) !important;
+}
+
+html[data-theme="dark"] .modal-features h4,
+body.dark-mode .modal-features h4 {
+    color: var(--ado-dark-muted-2) !important;
+}
+
+html[data-theme="dark"] .modal-features li,
+body.dark-mode .modal-features li {
+    color: var(--ado-dark-muted) !important;
+}
+
+html[data-theme="dark"] .modal-features li i,
+body.dark-mode .modal-features li i {
+    color: var(--ado-brand-green) !important;
+}
+
+/* Modal note box */
+html[data-theme="dark"] .modal-note-box,
+body.dark-mode .modal-note-box {
+    background: var(--ado-dark-surface-2) !important;
+    border-color: var(--ado-dark-border) !important;
+    color: var(--ado-dark-muted) !important;
+}
+
+/* Modal closing text */
+html[data-theme="dark"] .modal-closing-text,
+body.dark-mode .modal-closing-text {
+    color: var(--ado-dark-muted) !important;
+}
+
+/* Modal price bar */
+html[data-theme="dark"] .modal-price-bar,
+body.dark-mode .modal-price-bar {
+    border-top-color: var(--ado-dark-border-soft) !important;
+}
+
+/* Modal close button */
+html[data-theme="dark"] .modal-close-btn,
+body.dark-mode .modal-close-btn {
+    color: var(--ado-dark-muted-2) !important;
+}
+
+html[data-theme="dark"] .modal-close-btn:hover,
+body.dark-mode .modal-close-btn:hover {
+    color: var(--ado-dark-text) !important;
+}
+
+/* Gallery thumbs strip */
+html[data-theme="dark"] .gallery-thumbs,
+body.dark-mode .gallery-thumbs {
+    background: var(--ado-dark-surface-2) !important;
+    border-bottom-color: var(--ado-dark-border-soft) !important;
+}
+
+html[data-theme="dark"] .gallery-thumb,
+body.dark-mode .gallery-thumb {
+    background: var(--ado-dark-surface) !important;
+}
+
+/* Price strike-through */
+html[data-theme="dark"] .price-strike-sm,
+html[data-theme="dark"] .price-strike-md,
+body.dark-mode .price-strike-sm,
+body.dark-mode .price-strike-md {
+    color: var(--ado-dark-muted-2) !important;
+}
+
+/* Price unit (MMK) */
+html[data-theme="dark"] .price-unit,
+body.dark-mode .price-unit {
+    color: var(--ado-dark-muted-2) !important;
+}
+
+/* Time-limited label */
+html[data-theme="dark"] .time-limited-label,
+body.dark-mode .time-limited-label {
+    background: rgba(237, 41, 57, 0.12) !important;
+    border-color: rgba(237, 41, 57, 0.3) !important;
+}
+
+html[data-theme="dark"] .time-limited-text,
+body.dark-mode .time-limited-text {
+    color: #f87171 !important;
+}
+
+/* Category badge — course variant */
+html[data-theme="dark"] .category-badge-course,
+body.dark-mode .category-badge-course {
+    background: rgba(237, 41, 57, 0.15) !important;
+    color: #f87171 !important;
+}
+
+/* Contact modal */
+html[data-theme="dark"] .contact-modal-box,
+body.dark-mode .contact-modal-box {
+    background: var(--ado-dark-surface) !important;
+    border-color: var(--ado-dark-border-soft) !important;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3) !important;
+}
+
+html[data-theme="dark"] .contact-modal-icon,
+body.dark-mode .contact-modal-icon {
+    background: linear-gradient(135deg, rgba(167, 225, 105, 0.15), rgba(167, 225, 105, 0.08)) !important;
+    color: var(--ado-brand-green) !important;
+}
+
+html[data-theme="dark"] .contact-modal-title,
+body.dark-mode .contact-modal-title {
+    color: var(--ado-dark-text) !important;
+}
+
+html[data-theme="dark"] .contact-modal-subtitle,
+body.dark-mode .contact-modal-subtitle {
+    color: var(--ado-dark-muted-2) !important;
+}
+
+html[data-theme="dark"] .contact-option,
+body.dark-mode .contact-option {
+    background: var(--ado-dark-surface-2) !important;
+    border-color: var(--ado-dark-border-soft) !important;
+    color: var(--ado-dark-text) !important;
+}
+
+html[data-theme="dark"] .contact-option:hover,
+body.dark-mode .contact-option:hover {
+    background: rgba(167, 225, 105, 0.08) !important;
+    border-color: rgba(167, 225, 105, 0.4) !important;
+}
+
+html[data-theme="dark"] .contact-option-text .label,
+body.dark-mode .contact-option-text .label {
+    color: var(--ado-dark-muted-2) !important;
+}
+
+html[data-theme="dark"] .contact-option-text .value,
+body.dark-mode .contact-option-text .value {
+    color: var(--ado-dark-text) !important;
+}
+
+html[data-theme="dark"] .contact-close-btn,
+body.dark-mode .contact-close-btn {
+    color: var(--ado-dark-muted-2) !important;
+}
+
+html[data-theme="dark"] .contact-close-btn:hover,
+body.dark-mode .contact-close-btn:hover {
+    color: var(--ado-dark-text) !important;
+}
+
+/* Free notification */
+html[data-theme="dark"] .free-notify,
+body.dark-mode .free-notify {
+    background: var(--ado-dark-surface) !important;
+    border-color: var(--ado-dark-border-soft) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+}
+
+html[data-theme="dark"] .free-notify-text,
+body.dark-mode .free-notify-text {
+    color: var(--ado-dark-muted) !important;
+}
+
+html[data-theme="dark"] .free-notify-close,
+body.dark-mode .free-notify-close {
+    color: var(--ado-dark-muted-2) !important;
+}
+
+html[data-theme="dark"] .free-notify-close:hover,
+body.dark-mode .free-notify-close:hover {
+    color: var(--ado-dark-text) !important;
+}
+
+/* Modal scrollbar */
+html[data-theme="dark"] .modal-box-inner::-webkit-scrollbar-thumb,
+body.dark-mode .modal-box-inner::-webkit-scrollbar-thumb {
+    background: var(--ado-dark-border) !important;
+}
+
+/* Product card image placeholder */
+html[data-theme="dark"] .product-card-img,
+body.dark-mode .product-card-img {
+    background: var(--ado-dark-surface-2) !important;
+}
+
+/* Gallery main image placeholder */
+html[data-theme="dark"] .gallery-main-img,
+body.dark-mode .gallery-main-img {
+    background: var(--ado-dark-surface-2) !important;
 }
 
 .theme-toggle-btn {

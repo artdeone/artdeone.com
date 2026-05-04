@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- ── Dark mode: apply BEFORE first paint to prevent flash of white ── -->
+    <script>
+    (function(){try{var s=localStorage.getItem('ado-theme-mode');var h=new Date().getHours();var isTimeDark=h>=18||h<4;if(s==='dark'||(s==='system'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches)||(!s&&isTimeDark)){document.documentElement.setAttribute('data-theme','dark');document.documentElement.style.colorScheme='dark';}}catch(e){}})();
+    </script>
+    <style>
+    html[data-theme="dark"] body { background-color: #11130f !important; color: #f3f6ee !important; }
+    html[data-theme="dark"] nav { background-color: rgba(17,19,15,0.95) !important; border-bottom-color: #343a2e !important; }
+    html[data-theme="dark"] .nav-link { color: #f3f6ee !important; }
+    html[data-theme="dark"] .mobile-menu { background-color: #11130f !important; }
+    </style>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-CZRQ0NPPJ2"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -630,5 +640,6 @@ function toggleMobileProductsDropdown() {
 </script>
 <script src="/js/shop-badge.js"></script>
 <script type="module" src="/js/nav-auth.js"></script>
+<script src="/js/theme-mode.js"></script>
 </body>
 </html>

@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="my">
 <head>
+    <!-- ── Dark mode: apply BEFORE first paint to prevent flash of white ── -->
+    <script>
+    (function(){try{var s=localStorage.getItem('ado-theme-mode');var h=new Date().getHours();var isTimeDark=h>=18||h<4;if(s==='dark'||(s==='system'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches)||(!s&&isTimeDark)){document.documentElement.setAttribute('data-theme','dark');document.documentElement.style.colorScheme='dark';}}catch(e){}})();
+    </script>
+    <style>
+    html[data-theme="dark"] body { background-color: #11130f !important; color: #f3f6ee !important; }
+    html[data-theme="dark"] nav { background-color: rgba(17,19,15,0.95) !important; border-bottom-color: #343a2e !important; }
+    html[data-theme="dark"] .nav-link { color: #f3f6ee !important; }
+    html[data-theme="dark"] .mobile-menu { background-color: #11130f !important; }
+    </style>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-CZRQ0NPPJ2"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -35,6 +45,12 @@
     <meta name="twitter:image" content="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png">
 
     <link rel="icon" type="image/png" href="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769316272/fav-icon_n00lji.png">
+
+    <!-- ── Preconnect ── -->
+    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -967,6 +983,54 @@
             gap: 10px;
             flex-shrink: 0;
         }
+
+        /* ===== Shop: Dark-Mode-Safe Classes (replaces JS inline styles) ===== */
+        .modal-note-box {
+            background: #fff8f0;
+            border: 1px solid #f0e0cc;
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 20px;
+            font-size: 0.88rem;
+            color: #555;
+            line-height: 1.8;
+            white-space: pre-line;
+        }
+        .modal-closing-text {
+            font-size: 0.9rem;
+            color: #323232;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        .price-strike-sm { text-decoration: line-through; color: #999; font-size: 0.85rem; }
+        .price-strike-md { text-decoration: line-through; color: #999; font-size: 1rem; }
+        .price-free-tag { color: #16a34a; }
+        .price-free-tag-lg { color: #16a34a; font-size: 1.6rem; }
+        .price-limited-tag-sm { font-size: 0.75rem; color: #dc2626; font-weight: 600; }
+        .price-limited-tag-md { font-size: 0.85rem; color: #dc2626; font-weight: 600; }
+        .time-limited-label {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            padding: 6px 12px;
+            margin-top: 8px;
+            display: inline-block;
+        }
+        .time-limited-text {
+            font-size: 0.75rem;
+            color: #dc2626;
+            font-weight: 600;
+        }
+        .category-badge-course {
+            background: #fef2f2;
+            color: #991b1b;
+        }
+        .modal-features-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
     </style>
 </head>
 <body class="bg-white text-[#323232]">
@@ -1614,11 +1678,11 @@
                 const end = new Date(p.freeEnd + 'T00:00:00');
                 if (now < start) {
                     const startStr = new Date(p.freeStart).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-                    return `<div style="background:#fef2f2; border:1px solid #fecaca; border-radius:8px; padding:6px 12px; margin-top:8px; display:inline-block;"><span style="font-size:0.75rem; color:#dc2626; font-weight:600;">🔥 Free from ${startStr} (Limited Time)</span></div>`;
+                    return `<div class="time-limited-label"><span class="time-limited-text">🔥 Free from ${startStr} (Limited Time)</span></div>`;
                 }
                 if (now >= start && now < end) {
                     const daysLeft = Math.ceil((end - now) / (1000 * 60 * 60 * 24));
-                    return `<div style="background:#fef2f2; border:1px solid #fecaca; border-radius:8px; padding:6px 12px; margin-top:8px; display:inline-block;"><span style="font-size:0.75rem; color:#dc2626; font-weight:600;">🔥 Limited Time Free — ${daysLeft} day${daysLeft !== 1 ? 's' : ''} left</span></div>`;
+                    return `<div class="time-limited-label"><span class="time-limited-text">🔥 Limited Time Free — ${daysLeft} day${daysLeft !== 1 ? 's' : ''} left</span></div>`;
                 }
             }
             return '';
@@ -1722,7 +1786,7 @@
                         <h3 class="font-bold text-black text-lg mt-2 mb-2">${p.name}</h3>
                         <p class="text-sm text-[#555] mb-4 line-clamp-2">${p.description}</p>
                         <div>
-                            ${getDisplayPrice(p) === 0 && p.originalPrice ? `<span style="text-decoration:line-through; color:#999; font-size:0.85rem;">${formatPrice(p.originalPrice)} MMK</span> <span class="price-tag" style="color:#16a34a; margin-left:6px;">Free</span> <span style="font-size:0.75rem; color:#dc2626; font-weight:600; margin-left:4px;">(Limited Time)</span>` : getDisplayPrice(p) === 0 ? '<span class="price-tag" style="color:#16a34a;">Free</span>' : `<span class="price-tag">${formatPrice(getDisplayPrice(p))}</span><span class="price-unit">MMK</span>`}
+                            ${getDisplayPrice(p) === 0 && p.originalPrice ? `<span class="price-strike-sm">${formatPrice(p.originalPrice)} MMK</span> <span class="price-tag price-free-tag" style="margin-left:6px;">Free</span> <span class="price-limited-tag-sm" style="margin-left:4px;">(Limited Time)</span>` : getDisplayPrice(p) === 0 ? '<span class="price-tag price-free-tag">Free</span>' : `<span class="price-tag">${formatPrice(getDisplayPrice(p))}</span><span class="price-unit">MMK</span>`}
                         </div>
                     </div>
                 </div>`;
@@ -1799,20 +1863,20 @@
                 ${mediaSection}
                 <div class="modal-detail-body">
                     <span class="category-badge">${categoryLabels[p.category]}</span>
-                    ${isCourse ? '<span class="category-badge" style="background:#fef2f2; color:#991b1b; margin-left:6px;"><i class="fas fa-play-circle" style="margin-right:4px;"></i>Video Course</span>' : ''}
+                    ${isCourse ? '<span class="category-badge category-badge-course" style="margin-left:6px;"><i class="fas fa-play-circle" style="margin-right:4px;"></i>Video Course</span>' : ''}
                     <h2>${p.name}</h2>
                     <p class="desc">${p.description}</p>
                     <div class="modal-features">
                         <h4>Features</h4>
-                        <ul style="list-style:none; padding:0; margin:0;">
+                        <ul class="modal-features-list">
                             ${p.features.map(f => `<li><i class="fas fa-check-circle"></i>${f}</li>`).join('')}
                         </ul>
                     </div>
-                    ${p.note ? `<div style="background:#fff8f0; border:1px solid #f0e0cc; border-radius:12px; padding:18px 20px; margin-bottom:20px; font-size:0.88rem; color:#555; line-height:1.8; white-space:pre-line;">${p.note}</div>` : ''}
-                    ${p.closing ? `<p style="font-size:0.9rem; color:#323232; line-height:1.8; margin-bottom:20px; font-style:italic;">${p.closing}</p>` : ''}
+                    ${p.note ? `<div class="modal-note-box">${p.note}</div>` : ''}
+                    ${p.closing ? `<p class="modal-closing-text">${p.closing}</p>` : ''}
                     <div class="modal-price-bar">
                         <div>
-                            ${getDisplayPrice(p) === 0 && p.originalPrice ? `<span style="text-decoration:line-through; color:#999; font-size:1rem;">${formatPrice(p.originalPrice)} MMK</span> <span class="price-tag" style="font-size:1.6rem; color:#16a34a; margin-left:8px;">Free</span> <span style="font-size:0.85rem; color:#dc2626; font-weight:600; margin-left:6px;">(Limited Time)</span>` : getDisplayPrice(p) === 0 ? '<span class="price-tag" style="font-size:1.6rem; color:#16a34a;">Free</span>' : `<span class="price-tag" style="font-size:1.6rem;">${formatPrice(getDisplayPrice(p))}</span><span class="price-unit">MMK</span>`}
+                            ${getDisplayPrice(p) === 0 && p.originalPrice ? `<span class="price-strike-md">${formatPrice(p.originalPrice)} MMK</span> <span class="price-tag price-free-tag-lg" style="margin-left:8px;">Free</span> <span class="price-limited-tag-md" style="margin-left:6px;">(Limited Time)</span>` : getDisplayPrice(p) === 0 ? '<span class="price-tag price-free-tag-lg">Free</span>' : `<span class="price-tag" style="font-size:1.6rem;">${formatPrice(getDisplayPrice(p))}</span><span class="price-unit">MMK</span>`}
                         </div>
                         <a href="customer-dashboard.html" class="btn-primary" style="padding: 0.6rem 1.5rem; font-size: 0.9rem; cursor:pointer; text-decoration:none;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in

@@ -10,6 +10,12 @@
     var darkQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
     var currentMode = null;
 
+    /* Time-based default: 6 PM (18:00) – 4 AM → dark, 4 AM – 6 PM → light */
+    function isTimeDark() {
+        var h = new Date().getHours();
+        return h >= 18 || h < 4;
+    }
+
     var icons = {
         light: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>',
         dark: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 14.5A7.8 7.8 0 0 1 9.5 3.6 8.8 8.8 0 1 0 20.4 14.5Z"></path></svg>',
@@ -30,13 +36,11 @@
         var saved = localStorage.getItem(STORAGE_KEY);
         if (hasMode(saved)) return saved;
 
-        var dashboardTheme = localStorage.getItem(DASHBOARD_THEME_KEY);
-        if (dashboardTheme === 'light' || dashboardTheme === 'dark') return dashboardTheme;
-
-        var legacyTheme = localStorage.getItem(LEGACY_THEME_KEY);
-        if (legacyTheme === 'light' || legacyTheme === 'dark') return legacyTheme;
-
-        return 'system';
+        /* No explicit choice in STORAGE_KEY → use time-based default.
+           Ignore DASHBOARD_THEME_KEY / LEGACY_THEME_KEY because they are
+           written by applyMode() and would make the time-based default
+           sticky across visits (e.g. dark set at night still showing at 9 AM). */
+        return isTimeDark() ? 'dark' : 'light';
     }
 
     function resolveMode(mode) {
@@ -195,6 +199,7 @@
         observer.observe(document.body, { childList: true, subtree: true });
         window.setTimeout(function () { observer.disconnect(); }, 5000);
 
+        /* Listen for OS theme changes when in 'system' mode */
         if (darkQuery) {
             var systemListener = function () {
                 if ((currentMode || getInitialMode()) === 'system') applyMode('system');

@@ -1,7 +1,6 @@
 /* theme.css */
 
-/* 1. Font Imports */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+/* Font imports moved to <link> in HTML for render-blocking optimization */
 
 /* 2. Global Theme Styles */
 body {
@@ -400,7 +399,8 @@ nav {
 [data-aos] {
     transition-duration: 1000ms !important;
 }
-.hidden { display: none; }
+/* .hidden removed — Tailwind's .hidden utility already provides display:none;
+   Keeping this here overrode Tailwind's md:flex/md:hidden responsive classes due to cascade order */
 
 /* ==========================================
    🎞️ GLOBAL SUBTLE GRAIN TEXTURE OVERLAY
