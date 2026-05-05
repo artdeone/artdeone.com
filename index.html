@@ -1847,6 +1847,249 @@
             transition-delay: 0.4s;
         }
 
+        /* ═══ HERO SLIDESHOW CARD ═══ */
+        .hero-slideshow-card {
+            position: relative;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            aspect-ratio: 3 / 4;
+            width: 100%;
+            box-shadow:
+                0 4px 6px rgba(0, 0, 0, 0.02),
+                0 12px 40px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            background: #f3f4f6;
+        }
+
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            z-index: 1;
+            will-change: opacity, transform;
+            animation: heroSlideShow 18s ease-in-out infinite;
+        }
+
+        .hero-slide:nth-child(1) { animation-delay: 0s; }
+        .hero-slide:nth-child(2) { animation-delay: 6s; }
+        .hero-slide:nth-child(3) { animation-delay: 12s; }
+
+        .hero-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 30%;
+        }
+
+        /* Subtle gradient overlay at bottom of each slide for depth */
+        .hero-slide::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 35%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.18) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        @keyframes heroSlideShow {
+            0%      { opacity: 0; transform: scale(1.0); }
+            2.5%    { opacity: 1; transform: scale(1.0); }
+            28%     { opacity: 1; transform: scale(1.06); }
+            33.33%  { opacity: 0; transform: scale(1.06); }
+            100%    { opacity: 0; transform: scale(1.0); }
+        }
+
+        /* Slide indicator dots */
+        .hero-slide-dots {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+            z-index: 5;
+        }
+
+        .hero-slide-dot {
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            animation: heroDotPulse 18s ease-in-out infinite;
+        }
+
+        .hero-slide-dot:nth-child(1) { animation-delay: 0s; }
+        .hero-slide-dot:nth-child(2) { animation-delay: 6s; }
+        .hero-slide-dot:nth-child(3) { animation-delay: 12s; }
+
+        @keyframes heroDotPulse {
+            0%      { background: rgba(255,255,255,0.5); width: 6px; border-radius: 50%; }
+            2.5%    { background: #a7e169; width: 20px; border-radius: 3px; }
+            28%     { background: #a7e169; width: 20px; border-radius: 3px; }
+            33.33%  { background: rgba(255,255,255,0.5); width: 6px; border-radius: 50%; }
+            100%    { background: rgba(255,255,255,0.5); width: 6px; border-radius: 50%; }
+        }
+
+        /* Hero two-column layout */
+        .hero-two-col {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            width: 100%;
+        }
+
+        .hero-text-col {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .hero-image-col {
+            flex: 0 0 auto;
+            width: 55%;
+            max-width: 600px;
+        }
+
+        /* Desktop: left-align text, adjust headline size */
+        @media (min-width: 769px) {
+            .hero-text-col .hero-headline {
+                font-size: clamp(2.5rem, 4.5vw, 4.5rem);
+            }
+
+            .hero-text-col .hero-collab {
+                align-items: flex-start;
+            }
+
+            .hero-text-col .flex.flex-wrap {
+                justify-content: flex-start;
+            }
+        }
+
+        /* Mobile: slideshow becomes full-bleed background behind text */
+        @media (max-width: 768px) {
+            .hero-two-col {
+                flex-direction: column;
+                text-align: center;
+                gap: 0;
+                position: relative;
+                min-height: calc(100vh - 12rem);
+            }
+
+            /* Slideshow fills the hero as background */
+            .hero-image-col {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                max-width: none;
+                z-index: 0;
+            }
+
+            /* Override AOS initial hidden state on mobile */
+            .hero-image-col[data-aos] {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+
+            .hero-slideshow-card {
+                max-width: none;
+                margin: 0;
+                border-radius: 0;
+                aspect-ratio: auto;
+                height: 100%;
+                border: none;
+                box-shadow: none;
+            }
+
+            /* Overlay scrim on slideshow for text readability */
+            .hero-image-col::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                z-index: 1;
+                background: linear-gradient(
+                    180deg,
+                    rgba(0, 0, 0, 0.40) 0%,
+                    rgba(0, 0, 0, 0.18) 35%,
+                    rgba(0, 0, 0, 0.25) 65%,
+                    rgba(0, 0, 0, 0.60) 100%
+                );
+                pointer-events: none;
+            }
+
+            /* Text sits above the slideshow background */
+            .hero-text-col {
+                position: relative;
+                z-index: 2;
+                text-align: center;
+                padding: 1rem 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .hero-text-col .hero-subtitle {
+                margin-left: auto;
+                margin-right: auto;
+                color: rgba(255, 255, 255, 0.85) !important;
+            }
+
+            .hero-text-col .hero-headline {
+                color: #fff !important;
+            }
+
+            .hero-text-col .hero-line-accent {
+                color: #a7e169 !important;
+            }
+
+            .hero-text-col .flex.flex-wrap {
+                justify-content: center;
+            }
+
+            .hero-text-col .hero-collab {
+                align-items: center;
+            }
+
+            .hero-text-col .hero-collab-label {
+                color: rgba(255, 255, 255, 0.5) !important;
+            }
+
+            .hero-text-col .hero-collab-x {
+                color: rgba(255, 255, 255, 0.3) !important;
+            }
+
+            .hero-text-col .hero-collab-logo {
+                filter: grayscale(0%) brightness(2);
+                opacity: 0.6;
+            }
+
+            .hero-text-col .hero-collab-logo:hover {
+                opacity: 1;
+            }
+
+            .hero-text-col .hero-collab-logo.invert {
+                filter: grayscale(0%) brightness(2);
+            }
+
+            /* Slide dots still visible over full-bleed */
+            .hero-slide-dots {
+                bottom: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-image-col::after {
+                background: linear-gradient(
+                    180deg,
+                    rgba(0, 0, 0, 0.45) 0%,
+                    rgba(0, 0, 0, 0.20) 35%,
+                    rgba(0, 0, 0, 0.30) 65%,
+                    rgba(0, 0, 0, 0.65) 100%
+                );
+            }
+        }
+
     </style>
 </head>
 
@@ -1955,52 +2198,92 @@
     </nav>
 
     <main>
-        <!-- ═══ MODERN HERO SECTION ═══ -->
-        <section id="home" class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-white">
-            <!-- Subtle animated background shapes -->
-            <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-                <div class="hero-shape hero-shape-1"></div>
-                <div class="hero-shape hero-shape-2"></div>
-                <div class="hero-shape hero-shape-3"></div>
-                <div class="hero-shape hero-shape-4"></div>
-            </div>
-
-            <!-- Main content -->
-            <div class="relative z-10 text-center px-4 max-w-5xl mx-auto pt-20 pb-32">
-                <!-- Headline -->
-                <h1 class="hero-headline mb-4" data-aos="fade-up" data-aos-delay="100">
-                    <span class="hero-line hero-line-accent">ART de ONE</span>
-                </h1>
-
-                <!-- Subtitle -->
-                <p class="hero-subtitle max-w-2xl mx-auto mb-10" data-aos="fade-up" data-aos-delay="200">
-                    The Art of Intelligence
-                </p>
-
-                <!-- CTA Buttons -->
-                <div class="flex flex-wrap gap-4 justify-center mb-16" data-aos="fade-up" data-aos-delay="300">
-                    <a href="#portfolio" class="btn-primary text-sm md:text-base py-3 px-8 md:px-10">
-                        View Portfolio
-                    </a>
-                    <a href="#freelance" class="btn-secondary text-sm md:text-base py-3 px-8 md:px-10">
-                        Our Services
-                    </a>
+        <!-- ═══ MODERN HERO SECTION (PULSE & POISE STYLE) ═══ -->
+        <style>
+            @keyframes heroFadeAnim {
+                0%, 25% { opacity: 1; transform: scale(1); }
+                33%, 92% { opacity: 0; transform: scale(1.05); }
+                100% { opacity: 1; transform: scale(1); }
+            }
+            .hero-slide-1 { animation: heroFadeAnim 12s infinite; }
+            .hero-slide-2 { animation: heroFadeAnim 12s infinite; animation-delay: 4s; }
+            .hero-slide-3 { animation: heroFadeAnim 12s infinite; animation-delay: 8s; }
+            
+            @keyframes spinSlow {
+                100% { transform: rotate(360deg); }
+            }
+            .badge-spin { animation: spinSlow 15s linear infinite; }
+            
+            /* Custom CSS to replace uncompiled arbitrary Tailwind values */
+            .hero-inner-custom {
+                border-radius: 2rem;
+            }
+            .hero-huge-text {
+                font-size: 16vw;
+                letter-spacing: -0.03em;
+            }
+            @media (min-width: 768px) {
+                .hero-inner-custom {
+                    border-radius: 3rem;
+                }
+                .hero-huge-text {
+                    font-size: 14vw;
+                }
+            }
+        </style>
+        <section id="home" class="relative w-full h-screen flex flex-col bg-white px-3 md:px-6" style="min-height: 600px; padding-top: 80px; padding-bottom: 1rem;">
+            <div class="relative w-full h-full flex-grow overflow-hidden shadow-sm bg-gray-100 group hero-inner-custom">
+                
+                <!-- Background Slider -->
+                <div class="absolute inset-0 w-full h-full bg-black">
+                    <!-- Slide 1 -->
+                    <div class="absolute inset-0 w-full h-full hero-slide-1 origin-center">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777886851/yjh1_q4agzh.jpg" class="w-full h-full object-cover opacity-80" style="object-position: center 20%;" alt="Slide 1">
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="absolute inset-0 w-full h-full hero-slide-2 opacity-0 origin-center">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777886851/yjh3_wfbjfs.jpg" class="w-full h-full object-cover opacity-80" style="object-position: center 20%;" alt="Slide 2">
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="absolute inset-0 w-full h-full hero-slide-3 opacity-0 origin-center">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777886851/yjh2_aooyfu.jpg" class="w-full h-full object-cover opacity-80" style="object-position: center 20%;" alt="Slide 3">
+                    </div>
+                    <!-- Dark Overlay -->
+                    <div class="absolute inset-0 bg-black/30"></div>
                 </div>
 
-                <!-- Collaboration -->
-                <div class="hero-collab" data-aos="fade-up" data-aos-delay="400">
-                    <p class="hero-collab-label">Official Collaboration</p>
-                    <div class="hero-collab-logos">
-                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379061/huion-1_bifxjo.png" alt="Huion" class="hero-collab-logo">
-                        <span class="hero-collab-x">×</span>
-                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379061/artdeone-1_plyge7.png" alt="Art de One" class="hero-collab-logo invert">
+                <!-- Right Side Text & Button -->
+                <div class="absolute right-6 md:right-16 top-1/2 -translate-y-1/2 z-20 flex flex-col items-end text-right" style="max-width: 320px;" data-aos="fade-left" data-aos-delay="200">
+                    <h2 class="text-white text-xl md:text-3xl font-bold drop-shadow-md mb-2 leading-snug" style="text-shadow: 0 2px 10px rgba(0,0,0,0.5); font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em;">
+                        Learn, create, and grow with confidence.
+                    </h2>
+                    <p class="text-xs md:text-sm font-medium mb-6 leading-relaxed" style="color: rgba(255, 255, 255, 0.9); text-shadow: 0 1px 5px rgba(0,0,0,0.5);">
+                        Artificial Intelligence and Adobe Illustrator Class
+                    </p>
+                    <a href="#portfolio" class="bg-white text-black px-6 md:px-8 py-2.5 md:py-3 rounded-full font-semibold text-sm hover:bg-[#a7e169] transition-colors shadow-lg">View Portfolio</a>
+                </div>
+
+                <!-- Bottom Left Badge -->
+                <div class="absolute z-20" style="bottom: 2rem; left: 1.5rem;" data-aos="fade-up" data-aos-delay="400">
+                    <div class="relative w-28 h-28 md:w-36 md:h-36 rounded-full flex items-center justify-center text-white shadow-xl hover:scale-105 transition-transform duration-300" style="background-color: #ed2939;">
+                        <!-- Rotating text SVG -->
+                        <svg viewBox="0 0 100 100" class="absolute inset-0 w-full h-full badge-spin">
+                            <path d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" id="circle-text" fill="none"/>
+                            <text font-size="10.5" font-weight="bold" fill="white" letter-spacing="2.5">
+                                <textPath href="#circle-text" startOffset="0%">.ADO. THE ART OF INTELLIGENCE • </textPath>
+                            </text>
+                        </svg>
+                        <!-- Center Icon -->
+                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                            <i class="fas fa-award text-3xl md:text-4xl text-white"></i>
+                        </div>
                     </div>
                 </div>
             </div>
-
+            
             <!-- ═══ TRUSTED BY (bottom of hero) ═══ -->
-            <div class="absolute bottom-0 left-0 right-0 z-10 pb-8">
-                <p class="text-center text-xs uppercase tracking-[0.2em] text-gray-400 font-medium mb-5">Trusted by businesses across Southeast Asia</p>
+            <div class="w-full pt-4 pb-0 z-10 bg-white">
+                <p class="text-center text-[10px] md:text-xs uppercase tracking-[0.2em] text-gray-400 font-medium mb-4">Trusted by businesses across Southeast Asia</p>
                 <div class="logo-marquee-track">
                     <div class="logo-marquee-inner">
                         <!-- Set 1 -->

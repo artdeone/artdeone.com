@@ -1104,3 +1104,131 @@ body.dark-mode .gallery-main-img {
 .theme-toggle-btn {
     display: none !important;
 }
+
+/* ═══ HERO SLIDESHOW CARD — DARK MODE ═══ */
+html[data-theme="dark"] .hero-slideshow-card,
+body.dark-mode .hero-slideshow-card {
+    background: var(--ado-dark-surface-2);
+    border-color: var(--ado-dark-border-soft);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+html[data-theme="dark"] .hero-slide::after,
+body.dark-mode .hero-slide::after {
+    background: linear-gradient(to top, rgba(17, 19, 15, 0.25) 0%, transparent 100%);
+}
+
+/* Reduce shape intensity in dark mode — slideshow provides atmosphere */
+html[data-theme="dark"] .hero-shape,
+body.dark-mode .hero-shape {
+    opacity: 0.4 !important;
+}
+
+/* Slide dots dark mode */
+html[data-theme="dark"] .hero-slide-dot,
+body.dark-mode .hero-slide-dot {
+    background: rgba(243, 246, 238, 0.4);
+}
+
+@keyframes heroDotPulseDark {
+    0%      { background: rgba(243,246,238,0.4); width: 6px; border-radius: 50%; }
+    2.5%    { background: #a7e169; width: 20px; border-radius: 3px; }
+    28%     { background: #a7e169; width: 20px; border-radius: 3px; }
+    33.33%  { background: rgba(243,246,238,0.4); width: 6px; border-radius: 50%; }
+    100%    { background: rgba(243,246,238,0.4); width: 6px; border-radius: 50%; }
+}
+
+html[data-theme="dark"] .hero-slide-dot,
+body.dark-mode .hero-slide-dot {
+    animation-name: heroDotPulseDark;
+}
+
+/* Hero two-col text adjustments for dark mode */
+html[data-theme="dark"] .hero-text-col .hero-subtitle,
+body.dark-mode .hero-text-col .hero-subtitle {
+    color: var(--ado-dark-muted) !important;
+}
+
+html[data-theme="dark"] .hero-text-col .hero-collab-label,
+body.dark-mode .hero-text-col .hero-collab-label {
+    color: var(--ado-dark-muted-2);
+}
+
+html[data-theme="dark"] .hero-text-col .hero-collab-x,
+body.dark-mode .hero-text-col .hero-collab-x {
+    color: var(--ado-dark-muted-2);
+}
+
+/* Trusted-by text in dark mode */
+html[data-theme="dark"] #home .absolute.bottom-0 p,
+body.dark-mode #home .absolute.bottom-0 p {
+    color: var(--ado-dark-muted-2) !important;
+}
+
+/* ═══ HERO MOBILE FULL-BLEED — DARK MODE ═══ */
+@media (max-width: 768px) {
+    html[data-theme="dark"] .hero-image-col::after,
+    body.dark-mode .hero-image-col::after {
+        background: linear-gradient(
+            180deg,
+            rgba(17, 19, 15, 0.55) 0%,
+            rgba(17, 19, 15, 0.25) 35%,
+            rgba(17, 19, 15, 0.35) 65%,
+            rgba(17, 19, 15, 0.75) 100%
+        );
+    }
+
+    html[data-theme="dark"] .hero-text-col .hero-headline,
+    body.dark-mode .hero-text-col .hero-headline {
+        color: var(--ado-dark-text) !important;
+    }
+
+    html[data-theme="dark"] .hero-text-col .hero-line-accent,
+    body.dark-mode .hero-text-col .hero-line-accent {
+        color: var(--ado-brand-green) !important;
+    }
+
+    html[data-theme="dark"] .hero-text-col .hero-subtitle,
+    body.dark-mode .hero-text-col .hero-subtitle {
+        color: rgba(243, 246, 238, 0.85) !important;
+    }
+
+    html[data-theme="dark"] .hero-text-col .hero-collab-label,
+    body.dark-mode .hero-text-col .hero-collab-label {
+        color: rgba(243, 246, 238, 0.5) !important;
+    }
+
+    html[data-theme="dark"] .hero-text-col .hero-collab-x,
+    body.dark-mode .hero-text-col .hero-collab-x {
+        color: rgba(243, 246, 238, 0.3) !important;
+    }
+
+    html[data-theme="dark"] .hero-text-col .hero-collab-logo,
+    body.dark-mode .hero-text-col .hero-collab-logo {
+        filter: grayscale(0%) brightness(1.8);
+        opacity: 0.6;
+    }
+
+    html[data-theme="dark"] .hero-text-col .hero-collab-logo:hover,
+    body.dark-mode .hero-text-col .hero-collab-logo:hover {
+        opacity: 1;
+    }
+
+    html[data-theme="dark"] .hero-text-col .hero-collab-logo.invert,
+    body.dark-mode .hero-text-col .hero-collab-logo.invert {
+        filter: grayscale(0%) brightness(1.8);
+    }
+}
+
+@media (max-width: 480px) {
+    html[data-theme="dark"] .hero-image-col::after,
+    body.dark-mode .hero-image-col::after {
+        background: linear-gradient(
+            180deg,
+            rgba(17, 19, 15, 0.60) 0%,
+            rgba(17, 19, 15, 0.28) 35%,
+            rgba(17, 19, 15, 0.40) 65%,
+            rgba(17, 19, 15, 0.80) 100%
+        );
+    }
+}
