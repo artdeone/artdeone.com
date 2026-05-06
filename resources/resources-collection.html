@@ -52,6 +52,7 @@
     <script src="https://unpkg.com/feather-icons"></script>
     
     <link rel="stylesheet" href="/css-and-js/theme.css">
+    <link rel="stylesheet" href="/css-and-js/theme-toggle.css">
     
     <style>
         /* --- PAGE SPECIFIC STYLES (Resources Light Theme) --- */
@@ -156,7 +157,10 @@
                         <a href="/index.html#contact" class="nav-link">Contact</a>
                     </div>
                     
-                    <div class="hidden md:block">
+                    <div class="hidden md:flex items-center gap-3">
+                        <button type="button" id="ado-theme-toggle" class="ado-theme-toggle" title="Switch theme" aria-label="Switch theme">
+                            <span class="ado-theme-toggle-icon"></span>
+                        </button>
                         <a href="/customer-dashboard.html" class="nav-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
                     </div>
                     
@@ -190,6 +194,12 @@
                     </div>
                 </div>
                 <a href="/index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
+                <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #e5e5e5;margin-bottom:4px;">
+                    <button type="button" id="ado-theme-toggle-mobile" class="ado-theme-toggle" title="Switch theme" aria-label="Switch theme">
+                        <span class="ado-theme-toggle-icon"></span>
+                    </button>
+                    <span class="ado-theme-toggle-label">Theme</span>
+                </div>
                 <a href="/customer-dashboard.html" style="display:inline-flex; align-items:center; gap:0.35rem; background:#ed2939; color:#fff; font-weight:600; border-radius:2rem; padding:0.3rem 0.75rem; font-size:0.75rem; border:1px solid #ed2939; text-decoration:none;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
             </div>
         </div>
@@ -641,5 +651,6 @@ function toggleMobileProductsDropdown() {
 <script src="/js/shop-badge.js"></script>
 <script type="module" src="/js/nav-auth.js"></script>
 <script src="/js/theme-mode.js"></script>
+<script src="/js/theme-toggle.js"></script>
 </body>
 </html>

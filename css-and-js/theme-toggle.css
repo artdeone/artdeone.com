@@ -1,0 +1,101 @@
+/* ═══ HIDE OLD THEME SWITCHER (replaced by circle toggle in nav) ═══ */
+.ado-theme-switcher-desktop,
+.ado-theme-switcher-mobile {
+    display: none !important;
+}
+
+/* ═══ THEME TOGGLE CIRCLE BUTTON ═══ */
+.ado-theme-toggle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1.5px solid #d1d5db;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.ado-theme-toggle:hover {
+    border-color: #a7e169;
+    transform: scale(1.08);
+}
+
+.ado-theme-toggle-icon {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.ado-theme-toggle-icon svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.ado-theme-toggle:hover .ado-theme-toggle-icon {
+    transform: rotate(15deg);
+}
+
+/* Mode-specific colors */
+.ado-theme-toggle[data-mode="light"] {
+    color: #f59e0b;
+    border-color: #fbbf24;
+}
+
+.ado-theme-toggle[data-mode="dark"] {
+    color: #818cf8;
+    border-color: #6366f1;
+}
+
+.ado-theme-toggle[data-mode="system"] {
+    color: #6b7280;
+    border-color: #9ca3af;
+}
+
+/* Dark mode overrides for toggle */
+html[data-theme="dark"] .ado-theme-toggle {
+    border-color: #4b5563;
+}
+
+html[data-theme="dark"] .ado-theme-toggle:hover {
+    border-color: #a7e169;
+}
+
+html[data-theme="dark"] .ado-theme-toggle[data-mode="light"] {
+    color: #fbbf24;
+    border-color: #b45309;
+}
+
+html[data-theme="dark"] .ado-theme-toggle[data-mode="dark"] {
+    color: #a78bfa;
+    border-color: #7c3aed;
+}
+
+html[data-theme="dark"] .ado-theme-toggle[data-mode="system"] {
+    color: #9ca3af;
+    border-color: #6b7280;
+}
+
+.ado-theme-toggle-label {
+    font-size: 0.75rem;
+    color: #6b7280;
+    letter-spacing: 0.05em;
+}
+
+html[data-theme="dark"] .ado-theme-toggle-label {
+    color: #9ca3af;
+}

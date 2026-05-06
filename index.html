@@ -197,6 +197,7 @@
     <noscript><link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"></noscript>
     <link id="ado-dark-mode-css" rel="preload" as="style" href="/css-and-js/dark-mode.css" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/css-and-js/dark-mode.css"></noscript>
+    <link rel="stylesheet" href="/css-and-js/theme-toggle.css">
 
     <!-- ── Deferred JS: only GSAP for hero animation ── -->
     <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
@@ -2126,6 +2127,9 @@
                     </div>
 
                     <div class="hidden md:flex items-center gap-3" id="desktopAuth">
+                        <button type="button" id="ado-theme-toggle" class="ado-theme-toggle" title="Switch theme" aria-label="Switch theme">
+                            <span class="ado-theme-toggle-icon"></span>
+                        </button>
                         <a href="/customer-dashboard.html" class="nav-btn" id="btnLoginDesktop"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -2175,6 +2179,12 @@
                 </div>
                 <a href="/index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
 
+                <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #e5e5e5;margin-bottom:4px;">
+                    <button type="button" id="ado-theme-toggle-mobile" class="ado-theme-toggle" title="Switch theme" aria-label="Switch theme">
+                        <span class="ado-theme-toggle-icon"></span>
+                    </button>
+                    <span class="ado-theme-toggle-label">Theme</span>
+                </div>
                 <div id="mobileAuth">
                     <a href="/customer-dashboard.html" class="nav-btn-signout"
                         style="padding:0.3rem 0.75rem; font-size:0.75rem; gap:0.35rem;" id="btnLoginMobile"><svg
@@ -4478,6 +4488,12 @@
     })();
     </script>
     <script src="/js/theme-mode.js"></script>
+
+    <!-- Theme Toggle (Light → Dark → System cycle) -->
+    <script src="/js/theme-toggle.js"></script>
+
+    <!-- Dante AI Assistant -->
+    <script src="https://agents.dante-ai.com/embed.js" data-agent-id="61b463d1-5288-41f7-a14a-d1a6668b2233" data-widget-key="wk_TGU6MhPjYpfXDtCurI6FIWo9n98b8e-R" crossorigin="anonymous" async></script>
 </body>
 
 </html>

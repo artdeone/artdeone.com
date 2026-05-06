@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ART de ONE — Brand Presentation</title>
+    <link rel="icon" href="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           ART de ONE — Brand Presentation
+           Editorial · Clean · Modern
+           ============================================ */
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --brand-green: #a7e169;
+            --bg: #0a0a0a;
+            --bg-soft: #0f0f0f;
+            --surface: #161616;
+            --text: #e8e8e8;
+            --text-muted: rgba(232, 232, 232, 0.5);
+            --text-strong: #ffffff;
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--brand-green) var(--bg);
+        }
+
+        html::-webkit-scrollbar { width: 5px; }
+        html::-webkit-scrollbar-track { background: var(--bg); }
+        html::-webkit-scrollbar-thumb { background: var(--brand-green); border-radius: 3px; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ---- Progress Bar ---- */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: var(--brand-green);
+            z-index: 1000;
+            transition: width 0.08s linear;
+        }
+
+        /* ---- Navigation Dots ---- */
+        .nav-dots {
+            position: fixed;
+            right: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(255, 255, 255, 0.18);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .nav-dot:hover {
+            border-color: var(--brand-green);
+            transform: scale(1.4);
+        }
+
+        .nav-dot.active {
+            border-color: var(--brand-green);
+            background: var(--brand-green);
+            box-shadow: 0 0 10px rgba(167, 225, 105, 0.4);
+        }
+
+        /* ---- Slide Counter ---- */
+        .slide-counter {
+            position: fixed;
+            bottom: 28px;
+            left: 28px;
+            z-index: 100;
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 0.12em;
+            display: flex;
+            align-items: baseline;
+            gap: 2px;
+        }
+
+        .slide-counter .current {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--brand-green);
+            line-height: 1;
+        }
+
+        .slide-counter .sep {
+            margin: 0 6px;
+            color: rgba(255,255,255,0.15);
+        }
+
+        /* ---- Back to Top ---- */
+        .back-to-top {
+            position: fixed;
+            bottom: 28px;
+            right: 24px;
+            z-index: 100;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(16px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            background: var(--brand-green);
+            color: var(--bg);
+            border-color: var(--brand-green);
+        }
+
+        /* ============================================
+           SECTION STYLES
+           ============================================ */
+
+        .section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ---- Clickable Images ---- */
+        .clickable-img {
+            cursor: pointer;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .clickable-img:hover {
+            transform: scale(1.01);
+        }
+
+        /* ---- HERO ---- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-end;
+            padding: 0 clamp(24px, 5vw, 80px) clamp(48px, 8vw, 100px);
+            position: relative;
+        }
+
+        .hero-img {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .hero-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            animation: heroReveal 2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+        }
+
+        /* Dark scrim so text is always readable */
+        .hero-scrim {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background: linear-gradient(
+                180deg,
+                rgba(10, 10, 10, 0.15) 0%,
+                rgba(10, 10, 10, 0.05) 30%,
+                rgba(10, 10, 10, 0.45) 70%,
+                rgba(10, 10, 10, 0.85) 100%
+            );
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 640px;
+        }
+
+        .hero-logo {
+            width: 48px;
+            height: auto;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
+        }
+
+        .hero-eyebrow {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--brand-green);
+            margin-bottom: 12px;
+            opacity: 0;
+            animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 1s forwards;
+        }
+
+        .hero-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(40px, 8vw, 88px);
+            font-weight: 800;
+            line-height: 1.0;
+            color: var(--text-strong);
+            margin-bottom: 16px;
+            opacity: 0;
+            animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 1.1s forwards;
+        }
+
+        .hero-title em {
+            font-style: normal;
+            color: var(--brand-green);
+        }
+
+        .hero-desc {
+            font-size: clamp(14px, 1.6vw, 17px);
+            line-height: 1.65;
+            color: rgba(255,255,255,0.7);
+            max-width: 420px;
+            opacity: 0;
+            animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 1.3s forwards;
+        }
+
+        .hero-scroll-hint {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            z-index: 2;
+            opacity: 0;
+            animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 1.8s forwards;
+        }
+
+        .hero-scroll-hint span {
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 32px;
+            background: linear-gradient(180deg, var(--brand-green), transparent);
+            animation: scrollPulse 2.4s ease-in-out infinite;
+        }
+
+        /* ---- FULL-WIDTH IMAGE (clickable, with caption) ---- */
+        .full-image {
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            padding: 0 clamp(24px, 5vw, 80px) 48px;
+            cursor: pointer;
+        }
+
+        .full-image img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: var(--bg);
+            transform: scale(1.02);
+            transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .full-image.in-view img {
+            transform: scale(1);
+        }
+
+        .full-image:hover img {
+            transform: scale(1.01);
+        }
+
+        .full-image .caption {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
+        }
+
+        .full-image .caption .num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            color: var(--brand-green);
+        }
+
+        .full-image .caption .label {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(16px, 2.5vw, 24px);
+            font-weight: 600;
+            color: var(--text-strong);
+        }
+
+        /* ---- EDITORIAL SPREAD (image-dominant) ---- */
+        .spread {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            align-items: stretch;
+        }
+
+        .spread-image {
+            position: relative;
+            overflow: hidden;
+            min-height: 500px;
+            cursor: pointer;
+        }
+
+        .spread-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: var(--bg-soft);
+            display: block;
+            transform: scale(1.03);
+            transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .spread.in-view .spread-image img {
+            transform: scale(1);
+        }
+
+        .spread-image:hover img {
+            transform: scale(1.01);
+        }
+
+        .spread-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: clamp(40px, 6vw, 100px);
+            background: var(--bg);
+        }
+
+        .spread-text .tag {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--brand-green);
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+        }
+
+        .spread.in-view .spread-text .tag {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .spread-text h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(26px, 4vw, 52px);
+            font-weight: 700;
+            line-height: 1.1;
+            color: var(--text-strong);
+            margin-bottom: 16px;
+            opacity: 0;
+            transform: translateY(24px);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.25s;
+        }
+
+        .spread.in-view .spread-text h2 {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .spread-text p {
+            font-size: clamp(14px, 1.4vw, 16px);
+            line-height: 1.7;
+            color: var(--text-muted);
+            max-width: 400px;
+            opacity: 0;
+            transform: translateY(16px);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.35s;
+        }
+
+        .spread.in-view .spread-text p {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Reversed spread */
+        .spread.reversed {
+            direction: rtl;
+            grid-template-columns: 1fr 1.4fr;
+        }
+
+        .spread.reversed > * {
+            direction: ltr;
+        }
+
+        /* ---- STATEMENT ---- */
+        .statement {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: clamp(60px, 10vw, 140px) clamp(32px, 8vw, 160px);
+            background: var(--bg);
+        }
+
+        .statement blockquote {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(26px, 5vw, 60px);
+            font-weight: 700;
+            line-height: 1.15;
+            color: var(--text-strong);
+            max-width: 860px;
+        }
+
+        .statement blockquote em {
+            font-style: normal;
+            color: var(--brand-green);
+        }
+
+        .statement cite {
+            display: block;
+            margin-top: 24px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-style: normal;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        /* ---- GALLERY (2-col) ---- */
+        .gallery {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px;
+            background: var(--bg);
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            min-height: 50vh;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: var(--bg-soft);
+            display: block;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.03);
+        }
+
+        .gallery-item .item-label {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: all 0.4s ease;
+        }
+
+        .gallery-item:hover .item-label {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .gallery-item .item-label span {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            color: var(--text-strong);
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            padding: 6px 12px;
+            border-radius: 4px;
+        }
+
+        /* ---- CENTERED FRAME ---- */
+        .centered {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(60px, 8vw, 120px) clamp(24px, 5vw, 80px);
+            background: var(--bg);
+        }
+
+        .centered .tag {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--brand-green);
+            margin-bottom: 12px;
+        }
+
+        .centered h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(24px, 4vw, 44px);
+            font-weight: 700;
+            color: var(--text-strong);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .centered-frame {
+            width: 100%;
+            max-width: 1000px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .centered-frame:hover {
+            border-color: rgba(167, 225, 105, 0.2);
+        }
+
+        .centered-frame img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* ---- CLOSING ---- */
+        .closing {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 24px;
+            background: var(--bg);
+            position: relative;
+        }
+
+        .closing-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .closing-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1.6s ease;
+        }
+
+        .closing.in-view .closing-bg img {
+            opacity: 0.12;
+        }
+
+        .closing-inner {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .closing-logo {
+            width: 64px;
+            height: auto;
+            margin-bottom: 28px;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        .closing h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(32px, 6vw, 68px);
+            font-weight: 800;
+            color: var(--text-strong);
+            margin-bottom: 12px;
+        }
+
+        .closing h2 em {
+            font-style: normal;
+            color: var(--brand-green);
+        }
+
+        .closing p {
+            font-size: clamp(14px, 1.8vw, 17px);
+            color: var(--text-muted);
+            margin-bottom: 36px;
+        }
+
+        .closing-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 13px 28px;
+            background: var(--brand-green);
+            color: var(--bg);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 6px 24px rgba(167, 225, 105, 0.2);
+        }
+
+        .closing-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 32px rgba(167, 225, 105, 0.3);
+        }
+
+        .closing-cta svg {
+            transition: transform 0.3s ease;
+        }
+
+        .closing-cta:hover svg {
+            transform: translateX(3px);
+        }
+
+        .closing-social {
+            display: flex;
+            gap: 12px;
+            margin-top: 40px;
+        }
+
+        .closing-social a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .closing-social a:hover {
+            border-color: var(--brand-green);
+            color: var(--brand-green);
+            transform: translateY(-2px);
+        }
+
+        /* ---- Reveal Animation ---- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-d1 { transition-delay: 0.1s; }
+        .reveal-d2 { transition-delay: 0.2s; }
+        .reveal-d3 { transition-delay: 0.3s; }
+        .reveal-d4 { transition-delay: 0.4s; }
+
+        /* ---- Lightbox ---- */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.94);
+            backdrop-filter: blur(16px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .lightbox img {
+            max-width: 92vw;
+            max-height: 92vh;
+            object-fit: contain;
+            border-radius: 6px;
+            transform: scale(0.92);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                        opacity 0.25s ease;
+        }
+
+        .lightbox.active img {
+            transform: scale(1);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.04);
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255,255,255,0.12);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.04);
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(255,255,255,0.12);
+        }
+
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+
+        /* ---- Keyframes ---- */
+        @keyframes heroReveal {
+            from { opacity: 0; transform: scale(1.08); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        /* ---- Responsive ---- */
+        @media (max-width: 768px) {
+            .nav-dots { right: 10px; gap: 8px; }
+            .nav-dot { width: 6px; height: 6px; }
+            .slide-counter { bottom: 14px; left: 14px; }
+            .slide-counter .current { font-size: 18px; }
+            .back-to-top { bottom: 14px; right: 10px; width: 36px; height: 36px; }
+
+            .spread {
+                grid-template-columns: 1fr;
+                grid-template-rows: 55vh auto;
+            }
+
+            .spread.reversed {
+                direction: ltr;
+                grid-template-columns: 1fr;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr 1fr;
+            }
+
+            .gallery-item { min-height: 40vh; }
+
+            .hero { align-items: flex-end; padding-bottom: 60px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title { font-size: 36px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Navigation Dots -->
+    <div class="nav-dots" id="navDots"></div>
+
+    <!-- Slide Counter -->
+    <div class="slide-counter" id="slideCounter">
+        <span class="current">01</span>
+        <span class="sep">/</span>
+        <span class="total">12</span>
+    </div>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg>
+    </button>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Close">✕</button>
+        <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <img id="lightboxImg" src="" alt="Presentation slide">
+        <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+    </div>
+
+    <!-- ============================================
+         SLIDE 1 — Hero (Image 1)
+         ============================================ -->
+    <section class="section hero" data-slide="1" data-label="Welcome">
+        <div class="hero-img">
+            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777992375/Final_Rebranded_Presentation-01_ipzdkv.jpg" alt="ART de ONE" loading="eager">
+        </div>
+        <div class="hero-scrim"></div>
+        <div class="hero-content">
+            <img class="hero-logo" src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png" alt="ART de ONE">
+            <div class="hero-eyebrow">Brand Presentation</div>
+            <h1 class="hero-title">ART de <em>ONE</em></h1>
+            <p class="hero-desc">We offer detailed Artificial Intelligence and Adobe Illustrator classes, available in both group and individual sessions.</p>
+        </div>
+        <div class="hero-scroll-hint">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 2 — Full Image (Image 2)
+         ============================================ -->
+    <section class="section full-image" data-slide="2" data-label="Vision" data-lightbox-index="1">
+        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777992377/Final_Rebranded_Presentation-02_amm0pg.jpg" alt="Brand Vision" loading="lazy">
+        <div class="caption reveal">
+            <span class="num">02</span>
+            <span class="label">Vision</span>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 3 — Full Image (Image 3)
+         ============================================ -->
+    <section class="section full-image" data-slide="3" data-label="Philosophy" data-lightbox-index="2">
+        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777992378/Final_Rebranded_Presentation-03_ozlofv.jpg" alt="Design Philosophy" loading="lazy">
+        <div class="caption reveal">
+            <span class="num">03</span>
+            <span class="label">Philosophy</span>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 4 — Spread (Image 4)
+         ============================================ -->
+    <section class="section spread" data-slide="4" data-label="Identity">
+        <div class="spread-image" data-lightbox-index="3">
+            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777992375/Final_Rebranded_Presentation-04_kn6cua.jpg" alt="Brand Identity" loading="lazy">
+        </div>
+        <div class="spread-text">
+            <div class="tag">04 — Identity</div>
+            <h2>Your Brand,<br>Your Story</h2>
+            <p>Every brand has a voice. We help you find yours — and make it unforgettable. From logo to language, we shape identities that leave a mark.</p>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 5 — Statement
+         ============================================ -->
+    <section class="section statement" data-slide="5" data-label="Manifesto">
+        <div class="reveal">
+            <blockquote>Our goal is to create <em>memorable experiences</em>, and also to teach AI, Illustrator & Design Business.</blockquote>
+            <cite>— ART de ONE</cite>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 6 — Full Image (Image 5)
+         ============================================ -->
+    <section class="section full-image" data-slide="6" data-label="System" data-lightbox-index="4">
+        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777992379/Final_Rebranded_Presentation-07_xdlm9h.jpg" alt="Design System" loading="lazy">
+        <div class="caption reveal">
+            <span class="num">06</span>
+            <span class="label">System</span>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 7 — Spread Reversed (Image 6)
+         ============================================ -->
+    <section class="section spread reversed" data-slide="7" data-label="Typography">
+        <div class="spread-text">
+            <div class="tag">07 — Typography</div>
+            <h2>Type Speaks<br>Volumes</h2>
+            <p>Typography is the voice of your brand. We craft type systems that communicate clarity, confidence, and character.</p>
+        </div>
+        <div class="spread-image" data-lightbox-index="7">
+            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777992376/Final_Rebranded_Presentation-08_qlrx1w.jpg" alt="Typography" loading="lazy">
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 8 — Full Image (Image 7)
+         ============================================ -->
+    <section class="section full-image" data-slide="8" data-label="Color" data-lightbox-index="6">
+        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777992379/Final_Rebranded_Presentation-06_iqfjr2.jpg" alt="Color Language" loading="lazy">
+        <div class="caption reveal">
+            <span class="num">08</span>
+            <span class="label">Color</span>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 9 — Gallery (Images 8 & 9)
+         ============================================ -->
+    <section class="section gallery" data-slide="9" data-label="Application">
+        <div class="gallery-item" data-lightbox-index="5">
+            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777992376/Final_Rebranded_Presentation-05_mab43b.jpg" alt="Application 1" loading="lazy">
+            <div class="item-label"><span>09 — Application 01</span></div>
+        </div>
+        <div class="gallery-item" data-lightbox-index="8">
+            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777992376/Final_Rebranded_Presentation-09_qzrjqr.jpg" alt="Application 2" loading="lazy">
+            <div class="item-label"><span>09 — Application 02</span></div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 10 — Spread (Image 10)
+         ============================================ -->
+    <section class="section spread" data-slide="10" data-label="Details">
+        <div class="spread-image" data-lightbox-index="9">
+            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777992377/Final_Rebranded_Presentation-10_eqaxe6.jpg" alt="Design Details" loading="lazy">
+        </div>
+        <div class="spread-text">
+            <div class="tag">10 — Details</div>
+            <h2>Precision in<br>Every Pixel</h2>
+            <p>The difference between good and great lives in the details. We obsess over the small things so you don't have to.</p>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 11 — Full Image (Image 11)
+         ============================================ -->
+    <section class="section full-image" data-slide="11" data-label="Expression" data-lightbox-index="10">
+        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777992378/Final_Rebranded_Presentation-11_d0mog4.jpg" alt="Brand Expression" loading="lazy">
+        <div class="caption reveal">
+            <span class="num">11</span>
+            <span class="label">Expression</span>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 12 — Closing (Image 12 as bg)
+         ============================================ -->
+    <section class="section closing" data-slide="12" data-label="Connect">
+        <div class="closing-bg">
+            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777992377/Final_Rebranded_Presentation-12_okyj13.jpg" alt="ART de ONE" loading="lazy">
+        </div>
+        <div class="closing-inner">
+            <img class="closing-logo reveal" src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png" alt="ART de ONE">
+            <h2 class="reveal reveal-d1">Let's Create<br><em>Together</em></h2>
+            <p class="reveal reveal-d2">Ready to bring your vision to life?</p>
+            <a href="https://artdeone.com" class="closing-cta reveal reveal-d3">
+                Visit artdeone.com
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </a>
+            <div class="closing-social reveal reveal-d4">
+                <a href="https://facebook.com/artdeone" aria-label="Facebook">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                </a>
+                <a href="https://instagram.com/artdeone" aria-label="Instagram">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                </a>
+                <a href="https://linkedin.com/company/artdeone" aria-label="LinkedIn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // ============================================
+        // ART de ONE — Brand Presentation
+        // ============================================
+
+        const sections = document.querySelectorAll('.section');
+        const progressBar = document.getElementById('progressBar');
+        const navDotsContainer = document.getElementById('navDots');
+        const slideCounter = document.getElementById('slideCounter');
+        const backToTopBtn = document.getElementById('backToTop');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxClose = document.getElementById('lightboxClose');
+        const lightboxPrev = document.getElementById('lightboxPrev');
+        const lightboxNext = document.getElementById('lightboxNext');
+
+        const allImages = [
+            'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777992375/Final_Rebranded_Presentation-01_ipzdkv.jpg',
+            'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777992377/Final_Rebranded_Presentation-02_amm0pg.jpg',
+            'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777992378/Final_Rebranded_Presentation-03_ozlofv.jpg',
+            'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777992375/Final_Rebranded_Presentation-04_kn6cua.jpg',
+            'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777992379/Final_Rebranded_Presentation-07_xdlm9h.jpg',
+            'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777992376/Final_Rebranded_Presentation-05_mab43b.jpg',
+            'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777992379/Final_Rebranded_Presentation-06_iqfjr2.jpg',
+            'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777992376/Final_Rebranded_Presentation-08_qlrx1w.jpg',
+            'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777992376/Final_Rebranded_Presentation-09_qzrjqr.jpg',
+            'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777992377/Final_Rebranded_Presentation-10_eqaxe6.jpg',
+            'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777992378/Final_Rebranded_Presentation-11_d0mog4.jpg',
+            'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777992377/Final_Rebranded_Presentation-12_okyj13.jpg'
+        ];
+
+        let currentLightboxIndex = 0;
+
+        // ---- Build Nav Dots ----
+        sections.forEach((sec, i) => {
+            const dot = document.createElement('button');
+            dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+            dot.addEventListener('click', () => sec.scrollIntoView({ behavior: 'smooth' }));
+            navDotsContainer.appendChild(dot);
+        });
+
+        const navDots = document.querySelectorAll('.nav-dot');
+
+        // ---- Intersection Observer: Active Slide ----
+        const slideObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const idx = Array.from(sections).indexOf(entry.target);
+                    navDots.forEach((d, i) => d.classList.toggle('active', i === idx));
+                    slideCounter.querySelector('.current').textContent = String(idx + 1).padStart(2, '0');
+                }
+            });
+        }, { threshold: 0.4 });
+
+        sections.forEach(sec => slideObserver.observe(sec));
+
+        // ---- Intersection Observer: Reveal + in-view ----
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+        document.querySelectorAll('.reveal, .spread, .full-image, .centered, .closing').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        // ---- Progress Bar ----
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+            backToTopBtn.classList.toggle('visible', scrollTop > window.innerHeight);
+        }, { passive: true });
+
+        // ---- Back to Top ----
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ---- Lightbox ----
+        function openLightbox(index) {
+            currentLightboxIndex = index;
+            lightboxImg.src = allImages[index];
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function navigateLightbox(dir) {
+            currentLightboxIndex = (currentLightboxIndex + dir + allImages.length) % allImages.length;
+            lightboxImg.style.opacity = '0';
+            setTimeout(() => {
+                lightboxImg.src = allImages[currentLightboxIndex];
+                lightboxImg.style.opacity = '1';
+            }, 180);
+        }
+
+        // Make all images clickable
+        // Full-image sections
+        document.querySelectorAll('.full-image').forEach(el => {
+            el.addEventListener('click', () => {
+                const idx = el.dataset.lightboxIndex !== undefined
+                    ? parseInt(el.dataset.lightboxIndex)
+                    : allImages.indexOf(el.querySelector('img').src);
+                openLightbox(idx >= 0 ? idx : 0);
+            });
+        });
+
+        // Spread images
+        document.querySelectorAll('.spread-image').forEach(el => {
+            el.addEventListener('click', () => {
+                const idx = el.dataset.lightboxIndex !== undefined
+                    ? parseInt(el.dataset.lightboxIndex)
+                    : allImages.indexOf(el.querySelector('img').src);
+                openLightbox(idx >= 0 ? idx : 0);
+            });
+        });
+
+        // Gallery items
+        document.querySelectorAll('.gallery-item').forEach(el => {
+            el.addEventListener('click', () => {
+                const idx = el.dataset.lightboxIndex !== undefined
+                    ? parseInt(el.dataset.lightboxIndex)
+                    : allImages.indexOf(el.querySelector('img').src);
+                openLightbox(idx >= 0 ? idx : 0);
+            });
+        });
+
+        // Centered frames
+        document.querySelectorAll('.centered-frame').forEach(el => {
+            el.addEventListener('click', () => {
+                const img = el.querySelector('img');
+                if (!img) return;
+                const idx = allImages.indexOf(img.src);
+                openLightbox(idx >= 0 ? idx : 0);
+            });
+        });
+
+        // Hero image click
+        document.querySelector('.hero-img').addEventListener('click', () => {
+            openLightbox(0);
+        });
+        document.querySelector('.hero-img').style.cursor = 'pointer';
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+        lightboxPrev.addEventListener('click', (e) => { e.stopPropagation(); navigateLightbox(-1); });
+        lightboxNext.addEventListener('click', (e) => { e.stopPropagation(); navigateLightbox(1); });
+
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') navigateLightbox(-1);
+            if (e.key === 'ArrowRight') navigateLightbox(1);
+        });
+    </script>
+</body>
+</html>
