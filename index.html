@@ -5081,6 +5081,14 @@
         </div>
 
         <!-- Toggle Button (Circle, Bottom-Right) -->
+        <!-- Ask AI Anything Popup -->
+        <div id="chat-greeting-popup" class="chat-greeting-popup">
+            <span class="chat-greeting-text">Ask AI Anything</span>
+            <button class="chat-greeting-close" onclick="dismissChatGreeting(event)" aria-label="Dismiss greeting">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+
         <button id="chat-toggle-btn" onclick="toggleChat()"
             class="w-14 h-14 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 group relative"
             style="border-radius: 9999px; overflow: hidden; isolation: isolate; z-index: 99999; background: var(--color-primary, #a7e169); color: var(--color-primary-text, #323232); box-shadow: inset 0 0 12px 3px rgba(255,255,255,0.40), inset 0 0 28px 6px rgba(255,255,255,0.12), 0 0 18px 4px rgba(167,225,105,0.20), 0 8px 24px rgba(0,0,0,0.15);"
@@ -5427,6 +5435,88 @@
             text-decoration: underline;
         }
 
+        /* ═══ Ask AI Anything Greeting Popup ═══ */
+        .chat-greeting-popup {
+            position: fixed;
+            left: var(--chat-popup-left, auto);
+            right: var(--chat-popup-right, auto);
+            bottom: var(--chat-popup-bottom, auto);
+            transform: translateY(10px) scale(0.92);
+            background: var(--color-bg, #ffffff);
+            color: var(--color-text, #323232);
+            border: 1px solid var(--color-border, rgba(50,50,50,0.10));
+            border-radius: 9999px;
+            padding: 0.45rem 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.78rem;
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 99998;
+            font-family: 'Space Grotesk', sans-serif;
+            max-width: calc(100vw - 2rem);
+        }
+        .chat-greeting-popup.chat-greeting-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+        /* small arrow pointing down */
+        .chat-greeting-popup::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: var(--chat-arrow-left, 50%);
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: var(--color-bg, #ffffff);
+        }
+        .chat-greeting-popup::before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: var(--chat-arrow-left, 50%);
+            transform: translateX(-50%);
+            border: 7px solid transparent;
+            border-top-color: var(--color-border, rgba(50,50,50,0.10));
+        }
+        .chat-greeting-close {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: none;
+            background: transparent;
+            color: var(--color-text-muted, #9ca3af);
+            cursor: pointer;
+            padding: 0;
+            transition: background 0.2s, color 0.2s;
+            flex-shrink: 0;
+        }
+        .chat-greeting-close:hover {
+            background: var(--color-surface, #f3f4f6);
+            color: var(--color-text, #323232);
+        }
+        html[data-theme="dark"] .chat-greeting-popup::after {
+            border-top-color: var(--color-bg, #1a1c18);
+        }
+        html[data-theme="dark"] .chat-greeting-popup::before {
+            border-top-color: var(--color-border, rgba(243,246,238,0.10));
+        }
+        @media (max-width: 480px) {
+            .chat-greeting-popup {
+                font-size: 0.72rem;
+                padding: 0.35rem 0.65rem;
+            }
+        }
+
         /* ═══ Responsive chat widget sizing ═══ */
         @media (max-width: 480px) {
             #chat-window {
@@ -5455,6 +5545,92 @@
 
     <!-- Chatbot JS (must be after HTML markup) -->
     <script src="/js/chatbot.js"></script>
+
+    <!-- Ask AI Anything Greeting Popup Logic -->
+    <script>
+    (function() {
+        var popup = document.getElementById('chat-greeting-popup');
+        var toggleBtn = document.getElementById('chat-toggle-btn');
+        var chatWindow = document.getElementById('chat-window');
+        var greetingsDismissed = false;
+
+        function measurePopupWidth() {
+            if (!popup) return 0;
+            var wasVis = popup.classList.contains('chat-greeting-visible');
+            popup.style.visibility = 'hidden';
+            popup.classList.add('chat-greeting-visible');
+            var w = popup.offsetWidth;
+            popup.classList.remove('chat-greeting-visible');
+            popup.style.visibility = '';
+            if (wasVis) popup.classList.add('chat-greeting-visible');
+            return w;
+        }
+
+        function positionPopup() {
+            if (!popup || !toggleBtn) return;
+            var popupWidth = measurePopupWidth();
+            var btnRect = toggleBtn.getBoundingClientRect();
+            var vw = window.innerWidth;
+            var vh = window.innerHeight;
+            var padding = vw >= 640 ? 24 : 16;
+            var gapBelow = 14; // pixels above the button
+
+            var desiredCenter = btnRect.left + btnRect.width / 2;
+            var halfW = popupWidth / 2;
+            var minCenter = padding + halfW;
+            var maxCenter = vw - padding - halfW;
+            var center = Math.max(minCenter, Math.min(desiredCenter, maxCenter));
+            var left = center - halfW;
+            var bottom = vh - btnRect.top + gapBelow;
+
+            popup.style.setProperty('--chat-popup-left', left + 'px');
+            popup.style.setProperty('--chat-popup-right', 'auto');
+            popup.style.setProperty('--chat-popup-bottom', bottom + 'px');
+
+            // Arrow should point at button center relative to popup left edge
+            var arrowLeft = desiredCenter - left;
+            popup.style.setProperty('--chat-arrow-left', arrowLeft + 'px');
+        }
+
+        function showGreeting() {
+            if (!popup || greetingsDismissed) return;
+            if (chatWindow && !chatWindow.classList.contains('hidden') && chatWindow.classList.contains('chat-visible')) return;
+            positionPopup();
+            popup.classList.add('chat-greeting-visible');
+        }
+
+        function hideGreeting() {
+            if (!popup) return;
+            popup.classList.remove('chat-greeting-visible');
+        }
+
+        window.dismissChatGreeting = function(e) {
+            if (e) { e.stopPropagation(); e.preventDefault(); }
+            greetingsDismissed = true;
+            hideGreeting();
+        };
+
+        setTimeout(showGreeting, 2200);
+
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', function() {
+                hideGreeting();
+            });
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                dismissChatGreeting();
+            }
+        });
+
+        window.addEventListener('resize', function() {
+            if (popup && popup.classList.contains('chat-greeting-visible')) {
+                positionPopup();
+            }
+        });
+    })();
+    </script>
     <!-- ART de ONE AI CHATBOT END -->
 
 </body>

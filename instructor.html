@@ -45,8 +45,10 @@
     <script src="https://cdn.lordicon.com/lordicon.js"></script>
 
     <link rel="stylesheet" href="/css-and-js/theme.css">
+    <link id="ado-dark-mode-css" rel="stylesheet" href="/css-and-js/dark-mode.css">
+    <link rel="stylesheet" href="/css-and-js/theme-toggle.css">
+    <script src="/js/theme-mode.js"></script>
 
-    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
@@ -158,7 +160,7 @@
         /* ═══ WIX-STYLE VERTICAL SCROLL GALLERY ═══ */
         /* ═══ HORIZONTAL SCROLL GALLERY ═══ */
         .hscroll-container {
-            height: 300vh;
+            height: 200vh;
             position: relative;
         }
         .hscroll-sticky {
@@ -861,7 +863,480 @@
                 width: 300px;
             }
         }
-</style>
+
+        /* ═══ INSTRUCTOR CTA SECTION — DARK MODE FIX (Issue 3) ═══ */
+        .instructor-cta-section {
+            background: #f5f5f5;
+        }
+        html[data-theme="dark"] .instructor-cta-section,
+        body.dark-mode .instructor-cta-section {
+            background: var(--ado-dark-surface, #1a1d17) !important;
+        }
+        html[data-theme="dark"] .text-\[\#5a8c1e\],
+        body.dark-mode .text-\[\#5a8c1e\] {
+            color: var(--ado-brand-green, #a7e169) !important;
+        }
+
+        /* ═══ NAV THEME SWITCHER — INLINE POSITIONING ═══ */
+        .ado-theme-switcher-nav {
+            position: static !important;
+            margin: 0 !important;
+        }
+        /* Hide auto-created desktop/mobile switchers (we have our own in the nav) */
+        .ado-theme-switcher-desktop,
+        .ado-theme-switcher-mobile {
+            display: none !important;
+        }
+        /* Mobile nav pill — inline layout */
+        .ado-theme-switcher-mobile-nav {
+            position: static !important;
+            margin: 0.5rem 0 !important;
+            width: auto !important;
+        }
+
+        /* ═══ 2026 INSTRUCTOR PAGE REFINEMENT ═══ */
+        .section-kicker {
+            color: #5a8c1e;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+        }
+
+        .section-heading {
+            color: #111;
+            font-weight: 700;
+            line-height: 1.08;
+        }
+
+        .section-copy {
+            color: #5f6659;
+            line-height: 1.75;
+        }
+
+        .instructor-hero-shell {
+            display: grid;
+            grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+            gap: clamp(2rem, 6vw, 5rem);
+            align-items: center;
+            margin-top: 1rem;
+            padding: clamp(2.5rem, 7vw, 5.5rem) 0 clamp(2rem, 6vw, 4.5rem);
+            border: 0;
+            border-bottom: 1px solid rgba(50, 50, 50, 0.08);
+            background: transparent;
+        }
+
+        .hero-avatar,
+        .hero-media-minimal img,
+        .hero-metric,
+        .service-modern-card,
+        .work-modern-step,
+        .consult-card {
+            border-radius: 8px;
+        }
+
+        .hero-instructor-line {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .hero-avatar {
+            width: 64px;
+            height: 64px;
+            object-fit: cover;
+            flex: 0 0 auto;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        .hero-stat-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            padding-top: 1.35rem;
+            margin-top: 1.75rem;
+        }
+
+        .hero-metric {
+            border: 0;
+            background: transparent !important;
+            padding: 0 !important;
+            min-width: 88px;
+            box-shadow: none !important;
+        }
+
+        .hero-media-minimal {
+            margin: 0;
+        }
+
+        .hero-media-minimal img {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            display: block;
+        }
+
+        .hero-media-caption {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 0.85rem;
+            color: #767d70;
+            font-size: 0.78rem;
+            line-height: 1.5;
+        }
+
+        .trusted-modern-band {
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
+            border: 0;
+            background: transparent;
+        }
+
+        .trusted-logo-rail {
+            position: relative;
+            overflow: hidden;
+            margin-top: 2rem;
+        }
+
+        .trusted-logo-track {
+            display: flex;
+            align-items: center;
+            gap: clamp(2.25rem, 5vw, 4.5rem);
+            width: max-content;
+            animation: trustedLogoDrift 38s linear infinite;
+        }
+
+        .trusted-logo-rail:hover .trusted-logo-track {
+            animation-play-state: paused;
+        }
+
+        @keyframes trustedLogoDrift {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .trusted-logo-track {
+                animation: none;
+            }
+        }
+
+        .trusted-logo-card {
+            width: 148px;
+            height: 58px;
+            border: 0;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            flex: 0 0 148px;
+            transition: transform 0.25s ease;
+        }
+
+        .trusted-logo-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .trusted-logo-card img {
+            width: 132px;
+            height: 42px;
+            object-fit: contain;
+            filter: grayscale(1);
+            opacity: 0.64;
+            transform: scale(var(--logo-scale, 1));
+            transition: filter 0.25s ease, opacity 0.25s ease, transform 0.25s ease;
+        }
+
+        .trusted-logo-card:hover img {
+            filter: grayscale(0);
+            opacity: 1;
+            transform: scale(calc(var(--logo-scale, 1) * 1.04));
+        }
+
+        .services-modern-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 0.75rem;
+        }
+
+        .service-modern-card {
+            position: relative;
+            min-height: 245px;
+            border: 1px solid rgba(50, 50, 50, 0.1);
+            background: #fff;
+            padding: 1.2rem;
+            overflow: hidden;
+            transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+        }
+
+        .service-modern-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(167, 225, 105, 0.9);
+            background: #fbfdf8;
+        }
+
+        .service-icon-box {
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(167, 225, 105, 0.45);
+            border-radius: 8px;
+            background: rgba(167, 225, 105, 0.12);
+            margin-bottom: 1rem;
+        }
+
+        .work-modern-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 0.75rem;
+            counter-reset: workstep;
+        }
+
+        .work-modern-step {
+            counter-increment: workstep;
+            border: 1px solid rgba(50, 50, 50, 0.1);
+            background: #fff;
+            padding: 1.15rem;
+            min-height: 210px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .work-modern-step::before {
+            content: "0" counter(workstep);
+            display: inline-flex;
+            width: 2.5rem;
+            height: 2.5rem;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            background: #111;
+            color: #a7e169;
+            font-weight: 700;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .work-modern-step:last-child::before {
+            color: #fff;
+            background: #ed2939;
+        }
+
+        .consult-card {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 2rem;
+            align-items: center;
+            border: 1px solid rgba(50, 50, 50, 0.1);
+            background: #fff;
+            padding: clamp(1.25rem, 4vw, 3rem);
+        }
+
+        .consult-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-radius: 999px;
+            border: 1px solid rgba(167, 225, 105, 0.45);
+            background: rgba(167, 225, 105, 0.12);
+            color: #5a8c1e;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.48rem 0.75rem;
+        }
+
+        .btn-secondary-clean {
+            border: 1px solid rgba(50, 50, 50, 0.16);
+            color: #111;
+            background: #fff;
+            font-weight: 600;
+            border-radius: 999px;
+            padding: 0.75rem 1.4rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s ease;
+        }
+
+        .btn-secondary-clean:hover {
+            border-color: #ed2939;
+            color: #ed2939;
+            transform: translateY(-2px);
+        }
+
+        html[data-theme="dark"] .section-heading,
+        html[data-theme="dark"] .service-modern-card h4,
+        html[data-theme="dark"] .work-modern-step h4,
+        html[data-theme="dark"] .consult-card h3,
+        body.dark-mode .section-heading,
+        body.dark-mode .service-modern-card h4,
+        body.dark-mode .work-modern-step h4,
+        body.dark-mode .consult-card h3 {
+            color: #f3f6ee !important;
+        }
+
+        html[data-theme="dark"] .section-copy,
+        html[data-theme="dark"] .service-modern-card p,
+        html[data-theme="dark"] .work-modern-step p,
+        body.dark-mode .section-copy,
+        body.dark-mode .service-modern-card p,
+        body.dark-mode .work-modern-step p {
+            color: #b8c0b0 !important;
+        }
+
+        html[data-theme="dark"] .service-modern-card,
+        html[data-theme="dark"] .work-modern-step,
+        html[data-theme="dark"] .consult-card,
+        body.dark-mode .service-modern-card,
+        body.dark-mode .work-modern-step,
+        body.dark-mode .consult-card {
+            background: #171a14 !important;
+            border-color: #343a2e !important;
+        }
+
+        html[data-theme="dark"] .trusted-modern-band,
+        body.dark-mode .trusted-modern-band {
+            background: transparent !important;
+            border-color: transparent !important;
+        }
+
+        html[data-theme="dark"] .instructor-hero-shell,
+        body.dark-mode .instructor-hero-shell {
+            background: transparent !important;
+            border-bottom-color: #343a2e !important;
+        }
+
+        html[data-theme="dark"] .hero-metric,
+        body.dark-mode .hero-metric {
+            background: transparent !important;
+            border-color: transparent !important;
+        }
+
+        html[data-theme="dark"] .trusted-logo-card,
+        body.dark-mode .trusted-logo-card {
+            background: transparent !important;
+            border-color: transparent !important;
+        }
+
+        html[data-theme="dark"] .trusted-logo-card img,
+        body.dark-mode .trusted-logo-card img {
+            filter: grayscale(1) brightness(0) invert(1) contrast(1.35) !important;
+            opacity: 1;
+        }
+
+        html[data-theme="dark"] .trusted-logo-card:hover img,
+        body.dark-mode .trusted-logo-card:hover img {
+            opacity: 1;
+        }
+
+        html[data-theme="dark"] .hero-media-caption,
+        body.dark-mode .hero-media-caption {
+            color: #b8c0b0 !important;
+        }
+
+        html[data-theme="dark"] .btn-secondary-clean,
+        body.dark-mode .btn-secondary-clean {
+            background: transparent !important;
+            border-color: #4c5544 !important;
+            color: #f3f6ee !important;
+        }
+
+        html[data-theme="dark"] .consult-chip,
+        body.dark-mode .consult-chip {
+            color: #a7e169 !important;
+            background: rgba(167, 225, 105, 0.08) !important;
+        }
+
+        @media (max-width: 1023px) {
+            .instructor-hero-shell,
+            .consult-card {
+                grid-template-columns: 1fr;
+            }
+
+            .services-modern-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .work-modern-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 767px) {
+            main#main-content {
+                padding-top: 6rem;
+            }
+
+            .instructor-hero-shell {
+                margin-top: 0;
+                padding: 1.25rem 0 2.25rem;
+            }
+
+            .hero-media-caption {
+                flex-direction: column;
+                gap: 0.15rem;
+            }
+
+            .hero-stat-row {
+                gap: 1rem;
+            }
+
+            .services-modern-grid,
+            .work-modern-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .service-modern-card,
+            .work-modern-step {
+                min-height: auto;
+            }
+
+            .consult-card {
+                gap: 1.25rem;
+            }
+
+            .hscroll-container {
+                height: auto !important;
+            }
+
+            .hscroll-sticky {
+                position: relative !important;
+                height: auto !important;
+                overflow-x: auto !important;
+                overflow-y: hidden !important;
+                padding: 1.5rem 0 2rem;
+                -webkit-overflow-scrolling: touch;
+                scroll-snap-type: x mandatory;
+            }
+
+            .hscroll-gallery {
+                transform: none !important;
+                padding: 0 1rem !important;
+                gap: 1rem !important;
+            }
+
+            .hscroll-item {
+                width: min(78vw, 300px) !important;
+                height: 380px !important;
+                scroll-snap-align: center;
+            }
+        }
+    </style>
 </head>
 <body class="bg-white text-[#323232]">
 
@@ -892,7 +1367,10 @@
                         <a href="/index.html#contact" class="nav-link">Contact</a>
                     </div>
                     
-                    <div class="hidden md:block">
+                    <div class="hidden md:flex items-center gap-3">
+                        <button type="button" id="ado-theme-toggle" class="ado-theme-toggle" title="Switch theme" aria-label="Switch theme">
+                            <span class="ado-theme-toggle-icon"></span>
+                        </button>
                         <a href="/customer-dashboard.html" class="nav-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
                     </div>
                     
@@ -927,6 +1405,12 @@
                     </div>
                 </div>
                 <a href="/index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
+                <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #e5e5e5;margin-bottom:4px;">
+                    <button type="button" id="ado-theme-toggle-mobile" class="ado-theme-toggle" title="Switch theme" aria-label="Switch theme">
+                        <span class="ado-theme-toggle-icon"></span>
+                    </button>
+                    <span class="ado-theme-toggle-label">Theme</span>
+                </div>
                 <a href="/customer-dashboard.html" style="display:inline-flex; align-items:center; gap:0.35rem; background:#ed2939; color:#fff; font-weight:600; border-radius:2rem; padding:0.3rem 0.75rem; font-size:0.75rem; border:1px solid #ed2939; text-decoration:none;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
             </div>
         </div>
@@ -936,212 +1420,52 @@
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-            <!-- Hero Section — Clean & Minimalist -->
-            <!-- Mobile: centered vertical layout -->
-            <div class="relative mb-10 md:hidden" data-aos="fade-up">
-                <div class="flex flex-col items-center text-center max-w-3xl mx-auto">
-                    <div class="relative mb-8">
-                        <div class="w-28 h-28 rounded-full overflow-hidden border-4 border-white shadow-lg ring-1 ring-gray-100">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119870/instructor-02_a7snby.jpg" alt="Instructor" class="w-full h-full object-cover">
-                        </div>
-                        <div class="absolute bottom-1 right-1 w-5 h-5 bg-[#a7e169] rounded-full border-3 border-white"></div>
-                    </div>
-                    <h1 class="text-4xl font-bold leading-tight mb-2 artdeone-font"><span class="text-black">Ko Phyo</span></h1>
-                    <p class="text-sm uppercase tracking-[0.2em] text-[#9dae11] font-semibold mb-6">Lead Instructor</p>
-                    <p class="text-gray-400 text-sm leading-relaxed max-w-xl mb-8">For nearly a decade I've worked in this field, then spent three years guiding others to find their own way with design.</p>
-                    <div class="flex items-center justify-center gap-8 mb-8">
-                        <div><span class="text-3xl font-bold text-black block">9+</span><span class="text-xs text-gray-400 uppercase tracking-wider">Years</span></div>
-                        <div class="w-px h-10 bg-gray-200"></div>
-                        <div><span class="text-3xl font-bold text-black block">100+</span><span class="text-xs text-gray-400 uppercase tracking-wider">Students</span></div>
-                    </div>
-                    <a href="index.html#contact" class="btn-primary rounded-full text-center px-8">Work With Me</a>
-                    <div class="mt-10 pt-8 border-t border-gray-100 w-full">
-                        <p class="text-[10px] uppercase tracking-[0.2em] text-gray-300 font-medium mb-4">Official Collaboration</p>
-                        <div class="flex items-center justify-center gap-5">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379061/huion-1_bifxjo.png" alt="Huion" class="h-9 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
-                            <span class="text-gray-300 text-sm font-light">×</span>
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379061/artdeone-1_plyge7.png" alt="Art de One" class="h-9 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-300 invert">
+            <!-- Hero Section — Clean Instructor Intro -->
+            <section class="mb-16 md:mb-24 instructor-hero-shell" data-aos="fade-up">
+                <div>
+                    <div class="hero-instructor-line">
+                        <img class="hero-avatar" src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119870/instructor-02_a7snby.jpg" alt="Lead Instructor Ko Phyo">
+                        <div>
+                            <p class="section-kicker mb-1">Lead Instructor</p>
+                            <p class="text-sm text-gray-500">Graphic Designer & Illustrator</p>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- Desktop: side-by-side hero -->
-            <div class="relative mb-24 hidden md:flex items-center justify-center gap-10 lg:gap-14 max-w-4xl mx-auto" data-aos="fade-up">
-                <!-- Left: Photo -->
-                <div class="shrink-0">
-                    <div class="relative">
-                        <div class="w-[260px] lg:w-[300px] rounded-2xl overflow-hidden border border-gray-200">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768119870/instructor-02_a7snby.jpg" alt="Instructor" class="w-full object-cover aspect-[4/5]">
-                        </div>
-                        <!-- Collaboration badge below photo -->
-                        <div class="mt-5 text-center">
-                            <p class="text-[10px] uppercase tracking-[0.2em] text-gray-300 font-medium mb-2">Official Collaboration</p>
-                            <div class="flex items-center justify-center gap-4">
-                                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379061/huion-1_bifxjo.png" alt="Huion" class="h-7 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
-                                <span class="text-gray-300 text-sm font-light">×</span>
-                                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379061/artdeone-1_plyge7.png" alt="Art de One" class="h-7 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-300 invert">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Right: Info -->
-                <div class="flex-1 max-w-md">
-                    <h1 class="text-4xl lg:text-5xl font-bold leading-tight mb-2 artdeone-font">
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-black to-[#a7e169]">Ko Phyo</span>
-                    </h1>
-                    <p class="text-sm uppercase tracking-[0.15em] text-[#9dae11] font-semibold mb-3">Lead Instructor</p>
-                    <p class="text-gray-500 text-sm leading-relaxed mb-5">
-                        For nearly a decade I've worked in this field, then spent three years guiding others — people everywhere, actually — to find their own way with design. Come explore what's possible alongside me.
+                    <h1 class="section-heading text-5xl md:text-6xl lg:text-7xl mb-5 artdeone-font">Ko Phyo</h1>
+                    <p class="section-copy text-base md:text-lg max-w-xl mb-6">
+                        YJH မှာ ၂ လကြာ Adobe Illustrator Summer Class ကိုသင်ကြားခဲ့ပါတယ်။ Vector Drawing အခြေခံ နဲ့ Shadow, Highlight, Midtone တွေကိုနားလည်အောင်သင်ကြားခဲ့တဲ့  class activity ဖြစ်ပါတယ်။
+                        အခုလိုသင်ကြားခွင့်ရအောင်အခွင့်အရေးပေးခဲ့တဲ့ ကျွန်တော့်ရဲ့ချစ်လှစွာသော Ah Naw (အနော)နဲ့ ကျောင်းသား ကျောင်းသူတစ်ဦးတစ်ယောက်ချင်းစီကိုလဲ ကျေးဇူးအများကြီးတင်ပါတယ်။ အမြဲတမ်းအပြုံးတွေနဲ့ဆီးကြိုနူတ်ဆက်ကြတဲ့ YJH မှဆရာ/ဆရာမတွေကိုလဲ ကျေးဇူးအများကြီးတင်ပါတယ်။
                     </p>
 
-                    <!-- Stats -->
-                    <div class="flex items-center gap-6 mb-5">
-                        <div>
-                            <span class="text-2xl lg:text-3xl font-bold text-black block">9+</span>
-                            <span class="text-[11px] text-gray-400 uppercase tracking-wider">Years Experience</span>
+                    <div class="hero-stat-row">
+                        <div class="hero-metric">
+                            <span class="block text-3xl font-bold section-heading">9+</span>
+                            <span class="text-[11px] uppercase text-gray-500 font-semibold">Years</span>
                         </div>
-                        <div class="w-px h-8 bg-gray-200"></div>
-                        <div>
-                            <span class="text-2xl lg:text-3xl font-bold text-black block">100+</span>
-                            <span class="text-[11px] text-gray-400 uppercase tracking-wider">Students Trained</span>
+                        <div class="hero-metric">
+                            <span class="block text-3xl font-bold section-heading">100+</span>
+                            <span class="text-[11px] uppercase text-gray-500 font-semibold">Students</span>
                         </div>
                     </div>
 
-                    <a href="index.html#contact" class="btn-primary rounded-full text-center px-6 text-sm">Work With Me</a>
+                    <div class="hero-actions">
+                        <a href="index.html#contact" class="btn-primary rounded-full text-center px-6 text-sm">Work With Me</a>
+                        <a href="tel:09953681497" class="btn-secondary-clean text-sm">Call Now</a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Trusted Logos — Infinite Marquee (Full Width) -->
-            <section class="py-8 md:py-16 bg-white" style="width:100vw;margin-left:calc(-50vw + 50%);margin-right:calc(-50vw + 50%);">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="text-center mb-10" data-aos="fade-up">
-                        <p class="text-[10px] md:text-sm uppercase tracking-widest text-gray-400 font-medium">Trusted by businesses across Southeast Asia</p>
-                    </div>
-                </div>
-                <div class="logo-marquee-track" data-aos="fade-up">
-                        <div class="logo-marquee-inner">
-                            <!-- Set 1 -->
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379518/logo-1_pamyyo.png" alt="Air Thinlwin" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379517/logo-2_w8mmgo.png" alt="Jackery" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379517/logo-3_xejmzs.png" alt="VENUCIA" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379635/logo-4_h9myqh.png" alt="Yealink" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379516/logo-5_brafmc.png" alt="CHANGAN" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379517/logo-6_ipkciz.png" alt="AVer" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/lady_may_jctvnh.png" alt="Lady May" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/mnvenus_puiiyb.png" alt="MN Venus" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/syk_tx6ijr.png" alt="SYK" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/royal_cyhkwx.png" alt="Royal" class="logo-marquee-img">
-                            <!-- Set 2 (duplicate for seamless loop) -->
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379518/logo-1_pamyyo.png" alt="Air Thinlwin" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379517/logo-2_w8mmgo.png" alt="Jackery" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379517/logo-3_xejmzs.png" alt="VENUCIA" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379635/logo-4_h9myqh.png" alt="Yealink" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379516/logo-5_brafmc.png" alt="CHANGAN" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768379517/logo-6_ipkciz.png" alt="AVer" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/lady_may_jctvnh.png" alt="Lady May" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/mnvenus_puiiyb.png" alt="MN Venus" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/syk_tx6ijr.png" alt="SYK" class="logo-marquee-img">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1771314614/royal_cyhkwx.png" alt="Royal" class="logo-marquee-img">
-                        </div>
-                    </div>
+                <figure class="hero-media-minimal">
+                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777886851/yjh1_q4agzh.jpg" alt="Ko Phyo teaching Adobe Illustrator Summer Class at YJH">
+                    <figcaption class="hero-media-caption">
+                        <span>YJH Summer Activity</span>
+                        <span>Adobe Illustrator / 2 Months</span>
+                    </figcaption>
+                </figure>
             </section>
 
-
         </div><!-- close max-w-7xl -->
-            <!-- Featured Work — Horizontal Scroll Gallery -->
-            <div class="mb-24" style="width: 100vw; margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%);" data-aos="fade-up">
-              <div class="text-center px-4 sm:px-6 lg:px-8 pt-16">
-                <h2 class="text-3xl font-bold text-[#323232] mb-4">Featured Work</h2>
-                <p class="text-gray-500 mb-8 max-w-2xl mx-auto">Here's a handpicked mix of professional projects and creative work. Each one highlights different design styles and real industry know-how.</p>
-              </div>
-              
-              <div class="hscroll-container" id="hscrollContainer">
-                <div class="hscroll-sticky">
-                    <div class="hscroll-gallery" id="hscrollGallery">
-                        <div class="hscroll-item" onclick="openGalleryLB(0)">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768120047/nescafe_lebedi.jpg" alt="Nescafe">
-                            <span class="hscroll-label">Nescafe</span>
-                            <div class="hscroll-zoom"><i class="fas fa-expand text-xs text-black"></i></div>
-                        </div>
-                        <div class="hscroll-item" onclick="openGalleryLB(1)">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768120056/venucia-2_rvkjbs.jpg" alt="Venucia">
-                            <span class="hscroll-label">Venucia</span>
-                            <div class="hscroll-zoom"><i class="fas fa-expand text-xs text-black"></i></div>
-                        </div>
-                        <div class="hscroll-item" onclick="openGalleryLB(2)">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768104188/logo_pfwrd2.webp" alt="The Burma Food House">
-                            <span class="hscroll-label">Logo Design</span>
-                            <div class="hscroll-zoom"><i class="fas fa-expand text-xs text-black"></i></div>
-                        </div>
-                        <div class="hscroll-item" onclick="openGalleryLB(3)">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768120055/jackery-3_vr9dmx.jpg" alt="Jackery">
-                            <span class="hscroll-label">Jackery</span>
-                            <div class="hscroll-zoom"><i class="fas fa-expand text-xs text-black"></i></div>
-                        </div>
-                        <div class="hscroll-item" onclick="openGalleryLB(4)">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768104188/logo-1_wndp3e.jpg" alt="Wedding Dress Store">
-                            <span class="hscroll-label">Branding</span>
-                            <div class="hscroll-zoom"><i class="fas fa-expand text-xs text-black"></i></div>
-                        </div>
-                        <div class="hscroll-item" onclick="openGalleryLB(5)">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768120057/venucia-4_qxv6vz.jpg" alt="Venucia Myanmar">
-                            <span class="hscroll-label">Venucia Myanmar</span>
-                            <div class="hscroll-zoom"><i class="fas fa-expand text-xs text-black"></i></div>
-                        </div>
-                        <div class="hscroll-item" onclick="openGalleryLB(6)">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768120048/haniu-1_zucmai.jpg" alt="Haniu">
-                            <span class="hscroll-label">Haniu</span>
-                            <div class="hscroll-zoom"><i class="fas fa-expand text-xs text-black"></i></div>
-                        </div>
-                        <div class="hscroll-item" onclick="openGalleryLB(7)">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768104190/logo-2_djp4pt.jpg" alt="Thrift Store">
-                            <span class="hscroll-label">Logo Design</span>
-                            <div class="hscroll-zoom"><i class="fas fa-expand text-xs text-black"></i></div>
-                        </div>
-                        <div class="hscroll-item" onclick="openGalleryLB(8)">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768120048/rome-green_tqpf89.jpg" alt="Product Character Design">
-                            <span class="hscroll-label">Character Design</span>
-                            <div class="hscroll-zoom"><i class="fas fa-expand text-xs text-black"></i></div>
-                        </div>
-                        <div class="hscroll-item" onclick="openGalleryLB(9)">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768104188/logo-4_z8tmkt.jpg" alt="Wellness & Spa">
-                            <span class="hscroll-label">Wellness & Spa</span>
-                            <div class="hscroll-zoom"><i class="fas fa-expand text-xs text-black"></i></div>
-                        </div>
-                        <div class="hscroll-item" onclick="openGalleryLB(10)">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768120049/venucia-3_ubupao.jpg" alt="Venucia">
-                            <span class="hscroll-label">Venucia</span>
-                            <div class="hscroll-zoom"><i class="fas fa-expand text-xs text-black"></i></div>
-                        </div>
-                        <div class="hscroll-item" onclick="openGalleryLB(11)">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768104197/logo-3_tpxymo.jpg" alt="Restaurant Logo">
-                            <span class="hscroll-label">Restaurant Logo</span>
-                            <div class="hscroll-zoom"><i class="fas fa-expand text-xs text-black"></i></div>
-                        </div>
-                        <div class="hscroll-item" onclick="openGalleryLB(12)">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768120051/jackery-2_kno48i.jpg" alt="Jackery">
-                            <span class="hscroll-label">Jackery</span>
-                            <div class="hscroll-zoom"><i class="fas fa-expand text-xs text-black"></i></div>
-                        </div>
-                        <div class="hscroll-item" onclick="openGalleryLB(13)">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768120046/asus-1_bwdmoj.jpg" alt="Asus">
-                            <span class="hscroll-label">Asus</span>
-                            <div class="hscroll-zoom"><i class="fas fa-expand text-xs text-black"></i></div>
-                        </div>
-                        <div class="hscroll-item" onclick="openGalleryLB(14)">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768104188/logo-5_iwddom.webp" alt="Start-up Company">
-                            <span class="hscroll-label">Start-up Branding</span>
-                            <div class="hscroll-zoom"><i class="fas fa-expand text-xs text-black"></i></div>
-                        </div>
-                    </div>
-                </div>
-              </div>
-            </div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-            <!-- Gallery Lightbox -->
             <div class="gallery-lightbox" id="galleryLightbox">
                 <div class="lb-close" onclick="closeGalleryLB()"><i class="fas fa-times"></i></div>
                 <div class="lb-nav lb-prev" onclick="navGalleryLB(-1)"><i class="fas fa-chevron-left"></i></div>
@@ -1151,256 +1475,106 @@
             </div>
 
             <!-- Services Offered -->
-            <div class="mb-24" id="services-section" data-aos="fade-up">
-                <h2 class="text-3xl font-bold text-[#323232] mb-4 text-center">Services</h2>
-                <p class="text-gray-500 text-center mb-12 max-w-2xl mx-auto">လုပ်ငန်းအသီးသီးအတွက် ကျွမ်းကျင်မှုပြည့်ဝသော ဒီဇိုင်းဝန်ဆောင်မှုများ။</p>
+            <section class="mb-16 md:mb-24" id="services-section" data-aos="fade-up">
+                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+                    <div>
+                        <p class="section-kicker mb-3">Services</p>
+                        <h2 class="section-heading text-3xl md:text-4xl">Clean design support for growing brands</h2>
+                    </div>
+                    <p class="section-copy text-sm max-w-md md:text-right">လုပ်ငန်းအသီးသီးအတွက် logo မှ website အထိ consistent ဖြစ်တဲ့ visual system တစ်ခုအဖြစ်စီစဉ်ပေးပါတယ်။</p>
+                </div>
 
-                <!-- Desktop: Single rectangle with dividers -->
-                <div class="hidden md:block border border-gray-200 rounded-2xl overflow-hidden">
-                    <div class="grid grid-cols-5 divide-x divide-gray-200">
-                        <div class="p-8 text-center group hover:bg-[#f9fdf3] transition-colors duration-300 service-cell">
-                            <div class="flex items-center justify-center mx-auto mb-4">
-                                <lord-icon src="https://cdn.lordicon.com/jkzgajyr.json" trigger="hover" target=".service-cell" colors="primary:#5a8c1e,secondary:#a7e169" style="width:56px;height:56px"></lord-icon>
-                            </div>
-                            <h4 class="font-bold text-black mb-2 text-sm">Logo Design</h4>
-                            <p class="text-gray-500 text-xs leading-relaxed">သင့် Brand ကို ကိုယ်စားပြုနိုင်သော ထူးခြားပြီး မှတ်မိလွယ်သည့် Logo ဒီဇိုင်းများ။</p>
+                <div class="services-modern-grid">
+                    <article class="service-modern-card">
+                        <div class="service-icon-box">
+                            <lord-icon src="https://cdn.lordicon.com/jkzgajyr.json" trigger="hover" colors="primary:#5a8c1e,secondary:#a7e169" style="width:42px;height:42px"></lord-icon>
                         </div>
-                        <div class="p-8 text-center group hover:bg-[#fef5f6] transition-colors duration-300 service-cell-2">
-                            <div class="flex items-center justify-center mx-auto mb-4">
-                                <lord-icon src="https://cdn.lordicon.com/hovbgwmd.json" trigger="hover" target=".service-cell-2" colors="primary:#ed2939,secondary:#ed2939" style="width:56px;height:56px"></lord-icon>
-                            </div>
-                            <h4 class="font-bold text-black mb-2 text-sm">Brand Identity</h4>
-                            <p class="text-gray-500 text-xs leading-relaxed">အရောင်၊ စာလုံးပုံစံနှင့် ဒီဇိုင်းလမ်းညွှန်ချက်များ အပါအဝင် ပြည့်စုံသော Visual System။</p>
+                        <h4 class="font-bold text-black mb-3 text-base">Logo Design</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed">သင့် Brand ကို ကိုယ်စားပြုနိုင်တဲ့ distinctive mark, typography, and usage-ready logo system။</p>
+                    </article>
+                    <article class="service-modern-card">
+                        <div class="service-icon-box">
+                            <lord-icon src="https://cdn.lordicon.com/hovbgwmd.json" trigger="hover" colors="primary:#ed2939,secondary:#ed2939" style="width:42px;height:42px"></lord-icon>
                         </div>
-                        <div class="p-8 text-center group hover:bg-[#f9fdf3] transition-colors duration-300 service-cell-3">
-                            <div class="flex items-center justify-center mx-auto mb-4">
-                                <lord-icon src="https://cdn.lordicon.com/aycieyht.json" trigger="hover" target=".service-cell-3" colors="primary:#5a8c1e,secondary:#a7e169" style="width:56px;height:56px"></lord-icon>
-                            </div>
-                            <h4 class="font-bold text-black mb-2 text-sm">Social Media</h4>
-                            <p class="text-gray-500 text-xs leading-relaxed">Platform အသီးသီးအတွက် ဆွဲဆောင်မှုရှိသော Post၊ Story နှင့် Campaign ဒီဇိုင်းများ။</p>
+                        <h4 class="font-bold text-black mb-3 text-base">Brand Identity</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed">Color, type, layout rules, and visual direction ပါတဲ့ cohesive brand guideline package။</p>
+                    </article>
+                    <article class="service-modern-card">
+                        <div class="service-icon-box">
+                            <lord-icon src="https://cdn.lordicon.com/aycieyht.json" trigger="hover" colors="primary:#5a8c1e,secondary:#a7e169" style="width:42px;height:42px"></lord-icon>
                         </div>
-                        <div class="p-8 text-center group hover:bg-[#fef5f6] transition-colors duration-300 service-cell-4">
-                            <div class="flex items-center justify-center mx-auto mb-4">
-                                <lord-icon src="https://cdn.lordicon.com/warimioc.json" trigger="hover" target=".service-cell-4" colors="primary:#ed2939,secondary:#ed2939" style="width:56px;height:56px"></lord-icon>
-                            </div>
-                            <h4 class="font-bold text-black mb-2 text-sm">Print Design</h4>
-                            <p class="text-gray-500 text-xs leading-relaxed">Name Card၊ Brochure၊ Banner နှင့် Packaging ဒီဇိုင်းများ။</p>
+                        <h4 class="font-bold text-black mb-3 text-base">Social Media</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed">Campaign post, story, carousel, and monthly visual templates for faster publishing။</p>
+                    </article>
+                    <article class="service-modern-card">
+                        <div class="service-icon-box">
+                            <lord-icon src="https://cdn.lordicon.com/warimioc.json" trigger="hover" colors="primary:#ed2939,secondary:#ed2939" style="width:42px;height:42px"></lord-icon>
                         </div>
-                        <div class="p-8 text-center group hover:bg-[#f9fdf3] transition-colors duration-300 service-cell-5">
-                            <div class="flex items-center justify-center mx-auto mb-4">
-                                <lord-icon src="https://cdn.lordicon.com/lzgmgrnn.json" trigger="hover" target=".service-cell-5" colors="primary:#5a8c1e,secondary:#a7e169" style="width:56px;height:56px"></lord-icon>
-                            </div>
-                            <h4 class="font-bold text-black mb-2 text-sm">Website Design</h4>
-                            <p class="text-gray-500 text-xs leading-relaxed">သင့် Brand ရဲ့ Customer Loyalty ကို မြှင့်တင်ပေးမယ့် ခေတ်မီ Responsive Website ဒီဇိုင်း။</p>
+                        <h4 class="font-bold text-black mb-3 text-base">Print Design</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed">Name card, brochure, banner, packaging, and print-ready production files။</p>
+                    </article>
+                    <article class="service-modern-card">
+                        <div class="service-icon-box">
+                            <lord-icon src="https://cdn.lordicon.com/lzgmgrnn.json" trigger="hover" colors="primary:#5a8c1e,secondary:#a7e169" style="width:42px;height:42px"></lord-icon>
                         </div>
-                    </div>
+                        <h4 class="font-bold text-black mb-3 text-base">Website Design</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed">Responsive website layout, landing pages, and brand-aligned UI direction။</p>
+                    </article>
                 </div>
-                <!-- Mobile: Single rectangle with horizontal dividers -->
-                <div class="md:hidden border border-gray-200 rounded-2xl overflow-hidden divide-y divide-gray-200">
-                    <div class="flex items-center gap-4 p-5 hover:bg-[#f9fdf3] transition-colors duration-300">
-                        <div class="flex-shrink-0">
-                            <lord-icon src="https://cdn.lordicon.com/jkzgajyr.json" trigger="hover" colors="primary:#5a8c1e,secondary:#a7e169" style="width:40px;height:40px"></lord-icon>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-black text-sm">Logo Design</h4>
-                            <p class="text-gray-500 text-xs">ထူးခြားပြီး မှတ်မိလွယ်သော Logo ဒီဇိုင်းများ။</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-4 p-5 hover:bg-[#fef5f6] transition-colors duration-300">
-                        <div class="flex-shrink-0">
-                            <lord-icon src="https://cdn.lordicon.com/hovbgwmd.json" trigger="hover" colors="primary:#ed2939,secondary:#ed2939" style="width:40px;height:40px"></lord-icon>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-black text-sm">Brand Identity</h4>
-                            <p class="text-gray-500 text-xs">အရောင်၊ စာလုံးပုံစံနှင့် Visual Guidelines။</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-4 p-5 hover:bg-[#f9fdf3] transition-colors duration-300 mobile-service-3">
-                        <div class="flex-shrink-0">
-                            <lord-icon src="https://cdn.lordicon.com/aycieyht.json" trigger="hover" target=".mobile-service-3" colors="primary:#5a8c1e,secondary:#a7e169" style="width:40px;height:40px"></lord-icon>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-black text-sm">Social Media</h4>
-                            <p class="text-gray-500 text-xs">Post၊ Story နှင့် Campaign ဒီဇိုင်းများ။</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-4 p-5 hover:bg-[#fef5f6] transition-colors duration-300">
-                        <div class="flex-shrink-0">
-                            <lord-icon src="https://cdn.lordicon.com/warimioc.json" trigger="hover" colors="primary:#ed2939,secondary:#ed2939" style="width:40px;height:40px"></lord-icon>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-black text-sm">Print Design</h4>
-                            <p class="text-gray-500 text-xs">Name Card၊ Brochure နှင့် Banner ဒီဇိုင်း။</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-4 p-5 hover:bg-[#f9fdf3] transition-colors duration-300">
-                        <div class="flex-shrink-0">
-                            <lord-icon src="https://cdn.lordicon.com/lzgmgrnn.json" trigger="hover" colors="primary:#5a8c1e,secondary:#a7e169" style="width:40px;height:40px"></lord-icon>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-black text-sm">Website Design</h4>
-                            <p class="text-gray-500 text-xs">ခေတ်မီ Responsive Website ဒီဇိုင်း။</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </section>
 
             <!-- How I Work -->
-            <div class="mb-24" data-aos="fade-up">
-                <h2 class="text-3xl font-bold text-[#323232] mb-4 text-center">How I Work</h2>
-                <p class="text-gray-500 text-center mb-12 max-w-2xl mx-auto">ရိုးရှင်းတဲ့ အဆင့် ၄ ဆင့်နဲ့ သင့်ရဲ့ Project ကို အကောင်အထည်ဖော်ပေးပါတယ်။</p>
-
-                <!-- Desktop: horizontal steps with animated arrows -->
-                <div class="hidden md:flex items-start justify-center gap-0 relative" id="hiwDesktop">
-                    <!-- Step 1 -->
-                    <div class="hiw-step text-center max-w-[280px] relative z-10" data-step="1">
-                        <div class="hiw-num-circle w-16 h-16 rounded-full bg-[#a7e169]/15 flex items-center justify-center mx-auto mb-3 border-2 border-[#a7e169]/30" style="color: #a7e169;">
-                            <lord-icon src="https://cdn.lordicon.com/fdxqrdfe.json" trigger="loop" delay="2000" colors="primary:#3d6b0a,secondary:#5a8c1e" style="width:36px;height:36px"></lord-icon>
-                        </div>
-                        <div class="hiw-text">
-                            <h4 class="hiw-title font-semibold text-black mb-1 text-sm">ဆွေးနွေးတိုင်ပင်ခြင်း</h4>
-                            <p class="hiw-desc text-gray-400 text-xs leading-relaxed">သင့် Brand ရဲ့ ရည်မှန်းချက်နဲ့ Project အသေးစိတ်ကို ဆွေးနွေးပါတယ်။</p>
-                        </div>
+            <section class="mb-16 md:mb-24" data-aos="fade-up">
+                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+                    <div>
+                        <p class="section-kicker mb-3">How I Work</p>
+                        <h2 class="section-heading text-3xl md:text-4xl">A clear path from idea to final files</h2>
                     </div>
-                    <!-- Arrow 1 -->
-                    <div class="hiw-connector flex items-center pt-6 px-2 relative z-10" data-after="1">
-                        <svg class="hiw-arrow" width="48" height="24" viewBox="0 0 48 24" fill="none">
-                            <path class="hiw-arrow-line" d="M0 12 H38" stroke="#a7e169" stroke-width="2" stroke-dasharray="6 4"/>
-                            <path class="hiw-arrow-head" d="M34 6 L42 12 L34 18" stroke="#a7e169" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <!-- Step 2 -->
-                    <div class="hiw-step text-center flex-1 max-w-[200px] relative z-10" data-step="2">
-                        <div class="hiw-num-circle w-16 h-16 rounded-full bg-[#a7e169]/15 flex items-center justify-center mx-auto mb-4 border-2 border-[#a7e169]/30" style="color: #a7e169;">
-                            <lord-icon src="https://cdn.lordicon.com/pflszboa.json" trigger="loop" delay="2500" colors="primary:#3d6b0a,secondary:#5a8c1e" style="width:36px;height:36px"></lord-icon>
-                        </div>
-                        <div class="hiw-text">
-                            <h4 class="hiw-title font-semibold text-black mb-2 text-sm">ပုံကြမ်း ရေးဆွဲခြင်း</h4>
-                            <p class="hiw-desc text-gray-400 text-xs leading-relaxed px-2">Concept ပုံကြမ်းတွေ ဖန်တီးပြီး သင့်ရဲ့ Feedback ယူပါတယ်။</p>
-                        </div>
-                    </div>
-                    <!-- Arrow 2 -->
-                    <div class="hiw-connector flex items-center pt-6 px-2 relative z-10" data-after="2">
-                        <svg class="hiw-arrow" width="48" height="24" viewBox="0 0 48 24" fill="none">
-                            <path class="hiw-arrow-line" d="M0 12 H38" stroke="#a7e169" stroke-width="2" stroke-dasharray="6 4"/>
-                            <path class="hiw-arrow-head" d="M34 6 L42 12 L34 18" stroke="#a7e169" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <!-- Step 3 -->
-                    <div class="hiw-step text-center flex-1 max-w-[200px] relative z-10" data-step="3">
-                        <div class="hiw-num-circle w-16 h-16 rounded-full bg-[#a7e169]/15 flex items-center justify-center mx-auto mb-4 border-2 border-[#a7e169]/30" style="color: #a7e169;">
-                            <lord-icon src="https://cdn.lordicon.com/iltqorsz.json" trigger="loop" delay="3000" colors="primary:#3d6b0a,secondary:#5a8c1e" style="width:36px;height:36px"></lord-icon>
-                        </div>
-                        <div class="hiw-text">
-                            <h4 class="hiw-title font-semibold text-black mb-2 text-sm">ပြန်လည်ပြင်ဆင်ခြင်း</h4>
-                            <p class="hiw-desc text-gray-400 text-xs leading-relaxed px-2">သင် စိတ်ကျေနပ်တဲ့ ဒီဇိုင်းရလာတဲ့အထိ အတူတကွ ပြင်ဆင်ပါတယ်။</p>
-                        </div>
-                    </div>
-                    <!-- Arrow 3 -->
-                    <div class="hiw-connector flex items-center pt-6 px-2 relative z-10" data-after="3">
-                        <svg class="hiw-arrow" width="48" height="24" viewBox="0 0 48 24" fill="none">
-                            <path class="hiw-arrow-line" d="M0 12 H38" stroke="#ed2939" stroke-width="2" stroke-dasharray="6 4"/>
-                            <path class="hiw-arrow-head" d="M34 6 L42 12 L34 18" stroke="#ed2939" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <!-- Step 4 -->
-                    <div class="hiw-step text-center flex-1 max-w-[200px] relative z-10" data-step="4">
-                        <div class="hiw-num-circle w-16 h-16 rounded-full bg-[#ed2939]/10 flex items-center justify-center mx-auto mb-4 border-2 border-[#ed2939]/30" style="color: #ed2939;">
-                            <lord-icon src="https://cdn.lordicon.com/yqzmiobz.json" trigger="loop" delay="3500" colors="primary:#b91c1c,secondary:#ed2939" style="width:36px;height:36px"></lord-icon>
-                        </div>
-                        <div class="hiw-text">
-                            <h4 class="hiw-title font-semibold text-black mb-2 text-sm">File အပ်နှံခြင်း</h4>
-                            <p class="hiw-desc text-gray-400 text-xs leading-relaxed px-2">လိုအပ်တဲ့ Format အားလုံးနဲ့ Final File တွေကို လက်ခံရရှိပါမယ်။</p>
-                        </div>
-                    </div>
+                    <p class="section-copy text-sm max-w-md md:text-right">Project ကိုရှင်းရှင်းလင်းလင်းသွားနိုင်အောင် discussion, concept, refinement, delivery အဆင့် ၄ ဆင့်နဲ့လုပ်ပါတယ်။</p>
                 </div>
 
-                <!-- Mobile: vertical steps with animated down arrows -->
-                <div class="flex flex-col items-center gap-0 md:hidden relative" id="hiwMobile">
-                    <!-- Step 1 -->
-                    <div class="hiw-step text-center max-w-[280px] relative z-10" data-step="1">
-                        <div class="hiw-num-circle w-14 h-14 rounded-full bg-[#a7e169]/15 flex items-center justify-center mx-auto mb-3 border-2 border-[#a7e169]/30" style="color: #a7e169;">
-                            <lord-icon src="https://cdn.lordicon.com/fdxqrdfe.json" trigger="loop" delay="2000" colors="primary:#a7e169,secondary:#5a8c1e" style="width:30px;height:30px"></lord-icon>
-                        </div>
-                        <div class="hiw-text">
-                            <h4 class="hiw-title font-semibold text-black mb-1 text-sm">ဆွေးနွေးတိုင်ပင်ခြင်း</h4>
-                            <p class="hiw-desc text-gray-400 text-xs leading-relaxed">သင့် Brand ရဲ့ ရည်မှန်းချက်နဲ့ Project အသေးစိတ်ကို ဆွေးနွေးပါတယ်။</p>
-                        </div>
-                    </div>
-                    <!-- Down Arrow -->
-                    <div class="hiw-connector-down my-3" data-after="1">
-                        <svg class="hiw-arrow-down" width="24" height="36" viewBox="0 0 24 36" fill="none">
-                            <path class="hiw-arrow-line" d="M12 0 V28" stroke="#a7e169" stroke-width="2" stroke-dasharray="5 4"/>
-                            <path class="hiw-arrow-head" d="M6 24 L12 32 L18 24" stroke="#a7e169" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <!-- Step 2 -->
-                    <div class="hiw-step text-center max-w-[280px] relative z-10" data-step="2">
-                        <div class="hiw-num-circle w-14 h-14 rounded-full bg-[#a7e169]/15 flex items-center justify-center mx-auto mb-3 border-2 border-[#a7e169]/30" style="color: #a7e169;">
-                            <lord-icon src="https://cdn.lordicon.com/pflszboa.json" trigger="loop" delay="2500" colors="primary:#a7e169,secondary:#5a8c1e" style="width:30px;height:30px"></lord-icon>
-                        </div>
-                        <div class="hiw-text">
-                            <h4 class="hiw-title font-semibold text-black mb-1 text-sm">ပုံကြမ်း ရေးဆွဲခြင်း</h4>
-                            <p class="hiw-desc text-gray-400 text-xs leading-relaxed">Concept ပုံကြမ်းတွေ ဖန်တီးပြီး Feedback ယူပါတယ်။</p>
-                        </div>
-                    </div>
-                    <!-- Down Arrow -->
-                    <div class="hiw-connector-down my-3" data-after="2">
-                        <svg class="hiw-arrow-down" width="24" height="36" viewBox="0 0 24 36" fill="none">
-                            <path class="hiw-arrow-line" d="M12 0 V28" stroke="#a7e169" stroke-width="2" stroke-dasharray="5 4"/>
-                            <path class="hiw-arrow-head" d="M6 24 L12 32 L18 24" stroke="#a7e169" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <!-- Step 3 -->
-                    <div class="hiw-step text-center max-w-[280px] relative z-10" data-step="3">
-                        <div class="hiw-num-circle w-14 h-14 rounded-full bg-[#a7e169]/15 flex items-center justify-center mx-auto mb-3 border-2 border-[#a7e169]/30" style="color: #a7e169;">
-                            <lord-icon src="https://cdn.lordicon.com/iltqorsz.json" trigger="loop" delay="3000" colors="primary:#a7e169,secondary:#5a8c1e" style="width:30px;height:30px"></lord-icon>
-                        </div>
-                        <div class="hiw-text">
-                            <h4 class="hiw-title font-semibold text-black mb-1 text-sm">ပြန်လည်ပြင်ဆင်ခြင်း</h4>
-                            <p class="hiw-desc text-gray-400 text-xs leading-relaxed">စိတ်ကျေနပ်တဲ့ ဒီဇိုင်းရအထိ ပြင်ဆင်ပါတယ်။</p>
-                        </div>
-                    </div>
-                    <!-- Down Arrow -->
-                    <div class="hiw-connector-down my-3" data-after="3">
-                        <svg class="hiw-arrow-down" width="24" height="36" viewBox="0 0 24 36" fill="none">
-                            <path class="hiw-arrow-line" d="M12 0 V28" stroke="#ed2939" stroke-width="2" stroke-dasharray="5 4"/>
-                            <path class="hiw-arrow-head" d="M6 24 L12 32 L18 24" stroke="#ed2939" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <!-- Step 4 -->
-                    <div class="hiw-step text-center max-w-[280px] relative z-10" data-step="4">
-                        <div class="hiw-num-circle w-14 h-14 rounded-full bg-[#ed2939]/10 flex items-center justify-center mx-auto mb-3 border-2 border-[#ed2939]/30" style="color: #ed2939;">
-                            <lord-icon src="https://cdn.lordicon.com/jxzkkfbg.json" trigger="loop" delay="3500" colors="primary:#ed2939,secondary:#ed2939" style="width:30px;height:30px"></lord-icon>
-                        </div>
-                        <div class="hiw-text">
-                            <h4 class="hiw-title font-semibold text-black mb-1 text-sm">File အပ်နှံခြင်း</h4>
-                            <p class="hiw-desc text-gray-400 text-xs leading-relaxed">လိုအပ်တဲ့ Format အားလုံးနဲ့ Final File တွေ ရရှိပါမယ်။</p>
-                        </div>
-                    </div>
+                <div class="work-modern-grid">
+                    <article class="work-modern-step" data-aos="fade-up" data-aos-delay="0">
+                        <h4 class="font-bold text-black mb-3 text-base">ဆွေးနွေးတိုင်ပင်ခြင်း</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed">Brand goal, audience, timeline, deliverables တွေကို အရင်တိတိကျကျချိန်ညှိပါတယ်။</p>
+                    </article>
+                    <article class="work-modern-step" data-aos="fade-up" data-aos-delay="150">
+                        <h4 class="font-bold text-black mb-3 text-base">Concept Direction</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed">Mood, sketch, layout option တွေနဲ့ project direction ကိုမြန်မြန်ဆုံးဖြတ်နိုင်အောင်တင်ပြပါတယ်။</p>
+                    </article>
+                    <article class="work-modern-step" data-aos="fade-up" data-aos-delay="300">
+                        <h4 class="font-bold text-black mb-3 text-base">Refinement</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed">Feedback အပေါ်မူတည်ပြီး proportions, color, typography, and details ကိုသန့်စင်ပါတယ်။</p>
+                    </article>
+                    <article class="work-modern-step" data-aos="fade-up" data-aos-delay="450">
+                        <h4 class="font-bold text-black mb-3 text-base">Final Delivery</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed">လိုအပ်တဲ့ file formats, usage notes, and production-ready assets အားလုံးကိုအပ်နှံပါတယ်။</p>
+                    </article>
                 </div>
-            </div>
-
+            </section>
 
             <!-- Free Consultation CTA -->
-            <div class="py-16" style="background: #f5f5f5; width: 100vw; margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%);" data-aos="fade-up">
+            <section class="py-12 md:py-16 instructor-cta-section" style="width: 100vw; margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%);" data-aos="fade-up">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="py-16 md:py-20 text-center">
-                        <h3 class="text-3xl md:text-4xl font-bold text-black mb-4 leading-tight">Free Consultation<br><span class="text-[#5a8c1e]">For Your Brand</span></h3>
-                        <p class="text-gray-400 text-sm md:text-base max-w-md mx-auto mb-10 leading-relaxed">သင့် Brand ကို Professional ဖြစ်စေချင်ပါသလား? အခုပဲအခမဲ့ တိုင်ပင်ဆွေးနွေးနိုင်ပါတယ်။</p>
-                        <div class="flex flex-col sm:flex-row gap-3 justify-center">
-                            <a href="tel:09953681497" class="btn-primary rounded-full">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-2"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd" /></svg>
+                    <div class="consult-card">
+                        <div>
+                            <span class="consult-chip mb-5"><span class="w-2 h-2 rounded-full bg-[#a7e169] inline-block"></span> Free Consultation</span>
+                            <h3 class="section-heading text-3xl md:text-5xl mb-4">Let's shape your brand with the right visual direction.</h3>
+                            <p class="section-copy text-sm md:text-base max-w-2xl">သင့် Brand ကို professional ဖြစ်စေချင်တာ၊ logo/identity/social design ဘယ်ကစရမလဲမသေချာတာရှိရင် အခမဲ့တိုင်ပင်ပြီး next step ကိုရှင်းအောင်လုပ်နိုင်ပါတယ်။</p>
+                        </div>
+                        <div class="flex flex-col sm:flex-row lg:flex-col gap-3">
+                            <a href="tel:09953681497" class="btn-primary rounded-full whitespace-nowrap">
+                                <i class="fas fa-phone text-sm mr-2"></i>
                                 Call Now
                             </a>
-                            <a href="index.html#contact" class="btn-primary rounded-full">
+                            <a href="index.html#contact" class="btn-secondary-clean whitespace-nowrap">
                                 <i class="fas fa-envelope text-sm mr-2"></i>
                                 Send Message
                             </a>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
         </div>
     </main>
@@ -1585,96 +1759,6 @@ function toggleMobileProductsDropdown() {
 }
 </script>
 <script>
-// ═══ GALLERY LIGHTBOX ═══
-const galleryImages = [
-    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768120047/nescafe_lebedi.jpg',
-    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768120056/venucia-2_rvkjbs.jpg',
-    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768104188/logo_pfwrd2.webp',
-    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768120055/jackery-3_vr9dmx.jpg',
-    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768104188/logo-1_wndp3e.jpg',
-    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768120057/venucia-4_qxv6vz.jpg',
-    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768120048/haniu-1_zucmai.jpg',
-    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768104190/logo-2_djp4pt.jpg',
-    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768120048/rome-green_tqpf89.jpg',
-    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768104188/logo-4_z8tmkt.jpg',
-    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768120049/venucia-3_ubupao.jpg',
-    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768104197/logo-3_tpxymo.jpg',
-    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768120051/jackery-2_kno48i.jpg',
-    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768120046/asus-1_bwdmoj.jpg',
-    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768104188/logo-5_iwddom.webp'
-];
-let currentLBIndex = 0;
-function openGalleryLB(i) {
-    currentLBIndex = i;
-    const lb = document.getElementById('galleryLightbox');
-    document.getElementById('galleryLBImg').src = galleryImages[i];
-    document.getElementById('galleryLBCounter').textContent = (i + 1) + ' / ' + galleryImages.length;
-    lb.classList.add('active');
-    document.body.style.overflow = 'hidden';
-}
-function closeGalleryLB() {
-    document.getElementById('galleryLightbox').classList.remove('active');
-    document.body.style.overflow = '';
-}
-function navGalleryLB(dir) {
-    currentLBIndex = (currentLBIndex + dir + galleryImages.length) % galleryImages.length;
-    document.getElementById('galleryLBImg').src = galleryImages[currentLBIndex];
-    document.getElementById('galleryLBCounter').textContent = (currentLBIndex + 1) + ' / ' + galleryImages.length;
-}
-document.getElementById('galleryLightbox').addEventListener('click', function(e) {
-    if (e.target === this) closeGalleryLB();
-});
-document.addEventListener('keydown', function(e) {
-    const lb = document.getElementById('galleryLightbox');
-    if (!lb.classList.contains('active')) return;
-    if (e.key === 'Escape') closeGalleryLB();
-    if (e.key === 'ArrowLeft') navGalleryLB(-1);
-    if (e.key === 'ArrowRight') navGalleryLB(1);
-});
-
-// ═══ HORIZONTAL SCROLL-DRIVEN GALLERY ═══
-(function() {
-    var container = document.getElementById('hscrollContainer');
-    var gallery = document.getElementById('hscrollGallery');
-    if (!container || !gallery) return;
-
-    // Calculate total scroll distance
-    var isMobile = window.innerWidth <= 767;
-    var itemWidth = isMobile ? 280 : 400;
-    var gap = isMobile ? 16 : 24;
-    var items = gallery.querySelectorAll('.hscroll-item');
-    var totalItems = items.length;
-    var totalDistance = (totalItems - 1) * (itemWidth + gap);
-
-    function updateGallery() {
-        var rect = container.getBoundingClientRect();
-        var containerHeight = container.offsetHeight;
-        var windowHeight = window.innerHeight;
-
-        // Calculate scroll progress (0 to 1) within the container
-        var scrolled = -rect.top;
-        var scrollRange = containerHeight - windowHeight;
-        var progress = Math.max(0, Math.min(1, scrolled / scrollRange));
-
-        // Apply horizontal translation
-        var translateX = -progress * totalDistance;
-        gallery.style.transform = 'translateX(' + translateX + 'px)';
-    }
-
-    // Recalculate on resize
-    window.addEventListener('resize', function() {
-        isMobile = window.innerWidth <= 767;
-        itemWidth = isMobile ? 280 : 400;
-        gap = isMobile ? 16 : 24;
-        totalDistance = (totalItems - 1) * (itemWidth + gap);
-        updateGallery();
-    });
-
-    window.addEventListener('scroll', updateGallery, { passive: true });
-    updateGallery();
-})();
-</script>
-<script>
 // ═══ HOW I WORK — TRUE SEQUENTIAL ANIMATION WITH TYPEWRITER ═══
 (function() {
     function typewrite(el, duration, cb) {
@@ -1778,6 +1862,7 @@ document.addEventListener('keydown', function(e) {
     initHIW('hiwMobile');
 })();
 </script>
+<script src="/js/theme-toggle.js"></script>
 <script src="/js/shop-badge.js"></script>
 <script type="module" src="/js/nav-auth.js"></script>
 </body>
