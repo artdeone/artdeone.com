@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CZRQ0NPPJ2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-CZRQ0NPPJ2');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary SEO -->
+    <title>Invoice Generator | ART de ONE</title>
+    <meta name="description" content="ART de ONE Invoice Generator — Create professional invoices for your business quickly and easily.">
+    <meta name="author" content="ART de ONE">
+    <link rel="icon" type="image/png"
+        href="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769316272/fav-icon_n00lji.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Theme & Dark Mode -->
+    <link rel="stylesheet" href="/css-and-js/theme.css">
+    <link id="ado-dark-mode-css" rel="stylesheet" href="/css-and-js/dark-mode.css">
+    <link rel="stylesheet" href="/css-and-js/theme-toggle.css">
+    <script src="/js/theme-mode.js"></script>
+
+    <!-- html2pdf for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #ffffff;
+            color: #323232;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: #000000;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #888; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+        /* Invoice preview styles */
+        .invoice-preview {
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+        }
+
+        /* Input styling */
+        .inv-input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background: #fff;
+            color: #323232;
+        }
+        .inv-input:focus {
+            outline: none;
+            border-color: #a7e169;
+            box-shadow: 0 0 0 3px rgba(167, 225, 105, 0.12);
+        }
+        .inv-input::placeholder {
+            color: #aaa;
+        }
+
+        /* Label */
+        .inv-label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 4px;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Card */
+        .inv-card {
+            background: #fff;
+            border: 1px solid #eaeaea;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: box-shadow 0.2s;
+        }
+        .inv-card:hover {
+            box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+        }
+
+        /* Button base */
+        .btn-ado {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+        .btn-ado-primary {
+            background: #a7e169;
+            color: #000;
+        }
+        .btn-ado-primary:hover {
+            background: #8ed14e;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(167,225,105,0.3);
+        }
+        .btn-ado-secondary {
+            background: #f3f4f6;
+            color: #323232;
+            border: 1px solid #e0e0e0;
+        }
+        .btn-ado-secondary:hover {
+            background: #e5e7eb;
+        }
+        .btn-ado-danger {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        .btn-ado-danger:hover {
+            background: #fecaca;
+        }
+
+        /* Table */
+        .inv-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .inv-table th {
+            background: #f9fafb;
+            padding: 10px 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #6b7280;
+            border-bottom: 2px solid #e5e7eb;
+            text-align: left;
+            font-family: 'Poppins', sans-serif;
+        }
+        .inv-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #f3f4f6;
+            vertical-align: middle;
+        }
+        .inv-table tr:hover td {
+            background: #f9fafb;
+        }
+
+        /* Status badge */
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
+        .status-draft { background: #f3f4f6; color: #6b7280; }
+        .status-sent { background: #dbeafe; color: #2563eb; }
+        .status-paid { background: #d1fae5; color: #059669; }
+        .status-overdue { background: #fee2e2; color: #dc2626; }
+
+        /* Print invoice styles */
+        .print-invoice {
+            background: #fff;
+            padding: 48px;
+            max-width: 800px;
+            margin: 0 auto;
+            font-family: 'Space Grotesk', sans-serif;
+            color: #1a1a1a;
+        }
+        .print-invoice .print-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            padding-bottom: 24px;
+            border-bottom: 3px solid #a7e169;
+        }
+        .print-invoice .print-logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: #a7e169;
+        }
+        .print-invoice .print-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            text-align: right;
+        }
+        .print-invoice .print-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 36px;
+        }
+        .print-invoice .print-section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #a7e169;
+            margin-bottom: 8px;
+        }
+        .print-invoice table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 24px;
+        }
+        .print-invoice table th {
+            background: #f9fafb;
+            padding: 10px 14px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #6b7280;
+            border-bottom: 2px solid #e5e7eb;
+            text-align: left;
+        }
+        .print-invoice table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #f3f4f6;
+            font-size: 0.9rem;
+        }
+        .print-invoice table th:last-child,
+        .print-invoice table td:last-child {
+            text-align: right;
+        }
+        .print-invoice .print-totals {
+            display: flex;
+            justify-content: flex-end;
+        }
+        .print-invoice .print-totals-table {
+            width: 280px;
+        }
+        .print-invoice .print-totals-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 0.95rem;
+        }
+        .print-invoice .print-totals-row.total {
+            border-top: 2px solid #1a1a1a;
+            margin-top: 8px;
+            padding-top: 12px;
+            font-weight: 700;
+            font-size: 1.15rem;
+            font-family: 'Poppins', sans-serif;
+        }
+        .print-invoice .print-footer {
+            margin-top: 48px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #9ca3af;
+        }
+        .print-invoice .print-notes {
+            margin-top: 32px;
+            padding: 16px;
+            background: #f9fafb;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            padding: 14px 24px;
+            border-radius: 10px;
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.9rem;
+            z-index: 9999;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .toast-success { background: #a7e169; color: #000; }
+        .toast-error { background: #ef4444; }
+        .toast-info { background: #3b82f6; }
+
+        /* Tab styles */
+        .tab-btn {
+            padding: 10px 24px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.88rem;
+            border: none;
+            background: transparent;
+            color: #6b7280;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            color: #a7e169;
+            border-bottom-color: #a7e169;
+        }
+        .tab-btn:hover:not(.active) {
+            color: #323232;
+        }
+
+        /* Saved invoice list */
+        .saved-invoice-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 18px;
+            border: 1px solid #eaeaea;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .saved-invoice-item:hover {
+            border-color: #a7e169;
+            box-shadow: 0 2px 8px rgba(167,225,105,0.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .inv-card { padding: 16px; }
+            .print-invoice { padding: 24px; }
+            .print-invoice .print-header { flex-direction: column; gap: 12px; }
+            .print-invoice .print-title { text-align: left; }
+            .print-invoice .print-meta { flex-direction: column; gap: 20px; }
+        }
+
+        /* Dark mode overrides — using ART de ONE dark palette */
+        .dark body, body.dark-mode {
+            background-color: var(--ado-dark-bg, #11130f) !important;
+            color: var(--ado-dark-text, #f3f6ee) !important;
+        }
+        .dark .inv-input, body.dark-mode .inv-input {
+            background: var(--ado-dark-surface, #1a1d17) !important;
+            border-color: var(--ado-dark-border, #343a2e) !important;
+            color: var(--ado-dark-text, #f3f6ee) !important;
+        }
+        .dark .inv-input::placeholder, body.dark-mode .inv-input::placeholder {
+            color: var(--ado-dark-muted-2, #95a08d) !important;
+        }
+        .dark .inv-card, body.dark-mode .inv-card {
+            background: var(--ado-dark-surface, #1a1d17) !important;
+            border-color: var(--ado-dark-border, #343a2e) !important;
+        }
+        .dark .inv-table th, body.dark-mode .inv-table th {
+            background: var(--ado-dark-bg-soft, #151812) !important;
+            color: var(--ado-dark-muted, #bbc5b2) !important;
+            border-bottom-color: var(--ado-dark-border, #343a2e) !important;
+        }
+        .dark .inv-table td, body.dark-mode .inv-table td {
+            border-bottom-color: var(--ado-dark-surface-2, #20241d) !important;
+        }
+        .dark .inv-table tr:hover td, body.dark-mode .inv-table tr:hover td {
+            background: var(--ado-dark-surface-2, #20241d) !important;
+        }
+        .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6,
+        body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4, body.dark-mode h5, body.dark-mode h6 {
+            color: var(--ado-dark-text, #f3f6ee) !important;
+        }
+        .dark .inv-label, body.dark-mode .inv-label {
+            color: var(--ado-dark-muted, #bbc5b2) !important;
+        }
+        .dark .btn-ado-secondary, body.dark-mode .btn-ado-secondary {
+            background: var(--ado-dark-surface-2, #20241d) !important;
+            color: var(--ado-dark-text, #f3f6ee) !important;
+            border-color: var(--ado-dark-border, #343a2e) !important;
+        }
+        .dark .btn-ado-secondary:hover, body.dark-mode .btn-ado-secondary:hover {
+            background: var(--ado-dark-border, #343a2e) !important;
+        }
+        .dark .saved-invoice-item, body.dark-mode .saved-invoice-item {
+            border-color: var(--ado-dark-border, #343a2e) !important;
+            background: var(--ado-dark-surface, #1a1d17) !important;
+        }
+        .dark .invoice-preview, body.dark-mode .invoice-preview {
+            background: var(--ado-dark-surface, #1a1d17) !important;
+            border-color: var(--ado-dark-border, #343a2e) !important;
+        }
+        .dark .tab-btn, body.dark-mode .tab-btn {
+            color: var(--ado-dark-muted, #bbc5b2) !important;
+        }
+        .dark .tab-btn.active, body.dark-mode .tab-btn.active {
+            color: var(--ado-brand-green, #a7e169) !important;
+            border-bottom-color: var(--ado-brand-green, #a7e169) !important;
+        }
+        .dark nav, body.dark-mode nav {
+            background-color: var(--ado-dark-bg, #11130f) !important;
+            border-bottom-color: var(--ado-dark-border, #343a2e) !important;
+        }
+        .dark .nav-link, body.dark-mode .nav-link {
+            color: var(--ado-dark-text, #f3f6ee) !important;
+        }
+        .dark #mobile-menu, body.dark-mode #mobile-menu {
+            background-color: var(--ado-dark-bg, #11130f) !important;
+            border-top-color: var(--ado-dark-border, #343a2e) !important;
+        }
+        .dark .text-gray-500, .dark .text-gray-400, .dark .text-gray-600,
+        body.dark-mode .text-gray-500, body.dark-mode .text-gray-400, body.dark-mode .text-gray-600 {
+            color: var(--ado-dark-muted, #bbc5b2) !important;
+        }
+        .dark .text-emerald-600, body.dark-mode .text-emerald-600 {
+            color: var(--ado-brand-green, #a7e169) !important;
+        }
+        .dark .hover\:text-emerald-700:hover, body.dark-mode .hover\:text-emerald-700:hover {
+            color: var(--ado-brand-green, #a7e169) !important;
+        }
+        .dark .bg-gray-100, body.dark-mode .bg-gray-100 {
+            background-color: var(--ado-dark-surface-2, #20241d) !important;
+        }
+        .dark .border-gray-200, body.dark-mode .border-gray-200 {
+            border-color: var(--ado-dark-border, #343a2e) !important;
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-in {
+            animation: fadeInUp 0.4s ease forwards;
+        }
+
+        /* Select styling */
+        .inv-select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background: #fff;
+            color: #323232;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 36px;
+        }
+        .inv-select:focus {
+            outline: none;
+            border-color: #a7e169;
+            box-shadow: 0 0 0 3px rgba(167, 225, 105, 0.12);
+        }
+        .dark .inv-select, body.dark-mode .inv-select {
+            background-color: var(--ado-dark-surface, #1a1d17) !important;
+            border-color: var(--ado-dark-border, #343a2e) !important;
+            color: var(--ado-dark-text, #f3f6ee) !important;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2395a08d' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+        }
+
+        /* Textarea */
+        .inv-textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background: #fff;
+            color: #323232;
+            resize: vertical;
+            min-height: 80px;
+        }
+        .inv-textarea:focus {
+            outline: none;
+            border-color: #a7e169;
+            box-shadow: 0 0 0 3px rgba(167, 225, 105, 0.12);
+        }
+        .dark .inv-textarea, body.dark-mode .inv-textarea {
+            background: var(--ado-dark-surface, #1a1d17) !important;
+            border-color: var(--ado-dark-border, #343a2e) !important;
+            color: var(--ado-dark-text, #f3f6ee) !important;
+        }
+        .dark .inv-textarea::placeholder, body.dark-mode .inv-textarea::placeholder {
+            color: var(--ado-dark-muted-2, #95a08d) !important;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen">
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- HEADER / NAVBAR                                                -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <a href="/" class="flex items-center">
+                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png"
+                         alt="ART de ONE" class="h-8 w-auto">
+                </a>
+
+                <!-- Nav Links -->
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="/" class="text-sm font-medium text-gray-600 hover:text-black transition">Home</a>
+                    <a href="/instructor.html" class="text-sm font-medium text-gray-600 hover:text-black transition">Instructor</a>
+                    <a href="/invoice-generator.html" class="text-sm font-medium text-emerald-600 hover:text-emerald-700 transition font-semibold">Invoice Generator</a>
+                </div>
+
+                <!-- Right side -->
+                <div class="flex items-center gap-3">
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle-btn" onclick="toggleTheme()"
+                            class="p-2 rounded-lg hover:bg-gray-100 transition" title="Toggle dark mode">
+                        <i class="fas fa-moon text-gray-500" id="theme-icon"></i>
+                    </button>
+                    <!-- Mobile menu button -->
+                    <button class="md:hidden p-2 rounded-lg hover:bg-gray-100 transition" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                        <i class="fas fa-bars text-gray-600"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-gray-200 bg-white">
+            <div class="px-4 py-3 space-y-2">
+                <a href="/" class="block py-2 text-sm font-medium text-gray-600 hover:text-black">Home</a>
+                <a href="/instructor.html" class="block py-2 text-sm font-medium text-gray-600 hover:text-black">Instructor</a>
+                <a href="/invoice-generator.html" class="block py-2 text-sm font-semibold text-emerald-600">Invoice Generator</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- MAIN CONTENT                                                   -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- Page Header -->
+        <div class="mb-8 animate-in">
+            <h1 class="text-3xl font-bold tracking-tight" style="font-family: 'Poppins', sans-serif;">
+                Invoice Generator
+            </h1>
+            <p class="text-gray-500 mt-1">Create professional invoices for ART de ONE</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="flex border-b border-gray-200 mb-8">
+            <button class="tab-btn active" onclick="switchTab('create')" id="tab-create">
+                <i class="fas fa-plus-circle mr-2"></i>Create Invoice
+            </button>
+            <button class="tab-btn" onclick="switchTab('saved')" id="tab-saved">
+                <i class="fas fa-folder-open mr-2"></i>Saved Invoices
+            </button>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- CREATE TAB                                                    -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <div id="panel-create">
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+                <!-- ─── LEFT: Form ─── -->
+                <div class="space-y-6">
+
+                    <!-- Business Info -->
+                    <div class="inv-card animate-in">
+                        <h3 class="text-lg font-bold mb-4 flex items-center gap-2" style="font-family: 'Poppins', sans-serif;">
+                            <i class="fas fa-building text-emerald-500"></i> Business Information
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="sm:col-span-2">
+                                <label class="inv-label">Business Name</label>
+                                <input type="text" class="inv-input" id="biz-name" value="ART de ONE" placeholder="Your business name">
+                            </div>
+                            <div class="sm:col-span-2">
+                                <label class="inv-label">Business Address</label>
+                                <input type="text" class="inv-input" id="biz-address" value="Yangon, Myanmar" placeholder="Street address">
+                            </div>
+                            <div>
+                                <label class="inv-label">Phone</label>
+                                <input type="text" class="inv-input" id="biz-phone" placeholder="+95 9 xxx xxx xxx">
+                            </div>
+                            <div>
+                                <label class="inv-label">Email</label>
+                                <input type="email" class="inv-input" id="biz-email" placeholder="hello@artdeone.com">
+                            </div>
+                            <div>
+                                <label class="inv-label">Website</label>
+                                <input type="text" class="inv-input" id="biz-website" value="www.artdeone.com" placeholder="www.example.com">
+                            </div>
+                            <div>
+                                <label class="inv-label">Tax ID / Business No.</label>
+                                <input type="text" class="inv-input" id="biz-taxid" placeholder="Tax identification number">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Client Info -->
+                    <div class="inv-card animate-in">
+                        <h3 class="text-lg font-bold mb-4 flex items-center gap-2" style="font-family: 'Poppins', sans-serif;">
+                            <i class="fas fa-user-tie text-emerald-500"></i> Client Information
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="sm:col-span-2">
+                                <label class="inv-label">Client Name</label>
+                                <input type="text" class="inv-input" id="client-name" placeholder="Client / Company name">
+                            </div>
+                            <div class="sm:col-span-2">
+                                <label class="inv-label">Client Address</label>
+                                <input type="text" class="inv-input" id="client-address" placeholder="Client address">
+                            </div>
+                            <div>
+                                <label class="inv-label">Client Phone</label>
+                                <input type="text" class="inv-input" id="client-phone" placeholder="+95 9 xxx xxx xxx">
+                            </div>
+                            <div>
+                                <label class="inv-label">Client Email</label>
+                                <input type="email" class="inv-input" id="client-email" placeholder="client@email.com">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Invoice Details -->
+                    <div class="inv-card animate-in">
+                        <h3 class="text-lg font-bold mb-4 flex items-center gap-2" style="font-family: 'Poppins', sans-serif;">
+                            <i class="fas fa-file-invoice text-emerald-500"></i> Invoice Details
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="inv-label">Invoice Number</label>
+                                <input type="text" class="inv-input" id="inv-number" placeholder="INV-001">
+                            </div>
+                            <div>
+                                <label class="inv-label">Status</label>
+                                <select class="inv-select" id="inv-status">
+                                    <option value="draft">Draft</option>
+                                    <option value="sent">Sent</option>
+                                    <option value="paid">Paid</option>
+                                    <option value="overdue">Overdue</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="inv-label">Invoice Date</label>
+                                <input type="date" class="inv-input" id="inv-date">
+                            </div>
+                            <div>
+                                <label class="inv-label">Due Date</label>
+                                <input type="date" class="inv-input" id="inv-due-date">
+                            </div>
+                            <div>
+                                <label class="inv-label">Currency</label>
+                                <select class="inv-select" id="inv-currency">
+                                    <option value="MMK">MMK — Myanmar Kyat</option>
+                                    <option value="USD">USD — US Dollar</option>
+                                    <option value="EUR">EUR — Euro</option>
+                                    <option value="GBP">GBP — British Pound</option>
+                                    <option value="THB">THB — Thai Baht</option>
+                                    <option value="SGD">SGD — Singapore Dollar</option>
+                                    <option value="JPY">JPY — Japanese Yen</option>
+                                    <option value="CNY">CNY — Chinese Yuan</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="inv-label">Tax Rate (%)</label>
+                                <input type="number" class="inv-input" id="inv-tax-rate" value="0" min="0" max="100" step="0.5" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Line Items -->
+                    <div class="inv-card animate-in">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-bold flex items-center gap-2" style="font-family: 'Poppins', sans-serif;">
+                                <i class="fas fa-list-ul text-emerald-500"></i> Line Items
+                            </h3>
+                            <button class="btn-ado btn-ado-primary text-sm" onclick="addLineItem()">
+                                <i class="fas fa-plus"></i> Add Item
+                            </button>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="inv-table" id="line-items-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width:40%">Description</th>
+                                        <th style="width:15%">Qty</th>
+                                        <th style="width:20%">Unit Price</th>
+                                        <th style="width:20%">Total</th>
+                                        <th style="width:5%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="line-items-body">
+                                    <!-- Items will be added dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="no-items-msg" class="text-center py-8 text-gray-400">
+                            <i class="fas fa-receipt text-3xl mb-2"></i>
+                            <p class="text-sm">No items yet. Click "Add Item" to start.</p>
+                        </div>
+                    </div>
+
+                    <!-- Notes -->
+                    <div class="inv-card animate-in">
+                        <h3 class="text-lg font-bold mb-4 flex items-center gap-2" style="font-family: 'Poppins', sans-serif;">
+                            <i class="fas fa-sticky-note text-emerald-500"></i> Notes & Terms
+                        </h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="inv-label">Notes</label>
+                                <textarea class="inv-textarea" id="inv-notes" placeholder="Additional notes for the client..."></textarea>
+                            </div>
+                            <div>
+                                <label class="inv-label">Terms & Conditions</label>
+                                <textarea class="inv-textarea" id="inv-terms" placeholder="Payment terms, late fees, etc."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-wrap gap-3 animate-in">
+                        <button class="btn-ado btn-ado-primary" onclick="saveInvoice()">
+                            <i class="fas fa-save"></i> Save Invoice
+                        </button>
+                        <button class="btn-ado btn-ado-secondary" onclick="downloadPDF()">
+                            <i class="fas fa-file-pdf"></i> Download PDF
+                        </button>
+                        <button class="btn-ado btn-ado-secondary" onclick="printInvoice()">
+                            <i class="fas fa-print"></i> Print
+                        </button>
+                        <button class="btn-ado btn-ado-danger" onclick="resetForm()">
+                            <i class="fas fa-redo"></i> Reset
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ─── RIGHT: Live Preview ─── -->
+                <div class="animate-in">
+                    <div class="sticky top-20">
+                        <h3 class="text-lg font-bold mb-4 flex items-center gap-2" style="font-family: 'Poppins', sans-serif;">
+                            <i class="fas fa-eye text-emerald-500"></i> Live Preview
+                        </h3>
+                        <div class="invoice-preview p-6 overflow-y-auto" style="max-height: calc(100vh - 140px);" id="invoice-preview-container">
+                            <div id="invoice-preview">
+                                <!-- Preview will be rendered here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- SAVED TAB                                                     -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <div id="panel-saved" class="hidden">
+            <div class="inv-card">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-lg font-bold flex items-center gap-2" style="font-family: 'Poppins', sans-serif;">
+                        <i class="fas fa-archive text-emerald-500"></i> Saved Invoices
+                    </h3>
+                    <button class="btn-ado btn-ado-danger text-sm" onclick="clearAllInvoices()">
+                        <i class="fas fa-trash"></i> Clear All
+                    </button>
+                </div>
+                <div id="saved-invoices-list">
+                    <div class="text-center py-12 text-gray-400">
+                        <i class="fas fa-inbox text-4xl mb-3"></i>
+                        <p>No saved invoices yet.</p>
+                        <p class="text-sm mt-1">Create and save your first invoice!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- HIDDEN PRINT TEMPLATE                                          -->
+    <!-- Hidden container for PDF rendering — must be in DOM but can be off-viewport -->
+    <div id="print-template" style="position: fixed; left: 0; top: 0; width: 210mm; z-index: -1; opacity: 0; pointer-events: none;">
+        <div class="print-invoice" id="print-invoice-content">
+            <!-- Will be populated before print/PDF -->
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast"></div>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- JAVASCRIPT (external file to avoid HTML parser issues)         -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <script src="/js/invoice-generator.js"></script>
+
+</body>
+
+</html>

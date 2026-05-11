@@ -2459,37 +2459,35 @@
         <!-- ═══ MODERN HERO SECTION (PULSE & POISE STYLE) ═══ -->
         <style>
             @keyframes heroFadeAnim {
-
-                0%,
-                25% {
+                0% {
                     opacity: 1;
                     transform: scale(1);
                 }
-
-                33%,
-                92% {
+                40% {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+                50% {
                     opacity: 0;
                     transform: scale(1.05);
                 }
-
+                90% {
+                    opacity: 0;
+                    transform: scale(1.05);
+                }
                 100% {
                     opacity: 1;
                     transform: scale(1);
                 }
             }
 
-            .hero-slide-1 {
-                animation: heroFadeAnim 12s infinite;
-            }
-
             .hero-slide-2 {
                 animation: heroFadeAnim 12s infinite;
-                animation-delay: 4s;
             }
 
             .hero-slide-3 {
                 animation: heroFadeAnim 12s infinite;
-                animation-delay: 8s;
+                animation-delay: -6s;
             }
 
             @keyframes spinSlow {
@@ -2529,22 +2527,16 @@
                 <!-- Background Slider -->
                 <div class="absolute inset-0 w-full h-full bg-black">
                     <!-- Slide 1 -->
-                    <div class="absolute inset-0 w-full h-full hero-slide-1 origin-center">
-                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777886851/yjh1_q4agzh.jpg"
-                            class="w-full h-full object-cover opacity-80" style="object-position: center 20%;"
+                    <div class="absolute inset-0 w-full h-full hero-slide-2 origin-center">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777886851/yjh3_wfbjfs.jpg"
+                            class="w-full h-full object-cover opacity-80" style="object-position: center 20%; filter: brightness(0.65);"
                             alt="Slide 1">
                     </div>
                     <!-- Slide 2 -->
-                    <div class="absolute inset-0 w-full h-full hero-slide-2 opacity-0 origin-center">
-                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777886851/yjh3_wfbjfs.jpg"
-                            class="w-full h-full object-cover opacity-80" style="object-position: center 20%;"
-                            alt="Slide 2">
-                    </div>
-                    <!-- Slide 3 -->
-                    <div class="absolute inset-0 w-full h-full hero-slide-3 opacity-0 origin-center">
+                    <div class="absolute inset-0 w-full h-full hero-slide-3 origin-center">
                         <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777886851/yjh2_aooyfu.jpg"
-                            class="w-full h-full object-cover opacity-80" style="object-position: center 20%;"
-                            alt="Slide 3">
+                            class="w-full h-full object-cover opacity-80" style="object-position: center 20%; filter: brightness(0.65);"
+                            alt="Slide 2">
                     </div>
                     <!-- Dark Overlay -->
                     <div class="absolute inset-0 bg-black/30"></div>

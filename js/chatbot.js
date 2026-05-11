@@ -92,8 +92,8 @@
             options: [
                 { icon: "tag", text: "Logo Design", next: "en_logo" },
                 { icon: "smartphone", text: "Social Media", next: "en_social" },
+                { icon: "monitor", text: "Website Design", next: "en_website" },
                 { icon: "printer", text: "Printing Design", next: "en_print" },
-                { icon: "tool", text: "Revision Packages", next: "en_revision" },
                 { icon: "arrowLeft", text: "Main Menu", next: "start" }
             ]
         },
@@ -101,25 +101,23 @@
         en_logo: {
             msg: "Logo Design Package\n\nStarting at 300,000 MMK\n\nWhat's included:\n• 2–3 Professional Designer Concepts\n• 2 Custom Client Concepts (Free)\n• Brand Colors & Usage Guidelines (2-page PDF)\n• Full Source Files (Ai, EPS, SVG, PNG)\n• 3 Free Revisions\n• Delivery in 3–7 business days\n\nPayment: 50% upfront, 50% on final delivery\nNote: Revision ≠ new concept from scratch",
             options: [
-                { icon: "tool", text: "View Revision Packages", next: "en_revision" },
                 { icon: "phone", text: "Hire Now", next: "en_contact_action" },
                 { icon: "arrowLeft", text: "Services", next: "en_services" }
             ]
         },
 
-        en_revision: {
-            msg: "Revision & Support Packages\n\nEssential — 150,000 MMK\n• 5 revisions total\n• Alignment / Spacing / Size tweaks\n• Minor color edits + B/W version\n• Format conversion (PNG, SVG, PDF)\n\nProfessional — 450,000 MMK\n• 15 revisions total\n• Layout & composition reworks\n• Logo Lockup variations\n• Priority turnaround\n\nFreedom — 900,000 MMK/month\n• 35 revisions/month\n• Major layout overhauls\n• VIP priority support",
+        en_social: {
+            msg: "Social Media Design + Content Packages\n\nStandard — 336,000 MMK/month\n• 8 Designs + 8 Content pieces/month\n• Design: 25,000 Ks/post\n• Content: 17,000 Ks/piece\n• Free Content Calendar\n\nPremium (Recommended) — 504,000 MMK/month\n• 12 Designs + 12 Content pieces/month\n• Free Boosting Service Charge\n• Free Content Calendar\n\nAdd-On: Video Editing — 30,000 Ks/video",
             options: [
-                { icon: "phone", text: "Get Started", next: "en_contact_action" },
-                { icon: "arrowLeft", text: "Logo Details", next: "en_logo" },
+                { icon: "phone", text: "Choose a Plan", next: "en_contact_action" },
                 { icon: "arrowLeft", text: "Services", next: "en_services" }
             ]
         },
 
-        en_social: {
-            msg: "Social Media Design Packages\n\nStarter — 240,000 MMK/month\n• 8 posts/month, 2 free revisions\n\nGrowth — 432,000 MMK/month (10% OFF)\n• 16 posts/month, 2 free revisions\n\nPro — 648,000 MMK/month (10% OFF)\n• 20 posts/month, extended hours\n\nNotes: Content provided by you. 3-month commitment = 10% off.",
+        en_website: {
+            msg: "Celebrity & Personal Website Design\n\nOne-Page Website — 1,500,000 MMK\n\nWhat's included:\n• 1 Page (Hero, About, Gallery, Contact)\n• Mobile Responsive Design\n• Domain Name (1 year)\n• Web Hosting (1 year)\n• SSL Certificate (HTTPS)\n• Social Media Links Integration\n• Contact Form\n• 2 Revisions\n• Delivery in 5–7 business days\n\nPayment: 50% upfront, 50% on completion\nSpecial Discount when combined with Social Media Package!",
             options: [
-                { icon: "phone", text: "Choose a Plan", next: "en_contact_action" },
+                { icon: "phone", text: "Get Started", next: "en_contact_action" },
                 { icon: "arrowLeft", text: "Services", next: "en_services" }
             ]
         },

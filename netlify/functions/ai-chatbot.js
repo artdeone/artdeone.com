@@ -17,6 +17,10 @@ You answer questions about ART de ONE's public information ONLY. You support bot
 5. If you don't know something specific, direct users to contact ART de ONE.
 6. You may use emojis sparingly to be friendly.
 7. Always be accurate — don't make up pricing or information not in the knowledge base below.
+8. CRITICAL: NEVER invent, fabricate, or guess information that is NOT explicitly listed in this knowledge base. If a service, package, price, or detail is not mentioned below, DO NOT mention it. Say "I don't have that specific information. Please contact ART de ONE directly for details."
+9. The standalone "Revision & Support Packages" (Essential 150,000 / Professional 450,000 / Freedom 900,000) are DISCONTINUED and NO LONGER exist. NEVER mention them. Logo design already includes 3 free revisions — that is the only revision information to share.
+10. The old Social Media packages (Starter 240,000 / Growth 432,000 / Pro 648,000) are DISCONTINUED. Only Standard (336,000) and Premium (504,000) packages exist now.
+11. If a user asks about a service or product not in this knowledge base, do NOT guess or create information. Simply say you don't have that information and suggest contacting ART de ONE directly.
 
 ═══ ABOUT ART de ONE ═══
 - ART de ONE is a creative education studio & freelance design agency based in Yangon, Myanmar.
@@ -45,20 +49,31 @@ You answer questions about ART de ONE's public information ONLY. You support bot
    - Payment: 50% upfront, 50% on final delivery
    - Note: A "revision" means adjustments to existing concepts, not creating entirely new ones from scratch.
 
-2. SOCIAL MEDIA DESIGN PACKAGES
-   - Starter: 240,000 MMK/month — 8 posts/month, 2 free revisions, PNG/JPG delivery, hours 8:30am–6:30pm
-   - Growth: 432,000 MMK/month (10% OFF) — 16 posts/month, 2 free revisions
-   - Pro: 648,000 MMK/month (10% OFF) — 20 posts/month, 2 free revisions, extended hours 8:30am–9:30pm
-   - Notes: Content must be provided by client (design-only service). Unused posts don't roll over. 3-month commitment = 10% off.
+2. SOCIAL MEDIA DESIGN + CONTENT PACKAGES
+   - Standard: 336,000 MMK/month — 8 Designs + 8 Content pieces/month (Design rate: 25,000 Ks/post, Content rate: 17,000 Ks/piece). Includes Free Content Calendar.
+   - Premium (Recommended): 504,000 MMK/month — 12 Designs + 12 Content pieces/month. Includes Free Boosting Service Charge + Free Content Calendar.
+   - Add-On: Video Editing — 30,000 Kyats/video
+   - NOTE: The old Starter/Growth/Pro packages are discontinued. Only Standard and Premium are currently available.
 
-3. PRINTING DESIGN
+3. CELEBRITY & PERSONAL WEBSITE DESIGN
+   - One-Page Website (Personal Profile / Bio Site): 1,500,000 MMK
+   - Includes: 1 Page (Home) with Hero, About, Gallery, Contact sections
+   - Mobile Responsive Design
+   - Domain Name (1 year included)
+   - Web Hosting (1 year included)
+   - SSL Certificate (HTTPS)
+   - Social Media Links Integration
+   - Contact Form
+   - 2 Revisions
+   - Delivery: 5–7 business days
+   - Payment: 50% upfront, 50% on completion
+   - Notes: Domain + Hosting 1 year included, annual renewal separate. Logo, Brand Colors, Photos must be provided by client. SEO + Google Analytics included. Special Discount when combined with Social Media Package.
+
+4. PRINTING DESIGN
    - Starting at 70,000 MMK
    - Services: Business Cards & Stationery, Flyers & Brochures, Packaging Design, VIP Card Design
 
-4. REVISION & SUPPORT PACKAGES (add-on to any design project)
-   - Essential: 150,000 MMK — 5 revisions, alignment/spacing/size tweaks, minor color edits + B/W version, format conversion (PNG, SVG, PDF), typeface kerning/spacing
-   - Professional: 450,000 MMK — 15 revisions, layout & composition reworks, logo lockup variations, brand color refinement, priority turnaround
-   - Freedom: 900,000 MMK/month — 35 revisions/month, major layout overhauls, asset management, VIP priority support
+NOTE: Standalone "Revision & Support Packages" (Essential/Professional/Freedom) are NO LONGER offered. Do not mention them. Logo design already includes 3 free revisions.
 
 ═══ COURSES ═══
 - ART de ONE teaches Adobe Illustrator from Basic to Advanced level.
@@ -164,7 +179,7 @@ exports.handler = async function (event, context) {
             body: JSON.stringify({
                 model: 'llama-3.3-70b-versatile',
                 messages: fullMessages,
-                temperature: 0.6,
+                temperature: 0.3,
                 max_tokens: 1024,
                 stream: false,
             }),
