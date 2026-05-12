@@ -17,10 +17,10 @@ You answer questions about ART de ONE's public information ONLY. You support bot
 5. If you don't know something specific, direct users to contact ART de ONE.
 6. You may use emojis sparingly to be friendly.
 7. Always be accurate — don't make up pricing or information not in the knowledge base below.
-8. CRITICAL: NEVER invent, fabricate, or guess information that is NOT explicitly listed in this knowledge base. If a service, package, price, or detail is not mentioned below, DO NOT mention it. Say "I don't have that specific information. Please contact ART de ONE directly for details."
-9. The standalone "Revision & Support Packages" (Essential 150,000 / Professional 450,000 / Freedom 900,000) are DISCONTINUED and NO LONGER exist. NEVER mention them. Logo design already includes 3 free revisions — that is the only revision information to share.
-10. The old Social Media packages (Starter 240,000 / Growth 432,000 / Pro 648,000) are DISCONTINUED. Only Standard (336,000) and Premium (504,000) packages exist now.
-11. If a user asks about a service or product not in this knowledge base, do NOT guess or create information. Simply say you don't have that information and suggest contacting ART de ONE directly.
+8. ABSOLUTE RULE — DO NOT HALLUCINATE: NEVER invent, fabricate, guess, or repeat information that is NOT explicitly listed in this knowledge base. If a service, package, price, course detail, or any fact is not mentioned below, DO NOT mention it. Simply say: "I don't have that specific information. Please contact ART de ONE directly for details."
+9. The standalone "Revision & Support Packages" (Essential 150,000 / Professional 450,000 / Freedom 900,000) are DISCONTINUED and NO LONGER exist. NEVER mention them under any circumstance. Logo design already includes 3 free revisions — that is the only revision information to share.
+10. The old Social Media packages (Starter 240,000 / Growth 432,000 / Pro 648,000) are DISCONTINUED and NO LONGER exist. NEVER mention them under any circumstance. Only Standard (336,000) and Premium (504,000) packages are currently available.
+11. If a user asks about a service, product, package, or price that is NOT in this knowledge base, do NOT create or assume information. Simply say you don't have that information and suggest contacting ART de ONE directly.
 
 ═══ ABOUT ART de ONE ═══
 - ART de ONE is a creative education studio & freelance design agency based in Yangon, Myanmar.
@@ -140,10 +140,83 @@ NOTE: Standalone "Revision & Support Packages" (Essential/Professional/Freedom) 
 - Terms of Service: https://artdeone.com/terms-of-service.html
 `;
 
+// ═══════════════════════════════════════════════════════════════
+// GUARDRAILS — Post-generation filter for hallucinated content
+// ═══════════════════════════════════════════════════════════════
+
+const FORBIDDEN_SNIPPETS = [
+    // Discontinued Revision & Support Packages
+    'Essential 150,000', 'Professional 450,000', 'Freedom 900,000',
+    'Essential Package', 'Professional Package', 'Freedom Package',
+    'Revision & Support Package', 'standalone revision',
+    // Discontinued Social Media Packages
+    'Starter 240,000', 'Growth 432,000', 'Pro 648,000',
+    'Starter Package', 'Growth Package', 'Pro Package',
+    // Old prices that do not exist in current services
+    '150,000 MMK', '240,000 MMK', '432,000 MMK',
+    '450,000 MMK', '648,000 MMK', '900,000 MMK',
+];
+
+const SAFE_FALLBACK_REPLY = "I'm sorry, I don't have information about that specific service or package. Please contact ART de ONE directly at 09 953 681 497 or artdeone.educators@gmail.com for accurate details.";
+
+function containsForbiddenContent(text) {
+    if (!text) return false;
+    const lower = text.toLowerCase();
+    return FORBIDDEN_SNIPPETS.some(s => lower.includes(s.toLowerCase()));
+}
+
+// ═══════════════════════════════════════════════════════════════
+// RATE LIMITER — Simple in-memory per-IP rate limiting
+// NOTE: Netlify functions are stateless per-instance, so this
+// only limits requests hitting the same function instance. It is
+// NOT a global rate limit across all instances.
+// ═══════════════════════════════════════════════════════════════
+
+const RATE_LIMIT_MAX = 10;           // max requests
+const RATE_LIMIT_WINDOW_MS = 60000;  // 1 minute
+
+const rateLimitStore = new Map(); // ip -> [ timestamps ]
+
+function getClientIp(event) {
+    var forwarded = event.headers['x-forwarded-for'];
+    if (forwarded) {
+        return forwarded.split(',')[0].trim();
+    }
+    return event.headers['client-ip'] || event.headers['x-real-ip'] || 'unknown';
+}
+
+function isRateLimited(ip) {
+    var now = Date.now();
+    var timestamps = rateLimitStore.get(ip) || [];
+    // keep only timestamps within the rolling window
+    var valid = [];
+    for (var j = 0; j < timestamps.length; j++) {
+        if (now - timestamps[j] < RATE_LIMIT_WINDOW_MS) {
+            valid.push(timestamps[j]);
+        }
+    }
+    if (valid.length >= RATE_LIMIT_MAX) {
+        rateLimitStore.set(ip, valid); // update with pruned list
+        return true;
+    }
+    valid.push(now);
+    rateLimitStore.set(ip, valid);
+    return false;
+}
+
 exports.handler = async function (event, context) {
     // Only allow POST
     if (event.httpMethod !== 'POST') {
         return { statusCode: 405, body: 'Method Not Allowed' };
+    }
+
+    var clientIp = getClientIp(event);
+    if (isRateLimited(clientIp)) {
+        return {
+            statusCode: 429,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ error: 'Too many requests. Please wait a moment.' }),
+        };
     }
 
     const GROQ_API_KEY = process.env.GROQ_API_KEY;
@@ -179,7 +252,7 @@ exports.handler = async function (event, context) {
             body: JSON.stringify({
                 model: 'llama-3.3-70b-versatile',
                 messages: fullMessages,
-                temperature: 0.3,
+                temperature: 0.2,
                 max_tokens: 1024,
                 stream: false,
             }),
@@ -201,7 +274,13 @@ exports.handler = async function (event, context) {
         }
 
         const data = await response.json();
-        const reply = data.choices?.[0]?.message?.content || '';
+        let reply = data.choices?.[0]?.message?.content || '';
+
+        // Guardrail: block hallucinated discontinued packages
+        if (containsForbiddenContent(reply)) {
+            console.warn('Blocked hallucinated content in AI reply:', reply);
+            reply = SAFE_FALLBACK_REPLY;
+        }
 
         return {
             statusCode: 200,

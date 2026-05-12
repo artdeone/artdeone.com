@@ -4382,7 +4382,46 @@
 
             @media (max-width: 767px) {
                 .reviews-carousel-slide {
-                    flex: 0 0 360px;
+                    flex: 0 0 min(340px, calc(100vw - 48px));
+                }
+
+                .reviews-marquee-track {
+                    gap: 1rem;
+                }
+
+                /* Enable touch scrolling on mobile */
+                .reviews-marquee-outer {
+                    overflow-x: auto;
+                    -webkit-overflow-scrolling: touch;
+                    scrollbar-width: none; /* Firefox */
+                    -ms-overflow-style: none; /* IE/Edge */
+                }
+                .reviews-marquee-outer::-webkit-scrollbar {
+                    display: none; /* Chrome/Safari */
+                }
+
+                /* Pause auto-scroll on mobile — let user swipe */
+                .reviews-marquee-track {
+                    animation-play-state: paused;
+                }
+
+                #testimonials {
+                    overflow-x: hidden;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .reviews-carousel-slide {
+                    flex: 0 0 min(300px, calc(100vw - 40px));
+                }
+
+                .reviews-carousel-slide .minimalist-card {
+                    padding: 1.25rem;
+                }
+
+                .reviews-carousel-slide .minimalist-card p.italic {
+                    font-size: 0.85rem;
+                    line-height: 1.55;
                 }
             }
 
@@ -5201,6 +5240,7 @@
         /* ── Messages Area ── */
         #chat-messages {
             background: var(--color-surface);
+            overscroll-behavior: contain; /* Prevent scroll chaining to body on mobile */
         }
 
         /* Custom Scrollbar */
@@ -5384,7 +5424,7 @@
         .chat-input-field {
             flex: 1;
             padding: 0.5rem 0.75rem;
-            font-size: 0.85rem;
+            font-size: 16px; /* ≥16px prevents iOS Safari auto-zoom on focus */
             background: var(--color-input-bg);
             border: 1px solid var(--color-input-border);
             border-radius: 9999px;

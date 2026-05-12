@@ -172,6 +172,8 @@
             chatWindow.classList.remove('hidden');
             chatWindow.classList.add('flex');
             requestAnimationFrame(function () { chatWindow.classList.add('chat-visible'); });
+            // [MOBILE FIX] Lock body scroll to prevent background scrolling behind chatbot
+            document.body.style.overflow = 'hidden';
             // Swap icons
             if (msgIcon) msgIcon.style.display = 'none';
             if (closeIcon) closeIcon.style.display = 'block';
@@ -190,6 +192,8 @@
             setTimeout(function () { if (chatInput) chatInput.focus(); }, 400);
         } else {
             chatWindow.classList.remove('chat-visible');
+            // [MOBILE FIX] Restore body scroll when chatbot is closed
+            document.body.style.overflow = '';
             // Swap icons back
             if (msgIcon) msgIcon.style.display = 'block';
             if (closeIcon) closeIcon.style.display = 'none';
@@ -267,7 +271,27 @@
         scrollToBottom();
     }
 
-    // [FIX #2] Typewriter effect for bot messages
+    // [FIX #1 + #2] Typewriter effect with incremental HTML escape and formatting
+    function applyIncrementalFormatting(sourceText) {
+        var urlPlaceholders = [];
+        var textWithPlaceholders = sourceText.replace(/https?:\/\/[^\s<]+/g, function (url) {
+            var idx = urlPlaceholders.length;
+            urlPlaceholders.push(url);
+            return '\x00URL' + idx + '\x00';
+        });
+        var html = textWithPlaceholders
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\n/g, '<br>');
+        html = html.replace(/\x00URL(\d+)\x00/g, function (_, idx) {
+            var url = urlPlaceholders[parseInt(idx, 10)];
+            return '<a href="' + url + '" target="_blank" rel="noopener" style="color:var(--color-primary, #a7e169);text-decoration:underline;">' + url + '</a>';
+        });
+        return html;
+    }
+
     function typeMessage(text, onDone) {
         var div = document.createElement('div');
         div.className = 'bot-msg mb-2 chat-typing';
@@ -281,36 +305,14 @@
         function step() {
             if (i < text.length) {
                 displayed += text[i];
-                // Basic display: escape HTML, convert \n to <br>
-                var escaped = displayed
-                    .replace(/&/g, '&')
-                    .replace(/</g, '<')
-                    .replace(/>/g, '>')
-                    .replace(/\n/g, '<br>');
-                div.innerHTML = escaped;
+                div.innerHTML = applyIncrementalFormatting(displayed);
                 i++;
                 scrollToBottom();
                 setTimeout(step, speed);
             } else {
                 div.classList.remove('chat-typing');
-                // Apply full formatting (bold, links, etc.)
-                var urlPlaceholders = [];
-                var textWithPlaceholders = text.replace(/https?:\/\/[^\s<]+/g, function (url) {
-                    var idx = urlPlaceholders.length;
-                    urlPlaceholders.push(url);
-                    return '\x00URL' + idx + '\x00';
-                });
-                var html = textWithPlaceholders
-                    .replace(/&/g, '&')
-                    .replace(/</g, '<')
-                    .replace(/>/g, '>')
-                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                    .replace(/\n/g, '<br>');
-                html = html.replace(/\x00URL(\d+)\x00/g, function (_, idx) {
-                    var url = urlPlaceholders[parseInt(idx, 10)];
-                    return '<a href="' + url + '" target="_blank" rel="noopener" style="color:var(--color-primary, #a7e169);text-decoration:underline;">' + url + '</a>';
-                });
-                div.innerHTML = html;
+                // Final cleanup pass — same logic, produces no visible change
+                div.innerHTML = applyIncrementalFormatting(text);
                 scrollToBottom();
                 if (onDone) onDone();
             }
