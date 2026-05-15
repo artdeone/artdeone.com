@@ -2463,15 +2463,15 @@
                     opacity: 1;
                     transform: scale(1);
                 }
-                40% {
+                20% {
                     opacity: 1;
                     transform: scale(1);
                 }
-                50% {
+                25% {
                     opacity: 0;
                     transform: scale(1.05);
                 }
-                90% {
+                95% {
                     opacity: 0;
                     transform: scale(1.05);
                 }
@@ -2482,12 +2482,22 @@
             }
 
             .hero-slide-2 {
-                animation: heroFadeAnim 12s infinite;
+                animation: heroFadeAnim 24s infinite;
             }
 
             .hero-slide-3 {
-                animation: heroFadeAnim 12s infinite;
+                animation: heroFadeAnim 24s infinite;
                 animation-delay: -6s;
+            }
+
+            .hero-slide-4 {
+                animation: heroFadeAnim 24s infinite;
+                animation-delay: -12s;
+            }
+
+            .hero-slide-5 {
+                animation: heroFadeAnim 24s infinite;
+                animation-delay: -18s;
             }
 
             @keyframes spinSlow {
@@ -2529,17 +2539,29 @@
                     <!-- Slide 1 -->
                     <div class="absolute inset-0 w-full h-full hero-slide-2 origin-center">
                         <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777886851/yjh3_wfbjfs.jpg"
-                            class="w-full h-full object-cover opacity-90" style="object-position: center 20%; filter: brightness(0.75);"
+                            class="w-full h-full object-cover opacity-80" style="object-position: center 20%; filter: brightness(0.65);"
                             alt="Slide 1">
                     </div>
                     <!-- Slide 2 -->
                     <div class="absolute inset-0 w-full h-full hero-slide-3 origin-center">
                         <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777886851/yjh2_aooyfu.jpg"
-                            class="w-full h-full object-cover opacity-90" style="object-position: center 20%; filter: brightness(0.75);"
+                            class="w-full h-full object-cover opacity-80" style="object-position: center 20%; filter: brightness(0.65);"
                             alt="Slide 2">
                     </div>
+                    <!-- Slide 3 — Student 01 -->
+                    <div class="absolute inset-0 w-full h-full hero-slide-4 origin-center">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1778568555/student01_g0pctp.png"
+                            class="w-full h-full object-cover opacity-80" style="object-position: center 20%; filter: brightness(0.65);"
+                            alt="Student 01">
+                    </div>
+                    <!-- Slide 4 — Student 02 -->
+                    <div class="absolute inset-0 w-full h-full hero-slide-5 origin-center">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1778568556/students-02_a35v8p.png"
+                            class="w-full h-full object-cover opacity-80" style="object-position: center 20%; filter: brightness(0.65);"
+                            alt="Student 02">
+                    </div>
                     <!-- Dark Overlay -->
-                    <div class="absolute inset-0 bg-black/15"></div>
+                    <div class="absolute inset-0 bg-black/30"></div>
                 </div>
 
                 <!-- Right Side Text & Button -->

@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <!-- Dark mode: apply BEFORE first paint to prevent flash of white -->
+    <script>
+    (function(){try{var s=localStorage.getItem('ado-theme-mode');var h=new Date().getHours();var isTimeDark=h>=18||h<4;if(s==='dark'||(s==='system'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches)||(!s&&isTimeDark)){document.documentElement.setAttribute('data-theme','dark');document.documentElement.style.colorScheme='dark';}}catch(e){}})();
+    </script>
+    <style>
+    html[data-theme="dark"] body { background-color: #11130f !important; color: #f3f6ee !important; }
+    html[data-theme="dark"] nav { background-color: rgba(17,19,15,0.95) !important; border-bottom-color: #343a2e !important; }
+    html[data-theme="dark"] .nav-link { color: #f3f6ee !important; }
+    html[data-theme="dark"] .mobile-menu { background-color: #11130f !important; }
+    </style>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CZRQ0NPPJ2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-CZRQ0NPPJ2');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO -->
+    <title>Instructor Work | ART de ONE | Creative Portfolio</title>
+    <meta name="description" content="Explore the personal creative portfolio of ART de ONE's instructor — illustrations, logo designs, typography experiments, and motion projects.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.artdeone.com/project.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.artdeone.com/project.html">
+    <meta property="og:title" content="Instructor Work | ART de ONE">
+    <meta property="og:description" content="Personal creative portfolio — illustrations, logo designs, typography, and motion projects.">
+    <meta property="og:image" content="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png">
+    <meta property="og:site_name" content="ART de ONE">
+
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769316272/fav-icon_n00lji.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <link rel="stylesheet" href="/css-and-js/mobile-smooth-nav.css">
+    <link rel="stylesheet" href="/css-and-js/theme.css">
+    <link rel="stylesheet" href="/css-and-js/theme-toggle.css">
+    <link rel="stylesheet" href="/css-and-js/dark-mode.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --brand-green: #a7e169;
+            --brand-red: #ed2939;
+            --ink: #000000;
+            --charcoal: #323232;
+            --paper: #ffffff;
+            --alt-bg: #e8e8e8;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--paper);
+            color: var(--charcoal);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--ink);
+        }
+
+        /* ── Noise texture overlay ── */
+        .noise-overlay {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.035;
+            mix-blend-mode: multiply;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 180px 180px;
+        }
+
+        /* ── Navigation (inline, matching portfolio pages) ── */
+        nav {
+            background-color: rgba(255,255,255,0.95) !important;
+            border-bottom: 1px solid #e5e5e5;
+            backdrop-filter: blur(12px);
+        }
+        .nav-link {
+            color: #323232 !important;
+            font-weight: 400 !important;
+            letter-spacing: 0.04em;
+            font-size: 0.9rem !important;
+        }
+        .nav-link:hover {
+            color: #000 !important;
+            font-weight: 600 !important;
+        }
+        .mobile-menu {
+            background-color: #ffffff !important;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        .mobile-nav-link {
+            color: #323232 !important;
+            font-weight: 400;
+            font-size: 0.9rem;
+        }
+        .mobile-menu-btn { color: #000 !important; }
+
+        .nav-btn {
+            background: var(--brand-green);
+            color: #000;
+            font-weight: 600;
+            border-radius: 9999px;
+            padding: 0.5rem 1.25rem;
+            font-size: 0.85rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            transition: background-color 0.2s ease;
+            border: none;
+        }
+        .nav-btn:hover { background: var(--brand-red); color: #fff; }
+
+        /* ── Hero ── */
+        .hero-section {
+            position: relative;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-image: url('https://res.cloudinary.com/ddkd9lxpr/image/upload/v1778816004/meoww_iud4t6.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1;
+        }
+        .hero-bg-shapes,
+        .hero-scribble {
+            display: none;
+        }
+
+        .hero-bg-shapes {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .hero-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.55;
+        }
+        .hero-shape-1 {
+            width: 420px; height: 420px;
+            background: var(--brand-green);
+            top: -10%; left: -5%;
+            animation: floatShape 8s ease-in-out infinite;
+        }
+        .hero-shape-2 {
+            width: 320px; height: 320px;
+            background: var(--brand-red);
+            bottom: -5%; right: -8%;
+            animation: floatShape 10s ease-in-out infinite reverse;
+        }
+        .hero-shape-3 {
+            width: 180px; height: 180px;
+            background: #f3f633;
+            top: 40%; left: 55%;
+            animation: floatShape 6s ease-in-out infinite 1s;
+        }
+
+        @keyframes floatShape {
+            0%, 100% { transform: translate(0,0) scale(1); }
+            33% { transform: translate(20px,-30px) scale(1.05); }
+            66% { transform: translate(-15px,20px) scale(0.95); }
+        }
+
+        .hero-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            font-size: clamp(3rem, 8vw, 7rem);
+            line-height: 0.95;
+            letter-spacing: -0.03em;
+            color: #fff;
+            position: relative;
+            z-index: 2;
+        }
+        .hero-title .title-line {
+            display: block;
+        }
+        .hero-title .title-accent {
+            color: var(--brand-green);
+            position: relative;
+            display: inline-block;
+        }
+        .hero-title .title-accent::after {
+            content: '';
+            position: absolute;
+            bottom: 0.05em;
+            left: -0.05em;
+            right: -0.05em;
+            height: 0.18em;
+            background: var(--brand-red);
+            z-index: -1;
+            transform: skewX(-8deg);
+            opacity: 0.85;
+        }
+
+        .hero-sub {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1rem, 2vw, 1.35rem);
+            color: rgba(255,255,255,0.85);
+            max-width: 520px;
+            margin-top: 1.5rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-scribble {
+            position: absolute;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: clamp(6rem, 14vw, 12rem);
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(0,0,0,0.06);
+            z-index: 1;
+            pointer-events: none;
+            user-select: none;
+            white-space: nowrap;
+        }
+
+        /* ── Editorial Card Grid ── */
+        .editorial-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        @media (min-width: 640px) {
+            .editorial-grid { padding: 0 1.5rem; }
+        }
+        @media (min-width: 1024px) {
+            .editorial-grid { padding: 0 2rem; }
+        }
+
+        .project-card {
+            position: relative;
+            border-radius: 1.25rem;
+            overflow: hidden;
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.08);
+            transition: all 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+        }
+        .project-card:hover {
+            transform: translateY(-10px) rotate(-0.5deg);
+            box-shadow: 0 28px 50px -20px rgba(0,0,0,0.18);
+            border-color: rgba(0,0,0,0.15);
+        }
+        .project-card:nth-child(3n):hover {
+            transform: translateY(-10px) rotate(0.5deg);
+        }
+        .project-card:nth-child(5n):hover {
+            transform: translateY(-10px) rotate(-0.3deg);
+        }
+
+        .card-visual {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .card-visual .placeholder-box {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        /* Diagonal stripe placeholders */
+        .placeholder-stripe {
+            background: repeating-linear-gradient(
+                -45deg,
+                #f3f4f6,
+                #f3f4f6 10px,
+                #e5e7eb 10px,
+                #e5e7eb 20px
+            );
+        }
+        .placeholder-green {
+            background: var(--brand-green);
+            opacity: 0.25;
+        }
+        .placeholder-red {
+            background: var(--brand-red);
+            opacity: 0.15;
+        }
+        .placeholder-solid-green {
+            background: var(--brand-green);
+        }
+        .placeholder-solid-red {
+            background: var(--brand-red);
+        }
+        .placeholder-solid-dark {
+            background: var(--ink);
+        }
+
+        .placeholder-label {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(0,0,0,0.35);
+            position: absolute;
+            z-index: 2;
+        }
+        .placeholder-solid-green .placeholder-label,
+        .placeholder-solid-red .placeholder-label,
+        .placeholder-solid-dark .placeholder-label {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .card-body {
+            padding: 1.25rem 1.5rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        .card-collection {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--brand-red);
+            margin-bottom: 0.5rem;
+        }
+        .card-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.35rem;
+            line-height: 1.2;
+            color: var(--ink);
+            margin-bottom: 0.4rem;
+        }
+        .card-desc {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            color: var(--charcoal);
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            opacity: 0.85;
+        }
+        .card-tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 1.25rem;
+        }
+        .tool-sticker {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.25rem 0.65rem;
+            border-radius: 4px;
+            background: #fff;
+            border: 1.5px solid var(--ink);
+            color: var(--ink);
+            transform: rotate(-1deg);
+            transition: transform 0.2s ease;
+        }
+        .tool-sticker:nth-child(even) { transform: rotate(1.5deg); }
+        .tool-sticker:nth-child(3n) { transform: rotate(-0.5deg); }
+        .project-card:hover .tool-sticker {
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        .card-cta {
+            margin-top: auto;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--ink);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            position: relative;
+            align-self: flex-start;
+        }
+        .card-cta .cta-arrow {
+            transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .project-card:hover .card-cta .cta-arrow {
+            transform: translateX(6px);
+        }
+        .card-cta::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--brand-green);
+            transition: width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .project-card:hover .card-cta::after {
+            width: 100%;
+        }
+
+        /* Card size variations */
+        .card-wide { grid-column: span 12; }
+        .card-large { grid-column: span 12; }
+        .card-medium { grid-column: span 12; }
+        .card-small { grid-column: span 12; }
+
+        @media (min-width: 768px) {
+            .card-wide   { grid-column: span 8; }
+            .card-large  { grid-column: span 7; }
+            .card-medium { grid-column: span 4; } /* fixed: was 5, wide(8)+medium(4)=12 */
+            .card-small  { grid-column: span 5; } /* fixed: was 4, small(5)+large(7)=12 */
+            /* Per-card overrides so every row sums to exactly 12 */
+            .editorial-grid > a:nth-child(5) { grid-column: span 4; } /* Card5: pairs with Card6 wide(8) → 4+8=12 */
+            .editorial-grid > a:nth-child(8) { grid-column: span 8; } /* Card8: pairs with Card7 medium(4) → 4+8=12 */
+        }
+        @media (min-width: 1024px) {
+            .card-wide   { grid-column: span 8; }
+            .card-large  { grid-column: span 7; }
+            .card-medium { grid-column: span 4; } /* fixed: was 5 */
+            .card-small  { grid-column: span 5; } /* fixed: was 4 */
+            .editorial-grid > a:nth-child(5) { grid-column: span 4; }
+            .editorial-grid > a:nth-child(8) { grid-column: span 8; }
+        }
+
+        /* Tall cards */
+        .card-tall .card-visual .placeholder-box { min-height: 320px; }
+        .card-tall .card-visual .placeholder-box { min-height: 340px; }
+        @media (min-width: 768px) {
+            .card-tall .card-visual .placeholder-box { min-height: 380px; }
+        }
+
+        /* Color-filled card variants */
+        .card-fill-green {
+            background: var(--brand-green);
+            border-color: rgba(0,0,0,0.06);
+        }
+        .card-fill-green .card-title,
+        .card-fill-green .card-desc,
+        .card-fill-green .card-cta {
+            color: #000;
+        }
+        .card-fill-green .card-collection {
+            color: var(--brand-red);
+        }
+        .card-fill-green .tool-sticker {
+            background: #fff;
+            border-color: #000;
+            color: #000;
+        }
+
+        .card-fill-red {
+            background: var(--brand-red);
+            border-color: rgba(0,0,0,0.06);
+        }
+        .card-fill-red .card-title,
+        .card-fill-red .card-desc,
+        .card-fill-red .card-cta {
+            color: #fff;
+        }
+        .card-fill-red .card-collection {
+            color: #fff;
+            opacity: 0.8;
+        }
+        .card-fill-red .tool-sticker {
+            background: #fff;
+            border-color: #fff;
+            color: var(--brand-red);
+        }
+
+        .card-fill-dark {
+            background: var(--ink);
+            border-color: rgba(255,255,255,0.08);
+        }
+        .card-fill-dark .card-title,
+        .card-fill-dark .card-desc,
+        .card-fill-dark .card-cta {
+            color: #fff;
+        }
+        .card-fill-dark .card-collection {
+            color: var(--brand-green);
+        }
+        .card-fill-dark .tool-sticker {
+            background: transparent;
+            border-color: var(--brand-green);
+            color: var(--brand-green);
+        }
+
+        /* ── Section divider ── */
+        .section-divider {
+            height: 1px;
+            background: rgba(0,0,0,0.08);
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        /* ── Dark mode overrides for page-specific elements ── */
+        html[data-theme="dark"] .hero-section {
+            background-image: url('https://res.cloudinary.com/ddkd9lxpr/image/upload/v1778816004/meoww_iud4t6.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        html[data-theme="dark"] .project-card {
+            background: #1a1d17;
+            border-color: rgba(255,255,255,0.08);
+        }
+        html[data-theme="dark"] .hero-title,
+        html[data-theme="dark"] .card-title {
+            color: #f3f6ee;
+        }
+        html[data-theme="dark"] .hero-sub,
+        html[data-theme="dark"] .card-desc {
+            color: #bbc5b2;
+        }
+        html[data-theme="dark"] .placeholder-stripe {
+            background: repeating-linear-gradient(
+                -45deg,
+                #1e221b,
+                #1e221b 10px,
+                #2a2f24 10px,
+                #2a2f24 20px
+            );
+        }
+        html[data-theme="dark"] .placeholder-label {
+            color: rgba(255,255,255,0.25);
+        }
+        html[data-theme="dark"] .hero-scribble {
+            -webkit-text-stroke: 1px rgba(255,255,255,0.06);
+        }
+        html[data-theme="dark"] .card-cta {
+            color: #f3f6ee;
+        }
+        html[data-theme="dark"] .tool-sticker {
+            background: #1a1d17;
+            border-color: #f3f6ee;
+            color: #f3f6ee;
+        }
+        html[data-theme="dark"] .card-fill-green .tool-sticker {
+            background: #11130f;
+            border-color: #f3f6ee;
+            color: #f3f6ee;
+        }
+        html[data-theme="dark"] .card-fill-red .tool-sticker {
+            background: #11130f;
+            border-color: #fff;
+            color: #fff;
+        }
+        html[data-theme="dark"] .card-fill-dark .tool-sticker {
+            background: transparent;
+            border-color: var(--brand-green);
+            color: var(--brand-green);
+        }
+
+        /* Entrance animation */
+        .project-card {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: cardEnter 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+        @keyframes cardEnter {
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="noise-overlay"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 nav-container">
+            <div class="nav-wrapper">
+                <div class="flex justify-between h-16 items-center">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <a href="/index.html#home" class="flex items-center">
+                                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png" alt="ART de ONE" class="h-10 w-auto">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="hidden md:flex items-center space-x-6 nav-center">
+                        <a href="/index.html#home" class="nav-link">Home</a>
+                        <a href="/shop.html" class="nav-link">Shop</a>
+                        <a href="/portfolio/student-gallery.html" class="nav-link">Student</a>
+                        <a href="/blog.html" class="nav-link">Blog</a>
+                        <a href="https://ai.artdeone.com/" class="nav-link">Ai</a>
+                        <div class="nav-dropdown-wrapper">
+                            <a href="/resources/resources-collection.html" class="nav-link" style="display:inline-flex;align-items:center;gap:4px;">Resources <i class="fas fa-chevron-down nav-dropdown-arrow"></i></a>
+                            <div class="nav-dropdown">
+                                <a href="/resources/resources-collection.html">All Resources</a>
+                                <a href="/prompt.html">AI Prompts</a>
+                            </div>
+                        </div>
+                        <a href="/index.html#contact" class="nav-link">Contact</a>
+                    </div>
+
+                    <div class="hidden md:flex items-center gap-3" id="desktopAuth">
+                        <button type="button" id="ado-theme-toggle" class="ado-theme-toggle" title="Switch theme" aria-label="Switch theme">
+                            <span class="ado-theme-toggle-icon"></span>
+                        </button>
+                        <a href="/customer-dashboard.html" class="nav-btn" id="btnLoginDesktop"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
+                        <div id="userInfoDesktop" style="display:none;" class="flex items-center gap-3">
+                            <a href="/customer-dashboard.html" title="Dashboard" style="text-decoration:none; display:flex; align-items:center;">
+                                <span class="shop-nav-avatar" id="avatarDesktop"></span>
+                            </a>
+                            <button onclick="logout()" class="nav-btn-signout">Sign out</button>
+                        </div>
+                    </div>
+
+                    <div class="md:hidden flex items-center">
+                        <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md hover:bg-gray-100 focus:outline-none" id="mobile-menu-button">
+                            <div class="icon-container text-black">
+                                <i data-feather="menu" class="icon-menu"></i>
+                                <i data-feather="x" class="icon-close"></i>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mobile-menu md:hidden hidden" id="mobile-menu">
+            <div class="py-2 px-4 space-y-1">
+                <a href="/index.html#home" class="block py-2 mobile-nav-link">Home</a>
+                <a href="/shop.html" class="block py-2 mobile-nav-link">Shop</a>
+                <a href="/portfolio/student-gallery.html" class="block py-2 mobile-nav-link">Student</a>
+                <a href="/blog.html" class="block py-2 mobile-nav-link">Blog</a>
+                <a href="https://ai.artdeone.com/" class="block py-2 mobile-nav-link">Ai</a>
+                <div>
+                    <button onclick="toggleMobileResourcesDropdown()" class="block py-2 mobile-nav-link w-full text-left" style="display:flex;align-items:center;gap:6px;">
+                        <span>Resources</span>
+                        <i class="fas fa-chevron-down mobile-dropdown-arrow" id="mobile-res-arrow"></i>
+                    </button>
+                    <div class="mobile-sub-menu" id="mobile-resources-sub">
+                        <a href="/resources/resources-collection.html" class="block py-2 pl-6 text-sm text-gray-500 hover:text-black transition">All Resources</a>
+                        <a href="/prompt.html" class="block py-2 pl-6 text-sm text-gray-500 hover:text-black transition">AI Prompts</a>
+                    </div>
+                </div>
+                <a href="/index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
+
+                <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #e5e5e5;margin-bottom:4px;">
+                    <button type="button" id="ado-theme-toggle-mobile" class="ado-theme-toggle" title="Switch theme" aria-label="Switch theme">
+                        <span class="ado-theme-toggle-icon"></span>
+                    </button>
+                    <span class="ado-theme-toggle-label">Theme</span>
+                </div>
+                <div id="mobileAuth">
+                    <a href="/customer-dashboard.html" class="nav-btn-signout" style="padding:0.3rem 0.75rem; font-size:0.75rem; gap:0.35rem;" id="btnLoginMobile"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
+                    <div id="userInfoMobile" style="display:none;">
+                        <a href="/customer-dashboard.html" class="mobile-profile-row" style="text-decoration:none;">
+                            <span class="shop-nav-avatar" id="avatarMobile"></span>
+                            <span class="mobile-nav-link text-black font-medium" style="padding:0;">Dashboard</span>
+                        </a>
+                        <button onclick="logout()" class="nav-btn-signout" style="padding:0.3rem 0.75rem; font-size:0.75rem; margin-top:6px;">Sign out</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section pt-28 pb-16 px-4 sm:px-6 lg:px-8">
+            <div class="hero-bg-shapes">
+                <div class="hero-shape hero-shape-1"></div>
+                <div class="hero-shape hero-shape-2"></div>
+                <div class="hero-shape hero-shape-3"></div>
+            </div>
+
+            <div class="hero-scribble" style="top:10%; left:-2%;">WORK</div>
+            <div class="hero-scribble" style="bottom:8%; right:-3%;">ART</div>
+
+            <div class="max-w-5xl mx-auto text-center relative z-2">
+                <h1 class="hero-title">
+                    <span class="title-line">Instructor</span>
+                    <span class="title-line title-accent">Work</span>
+                </h1>
+                <p class="hero-sub mx-auto">
+                    A living sketchbook of personal experiments, client explorations, and creative obsessions. Every project starts with a question and ends with something unexpected.
+                </p>
+            </div>
+        </section>
+
+        <!-- Editorial Card Grid -->
+        <section class="editorial-grid pt-16 pb-20" id="projectGrid">
+
+            <!-- Card 1: Wide -->
+            <a href="project-detail.html?id=1" class="project-card card-wide" data-category="illustration" style="animation-delay:0.05s;">
+                <div class="card-visual">
+                    <div class="placeholder-box placeholder-stripe" style="min-height:260px;">
+                        <span class="placeholder-label">Illustration Placeholder</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <span class="card-collection">Illustration</span>
+                    <h3 class="card-title">Bagan Temple Vector Study</h3>
+                    <p class="card-desc">A detailed exploration of Myanmar's ancient architecture through clean vector lines and warm earth tones.</p>
+                    <div class="card-tools">
+                        <span class="tool-sticker">Adobe Illustrator</span>
+                        <span class="tool-sticker">Pen Tool</span>
+                        <span class="tool-sticker">Color Theory</span>
+                    </div>
+                    <span class="card-cta">View Project <span class="cta-arrow">&rarr;</span></span>
+                </div>
+            </a>
+
+            <!-- Card 2: Medium -->
+            <a href="project-detail.html?id=2" class="project-card card-medium card-tall card-fill-green" data-category="logo" style="animation-delay:0.1s;">
+                <div class="card-visual">
+                    <div class="placeholder-box placeholder-solid-dark" style="min-height:220px;">
+                        <span class="placeholder-label">Logo Placeholder</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <span class="card-collection">Logo Design</span>
+                    <h3 class="card-title">ONE DAY STUDIO</h3>
+                    <p class="card-desc">Brand identity system for a Yangon-based creative studio. Minimal mark, maximum impact.</p>
+                    <div class="card-tools">
+                        <span class="tool-sticker">Illustrator</span>
+                        <span class="tool-sticker">Grid Systems</span>
+                    </div>
+                    <span class="card-cta">View Project <span class="cta-arrow">&rarr;</span></span>
+                </div>
+            </a>
+
+            <!-- Card 3: Small -->
+            <a href="project-detail.html?id=3" class="project-card card-small card-tall" data-category="typography" style="animation-delay:0.15s;">
+                <div class="card-visual">
+                    <div class="placeholder-box placeholder-red" style="min-height:240px;">
+                        <span class="placeholder-label">Type Placeholder</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <span class="card-collection">Typography</span>
+                    <h3 class="card-title">Myanmar Script Experiments</h3>
+                    <p class="card-desc">Pushing Burmese letterforms into unexpected geometric territories.</p>
+                    <div class="card-tools">
+                        <span class="tool-sticker">Glyphs</span>
+                        <span class="tool-sticker">Procreate</span>
+                    </div>
+                    <span class="card-cta">View Project <span class="cta-arrow">&rarr;</span></span>
+                </div>
+            </a>
+
+            <!-- Card 4: Large -->
+            <a href="project-detail.html?id=4" class="project-card card-large" data-category="motion" style="animation-delay:0.2s;">
+                <div class="card-visual">
+                    <div class="placeholder-box placeholder-green" style="min-height:280px;">
+                        <span class="placeholder-label">Motion Placeholder</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <span class="card-collection">Motion</span>
+                    <h3 class="card-title">Logo Reveal Animation</h3>
+                    <p class="card-desc">Frame-by-frame motion study turning a static mark into a living, breathing identity.</p>
+                    <div class="card-tools">
+                        <span class="tool-sticker">After Effects</span>
+                        <span class="tool-sticker">Illustrator</span>
+                        <span class="tool-sticker">Lottie</span>
+                    </div>
+                    <span class="card-cta">View Project <span class="cta-arrow">&rarr;</span></span>
+                </div>
+            </a>
+
+            <!-- Card 5: Small -->
+            <a href="project-detail.html?id=5" class="project-card card-small card-tall card-fill-dark" data-category="branding" style="animation-delay:0.25s;">
+                <div class="card-visual">
+                    <div class="placeholder-box placeholder-solid-green" style="min-height:240px;">
+                        <span class="placeholder-label">Brand Placeholder</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <span class="card-collection">Branding</span>
+                    <h3 class="card-title">Rome Green Cafe</h3>
+                    <p class="card-desc">Full visual identity for a plant-forward cafe concept.</p>
+                    <div class="card-tools">
+                        <span class="tool-sticker">Illustrator</span>
+                        <span class="tool-sticker">Photoshop</span>
+                    </div>
+                    <span class="card-cta">View Project <span class="cta-arrow">&rarr;</span></span>
+                </div>
+            </a>
+
+            <!-- Card 6: Wide -->
+            <a href="project-detail.html?id=6" class="project-card card-wide" data-category="illustration" style="animation-delay:0.3s;">
+                <div class="card-visual">
+                    <div class="placeholder-box placeholder-stripe" style="min-height:260px;">
+                        <span class="placeholder-label">Illustration Placeholder</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <span class="card-collection">Illustration</span>
+                    <h3 class="card-title">Venom Character Study</h3>
+                    <p class="card-desc">Advanced vector shading and shape layering to bring a complex character to life in pure Illustrator.</p>
+                    <div class="card-tools">
+                        <span class="tool-sticker">Illustrator</span>
+                        <span class="tool-sticker">Pen Tool</span>
+                        <span class="tool-sticker">Mesh</span>
+                    </div>
+                    <span class="card-cta">View Project <span class="cta-arrow">&rarr;</span></span>
+                </div>
+            </a>
+
+            <!-- Card 7: Medium -->
+            <a href="project-detail.html?id=7" class="project-card card-medium card-tall card-fill-red" data-category="typography" style="animation-delay:0.35s;">
+                <div class="card-visual">
+                    <div class="placeholder-box placeholder-solid-dark" style="min-height:220px;">
+                        <span class="placeholder-label">Type Placeholder</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <span class="card-collection">Typography</span>
+                    <h3 class="card-title">Custom Display Font</h3>
+                    <p class="card-desc">A bold, condensed display typeface built from scratch for poster work.</p>
+                    <div class="card-tools">
+                        <span class="tool-sticker">Glyphs</span>
+                        <span class="tool-sticker">Illustrator</span>
+                    </div>
+                    <span class="card-cta">View Project <span class="cta-arrow">&rarr;</span></span>
+                </div>
+            </a>
+
+            <!-- Card 8: Small -->
+            <a href="project-detail.html?id=8" class="project-card card-small" data-category="logo" style="animation-delay:0.4s;">
+                <div class="card-visual">
+                    <div class="placeholder-box placeholder-green" style="min-height:200px;">
+                        <span class="placeholder-label">Logo Placeholder</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <span class="card-collection">Logo Design</span>
+                    <h3 class="card-title">Minimal Marks Collection</h3>
+                    <p class="card-desc">A series of geometric monograms exploring negative space.</p>
+                    <div class="card-tools">
+                        <span class="tool-sticker">Illustrator</span>
+                        <span class="tool-sticker">Figma</span>
+                    </div>
+                    <span class="card-cta">View Project <span class="cta-arrow">&rarr;</span></span>
+                </div>
+            </a>
+
+            <!-- Card 9: Large -->
+            <a href="project-detail.html?id=9" class="project-card card-large" data-category="branding" style="animation-delay:0.45s;">
+                <div class="card-visual">
+                    <div class="placeholder-box placeholder-red" style="min-height:280px;">
+                        <span class="placeholder-label">Brand Placeholder</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <span class="card-collection">Branding</span>
+                    <h3 class="card-title">Social Campaign Suite</h3>
+                    <p class="card-desc">Cohesive visual system for multi-platform product advertising — from static posts to animated stories.</p>
+                    <div class="card-tools">
+                        <span class="tool-sticker">Photoshop</span>
+                        <span class="tool-sticker">Illustrator</span>
+                        <span class="tool-sticker">Premiere</span>
+                    </div>
+                    <span class="card-cta">View Project <span class="cta-arrow">&rarr;</span></span>
+                </div>
+            </a>
+
+        </section>
+    </main>
+
+    <footer class="bg-white text-[#323232] py-12 border-t border-gray-200 footer-glow">
+
+        <!-- Sarvam-style circle glow orbs -->
+        <div class="footer-orb footer-orb-1"></div>
+        <div class="footer-orb footer-orb-2"></div>
+        <div class="footer-orb footer-orb-3"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-5 gap-8">
+                <div>
+                    <span class="text-xl font-bold mb-4 block text-black">ART de ONE</span>
+                    <p class="text-gray-500 text-sm">
+                        Freelance Graphic Designer &amp; Illustrator Portfolio, Blog, Resources and Online Courses
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Quick Links</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/index.html#home" class="text-gray-500 hover:text-black transition duration-300">Home</a></li>
+                        <li><a href="/prompt.html" class="text-gray-500 hover:text-black transition duration-300">Prompts</a></li>
+                        <li><a href="/shop.html" class="text-gray-500 hover:text-black transition duration-300">Shop</a></li>
+                        <li><a href="/blog.html" class="text-gray-500 hover:text-black transition duration-300">Blog</a></li>
+                        <li><a href="/resources/resources-collection.html" class="text-gray-500 hover:text-black transition duration-300">Resources</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Services</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Logo Design</a></li>
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Social Media</a></li>
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Printing</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Contact</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/index.html#about" class="text-gray-500 hover:text-black transition duration-300">About</a></li>
+                        <li><a href="/index.html#contact" class="text-gray-500 hover:text-black transition duration-300">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Legal</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/privacy-policy.html" class="text-gray-500 hover:text-black transition duration-300">Privacy Policy</a></li>
+                        <li><a href="/terms-of-service.html" class="text-gray-500 hover:text-black transition duration-300">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="border-t border-gray-200 mt-8 pt-8">
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-6">
+
+                    <!-- Left: Copyright -->
+                    <p class="text-gray-500 text-sm text-center sm:text-left order-2 sm:order-1 sm:w-1/4">
+                        &copy; 2026 ART de ONE. All rights reserved.
+                    </p>
+
+                    <!-- Center: Trust Badges -->
+                    <div class="flex flex-wrap items-center justify-center gap-3 order-1 sm:order-2">
+
+                        <!-- Badge 1: SSL Secured -->
+                        <div class="trust-badge group" title="SSL Encrypted Connection">
+                            <div class="badge-icon">
+                                <i class="fas fa-lock text-xs"></i>
+                            </div>
+                            <div class="badge-text">
+                                <span class="badge-label">SSL</span>
+                                <span class="badge-value">Secured</span>
+                            </div>
+                        </div>
+
+                        <!-- Badge 2: DMCA Protected -->
+                        <div class="trust-badge group dmca-official-wrapper" title="DMCA.com Protection Status">
+                            <a href="//www.dmca.com/Protection/Status.aspx?ID=04063fb7-27c9-4e80-86e5-bc851bcd5935"
+                               title="DMCA.com Protection Status"
+                               class="dmca-badge">
+                                <img loading="lazy"
+                                    src="https://images.dmca.com/Badges/dmca-badge-w100-2x1-02.png?ID=04063fb7-27c9-4e80-86e5-bc851bcd5935"
+                                    alt="DMCA.com Protection Status"
+                                    style="height: 20px; width: auto; display: block;" />
+                            </a>
+                        </div>
+
+                        <!-- Badge 3: Verified Professional -->
+                        <div class="trust-badge group" title="9+ Years Professional Experience">
+                            <div class="badge-icon badge-icon-gold">
+                                <i class="fas fa-award text-xs"></i>
+                            </div>
+                            <div class="badge-text">
+                                <span class="badge-label">Verified</span>
+                                <span class="badge-value">Professional</span>
+                            </div>
+                        </div>
+
+                        <!-- Badge 4: Safe Browsing -->
+                        <div class="trust-badge group" title="Google Safe Browsing Verified">
+                            <div class="badge-icon badge-icon-green">
+                                <i class="fas fa-check-circle text-xs"></i>
+                            </div>
+                            <div class="badge-text">
+                                <span class="badge-label">Google</span>
+                                <span class="badge-value">Safe</span>
+                            </div>
+                        </div>
+
+                        <!-- Badge 5: Google Business -->
+                        <a href="https://g.page/r/Cb6j-IdtRRWLEAE/review" target="_blank" class="trust-badge group"
+                            title="Find us on Google Business">
+                            <div class="badge-icon" style="background-color: #4285F4;">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                    style="width:12px;height:12px;fill:white;">
+                                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                                </svg>
+                            </div>
+                            <div class="badge-text">
+                                <span class="badge-label">Google</span>
+                                <span class="badge-value">Business</span>
+                            </div>
+                        </a>
+
+                    </div>
+
+                    <!-- Right: Social Icons -->
+                    <div class="flex justify-center sm:justify-end space-x-6 text-sm order-3 sm:w-1/4">
+                        <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-behance"></i></a>
+                        <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-tiktok"></i></a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <script src="/js/theme-mode.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script src="/js/nav-auth.js"></script>
+    <script src="/css-and-js/mobile-smooth-nav.js"></script>
+    <script>
+        feather.replace();
+    </script>
+</body>
+</html>

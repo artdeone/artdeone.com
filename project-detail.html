@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <!-- Dark mode: apply BEFORE first paint to prevent flash of white -->
+    <script>
+    (function(){try{var s=localStorage.getItem('ado-theme-mode');var h=new Date().getHours();var isTimeDark=h>=18||h<4;if(s==='dark'||(s==='system'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches)||(!s&&isTimeDark)){document.documentElement.setAttribute('data-theme','dark');document.documentElement.style.colorScheme='dark';}}catch(e){}})();
+    </script>
+    <style>
+    html[data-theme="dark"] body { background-color: #11130f !important; color: #f3f6ee !important; }
+    html[data-theme="dark"] nav { background-color: rgba(17,19,15,0.95) !important; border-bottom-color: #343a2e !important; }
+    html[data-theme="dark"] .nav-link { color: #f3f6ee !important; }
+    html[data-theme="dark"] .mobile-menu { background-color: #11130f !important; }
+    </style>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CZRQ0NPPJ2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-CZRQ0NPPJ2');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO -->
+    <title>Project Detail | Instructor Work | ART de ONE</title>
+    <meta name="description" content="Explore the creative process behind this project — from concept to final output. Part of the ART de ONE instructor portfolio.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.artdeone.com/project-detail.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.artdeone.com/project-detail.html">
+    <meta property="og:title" content="Project Detail | Instructor Work | ART de ONE">
+    <meta property="og:description" content="Explore the creative process behind this project — from concept to final output.">
+    <meta property="og:image" content="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png">
+    <meta property="og:site_name" content="ART de ONE">
+
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769316272/fav-icon_n00lji.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <link rel="stylesheet" href="/css-and-js/mobile-smooth-nav.css">
+    <link rel="stylesheet" href="/css-and-js/theme.css">
+    <link rel="stylesheet" href="/css-and-js/theme-toggle.css">
+    <link rel="stylesheet" href="/css-and-js/dark-mode.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --brand-green: #a7e169;
+            --brand-red: #ed2939;
+            --ink: #000000;
+            --charcoal: #323232;
+            --paper: #ffffff;
+            --alt-bg: #e8e8e8;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--paper);
+            color: var(--charcoal);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--ink);
+        }
+
+        /* ── Noise texture overlay ── */
+        .noise-overlay {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.035;
+            mix-blend-mode: multiply;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 180px 180px;
+        }
+
+        /* ── Navigation ── */
+        nav {
+            background-color: rgba(255,255,255,0.95) !important;
+            border-bottom: 1px solid #e5e5e5;
+            backdrop-filter: blur(12px);
+        }
+        .nav-link {
+            color: #323232 !important;
+            font-weight: 400 !important;
+            letter-spacing: 0.04em;
+            font-size: 0.9rem !important;
+        }
+        .nav-link:hover {
+            color: #000 !important;
+            font-weight: 600 !important;
+        }
+        .mobile-menu {
+            background-color: #ffffff !important;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        .mobile-nav-link {
+            color: #323232 !important;
+            font-weight: 400;
+            font-size: 0.9rem;
+        }
+        .mobile-menu-btn { color: #000 !important; }
+
+        .nav-btn {
+            background: var(--brand-green);
+            color: #000;
+            font-weight: 600;
+            border-radius: 9999px;
+            padding: 0.5rem 1.25rem;
+            font-size: 0.85rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            transition: background-color 0.2s ease;
+            border: none;
+        }
+        .nav-btn:hover { background: var(--brand-red); color: #fff; }
+
+
+        /* ── Detail Hero ── */
+        .detail-hero {
+            position: relative;
+            min-height: 65vh;
+            display: flex;
+            align-items: flex-end;
+            overflow: hidden;
+            background: var(--paper);
+        }
+
+        .detail-hero-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+        .detail-hero-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .detail-hero-placeholder .hero-stripe {
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                -45deg,
+                #f3f4f6,
+                #f3f4f6 14px,
+                #e5e7eb 14px,
+                #e5e7eb 28px
+            );
+        }
+        .detail-hero-placeholder .hero-color-wash {
+            position: absolute;
+            inset: 0;
+            opacity: 0.2;
+        }
+        .hero-placeholder-text {
+            position: absolute;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: clamp(4rem, 12vw, 10rem);
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(0,0,0,0.05);
+            pointer-events: none;
+            user-select: none;
+            white-space: nowrap;
+            z-index: 1;
+        }
+
+        .detail-hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
+            z-index: 2;
+        }
+
+        .detail-hero-content {
+            position: relative;
+            z-index: 3;
+            padding: 3rem 2rem;
+            max-width: 1280px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .detail-collection-stamp {
+            display: inline-block;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            padding: 0.4rem 1rem;
+            border: 2px solid var(--brand-red);
+            color: var(--brand-red);
+            border-radius: 4px;
+            transform: rotate(-2deg);
+            margin-bottom: 1rem;
+        }
+
+        .detail-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            line-height: 0.95;
+            letter-spacing: -0.03em;
+            color: var(--ink);
+            max-width: 800px;
+        }
+        .detail-title .title-accent {
+            color: var(--brand-green);
+            position: relative;
+            display: inline-block;
+        }
+        .detail-title .title-accent::after {
+            content: '';
+            position: absolute;
+            bottom: 0.05em;
+            left: -0.05em;
+            right: -0.05em;
+            height: 0.18em;
+            background: var(--brand-red);
+            z-index: -1;
+            transform: skewX(-8deg);
+            opacity: 0.85;
+        }
+
+        .detail-description {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: var(--charcoal);
+            max-width: 600px;
+            margin-top: 1.25rem;
+            line-height: 1.6;
+            opacity: 0.85;
+        }
+
+        /* ── Section Shared ── */
+        .section-label {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--brand-red);
+            margin-bottom: 0.75rem;
+            display: inline-block;
+        }
+
+        .section-heading {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            color: var(--ink);
+        }
+
+        /* ── How It Started (Origin) ── */
+        .origin-section {
+            background: var(--paper);
+            padding: 5rem 2rem;
+        }
+        .origin-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .origin-quote-mark {
+            position: absolute;
+            top: -2rem;
+            left: -1rem;
+            width: 80px;
+            height: 80px;
+            color: var(--brand-green);
+            opacity: 0.35;
+        }
+        .origin-text {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: clamp(1.3rem, 3vw, 2rem);
+            line-height: 1.5;
+            color: var(--ink);
+            padding-left: 3.5rem;
+            border-left: 3px solid var(--brand-green);
+            position: relative;
+        }
+        .origin-text::after {
+            content: '';
+            position: absolute;
+            bottom: -1.5rem;
+            left: 3.5rem;
+            width: 60px;
+            height: 3px;
+            background: var(--brand-red);
+            transform: skewX(-12deg);
+        }
+        .origin-attribution {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            color: var(--charcoal);
+            opacity: 0.6;
+            margin-top: 3rem;
+            padding-left: 3.5rem;
+        }
+
+        /* ── The Process (Timeline) ── */
+        .process-section {
+            background: var(--alt-bg);
+            padding: 5rem 2rem;
+        }
+        .process-header {
+            max-width: 1280px;
+            margin: 0 auto 3rem;
+        }
+        .process-timeline {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            position: relative;
+        }
+        @media (min-width: 768px) {
+            .process-timeline {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        .process-step {
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+        .process-step:nth-child(1) { animation-delay: 0.1s; }
+        .process-step:nth-child(2) { animation-delay: 0.2s; }
+        .process-step:nth-child(3) { animation-delay: 0.3s; }
+        .process-step:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-number {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            font-size: 3.5rem;
+            color: var(--brand-green);
+            line-height: 1;
+            margin-bottom: 0.75rem;
+            opacity: 0.35;
+        }
+        .step-connector {
+            display: none;
+        }
+        @media (min-width: 768px) {
+            .step-connector {
+                display: block;
+                position: absolute;
+                top: 2rem;
+                right: -1rem;
+                width: calc(100% - 2rem);
+                height: 2px;
+                background: repeating-linear-gradient(
+                    90deg,
+                    var(--brand-green) 0px,
+                    var(--brand-green) 6px,
+                    transparent 6px,
+                    transparent 12px
+                );
+                opacity: 0.4;
+                z-index: 0;
+            }
+            .process-step:last-child .step-connector {
+                display: none;
+            }
+        }
+
+        .step-visual {
+            width: 100%;
+            aspect-ratio: 4/3;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            position: relative;
+            border: 1px solid rgba(0,0,0,0.08);
+        }
+        .step-visual-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .step-visual-label {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 0.65rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(0,0,0,0.3);
+        }
+
+        .step-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--ink);
+            margin-bottom: 0.35rem;
+        }
+        .step-desc {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            color: var(--charcoal);
+            line-height: 1.5;
+            opacity: 0.8;
+        }
+
+        /* ── Tools & Techniques ── */
+        .tools-section {
+            background: var(--paper);
+            padding: 5rem 2rem;
+        }
+        .tools-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .tools-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+            justify-content: flex-start;
+        }
+
+        .tool-card {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            padding: 1rem 1.5rem;
+            border: 1px solid rgba(0,0,0,0.9);
+            border-radius: 6px;
+            background: var(--paper);
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            position: relative;
+        }
+        .tool-card:nth-child(odd) {
+            transform: rotate(-1.5deg);
+        }
+        .tool-card:nth-child(even) {
+            transform: rotate(1deg);
+        }
+        .tool-card:nth-child(3n) {
+            transform: rotate(-0.5deg) translateY(-4px);
+        }
+        .tool-card:hover {
+            transform: rotate(0deg) translateY(-6px) scale(1.04);
+            border-color: var(--brand-green);
+            box-shadow: 0 12px 30px -10px rgba(167,225,105,0.25);
+        }
+
+        .tool-name {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--ink);
+        }
+        .tool-note {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            color: var(--charcoal);
+            opacity: 0.7;
+            line-height: 1.4;
+            max-width: 200px;
+        }
+
+        /* ── Final Output (Gallery Wall) ── */
+        .gallery-section {
+            background: var(--alt-bg);
+            padding: 5rem 2rem 6rem;
+        }
+        .gallery-header {
+            max-width: 1280px;
+            margin: 0 auto 3rem;
+        }
+        .gallery-wall {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            position: relative;
+        }
+        @media (min-width: 768px) {
+            .gallery-wall {
+                grid-template-columns: repeat(12, 1fr);
+                grid-auto-rows: 80px;
+                gap: 1.25rem;
+            }
+        }
+
+        .gallery-frame {
+            position: relative;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.08);
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            box-shadow: 0 4px 20px -6px rgba(0,0,0,0.1);
+        }
+        .gallery-frame:hover {
+            z-index: 10;
+            box-shadow: 0 20px 50px -12px rgba(0,0,0,0.2);
+        }
+
+        /* Gallery layout positions - desktop */
+        @media (min-width: 768px) {
+            .gallery-frame:nth-child(1) {
+                grid-column: 1 / 8;
+                grid-row: 1 / 5;
+                transform: rotate(-1.5deg);
+            }
+            .gallery-frame:nth-child(1):hover {
+                transform: rotate(0deg) scale(1.02);
+            }
+            .gallery-frame:nth-child(2) {
+                grid-column: 7 / 13;
+                grid-row: 1 / 4;
+                transform: rotate(1deg);
+            }
+            .gallery-frame:nth-child(2):hover {
+                transform: rotate(0deg) scale(1.02);
+            }
+            .gallery-frame:nth-child(3) {
+                grid-column: 1 / 5;
+                grid-row: 4 / 8;
+                transform: rotate(0.5deg);
+            }
+            .gallery-frame:nth-child(3):hover {
+                transform: rotate(0deg) scale(1.02);
+            }
+            .gallery-frame:nth-child(4) {
+                grid-column: 4 / 10;
+                grid-row: 5 / 9;
+                transform: rotate(-0.8deg);
+            }
+            .gallery-frame:nth-child(4):hover {
+                transform: rotate(0deg) scale(1.02);
+            }
+            .gallery-frame:nth-child(5) {
+                grid-column: 9 / 13;
+                grid-row: 4 / 7;
+                transform: rotate(1.2deg);
+            }
+            .gallery-frame:nth-child(5):hover {
+                transform: rotate(0deg) scale(1.02);
+            }
+        }
+
+        .gallery-placeholder {
+            width: 100%;
+            height: 100%;
+            min-height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (min-width: 768px) {
+            .gallery-placeholder {
+                min-height: auto;
+                height: 100%;
+            }
+        }
+        .gallery-label {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 0.6rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(0,0,0,0.25);
+            position: absolute;
+            z-index: 2;
+        }
+
+        /* Gallery placeholder styles */
+        .gp-stripe {
+            background: repeating-linear-gradient(
+                -45deg, #f3f4f6, #f3f4f6 10px, #e5e7eb 10px, #e5e7eb 20px
+            );
+        }
+        .gp-green {
+            background: var(--brand-green);
+            opacity: 0.25;
+        }
+        .gp-red {
+            background: var(--brand-red);
+            opacity: 0.15;
+        }
+        .gp-solid-green {
+            background: var(--brand-green);
+        }
+        .gp-solid-green .gallery-label { color: rgba(0,0,0,0.4); }
+        .gp-solid-dark {
+            background: var(--ink);
+        }
+        .gp-solid-dark .gallery-label { color: rgba(255,255,255,0.4); }
+
+        /* ── Project Navigation ── */
+        .project-nav {
+            background: var(--paper);
+            padding: 4rem 2rem;
+            border-top: 1px solid rgba(0,0,0,0.08);
+        }
+        .project-nav-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            align-items: center;
+        }
+        @media (min-width: 768px) {
+            .project-nav-inner {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+
+        .nav-project-link {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            text-decoration: none;
+            padding: 0.6rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            min-width: 140px;
+            background: transparent;
+        }
+        .nav-project-link:hover {
+            border-color: var(--brand-green);
+            transform: translateY(-2px);
+        }
+        .nav-project-direction {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--charcoal);
+            opacity: 0.5;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+        .nav-project-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--ink);
+        }
+        .nav-project-link:hover .nav-project-title {
+            color: var(--brand-green);
+        }
+        .nav-project-link.prev-link {
+            text-align: left;
+        }
+        .nav-project-link.next-link {
+            text-align: right;
+        }
+        @media (min-width: 768px) {
+            .nav-project-link.next-link .nav-project-direction {
+                justify-content: flex-end;
+            }
+        }
+
+        .nav-back-center {
+            text-align: center;
+        }
+        .nav-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #000;
+            background: var(--brand-green);
+            padding: 0.7rem 1.5rem;
+            border-radius: 9999px;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+        .nav-back-btn:hover {
+            background: var(--brand-red);
+            color: #fff;
+        }
+
+
+        /* ── Entrance animation ── */
+        .animate-in {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
+                        transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .animate-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ══════════════════════════════════ */
+        /* ── Dark Mode Overrides ────────── */
+        /* ══════════════════════════════════ */
+        html[data-theme="dark"] .detail-hero {
+            background: #11130f;
+        }
+        html[data-theme="dark"] .detail-hero-overlay {
+            background: linear-gradient(to top, rgba(17,19,15,0.95) 0%, rgba(17,19,15,0.4) 50%, transparent 100%);
+        }
+        html[data-theme="dark"] .detail-hero-placeholder .hero-stripe {
+            background: repeating-linear-gradient(
+                -45deg,
+                #1e221b, #1e221b 14px,
+                #2a2f24 14px, #2a2f24 28px
+            );
+        }
+        html[data-theme="dark"] .hero-placeholder-text {
+            -webkit-text-stroke: 1px rgba(255,255,255,0.04);
+        }
+        html[data-theme="dark"] .detail-collection-stamp {
+            border-color: var(--brand-red);
+            color: var(--brand-red);
+        }
+        html[data-theme="dark"] .detail-title {
+            color: #f3f6ee;
+        }
+        html[data-theme="dark"] .detail-description {
+            color: #bbc5b2;
+        }
+
+
+        html[data-theme="dark"] .origin-section {
+            background: #11130f;
+        }
+        html[data-theme="dark"] .origin-text {
+            color: #f3f6ee;
+        }
+        html[data-theme="dark"] .origin-attribution {
+            color: #95a08d;
+        }
+
+        html[data-theme="dark"] .process-section {
+            background: #1a1d17;
+        }
+        html[data-theme="dark"] .step-visual {
+            border-color: rgba(255,255,255,0.08);
+        }
+        html[data-theme="dark"] .step-visual-placeholder {
+            background: repeating-linear-gradient(
+                -45deg,
+                #1e221b, #1e221b 10px,
+                #2a2f24 10px, #2a2f24 20px
+            );
+        }
+        html[data-theme="dark"] .step-visual-label {
+            color: rgba(255,255,255,0.2);
+        }
+        html[data-theme="dark"] .step-title {
+            color: #f3f6ee;
+        }
+        html[data-theme="dark"] .step-desc {
+            color: #bbc5b2;
+        }
+        html[data-theme="dark"] .section-heading {
+            color: #f3f6ee;
+        }
+
+        html[data-theme="dark"] .tools-section {
+            background: #11130f;
+        }
+        html[data-theme="dark"] .tool-card {
+            background: #1a1d17;
+            border-color: rgba(243,246,238,0.9);
+        }
+        html[data-theme="dark"] .tool-card:hover {
+            border-color: var(--brand-green);
+        }
+        html[data-theme="dark"] .tool-name {
+            color: #f3f6ee;
+        }
+        html[data-theme="dark"] .tool-note {
+            color: #95a08d;
+        }
+
+        html[data-theme="dark"] .gallery-section {
+            background: #1a1d17;
+        }
+        html[data-theme="dark"] .gallery-frame {
+            border-color: rgba(255,255,255,0.08);
+        }
+        html[data-theme="dark"] .gp-stripe {
+            background: repeating-linear-gradient(
+                -45deg,
+                #1e221b, #1e221b 10px,
+                #2a2f24 10px, #2a2f24 20px
+            );
+        }
+        html[data-theme="dark"] .gallery-label {
+            color: rgba(255,255,255,0.2);
+        }
+
+        html[data-theme="dark"] .project-nav {
+            background: #11130f;
+            border-color: rgba(255,255,255,0.08);
+        }
+        html[data-theme="dark"] .nav-project-link {
+            border-color: rgba(255,255,255,0.1);
+        }
+        html[data-theme="dark"] .nav-project-link:hover {
+            border-color: var(--brand-green);
+        }
+        html[data-theme="dark"] .nav-project-direction {
+            color: #95a08d;
+        }
+        html[data-theme="dark"] .nav-project-title {
+            color: #f3f6ee;
+        }
+        html[data-theme="dark"] .nav-back-btn {
+            color: #000;
+        }
+        html[data-theme="dark"] .nav-back-btn:hover {
+            color: #fff;
+        }
+
+
+        html[data-theme="dark"] .step-number {
+            color: var(--brand-green);
+        }
+    </style>
+</head>
+<body>
+    <div class="noise-overlay"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 nav-container">
+            <div class="nav-wrapper">
+                <div class="flex justify-between h-16 items-center">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <a href="/index.html#home" class="flex items-center">
+                                <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png" alt="ART de ONE" class="h-10 w-auto">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="hidden md:flex items-center space-x-6 nav-center">
+                        <a href="/index.html#home" class="nav-link">Home</a>
+                        <a href="/shop.html" class="nav-link">Shop</a>
+                        <a href="/portfolio/student-gallery.html" class="nav-link">Student</a>
+                        <a href="/blog.html" class="nav-link">Blog</a>
+                        <a href="https://ai.artdeone.com/" class="nav-link">Ai</a>
+                        <div class="nav-dropdown-wrapper">
+                            <a href="/resources/resources-collection.html" class="nav-link" style="display:inline-flex;align-items:center;gap:4px;">Resources <i class="fas fa-chevron-down nav-dropdown-arrow"></i></a>
+                            <div class="nav-dropdown">
+                                <a href="/resources/resources-collection.html">All Resources</a>
+                                <a href="/prompt.html">AI Prompts</a>
+                            </div>
+                        </div>
+                        <a href="/index.html#contact" class="nav-link">Contact</a>
+                    </div>
+
+                    <div class="hidden md:flex items-center gap-3" id="desktopAuth">
+                        <button type="button" id="ado-theme-toggle" class="ado-theme-toggle" title="Switch theme" aria-label="Switch theme">
+                            <span class="ado-theme-toggle-icon"></span>
+                        </button>
+                        <a href="/customer-dashboard.html" class="nav-btn" id="btnLoginDesktop"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
+                        <div id="userInfoDesktop" style="display:none;" class="flex items-center gap-3">
+                            <a href="/customer-dashboard.html" title="Dashboard" style="text-decoration:none; display:flex; align-items:center;">
+                                <span class="shop-nav-avatar" id="avatarDesktop"></span>
+                            </a>
+                            <button onclick="logout()" class="nav-btn-signout">Sign out</button>
+                        </div>
+                    </div>
+
+                    <div class="md:hidden flex items-center">
+                        <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md hover:bg-gray-100 focus:outline-none" id="mobile-menu-button">
+                            <div class="icon-container text-black">
+                                <i data-feather="menu" class="icon-menu"></i>
+                                <i data-feather="x" class="icon-close"></i>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mobile-menu md:hidden hidden" id="mobile-menu">
+            <div class="py-2 px-4 space-y-1">
+                <a href="/index.html#home" class="block py-2 mobile-nav-link">Home</a>
+                <a href="/shop.html" class="block py-2 mobile-nav-link">Shop</a>
+                <a href="/portfolio/student-gallery.html" class="block py-2 mobile-nav-link">Student</a>
+                <a href="/blog.html" class="block py-2 mobile-nav-link">Blog</a>
+                <a href="https://ai.artdeone.com/" class="block py-2 mobile-nav-link">Ai</a>
+                <div>
+                    <button onclick="toggleMobileResourcesDropdown()" class="block py-2 mobile-nav-link w-full text-left" style="display:flex;align-items:center;gap:6px;">
+                        <span>Resources</span>
+                        <i class="fas fa-chevron-down mobile-dropdown-arrow" id="mobile-res-arrow"></i>
+                    </button>
+                    <div class="mobile-sub-menu" id="mobile-resources-sub">
+                        <a href="/resources/resources-collection.html" class="block py-2 pl-6 text-sm text-gray-500 hover:text-black transition">All Resources</a>
+                        <a href="/prompt.html" class="block py-2 pl-6 text-sm text-gray-500 hover:text-black transition">AI Prompts</a>
+                    </div>
+                </div>
+                <a href="/index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
+
+                <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #e5e5e5;margin-bottom:4px;">
+                    <button type="button" id="ado-theme-toggle-mobile" class="ado-theme-toggle" title="Switch theme" aria-label="Switch theme">
+                        <span class="ado-theme-toggle-icon"></span>
+                    </button>
+                    <span class="ado-theme-toggle-label">Theme</span>
+                </div>
+                <div id="mobileAuth">
+                    <a href="/customer-dashboard.html" class="nav-btn-signout" style="padding:0.3rem 0.75rem; font-size:0.75rem; gap:0.35rem;" id="btnLoginMobile"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
+                    <div id="userInfoMobile" style="display:none;">
+                        <a href="/customer-dashboard.html" class="mobile-profile-row" style="text-decoration:none;">
+                            <span class="shop-nav-avatar" id="avatarMobile"></span>
+                            <span class="mobile-nav-link text-black font-medium" style="padding:0;">Dashboard</span>
+                        </a>
+                        <button onclick="logout()" class="nav-btn-signout" style="padding:0.3rem 0.75rem; font-size:0.75rem; margin-top:6px;">Sign out</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+
+        <!-- Detail Hero -->
+        <section class="detail-hero" id="detailHero">
+            <div class="detail-hero-bg">
+                <div class="detail-hero-placeholder">
+                    <div class="hero-stripe"></div>
+                    <div class="hero-color-wash" id="heroColorWash"></div>
+                    <span class="hero-placeholder-text" id="heroPlaceholderText">WORK</span>
+                </div>
+            </div>
+            <div class="detail-hero-overlay"></div>
+            <div class="detail-hero-content">
+                <div class="detail-collection-stamp" id="heroCollection">ILLUSTRATION</div>
+                <h1 class="detail-title" id="heroTitle">Project Title</h1>
+                <p class="detail-description" id="heroDescription">Project description goes here.</p>
+            </div>
+        </section>
+
+        <!-- How It Started -->
+        <section class="origin-section animate-in">
+            <div class="origin-inner">
+                <span class="section-label">How It Started</span>
+                <div style="position: relative; margin-top: 1.5rem;">
+                    <svg class="origin-quote-mark" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 48.8C0 32 8.8 17.6 26.4 8L30.4 14.4C20 21.6 14.4 30.4 13.6 40H24V60H0V48.8ZM44 48.8C44 32 52.8 17.6 70.4 8L74.4 14.4C64 21.6 58.4 30.4 57.6 40H68V60H44V48.8Z" fill="currentColor"/>
+                    </svg>
+                    <p class="origin-text" id="originText">
+                        The origin story of this project will appear here.
+                    </p>
+                    <p class="origin-attribution" id="originAttribution">
+                        &mdash; From the sketchbook, 2024
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Process -->
+        <section class="process-section animate-in">
+            <div class="process-header">
+                <span class="section-label">The Process</span>
+                <h2 class="section-heading">From Concept to Creation</h2>
+            </div>
+            <div class="process-timeline" id="processTimeline">
+                <!-- Steps injected by JS -->
+            </div>
+        </section>
+
+        <!-- Tools & Techniques -->
+        <section class="tools-section animate-in">
+            <div class="tools-inner">
+                <span class="section-label">Tools &amp; Techniques</span>
+                <h2 class="section-heading">What Made It Happen</h2>
+                <div class="tools-grid" id="toolsGrid">
+                    <!-- Tool cards injected by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Output -->
+        <section class="gallery-section animate-in">
+            <div class="gallery-header">
+                <span class="section-label">Final Output</span>
+                <h2 class="section-heading">The Finished Work</h2>
+            </div>
+            <div class="gallery-wall" id="galleryWall">
+                <!-- Gallery frames injected by JS -->
+            </div>
+        </section>
+
+        <!-- Project Navigation -->
+        <section class="project-nav">
+            <div class="project-nav-inner" id="projectNav">
+                <!-- Prev/Next injected by JS -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white text-[#323232] py-12 border-t border-gray-200 footer-glow">
+
+        <!-- Sarvam-style circle glow orbs -->
+        <div class="footer-orb footer-orb-1"></div>
+        <div class="footer-orb footer-orb-2"></div>
+        <div class="footer-orb footer-orb-3"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-5 gap-8">
+                <div>
+                    <span class="text-xl font-bold mb-4 block text-black">ART de ONE</span>
+                    <p class="text-gray-500 text-sm">
+                        Freelance Graphic Designer & Illustrator Portfolio, Blog, Resources and Online Courses
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Quick Links</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/index.html#home" class="text-gray-500 hover:text-black transition duration-300">Home</a></li>
+                        <li><a href="/prompt.html" class="text-gray-500 hover:text-black transition duration-300">Prompts</a></li>
+                        <li><a href="/shop.html" class="text-gray-500 hover:text-black transition duration-300">Shop</a></li>
+                        <li><a href="/blog.html" class="text-gray-500 hover:text-black transition duration-300">Blog</a></li>
+                        <li><a href="/resources/resources-collection.html" class="text-gray-500 hover:text-black transition duration-300">Resources</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Services</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Logo Design</a></li>
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Social Media</a></li>
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Printing</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Contact</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/index.html#about" class="text-gray-500 hover:text-black transition duration-300">About</a></li>
+                        <li><a href="/index.html#contact" class="text-gray-500 hover:text-black transition duration-300">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Legal</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/privacy-policy.html" class="text-gray-500 hover:text-black transition duration-300">Privacy Policy</a></li>
+                        <li><a href="/terms-of-service.html" class="text-gray-500 hover:text-black transition duration-300">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="border-t border-gray-200 mt-8 pt-8">
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-6">
+
+                    <!-- Left: Copyright -->
+                    <p class="text-gray-500 text-sm text-center sm:text-left order-2 sm:order-1 sm:w-1/4">
+                        &copy; 2026 ART de ONE. All rights reserved.
+                    </p>
+
+                    <!-- Center: Trust Badges -->
+                    <div class="flex flex-wrap items-center justify-center gap-3 order-1 sm:order-2">
+
+                        <!-- Badge 1: SSL Secured -->
+                        <div class="trust-badge group" title="SSL Encrypted Connection">
+                            <div class="badge-icon">
+                                <i class="fas fa-lock text-xs"></i>
+                            </div>
+                            <div class="badge-text">
+                                <span class="badge-label">SSL</span>
+                                <span class="badge-value">Secured</span>
+                            </div>
+                        </div>
+
+                        <!-- Badge 2: DMCA Protected -->
+                        <div class="trust-badge group dmca-official-wrapper" title="DMCA.com Protection Status">
+                            <a href="//www.dmca.com/Protection/Status.aspx?ID=04063fb7-27c9-4e80-86e5-bc851bcd5935"
+                               title="DMCA.com Protection Status"
+                               class="dmca-badge">
+                                <img loading="lazy"
+                                    src="https://images.dmca.com/Badges/dmca-badge-w100-2x1-02.png?ID=04063fb7-27c9-4e80-86e5-bc851bcd5935"
+                                    alt="DMCA.com Protection Status"
+                                    style="height: 20px; width: auto; display: block;" />
+                            </a>
+                        </div>
+
+                        <!-- Badge 3: Verified Professional -->
+                        <div class="trust-badge group" title="9+ Years Professional Experience">
+                            <div class="badge-icon badge-icon-gold">
+                                <i class="fas fa-award text-xs"></i>
+                            </div>
+                            <div class="badge-text">
+                                <span class="badge-label">Verified</span>
+                                <span class="badge-value">Professional</span>
+                            </div>
+                        </div>
+
+                        <!-- Badge 4: Safe Browsing -->
+                        <div class="trust-badge group" title="Google Safe Browsing Verified">
+                            <div class="badge-icon badge-icon-green">
+                                <i class="fas fa-check-circle text-xs"></i>
+                            </div>
+                            <div class="badge-text">
+                                <span class="badge-label">Google</span>
+                                <span class="badge-value">Safe</span>
+                            </div>
+                        </div>
+
+                        <!-- Badge 5: Google Business -->
+                        <a href="https://g.page/r/Cb6j-IdtRRWLEAE/review" target="_blank" class="trust-badge group"
+                            title="Find us on Google Business">
+                            <div class="badge-icon" style="background-color: #4285F4;">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                    style="width:12px;height:12px;fill:white;">
+                                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                                </svg>
+                            </div>
+                            <div class="badge-text">
+                                <span class="badge-label">Google</span>
+                                <span class="badge-value">Business</span>
+                            </div>
+                        </a>
+
+                    </div>
+
+                    <!-- Right: Social Icons -->
+                    <div class="flex justify-center sm:justify-end space-x-6 text-sm order-3 sm:w-1/4">
+                        <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-behance"></i></a>
+                        <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-tiktok"></i></a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <script src="/js/theme-mode.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script src="/js/nav-auth.js"></script>
+    <script src="/css-and-js/mobile-smooth-nav.js"></script>
+    <script>
+        feather.replace();
+
+        // ── Project Data (matches instructor-work.html cards) ──
+        var projects = [
+            {
+                id: 1,
+                title: 'Bagan Temple Vector Study',
+                category: 'Illustration',
+                description: 'A detailed exploration of Myanmar\'s ancient architecture through clean vector lines and warm earth tones.',
+                origin: 'It started with a photograph I took during a dawn visit to the Bagan plains. The way the morning light hit the temple spires made me want to capture not just the shapes, but the feeling of standing in centuries of history. I began sketching directly in Illustrator, tracing my memory more than any reference.',
+                tools: [
+                    { name: 'Adobe Illustrator', note: 'Primary vector workspace' },
+                    { name: 'Pen Tool', note: 'Hand-traced every spire and arch' },
+                    { name: 'Color Theory', note: 'Earth-tone palette from temple stones' },
+                    { name: 'Pathfinder', note: 'Complex shape building' }
+                ],
+                process: [
+                    { title: 'Photo Reference', desc: 'Collected dawn photographs from the temple grounds for reference material.' },
+                    { title: 'Line Sketching', desc: 'Rough vector outlines capturing the fundamental architectural shapes.' },
+                    { title: 'Detail Layering', desc: 'Added ornamental details, brickwork textures, and structural depth.' },
+                    { title: 'Color & Polish', desc: 'Applied the earth-tone palette and refined all edge work.' }
+                ],
+                heroColor: '#a7e169',
+                galleryStyles: ['gp-stripe', 'gp-green', 'gp-solid-green', 'gp-stripe', 'gp-red']
+            },
+            {
+                id: 2,
+                title: 'ONE DAY STUDIO',
+                category: 'Logo Design',
+                description: 'Brand identity system for a Yangon-based creative studio. Minimal mark, maximum impact.',
+                origin: 'The brief was deceptively simple: create a logo that feels like one perfect day. The studio founders wanted something that captured that rare creative flow state when everything clicks. I spent two weeks just writing the word "ONE" in different ways before the mark revealed itself.',
+                tools: [
+                    { name: 'Adobe Illustrator', note: 'Vector construction & grid system' },
+                    { name: 'Grid Systems', note: 'Mathematical precision for the mark' },
+                    { name: 'Figma', note: 'Presentation mockups' },
+                    { name: 'Paper & Pencil', note: 'Initial 200+ thumbnail sketches' }
+                ],
+                process: [
+                    { title: 'Research & Brief', desc: 'Deep dive into the studio\'s philosophy, values, and visual language.' },
+                    { title: 'Thumbnail Exploration', desc: 'Over 200 pencil sketches exploring monogram and wordmark concepts.' },
+                    { title: 'Digital Refinement', desc: 'Top 5 concepts rebuilt on precise grids in Illustrator.' },
+                    { title: 'Identity System', desc: 'Extended the mark into a full brand system with usage guidelines.' }
+                ],
+                heroColor: '#a7e169',
+                galleryStyles: ['gp-solid-dark', 'gp-stripe', 'gp-solid-green', 'gp-red', 'gp-stripe']
+            },
+            {
+                id: 3,
+                title: 'Myanmar Script Experiments',
+                category: 'Typography',
+                description: 'Pushing Burmese letterforms into unexpected geometric territories.',
+                origin: 'Myanmar script is one of the most beautifully circular writing systems in the world. I wondered: what happens if you force those organic curves into rigid geometric containers? The tension between the natural and the constructed became the entire project.',
+                tools: [
+                    { name: 'Glyphs', note: 'Font design and letterform editing' },
+                    { name: 'Procreate', note: 'Freehand exploration on iPad' },
+                    { name: 'Illustrator', note: 'Vector cleanup & refinement' },
+                    { name: 'InDesign', note: 'Specimen sheet layout' }
+                ],
+                process: [
+                    { title: 'Calligraphy Study', desc: 'Studied traditional Myanmar calligraphy forms and stroke logic.' },
+                    { title: 'Geometric Deconstruction', desc: 'Broke letterforms into circles, squares, and triangles.' },
+                    { title: 'Hybrid Forms', desc: 'Merged traditional curves with geometric structure to create new forms.' },
+                    { title: 'Specimen Design', desc: 'Designed type specimen sheets showcasing the experimental alphabet.' }
+                ],
+                heroColor: '#ed2939',
+                galleryStyles: ['gp-red', 'gp-stripe', 'gp-solid-dark', 'gp-stripe', 'gp-solid-green']
+            },
+            {
+                id: 4,
+                title: 'Logo Reveal Animation',
+                category: 'Motion',
+                description: 'Frame-by-frame motion study turning a static mark into a living, breathing identity.',
+                origin: 'A logo should feel alive, not just sit on a page. This project was an experiment in giving personality to a geometric mark — could I make it feel like it was breathing? I animated 120 frames by hand to find out.',
+                tools: [
+                    { name: 'After Effects', note: 'Animation timeline and easing' },
+                    { name: 'Illustrator', note: 'Source vector artwork' },
+                    { name: 'Lottie', note: 'Web-ready export format' },
+                    { name: 'Principle', note: 'Interaction prototyping' }
+                ],
+                process: [
+                    { title: 'Storyboarding', desc: 'Mapped out the animation sequence — entry, hold, exit — as rough frames.' },
+                    { title: 'Motion Curves', desc: 'Tested different easing functions to find an organic, breathing rhythm.' },
+                    { title: 'Frame Refinement', desc: '120 hand-tuned keyframes for smooth sub-pixel animation.' },
+                    { title: 'Export & Optimize', desc: 'Exported as Lottie JSON for lightweight web implementation.' }
+                ],
+                heroColor: '#a7e169',
+                galleryStyles: ['gp-stripe', 'gp-solid-dark', 'gp-green', 'gp-stripe', 'gp-solid-green']
+            },
+            {
+                id: 5,
+                title: 'Rome Green Cafe',
+                category: 'Branding',
+                description: 'Full visual identity for a plant-forward cafe concept.',
+                origin: 'The founders came to me with a napkin sketch and a dream: a cafe where plants aren\'t just decoration, they\'re the entire personality. The brand needed to feel like walking into a greenhouse that happens to serve excellent coffee.',
+                tools: [
+                    { name: 'Illustrator', note: 'Logo and icon design' },
+                    { name: 'Photoshop', note: 'Mockups and texture work' },
+                    { name: 'Procreate', note: 'Botanical illustrations' },
+                    { name: 'InDesign', note: 'Brand guidelines document' }
+                ],
+                process: [
+                    { title: 'Brand Discovery', desc: 'Interviewed the founders, visited competitor spaces, mapped the brand territory.' },
+                    { title: 'Visual Direction', desc: 'Created 3 distinct mood boards blending botanical and urban aesthetics.' },
+                    { title: 'Identity Design', desc: 'Logo, color palette, typography system, and custom botanical icons.' },
+                    { title: 'Touchpoints', desc: 'Menus, cups, signage, social templates, and brand guidelines.' }
+                ],
+                heroColor: '#a7e169',
+                galleryStyles: ['gp-solid-green', 'gp-stripe', 'gp-red', 'gp-solid-dark', 'gp-stripe']
+            },
+            {
+                id: 6,
+                title: 'Venom Character Study',
+                category: 'Illustration',
+                description: 'Advanced vector shading and shape layering to bring a complex character to life in pure Illustrator.',
+                origin: 'I wanted to prove that photorealistic illustration is possible in a purely vector environment. Venom was the perfect subject — the interplay of light on dark, organic tendrils against a solid mass. No raster effects, no cheating. Every shadow is a shape.',
+                tools: [
+                    { name: 'Illustrator', note: 'Entire illustration built as vectors' },
+                    { name: 'Pen Tool', note: 'Thousands of anchor points for detail' },
+                    { name: 'Mesh Tool', note: 'Gradient mesh for organic shading' },
+                    { name: 'Blend Tool', note: 'Smooth tonal transitions' }
+                ],
+                process: [
+                    { title: 'Reference Assembly', desc: 'Collected film stills and comic panels to understand the character\'s form.' },
+                    { title: 'Base Construction', desc: 'Built the primary silhouette and mass using basic shapes.' },
+                    { title: 'Detail & Shading', desc: 'Layered hundreds of shapes for muscle definition and light mapping.' },
+                    { title: 'Final Rendering', desc: 'Added specular highlights, saliva strands, and environmental effects.' }
+                ],
+                heroColor: '#ed2939',
+                galleryStyles: ['gp-solid-dark', 'gp-red', 'gp-stripe', 'gp-solid-green', 'gp-stripe']
+            },
+            {
+                id: 7,
+                title: 'Custom Display Font',
+                category: 'Typography',
+                description: 'A bold, condensed display typeface built from scratch for poster work.',
+                origin: 'I kept reaching for a typeface that didn\'t exist — something brutally condensed but with warmth in the curves. After the third project where I couldn\'t find what I needed, I decided to build it myself. Character by character, starting with just the word "POSTER."',
+                tools: [
+                    { name: 'Glyphs', note: 'Primary type design environment' },
+                    { name: 'Illustrator', note: 'Initial letterform sketching' },
+                    { name: 'RoboFont', note: 'Spacing and kerning refinement' },
+                    { name: 'FontLab', note: 'Final OpenType feature work' }
+                ],
+                process: [
+                    { title: 'Design Principles', desc: 'Defined the typeface\'s DNA: condensed, geometric, with subtle stroke contrast.' },
+                    { title: 'Core Glyphs', desc: 'Designed the control characters (H, O, n, o, d, p) to set proportions.' },
+                    { title: 'Full Character Set', desc: 'Extended to full Latin, numerals, and special characters.' },
+                    { title: 'Testing & Proofing', desc: 'Printed specimen at various sizes, refined spacing and kerning pairs.' }
+                ],
+                heroColor: '#ed2939',
+                galleryStyles: ['gp-stripe', 'gp-solid-dark', 'gp-red', 'gp-stripe', 'gp-solid-green']
+            },
+            {
+                id: 8,
+                title: 'Minimal Marks Collection',
+                category: 'Logo Design',
+                description: 'A series of geometric monograms exploring negative space.',
+                origin: 'What\'s the least amount of visual information needed to communicate an initial? This collection is an ongoing exploration of that question. Each mark is built from the simplest possible geometric primitives — circles, lines, and the spaces between them.',
+                tools: [
+                    { name: 'Illustrator', note: 'Grid-based vector construction' },
+                    { name: 'Figma', note: 'Rapid iteration and presentation' },
+                    { name: 'Paper & Pencil', note: 'Thumbnail sketching phase' },
+                    { name: 'Photoshop', note: 'Mockup application' }
+                ],
+                process: [
+                    { title: 'Constraints', desc: 'Set strict rules: only circles, straight lines, and 90/45 degree angles.' },
+                    { title: 'Alphabet Exploration', desc: 'Sketched 5+ variations for each letter of the alphabet.' },
+                    { title: 'Reduction', desc: 'Stripped each mark to its absolute minimum while retaining legibility.' },
+                    { title: 'Presentation', desc: 'Designed a cohesive showcase with consistent framing and scale.' }
+                ],
+                heroColor: '#a7e169',
+                galleryStyles: ['gp-green', 'gp-solid-dark', 'gp-stripe', 'gp-solid-green', 'gp-stripe']
+            },
+            {
+                id: 9,
+                title: 'Social Campaign Suite',
+                category: 'Branding',
+                description: 'Cohesive visual system for multi-platform product advertising — from static posts to animated stories.',
+                origin: 'The challenge was creating a design system flexible enough for Instagram carousels, Facebook ads, YouTube thumbnails, and TikTok overlays — all looking unmistakably like the same brand. I built a modular template system that could stretch across any format.',
+                tools: [
+                    { name: 'Photoshop', note: 'Photo manipulation and compositing' },
+                    { name: 'Illustrator', note: 'Icon system and graphic elements' },
+                    { name: 'Premiere Pro', note: 'Video ad editing' },
+                    { name: 'After Effects', note: 'Motion graphics and animated overlays' }
+                ],
+                process: [
+                    { title: 'Platform Audit', desc: 'Mapped every platform\'s size requirements, safe zones, and best practices.' },
+                    { title: 'Design System', desc: 'Built a modular grid with swappable text, image, and graphic blocks.' },
+                    { title: 'Content Creation', desc: 'Produced 30+ static assets and 8 animated variants.' },
+                    { title: 'Performance Review', desc: 'Tested variations, documented which layouts drove highest engagement.' }
+                ],
+                heroColor: '#ed2939',
+                galleryStyles: ['gp-stripe', 'gp-solid-green', 'gp-solid-dark', 'gp-red', 'gp-stripe']
+            }
+        ];
+
+        // ── Parse project ID from URL ──
+        function getProjectId() {
+            var params = new URLSearchParams(window.location.search);
+            var id = parseInt(params.get('id'));
+            return (id >= 1 && id <= projects.length) ? id : 1;
+        }
+
+        var currentId = getProjectId();
+        var project = projects[currentId - 1];
+
+        // ── Update page title ──
+        document.title = project.title + ' | Instructor Work | ART de ONE';
+
+        // ── Populate Hero ──
+        document.getElementById('heroCollection').textContent = project.category.toUpperCase();
+
+        // Apply accent to last word of title
+        var titleWords = project.title.split(' ');
+        if (titleWords.length > 1) {
+            var lastWord = titleWords.pop();
+            document.getElementById('heroTitle').innerHTML = titleWords.join(' ') + ' <span class="title-accent">' + lastWord + '</span>';
+        } else {
+            document.getElementById('heroTitle').innerHTML = '<span class="title-accent">' + project.title + '</span>';
+        }
+
+        document.getElementById('heroDescription').textContent = project.description;
+        document.getElementById('heroPlaceholderText').textContent = project.category.toUpperCase().split(' ')[0];
+        document.getElementById('heroColorWash').style.background = project.heroColor;
+
+        // ── Populate Origin ──
+        document.getElementById('originText').textContent = project.origin;
+        document.getElementById('originAttribution').innerHTML = '&mdash; From the creative process notes';
+
+        // ── Populate Process ──
+        var timelineEl = document.getElementById('processTimeline');
+        var placeholderStyles = ['gp-stripe', 'gp-green', 'gp-red', 'gp-stripe'];
+        project.process.forEach(function(step, i) {
+            var div = document.createElement('div');
+            div.className = 'process-step';
+            div.innerHTML =
+                '<span class="step-number">0' + (i + 1) + '</span>' +
+                (i < 3 ? '<div class="step-connector"></div>' : '') +
+                '<div class="step-visual">' +
+                    '<div class="step-visual-placeholder ' + placeholderStyles[i] + '">' +
+                        '<span class="step-visual-label">Step ' + (i + 1) + ' Image</span>' +
+                    '</div>' +
+                '</div>' +
+                '<h4 class="step-title">' + step.title + '</h4>' +
+                '<p class="step-desc">' + step.desc + '</p>';
+            timelineEl.appendChild(div);
+        });
+
+        // ── Populate Tools ──
+        var toolsEl = document.getElementById('toolsGrid');
+        project.tools.forEach(function(tool) {
+            var div = document.createElement('div');
+            div.className = 'tool-card';
+            div.innerHTML =
+                '<span class="tool-name">' + tool.name + '</span>' +
+                '<span class="tool-note">' + tool.note + '</span>';
+            toolsEl.appendChild(div);
+        });
+
+        // ── Populate Gallery ──
+        var galleryEl = document.getElementById('galleryWall');
+        var galleryLabels = ['Final Artwork', 'Detail View', 'Color Study', 'Application', 'Close-up'];
+        project.galleryStyles.forEach(function(style, i) {
+            var div = document.createElement('div');
+            div.className = 'gallery-frame';
+            div.innerHTML =
+                '<div class="gallery-placeholder ' + style + '">' +
+                    '<span class="gallery-label">' + galleryLabels[i] + '</span>' +
+                '</div>';
+            galleryEl.appendChild(div);
+        });
+
+        // ── Populate Project Navigation ──
+        var navEl = document.getElementById('projectNav');
+        var prevId = currentId > 1 ? currentId - 1 : projects.length;
+        var nextId = currentId < projects.length ? currentId + 1 : 1;
+        var prevProject = projects[prevId - 1];
+        var nextProject = projects[nextId - 1];
+
+        navEl.innerHTML =
+            '<a href="project-detail.html?id=' + prevId + '" class="nav-project-link prev-link">' +
+                '<span class="nav-project-direction">' +
+                    '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>' +
+                    ' Previous' +
+                '</span>' +
+                '<span class="nav-project-title">' + prevProject.title + '</span>' +
+            '</a>' +
+            '<div class="nav-back-center">' +
+                '<a href="/project.html" class="nav-back-btn">' +
+                    '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>' +
+                    ' All Projects' +
+                '</a>' +
+            '</div>' +
+            '<a href="project-detail.html?id=' + nextId + '" class="nav-project-link next-link">' +
+                '<span class="nav-project-direction">' +
+                    'Next ' +
+                    '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>' +
+                '</span>' +
+                '<span class="nav-project-title">' + nextProject.title + '</span>' +
+            '</a>';
+
+        // ── Scroll Animation Observer ──
+        var animateElements = document.querySelectorAll('.animate-in');
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        animateElements.forEach(function(el) { observer.observe(el); });
+    </script>
+</body>
+</html>
