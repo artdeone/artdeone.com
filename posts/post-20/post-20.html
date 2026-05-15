@@ -14,7 +14,7 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ဆိုက်ဘာလုံခြုံရေးကိုပါ ခြိမ်းခြောက်လာနိုင်တဲ့ Anthropic ရဲ့ အစွမ်းထက်ဆုံး AI အသစ် ပေါက်ကြားမှု - ART de ONE</title>
+    <title>Prompt Engineering ဆိုတာ ဘာလဲ? - ART de ONE</title>
     <link rel="icon" type="image/png" href="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769316272/fav-icon_n00lji.png">
     
     <!-- LIBRARIES -->
@@ -119,10 +119,87 @@
             object-fit: contain;
         }
 
+        /* Info Card */
+        .info-card {
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            margin: 3rem 0;
+            border-left: 6px solid #a7e169;
+        }
+
+        /* Numbered List Styling */
+        .numbered-list {
+            counter-reset: item;
+            list-style: none;
+            padding: 0;
+        }
+        .numbered-list li {
+            position: relative;
+            padding-left: 3rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+        .numbered-list li::before {
+            content: counter(item);
+            counter-increment: item;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2rem;
+            height: 2rem;
+            background-color: #a7e169;
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+
+        /* Prompt Example Box */
+        .prompt-box {
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-left: 6px solid #a7e169;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: #323232;
+        }
+
+        /* Output Example Box */
+        .output-box {
+            background-color: #f0fdf4;
+            border: 1px solid #a7e169;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin: 2rem 0;
+        }
+
+        /* Golden Rule Box */
+        .golden-rule {
+            background: linear-gradient(135deg, #f9fef5 0%, #fefce8 100%);
+            border: 1px solid #e5e7eb;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+        .golden-rule p {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #000;
+            margin: 0;
+        }
+
         /* SHARE BUTTON UPDATED (Smaller Size, Red Hover, No Stroke) */
         .share-btn {
-            width: 36px; /* Smaller size */
-            height: 36px; /* Smaller size */
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -133,9 +210,9 @@
             font-size: 0.9rem;
         }
         .share-btn:hover {
-            background-color: #ed2939 !important; /* Red Hover */
+            background-color: #ed2939 !important;
             color: #fff !important;
-            border-color: #ed2939 !important; /* Removes visible stroke */
+            border-color: #ed2939 !important;
         }
 
         .nav-btn { border-radius: 2rem; }
@@ -275,6 +352,24 @@
             color: #fff !important;
         }
 
+        /* Dark Mode Info Card */
+        .dark-mode .info-card {
+            background-color: #1e1e1e !important;
+            border-color: #333 !important;
+        }
+        .dark-mode .prompt-box {
+            background-color: #1e1e1e !important;
+            border-color: #333 !important;
+        }
+        .dark-mode .output-box {
+            background-color: #1a2e1a !important;
+            border-color: #a7e169 !important;
+        }
+        .dark-mode .golden-rule {
+            background: linear-gradient(135deg, #1a2e1a 0%, #2a2a1a 100%) !important;
+            border-color: #333 !important;
+        }
+
         /* Toggle Button */
 /* Blur Fade-in Scroll Animation */
         .blur-fade {
@@ -377,12 +472,12 @@
             <div class="post-header-orb post-header-orb-3"></div>
             <div class="max-w-3xl mx-auto px-4 text-center" data-aos="fade-up">
                 <div class="flex items-center justify-center gap-4 text-sm text-gray-500 mb-6">
-                    <span class="uppercase tracking-widest text-accent font-bold">AI & Cybersecurity</span>
-                    <span>•</span>
-                    <span>March 27, 2026</span>
+                    <span class="uppercase tracking-widest text-accent font-bold">AI Tips</span>
+                    <span>&bull;</span>
+                    <span>May 15, 2026</span>
                 </div>
-                <h1 class="text-3xl md:text-5xl font-bold text-black mb-8" style="line-height: 1.6;">
-                    ဆိုက်ဘာလုံခြုံရေးကိုပါ ခြိမ်းခြောက်လာနိုင်တဲ့<br>Anthropic ရဲ့ အစွမ်းထက်ဆုံး AI အသစ် ပေါက်ကြားမှု
+                <h1 class="text-3xl md:text-5xl font-bold text-black mb-8 leading-tight">
+                    Prompt Engineering ဆိုတာ ဘာလဲ?
                 </h1>
                 
                 <!-- Author Box -->
@@ -401,72 +496,79 @@
             <div class="max-w-3xl mx-auto">
                 <div class="post-content" data-aos="fade-up">
                     <p class="text-lg leading-relaxed mb-12 text-[#323232]">
-                        Anthropic ကနေ Claude Opus 4.6 ထက် အစွမ်းထက်တဲ့ AI Modelအသစ် တစ်ခု ပေါက်ကြားလာခဲ့ပါတယ်။
+                        AI ကို "မှန်မှန်ကန်ကန် မေးတတ်တဲ့ပညာ" ပါ။ မေးနည်းမှားရင် &mdash; AI က မှားတာထုတ်မယ်။ မေးနည်းမှန်ရင် &mdash; AI က လိုချင်တာအတိအကျ ပေးမယ်။
                     </p>
 
                     <!-- Feature Image -->
                     <div class="trend-image-container">
-                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1774604734/anthropic_dfbhme.jpg" alt="Anthropic Claude AI">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1778825886/ChatGPT_Image_May_15_2026_11_53_07_AM_imk7q1.jpg" alt="Prompt Engineering Guide">
                     </div>
 
-                    <!-- Section 1 -->
+                    <!-- Section 1: 5 Points -->
                     <div class="mb-16 blur-fade">
-                        <h2 class="text-black">၁။ အသစ်ထွက်လာမယ့် အင်အားအကြီးဆုံး AI မော်ဒယ် (A New Tier of AI)</h2>
-                        <p>
-                            Anthropic ရဲ့ Content Management System (CMS) အမှားအယွင်းကြောင့် "Claude Mythos" လို့ခေါ်တဲ့ အစွမ်းထက် AI model အသစ်အကြောင်း ပေါက်ကြားသွားခဲ့ပါတယ်။ ဒီထဲမှာ "Capybara" ဆိုတဲ့ အဆင့်သစ် (tier) တစ်ခုပါဝင်ပြီး အရင်က အကောင်းဆုံးဖြစ်ခဲ့တဲ့ Claude Opus 4.6 ထက် ပိုကြီးမားသလို ပိုလည်းဥာဏ်ရည်မြင့်ပါတယ်။
-                        </p>
-                        <p class="mt-4">
-                            ဆော့ဖ်ဝဲလ် Coding ရေးသားခြင်း၊ စဉ်းစားဆင်ခြင်ခြင်း (Reasoning) နဲ့ ဆိုက်ဘာလုံခြုံရေး (Cybersecurity) စမ်းသပ်မှုတွေမှာ ရမှတ်တွေ သိသိသာသာ ပိုများတယ်လို့ ဆိုပါတယ်။
-                        </p>
+                        <h2 class="text-black">Prompt ကောင်းတစ်ခုမှာ ပါရမယ့် အချက် ၅ ချက်</h2>
+                        
+                        <ol class="numbered-list">
+                            <li>
+                                <strong class="text-black">Role</strong> &mdash; ဘယ်သူဆိုတာသတ်မှတ်<br>
+                                <span class="text-gray-500">"You are a professional graphic designer..."</span>
+                            </li>
+                            <li>
+                                <strong class="text-black">Task</strong> &mdash; ဘာလုပ်ရမလဲ<br>
+                                <span class="text-gray-500">"Create a logo concept for..."</span>
+                            </li>
+                            <li>
+                                <strong class="text-black">Context</strong> &mdash; နောက်ခံအချက်အလက်<br>
+                                <span class="text-gray-500">"The brand is for young creatives in Myanmar..."</span>
+                            </li>
+                            <li>
+                                <strong class="text-black">Format</strong> &mdash; ဘယ်ပုံစံနဲ့<br>
+                                <span class="text-gray-500">"Give me 3 options in bullet points"</span>
+                            </li>
+                            <li>
+                                <strong class="text-black">Tone</strong> &mdash; ဘယ်လိုပုံစံမျိုးနဲ့ ပြောမလဲ<br>
+                                <span class="text-gray-500">"Keep it professional but approachable"</span>
+                            </li>
+                        </ol>
                     </div>
 
-                    <!-- Section 2 -->
+                    <!-- Section 2: Use Cases -->
                     <div class="mb-16 blur-fade">
-                        <h2 class="text-black">၂။ ဆိုက်ဘာလုံခြုံရေး စိုးရိမ်ရမှု (Cybersecurity Alarm)</h2>
-                        <p>
-                            ဒီ model အသစ်က ဆိုက်ဘာစွမ်းရည်ပိုင်းမှာ တခြား AI တွေထက် အများကြီး သာလွန်နေတဲ့အတွက် ဆိုက်ဘာတိုက်ခိုက်မှု (cyberattacks) တွေကို ပိုမိုဆိုးရွားမြန်ဆန်လာစေနိုင်တဲ့ အန္တရာယ်ရှိပါတယ်။
-                        </p>
-                        <p class="mt-4">
-                            ဒါကြောင့် ကာကွယ်ရေးအပိုင်းကို ကြိုတင်ပြင်ဆင်နိုင်ဖို့အတွက် Cybersecurity အဖွဲ့အစည်းတွေကိုပဲ အရင်ဆုံး စမ်းသပ်ခွင့်ပေးဖို့ Anthropic က စီစဉ်ထားပါတယ်။ လက်ရှိမှာ Run ရတာ ကုန်ကျစရိတ်များသေးသလို အများပြည်သုံးဖို့လည်း အဆင်သင့်မဖြစ်သေးပါဘူး။
-                        </p>
+                        <h2 class="text-black">Use Cases တွေမှာ ဘယ်လိုသုံးမလဲ?</h2>
+                        
+                        <div class="info-card">
+                            <ul class="space-y-4 text-gray-600">
+                                <li><strong class="text-black">Image Generation</strong> &mdash; Style + Subject + Mood + Lighting ထည့်ပါ</li>
+                                <li><strong class="text-black">Video Script</strong> &mdash; Duration + Target Audience + Key Message ထည့်ပါ</li>
+                                <li><strong class="text-black">Data Analysis</strong> &mdash; Dataset context + Expected output format ထည့်ပါ</li>
+                            </ul>
+                        </div>
                     </div>
 
-                    <!-- Sign-in CTA Banner -->
-                    <div class="signin-cta mb-16 blur-fade p-6 rounded-2xl border border-gray-200 text-center" style="background: linear-gradient(135deg, #f9fef5 0%, #fefce8 100%);">
-                        <p class="text-lg font-bold text-black mb-2">အခမဲ့ Resources တွေရယူဖို့ Sign in ဝင်ထားလိုက်ပါခင်ဗျ</p>
-                        <p class="text-sm text-gray-600 mb-4">Sign in လုပ်ထားရင် Resources တွေ၊ Templates တွေ အကုန် Free Download လုပ်လို့ရပါတယ်။</p>
-                        <a href="/customer-dashboard.html" class="nav-btn bg-[#a7e169] text-black px-8 py-3 h-auto inline-flex gap-2 rounded-full font-bold hover:bg-[#ed2939] hover:text-white transition-all" style="text-decoration:none;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                            Sign in
-                        </a>
-                    </div>
-
-                    <!-- Section 3 -->
+                    <!-- Section 3: Real Prompt Example -->
                     <div class="mb-16 blur-fade">
-                        <h2 class="text-black">၃။ ပေါက်ကြားရတဲ့ အကြောင်းရင်းနဲ့ တွေ့ရှိမှု (The Leak)</h2>
-                        <p>
-                            Fortune သတင်းဌာရဲ့ ဆိုက်ဘာလုံခြုံရေး သုတေသီတွေက Anthropic ရဲ့ Publish မလုပ်ရသေးတဲ့ Blog posts တွေ၊ မှတ်တမ်းပေါင်း ၃,၀၀၀ နီးပါးကို အမှတ်မထင် တွေ့ရှိခဲ့တာပါ။
-                        </p>
-                        <p class="mt-4">
-                            CMS စနစ်မှာ အချက်အလက်တွေကို Private မလုပ်ဘဲ Public အဖြစ် မှားယွင်းထားမိတဲ့ <strong class="text-black">"လူ့အမှား" (Human error)</strong> ကြောင့် အခုလို ပေါက်ကြားခဲ့ရတာ ဖြစ်ပါတယ်။
-                        </p>
+                        <h2 class="text-black">ဥပမာ Real Prompt တစ်ခု (Graphic Design)</h2>
+                        
+                        <div class="prompt-box">
+                            <p>"Graphic Designer တစ်ယောက်အနေနဲ့ ဆောင်ရွက်ပေးပါ။ Myanmar ရဲ့ Young Creative တွေအတွက် Coffee Brand Logo ကို Design လုပ်ပေးပါ။ Brand က Modern နဲ့ Minimalist ဖြစ်ရမယ်၊ Target Audience က အသက် ၁၈&ndash;၃၀ ကြားပါ။</p>
+                            <p class="mt-4">Output ပုံစံ &mdash; (၁) Logo Concept ၃ မျိုး &mdash; တစ်ခုချင်းစီရဲ့ အသုံးပြုပုံ Brief နဲ့ (၂) Color Palette အကြံပြုချက် (၃) Font Style ရွေးချယ်မှုအကြောင်း ရှင်းပြချက် &mdash; ရိုးရှင်းတဲ့ ဘာသာစကားနဲ့ ပေးပါ။ Design Jargon တွေ ရှောင်ပါ။"</p>
+                        </div>
                     </div>
 
-                    <!-- Section 4 -->
+                    <!-- Section 4: Output Example -->
                     <div class="mb-16 blur-fade">
-                        <h2 class="text-black">၄။ လုံခြုံရေးဆိုင်ရာ နောက်ခံပြဿနာများ (Pattern of Concern)</h2>
-                        <p>
-                            ဒီပေါက်ကြားမှုဟာ AI လုံခြုံရေးနဲ့ ပတ်သက်ပြီး စိုးရိမ်စရာတွေ မြင့်တက်နေချိန်မှာ ဖြစ်လာတာပါ။
-                        </p>
-                        <p class="mt-4">
-                            ပြီးခဲ့တဲ့ ဖေဖော်ဝါရီလကလည်း တရုတ် AI ကုမ္ပဏီတွေ (DeepSeek, Moonshot AI, MiniMax) ဟာ အကောင့်တုပေါင်း ၂၄,၀၀၀ ကျော်နဲ့ Claude ရဲ့ စွမ်းရည်တွေကို ခိုးယူ (Distillation လုပ်) ဖို့ ကြိုးစားခဲ့တယ်လို့ Anthropic က စွပ်စွဲထားပါတယ်။
-                        </p>
-                        <p class="mt-4">
-                            ဒါ့အပြင် တရုတ်အစိုးရ ကျောထောက်နောက်ခံပြု အဖွဲ့တစ်ခုက Claude Code ကိုသုံးပြီး အဖွဲ့အစည်း ၃၀ ခန့်ကို ဆိုက်ဘာတိုက်ခိုက်မှုတွေ လုပ်ခဲ့ပါသေးတယ်။
-                        </p>
-                        <p class="mt-4">
-                            ပေါက်ကြားသွားတဲ့ အချက်အလက်တွေထဲမှာ Anthropic ရဲ့ CEO Dario Amodei ဟာ ဥရောပက စီးပွားရေးခေါင်းဆောင်တွေကို အင်္ဂလန်က အိမ်ကြီးတစ်လုံးမှာ သီးသန့်ဖိတ်ခေါ်ပြီး ဒီ AI အသစ်ရဲ့ စွမ်းရည်တွေကို လျှို့ဝှက်ပြသဖို့ စီစဉ်နေတယ်ဆိုတဲ့ အချက်လည်း ပါဝင်ပါတယ်။
-                        </p>
+                        <h2 class="text-black">Output ဥပမာ</h2>
+                        
+                        <div class="output-box">
+                            <p>"Concept A က Simple Icon တစ်ခုပဲသုံးထားပေမဲ့ Brand Recognition အရမ်းမြင့်တယ် &mdash; ဆိုလိုတာက ရှုပ်ထွေးလို့ မဟုတ်ဘဲ တစ်ချက်ကြည့်ရုံနဲ့ မှတ်မိအောင် Design လုပ်ထားလို့ ဖြစ်တာပါ။"</p>
+                        </div>
+                    </div>
+
+                    <!-- Section 5: Golden Rule -->
+                    <div class="mb-16 blur-fade">
+                        <div class="golden-rule">
+                            <p>"AI သည် Mind Reader မဟုတ်ပါ။ သင် Clear ဖြစ်မှသာ AI Clear ဖြစ်မည်။"</p>
+                        </div>
                     </div>
 
                     <!-- Share Section -->
@@ -475,7 +577,7 @@
                         <div class="flex gap-3">
                             
                             <!-- Facebook -->
-                            <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-19%2Fpost-19.html" 
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-20%2Fpost-20.html" 
                                target="_blank" 
                                class="share-btn" 
                                aria-label="Share on Facebook">
@@ -483,7 +585,7 @@
                             </a>
 
                             <!-- X (Formerly Twitter) - SVG Logo -->
-                            <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-19%2Fpost-19.html&text=Anthropic%20AI%20Cybersecurity%20by%20ART%20de%20ONE" 
+                            <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-20%2Fpost-20.html&text=Prompt%20Engineering%20by%20ART%20de%20ONE" 
                                target="_blank" 
                                class="share-btn" 
                                aria-label="Share on X">
@@ -493,7 +595,7 @@
                             </a>
 
                             <!-- LinkedIn -->
-                            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-19%2Fpost-19.html" 
+                            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-20%2Fpost-20.html" 
                                target="_blank" 
                                class="share-btn" 
                                aria-label="Share on LinkedIn">
@@ -501,7 +603,7 @@
                             </a>
 
                             <!-- Pinterest -->
-                            <a href="https://pinterest.com/pin/create/button/?url=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-19%2Fpost-19.html&media=https%3A%2F%2Fres.cloudinary.com%2Fddkd9lxpr%2Fimage%2Fupload%2Fv1774604734%2Fanthropiccd_dfbhme.jpg&description=Anthropic%20AI%20New%20Model" 
+                            <a href="https://pinterest.com/pin/create/button/?url=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-20%2Fpost-20.html&media=https%3A%2F%2Fres.cloudinary.com%2Fddkd9lxpr%2Fimage%2Fupload%2Fv1778825886%2FChatGPT_Image_May_15_2026_11_53_07_AM_imk7q1.jpg&description=Prompt%20Engineering%20by%20ART%20de%20ONE" 
                                target="_blank" 
                                class="share-btn" 
                                aria-label="Share on Pinterest">
@@ -691,7 +793,6 @@
         const allPosts = [
             { title: "Design Style အခေါ်အ၀ေါ် (၅)ခု", date: "Mar 6, 2026", link: "../post-16/post-16.html", img: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772815632/cover_oacv8z.jpg" },
             { title: "Part - 2 စိတ်၀င်စားစရာကောင်းတဲ့ Design Style အခေါ်အ၀ေါ် (၅)ခု", date: "Mar 7, 2026", link: "../post-17/post-17.html", img: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772816203/cover_qy7bwg.jpg" },
-            { title: "Sora App ကို တရားဝင် ပိတ်သိမ်းတော့မယ့် ဝမ်းနည်းစရာ သတင်း", date: "Mar 27, 2026", link: "../post-18/post-18.html", img: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1774600975/sora_cover_zedql7.jpg" },
             { title: "Design World's Crazy Facts", date: "Feb 5, 2026", link: "../post-15/post-15.html", img: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1770282751/cover_fghqoq.jpg" },
             { title: "2026 Graphic Design Trends", date: "Dec 29, 2025", link: "../post-14/post-14.html", img: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1766720115/dt-cover_vbokgn.jpg" },
             { title: "Christmas Vibe Fonts", date: "Dec 17, 2025", link: "../post-13/post-13.html", img: "../post-13/images/christmas-3.jpg" },

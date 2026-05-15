@@ -120,6 +120,24 @@
             letter-spacing: 0.05em;
         }
 
+        /* NEW badge for recent posts */
+        .new-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background-color: #ed2939;
+            color: #ffffff;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 0.3rem 0.65rem;
+            border-radius: 999px;
+            z-index: 10;
+            line-height: 1;
+            pointer-events: none;
+        }
+
         /* Pagination - Light Theme */
         .pagination-btn { color: #555; transition: all 0.3s; }
         .pagination-btn:hover:not(:disabled) { color: #000; }
@@ -697,6 +715,15 @@
                 image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1774604734/anthropic_dfbhme.jpg",
                 excerpt: "Anthropic ကနေ အစွမ်းထက်ဆုံး AI model အသစ်ပေါက်ကြားလာခဲ့ပါတယ်။ \"Capybara\" ဆိုတဲ့ အဆင့်သစ်အသစ်နဲ့ Claude Opus 4.6 ထက် ပိုကြီးမားပြီး ပိုလည်းအဆင့်မြင့်ပါတယ်။",
                 file: "posts/post-19/post-19.html"
+            },
+
+            {
+                id: 20,
+                title: "Prompt Engineering ဆိုတာ ဘာလဲ?",
+                date: "May 15, 2026",
+                image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1778825886/ChatGPT_Image_May_15_2026_11_53_07_AM_imk7q1.jpg",
+                excerpt: "AI ကို 'မှန်မှန်ကန်ကန် မေးတတ်တဲ့ပညာ' ပါ။ မေးနည်းမှားရင် AI က မှားတာထုတ်မယ်။ မေးနည်းမှန်ရင် AI က လိုချင်တာအတိအကျ ပေးမယ်။",
+                file: "posts/post-20/post-20.html"
             }
 
         ];
@@ -706,6 +733,14 @@
 
         function sortBlogPosts() {
             return [...blogPosts].sort((a, b) => new Date(b.date) - new Date(a.date));
+        }
+
+        function isNewPost(dateString) {
+            const postDate = new Date(dateString);
+            const now = new Date();
+            const diffTime = now - postDate;
+            const diffDays = diffTime / (1000 * 60 * 60 * 24);
+            return diffDays >= 0 && diffDays <= 7;
         }
 
         function loadBlogPosts(page = 1) {
@@ -726,6 +761,7 @@
                         <a href="${post.file}" class="blog-card block h-full flex flex-col">
                             
                             <div class="relative h-56 overflow-hidden bg-gray-100">
+                                ${isNewPost(post.date) ? '<span class="new-badge">NEW</span>' : ''}
                                 <img src="${post.image}" alt="${post.title}" class="w-full h-full object-cover group-hover:opacity-90 transition-opacity duration-500">
                             </div>
                             

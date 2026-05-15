@@ -83,12 +83,84 @@ const blogPosts = [
     },
 
     {
-        id: 11, // Use ID 10 for featured post
+        id: 11,
         title: "Generative Ai ထဲမှာ Design လုပ်မယ်ဆိုရင် သိထားရမယ့် အခြေခံအချက် (၃)ချက်",
         date: "November 10, 2025",
         image: "/posts/post-11/images/yt-thumbnail.jpg",
         excerpt: "Ai မှာ Design တတ်ပေမယ့် ကိုယ်လိုချင်တဲ့ Result မရဘူးဖြစ်နေရင် ဒီ အချက် (၃)ချက် ကိုကြည့်ကြည့်ပါ။",
         file: "/posts/post-11/post-11.html"
+    },
+    {
+        id: 12,
+        title: "လိုဂိုနဲ့တူသော Font (၇)မျိုး",
+        date: "December 04, 2025",
+        image: "/posts/post-12/images/gendy.jpg",
+        excerpt: "Logo Design တွေမှာအသုံးပြုလို့ကောင်းတဲ့ Professional Font (၇) မျိုးကို Commercial License တွေနဲ့တကွ မျှဝေပေးချင်ပါတယ်။",
+        file: "/posts/post-12/post-12.html"
+    },
+    {
+        id: 13,
+        title: "Christmas Vibe ရစေမယ့် Font (၅)မျိုး",
+        date: "December 17, 2025",
+        image: "/posts/post-13/images/christmas-3.jpg",
+        excerpt: "Merry Christmas! ဒီနှစ် Christmas မှာ ကိုယ့်ရဲ့ Design တွေကို ပိုထူးခြားသွားစေမယ့် Font လှလှလေးတွေ ရှာနေတာလား?",
+        file: "/posts/post-13/post-13.html"
+    },
+    {
+        id: 14,
+        title: "2026 Graphic Design Trends",
+        date: "December 29, 2025",
+        image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1766720115/dt-cover_vbokgn.jpg",
+        excerpt: "2026 မှာ ဒီဇိုင်းလောကဟာ လှပသေသပ်နေဖို့ တစ်ခုတည်းမဟုတ်တော့ပါဘူး။ လူတွေရဲ့ စိတ်ခံစားမှု၊ ရိုးသားမှုနဲ့ AI လိုက်မလုပ်နိုင်တဲ့ Humanity ကို ပိုမိုတန်ဖိုးထားလာကြမှာပါ။",
+        file: "/posts/post-14/post-14.html"
+    },
+    {
+        id: 15,
+        title: "အရောင်တစ်ရောင်ကြောင့် စစ်ဖြစ်တဲ့အထိအပါအ၀င်...",
+        date: "Febuary 5, 2026",
+        image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1770282751/cover_fghqoq.jpg",
+        excerpt: "ဒီဇိုင်းလောကမှာ ရယ်စရာကောင်းပြီး စိတ်ဝင်စားဖို့ကောင်းတဲ့ နောက်ကွယ်က သမိုင်းကြောင်းတွေ၊ Psychological Trick တွေ အများကြီးရှိပါတယ်။",
+        file: "/posts/post-15/post-15.html"
+    },
+    {
+        id: 16,
+        title: "စိတ်၀င်စားစရာကောင်းတဲ့ Design Style အခေါ်အ၀ေါ် (၅)ခု",
+        date: "March 6, 2026",
+        image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772815632/cover_oacv8z.jpg",
+        excerpt: "Design Style တွေထဲမှာ နာမည်ကြီးပြီး စိတ်ဝင်စားစရာကောင်းတဲ့ Brutalism, Memphis Design, Maximalism, Vaporwave နဲ့ Swiss Design Style အခေါ်အဝေါ် (၅) ခုကို မျှဝေပေးလိုက်ပါတယ်။",
+        file: "/posts/post-16/post-16.html"
+    },
+    {
+        id: 17,
+        title: "Part - 2 စိတ်၀င်စားစရာကောင်းတဲ့ Design Style အခေါ်အ၀ေါ် (၅)ခု",
+        date: "March 7, 2026",
+        image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772816203/cover_qy7bwg.jpg",
+        excerpt: "Russian Constructivism, Psychedelic, Risograph, Mid-Century Modern နဲ့ Cyberpunk Design Style အခေါ်အဝေါ် (၅) ခုကို ဆက်လက်မျှဝေပေးလိုက်ပါတယ်။",
+        file: "/posts/post-17/post-17.html"
+    },
+    {
+        id: 18,
+        title: "Sora App ကို တရားဝင် ပိတ်သိမ်းတော့မယ့် ဝမ်းနည်းစရာ သတင်း",
+        date: "March 27, 2026",
+        image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1774600975/sora_cover_zedql7.jpg",
+        excerpt: "AI Video ဖန်တီးသူတွေနဲ့ Creator လောကအတွက် စိတ်မကောင်းစရာ သတ္တဝါ သတင်းတစ်ခု။ Sora Team ကနေ သူတို့ရဲ့ Sora app ကို အပြီးတိုင် ရပ်နားတော့မယ်အကြောင်း တရားဝင် ကြေညာလိုက်ပါတယ်။",
+        file: "/posts/post-18/post-18.html"
+    },
+    {
+        id: 19,
+        title: "ဆိုက်ဘာလုံခြုံရေးကိုပါ ခြိမ်းခြောက်လာနိုင်တဲ့ Anthropic ရဲ့ အစွမ်းထက်ဆုံး AI အသစ် ပေါက်ကြားမှု",
+        date: "March 27, 2026",
+        image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1774604734/anthropic_dfbhme.jpg",
+        excerpt: "Anthropic ကနေ အစွမ်းထက်ဆုံး AI model အသစ်ပေါက်ကြားလာခဲ့ပါတယ်။ \"Capybara\" ဆိုတဲ့ အဆင့်သစ်အသစ်နဲ့ Claude Opus 4.6 ထက် ပိုကြီးမားပြီး ပိုလည်းအဆင့်မြင့်ပါတယ်။",
+        file: "/posts/post-19/post-19.html"
+    },
+    {
+        id: 20,
+        title: "Prompt Engineering ဆိုတာ ဘာလဲ?",
+        date: "May 15, 2026",
+        image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1778825886/ChatGPT_Image_May_15_2026_11_53_07_AM_imk7q1.jpg",
+        excerpt: "AI ကို 'မှန်မှန်ကန်ကန် မေးတတ်တဲ့ပညာ' ပါ။ မေးနည်းမှားရင် AI က မှားတာထုတ်မယ်။ မေးနည်းမှန်ရင် AI က လိုချင်တာအတိအကျ ပေးမယ်။",
+        file: "/posts/post-20/post-20.html"
     },
     // Add new posts here as you create them
 ];
@@ -118,6 +190,7 @@ function getCategory(postId) {
         9: 'AI',
         10: 'DESIGN',
         11: 'AI',
+        20: 'AI',
         // Add more categories for new posts
     };
     return categories[postId] || 'ARTICLE';
