@@ -24,6 +24,9 @@
     <link rel="stylesheet" href="/css-and-js/mobile-smooth-nav.css">
     <link rel="stylesheet" href="/css-and-js/theme.css">
 
+    <link rel="stylesheet" href="/css-and-js/dark-mode.css">
+    <link rel="stylesheet" href="/css-and-js/theme-toggle.css">
+
     <style>
        .nav-btn { border-radius: 2rem; }
        .content-container {
@@ -57,6 +60,22 @@
        }
        .content-container li {
            margin-bottom: 0.5rem;
+       }
+
+       /* Dark mode overrides for content text contrast */
+       html[data-theme="dark"] .content-container h1,
+       html[data-theme="dark"] .content-container h2,
+       body.dark-mode .content-container h1,
+       body.dark-mode .content-container h2 {
+           color: #f5f5f5 !important;
+       }
+       html[data-theme="dark"] .content-container p,
+       html[data-theme="dark"] .content-container ul,
+       html[data-theme="dark"] .content-container li,
+       body.dark-mode .content-container p,
+       body.dark-mode .content-container ul,
+       body.dark-mode .content-container li {
+           color: #d4d4d4 !important;
        }
     </style>
 </head>
@@ -99,7 +118,7 @@
             </div>
         </div>
         <div class="mobile-menu md:hidden hidden" id="mobile-menu">
-            <div class="py-2 px-4 space-y-1 bg-white border-b border-gray-100">
+            <div class="py-2 px-4 space-y-1">
                 <a href="/index.html#home" class="block py-2 mobile-nav-link">Home</a>
                 <a href="/shop.html" class="block py-2 mobile-nav-link">Shop</a>
                 <a href="/blog.html" class="block py-2 mobile-nav-link">Blog</a>
@@ -196,57 +215,170 @@
         </div>
     </main>
 
-    <footer class="bg-white text-[#323232] py-12 border-t border-gray-200">
+    <footer class="bg-white text-[#323232] py-12 border-t border-gray-200 footer-glow">
+
+        <!-- Sarvam-style circle glow orbs -->
+        <div class="footer-orb footer-orb-1"></div>
+        <div class="footer-orb footer-orb-2"></div>
+        <div class="footer-orb footer-orb-3"></div>
+
+
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-5 gap-8">
                 <div>
                     <span class="text-xl font-bold mb-4 block text-black">ART de ONE</span>
-                    <p class="text-gray-500 text-sm">Freelance Graphic Designer & Illustrator Portfolio, Blog, Resources and Online Courses</p>
+                    <p class="text-gray-500 text-sm">
+                        Freelance Graphic Designer & Illustrator Portfolio, Blog, Resources and Online Courses
+                    </p>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4 text-black">Quick Links</h3>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="/index.html#home" class="text-gray-500 hover:text-black transition duration-300">Home</a></li>
-                        <li><a href="/prompt.html" class="text-gray-500 hover:text-black transition duration-300">Prompts</a></li>
-                        <li><a href="/shop.html" class="text-gray-500 hover:text-black transition duration-300">Shop</a></li>
-                        <li><a href="/blog.html" class="text-gray-500 hover:text-black transition duration-300">Blog</a></li>
-                        <li><a href="/resources/resources-collection.html" class="text-gray-500 hover:text-black transition duration-300">Resources</a></li>
+                        <li><a href="index.html#home"
+                                class="text-gray-500 hover:text-black transition duration-300">Home</a></li>
+                        <!--  <li><a href="courses.html" class="text-gray-500 hover:text-black transition duration-300">Courses</a></li> -->
+                        <li><a href="/prompt.html"
+                                class="text-gray-500 hover:text-black transition duration-300">Prompts</a></li>
+                        <li><a href="/shop.html" class="text-gray-500 hover:text-black transition duration-300">Shop</a>
+                        </li>
+                        <li><a href="/blog.html" class="text-gray-500 hover:text-black transition duration-300">Blog</a>
+                        </li>
+                        <li><a href="/resources/resources-collection.html"
+                                class="text-gray-500 hover:text-black transition duration-300">Resources</a></li>
                     </ul>
                 </div>
+
                 <div>
                     <h3 class="text-lg font-semibold mb-4 text-black">Services</h3>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Logo Design</a></li>
-                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Social Media</a></li>
-                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Printing</a></li>
+                        <li><a href="/index.html#freelance"
+                                class="text-gray-500 hover:text-black transition duration-300">Logo Design</a></li>
+                        <li><a href="/index.html#freelance"
+                                class="text-gray-500 hover:text-black transition duration-300">Social Media</a></li>
+                        <li><a href="/index.html#freelance"
+                                class="text-gray-500 hover:text-black transition duration-300">Printing</a></li>
                     </ul>
                 </div>
+
                 <div>
                     <h3 class="text-lg font-semibold mb-4 text-black">Contact</h3>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="/index.html#about" class="text-gray-500 hover:text-black transition duration-300">About</a></li>
-                        <li><a href="/index.html#contact" class="text-gray-500 hover:text-black transition duration-300">Contact</a></li>
+                        <li><a href="/index.html#about"
+                                class="text-gray-500 hover:text-black transition duration-300">About</a></li>
+                        <li><a href="/index.html#contact"
+                                class="text-gray-500 hover:text-black transition duration-300">Contact</a></li>
                     </ul>
                 </div>
+
                 <div>
                     <h3 class="text-lg font-semibold mb-4 text-black">Legal</h3>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="/privacy-policy.html" class="text-gray-500 hover:text-black transition duration-300">Privacy Policy</a></li>
-                        <li><a href="/terms-of-service.html" class="text-gray-500 hover:text-black transition duration-300">Terms of Service</a></li>
+                        <li><a href="/privacy-policy.html"
+                                class="text-gray-500 hover:text-black transition duration-300">Privacy Policy</a></li>
+                        <li><a href="/terms-of-service.html"
+                                class="text-gray-500 hover:text-black transition duration-300">Terms of Service</a></li>
                     </ul>
                 </div>
+
             </div>
             <div class="border-t border-gray-200 mt-8 pt-8">
-                <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-                    <p class="text-gray-500 text-sm">&copy; 2026 ART de ONE. All rights reserved.</p>
-                    <div class="flex space-x-6 text-sm">
-                        <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-behance"></i></a>
-                        <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-tiktok"></i></a>
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-6">
+
+                    <!-- Left: Copyright -->
+                    <p class="text-gray-500 text-sm text-center sm:text-left order-2 sm:order-1 sm:w-1/4">
+                        &copy; 2026 ART de ONE. All rights reserved.
+                    </p>
+
+                    <!-- Center: Trust Badges -->
+                    <div class="flex flex-wrap items-center justify-center gap-3 order-1 sm:order-2">
+
+                        <!-- Badge 1: SSL Secured -->
+                        <div class="trust-badge group" title="SSL Encrypted Connection">
+                            <div class="badge-icon">
+                                <i class="fas fa-lock text-xs"></i>
+                            </div>
+                            <div class="badge-text">
+                                <span class="badge-label">SSL</span>
+                                <span class="badge-value">Secured</span>
+                            </div>
+                        </div>
+
+                        <!-- Badge 2: DMCA Protected -->
+                        <div class="trust-badge group dmca-official-wrapper" title="DMCA.com Protection Status">
+                            <a href="//www.dmca.com/Protection/Status.aspx?ID=04063fb7-27c9-4e80-86e5-bc851bcd5935"
+                                title="DMCA.com Protection Status" class="dmca-badge">
+                                <img loading="lazy"
+                                    src="https://images.dmca.com/Badges/dmca-badge-w100-2x1-02.png?ID=04063fb7-27c9-4e80-86e5-bc851bcd5935"
+                                    alt="DMCA.com Protection Status"
+                                    style="height: 20px; width: auto; display: block;" />
+                            </a>
+                        </div>
+
+                        <!-- Badge 3: Verified Professional -->
+                        <div class="trust-badge group" title="9+ Years Professional Experience">
+                            <div class="badge-icon badge-icon-gold">
+                                <i class="fas fa-award text-xs"></i>
+                            </div>
+                            <div class="badge-text">
+                                <span class="badge-label">Verified</span>
+                                <span class="badge-value">Professional</span>
+                            </div>
+                        </div>
+
+                        <!-- Badge 4: Safe Browsing -->
+                        <div class="trust-badge group" title="Google Safe Browsing Verified">
+                            <div class="badge-icon badge-icon-green">
+                                <i class="fas fa-check-circle text-xs"></i>
+                            </div>
+                            <div class="badge-text">
+                                <span class="badge-label">Google</span>
+                                <span class="badge-value">Safe</span>
+                            </div>
+                        </div>
+
+                        <!-- Badge 5: Google Business -->
+                        <a href="https://g.page/r/Cb6j-IdtRRWLEAE/review" target="_blank" class="trust-badge group"
+                            title="Find us on Google Business">
+                            <div class="badge-icon" style="background-color: #4285F4;">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                    style="width:12px;height:12px;fill:white;">
+                                    <path
+                                        d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                                    <path
+                                        d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                                    <path
+                                        d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                                    <path
+                                        d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                                </svg>
+                            </div>
+                            <div class="badge-text">
+                                <span class="badge-label">Google</span>
+                                <span class="badge-value">Business</span>
+                            </div>
+                        </a>
+
                     </div>
+
+                    <!-- Right: Social Icons -->
+                    <div class="flex justify-center sm:justify-end space-x-6 text-sm order-3 sm:w-1/4">
+                        <a href="https://www.facebook.com/artdeone/" target="_blank"
+                            class="text-gray-400 hover:text-black transition duration-300"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.behance.net/phyomin7" target="_blank"
+                            class="text-gray-400 hover:text-black transition duration-300"><i
+                                class="fab fa-behance"></i></a>
+                        <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank"
+                            class="text-gray-400 hover:text-black transition duration-300"><i
+                                class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.tiktok.com/@artdeone" target="_blank"
+                            class="text-gray-400 hover:text-black transition duration-300"><i
+                                class="fab fa-tiktok"></i></a>
+                    </div>
+
                 </div>
             </div>
+
         </div>
     </footer>
 

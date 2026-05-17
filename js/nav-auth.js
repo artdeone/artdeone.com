@@ -64,6 +64,15 @@ function injectCSS() {
         .mobile-profile-row {
             display: flex; align-items: center; gap: 10px; padding: 10px 0;
         }
+        .mobile-menu #mobileAuth,
+        .mobile-menu a[href*="customer-dashboard"] {
+            border-top: 0 !important;
+        }
+        .mobile-menu #mobileAuth::before,
+        .mobile-menu #mobileAuth::after {
+            display: none !important;
+            content: none !important;
+        }
         .mobile-profile-row .shop-nav-avatar {
             width: 32px; height: 32px; font-size: 0.7rem;
         }

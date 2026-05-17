@@ -1,0 +1,464 @@
+<!-- ════════════════════════════════════════════════
+   ART de ONE — "Tools I work with" Keyboard Section
+   Drop this block into artdeone.com's index.html
+   Brand: #a7e169 (lime) · #ed2939 (red)
+
+   LIGHT MODE: Add class "ado-section--light" to the
+   <section> tag, OR rely on prefers-color-scheme auto.
+════════════════════════════════════════════════ -->
+
+<style>
+  /* ── CSS Variables: Dark mode (default) ── */
+  .ado-tools-section {
+    --ado-bg:          #0c0c0c;
+    --ado-dot-color:   rgba(167,225,105,0.07);
+    --ado-blob-color:  rgba(167,225,105,0.05);
+    --ado-title:       #f0f0f0;
+    --ado-tip-bg:      rgba(18,18,20,0.96);
+    --ado-tip-border:  rgba(255,255,255,0.1);
+    --ado-tip-text:    #f0f0f0;
+    --ado-kb-shadow:   0 70px 140px rgba(0,0,0,0.85), 0 30px 60px rgba(0,0,0,0.5);
+  }
+
+  /* ── Light mode override (class-based) ── */
+  .ado-tools-section.ado-section--light,
+  @media (prefers-color-scheme: light) {
+    .ado-tools-section:not(.ado-section--dark) {
+      --ado-bg:         #f3f3ee;
+      --ado-dot-color:  rgba(0,0,0,0.055);
+      --ado-blob-color: rgba(167,225,105,0.12);
+      --ado-title:      #111111;
+      --ado-tip-bg:     rgba(18,18,20,0.92);
+      --ado-tip-border: rgba(255,255,255,0.15);
+      --ado-tip-text:   #f5f5f5;
+      --ado-kb-shadow:  0 50px 100px rgba(0,0,0,0.3), 0 20px 40px rgba(0,0,0,0.2);
+    }
+  }
+  .ado-tools-section.ado-section--light {
+    --ado-bg:         #f3f3ee;
+    --ado-dot-color:  rgba(0,0,0,0.055);
+    --ado-blob-color: rgba(167,225,105,0.12);
+    --ado-title:      #111111;
+    --ado-tip-bg:     rgba(18,18,20,0.92);
+    --ado-tip-border: rgba(255,255,255,0.15);
+    --ado-tip-text:   #f5f5f5;
+    --ado-kb-shadow:  0 50px 100px rgba(0,0,0,0.3), 0 20px 40px rgba(0,0,0,0.2);
+  }
+
+  /* ── Section wrapper ── */
+  .ado-tools-section {
+    background: var(--ado-bg);
+    padding: 100px 40px 120px;
+    overflow: hidden;
+    position: relative;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+    transition: background 0.3s ease;
+  }
+
+  /* Dot grid */
+  .ado-tools-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, var(--ado-dot-color) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+  }
+
+  /* Lime glow blob */
+  .ado-tools-section::after {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 300px;
+    background: radial-gradient(ellipse, var(--ado-blob-color) 0%, transparent 70%);
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+
+  .ado-tools-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Header ── */
+  .ado-tools-header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+
+  .ado-tools-label {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #a7e169;
+    margin-bottom: 14px;
+  }
+
+  .ado-tools-title {
+    font-size: 48px;
+    font-weight: 650;
+    letter-spacing: -0.03em;
+    color: var(--ado-title);
+    line-height: 1.05;
+    margin: 0;
+    transition: color 0.3s ease;
+  }
+
+  .ado-tools-title em {
+    font-style: normal;
+    color: #a7e169;
+  }
+
+  /* ── 3D Keyboard scene ── */
+  .ado-kb-scene {
+    perspective: 1600px;
+    perspective-origin: 50% 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0 70px;
+  }
+
+  .ado-kb-body {
+    transform: rotateX(20deg) rotateZ(-6deg);
+    transform-style: preserve-3d;
+    background: linear-gradient(145deg, #323234 0%, #252527 60%, #1e1e20 100%);
+    border-radius: 22px;
+    padding: 20px 24px 26px;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: var(--ado-kb-shadow);
+    display: inline-block;
+    position: relative;
+    /* GPU layer for smooth child animations */
+    will-change: transform;
+  }
+
+  /* Bottom depth face */
+  .ado-kb-body::after {
+    content: '';
+    position: absolute;
+    bottom: -11px;
+    left: 6px;
+    right: -6px;
+    height: 11px;
+    background: #0e0e10;
+    border-radius: 0 0 10px 4px;
+    border: 1px solid rgba(0,0,0,0.9);
+    border-top: none;
+  }
+
+  /* ── Key rows ── */
+  .ado-kb-row {
+    display: flex;
+    gap: 7px;
+    margin-bottom: 7px;
+    justify-content: center;
+  }
+  .ado-kb-row:last-child { margin-bottom: 0; }
+
+  /* ── Individual key ──
+     FIX: only transition `transform` — GPU-composited, zero repaint.
+     box-shadow & background changes snap instantly (fine for key press).
+     Removed nested .ado-key-icon scale — that was causing the jank.
+  ── */
+  .ado-key {
+    width: 58px;
+    height: 58px;
+    background: #1e1e20;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    /* GPU-only transition — no box-shadow, no background */
+    will-change: transform;
+    transform: translateZ(0);
+    transition: transform 0.11s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    /* Static shadows — no transition cost */
+    box-shadow:
+      0 5px 0 #0a0a0a,
+      inset 0 1px 0 rgba(255,255,255,0.07);
+
+    position: relative;
+    border: 0.5px solid rgba(255,255,255,0.07);
+  }
+
+  .ado-key:hover {
+    /* Key presses DOWN — translateY only, GPU composited */
+    transform: translateZ(0) translateY(4px);
+    box-shadow:
+      0 1px 0 #0a0a0a,
+      inset 0 1px 0 rgba(255,255,255,0.04);
+  }
+
+  /* Lime ring — always present, toggled by opacity (no layout shift) */
+  .ado-key::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 11px;
+    border: 1px solid rgba(167,225,105,0.3);
+    opacity: 0;
+    transition: opacity 0.12s ease;
+    pointer-events: none;
+  }
+  .ado-key:hover::after { opacity: 1; }
+
+  /* ── Icon inside key (no transform — removed scale) ── */
+  .ado-key-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    /* No transition here — was causing nested jank */
+  }
+
+  .ado-key-icon img {
+    width: 36px;
+    height: 36px;
+    border-radius: 7px;
+    display: block;
+  }
+
+  /* ── Adobe-style letter icons ── */
+  .ado-letter-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+  }
+
+  /* ── Tooltip (uses ::before — no layout conflict with ::after ring) ── */
+  .ado-key::before {
+    content: attr(data-name);
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(5px);
+    background: var(--ado-tip-bg);
+    color: var(--ado-tip-text);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    padding: 5px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    /* Tooltip uses opacity + transform — GPU, smooth */
+    transition: opacity 0.14s ease, transform 0.14s ease;
+    border: 0.5px solid var(--ado-tip-border);
+    z-index: 10;
+  }
+  .ado-key:hover::before {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+</style>
+
+<section class="ado-tools-section">
+  <div class="ado-tools-inner">
+
+    <!-- Header -->
+    <div class="ado-tools-header">
+      <span class="ado-tools-label">Stack</span>
+      <h2 class="ado-tools-title">Tools I <em>work with</em></h2>
+    </div>
+
+    <!-- Keyboard -->
+    <div class="ado-kb-scene">
+      <div class="ado-kb-body">
+
+        <!-- Row 1: Design -->
+        <div class="ado-kb-row">
+
+          <!-- Figma -->
+          <div class="ado-key" data-name="Figma">
+            <div class="ado-key-icon">
+              <img src="https://www.google.com/s2/favicons?domain=figma.com&sz=128" alt="Figma">
+            </div>
+          </div>
+
+          <!-- Adobe Illustrator -->
+          <div class="ado-key" data-name="Illustrator">
+            <div class="ado-letter-icon" style="background:#FF9A00; color:#3d2400;">Ai</div>
+          </div>
+
+          <!-- Adobe Photoshop -->
+          <div class="ado-key" data-name="Photoshop">
+            <div class="ado-letter-icon" style="background:#001E36; color:#31A8FF;">Ps</div>
+          </div>
+
+          <!-- Adobe InDesign -->
+          <div class="ado-key" data-name="InDesign">
+            <div class="ado-letter-icon" style="background:#49021F; color:#FF3366;">Id</div>
+          </div>
+
+          <!-- After Effects -->
+          <div class="ado-key" data-name="After Effects">
+            <div class="ado-letter-icon" style="background:#00005b; color:#9999FF;">Ae</div>
+          </div>
+
+          <!-- Procreate -->
+          <div class="ado-key" data-name="Procreate">
+            <div class="ado-key-icon">
+              <img src="https://www.google.com/s2/favicons?domain=procreate.com&sz=128" alt="Procreate">
+            </div>
+          </div>
+
+          <!-- Canva -->
+          <div class="ado-key" data-name="Canva">
+            <div class="ado-key-icon">
+              <img src="https://www.google.com/s2/favicons?domain=canva.com&sz=128" alt="Canva">
+            </div>
+          </div>
+
+          <!-- Framer -->
+          <div class="ado-key" data-name="Framer">
+            <div class="ado-key-icon">
+              <img src="https://www.google.com/s2/favicons?domain=framer.com&sz=128" alt="Framer">
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Row 2: Development -->
+        <div class="ado-kb-row">
+
+          <!-- VS Code -->
+          <div class="ado-key" data-name="VS Code">
+            <div class="ado-key-icon">
+              <img src="https://www.google.com/s2/favicons?domain=code.visualstudio.com&sz=128" alt="VS Code">
+            </div>
+          </div>
+
+          <!-- GitHub -->
+          <div class="ado-key" data-name="GitHub">
+            <div class="ado-key-icon">
+              <img src="https://www.google.com/s2/favicons?domain=github.com&sz=128" alt="GitHub" style="border-radius:50%;">
+            </div>
+          </div>
+
+          <!-- Netlify -->
+          <div class="ado-key" data-name="Netlify">
+            <div class="ado-key-icon">
+              <img src="https://www.google.com/s2/favicons?domain=netlify.com&sz=128" alt="Netlify">
+            </div>
+          </div>
+
+          <!-- Supabase -->
+          <div class="ado-key" data-name="Supabase">
+            <div class="ado-key-icon">
+              <img src="https://www.google.com/s2/favicons?domain=supabase.com&sz=128" alt="Supabase">
+            </div>
+          </div>
+
+          <!-- Cloudflare -->
+          <div class="ado-key" data-name="Cloudflare">
+            <div class="ado-key-icon">
+              <img src="https://www.google.com/s2/favicons?domain=cloudflare.com&sz=128" alt="Cloudflare">
+            </div>
+          </div>
+
+          <!-- Firebase -->
+          <div class="ado-key" data-name="Firebase">
+            <div class="ado-key-icon">
+              <img src="https://www.google.com/s2/favicons?domain=firebase.google.com&sz=128" alt="Firebase">
+            </div>
+          </div>
+
+          <!-- Node.js -->
+          <div class="ado-key" data-name="Node.js">
+            <div class="ado-letter-icon" style="background:#1a3d1a; color:#43853d; font-size:11px;">Node</div>
+          </div>
+
+          <!-- HTML5 -->
+          <div class="ado-key" data-name="HTML / CSS">
+            <div class="ado-letter-icon" style="background:#1a0f00; color:#E34F26; font-size:12px;">&lt;/&gt;</div>
+          </div>
+
+        </div>
+
+        <!-- Row 3: Productivity + AI -->
+        <div class="ado-kb-row">
+
+          <!-- Notion -->
+          <div class="ado-key" data-name="Notion">
+            <div class="ado-key-icon">
+              <img src="https://www.google.com/s2/favicons?domain=notion.so&sz=128" alt="Notion">
+            </div>
+          </div>
+
+          <!-- Slack -->
+          <div class="ado-key" data-name="Slack">
+            <div class="ado-key-icon">
+              <img src="https://www.google.com/s2/favicons?domain=slack.com&sz=128" alt="Slack">
+            </div>
+          </div>
+
+          <!-- Zoom -->
+          <div class="ado-key" data-name="Zoom">
+            <div class="ado-key-icon">
+              <img src="https://www.google.com/s2/favicons?domain=zoom.us&sz=128" alt="Zoom">
+            </div>
+          </div>
+
+          <!-- Claude -->
+          <div class="ado-key" data-name="Claude AI">
+            <div class="ado-key-icon">
+              <img src="https://www.google.com/s2/favicons?domain=claude.ai&sz=128" alt="Claude">
+            </div>
+          </div>
+
+          <!-- ChatGPT -->
+          <div class="ado-key" data-name="ChatGPT">
+            <div class="ado-key-icon">
+              <img src="https://www.google.com/s2/favicons?domain=chat.openai.com&sz=128" alt="ChatGPT">
+            </div>
+          </div>
+
+          <!-- Midjourney -->
+          <div class="ado-key" data-name="Midjourney">
+            <div class="ado-letter-icon" style="background:#1a1a2a; color:#a0a0ff; font-size:11px;">MJ</div>
+          </div>
+
+          <!-- Chrome -->
+          <div class="ado-key" data-name="Chrome">
+            <div class="ado-key-icon">
+              <img src="https://www.google.com/s2/favicons?domain=google.com/chrome&sz=128" alt="Chrome">
+            </div>
+          </div>
+
+          <!-- Linear -->
+          <div class="ado-key" data-name="Linear">
+            <div class="ado-key-icon">
+              <img src="https://www.google.com/s2/favicons?domain=linear.app&sz=128" alt="Linear">
+            </div>
+          </div>
+
+        </div>
+
+      </div><!-- .ado-kb-body -->
+    </div><!-- .ado-kb-scene -->
+
+  </div><!-- .ado-tools-inner -->
+</section>

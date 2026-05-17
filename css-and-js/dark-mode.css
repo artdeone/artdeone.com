@@ -638,7 +638,58 @@ body.dark-mode .gradient-text.artdeone-font {
 /* Issue 2: Remove strokes/borders from masonry gallery cards in BOTH light and dark modes */
 .masonry-item {
     border: none !important;
-    box-shadow: none;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.05);
+}
+
+/* New pinboard gallery — dark mode */
+html[data-theme="dark"] body,
+body.dark-mode {
+    background-image: radial-gradient(circle, rgba(167,225,105,0.08) 1px, transparent 1px) !important;
+}
+
+html[data-theme="dark"] .masonry-item,
+body.dark-mode .masonry-item {
+    background: var(--ado-dark-surface) !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3) !important;
+}
+
+html[data-theme="dark"] .masonry-item:hover,
+body.dark-mode .masonry-item:hover {
+    box-shadow: 0 24px 48px rgba(0,0,0,0.4), 0 0 0 2px rgba(167,225,105,0.3) !important;
+}
+
+html[data-theme="dark"] .masonry-overlay h3,
+body.dark-mode .masonry-overlay h3 {
+    color: var(--ado-dark-text) !important;
+    -webkit-text-fill-color: var(--ado-dark-text) !important;
+}
+
+html[data-theme="dark"] .masonry-overlay p,
+body.dark-mode .masonry-overlay p {
+    color: var(--ado-dark-muted) !important;
+    -webkit-text-fill-color: var(--ado-dark-muted) !important;
+}
+
+html[data-theme="dark"] .masonry-overlay p:last-child,
+body.dark-mode .masonry-overlay p:last-child {
+    color: var(--ado-brand-green) !important;
+    -webkit-text-fill-color: var(--ado-brand-green) !important;
+}
+
+html[data-theme="dark"] .hero-title .gradient-text,
+body.dark-mode .hero-title .gradient-text {
+    color: var(--ado-dark-text) !important;
+    -webkit-text-fill-color: var(--ado-dark-text) !important;
+}
+
+html[data-theme="dark"] .hero-subtitle-fun,
+body.dark-mode .hero-subtitle-fun {
+    color: var(--ado-dark-muted) !important;
+}
+
+html[data-theme="dark"] .hero-subtitle-fun strong,
+body.dark-mode .hero-subtitle-fun strong {
+    color: var(--ado-brand-green) !important;
 }
 
 /* Issue 3: "သင်ကြားမည့်ပုံစံ" section & learn cards — dark mode */
