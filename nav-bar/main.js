@@ -66,6 +66,11 @@ function highlightCurrentPage() {
             link.classList.add('font-bold', 'text-black');
             link.style.color = '#000'; // Extra safety
         }
+        // Highlight News link on both news.html and news-article.html
+        if (currentPath.includes('news') && href && href.includes('news.html')) {
+            link.classList.add('font-bold', 'text-black');
+            link.style.color = '#000';
+        }
     });
 }
 

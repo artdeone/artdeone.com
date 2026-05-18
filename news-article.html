@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <!-- ── Dark mode: apply BEFORE first paint to prevent flash of white ── -->
+    <script>
+    (function(){try{var s=localStorage.getItem('ado-theme-mode');var h=new Date().getHours();var isTimeDark=h>=18||h<4;if(s==='dark'||(s==='system'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches)||(!s&&isTimeDark)){document.documentElement.setAttribute('data-theme','dark');document.documentElement.style.colorScheme='dark';}}catch(e){}})();
+    </script>
+    <style>
+    html[data-theme="dark"] body { background-color: #11130f !important; color: #f3f6ee !important; }
+    html[data-theme="dark"] nav { background-color: rgba(17,19,15,0.95) !important; border-bottom-color: #343a2e !important; }
+    html[data-theme="dark"] .nav-link { color: #f3f6ee !important; }
+    html[data-theme="dark"] .mobile-menu { background-color: #11130f !important; }
+    </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CZRQ0NPPJ2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-CZRQ0NPPJ2');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ── Primary SEO (dynamically updated by JS) ── -->
+    <title>News Article | ART de ONE</title>
+    <meta name="description" content="AI နည်းပညာ သတင်း — ART de ONE">
+    <meta name="author" content="ART de ONE">
+    <meta name="robots" content="index, follow">
+
+    <!-- ── Open Graph (dynamically updated by JS) ── -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="">
+    <meta property="og:title" content="News | ART de ONE">
+    <meta property="og:description" content="AI နည်းပညာ သတင်း — ART de ONE">
+    <meta property="og:image" content="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png">
+    <meta property="og:locale" content="my_MM">
+    <meta property="og:site_name" content="ART de ONE">
+
+    <!-- ── Twitter / X Card ── -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="News | ART de ONE">
+    <meta name="twitter:description" content="AI နည်းပညာ သတင်း — ART de ONE">
+    <meta name="twitter:image" content="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png">
+
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769316272/fav-icon_n00lji.png">
+
+    <!-- ── Preconnect ── -->
+    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- ── Myanmar Font ── -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="css-and-js/mobile-smooth-nav.css">
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <link rel="stylesheet" href="css-and-js/theme.css">
+    <link rel="stylesheet" href="css-and-js/theme-toggle.css">
+
+    <style>
+        /* ── News Article Page Specific Styles ── */
+
+        /* Nav button pill shape */
+        .nav-btn { border-radius: 2rem; }
+
+        /* Article header */
+        .article-header {
+            padding-top: 8rem;
+            padding-bottom: 2rem;
+        }
+        .article-category {
+            display: inline-block;
+            background: #a7e169;
+            color: #11130f;
+            padding: 2px 12px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .article-title {
+            font-family: 'Noto Sans Myanmar', 'Padauk', 'Myanmar Text', sans-serif;
+            font-size: 2rem;
+            line-height: 1.75;
+            font-weight: 700;
+            color: #11130f;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        @media (min-width: 768px) {
+            .article-title { font-size: 2.5rem; }
+        }
+        .article-meta {
+            font-size: 0.875rem;
+            color: #888;
+            margin-bottom: 2rem;
+        }
+        .article-meta a {
+            color: #a7e169;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .article-meta a:hover {
+            text-decoration: underline;
+        }
+
+        /* Hero image */
+        .article-hero-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Article body */
+        #article-body {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        #article-body p {
+            font-family: 'Noto Sans Myanmar', 'Padauk', 'Myanmar Text', sans-serif;
+            font-size: 1rem;
+            line-height: 1.85;
+            margin-bottom: 1.5rem;
+            color: #323232;
+        }
+        #article-body h2 {
+            font-family: 'Noto Sans Myanmar', 'Padauk', 'Myanmar Text', sans-serif;
+            font-size: 1.25rem;
+            line-height: 1.65;
+            font-weight: 700;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            color: #11130f;
+        }
+        #article-body figure img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 2rem 0 0.5rem;
+        }
+        #article-body figcaption {
+            font-size: 0.8rem;
+            opacity: 0.6;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        /* Video block */
+        #article-body .article-video-wrapper {
+            margin: 2rem 0;
+            border-radius: 1rem;
+            overflow: hidden;
+            background: #000;
+        }
+        #article-body .article-video-wrapper video {
+            width: 100%;
+            display: block;
+        }
+        #article-body .article-video-caption {
+            font-size: 0.8rem;
+            opacity: 0.6;
+            text-align: center;
+            margin-top: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Tags */
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+        .article-tag-pill {
+            display: inline-block;
+            background: #f0f0f0;
+            color: #555;
+            padding: 4px 14px;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Share buttons */
+        .share-section {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-top: 2rem;
+            margin-bottom: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e5e5e5;
+        }
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #f0f0f0;
+            color: #555;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+        .share-btn:hover {
+            background: #a7e169;
+            color: #11130f;
+            transform: translateY(-2px);
+        }
+        .share-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+        .share-copy-btn {
+            cursor: pointer;
+            border: none;
+            font-size: 0.8rem;
+        }
+        .copy-toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #11130f;
+            color: #a7e169;
+            padding: 0.5rem 1.5rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        .copy-toast.show {
+            opacity: 1;
+        }
+
+        /* Related articles */
+        .related-section {
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 1px solid #e5e5e5;
+        }
+        .related-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        @media (min-width: 768px) {
+            .related-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        /* Related card (smaller) */
+        .news-card--small .news-card-thumbnail {
+            aspect-ratio: 16 / 9;
+        }
+        .news-card--small .news-card-title {
+            font-size: 0.95rem;
+            -webkit-line-clamp: 2;
+        }
+        .news-card--small .news-card-body {
+            padding: 1rem;
+        }
+        .news-card--small .news-card-date {
+            font-size: 0.75rem;
+            color: #999;
+        }
+
+        /* Back button */
+        .back-to-news {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #a7e169;
+            color: #11130f;
+            font-weight: 600;
+            border-radius: 9999px;
+            padding: 0.5rem 1.25rem;
+            font-size: 0.875rem;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+        .back-to-news:hover {
+            background: #ed2939;
+            color: #fff;
+        }
+
+        /* ── Dark Mode Overrides ── */
+        html[data-theme="dark"] .article-title {
+            color: #f3f6ee;
+        }
+        html[data-theme="dark"] #article-body p {
+            color: #d4d4d4;
+        }
+        html[data-theme="dark"] #article-body h2 {
+            color: #f3f6ee;
+        }
+        html[data-theme="dark"] .article-tag-pill {
+            background: #2a2d22;
+            color: #bbb;
+        }
+        html[data-theme="dark"] .share-section {
+            border-top-color: #2a2d22;
+        }
+        html[data-theme="dark"] .share-btn {
+            background: #2a2d22;
+            color: #bbb;
+        }
+        html[data-theme="dark"] .share-btn:hover {
+            background: #a7e169;
+            color: #11130f;
+        }
+        html[data-theme="dark"] .related-section {
+            border-top-color: #2a2d22;
+        }
+        html[data-theme="dark"] .news-card {
+            background: #1a1d16;
+            border-color: #2a2d22;
+        }
+        html[data-theme="dark"] .news-card:hover {
+            transform: translateY(-5px);
+        }
+        html[data-theme="dark"] .news-card-title {
+            color: #f3f6ee;
+        }
+        html[data-theme="dark"] .news-card-subtitle {
+            color: #999;
+        }
+        html[data-theme="dark"] .news-card-meta {
+            color: #777;
+            border-top-color: #2a2d22;
+        }
+        html[data-theme="dark"] .news-card-thumbnail {
+            background: #1a1d16;
+        }
+        html[data-theme="dark"] .article-meta {
+            color: #888;
+        }
+
+        [data-aos] { transition-duration: 1000ms !important; }
+    </style>
+</head>
+<body class="bg-white text-[#323232]">
+
+    <nav class="fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 nav-container">
+            <div class="nav-wrapper">
+                <div class="flex justify-between h-16 items-center">
+                    <div class="flex items-center">
+                        <a href="/index.html"><img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png" alt="ART de ONE" class="h-10 w-auto"></a>
+                    </div>
+
+                    <div class="hidden md:flex items-center space-x-6 nav-center">
+                        <a href="/index.html#home" class="nav-link">Home</a>
+                        <a href="/shop.html" class="nav-link">Shop</a>
+                        <a href="/portfolio/student-gallery.html" class="nav-link">Student</a>
+                        <a href="/blog.html" class="nav-link">Blog</a>
+                        <a href="/news.html" class="nav-link" style="color: #000 !important; font-weight: 700 !important;">News</a>
+                        <a href="https://ai.artdeone.com/" class="nav-link">Ai</a>
+                        <div class="nav-dropdown-wrapper">
+                            <a href="/resources/resources-collection.html" class="nav-link" style="display:inline-flex;align-items:center;gap:4px;">Resources <i class="fas fa-chevron-down nav-dropdown-arrow"></i></a>
+                            <div class="nav-dropdown">
+                                <a href="/resources/resources-collection.html">All Resources</a>
+                                <a href="/prompt.html">AI Prompts</a>
+                            </div>
+                        </div>
+                        <a href="/index.html#contact" class="nav-link">Contact</a>
+                    </div>
+
+                    <div class="hidden md:flex items-center gap-3">
+                        <button type="button" id="ado-theme-toggle" class="ado-theme-toggle" title="Switch theme" aria-label="Switch theme">
+                            <span class="ado-theme-toggle-icon"></span>
+                        </button>
+                        <a href="/customer-dashboard.html" class="nav-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
+                    </div>
+
+                    <div class="md:hidden flex items-center">
+                        <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md hover:bg-gray-100 focus:outline-none" id="mobile-menu-button">
+                            <div class="icon-container text-black">
+                                <i data-feather="menu" class="icon-menu"></i>
+                                <i data-feather="x" class="icon-close"></i>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mobile-menu md:hidden hidden" id="mobile-menu">
+            <div class="py-2 px-4 space-y-1">
+                <a href="/index.html#home" class="block py-2 mobile-nav-link">Home</a>
+                <a href="/shop.html" class="block py-2 mobile-nav-link">Shop</a>
+                <a href="/portfolio/student-gallery.html" class="block py-2 mobile-nav-link">Student</a>
+                <a href="/blog.html" class="block py-2 mobile-nav-link">Blog</a>
+                <a href="/news.html" class="block py-2 mobile-nav-link font-bold text-black">News</a>
+                <a href="https://ai.artdeone.com/" class="block py-2 mobile-nav-link">Ai</a>
+                <div>
+                    <button onclick="toggleMobileResourcesDropdown()" class="block py-2 mobile-nav-link w-full text-left" style="display:flex;align-items:center;gap:6px;">
+                        <span>Resources</span>
+                        <i class="fas fa-chevron-down mobile-dropdown-arrow" id="mobile-res-arrow"></i>
+                    </button>
+                    <div class="mobile-sub-menu" id="mobile-resources-sub">
+                        <a href="/resources/resources-collection.html" class="block py-2 pl-6 text-sm text-gray-500 hover:text-black transition">All Resources</a>
+                        <a href="/prompt.html" class="block py-2 pl-6 text-sm text-gray-500 hover:text-black transition">AI Prompts</a>
+                    </div>
+                </div>
+                <a href="/index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
+                <div style="display:flex;align-items:center;gap:8px;padding:8px 0;">
+                    <button type="button" id="ado-theme-toggle-mobile" class="ado-theme-toggle" title="Switch theme" aria-label="Switch theme">
+                        <span class="ado-theme-toggle-icon"></span>
+                    </button>
+                    <span class="ado-theme-toggle-label">Theme</span>
+                </div>
+                <a href="/customer-dashboard.html" style="display:inline-flex; align-items:center; gap:0.35rem; background:#ed2939; color:#fff; font-weight:600; border-radius:2rem; padding:0.3rem 0.75rem; font-size:0.75rem; border:1px solid #ed2939; text-decoration:none;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="bg-white min-h-screen" style="overflow-x: clip;">
+
+        <!-- ── Article Header ── -->
+        <div class="article-header">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div id="article-category-line" class="mb-4"></div>
+                <h1 id="article-title" class="article-title"></h1>
+                <div id="article-meta" class="article-meta"></div>
+            </div>
+        </div>
+
+        <!-- ── Hero Image ── -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+            <img id="article-hero-image" class="article-hero-image" src="" alt="" loading="lazy">
+        </div>
+
+        <!-- ── Article Body ── -->
+        <div class="pb-16">
+            <div id="article-body"></div>
+
+            <!-- Tags -->
+            <div class="max-w-[700px] mx-auto px-6">
+                <div id="article-tags" class="article-tags"></div>
+
+                <!-- Share -->
+                <div class="share-section">
+                    <span style="font-size:0.85rem; font-weight:600; color:#888;">Share:</span>
+                    <a id="share-twitter" href="#" target="_blank" rel="noopener noreferrer" class="share-btn" title="Share on X / Twitter">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a id="share-facebook" href="#" target="_blank" rel="noopener noreferrer" class="share-btn" title="Share on Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </a>
+                    <button id="share-copy" class="share-btn share-copy-btn" title="Copy link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                    </button>
+                    <a href="/news.html" class="share-btn" title="Back to News" style="margin-left:auto;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Related Articles ── -->
+        <div class="related-section max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+            <h2 class="text-2xl font-bold text-black mb-2 border-l-4 border-[#a7e169] pl-4" style="font-family: 'Noto Sans Myanmar', 'Padauk', sans-serif;">ဆက်စပ်သတင်းများ</h2>
+            <div id="related-articles" class="related-grid"></div>
+        </div>
+
+    </main>
+
+    <!-- ── Copy Toast ── -->
+    <div id="copy-toast" class="copy-toast">Link copied!</div>
+
+    <!-- ── Footer ── -->
+    <footer class="bg-white text-[#323232] py-12 border-t border-gray-200 footer-glow">
+
+    <!-- Sarvam-style circle glow orbs -->
+    <div class="footer-orb footer-orb-1"></div>
+    <div class="footer-orb footer-orb-2"></div>
+    <div class="footer-orb footer-orb-3"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-5 gap-8">
+                <div>
+                    <span class="text-xl font-bold mb-4 block text-black">ART de ONE</span>
+                    <p class="text-gray-500 text-sm">
+                        Freelance Graphic Designer & Illustrator Portfolio, Blog, Resources and Online Courses
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Quick Links</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index.html#home" class="text-gray-500 hover:text-black transition duration-300">Home</a></li>
+                        <li><a href="/prompt.html" class="text-gray-500 hover:text-black transition duration-300">Prompts</a></li>
+                        <li><a href="/shop.html" class="text-gray-500 hover:text-black transition duration-300">Shop</a></li>
+                        <li><a href="/blog.html" class="text-gray-500 hover:text-black transition duration-300">Blog</a></li>
+                        <li><a href="/news.html" class="text-gray-500 hover:text-black transition duration-300">News</a></li>
+                        <li><a href="/resources/resources-collection.html" class="text-gray-500 hover:text-black transition duration-300">Resources</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Services</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Logo Design</a></li>
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Social Media</a></li>
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Printing</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Contact</h3>
+                    <ul class="space-y-2 text-sm">
+                         <li><a href="/index.html#about" class="text-gray-500 hover:text-black transition duration-300">About</a></li>
+                        <li><a href="/index.html#contact" class="text-gray-500 hover:text-black transition duration-300">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Legal</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/privacy-policy.html" class="text-gray-500 hover:text-black transition duration-300">Privacy Policy</a></li>
+                        <li><a href="/terms-of-service.html" class="text-gray-500 hover:text-black transition duration-300">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="border-t border-gray-200 mt-8 pt-8">
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-6">
+
+        <!-- Left: Copyright -->
+        <p class="text-gray-500 text-sm text-center sm:text-left order-2 sm:order-1 sm:w-1/4">
+            &copy; <span id="footer-year"></span> ART de ONE. All rights reserved.
+        </p>
+
+        <!-- Center: Trust Badges -->
+        <div class="flex flex-wrap items-center justify-center gap-3 order-1 sm:order-2">
+
+            <!-- Badge 1: SSL Secured -->
+            <div class="trust-badge group" title="SSL Encrypted Connection">
+                <div class="badge-icon">
+                    <i class="fas fa-lock text-xs"></i>
+                </div>
+                <div class="badge-text">
+                    <span class="badge-label">SSL</span>
+                    <span class="badge-value">Secured</span>
+                </div>
+            </div>
+
+            <!-- Badge 2: DMCA Protected -->
+        <div class="trust-badge group dmca-official-wrapper" title="DMCA.com Protection Status">
+            <a href="//www.dmca.com/Protection/Status.aspx?ID=04063fb7-27c9-4e80-86e5-bc851bcd5935"
+               title="DMCA.com Protection Status"
+               class="dmca-badge">
+                <img src="https://images.dmca.com/Badges/dmca-badge-w100-2x1-02.png?ID=04063fb7-27c9-4e80-86e5-bc851bcd5935"
+                     alt="DMCA.com Protection Status"
+                     style="height: 20px; width: auto; display: block;" />
+            </a>
+            <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+        </div>
+
+            <!-- Badge 3: Verified Professional -->
+            <div class="trust-badge group" title="9+ Years Professional Experience">
+                <div class="badge-icon badge-icon-gold">
+                    <i class="fas fa-award text-xs"></i>
+                </div>
+                <div class="badge-text">
+                    <span class="badge-label">Verified</span>
+                    <span class="badge-value">Professional</span>
+                </div>
+            </div>
+
+            <!-- Badge 4: Safe Browsing -->
+            <div class="trust-badge group" title="Google Safe Browsing Verified">
+                <div class="badge-icon badge-icon-green">
+                    <i class="fas fa-check-circle text-xs"></i>
+                </div>
+                <div class="badge-text">
+                    <span class="badge-label">Google</span>
+                    <span class="badge-value">Safe</span>
+                </div>
+            </div>
+
+            <!-- Badge 5: Google Business -->
+            <a href="https://g.page/r/Cb6j-IdtRRWLEAE/review" target="_blank" class="trust-badge group" title="Find us on Google Business">
+                <div class="badge-icon" style="background-color: #4285F4;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width:12px;height:12px;fill:white;">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                </div>
+                <div class="badge-text">
+                    <span class="badge-label">Google</span>
+                    <span class="badge-value">Business</span>
+                </div>
+            </a>
+
+        </div>
+
+        <!-- Right: Social Icons -->
+        <div class="flex justify-center sm:justify-end space-x-6 text-sm order-3 sm:w-1/4">
+            <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-behance"></i></a>
+            <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-tiktok"></i></a>
+        </div>
+
+    </div>
+</div>
+
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="css-and-js/mobile-smooth-nav.js"></script>
+
+    <script src="/js/news-data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var params = new URLSearchParams(window.location.search);
+            var articleId = params.get('id');
+
+            if (!articleId || typeof newsData === 'undefined') {
+                window.location.href = '/news.html';
+                return;
+            }
+
+            var article = newsData.find(function(a) { return a.id === articleId; });
+
+            // Redirect to listing if article not found
+            if (!article) {
+                window.location.href = '/news.html';
+                return;
+            }
+
+            renderArticle(article);
+        });
+
+        function renderArticle(article) {
+            // Update page title and meta
+            document.title = article.title + ' — ART de ONE';
+            var metaDesc = document.querySelector('meta[name="description"]');
+            if (metaDesc) metaDesc.setAttribute('content', article.subtitle);
+            var ogTitle = document.querySelector('meta[property="og:title"]');
+            if (ogTitle) ogTitle.setAttribute('content', article.title);
+            var ogDesc = document.querySelector('meta[property="og:description"]');
+            if (ogDesc) ogDesc.setAttribute('content', article.subtitle);
+            var ogImage = document.querySelector('meta[property="og:image"]');
+            if (ogImage) ogImage.setAttribute('content', article.thumbnail);
+            var ogUrl = document.querySelector('meta[property="og:url"]');
+            if (ogUrl) ogUrl.setAttribute('content', window.location.href);
+            var twTitle = document.querySelector('meta[name="twitter:title"]');
+            if (twTitle) twTitle.setAttribute('content', article.title);
+            var twDesc = document.querySelector('meta[name="twitter:description"]');
+            if (twDesc) twDesc.setAttribute('content', article.subtitle);
+            var twImage = document.querySelector('meta[name="twitter:image"]');
+            if (twImage) twImage.setAttribute('content', article.thumbnail);
+
+            // Header
+            var categoryLine = document.getElementById('article-category-line');
+            categoryLine.innerHTML =
+                '<span class="article-category">' + article.category + '</span>' +
+                '<span style="color:#999; font-size:0.85rem; margin-left:0.75rem;">' + article.dateDisplay + ' · ' + article.readTime + '</span>';
+
+            document.getElementById('article-title').textContent = article.title;
+
+            var metaDiv = document.getElementById('article-meta');
+            var extIcon = ' <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>';
+            var sourceHtml = '';
+            if (article.sourceName) {
+                sourceHtml += ' · Source: <a href="' + article.sourceUrl + '" target="_blank" rel="noopener noreferrer">' + article.sourceName + extIcon + '</a>';
+            }
+            if (article.sourceName2) {
+                sourceHtml += ' · <a href="' + article.sourceUrl2 + '" target="_blank" rel="noopener noreferrer">' + article.sourceName2 + extIcon + '</a>';
+            }
+            metaDiv.innerHTML = 'By <strong>' + article.author + '</strong>' + sourceHtml;
+
+            // Hero image
+            var heroImg = document.getElementById('article-hero-image');
+            heroImg.src = article.thumbnail;
+            heroImg.alt = article.thumbnailAlt;
+
+            // Content blocks
+            var body = document.getElementById('article-body');
+            article.content.forEach(function(block) {
+                var el = null;
+
+                if (block.type === 'paragraph') {
+                    el = document.createElement('p');
+                    el.textContent = block.text;
+                }
+
+                if (block.type === 'heading') {
+                    el = document.createElement('h2');
+                    el.textContent = block.text;
+                }
+
+                if (block.type === 'image') {
+                    el = document.createElement('figure');
+                    el.innerHTML =
+                        '<img src="' + block.src + '" alt="' + block.alt + '" loading="lazy">' +
+                        (block.caption ? '<figcaption>' + block.caption + '</figcaption>' : '');
+                }
+
+                if (block.type === 'video') {
+                    el = document.createElement('div');
+                    el.innerHTML =
+                        '<div class="article-video-wrapper">' +
+                            '<video controls playsinline preload="metadata" src="' + block.src + '"></video>' +
+                        '</div>' +
+                        (block.caption ? '<p class="article-video-caption">' + block.caption + '</p>' : '');
+                }
+
+                if (el) body.appendChild(el);
+            });
+
+            // Tags
+            var tagsContainer = document.getElementById('article-tags');
+            if (article.tags && article.tags.length > 0) {
+                article.tags.forEach(function(tag) {
+                    var span = document.createElement('span');
+                    span.className = 'article-tag-pill';
+                    span.textContent = tag;
+                    tagsContainer.appendChild(span);
+                });
+            }
+
+            // Share buttons
+            renderShareButtons(article);
+
+            // Related articles
+            renderRelatedArticles(article.id);
+        }
+
+        function renderShareButtons(article) {
+            var url = encodeURIComponent(window.location.href);
+            var title = encodeURIComponent(article.title);
+
+            var twitterBtn = document.getElementById('share-twitter');
+            if (twitterBtn) {
+                twitterBtn.href = 'https://twitter.com/intent/tweet?text=' + title + '&url=' + url;
+            }
+
+            var facebookBtn = document.getElementById('share-facebook');
+            if (facebookBtn) {
+                facebookBtn.href = 'https://www.facebook.com/sharer/sharer.php?u=' + url;
+            }
+
+            var copyBtn = document.getElementById('share-copy');
+            if (copyBtn) {
+                copyBtn.addEventListener('click', function() {
+                    navigator.clipboard.writeText(window.location.href).then(function() {
+                        var toast = document.getElementById('copy-toast');
+                        toast.classList.add('show');
+                        setTimeout(function() {
+                            toast.classList.remove('show');
+                        }, 2000);
+                    });
+                });
+            }
+        }
+
+        function renderRelatedArticles(currentId) {
+            var pool = newsData.filter(function(a) { return a.id !== currentId; });
+            var related = pool.sort(function() { return Math.random() - 0.5; }).slice(0, 3);
+            var container = document.getElementById('related-articles');
+
+            related.forEach(function(article) {
+                var card = document.createElement('a');
+                card.href = '/news-article.html?id=' + article.id;
+                card.className = 'news-card news-card--small block h-full flex flex-col';
+                card.innerHTML =
+                    '<div class="news-card-thumbnail">' +
+                        '<img src="' + article.thumbnail + '" alt="' + article.thumbnailAlt + '" loading="lazy">' +
+                    '</div>' +
+                    '<div class="news-card-body">' +
+                        '<span class="news-tag">' + article.category + '</span>' +
+                        '<h3 class="news-card-title">' + article.title + '</h3>' +
+                        '<span class="news-card-date">' + article.dateDisplay + '</span>' +
+                    '</div>';
+                container.appendChild(card);
+            });
+        }
+    </script>
+    <script>
+        // Initialize Libraries
+        AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
+        feather.replace();
+
+        // Dynamic copyright year
+        document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+        // Mobile Menu Logic
+        const menuBtn = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if(menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+<script>
+function toggleMobileResourcesDropdown() {
+    document.getElementById('mobile-resources-sub').classList.toggle('open');
+    document.getElementById('mobile-res-arrow').classList.toggle('rotated');
+}
+</script>
+<script src="/js/shop-badge.js"></script>
+<script type="module" src="/js/nav-auth.js"></script>
+<script src="/js/theme-mode.js"></script>
+<script src="/js/theme-toggle.js"></script>
+</body>
+</html>

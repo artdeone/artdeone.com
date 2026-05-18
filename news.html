@@ -1,9 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="my">
 <head>
+    <!-- ── Dark mode: apply BEFORE first paint to prevent flash of white ── -->
     <script>
     (function(){try{var s=localStorage.getItem('ado-theme-mode');var h=new Date().getHours();var isTimeDark=h>=18||h<4;if(s==='dark'||(s==='system'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches)||(!s&&isTimeDark)){document.documentElement.setAttribute('data-theme','dark');document.documentElement.style.colorScheme='dark';}}catch(e){}})();
     </script>
+    <style>
+    html[data-theme="dark"] body { background-color: #11130f !important; color: #f3f6ee !important; }
+    html[data-theme="dark"] nav { background-color: rgba(17,19,15,0.95) !important; border-bottom-color: #343a2e !important; }
+    html[data-theme="dark"] .nav-link { color: #f3f6ee !important; }
+    html[data-theme="dark"] .mobile-menu { background-color: #11130f !important; }
+    </style>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-CZRQ0NPPJ2"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -11,108 +18,179 @@
         gtag('js', new Date());
         gtag('config', 'G-CZRQ0NPPJ2');
     </script>
-    
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Ai - ART de ONE</title>
+    <!-- ── Primary SEO ── -->
+    <title>AI News | ART de ONE | နည်းပညာ သတင်းများ</title>
+    <meta name="description" content="AI နည်းပညာ သတင်းများ — OpenAI, Google, Anthropic, Midjourney နှင့် နည်းပညာကုမ္ပဏီကြီးများ၏ နောက်ဆုံးပေါ် သတင်းများကို မြန်မာလို ဖတ်ရှုနိုင်ပါသည်။">
+    <meta name="keywords" content="AI news myanmar, နည်းပညာ သတင်း, OpenAI, GPT, Google Gemini, AI update, ART de ONE news, အိုင်အို သတင်း">
+    <meta name="author" content="ART de ONE">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.artdeone.com/news.html">
+
+    <!-- ── Open Graph (Facebook / Social Share) ── -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.artdeone.com/news.html">
+    <meta property="og:title" content="AI News | ART de ONE | နည်းပညာ သတင်းများ">
+    <meta property="og:description" content="AI နည်းပညာ သတင်းများကို မြန်မာလို ဖတ်ရှုနိုင်ပါသည်။ OpenAI, Google, Anthropic နှင့် အခြားနည်းပညာကုမ္ပဏီကြီးများ၏ နောက်ဆုံးပေါ် သတင်းများ။">
+    <meta property="og:image" content="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png">
+    <meta property="og:locale" content="my_MM">
+    <meta property="og:site_name" content="ART de ONE">
+
+    <!-- ── Twitter / X Card ── -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AI News | ART de ONE | နည်းပညာ သတင်းများ">
+    <meta name="twitter:description" content="AI နည်းပညာ သတင်းများကို မြန်မာလို ဖတ်ရှုနိုင်ပါသည်။">
+    <meta name="twitter:image" content="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png">
+
     <link rel="icon" type="image/png" href="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769316272/fav-icon_n00lji.png">
+
+    <!-- ── Preconnect ── -->
+    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- ── Myanmar Font ── -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@400;500;700&display=swap" rel="stylesheet">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css-and-js/mobile-smooth-nav.css">
+    <link rel="stylesheet" href="css-and-js/mobile-smooth-nav.css">
     <script src="https://unpkg.com/feather-icons"></script>
-    
-    <link rel="stylesheet" href="/css-and-js/theme.css">
-    <link id="ado-dark-mode-css" rel="preload" as="style" href="/css-and-js/dark-mode.css" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/css-and-js/dark-mode.css"></noscript>
-    <link rel="stylesheet" href="/css-and-js/theme-toggle.css">
-    
+
+    <link rel="stylesheet" href="css-and-js/theme.css">
+    <link rel="stylesheet" href="css-and-js/theme-toggle.css">
+
     <style>
-        /* PAGE SPECIFIC BLOG STYLES */
-        .nav-btn {
-            border-radius: 2rem; 
-        }
-        .post-header {
-            padding-top: 8rem;
-            padding-bottom: 4rem;
-            border-bottom: 1px solid #f3f4f6;
-        }
-        .post-content {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #323232;
-        }
-        .post-content h2 {
-            color: #000;
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin-top: 3rem;
-            margin-bottom: 1.5rem;
-        }
+        /* ── News Page Specific Styles ── */
 
-        /* Responsive Video Container */
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 */
-            height: 0;
-            overflow: hidden;
-            border-radius: 1.5rem;
-            background: #000;
-        }
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        
-        .cta-box {
-            background-color: #f9fafb;
-            border: 1px solid #e5e7eb;
-            padding: 3rem;
-            border-radius: 1.5rem;
-            text-align: center;
-            margin: 3rem 0;
-            transition: all 0.3s ease;
-        }
-        .cta-box:hover {
-            border-color: #a7e169;
-            box-shadow: 0 10px 30px -10px rgba(167, 225, 105, 0.2);
-        }
+        /* Nav button pill shape */
+        .nav-btn { border-radius: 2rem; }
 
-        .share-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #e5e7eb;
-            color: #6b7280;
-            transition: all 0.3s ease;
-        }
-        .share-btn:hover {
-            background-color: #000;
-            color: #fff;
-            border-color: #000;
-        }
+        .news-hero { padding-top: 8rem; padding-bottom: 4rem; }
 
-        .related-card {
-            background-color: #ffffff;
-            border: 1px solid #e5e7eb;
+        /* News Card */
+        .news-card {
+            background: #ffffff;
             border-radius: 1rem;
             overflow: hidden;
-            transition: all 0.4s ease;
+            border: 1px solid #e5e5e5;
+            transition: transform 0.25s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
         }
-        .related-card:hover {
+        .news-card:hover {
             transform: translateY(-5px);
-            border-color: #a7e169;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
         }
 
-        .text-accent { color: #a7e169; }
-        
+        /* Thumbnail zoom on hover */
+        .news-card-thumbnail {
+            overflow: hidden;
+            aspect-ratio: 16 / 9;
+            background: #f3f4f6;
+        }
+        .news-card-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        .news-card:hover .news-card-thumbnail img {
+            transform: scale(1.04);
+        }
+
+        /* Card body */
+        .news-card-body {
+            padding: 1.25rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Category tag */
+        .news-tag {
+            display: inline-block;
+            background: #a7e169;
+            color: #11130f;
+            padding: 2px 12px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            width: fit-content;
+        }
+
+        /* Myanmar title clamp */
+        .news-card-title {
+            font-family: 'Noto Sans Myanmar', 'Padauk', 'Myanmar Text', sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.75;
+            letter-spacing: 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            color: #11130f;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Subtitle */
+        .news-card-subtitle {
+            font-family: 'Noto Sans Myanmar', 'Padauk', 'Myanmar Text', sans-serif;
+            font-size: 0.875rem;
+            line-height: 1.65;
+            color: #666;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            flex: 1;
+        }
+
+        /* Card meta */
+        .news-card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: #999;
+            margin-top: auto;
+            padding-top: 0.75rem;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        /* Hero title — generous line-height for Myanmar stacked glyphs */
+        .news-hero-title {
+            font-family: 'Noto Sans Myanmar', 'Padauk', 'Myanmar Text', sans-serif;
+            line-height: 1.8;
+            padding-top: 0.35rem;
+            padding-bottom: 0.35rem;
+        }
+
+        /* ── Dark Mode Overrides ── */
+        html[data-theme="dark"] .news-card {
+            background: #1a1d16;
+            border-color: #2a2d22;
+        }
+        html[data-theme="dark"] .news-card-title {
+            color: #f3f6ee;
+        }
+        html[data-theme="dark"] .news-card-subtitle {
+            color: #999;
+        }
+        html[data-theme="dark"] .news-card-meta {
+            color: #777;
+            border-top-color: #2a2d22;
+        }
+        html[data-theme="dark"] .news-card-thumbnail {
+            background: #1a1d16;
+        }
+
         [data-aos] { transition-duration: 1000ms !important; }
     </style>
 </head>
@@ -125,13 +203,13 @@
                     <div class="flex items-center">
                         <a href="/index.html"><img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png" alt="ART de ONE" class="h-10 w-auto"></a>
                     </div>
-                    
+
                     <div class="hidden md:flex items-center space-x-6 nav-center">
                         <a href="/index.html#home" class="nav-link">Home</a>
-                       <!-- <a href="/courses.html" class="nav-link">Courses</a> -->
                         <a href="/shop.html" class="nav-link">Shop</a>
-                        <a href="/blog.html" class="nav-link font-bold text-black" style="color: #000 !important;">Blog</a>
-                        <a href="/news.html" class="nav-link">News</a>
+                        <a href="/portfolio/student-gallery.html" class="nav-link">Student</a>
+                        <a href="/blog.html" class="nav-link">Blog</a>
+                        <a href="/news.html" class="nav-link" style="color: #000 !important; font-weight: 700 !important;">News</a>
                         <a href="https://ai.artdeone.com/" class="nav-link">Ai</a>
                         <div class="nav-dropdown-wrapper">
                             <a href="/resources/resources-collection.html" class="nav-link" style="display:inline-flex;align-items:center;gap:4px;">Resources <i class="fas fa-chevron-down nav-dropdown-arrow"></i></a>
@@ -140,17 +218,16 @@
                                 <a href="/prompt.html">AI Prompts</a>
                             </div>
                         </div>
-                        
                         <a href="/index.html#contact" class="nav-link">Contact</a>
                     </div>
-                    
-                    <div class="hidden md:flex items-center gap-3" id="desktopAuth">
+
+                    <div class="hidden md:flex items-center gap-3">
                         <button type="button" id="ado-theme-toggle" class="ado-theme-toggle" title="Switch theme" aria-label="Switch theme">
                             <span class="ado-theme-toggle-icon"></span>
                         </button>
                         <a href="/customer-dashboard.html" class="nav-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
                     </div>
-                    
+
                     <div class="md:hidden flex items-center">
                         <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md hover:bg-gray-100 focus:outline-none" id="mobile-menu-button">
                             <div class="icon-container text-black">
@@ -162,14 +239,14 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="mobile-menu md:hidden hidden" id="mobile-menu">
             <div class="py-2 px-4 space-y-1">
                 <a href="/index.html#home" class="block py-2 mobile-nav-link">Home</a>
-                <!-- <a href="/courses.html" class="block py-2 mobile-nav-link">Courses</a> -->
                 <a href="/shop.html" class="block py-2 mobile-nav-link">Shop</a>
-                <a href="/blog.html" class="block py-2 mobile-nav-link font-bold text-black">Blog</a>
-                <a href="/news.html" class="block py-2 mobile-nav-link">News</a>
+                <a href="/portfolio/student-gallery.html" class="block py-2 mobile-nav-link">Student</a>
+                <a href="/blog.html" class="block py-2 mobile-nav-link">Blog</a>
+                <a href="/news.html" class="block py-2 mobile-nav-link font-bold text-black">News</a>
                 <a href="https://ai.artdeone.com/" class="block py-2 mobile-nav-link">Ai</a>
                 <div>
                     <button onclick="toggleMobileResourcesDropdown()" class="block py-2 mobile-nav-link w-full text-left" style="display:flex;align-items:center;gap:6px;">
@@ -182,126 +259,48 @@
                     </div>
                 </div>
                 <a href="/index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
-                                <div style="display:flex;align-items:center;gap:8px;padding:8px 0;">
+                <div style="display:flex;align-items:center;gap:8px;padding:8px 0;">
                     <button type="button" id="ado-theme-toggle-mobile" class="ado-theme-toggle" title="Switch theme" aria-label="Switch theme">
                         <span class="ado-theme-toggle-icon"></span>
                     </button>
                     <span class="ado-theme-toggle-label">Theme</span>
                 </div>
-<a href="/customer-dashboard.html" style="display:inline-flex; align-items:center; gap:0.35rem; background:#ed2939; color:#fff; font-weight:600; border-radius:2rem; padding:0.3rem 0.75rem; font-size:0.75rem; border:1px solid #ed2939; text-decoration:none;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
+                <a href="/customer-dashboard.html" style="display:inline-flex; align-items:center; gap:0.35rem; background:#ed2939; color:#fff; font-weight:600; border-radius:2rem; padding:0.3rem 0.75rem; font-size:0.75rem; border:1px solid #ed2939; text-decoration:none;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
             </div>
         </div>
     </nav>
 
-    <main>
-        <section class="post-header">
-            <div class="max-w-3xl mx-auto px-4 text-center" data-aos="fade-up">
-                <div class="flex items-center justify-center gap-4 text-sm text-gray-500 mb-6">
-                    <span class="uppercase tracking-widest text-accent font-bold">Artificial Intelligence</span>
-                    <span>•</span>
-                    <span>October 24, 2025</span>
-                </div>
-                <h1 class="text-3xl md:text-5xl font-bold text-black mb-8 leading-tight section-title">
-                    Free Ai - Limit ရှိပေမယ့် အရမ်းမိုက်တဲ့ Ai Tool
-                </h1>
-                <div class="flex items-center justify-center gap-3">
-                    <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-black font-bold text-xs border border-gray-200">AD</div>
-                    <div class="text-left">
-                        <p class="text-black text-sm font-semibold">ART de ONE Team</p>
-                        <p class="text-xs text-gray-500">Author</p>
-                    </div>
+    <main class="pt-32 pb-20 bg-white min-h-screen" style="overflow-x: clip;">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- ── Hero Section ── -->
+            <div class="relative mb-16 py-12">
+                <div class="relative z-10 text-center" data-aos="fade-up">
+                    <h1 class="text-5xl sm:text-6xl md:text-7xl font-bold mb-6 artdeone-font news-hero-title">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-black to-[#a7e169]">AI နည်းပညာ သတင်းများ</span>
+                    </h1>
+                    <p class="mt-4 text-lg text-[#555] max-w-2xl mx-auto font-light" style="font-family: 'Noto Sans Myanmar', 'Padauk', sans-serif; line-height: 1.85;">
+                        Latest AI news — presented in Myanmar<br>
+                        AI နည်းပညာရဲ့ နောက်ဆုံးရ သတင်းများကို အချိန်နဲ့တစ်ပြေးညီဖတ်ရှုနိုင်ပါပြီ။<br>
+                    </p>
                 </div>
             </div>
-        </section>
 
-        <section class="py-12 px-4">
-            <div class="max-w-3xl mx-auto">
-                <div class="video-container mb-12 shadow-lg" data-aos="fade-up">
-                    <iframe src="https://www.youtube.com/embed/93BseRCMLQY" title="Free Ai Website!!! Quality ကတော့ ရှယ်ကြမ်း🔥" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                </div>
-
-                <div class="post-content" data-aos="fade-up">
-                    <p class="text-lg leading-relaxed mb-8">
-                        Free Ai ဆိုပေမယ့် Limit တစ်ခုတော့ရှိပါတယ်။ ဒါပေမယ့် တစ်ခြား Free Ai တွေထက်ပိုကြမ်းပြီး တစ်ရက်ကို ပုံထုတ်လို့ရတဲ့အရေအတွက်က မနည်းဘူး။
-                    </p>
-
-                    <p class="text-xl text-gray-600 font-light mb-8 border-l-4 border-accent pl-6 italic">
-                        "Midjourney က တစ်လကို $10 နဲ့ ပုံ 200 ပဲထုတ်လို့ရတာနဲ့ နှိုင်းယှဉ်ကြည့်လိုက်ရင်တော့ အခုပြပေးမယ့် Ai ကပိုကောင်းတယ်ပါတယ်။ ကျွန်တော်ထုတ်ကြည့်တာတော့ တစ်ရက်ကို ပုံ 40 နီးပါရှိပါတယ်။"
-                    </p>
-                    
-                    <p>
-                        Video လေးကြည့်လိုက်ပါဦး။
-                    </p>
-
-                    <div class="cta-box">
-                        <h3 class="text-2xl font-bold text-black mb-2">Ready to Create?</h3>
-                        <p class="text-gray-500 mb-8">Explore the tool mentioned in the video.</p>
-                        <a href="https://app.reve.com/" target="_blank" class="nav-btn px-10 py-4 h-auto text-base inline-flex gap-3">
-                            <i data-feather="external-link" class="w-5 h-5"></i> Try Reve AI
-                        </a>
-                    </div>
-
-                    <div class="border-t border-gray-100 mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center gap-6">
-                        <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Share this article</span>
-                        <div class="flex gap-3">
-                            <a href="#" class="share-btn"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#" class="share-btn"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="share-btn"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#" class="share-btn"><i class="fas fa-link"></i></a>
-                        </div>
-                    </div>
-                </div>
+            <!-- ── News Grid ── -->
+            <div class="mb-12" data-aos="fade-up">
+                <h2 class="text-2xl font-bold text-black mb-6 border-l-4 border-[#a7e169] pl-4">Latest News</h2>
             </div>
-        </section>
 
-        <section class="py-20 bg-gray-50 border-t border-gray-100">
-            <div class="max-w-7xl mx-auto px-4">
-                <div class="flex justify-between items-end mb-10">
-                    <h2 class="text-2xl font-bold text-black section-title">Related Articles</h2>
-                    <a href="../../blog.html" class="text-sm font-bold text-accent hover:text-black transition-colors uppercase tracking-wider">View all posts →</a>
-                </div>
-                
-                <div class="grid md:grid-cols-3 gap-8">
-                     <a href="../post-1/post-1.html" class="related-card group block">
-                        <div class="h-48 overflow-hidden">
-                            <img src="../post-1/images/blog-image-1.jpg" alt="Related" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-lg font-bold text-black mb-2 group-hover:text-accent transition-colors">Shader & Stipple Brush</h3>
-                            <p class="text-xs font-bold text-gray-400 uppercase">September 27, 2025</p>
-                        </div>
-                    </a>
-                     <a href="../post-2/post-2.html" class="related-card group block">
-                        <div class="h-48 overflow-hidden">
-                            <img src="../post-2/images/hue-color-1.jpg" alt="Related" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-lg font-bold text-black mb-2 group-hover:text-accent transition-colors">HUEs VS COLORS</h3>
-                            <p class="text-xs font-bold text-gray-400 uppercase">October 1, 2025</p>
-                        </div>
-                    </a>
-                     <a href="../post-3/post-3.html" class="related-card group block">
-                        <div class="h-48 overflow-hidden">
-                            <img src="../post-3/images/rgb-1.jpg" alt="Related" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-lg font-bold text-black mb-2 group-hover:text-accent transition-colors">RGB သဘောတရား</h3>
-                            <p class="text-xs font-bold text-gray-400 uppercase">October 1, 2025</p>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="text-center mt-16">
-                    <a href="../../blog.html" class="nav-btn px-8 py-3 h-auto inline-flex gap-2">
-                        <i data-feather="arrow-left" class="w-4 h-4"></i> Back to All Posts
-                    </a>
-                </div>
+            <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-16">
+                <!-- Cards rendered by JS -->
             </div>
-        </section>
+
+        </div>
     </main>
 
+    <!-- ── Footer (matching blog.html) ── -->
     <footer class="bg-white text-[#323232] py-12 border-t border-gray-200 footer-glow">
-    
+
     <!-- Sarvam-style circle glow orbs -->
     <div class="footer-orb footer-orb-1"></div>
     <div class="footer-orb footer-orb-2"></div>
@@ -319,7 +318,6 @@
                     <h3 class="text-lg font-semibold mb-4 text-black">Quick Links</h3>
                     <ul class="space-y-2 text-sm">
                         <li><a href="index.html#home" class="text-gray-500 hover:text-black transition duration-300">Home</a></li>
-                      <!--  <li><a href="courses.html" class="text-gray-500 hover:text-black transition duration-300">Courses</a></li> -->
                         <li><a href="/prompt.html" class="text-gray-500 hover:text-black transition duration-300">Prompts</a></li>
                         <li><a href="/shop.html" class="text-gray-500 hover:text-black transition duration-300">Shop</a></li>
                         <li><a href="/blog.html" class="text-gray-500 hover:text-black transition duration-300">Blog</a></li>
@@ -351,28 +349,20 @@
                         <li><a href="/privacy-policy.html" class="text-gray-500 hover:text-black transition duration-300">Privacy Policy</a></li>
                         <li><a href="/terms-of-service.html" class="text-gray-500 hover:text-black transition duration-300">Terms of Service</a></li>
                     </ul>
-                </div> 
-                <!-- <div>
-                    <h3 class="text-lg font-semibold mb-4 text-black">Classes</h3>
-                    <ul class="space-y-2 text-sm">
-                         <li><a href="courses/basic-illustrator/course-detail-basic.html" class="text-gray-500 hover:text-black transition duration-300">Basic Course</a></li>
-                        <li><a href="courses/intermediate-illustrator/course-detail-intermediate.html" class="text-gray-500 hover:text-black transition duration-300">Intermediate</a></li>
-                        <li><a href="courses/graphic-design/course-detail-graphic-design.html" class="text-gray-500 hover:text-black transition duration-300">Graphic Design</a></li>
-                    </ul>
-                </div> -->
-                
+                </div>
+
             </div>
             <div class="border-t border-gray-200 mt-8 pt-8">
     <div class="flex flex-col sm:flex-row justify-between items-center gap-6">
-        
+
         <!-- Left: Copyright -->
         <p class="text-gray-500 text-sm text-center sm:text-left order-2 sm:order-1 sm:w-1/4">
-            &copy; 2026 ART de ONE. All rights reserved.
+            &copy; <span id="footer-year"></span> ART de ONE. All rights reserved.
         </p>
-        
+
         <!-- Center: Trust Badges -->
         <div class="flex flex-wrap items-center justify-center gap-3 order-1 sm:order-2">
-            
+
             <!-- Badge 1: SSL Secured -->
             <div class="trust-badge group" title="SSL Encrypted Connection">
                 <div class="badge-icon">
@@ -383,19 +373,19 @@
                     <span class="badge-value">Secured</span>
                 </div>
             </div>
-            
+
             <!-- Badge 2: DMCA Protected -->
         <div class="trust-badge group dmca-official-wrapper" title="DMCA.com Protection Status">
-            <a href="//www.dmca.com/Protection/Status.aspx?ID=04063fb7-27c9-4e80-86e5-bc851bcd5935" 
-               title="DMCA.com Protection Status" 
+            <a href="//www.dmca.com/Protection/Status.aspx?ID=04063fb7-27c9-4e80-86e5-bc851bcd5935"
+               title="DMCA.com Protection Status"
                class="dmca-badge">
-                <img src="https://images.dmca.com/Badges/dmca-badge-w100-2x1-02.png?ID=04063fb7-27c9-4e80-86e5-bc851bcd5935" 
-                     alt="DMCA.com Protection Status" 
+                <img src="https://images.dmca.com/Badges/dmca-badge-w100-2x1-02.png?ID=04063fb7-27c9-4e80-86e5-bc851bcd5935"
+                     alt="DMCA.com Protection Status"
                      style="height: 20px; width: auto; display: block;" />
             </a>
             <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
         </div>
-            
+
             <!-- Badge 3: Verified Professional -->
             <div class="trust-badge group" title="9+ Years Professional Experience">
                 <div class="badge-icon badge-icon-gold">
@@ -406,7 +396,7 @@
                     <span class="badge-value">Professional</span>
                 </div>
             </div>
-            
+
             <!-- Badge 4: Safe Browsing -->
             <div class="trust-badge group" title="Google Safe Browsing Verified">
                 <div class="badge-icon badge-icon-green">
@@ -417,7 +407,7 @@
                     <span class="badge-value">Safe</span>
                 </div>
             </div>
-            
+
             <!-- Badge 5: Google Business -->
             <a href="https://g.page/r/Cb6j-IdtRRWLEAE/review" target="_blank" class="trust-badge group" title="Find us on Google Business">
                 <div class="badge-icon" style="background-color: #4285F4;">
@@ -433,9 +423,9 @@
                     <span class="badge-value">Business</span>
                 </div>
             </a>
-            
+
         </div>
-        
+
         <!-- Right: Social Icons -->
         <div class="flex justify-center sm:justify-end space-x-6 text-sm order-3 sm:w-1/4">
             <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-facebook-f"></i></a>
@@ -443,7 +433,7 @@
             <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-linkedin-in"></i></a>
             <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-tiktok"></i></a>
         </div>
-        
+
     </div>
 </div>
 
@@ -452,32 +442,70 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script src="/css-and-js/mobile-smooth-nav.js"></script>
+    <script src="css-and-js/mobile-smooth-nav.js"></script>
+
+    <script src="/js/news-data.js"></script>
     <script>
-        AOS.init({ duration: 1000, once: true });
+        // Initialize Libraries
+        AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
         feather.replace();
 
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        // Dynamic copyright year
+        document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+        // Mobile Menu Logic
+        const menuBtn = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
-        if (mobileMenuButton && mobileMenu) {
-            mobileMenuButton.addEventListener('click', () => {
+        if(menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
             });
         }
+
+        function renderNewsGrid() {
+            const grid = document.getElementById('news-grid');
+            if (!grid || typeof newsData === 'undefined') return;
+
+            newsData.forEach(function(article, index) {
+                const delay = index * 50;
+                const card = document.createElement('a');
+                card.href = '/news-article.html?id=' + article.id;
+                card.className = 'news-card block h-full flex flex-col';
+                card.setAttribute('data-aos', 'fade-up');
+                card.setAttribute('data-aos-delay', delay);
+                card.innerHTML =
+                    '<div class="news-card-thumbnail">' +
+                        '<img src="' + article.thumbnail + '" alt="' + article.thumbnailAlt + '" loading="lazy">' +
+                    '</div>' +
+                    '<div class="news-card-body">' +
+                        '<span class="news-tag">' + article.category + '</span>' +
+                        '<h2 class="news-card-title">' + article.title + '</h2>' +
+                        '<p class="news-card-subtitle">' + article.subtitle + '</p>' +
+                        '<div class="news-card-meta">' +
+                            '<span>' + article.author + ' · ' + article.readTime + '</span>' +
+                            '<span>' + article.dateDisplay + '</span>' +
+                        '</div>' +
+                    '</div>';
+                grid.appendChild(card);
+            });
+
+            // Re-init AOS after dynamic content
+            if (window.AOS) {
+                AOS.refresh();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', renderNewsGrid);
     </script>
 <script>
 function toggleMobileResourcesDropdown() {
     document.getElementById('mobile-resources-sub').classList.toggle('open');
     document.getElementById('mobile-res-arrow').classList.toggle('rotated');
 }
-function toggleMobileProductsDropdown() {
-            document.getElementById('mobile-products-sub').classList.toggle('open');
-            document.getElementById('mobile-prod-arrow').classList.toggle('rotated');
-        }
 </script>
 <script src="/js/shop-badge.js"></script>
 <script type="module" src="/js/nav-auth.js"></script>
-    <script src="/js/theme-mode.js"></script>
-    <script src="/js/theme-toggle.js"></script>
+<script src="/js/theme-mode.js"></script>
+<script src="/js/theme-toggle.js"></script>
 </body>
 </html>
