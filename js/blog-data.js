@@ -162,6 +162,14 @@ const blogPosts = [
         excerpt: "AI ကို 'မှန်မှန်ကန်ကန် မေးတတ်တဲ့ပညာ' ပါ။ မေးနည်းမှားရင် AI က မှားတာထုတ်မယ်။ မေးနည်းမှန်ရင် AI က လိုချင်တာအတိအကျ ပေးမယ်။",
         file: "/posts/post-20/post-20.html"
     },
+    {
+        id: 21,
+        title: "Freelancer တွေသိထားသင့်တဲ့ Business Rules (၅)ခု",
+        date: "May 18, 2026",
+        image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1779089909/websitecover_u6ssd7.png",
+        excerpt: "50/50 Rule, Salami Technique, Out of Scope, Font Licensing နဲ့ 3-2-1 Backup Rule — Freelancer တစ်ယောက်အနေနဲ့ သိထားသင့်တဲ့ Business Rules (၅)ခုကို မျှဝေပေးပါတယ်။",
+        file: "/posts/post-21/post-21.html"
+    },
     // Add new posts here as you create them
 ];
 
@@ -191,6 +199,7 @@ function getCategory(postId) {
         10: 'DESIGN',
         11: 'AI',
         20: 'AI',
+        21: 'FREELANCE',
         // Add more categories for new posts
     };
     return categories[postId] || 'ARTICLE';

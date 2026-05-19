@@ -595,6 +595,39 @@
             color: #1e56a0;
             border: 1px solid rgba(37,99,235,0.35);
         }
+        /* ===== New Product Badge ===== */
+        .new-product-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: #ed2939;
+            color: #fff;
+            font-size: 0.62rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 2rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            z-index: 2;
+            box-shadow: 0 2px 8px rgba(237,41,57,0.35);
+        }
+        /* ===== File Format Labels ===== */
+        .file-format-labels {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 0.75rem;
+        }
+        .file-format-label {
+            background: #f3f4f6;
+            color: #374151;
+            font-size: 0.62rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 4px;
+            letter-spacing: 0.04em;
+            border: 1px solid #e5e7eb;
+        }
         .modal-video-wrapper {
             position: relative;
             width: 100%;
@@ -1668,6 +1701,31 @@
                 note: '📌 Creative Market မှာလည်း ဝယ်ယူနိုင်ပါတယ် — <a href="https://creativemarket.com/artdeone/292141837-Organic-Paper-Fabric-Texture" target="_blank" style="color:#ed2939; text-decoration:underline;">Creative Market တွင်ကြည့်ရန်</a>',
                 closing: 'Natural Texture တွေလိုအပ်ရင် ဒီမှာ Download ရယူလိုက်ပါခင်ဗျ။'
             },
+
+            {
+                id: 9,
+                name: 'Freelancer Contract Template',
+                tag: 'curated',
+                category: 'template',
+                price: 0,
+                featured: true,
+                newProductDate: '2026-05-19',
+                fileFormats: ['PSD', 'DOCX'],
+                image: 'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1779115839/product_ycbrte.jpg',
+                images: [
+                    'https://res.cloudinary.com/ddkd9lxpr/image/upload/v1779115839/product_ycbrte.jpg'
+                ],
+                description: 'Freelancer တွေ အတွက် အချိန်ကုန်သက်သာအောင် သေသေချာချာလေး ရေးပေးထားပါတယ်။ ကျွန်တော် ကိုယ်တိုင်ကလဲ လိုအပ်ရင်အမြဲ သုံးဖြစ်တဲ့ Contract ကို မျှ၀ေပေးလိုက်ပါတယ်။',
+                features: [
+                    'ငွေပေးချေမှု',
+                    'Revision စည်းမျဉ်း',
+                    'Out of Scope',
+                    'ဖျက်သိမ်းခြင်း',
+                    'အတည်ပြုချက်များ',
+                    'ပိုင်ဆိုင်ခွင့် နှင့် အသုံးပြုခွင့်'
+                ],
+                closing: 'Freelancer တစ်ယောက်အနေ နဲ့ ဒီလိုမျိုး Contract နဲ့ သွားရင် ပြဿနာတက်မှာ မစိုးရိမ်ရတော့ပါဘူး။'
+            },
         ];
 
         // Time-limited free pricing logic
@@ -1764,12 +1822,25 @@
                 else if (activePriceRange === 'above50k') matchPrice = dp > 50000;
                 return matchCat && matchSearch && matchPrice;
             });
-            filtered.sort((a, b) => getDisplayPrice(a) - getDisplayPrice(b));
+            filtered.sort((a, b) => {
+                const aFeatured = a.featured ? 1 : 0;
+                const bFeatured = b.featured ? 1 : 0;
+                if (bFeatured !== aFeatured) return bFeatured - aFeatured;
+                return getDisplayPrice(a) - getDisplayPrice(b);
+            });
             renderProducts(filtered);
         }
 
         function formatPrice(price) {
             return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+
+        function isNewProduct(p) {
+            if (!p.newProductDate) return false;
+            const productDate = new Date(p.newProductDate + 'T00:00:00');
+            const now = new Date();
+            const diffDays = (now - productDate) / (1000 * 60 * 60 * 24);
+            return diffDays >= 0 && diffDays <= 7;
         }
 
         function renderProducts(list) {
@@ -1788,6 +1859,7 @@
                 <div class="minimalist-card" data-aos="fade-up" onclick="openModal(${p.id})" style="cursor:pointer;">
                     <div style="position:relative; overflow:hidden;">
                         ${isCourse ? `<span class="course-badge"><i class="fas fa-play-circle" style="margin-right:4px;"></i>Video Course</span>` : ''}
+                        ${isNewProduct(p) ? `<span class="new-product-badge">New Product</span>` : ''}
                         <img src="${p.image}" alt="${p.name}" class="product-card-img" loading="lazy">
                         ${isCourse ? `<div class="video-play-overlay"><div class="video-play-icon"><i class="fas fa-play"></i></div></div>` : ''}
                         ${p.tag === 'handcraft' ? `<span class="origin-tag origin-tag-handcraft"><i class="fas fa-check-circle" style="font-size:10px;"></i> Handcraft</span>` : ''}
@@ -1796,6 +1868,7 @@
                     </div>
                     <div class="product-card-body">
                         <span class="category-badge mb-3">${categoryLabels[p.category]}</span>
+                        ${p.fileFormats && p.fileFormats.length ? `<div class="file-format-labels">${p.fileFormats.map(f => `<span class="file-format-label">${f}</span>`).join('')}</div>` : ''}
                         <h3 class="font-bold text-black text-lg mt-2 mb-2">${p.name}</h3>
                         <p class="text-sm text-[#555] mb-4 line-clamp-2">${p.description}</p>
                         <div>
@@ -1877,6 +1950,7 @@
                 <div class="modal-detail-body">
                     <span class="category-badge">${categoryLabels[p.category]}</span>
                     ${isCourse ? '<span class="category-badge category-badge-course" style="margin-left:6px;"><i class="fas fa-play-circle" style="margin-right:4px;"></i>Video Course</span>' : ''}
+                    ${p.fileFormats && p.fileFormats.length ? `<div class="file-format-labels" style="margin-top:0.75rem;">${p.fileFormats.map(f => `<span class="file-format-label">${f}</span>`).join('')}</div>` : ''}
                     <h2>${p.name}</h2>
                     <p class="desc">${p.description}</p>
                     <div class="modal-features">

@@ -11,41 +11,37 @@
         gtag('js', new Date());
         gtag('config', 'G-CZRQ0NPPJ2');
     </script>
-    
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prompt Engineering ဆိုတာ ဘာလဲ? - ART de ONE</title>
+    <title>Freelancer တွေသိထားသင့်တဲ့ Business Rules (၅)ခု - ART de ONE</title>
     <link rel="icon" type="image/png" href="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769316272/fav-icon_n00lji.png">
-    
+
     <!-- LIBRARIES -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/feather-icons"></script>
-    
+
     <!-- CUSTOM STYLES -->
     <link rel="stylesheet" href="/css-and-js/mobile-smooth-nav.css">
     <link rel="stylesheet" href="/css-and-js/theme.css">
     <link id="ado-dark-mode-css" rel="preload" as="style" href="/css-and-js/dark-mode.css" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/css-and-js/dark-mode.css"></noscript>
     <link rel="stylesheet" href="/css-and-js/theme-toggle.css">
-    
+
     <style>
-        /* --- BASE STYLES --- */
         body {
             background-color: #ffffff;
             color: #323232;
             transition: background-color 0.3s, color 0.3s;
         }
 
-        /* --- POST SPECIFIC STYLES --- */
         .post-header {
             padding-top: 8rem;
             padding-bottom: 4rem;
             border-bottom: 1px solid #f3f4f6;
             transition: border-color 0.3s;
-        }
-        .post-header {
             position: relative;
             overflow: hidden;
         }
@@ -78,13 +74,12 @@
             animation: orbDrift3 18s ease-in-out infinite;
         }
         .post-header > .max-w-3xl { position: relative; z-index: 2; }
-        
+
         .post-content {
             font-size: 1.1rem;
             line-height: 1.8;
             color: #323232;
         }
-        
         .post-content h2 {
             font-size: 2rem;
             font-weight: 800;
@@ -92,7 +87,6 @@
             margin-top: 4rem;
             margin-bottom: 1.5rem;
         }
-        
         .post-content h3 {
             font-size: 1.4rem;
             font-weight: 700;
@@ -112,91 +106,23 @@
             justify-content: center;
             align-items: center;
         }
-        
         .trend-image-container img {
             width: 100%;
             height: auto;
             object-fit: contain;
         }
 
-        /* Info Card */
-        .info-card {
-            background-color: #f9fafb;
-            border: 1px solid #e5e7eb;
-            padding: 2.5rem;
-            border-radius: 1.5rem;
-            margin: 3rem 0;
-            border-left: 6px solid #a7e169;
-        }
-
-        /* Numbered List Styling */
-        .numbered-list {
-            counter-reset: item;
-            list-style: none;
-            padding: 0;
-        }
-        .numbered-list li {
-            position: relative;
-            padding-left: 3rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.7;
-        }
-        .numbered-list li::before {
-            content: counter(item);
-            counter-increment: item;
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 2rem;
-            height: 2rem;
-            background-color: #a7e169;
-            color: #000;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.875rem;
-        }
-
-        /* Prompt Example Box */
-        .prompt-box {
-            background-color: #f9fafb;
-            border: 1px solid #e5e7eb;
-            border-left: 6px solid #a7e169;
-            padding: 2rem;
-            border-radius: 1rem;
-            margin: 2rem 0;
-            font-style: italic;
-            color: #323232;
-        }
-
-        /* Output Example Box */
-        .output-box {
-            background-color: #f0fdf4;
-            border: 1px solid #a7e169;
-            padding: 2rem;
-            border-radius: 1rem;
-            margin: 2rem 0;
-        }
-
-        /* Golden Rule Box */
-        .golden-rule {
+        .highlight-box {
             background: linear-gradient(135deg, #f9fef5 0%, #fefce8 100%);
-            border: 1px solid #e5e7eb;
-            padding: 2rem;
-            border-radius: 1.5rem;
-            margin: 3rem 0;
-            text-align: center;
-        }
-        .golden-rule p {
-            font-size: 1.25rem;
-            font-weight: 700;
+            border-left: 5px solid #a7e169;
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 1rem 1rem 0;
+            margin: 1.5rem 0;
+            font-style: italic;
+            font-weight: 600;
             color: #000;
-            margin: 0;
         }
 
-        /* SHARE BUTTON UPDATED (Smaller Size, Red Hover, No Stroke) */
         .share-btn {
             width: 36px;
             height: 36px;
@@ -217,8 +143,7 @@
 
         .nav-btn { border-radius: 2rem; }
         .text-accent { color: #a7e169; }
-        
-        /* RELATED CARD DEFAULT STYLES */
+
         .related-card {
             background-color: #ffffff;
             border: 1px solid #e5e5e5;
@@ -228,72 +153,47 @@
         }
         .related-card h3 { color: #000; }
         .related-card p { color: #9ca3af; }
-        
+
         /* --- DARK MODE OVERRIDES --- */
         body.dark-mode {
             background-color: #121212 !important;
             color: #e5e5e5 !important;
         }
-        
-        /* DARK MODE TEXT CONTRAST FIX */
-        .dark-mode h1, 
-        .dark-mode h2, 
-        .dark-mode h3, 
-        .dark-mode strong, 
+        .dark-mode h1,
+        .dark-mode h2,
+        .dark-mode h3,
+        .dark-mode strong,
         .dark-mode .text-black {
             color: #ffffff !important;
         }
-        
-        /* Intro Paragraph Specific Fix */
-        .dark-mode .post-content p {
-            color: #e5e5e5 !important;
-        }
+        .dark-mode .post-content p { color: #e5e5e5 !important; }
         .dark-mode .post-content { color: #e5e5e5 !important; }
         .dark-mode .text-gray-500 { color: #9ca3af !important; }
-        
-        /* Dark Mode Containers */
         .dark-mode .post-header { border-color: #333; }
-        .dark-mode .trend-image-container { 
-            background-color: #1e1e1e; 
-            border-color: #333; 
+        .dark-mode .trend-image-container {
+            background-color: #1e1e1e;
+            border-color: #333;
         }
         .dark-mode .bg-gray-50 { background-color: #1a1a1a; }
-        
-        /* Dark Mode Border Fix */
-        .dark-mode .border-gray-100, 
-        .dark-mode .border-gray-200 { 
-            border-color: #333 !important; 
-        }
-        
-        /* Share Button Dark Mode Border */
-        .dark-mode .share-btn {
-            border-color: #444;
-            color: #bbb;
-        }
-        
-        /* AUTHOR BOX AD CONTRAST FIX */
+        .dark-mode .border-gray-100,
+        .dark-mode .border-gray-200 { border-color: #333 !important; }
+        .dark-mode .share-btn { border-color: #444; color: #bbb; }
         .dark-mode .w-10.h-10.rounded-full.bg-gray-100 {
             background-color: #333 !important;
             color: #fff !important;
             border-color: #444 !important;
         }
-
-        /* RELATED CARD DARK MODE */
-        .dark-mode .related-card { 
-            background-color: #1e1e1e !important; 
-            border-color: #333 !important; 
+        .dark-mode .related-card {
+            background-color: #1e1e1e !important;
+            border-color: #333 !important;
         }
         .dark-mode .related-card h3 { color: #ffffff !important; }
-        
-        /* Dark Mode Nav & Mobile Menu */
-        .dark-mode nav { 
-            background-color: rgba(18, 18, 18, 0.95) !important; 
-            border-bottom: 1px solid #333; 
+        .dark-mode nav {
+            background-color: rgba(18, 18, 18, 0.95) !important;
+            border-bottom: 1px solid #333;
         }
         .dark-mode .nav-link { color: #e5e5e5 !important; }
         .dark-mode .nav-link:hover { color: #fff !important; }
-        
-        /* FIXED MOBILE MENU DARK MODE */
         .dark-mode .mobile-menu {
             background-color: #121212 !important;
             border-bottom: 1px solid #333;
@@ -309,11 +209,9 @@
         .dark-mode .hamburger-icon { color: #fff !important; }
         .active-page-link { color: #000 !important; }
         .dark-mode .active-page-link { color: #fff !important; }
-        
-        /* FOOTER LINE COLOR FIX */
-        .dark-mode footer { 
-            background-color: #121212; 
-            border-top: 1px solid #333 !important; 
+        .dark-mode footer {
+            background-color: #121212;
+            border-top: 1px solid #333 !important;
         }
         .dark-mode footer p, .dark-mode footer a { color: #9ca3af !important; }
         .dark-mode footer h3, .dark-mode footer span { color: #fff !important; }
@@ -324,8 +222,6 @@
         .dark-mode .badge-value { color: #9ca3af !important; }
         .dark-mode .badge-icon:not(.badge-icon-blue):not(.badge-icon-gold):not(.badge-icon-green) { background: #333; }
         .dark-mode .dmca-official-wrapper img { filter: none !important; }
-        
-        /* Logo Filter for Dark Mode (#a7e169) */
         .dark-mode nav img, .dark-mode footer img {
             filter: brightness(0) saturate(100%) invert(84%) sepia(32%) saturate(673%) hue-rotate(36deg) brightness(94%) contrast(89%);
         }
@@ -335,43 +231,16 @@
         }
         .dark-mode .signin-cta p.text-black { color: #fff !important; }
         .dark-mode .signin-cta .text-gray-600 { color: #9ca3af !important; }
-
-        /* Dark Mode: Sign in text & icon dark */
-        .dark-mode .nav-btn {
-            color: #000 !important;
-        }
-        /* Dark Mode: Back to All Posts text & arrow dark */
-        .dark-mode section.bg-gray-50 .nav-btn {
-            color: #000 !important;
-        }
-        /* Dark Mode: Hover - white text & elements */
-        .dark-mode .nav-btn:hover {
-            color: #fff !important;
-        }
-        .dark-mode section.bg-gray-50 .nav-btn:hover {
-            color: #fff !important;
-        }
-
-        /* Dark Mode Info Card */
-        .dark-mode .info-card {
-            background-color: #1e1e1e !important;
-            border-color: #333 !important;
-        }
-        .dark-mode .prompt-box {
-            background-color: #1e1e1e !important;
-            border-color: #333 !important;
-        }
-        .dark-mode .output-box {
-            background-color: #1a2e1a !important;
-            border-color: #a7e169 !important;
-        }
-        .dark-mode .golden-rule {
+        .dark-mode .nav-btn { color: #000 !important; }
+        .dark-mode section.bg-gray-50 .nav-btn { color: #000 !important; }
+        .dark-mode .nav-btn:hover { color: #fff !important; }
+        .dark-mode section.bg-gray-50 .nav-btn:hover { color: #fff !important; }
+        .dark-mode .highlight-box {
             background: linear-gradient(135deg, #1a2e1a 0%, #2a2a1a 100%) !important;
-            border-color: #333 !important;
+            border-color: #a7e169 !important;
+            color: #fff !important;
         }
 
-        /* Toggle Button */
-/* Blur Fade-in Scroll Animation */
         .blur-fade {
             opacity: 0;
             filter: blur(12px);
@@ -383,7 +252,6 @@
             filter: blur(0);
             transform: translateY(0);
         }
-
     </style>
 </head>
 <body class="bg-white text-[#323232]">
@@ -396,10 +264,9 @@
                     <div class="flex items-center">
                         <a href="/index.html"><img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png" alt="ART de ONE" class="h-10 w-auto"></a>
                     </div>
-                    
+
                     <div class="hidden md:flex items-center space-x-6 nav-center">
                         <a href="/index.html#home" class="nav-link">Home</a>
-                       <!-- <a href="/courses.html" class="nav-link">Courses</a> -->
                         <a href="/shop.html" class="nav-link">Shop</a>
                         <a href="/portfolio/student-gallery.html" class="nav-link">Student</a>
                         <a href="/blog.html" class="nav-link font-bold active-page-link">Blog</a>
@@ -412,17 +279,16 @@
                                 <a href="/prompt.html">AI Prompts</a>
                             </div>
                         </div>
-                        
                         <a href="/index.html#contact" class="nav-link">Contact</a>
                     </div>
-                    
+
                     <div class="hidden md:flex items-center gap-3" id="desktopAuth">
                         <button type="button" id="ado-theme-toggle" class="ado-theme-toggle" title="Switch theme" aria-label="Switch theme">
                             <span class="ado-theme-toggle-icon"></span>
                         </button>
                         <a href="/customer-dashboard.html" class="nav-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
                     </div>
-                    
+
                     <div class="md:hidden flex items-center">
                         <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md hover:bg-gray-100 focus:outline-none" id="mobile-menu-button">
                             <div class="icon-container hamburger-icon">
@@ -434,11 +300,10 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="mobile-menu md:hidden hidden" id="mobile-menu">
             <div class="py-2 px-4 space-y-1">
                 <a href="/index.html#home" class="block py-2 mobile-nav-link">Home</a>
-                <!-- <a href="/courses.html" class="block py-2 mobile-nav-link">Courses</a> -->
                 <a href="/shop.html" class="block py-2 mobile-nav-link">Shop</a>
                 <a href="/portfolio/student-gallery.html" class="block py-2 mobile-nav-link">Student</a>
                 <a href="/blog.html" class="block py-2 mobile-nav-link font-bold text-black">Blog</a>
@@ -455,20 +320,18 @@
                     </div>
                 </div>
                 <a href="/index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
-                                <div style="display:flex;align-items:center;gap:8px;padding:8px 0;">
+                <div style="display:flex;align-items:center;gap:8px;padding:8px 0;">
                     <button type="button" id="ado-theme-toggle-mobile" class="ado-theme-toggle" title="Switch theme" aria-label="Switch theme">
                         <span class="ado-theme-toggle-icon"></span>
                     </button>
                     <span class="ado-theme-toggle-label">Theme</span>
                 </div>
-<a href="/customer-dashboard.html" style="display:inline-flex; align-items:center; gap:0.35rem; background:#ed2939; color:#fff; font-weight:600; border-radius:2rem; padding:0.3rem 0.75rem; font-size:0.75rem; border:1px solid #ed2939; text-decoration:none;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
+                <a href="/customer-dashboard.html" style="display:inline-flex; align-items:center; gap:0.35rem; background:#ed2939; color:#fff; font-weight:600; border-radius:2rem; padding:0.3rem 0.75rem; font-size:0.75rem; border:1px solid #ed2939; text-decoration:none;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
             </div>
         </div>
     </nav>
 
     <main>
-        <!-- Dark Mode Toggle -->
-        
         <!-- Post Header -->
         <section class="post-header bg-transparent">
             <div class="post-header-orb post-header-orb-1"></div>
@@ -476,16 +339,21 @@
             <div class="post-header-orb post-header-orb-3"></div>
             <div class="max-w-3xl mx-auto px-4 text-center" data-aos="fade-up">
                 <div class="flex items-center justify-center gap-4 text-sm text-gray-500 mb-6">
-                    <span class="uppercase tracking-widest text-accent font-bold">AI Tips</span>
+                    <span class="uppercase tracking-widest text-accent font-bold">Freelance Tips</span>
                     <span>&bull;</span>
-                    <span>May 15, 2026</span>
+                    <span>May 18, 2026</span>
                 </div>
-                <h1 class="text-3xl md:text-5xl font-bold text-black mb-8 leading-tight">
-                    Prompt Engineering ဆိုတာ ဘာလဲ?
+                <h1 class="text-3xl md:text-5xl font-bold text-black mb-8" style="line-height: 1.6;">
+                    Freelancer တွေသိထားသင့်တဲ့<br>Business Rules (၅)ခု
                 </h1>
-                
+
+                <!-- Cover Image -->
+                <div class="trend-image-container mt-8">
+                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1779089909/websitecover_u6ssd7.png" alt="Freelancer Business Rules">
+                </div>
+
                 <!-- Author Box -->
-                <div class="flex items-center justify-center gap-3">
+                <div class="flex items-center justify-center gap-3 mt-8">
                     <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-black font-bold text-xs border border-gray-200">AD</div>
                     <div class="text-left">
                         <p class="text-black text-sm font-semibold">ART de ONE Team</p>
@@ -499,99 +367,136 @@
         <section class="py-16 px-4 bg-transparent">
             <div class="max-w-3xl mx-auto">
                 <div class="post-content" data-aos="fade-up">
-                    <p class="text-lg leading-relaxed mb-12 text-[#323232]">
-                        AI ကို "မှန်မှန်ကန်ကန် မေးတတ်တဲ့ပညာ" ပါ။ မေးနည်းမှားရင် &mdash; AI က မှားတာထုတ်မယ်။ မေးနည်းမှန်ရင် &mdash; AI က လိုချင်တာအတိအကျ ပေးမယ်။
-                    </p>
 
-                    <!-- Feature Image -->
-                    <div class="trend-image-container">
-                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1778825886/ChatGPT_Image_May_15_2026_11_53_07_AM_imk7q1.jpg" alt="Prompt Engineering Guide">
-                    </div>
-
-                    <!-- Section 1: 5 Points -->
+                    <!-- Rule 1: 50/50 -->
                     <div class="mb-16 blur-fade">
-                        <h2 class="text-black">Prompt ကောင်းတစ်ခုမှာ ပါရမယ့် အချက် ၅ ချက်</h2>
-                        
-                        <ol class="numbered-list">
-                            <li>
-                                <strong class="text-black">Role</strong> &mdash; ဘယ်သူဆိုတာသတ်မှတ်<br>
-                                <span class="text-gray-500">"You are a professional graphic designer..."</span>
-                            </li>
-                            <li>
-                                <strong class="text-black">Task</strong> &mdash; ဘာလုပ်ရမလဲ<br>
-                                <span class="text-gray-500">"Create a logo concept for..."</span>
-                            </li>
-                            <li>
-                                <strong class="text-black">Context</strong> &mdash; နောက်ခံအချက်အလက်<br>
-                                <span class="text-gray-500">"The brand is for young creatives in Myanmar..."</span>
-                            </li>
-                            <li>
-                                <strong class="text-black">Format</strong> &mdash; ဘယ်ပုံစံနဲ့<br>
-                                <span class="text-gray-500">"Give me 3 options in bullet points"</span>
-                            </li>
-                            <li>
-                                <strong class="text-black">Tone</strong> &mdash; ဘယ်လိုပုံစံမျိုးနဲ့ ပြောမလဲ<br>
-                                <span class="text-gray-500">"Keep it professional but approachable"</span>
-                            </li>
-                        </ol>
-                    </div>
+                        <h2 class="text-black">၁။ 50 / 50 စည်းမျဥ်း</h2>
 
-                    <!-- Section 2: Use Cases -->
-                    <div class="mb-16 blur-fade">
-                        <h2 class="text-black">Use Cases တွေမှာ ဘယ်လိုသုံးမလဲ?</h2>
-                        
-                        <div class="info-card">
-                            <ul class="space-y-4 text-gray-600">
-                                <li><strong class="text-black">Image Generation</strong> &mdash; Style + Subject + Mood + Lighting ထည့်ပါ</li>
-                                <li><strong class="text-black">Video Script</strong> &mdash; Duration + Target Audience + Key Message ထည့်ပါ</li>
-                                <li><strong class="text-black">Data Analysis</strong> &mdash; Dataset context + Expected output format ထည့်ပါ</li>
-                            </ul>
+                        <div class="trend-image-container">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1779089709/1_xdbl3x.png" alt="50/50 Rule">
+                        </div>
+
+                        <p>
+                            အလုပ်မစခင် ကြိုတင်ငွေ ၅၀% မယူဘဲ မစပါနဲ့။
+                            ဒါမှ client ဘက်က တကယ်အလေးအနက်ထားပြီး အလုပ်အပ်တာ "ဟုတ်မဟုတ်" သေချာသိနိုင်ပါမယ်။
+                        </p>
+
+                        <p class="mt-4">
+                            Client က အလုပ်တစ်ဝက်တည်းနဲ့ ရပ်မယ်ဆိုရင် သင်ကုန်ထားတဲ့အချိန်အတွက် အဲဒီ deposit ကို သင်ဆက်ယူထားနိုင်ဖို့ပါ။
+                        </p>
+
+                        <div class="highlight-box">
+                            "စရံငွေမရသေးရင် အလုပ်မစပါနဲ့။"
                         </div>
                     </div>
 
-                    <!-- Section 3: Real Prompt Example -->
+                    <!-- Rule 2: Salami Technique -->
                     <div class="mb-16 blur-fade">
-                        <h2 class="text-black">ဥပမာ Real Prompt တစ်ခု (Graphic Design)</h2>
-                        
-                        <div class="prompt-box">
-                            <p>"Graphic Designer တစ်ယောက်အနေနဲ့ ဆောင်ရွက်ပေးပါ။ Myanmar ရဲ့ Young Creative တွေအတွက် Coffee Brand Logo ကို Design လုပ်ပေးပါ။ Brand က Modern နဲ့ Minimalist ဖြစ်ရမယ်၊ Target Audience က အသက် ၁၈&ndash;၃၀ ကြားပါ။</p>
-                            <p class="mt-4">Output ပုံစံ &mdash; (၁) Logo Concept ၃ မျိုး &mdash; တစ်ခုချင်းစီရဲ့ အသုံးပြုပုံ Brief နဲ့ (၂) Color Palette အကြံပြုချက် (၃) Font Style ရွေးချယ်မှုအကြောင်း ရှင်းပြချက် &mdash; ရိုးရှင်းတဲ့ ဘာသာစကားနဲ့ ပေးပါ။ Design Jargon တွေ ရှောင်ပါ။"</p>
+                        <h2 class="text-black">၂။ Salami Technique</h2>
+
+                        <div class="trend-image-container">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1779089709/2_lfboeg.png" alt="Salami Technique">
+                        </div>
+
+                        <p>
+                            Client က "ဈေးကြီးတယ်" လို့ပြောလာရင် ကိုယ့်ဈေးကို တန်းမလျှော့ပါနဲ့။ အဲဒီအစား project ထဲက features ဒါမှမဟုတ် deliverables တချို့ကို တစ်ခုချင်းဖြတ်လျှော့ပြီး သူတို့ budget နဲ့ ကိုက်အောင် ပြန်ညှိပါ။
+                        </p>
+
+                        <p class="mt-4">
+                            <strong class="text-black">(ဆိုလိုတာက - Concept ၃ ခုမှာ တစ်ခုထပ်လျှော့မယ်၊ Project file အစား PNG, JPG ပဲပေးမယ်။)</strong>
+                        </p>
+
+                        <div class="highlight-box">
+                            "အလုပ်ပမာဏမလျှော့ရင် ဈေးကိုလဲ မလျှော့ပါနဲ့။"
                         </div>
                     </div>
 
-                    <!-- Section 4: Output Example -->
+                    <!-- Rule 3: Out of Scope -->
                     <div class="mb-16 blur-fade">
-                        <h2 class="text-black">Output ဥပမာ</h2>
-                        
-                        <div class="output-box">
-                            <p>"Concept A က Simple Icon တစ်ခုပဲသုံးထားပေမဲ့ Brand Recognition အရမ်းမြင့်တယ် &mdash; ဆိုလိုတာက ရှုပ်ထွေးလို့ မဟုတ်ဘဲ တစ်ချက်ကြည့်ရုံနဲ့ မှတ်မိအောင် Design လုပ်ထားလို့ ဖြစ်တာပါ။"</p>
+                        <h2 class="text-black">၃။ Out of Scope</h2>
+
+                        <div class="trend-image-container">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1779089709/3_drtrcs.png" alt="Out of Scope">
+                        </div>
+
+                        <p>
+                            Client က contract ထဲမှာ မပါတဲ့ "နည်းနည်းထပ်လုပ်ပေးပါဦး" ဆိုတဲ့ အရာတစ်ခု ထပ်တောင်းလာရင် တန်းပြီး "မရဘူး" လို့ မပြောပါနဲ့။
+                        </p>
+
+                        <p class="mt-4">
+                            "အဲဒါလည်း ထပ်ထည့်ပေးလို့ရပါတယ်၊ ဒါပေမယ့် အဲဒီ extra feature အတွက် updated cost ပြန်ပို့ပေးမယ်" လို့ ပြောပါ။
+                        </p>
+
+                        <div class="highlight-box">
+                            "ကိုယ်ထပ်လုပ်ရတဲ့ အချိန်တွေအတွက် တန်ကြေးရနေဖို့ အရေးကြီးပါတယ်။"
                         </div>
                     </div>
 
-                    <!-- Section 5: Golden Rule -->
+                    <!-- Rule 4: Font Licensing Trap -->
                     <div class="mb-16 blur-fade">
-                        <div class="golden-rule">
-                            <p>"AI သည် Mind Reader မဟုတ်ပါ။ သင် Clear ဖြစ်မှသာ AI Clear ဖြစ်မည်။"</p>
+                        <h2 class="text-black">၄။ Font Licensing Trap</h2>
+
+                        <div class="trend-image-container">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1779089708/4_novgmm.png" alt="Font Licensing Trap">
                         </div>
+
+                        <p>
+                            Font တစ်ခုက ကိုယ့်ကွန်ပျူတာထဲမှာရှိနေတယ်ဆိုတာနဲ့ client ရဲ့ logo သို့မဟုတ် branding အတွက် တရားဝင်သုံးလို့ရတယ်လို့ မဆိုလိုပါဘူး။
+                        </p>
+
+                        <p class="mt-4">
+                            Font အများစုမှာ personal သို့မဟုတ် commercial use အတွက် သီးသန့် license လိုတတ်ပါတယ်။ ဒါကြောင့် မသုံးခင် font folder ထဲက license text file ဒါမှမဟုတ် အသုံးပြုခွင့်ဆိုင်ရာ ဖိုင်ကို အမြဲစစ်ကြည့်သင့်ပါတယ်။
+                        </p>
+
+                        <div class="highlight-box">
+                            "အကောင်းဆုံးကတော့ Google Font ကို အသုံးပြုပါ"
+                        </div>
+                    </div>
+
+                    <!-- Rule 5: 3-2-1 Backup Rule -->
+                    <div class="mb-16 blur-fade">
+                        <h2 class="text-black">၅။ 3-2-1 Backup Rule</h2>
+
+                        <div class="trend-image-container">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1779089709/5_l03qpq.png" alt="3-2-1 Backup Rule">
+                        </div>
+
+                        <p>
+                            Hard drive တွေက တစ်နေ့နေ့မှာ "ပျက်နိုင်တာပဲ" ဖြစ်လို့ ကိုယ့်အလုပ်ဖိုင်ကို "copy ၃ ခုထားသင့်" ပါတယ်။ အဲဒီ ၃ ခုကို storage အမျိုးအစား ၂ မျိုးမှာ သိမ်းပါ၊ ဥပမာ laptop တစ်ခုနဲ့ external drive တစ်ခုလိုမျိုး နဲ့
+                        </p>
+
+                        <div class="highlight-box">
+                            "အကောင်းဆုံးကတော့ copy ၁ ခုကို cloud ပေါ်မှာ သီးသန့်တင်ထားပါ။"
+                        </div>
+                    </div>
+
+                    <!-- Sign in to Download CTA -->
+                    <div class="signin-cta mb-16 blur-fade p-6 rounded-2xl border border-gray-200 text-center" style="background: linear-gradient(135deg, #f9fef5 0%, #fefce8 100%);">
+                        <p class="text-lg font-bold text-black mb-2">Sign in ၀င်ပြီး Contract file ကို Free Download ရယူပါ</p>
+                        <p class="text-sm text-gray-600 mb-4">Sign in လုပ်ထားရင် Resources တွေ၊ Templates တွေ အကုန် Free Download လုပ်လို့ရပါတယ်။</p>
+                        <a href="/customer-dashboard.html" class="nav-btn bg-[#a7e169] text-black px-8 py-3 h-auto inline-flex gap-2 rounded-full font-bold hover:bg-[#ed2939] hover:text-white transition-all" style="text-decoration:none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            Sign in to Download
+                        </a>
                     </div>
 
                     <!-- Share Section -->
                     <div class="border-t border-gray-100 mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center gap-6">
                         <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Share this article</span>
                         <div class="flex gap-3">
-                            
+
                             <!-- Facebook -->
-                            <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-20%2Fpost-20.html" 
-                               target="_blank" 
-                               class="share-btn" 
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-21%2Fpost-21.html"
+                               target="_blank"
+                               class="share-btn"
                                aria-label="Share on Facebook">
                                 <i class="fab fa-facebook-f"></i>
                             </a>
 
-                            <!-- X (Formerly Twitter) - SVG Logo -->
-                            <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-20%2Fpost-20.html&text=Prompt%20Engineering%20by%20ART%20de%20ONE" 
-                               target="_blank" 
-                               class="share-btn" 
+                            <!-- X (Twitter) -->
+                            <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-21%2Fpost-21.html&text=Freelancer%20Business%20Rules%20by%20ART%20de%20ONE"
+                               target="_blank"
+                               class="share-btn"
                                aria-label="Share on X">
                                 <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" viewBox="0 0 512 512" fill="currentColor">
                                     <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/>
@@ -599,30 +504,31 @@
                             </a>
 
                             <!-- LinkedIn -->
-                            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-20%2Fpost-20.html" 
-                               target="_blank" 
-                               class="share-btn" 
+                            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-21%2Fpost-21.html"
+                               target="_blank"
+                               class="share-btn"
                                aria-label="Share on LinkedIn">
                                 <i class="fab fa-linkedin-in"></i>
                             </a>
 
                             <!-- Pinterest -->
-                            <a href="https://pinterest.com/pin/create/button/?url=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-20%2Fpost-20.html&media=https%3A%2F%2Fres.cloudinary.com%2Fddkd9lxpr%2Fimage%2Fupload%2Fv1778825886%2FChatGPT_Image_May_15_2026_11_53_07_AM_imk7q1.jpg&description=Prompt%20Engineering%20by%20ART%20de%20ONE" 
-                               target="_blank" 
-                               class="share-btn" 
+                            <a href="https://pinterest.com/pin/create/button/?url=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-21%2Fpost-21.html&media=https%3A%2F%2Fres.cloudinary.com%2Fddkd9lxpr%2Fimage%2Fupload%2Fv1779089909%2Fwebsitecover_u6ssd7.png&description=Freelancer%20Business%20Rules%20by%20ART%20de%20ONE"
+                               target="_blank"
+                               class="share-btn"
                                aria-label="Share on Pinterest">
                                 <i class="fab fa-pinterest-p"></i>
                             </a>
 
-                            <!-- TikTok (Profile Link) -->
-                            <a href="https://www.tiktok.com/@artdeone" 
-                               target="_blank" 
-                               class="share-btn" 
+                            <!-- TikTok -->
+                            <a href="https://www.tiktok.com/@artdeone"
+                               target="_blank"
+                               class="share-btn"
                                aria-label="Visit TikTok">
                                 <i class="fab fa-tiktok"></i>
                             </a>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -631,11 +537,11 @@
         <section class="py-20 bg-gray-50 border-t border-gray-100">
             <div class="max-w-7xl mx-auto px-4">
                 <h2 class="text-2xl font-bold text-black mb-10 text-center">Related Articles</h2>
-                
+
                 <div id="random-related-posts" class="grid md:grid-cols-3 gap-8">
-                     <!-- JS will populate this -->
+                    <!-- JS will populate this -->
                 </div>
-                
+
                 <div class="text-center mt-16">
                     <a href="../../blog.html" class="nav-btn bg-[#a7e169] text-black px-8 py-3 h-auto inline-flex gap-2 rounded-full font-bold hover:bg-[#ed2939] hover:text-white transition-all">
                         <i data-feather="arrow-left" class="w-4 h-4"></i> Back to All Posts
@@ -647,8 +553,7 @@
 
     <!-- Footer -->
     <footer class="bg-white text-[#323232] py-12 border-t border-gray-200 footer-glow">
-    
-    <!-- Sarvam-style circle glow orbs -->
+
     <div class="footer-orb footer-orb-1"></div>
     <div class="footer-orb footer-orb-2"></div>
     <div class="footer-orb footer-orb-3"></div>
@@ -658,14 +563,13 @@
                 <div>
                     <span class="text-xl font-bold mb-4 block text-black">ART de ONE</span>
                     <p class="text-gray-500 text-sm">
-                        Freelance Graphic Designer & Illustrator Portfolio, Blog, Resources and Online Courses
+                        Freelance Graphic Designer &amp; Illustrator Portfolio, Blog, Resources and Online Courses
                     </p>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4 text-black">Quick Links</h3>
                     <ul class="space-y-2 text-sm">
                         <li><a href="/index.html#home" class="text-gray-500 hover:text-black transition duration-300">Home</a></li>
-                      <!--  <li><a href="/courses.html" class="nav-link">Courses</a> -->
                         <li><a href="/prompt.html" class="text-gray-500 hover:text-black transition duration-300">Prompts</a></li>
                         <li><a href="/shop.html" class="text-gray-500 hover:text-black transition duration-300">Shop</a></li>
                         <li><a href="/blog.html" class="text-gray-500 hover:text-black transition duration-300">Blog</a></li>
@@ -673,7 +577,6 @@
                         <li><a href="/resources/resources-collection.html" class="text-gray-500 hover:text-black transition duration-300">Resources</a></li>
                     </ul>
                 </div>
-
                 <div>
                     <h3 class="text-lg font-semibold mb-4 text-black">Services</h3>
                     <ul class="space-y-2 text-sm">
@@ -682,109 +585,81 @@
                         <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Printing</a></li>
                     </ul>
                 </div>
-
                 <div>
                     <h3 class="text-lg font-semibold mb-4 text-black">Contact</h3>
                     <ul class="space-y-2 text-sm">
-                         <li><a href="/index.html#about" class="text-gray-500 hover:text-black transition duration-300">About</a></li>
+                        <li><a href="/index.html#about" class="text-gray-500 hover:text-black transition duration-300">About</a></li>
                         <li><a href="/index.html#contact" class="text-gray-500 hover:text-black transition duration-300">Contact</a></li>
                     </ul>
                 </div>
-
                 <div>
                     <h3 class="text-lg font-semibold mb-4 text-black">Legal</h3>
                     <ul class="space-y-2 text-sm">
                         <li><a href="/privacy-policy.html" class="text-gray-500 hover:text-black transition duration-300">Privacy Policy</a></li>
                         <li><a href="/terms-of-service.html" class="text-gray-500 hover:text-black transition duration-300">Terms of Service</a></li>
                     </ul>
-                </div> 
-                
+                </div>
             </div>
             <div class="border-t border-gray-200 mt-8 pt-8">
-    <div class="flex flex-col sm:flex-row justify-between items-center gap-6">
-        
-        <!-- Left: Copyright -->
-        <p class="text-gray-500 text-sm text-center sm:text-left order-2 sm:order-1 sm:w-1/4">
-            &copy; 2026 ART de ONE. All rights reserved.
-        </p>
-        
-        <!-- Center: Trust Badges -->
-        <div class="flex flex-wrap items-center justify-center gap-3 order-1 sm:order-2">
-            
-            <!-- Badge 1: SSL Secured -->
-            <div class="trust-badge group" title="SSL Encrypted Connection">
-                <div class="badge-icon">
-                    <i class="fas fa-lock text-xs"></i>
-                </div>
-                <div class="badge-text">
-                    <span class="badge-label">SSL</span>
-                    <span class="badge-value">Secured</span>
-                </div>
-            </div>
-            
-            <!-- Badge 2: DMCA Protected -->
-        <div class="trust-badge group dmca-official-wrapper" title="DMCA.com Protection Status">
-            <a href="//www.dmca.com/Protection/Status.aspx?ID=04063fb7-27c9-4e80-86e5-bc851bcd5935" 
-               title="DMCA.com Protection Status" 
-               class="dmca-badge">
-                <img src="https://images.dmca.com/Badges/dmca-badge-w100-2x1-02.png?ID=04063fb7-27c9-4e80-86e5-bc851bcd5935" 
-                     alt="DMCA.com Protection Status" 
-                     style="height: 20px; width: auto; display: block;" />
-            </a>
-            <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
-        </div>
-            
-            <!-- Badge 3: Verified Professional -->
-            <div class="trust-badge group" title="9+ Years Professional Experience">
-                <div class="badge-icon badge-icon-gold">
-                    <i class="fas fa-award text-xs"></i>
-                </div>
-                <div class="badge-text">
-                    <span class="badge-label">Verified</span>
-                    <span class="badge-value">Professional</span>
-                </div>
-            </div>
-            
-            <!-- Badge 4: Safe Browsing -->
-            <div class="trust-badge group" title="Google Safe Browsing Verified">
-                <div class="badge-icon badge-icon-green">
-                    <i class="fas fa-check-circle text-xs"></i>
-                </div>
-                <div class="badge-text">
-                    <span class="badge-label">Google</span>
-                    <span class="badge-value">Safe</span>
-                </div>
-            </div>
-            
-            <!-- Badge 5: Google Business -->
-            <a href="https://g.page/r/Cb6j-IdtRRWLEAE/review" target="_blank" class="trust-badge group" title="Find us on Google Business">
-                <div class="badge-icon" style="background-color: #4285F4;">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width:12px;height:12px;fill:white;">
-                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-                    </svg>
-                </div>
-                <div class="badge-text">
-                    <span class="badge-label">Google</span>
-                    <span class="badge-value">Business</span>
-                </div>
-            </a>
-            
-        </div>
-        
-        <!-- Right: Social Icons -->
-        <div class="flex justify-center sm:justify-end space-x-6 text-sm order-3 sm:w-1/4">
-            <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-behance"></i></a>
-            <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-linkedin-in"></i></a>
-            <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-tiktok"></i></a>
-        </div>
-        
-    </div>
-</div>
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-6">
 
+                    <p class="text-gray-500 text-sm text-center sm:text-left order-2 sm:order-1 sm:w-1/4">
+                        &copy; 2026 ART de ONE. All rights reserved.
+                    </p>
+
+                    <div class="flex flex-wrap items-center justify-center gap-3 order-1 sm:order-2">
+                        <div class="trust-badge group" title="SSL Encrypted Connection">
+                            <div class="badge-icon"><i class="fas fa-lock text-xs"></i></div>
+                            <div class="badge-text">
+                                <span class="badge-label">SSL</span>
+                                <span class="badge-value">Secured</span>
+                            </div>
+                        </div>
+                        <div class="trust-badge group dmca-official-wrapper" title="DMCA.com Protection Status">
+                            <a href="//www.dmca.com/Protection/Status.aspx?ID=04063fb7-27c9-4e80-86e5-bc851bcd5935" title="DMCA.com Protection Status" class="dmca-badge">
+                                <img src="https://images.dmca.com/Badges/dmca-badge-w100-2x1-02.png?ID=04063fb7-27c9-4e80-86e5-bc851bcd5935" alt="DMCA.com Protection Status" style="height: 20px; width: auto; display: block;" />
+                            </a>
+                            <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+                        </div>
+                        <div class="trust-badge group" title="9+ Years Professional Experience">
+                            <div class="badge-icon badge-icon-gold"><i class="fas fa-award text-xs"></i></div>
+                            <div class="badge-text">
+                                <span class="badge-label">Verified</span>
+                                <span class="badge-value">Professional</span>
+                            </div>
+                        </div>
+                        <div class="trust-badge group" title="Google Safe Browsing Verified">
+                            <div class="badge-icon badge-icon-green"><i class="fas fa-check-circle text-xs"></i></div>
+                            <div class="badge-text">
+                                <span class="badge-label">Google</span>
+                                <span class="badge-value">Safe</span>
+                            </div>
+                        </div>
+                        <a href="https://g.page/r/Cb6j-IdtRRWLEAE/review" target="_blank" class="trust-badge group" title="Find us on Google Business">
+                            <div class="badge-icon" style="background-color: #4285F4;">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width:12px;height:12px;fill:white;">
+                                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                                </svg>
+                            </div>
+                            <div class="badge-text">
+                                <span class="badge-label">Google</span>
+                                <span class="badge-value">Business</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="flex justify-center sm:justify-end space-x-6 text-sm order-3 sm:w-1/4">
+                        <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-behance"></i></a>
+                        <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-tiktok"></i></a>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </footer>
 
@@ -794,16 +669,17 @@
     <script>
         AOS.init({ duration: 1000, once: true });
         feather.replace();
-        // --- RANDOM RELATED ARTICLES ---
+
         const allPosts = [
+            { title: "Prompt Engineering ဆိုတာ ဘာလဲ?", date: "May 15, 2026", link: "../post-20/post-20.html", img: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1778825886/ChatGPT_Image_May_15_2026_11_53_07_AM_imk7q1.jpg" },
             { title: "Design Style အခေါ်အ၀ေါ် (၅)ခု", date: "Mar 6, 2026", link: "../post-16/post-16.html", img: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772815632/cover_oacv8z.jpg" },
             { title: "Part - 2 စိတ်၀င်စားစရာကောင်းတဲ့ Design Style အခေါ်အ၀ေါ် (၅)ခု", date: "Mar 7, 2026", link: "../post-17/post-17.html", img: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1772816203/cover_qy7bwg.jpg" },
+            { title: "Sora App ကို တရားဝင် ပိတ်သိမ်းတော့မယ့် ဝမ်းနည်းစရာ သတင်း", date: "Mar 27, 2026", link: "../post-18/post-18.html", img: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1774600975/sora_cover_zedql7.jpg" },
             { title: "Design World's Crazy Facts", date: "Feb 5, 2026", link: "../post-15/post-15.html", img: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1770282751/cover_fghqoq.jpg" },
             { title: "2026 Graphic Design Trends", date: "Dec 29, 2025", link: "../post-14/post-14.html", img: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1766720115/dt-cover_vbokgn.jpg" },
             { title: "Christmas Vibe Fonts", date: "Dec 17, 2025", link: "../post-13/post-13.html", img: "../post-13/images/christmas-3.jpg" },
             { title: "7 Fonts That Look Like Logo", date: "Dec 04, 2025", link: "../post-12/post-12.html", img: "../post-12/images/gendy.jpg" },
             { title: "Generative Ai Basics", date: "Nov 10, 2025", link: "../post-11/post-11.html", img: "../post-11/images/yt-thumbnail.jpg" },
-            { title: "Affinity Rebrand", date: "Nov 3, 2025", link: "../featured/featured-post.html", img: "../featured/images/featured-image-5.jpg" },
             { title: "Free Ai Better than Midjourney", date: "Oct 24, 2025", link: "../post-9/post-9.html", img: "../post-9/images/thumbnail.jpg" },
             { title: "RGB Theory & Nature", date: "Oct 1, 2025", link: "../post-3/post-3.html", img: "../post-3/images/rgb-1.jpg" },
             { title: "Design Principles Part 1", date: "Oct 3, 2025", link: "../post-4/post-4.html", img: "../post-4/images/cover.jpg" }
@@ -811,9 +687,9 @@
 
         const shuffled = allPosts.sort(() => 0.5 - Math.random());
         const selected = shuffled.slice(0, 3);
-        
+
         const relatedContainer = document.getElementById('random-related-posts');
-        if(relatedContainer) {
+        if (relatedContainer) {
             selected.forEach(post => {
                 relatedContainer.innerHTML += `
                     <a href="${post.link}" class="related-card group block rounded-2xl overflow-hidden hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-lg">
@@ -829,28 +705,24 @@
             });
         }
     </script>
-<script>
-function toggleMobileResourcesDropdown() {
-    document.getElementById('mobile-resources-sub').classList.toggle('open');
-    document.getElementById('mobile-res-arrow').classList.toggle('rotated');
-}
-function toggleMobileProductsDropdown() {
-            document.getElementById('mobile-products-sub').classList.toggle('open');
-            document.getElementById('mobile-prod-arrow').classList.toggle('rotated');
+    <script>
+        function toggleMobileResourcesDropdown() {
+            document.getElementById('mobile-resources-sub').classList.toggle('open');
+            document.getElementById('mobile-res-arrow').classList.toggle('rotated');
         }
-</script>
-<script>
-const blurObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-        }
-    });
-}, { threshold: 0.15 });
-document.querySelectorAll('.blur-fade').forEach(el => blurObserver.observe(el));
-</script>
-<script src="/js/shop-badge.js"></script>
-<script type="module" src="/js/nav-auth.js"></script>
+    </script>
+    <script>
+        const blurObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.blur-fade').forEach(el => blurObserver.observe(el));
+    </script>
+    <script src="/js/shop-badge.js"></script>
+    <script type="module" src="/js/nav-auth.js"></script>
     <script src="/js/theme-mode.js"></script>
     <script src="/js/theme-toggle.js"></script>
 </body>
