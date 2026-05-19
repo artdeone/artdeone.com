@@ -18,18 +18,7 @@
         gtag('config', 'G-CZRQ0NPPJ2');
     </script>
     <script>
-        (function(){
-            try {
-                var modes = ['light', 'dark', 'system'];
-                var savedMode = localStorage.getItem('ado-theme-mode');
-                var legacyTheme = localStorage.getItem('ado-theme');
-                var mode = modes.indexOf(savedMode) !== -1 ? savedMode : (legacyTheme === 'dark' || legacyTheme === 'light' ? legacyTheme : 'light');
-                var resolved = mode === 'system' && window.matchMedia ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : mode;
-                document.documentElement.setAttribute('data-theme-mode', mode);
-                document.documentElement.setAttribute('data-theme', resolved);
-                document.documentElement.style.colorScheme = resolved;
-            } catch(e) {}
-        })();
+        (function () { try { var s = localStorage.getItem('ado-theme-mode'); var h = new Date().getHours(); var isTimeDark = h >= 18 || h < 4; if (s === 'dark' || (s === 'system' && window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches) || (!s && isTimeDark)) { document.documentElement.setAttribute('data-theme', 'dark'); document.documentElement.style.colorScheme = 'dark'; } } catch (e) { } })();
     </script>
     <style>
         /* =====================================================
@@ -2207,6 +2196,287 @@
     .ai-announce-close { top: 6px; right: 6px; }
 }
 
+/* =====================================================
+   CUSTOMER DASHBOARD FIXES
+===================================================== */
+button.theme-mode-switch {
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+    padding: 0;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-secondary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color .2s var(--ease), border-color .2s var(--ease), color .2s var(--ease), transform .2s var(--ease);
+}
+button.theme-mode-switch svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+button.theme-mode-switch:hover {
+    background: var(--green-subtle);
+    border-color: var(--accent-green);
+    color: var(--text-primary);
+    transform: translateY(-1px);
+}
+button.theme-mode-switch:focus-visible {
+    outline: 2px solid var(--accent-green);
+    outline-offset: 2px;
+}
+[data-theme="dark"] button.theme-mode-switch {
+    background: var(--surface);
+    border-color: var(--border);
+}
+
+.ai-announce-banner.is-maintenance {
+    background: var(--surface-2);
+    border-color: var(--border);
+    box-shadow: none;
+    color: var(--text-primary);
+}
+[data-theme="light"] .ai-announce-banner.is-maintenance {
+    background: #f4f5f3;
+    border-color: rgba(0,0,0,.08);
+    box-shadow: none;
+}
+.ai-announce-banner.is-maintenance::before {
+    background: rgba(107,114,128,.07);
+    background-size: auto;
+    animation: none;
+}
+.ai-announce-banner.is-maintenance .ai-announce-icon {
+    background: var(--surface);
+    border-color: var(--border);
+    color: var(--text-muted);
+    animation: none;
+}
+.ai-announce-banner.is-maintenance .ai-announce-icon svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.ai-announce-banner.is-maintenance .ai-announce-title {
+    color: var(--text-primary);
+}
+.ai-announce-banner.is-maintenance .ai-announce-desc {
+    color: var(--text-muted);
+}
+.ai-maintenance-badge {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 8px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-family: 'Poppins', sans-serif;
+    font-size: .68em;
+    font-weight: 600;
+    letter-spacing: 0;
+    vertical-align: middle;
+}
+.ai-announce-banner.is-maintenance .ai-announce-btn {
+    pointer-events: none;
+    cursor: not-allowed;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    box-shadow: none;
+    opacity: .75;
+}
+.ai-announce-banner.is-maintenance .ai-announce-btn:hover {
+    background: var(--surface);
+    color: var(--text-muted);
+    box-shadow: none;
+    transform: none;
+}
+
+.pay-modal {
+    width: calc(100% - 32px);
+    max-width: 560px;
+    max-height: calc(100dvh - 32px);
+    border-radius: 16px;
+    box-shadow: 0 18px 48px rgba(0,0,0,.14);
+}
+.pay-modal-header {
+    padding: 20px 24px 14px;
+    border-radius: 16px 16px 0 0;
+}
+.pay-modal-header h3 {
+    font-size: 1em;
+    line-height: 1.3;
+}
+.pay-modal-close {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+}
+.pay-modal-body {
+    padding: 22px 24px 28px;
+    overflow-y: auto;
+}
+.pay-step {
+    gap: 14px;
+    margin-bottom: 24px;
+}
+.pay-step-num {
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    border-radius: 999px;
+    font-size: .75em;
+    margin-top: 0;
+}
+.pay-step-content p {
+    font-size: .82em;
+    line-height: 1.65;
+    color: var(--text-secondary);
+}
+.pay-step-content strong {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1.06em;
+    color: var(--text-primary);
+}
+.pay-qr-wrap {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    padding: 20px 0 8px;
+    margin: 12px 0 16px;
+}
+.pay-qr-wrap img,
+.pay-qr-img {
+    width: 240px;
+    height: 240px;
+    border-radius: 8px;
+    margin-bottom: 0;
+}
+.pay-kbz-info {
+    max-width: 360px;
+    margin: 16px auto 0;
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    align-items: center;
+    gap: 8px 14px;
+    background: var(--surface-2);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+}
+.pay-kbz-info .kbz-label {
+    margin-top: 0 !important;
+    color: var(--text-muted);
+    font-size: .64em;
+    letter-spacing: .05em;
+}
+.pay-kbz-info .kbz-value {
+    text-align: right;
+    color: var(--text-primary);
+    font-size: .9em;
+}
+.pay-divider {
+    margin: 16px 0;
+}
+.pay-upload-area {
+    min-height: 132px;
+    border: 1px dashed var(--border-strong);
+    border-radius: 12px;
+    padding: 24px 18px;
+    background: var(--surface);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.pay-upload-area i {
+    font-size: 1.45em;
+    margin-bottom: 8px;
+}
+.pay-upload-area p {
+    font-size: .78em;
+}
+.pay-submit-btn {
+    min-height: 44px;
+    padding: 12px 20px;
+    margin-top: 16px;
+    box-shadow: none;
+}
+.pay-submit-btn:hover {
+    box-shadow: none;
+}
+
+@media(max-width:600px) {
+    button.theme-mode-switch {
+        width: 36px;
+        height: 36px;
+        flex-basis: 36px;
+    }
+    .pay-modal {
+        width: calc(100% - 32px);
+        max-width: 560px;
+        max-height: calc(100dvh - 32px);
+        border-radius: 12px;
+    }
+    .pay-modal-header {
+        padding: 16px 16px 12px;
+        border-radius: 12px 12px 0 0;
+    }
+    .pay-modal-header h3 {
+        font-size: .92em;
+    }
+    .pay-modal-body {
+        padding: 18px 16px 22px;
+    }
+    .pay-step {
+        gap: 12px;
+        margin-bottom: 22px;
+    }
+    .pay-step-content p {
+        font-size: .78em;
+    }
+    .pay-qr-wrap {
+        padding: 16px 0 6px;
+    }
+    .pay-qr-wrap img,
+    .pay-qr-img {
+        width: min(220px, 72vw);
+        height: min(220px, 72vw);
+    }
+    .pay-kbz-info {
+        grid-template-columns: 1fr;
+        gap: 4px;
+        padding: 12px 14px;
+    }
+    .pay-kbz-info .kbz-value {
+        text-align: left;
+    }
+    .pay-upload-area {
+        min-height: 120px;
+        padding: 22px 16px;
+    }
+    .ai-maintenance-badge {
+        margin-left: 6px;
+        margin-top: 5px;
+    }
+}
+
     </style>
 </head>
 <body>
@@ -2367,17 +2637,9 @@
                 <div class="nav-actions">
                     <a href="https://ai.artdeone.com/" class="btn btn-go-ai nav-hide-mobile">✦ <span>AI</span></a>
                     <a href="shop.html" class="btn btn-go-shop nav-hide-mobile"><i class="fas fa-store"></i> <span>Shop</span></a>
-                    <div class="theme-mode-switch nav-hide-mobile" role="group" aria-label="Theme mode">
-                        <button type="button" class="theme-mode-option" data-theme-mode-option="light" aria-label="Light mode" title="Light">
-                            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
-                        </button>
-                        <button type="button" class="theme-mode-option" data-theme-mode-option="dark" aria-label="Dark mode" title="Dark">
-                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 14.5A7.8 7.8 0 0 1 9.5 3.6 8.8 8.8 0 1 0 20.4 14.5Z"></path></svg>
-                        </button>
-                        <button type="button" class="theme-mode-option" data-theme-mode-option="system" aria-label="System mode" title="System">
-                            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"></rect><path d="M8 20h8"></path><path d="M12 16v4"></path></svg>
-                        </button>
-                    </div>
+                    <button type="button" class="theme-mode-switch nav-hide-mobile" onclick="toggleTheme()" aria-label="Cycle theme mode" title="Theme mode">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 14.5A7.8 7.8 0 0 1 9.5 3.6 8.8 8.8 0 1 0 20.4 14.5Z"></path></svg>
+                    </button>
                     <button onclick="toggleProfile()" class="btn btn-profile nav-hide-mobile" id="profileBtn">
                         <span class="profile-avatar-sm" id="navAvatarInitial"></span>
                         <span>Profile</span>
@@ -2404,17 +2666,9 @@
                     <a href="shop.html" class="mobile-menu-item"><i class="fas fa-store"></i> Go to Shop</a>
                     <div class="mobile-theme-row">
                         <span class="mobile-theme-label"><i class="fas fa-circle-half-stroke"></i> Theme</span>
-                        <div class="theme-mode-switch" role="group" aria-label="Theme mode">
-                            <button type="button" class="theme-mode-option" data-theme-mode-option="light" aria-label="Light mode" title="Light">
-                                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
-                            </button>
-                            <button type="button" class="theme-mode-option" data-theme-mode-option="dark" aria-label="Dark mode" title="Dark">
-                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 14.5A7.8 7.8 0 0 1 9.5 3.6 8.8 8.8 0 1 0 20.4 14.5Z"></path></svg>
-                            </button>
-                            <button type="button" class="theme-mode-option" data-theme-mode-option="system" aria-label="System mode" title="System">
-                                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"></rect><path d="M8 20h8"></path><path d="M12 16v4"></path></svg>
-                            </button>
-                        </div>
+                        <button type="button" class="theme-mode-switch" onclick="toggleTheme()" aria-label="Cycle theme mode" title="Theme mode">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 14.5A7.8 7.8 0 0 1 9.5 3.6 8.8 8.8 0 1 0 20.4 14.5Z"></path></svg>
+                        </button>
                     </div>
                     <button onclick="toggleProfile();toggleMobileMenu();" class="mobile-menu-item"><i class="fas fa-user"></i> Profile</button>
                     <button onclick="logout()" class="mobile-menu-item menu-logout"><i class="fas fa-right-from-bracket"></i> Logout</button>
@@ -2445,19 +2699,20 @@
             </div>
 
             <!-- ══ AI ANNOUNCEMENT BANNER ══ -->
-            <div class="ai-announce-banner" id="aiAnnounceBanner">
+            <div class="ai-announce-banner is-maintenance" id="aiAnnounceBanner">
                 <button class="ai-announce-close" onclick="document.getElementById('aiAnnounceBanner').style.display='none'" title="Close">✕</button>
                 <div class="ai-announce-left">
-                    <div class="ai-announce-icon">✦</div>
+                    <div class="ai-announce-icon">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.9 2.9-3-3 2.9-2.9Z"></path></svg>
+                    </div>
                     <div class="ai-announce-text">
-                        <div class="ai-announce-title">ADO AI — Free အသုံးပြုနိုင်ပါပြီ 🎉</div>
-                        <div class="ai-announce-desc">တစ်ရက်လျှင် Messages အကန့်အသတ်ဖြင့် အသုံးပြုနိုင်ပါတယ်ခင်ဗျ။ AI Models ၉မျိုးအထိရွေးချယ်အသုံးပြုနိုင်ပါတယ်။
-                            နောက်ထပ် ပိုကောင်းတဲ့ Premium Version တွေကိုလဲ ထပ်မံထည့်သွင်းပြီး စျေးနူန်းသက်သာအောင်လုပ်သွားမှာဖြစ်ပါတယ်။
+                        <div class="ai-announce-title">ADO AI — ယာယီပိတ်ထားပါသည် <span class="ai-maintenance-badge">Maintenance</span></div>
+                        <div class="ai-announce-desc">Currently under maintenance
                         </div>
                     </div>
                 </div>
-                <a href="https://ai.artdeone.com/" class="ai-announce-btn">
-                    စမ်းသုံးကြည့်မည်
+                <a href="https://ai.artdeone.com/" class="ai-announce-btn" aria-disabled="true" tabindex="-1">
+                    ယာယီပိတ်ထားပါသည်
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                 </a>
             </div>
@@ -2563,7 +2818,7 @@
             <div class="pay-step">
                 <div class="pay-step-num">1</div>
                 <div class="pay-step-content">
-                    <p><strong>Cart ထည့်ပါ</strong><br>ဝယ်ချင်သော product ၏ <strong>Buy</strong> ခလုတ်နှိပ်၍ Cart ထဲသို့ ထည့်ပါ၊ ထို့နောက် <strong>Order</strong> ခလုတ်နှိပ်ပါ။</p>
+                    <p><strong>Cart ထည့်ပါ</strong><br>ဝယ်ယူလိုသော product ကိုရွေးပြီး <strong>Buy</strong> ခလုတ်နှိပ်ပါ။ Cart ထဲရောက်ပြီးနောက် <strong>Order</strong> ခလုတ်နှိပ်၍ Order တင်ပါ။</p>
                 </div>
             </div>
             <div class="pay-step">
@@ -2674,88 +2929,111 @@
     <!-- Theme Mode Script -->
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         (function(){
-            const MODES = ['light', 'dark', 'system'];
-            const STORAGE_KEY = 'ado-theme-mode';
-            const LEGACY_KEY = 'ado-theme';
-            const systemQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+            if (window.ADOThemeMode) return;
 
-            function isMode(value) {
-                return MODES.includes(value);
+            var STORAGE_KEY = 'ado-theme-mode';
+            var LEGACY_THEME_KEY = 'theme';
+            var DASHBOARD_THEME_KEY = 'ado-theme';
+            var MODES = ['light', 'dark', 'system'];
+            var darkQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+            var currentMode = null;
+            var icons = {
+                light: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>',
+                dark: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 14.5A7.8 7.8 0 0 1 9.5 3.6 8.8 8.8 0 1 0 20.4 14.5Z"></path></svg>',
+                system: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"></rect><path d="M8 20h8"></path><path d="M12 16v4"></path></svg>'
+            };
+
+            function isTimeDark() {
+                var h = new Date().getHours();
+                return h >= 18 || h < 4;
             }
 
-            function getMode() {
-                const saved = localStorage.getItem(STORAGE_KEY);
-                if (isMode(saved)) return saved;
+            function hasMode(value) {
+                return MODES.indexOf(value) !== -1;
+            }
 
-                const legacy = localStorage.getItem(LEGACY_KEY);
-                if (legacy === 'dark' || legacy === 'light') return legacy;
-
-                return 'light';
+            function getInitialMode() {
+                var saved = localStorage.getItem(STORAGE_KEY);
+                if (hasMode(saved)) return saved;
+                return isTimeDark() ? 'dark' : 'light';
             }
 
             function resolveMode(mode) {
                 if (mode === 'system') {
-                    return systemQuery && systemQuery.matches ? 'dark' : 'light';
+                    return darkQuery && darkQuery.matches ? 'dark' : 'light';
                 }
-
                 return mode === 'dark' ? 'dark' : 'light';
             }
 
-            function syncThemeButtons(mode) {
-                document.querySelectorAll('[data-theme-mode-option]').forEach((button) => {
-                    const active = button.dataset.themeModeOption === mode;
-                    button.classList.toggle('is-active', active);
-                    button.setAttribute('aria-pressed', active ? 'true' : 'false');
+            function updateToggleUI() {
+                var mode = currentMode || getInitialMode();
+                document.querySelectorAll('button.theme-mode-switch').forEach(function(toggle) {
+                    toggle.dataset.mode = mode;
+                    toggle.setAttribute('aria-label', 'Theme mode: ' + mode);
+                    toggle.setAttribute('title', mode.charAt(0).toUpperCase() + mode.slice(1));
+                    toggle.innerHTML = icons[mode] || icons.light;
                 });
             }
 
-            function applyTheme(mode, persist = true) {
-                if (!isMode(mode)) mode = 'light';
+            function applyMode(mode) {
+                if (!hasMode(mode)) mode = 'system';
+                currentMode = mode;
 
-                const resolved = resolveMode(mode);
-                document.documentElement.setAttribute('data-theme-mode', mode);
-                document.documentElement.setAttribute('data-theme', resolved);
-                document.documentElement.style.colorScheme = resolved;
-                document.body.classList.toggle('dark-mode', resolved === 'dark');
+                var resolved = resolveMode(mode);
+                var html = document.documentElement;
 
-                if (persist) {
-                    localStorage.setItem(STORAGE_KEY, mode);
-                    localStorage.setItem(LEGACY_KEY, resolved);
-                    localStorage.setItem('theme', resolved);
+                html.setAttribute('data-theme-mode', mode);
+                html.setAttribute('data-theme', resolved);
+                html.style.colorScheme = resolved;
+
+                if (document.body) {
+                    document.body.classList.toggle('dark-mode', resolved === 'dark');
                 }
 
-                syncThemeButtons(mode);
+                localStorage.setItem(LEGACY_THEME_KEY, resolved);
+                localStorage.setItem(DASHBOARD_THEME_KEY, resolved);
+                updateToggleUI();
             }
 
-            window.setDashboardTheme = applyTheme;
-            window.toggleTheme = function() {
-                const current = getMode();
-                const next = MODES[(MODES.indexOf(current) + 1) % MODES.length];
-                applyTheme(next);
+            function setMode(mode) {
+                if (!hasMode(mode)) mode = 'system';
+                localStorage.setItem(STORAGE_KEY, mode);
+                applyMode(mode);
+            }
+
+            window.ADOThemeMode = {
+                setMode: setMode,
+                getMode: function () { return currentMode || getInitialMode(); },
+                apply: applyMode
             };
 
-            document.addEventListener('click', function(event) {
-                const button = event.target.closest('[data-theme-mode-option]');
-                if (!button) return;
-                applyTheme(button.dataset.themeModeOption);
-            });
+            window.setDashboardTheme = setMode;
+            window.toggleTheme = function() {
+                var current = window.ADOThemeMode.getMode();
+                var idx = MODES.indexOf(current);
+                var next = MODES[(idx + 1) % MODES.length];
+                window.ADOThemeMode.setMode(next);
+            };
 
-            if (systemQuery) {
-                const onSystemChange = () => {
-                    if (getMode() === 'system') applyTheme('system', false);
-                };
-
-                if (systemQuery.addEventListener) {
-                    systemQuery.addEventListener('change', onSystemChange);
-                } else if (systemQuery.addListener) {
-                    systemQuery.addListener(onSystemChange);
-                }
+            function initThemeMode() {
+                applyMode(getInitialMode());
             }
 
             if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', () => applyTheme(getMode(), false));
+                document.addEventListener('DOMContentLoaded', initThemeMode);
             } else {
-                applyTheme(getMode(), false);
+                initThemeMode();
+            }
+
+            if (darkQuery) {
+                var systemListener = function () {
+                    if ((currentMode || getInitialMode()) === 'system') applyMode('system');
+                };
+                if (darkQuery.addEventListener) {
+                    darkQuery.addEventListener('change', systemListener);
+                } else if (darkQuery.addListener) {
+                    darkQuery.addListener(systemListener);
+                }
             }
         })();
         window.toggleMobileMenu = function() {
@@ -2768,7 +3046,7 @@
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module">
     import { supabaseShop, PRODUCT_CATEGORIES, signInWithGoogle, signOutCustomer, getAuthSession, onAuthChange, findOrCreateCustomer, signUpWithEmail, signInWithEmail, resetPassword } from './js/config-shop.js';
 
-    let currentCustomer = null, allProducts = [], purchasedProductIds = [], cart = [];
+    let currentCustomer = null, allProducts = [], purchasedProductIds = [], cart = [], lastCreatedOrderIds = [];
     const FILE_SVG = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg>`;
 
     window.addEventListener('scroll', () => { const n = document.getElementById('topNav'); if (n) n.classList.toggle('scrolled', window.scrollY > 8); }, { passive: true });
@@ -2946,7 +3224,11 @@
         const isFree = p => getDashboardPrice(p) <= 0;
         const pp = allProducts.filter(p => purchasedProductIds.includes(p.id) || isFree(p)), up = allProducts.filter(p => !purchasedProductIds.includes(p.id) && !isFree(p));
         if (pp.length === 0) { c.innerHTML = `<div class="empty-state"><div class="icon">📦</div><p>သင့်အတွက် ပစ္စည်းများ မရှိသေးပါ။<br>အောက်ဘက်မှ ၀ယ်ယူပြီးပါက ဤနေရာတွင် ပေါ်လာပါမည်။</p></div>`; }
-        else { c.innerHTML = `<div class="product-grid">${pp.map(p => { const ic = p.category === 'course'; return `<div class="product-card"><div class="thumb-wrapper">${ic ? '<span class="course-card-badge"><i class="fas fa-play-circle" style="margin-right:3px;"></i>Course</span>' : ''}<img class="thumb" src="${p.thumbnail_url || ''}" alt="${p.name}" onerror="this.style.display='none'" loading="lazy" /></div><div class="card-body"><div class="product-name">${p.name}</div><div class="badge-row"><span class="category-badge">${PRODUCT_CATEGORIES[p.category] || p.category}</span>${getDashboardTimeBadge(p)}</div>${ic ? `<button onclick="openCourse('${p.id}')" class="btn-download" style="background:var(--primary-black);color:var(--accent-green);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polygon points="5 3 19 12 5 21 5 3"/></svg>Start Learning</button>` : `<a href="${p.download_url}" target="_blank" rel="noopener noreferrer" class="btn-download"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download</a>`}</div></div>`; }).join('')}</div>`; }
+        else { console.log('My Products sample product:', pp[0]); pp.sort((a, b) => {
+          const aNew = !!(a.is_new || a.isNew || a.new || a.badge === 'new');
+          const bNew = !!(b.is_new || b.isNew || b.new || b.badge === 'new');
+          return (bNew - aNew);
+        }); c.innerHTML = `<div class="product-grid">${pp.map(p => { const ic = p.category === 'course'; return `<div class="product-card"><div class="thumb-wrapper">${ic ? '<span class="course-card-badge"><i class="fas fa-play-circle" style="margin-right:3px;"></i>Course</span>' : ''}<img class="thumb" src="${p.thumbnail_url || ''}" alt="${p.name}" onerror="this.style.display='none'" loading="lazy" /></div><div class="card-body"><div class="product-name">${p.name}</div><div class="badge-row"><span class="category-badge">${PRODUCT_CATEGORIES[p.category] || p.category}</span>${getDashboardTimeBadge(p)}</div>${ic ? `<button onclick="openCourse('${p.id}')" class="btn-download" style="background:var(--primary-black);color:var(--accent-green);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polygon points="5 3 19 12 5 21 5 3"/></svg>Start Learning</button>` : `<a href="${p.download_url}" target="_blank" rel="noopener noreferrer" class="btn-download"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download</a>`}</div></div>`; }).join('')}</div>`; }
         const bs = document.getElementById('browseSection'), bc = document.getElementById('browseContainer');
         if (up.length > 0) { bs.style.display = 'block'; bc.innerHTML = `<div class="product-grid">${up.map(p => { const ic = p.category === 'course', inC = cart.some(x => x.id === p.id); return `<div class="product-card browse-card"><div class="thumb-wrapper">${ic ? '<span class="course-card-badge"><i class="fas fa-play-circle" style="margin-right:3px;"></i>Course</span>' : ''}<img class="thumb" src="${p.thumbnail_url || ''}" alt="${p.name}" onerror="this.style.display='none'" loading="lazy" /></div><div class="card-body"><div class="product-name">${p.name}</div><div class="badge-row"><span class="category-badge">${PRODUCT_CATEGORIES[p.category] || p.category}</span>${getDashboardTimeBadge(p)}</div><div class="browse-price">${getDashboardPrice(p).toLocaleString()} <span>MMK</span></div><button onclick="addToCart('${p.id}')" class="btn-buy ${inC ? 'added' : ''}" id="buy-${p.id}"><i class="fas ${inC ? 'fa-check' : 'fa-shopping-bag'}"></i>${inC ? 'Added' : 'Buy'}</button></div></div>`; }).join('')}</div>`; }
         else { bs.style.display = 'block'; bc.innerHTML = `<div style="text-align:center;padding:50px 24px;background:var(--primary-white);border-radius:var(--radius-lg);border:1px solid rgba(0,0,0,.05);box-shadow:var(--shadow-sm);"><div style="font-size:2.8em;margin-bottom:14px;opacity:.2;">🎉</div><p style="color:#bbb;font-size:.88em;line-height:1.9;max-width:340px;margin:0 auto;">All products purchased!</p></div>`; }
@@ -2961,7 +3243,32 @@
     function closeCart() { document.getElementById('cartOverlay').classList.remove('active'); document.getElementById('cartSlidein').classList.remove('active'); document.body.style.overflow = ''; }
     window.toggleCart = () => { document.getElementById('cartSlidein').classList.contains('active') ? closeCart() : openCart(); };
     window.closeCart = closeCart;
-    window.placeOrder = async () => { if (cart.length === 0) return; const ob = document.getElementById('orderBtn'); ob.disabled = true; ob.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right:6px;"></i>Processing...'; try { const od = cart.map(p => ({ customer_id: currentCustomer.id, product_id: p.id, amount: Number(p.price), status: 'pending' })); const { error } = await supabaseShop.from('shop_orders').insert(od); if (error) { alert('Order Error: ' + error.message); ob.disabled = false; ob.innerHTML = '<i class="fas fa-paper-plane" style="margin-right:6px;"></i>Order'; return; } cart = []; updateCartUI(); closeCart(); showToast('Order placed! Admin ကအတည်ပြုပြီးပါက ရယူနိုင်ပါမည်။'); await loadProducts(); } catch (e) { alert('Error: ' + e.message); } ob.disabled = false; ob.innerHTML = '<i class="fas fa-paper-plane" style="margin-right:6px;"></i>Order'; };
+    window.placeOrder = async () => {
+        if (cart.length === 0) return;
+        const ob = document.getElementById('orderBtn');
+        ob.disabled = true;
+        ob.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right:6px;"></i>Processing...';
+        try {
+            const od = cart.map(p => ({ customer_id: currentCustomer.id, product_id: p.id, amount: Number(p.price), status: 'pending' }));
+            const { data: createdOrders, error } = await supabaseShop.from('shop_orders').insert(od).select('id');
+            if (error) {
+                alert('Order Error: ' + error.message);
+                ob.disabled = false;
+                ob.innerHTML = '<i class="fas fa-paper-plane" style="margin-right:6px;"></i>Order';
+                return;
+            }
+            lastCreatedOrderIds = (createdOrders || []).map(o => o.id);
+            cart = [];
+            updateCartUI();
+            closeCart();
+            showToast('Order placed! Admin ကအတည်ပြုပြီးပါက ရယူနိုင်ပါမည်။');
+            await loadProducts();
+        } catch (e) {
+            alert('Error: ' + e.message);
+        }
+        ob.disabled = false;
+        ob.innerHTML = '<i class="fas fa-paper-plane" style="margin-right:6px;"></i>Order';
+    };
     function showToast(m) { const t = document.getElementById('toast'); document.getElementById('toastMsg').textContent = m; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 4000); }
 
     // ========== PENDING ORDER NOTICE ==========
@@ -3040,7 +3347,7 @@
             <div class="pay-step">
                 <div class="pay-step-num">1</div>
                 <div class="pay-step-content">
-                    <p><strong>Cart ထည့်ပါ</strong><br>ဝယ်ချင်သော product ၏ <strong>Buy</strong> ခလုတ်နှိပ်၍ Cart ထဲသို့ ထည့်ပါ၊ ထို့နောက် <strong>Order</strong> ခလုတ်နှိပ်ပါ။</p>
+                    <p><strong>Cart ထည့်ပါ</strong><br>ဝယ်ယူလိုသော product ကိုရွေးပြီး <strong>Buy</strong> ခလုတ်နှိပ်ပါ။ Cart ထဲရောက်ပြီးနောက် <strong>Order</strong> ခလုတ်နှိပ်၍ Order တင်ပါ။</p>
                 </div>
             </div>
             <div class="pay-step">
@@ -3148,21 +3455,33 @@
                 finalBase64 = await compressImage(base64, 0.7);
             }
 
-            // Find latest pending order and attach screenshot
+            // Find latest pending order batch and attach screenshot
             const { data: pendingOrders } = await supabaseShop
                 .from('shop_orders')
-                .select('id')
+                .select('id, created_at')
                 .eq('customer_id', currentCustomer.id)
                 .eq('status', 'pending')
                 .order('created_at', { ascending: false })
-                .limit(1);
+                .limit(20);
 
             if (pendingOrders && pendingOrders.length > 0) {
-                const { error } = await supabaseShop
+                const pendingIds = new Set(pendingOrders.map(o => o.id));
+                let targetIds = lastCreatedOrderIds.filter(id => pendingIds.has(id));
+                if (targetIds.length === 0) {
+                    const latestTime = new Date(pendingOrders[0].created_at).getTime();
+                    targetIds = pendingOrders
+                        .filter(o => Math.abs(new Date(o.created_at).getTime() - latestTime) <= 5000)
+                        .map(o => o.id);
+                }
+
+                const { data: updatedOrders, error } = await supabaseShop
                     .from('shop_orders')
                     .update({ payment_screenshot_url: finalBase64 })
-                    .eq('id', pendingOrders[0].id);
+                    .in('id', targetIds)
+                    .select('id, payment_screenshot_url');
                 if (error) throw new Error(error.message);
+                if (!updatedOrders || updatedOrders.length === 0) throw new Error('Screenshot ကို Order တွင် သိမ်းဆည်း၍မရပါ');
+                lastCreatedOrderIds = [];
             } else {
                 // No pending order — ask customer to place order first
                 btn.disabled = false;
