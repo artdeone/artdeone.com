@@ -1170,6 +1170,7 @@
             btn.style.opacity = '0.7';
             const valid = await verifyAdminCode(code);
             if (valid) {
+                await supabaseShop.auth.signOut();
                 document.getElementById('loginSection').style.opacity = '0';
                 document.getElementById('loginSection').style.transform = 'scale(1.02)';
                 document.getElementById('loginSection').style.transition = 'all 0.4s cubic-bezier(0.4,0,0.2,1)';
