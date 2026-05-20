@@ -1152,6 +1152,7 @@
 
         let customers = [], products = [], orders = [];
         let customerFilter = 'all', orderFilter = 'all';
+        let shopAdminCode = '';
 
         // ========== SVG ICONS ==========
         const IC = {
@@ -1164,12 +1165,13 @@
 
         // ========== AUTH ==========
         window.handleLogin = async () => {
-            const code = document.getElementById('accessCode').value;
+            const code = document.getElementById('accessCode').value.trim();
             const btn = document.querySelector('.login-box .btn-green');
             btn.textContent = 'Verifying...';
             btn.style.opacity = '0.7';
             const valid = await verifyAdminCode(code);
             if (valid) {
+                shopAdminCode = code;
                 await supabaseShop.auth.signOut();
                 document.getElementById('loginSection').style.opacity = '0';
                 document.getElementById('loginSection').style.transform = 'scale(1.02)';
@@ -1369,6 +1371,40 @@
             }
         }
 
+        function isNotificationSetupMissing(error) {
+            const msg = (error?.message || '').toLowerCase();
+            return error?.code === '42883' || error?.code === '42P01' || msg.includes('schema cache') || msg.includes('notifications');
+        }
+
+        async function createCustomerNotification(customerId, title, message, type, relatedId = null) {
+            if (!shopAdminCode || !customerId) return;
+            const { error } = await supabaseShop.rpc('create_shop_notification', {
+                p_access_code: shopAdminCode,
+                p_customer_id: customerId,
+                p_title: title,
+                p_message: message,
+                p_type: type,
+                p_related_id: relatedId
+            });
+            if (error) {
+                const level = isNotificationSetupMissing(error) ? 'info' : 'warn';
+                console[level]('Customer notification was not created:', error.message);
+            }
+        }
+
+        async function createNewProductNotifications(productId, productName) {
+            if (!shopAdminCode || !productId || !productName) return;
+            const { error } = await supabaseShop.rpc('create_new_product_notifications', {
+                p_access_code: shopAdminCode,
+                p_product_id: productId,
+                p_product_name: productName
+            });
+            if (error) {
+                const level = isNotificationSetupMissing(error) ? 'info' : 'warn';
+                console[level]('New product notifications were not created:', error.message);
+            }
+        }
+
         // ========== ORDERS ==========
         window.loadOrders = async () => {
             const { data } = await supabaseShop.from('shop_orders').select('*, shop_customers(name), shop_products(name)').order('created_at', { ascending: false });
@@ -1397,7 +1433,7 @@
                     </div>
                     <div style="display:flex; gap:4px; flex-wrap:wrap;">
                         ${o.status === 'pending' ? `<button onclick="acceptOrder('${o.id}','${o.customer_id}','${o.product_id}')" class="action-btn green">Accept</button>` : ''}
-                        ${o.status === 'confirmed' ? `<button onclick="updateOrder('${o.id}','delivered')" class="action-btn blue">Deliver</button>` : ''}
+                        ${o.status === 'confirmed' ? `<button onclick="updateOrder('${o.id}','delivered','${o.customer_id}','${o.product_id}')" class="action-btn blue">Deliver</button>` : ''}
                         ${o.status !== 'cancelled' && o.status !== 'delivered' ? `<button onclick="updateOrder('${o.id}','cancelled','${o.customer_id}','${o.product_id}')" class="action-btn red">Cancel</button>` : ''}
                         ${o.status === 'delivered' ? '<span style="color:#3b82f6; font-size:0.8em;">✓ Done</span>' : ''}
                     </div>
@@ -1442,17 +1478,37 @@
 
         window.acceptOrder = async (orderId, customerId, productId) => {
             if (!confirm('Accept this order and grant download/watch access?')) return;
-            await supabaseShop.from('shop_orders').update({ status: 'confirmed' }).eq('id', orderId);
+            const order = orders.find(o => o.id === orderId);
+            const productName = order?.shop_products?.name || 'Your product';
+            const { error } = await supabaseShop.from('shop_orders').update({ status: 'confirmed' }).eq('id', orderId);
+            if (error) { alert('Error: ' + error.message); return; }
             await grantDownloadAccess(customerId, productId);
+            await createCustomerNotification(
+                customerId,
+                'Order Approved',
+                `${productName} has been approved and added to your products.`,
+                'ORDER_APPROVED',
+                orderId
+            );
             alert('Order accepted! Customer now has access to the product.');
             loadOrders();
         };
 
         window.updateOrder = async (id, status, customerId, productId) => {
             if (!confirm(`Update order to "${status}"?`)) return;
-            await supabaseShop.from('shop_orders').update({ status }).eq('id', id);
+            const { error } = await supabaseShop.from('shop_orders').update({ status }).eq('id', id);
+            if (error) { alert('Error: ' + error.message); return; }
             if (status === 'cancelled' && customerId && productId) {
                 await supabaseShop.from('shop_customer_downloads').update({ is_active: false }).eq('customer_id', customerId).eq('product_id', productId);
+            }
+            if (customerId && status !== 'confirmed') {
+                await createCustomerNotification(
+                    customerId,
+                    'Order Updated',
+                    `Your order status has been updated to ${status}.`,
+                    'ORDER_STATUS',
+                    id
+                );
             }
             loadOrders();
         };
@@ -1476,13 +1532,24 @@
 
         document.getElementById('orderForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const { error } = await supabaseShop.from('shop_orders').insert([{
-                customer_id: document.getElementById('oCustomer').value,
+            const customerId = document.getElementById('oCustomer').value;
+            const status = document.getElementById('oStatus').value;
+            const { data: createdOrder, error } = await supabaseShop.from('shop_orders').insert([{
+                customer_id: customerId,
                 product_id: document.getElementById('oProduct').value,
                 amount: parseInt(document.getElementById('oAmount').value),
-                status: document.getElementById('oStatus').value
-            }]);
+                status
+            }]).select('id').single();
             if (error) { alert('Error: ' + error.message); return; }
+            if (status === 'pending') {
+                await createCustomerNotification(
+                    customerId,
+                    'Payment Reminder',
+                    `Please complete your payment for Order #${String(createdOrder?.id || '').slice(0, 8).toUpperCase()}.`,
+                    'PAYMENT_PENDING',
+                    createdOrder?.id || null
+                );
+            }
             closeOrderModal();
             loadOrders();
             alert('Order created!');
@@ -1564,8 +1631,11 @@
                 const { error } = await supabaseShop.from('shop_products').update(data).eq('id', id);
                 if (error) { alert('Error: ' + error.message); return; }
             } else {
-                const { error } = await supabaseShop.from('shop_products').insert([data]);
+                const { data: createdProduct, error } = await supabaseShop.from('shop_products').insert([data]).select('id, name').single();
                 if (error) { alert('Error: ' + error.message); return; }
+                if (createdProduct?.id && data.is_active) {
+                    await createNewProductNotifications(createdProduct.id, createdProduct.name || data.name);
+                }
             }
             closeProductModal();
             loadProducts();

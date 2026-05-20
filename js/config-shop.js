@@ -120,7 +120,7 @@ export async function findOrCreateCustomer(user) {
     }
 
     if (existing) {
-        if (existing.auth_provider !== provider) {
+        if (existing.auth_provider !== provider || existing.auth_uid !== user.id || !existing.avatar_url) {
             await supabaseShop
                 .from('shop_customers')
                 .update({

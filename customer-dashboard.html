@@ -226,6 +226,77 @@
         }
         .cart-count.hidden-count { display:none; }
 
+        .notification-wrap { position:relative; display:flex; align-items:center; }
+        .btn-notification {
+            width:38px; height:38px; padding:0;
+            display:flex; align-items:center; justify-content:center;
+            background:var(--surface); color:var(--text-primary);
+            border:1px solid var(--border); overflow:visible;
+        }
+        .btn-notification:hover { border-color:var(--accent-green); background:var(--surface-2); transform:translateY(-1px); }
+        .btn-notification i { font-size:.98em; }
+        .notification-count {
+            position:absolute; top:-5px; right:-5px;
+            min-width:18px; height:18px; padding:0 5px;
+            border-radius:999px; background:var(--accent-red); color:#fff;
+            font-size:.58em; font-weight:700; line-height:18px; text-align:center;
+            border:2px solid var(--bg); animation:cartPop .3s var(--ease-spring);
+        }
+        .notification-count.hidden-count { display:none; }
+        .notification-dropdown {
+            position:fixed; top:72px; right:24px;
+            width:min(360px, calc(100vw - 32px)); max-height:min(520px, calc(100vh - 94px));
+            background:var(--surface); border:1px solid var(--border);
+            border-radius:var(--radius-md); box-shadow:var(--shadow-lg);
+            z-index:320; overflow:hidden;
+            opacity:0; transform:translateY(-8px) scale(.98);
+            pointer-events:none; transition:opacity .22s var(--ease), transform .22s var(--ease);
+        }
+        .notification-dropdown.open { opacity:1; transform:translateY(0) scale(1); pointer-events:auto; }
+        .notification-head {
+            padding:16px 18px 13px; border-bottom:1px solid var(--border);
+            display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
+        }
+        .notification-head h3 {
+            font-family:'Space Grotesk',sans-serif; font-size:.98em; font-weight:700;
+            color:var(--text-primary); margin:0 0 2px;
+        }
+        .notification-head span { color:var(--text-muted); font-size:.72em; }
+        .notification-actions { display:flex; gap:6px; flex-shrink:0; }
+        .notification-action {
+            border:1px solid var(--border); background:var(--surface-2); color:var(--text-secondary);
+            border-radius:999px; padding:6px 9px; font-size:.68em; font-weight:700;
+            font-family:'Poppins',sans-serif; cursor:pointer; transition:all .2s var(--ease);
+        }
+        .notification-action:hover { color:var(--text-primary); border-color:var(--accent-green); transform:translateY(-1px); }
+        .notification-list { max-height:360px; overflow-y:auto; padding:8px; }
+        .notification-item {
+            width:100%; display:flex; gap:11px; padding:12px 10px; text-align:left;
+            background:transparent; border:none; border-radius:12px; cursor:pointer;
+            font-family:'Poppins',sans-serif; transition:background .2s var(--ease), transform .2s var(--ease);
+        }
+        .notification-item:hover { background:var(--surface-2); transform:translateY(-1px); }
+        .notification-item.unread { background:var(--green-subtle); }
+        .notification-icon {
+            width:34px; height:34px; border-radius:10px; flex-shrink:0;
+            display:flex; align-items:center; justify-content:center;
+            color:var(--text-primary); background:var(--surface-2); border:1px solid var(--border);
+        }
+        .notification-item.unread .notification-icon { background:var(--accent-green); color:#1a1a1a; border-color:var(--accent-green); }
+        .notification-body { min-width:0; flex:1; }
+        .notification-title-row { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+        .notification-title {
+            color:var(--text-primary); font-size:.82em; font-weight:700;
+            white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+        }
+        .notification-time { color:var(--text-muted); font-size:.66em; flex-shrink:0; }
+        .notification-message {
+            color:var(--text-secondary); font-size:.74em; line-height:1.5; margin-top:3px;
+            display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+        }
+        .notification-empty { padding:34px 18px; text-align:center; color:var(--text-muted); font-size:.82em; line-height:1.6; }
+        .notification-empty i { display:block; font-size:1.55em; opacity:.35; margin-bottom:10px; }
+
         .theme-mode-switch {
             display:inline-flex;
             align-items:center;
@@ -1007,6 +1078,13 @@
         }
         .toast.show { transform:translateX(-50%) translateY(0); }
         .toast i { color:var(--accent-green); }
+        .toast.notification-toast {
+            cursor:pointer; max-width:min(420px, calc(100vw - 28px));
+            align-items:flex-start; text-align:left;
+        }
+        .toast.notification-toast i { margin-top:2px; }
+        .toast-title { display:block; font-weight:700; color:inherit; margin-bottom:2px; }
+        .toast-copy { display:block; color:inherit; opacity:.82; font-size:.92em; line-height:1.45; }
 
         /* =====================================================
            CART SLIDEIN
@@ -1611,6 +1689,11 @@
             font-size:.81em; bottom:22px;
             border:none; box-shadow:0 4px 20px rgba(0,0,0,.18);
         }
+        .notification-dropdown { top:62px; right:16px; border-radius:12px; }
+        .notification-head { padding:14px 15px 11px; }
+        .notification-list { max-height:330px; }
+        .notification-item { border-radius:10px; padding:11px 9px; }
+        .btn-notification { width:35px; height:35px; }
 
         /* ── CART SLIDEIN ── */
         .cart-slidein { width:360px; box-shadow:-2px 0 20px rgba(0,0,0,.1); }
@@ -1725,6 +1808,12 @@
             .welcome-header { padding:16px; border-radius:10px; }
             .btn-back-shop { width:100%; justify-content:center; }
             .thank-you-letter { padding:14px 16px; }
+            .notification-dropdown {
+                top:58px; left:10px; right:10px;
+                width:auto; max-height:calc(100vh - 74px);
+            }
+            .notification-actions { gap:4px; }
+            .notification-action { padding:6px 8px; font-size:.64em; }
             .cart-slidein, .profile-slidein { width:100%; max-width:100%; }
             .pay-modal { width:95%; border-radius:12px; }
         }
@@ -2640,6 +2729,27 @@ button.theme-mode-switch:focus-visible {
                     <button type="button" class="theme-mode-switch nav-hide-mobile" onclick="toggleTheme()" aria-label="Cycle theme mode" title="Theme mode">
                         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 14.5A7.8 7.8 0 0 1 9.5 3.6 8.8 8.8 0 1 0 20.4 14.5Z"></path></svg>
                     </button>
+                    <div class="notification-wrap" id="notificationWrap">
+                        <button onclick="toggleNotifications(event)" class="btn btn-notification" id="notificationBtn" aria-label="Notifications" aria-expanded="false">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-count hidden-count" id="notificationCount">0</span>
+                        </button>
+                        <div class="notification-dropdown" id="notificationDropdown" aria-label="Notifications panel">
+                            <div class="notification-head">
+                                <div>
+                                    <h3>Notifications</h3>
+                                    <span id="notificationSummary">No unread notifications</span>
+                                </div>
+                                <div class="notification-actions">
+                                    <button class="notification-action" onclick="markAllNotificationsRead(event)">Read all</button>
+                                    <button class="notification-action" onclick="clearNotifications(event)">Clear</button>
+                                </div>
+                            </div>
+                            <div class="notification-list" id="notificationList">
+                                <div class="notification-empty"><i class="fas fa-bell-slash"></i>No notifications yet</div>
+                            </div>
+                        </div>
+                    </div>
                     <button onclick="toggleProfile()" class="btn btn-profile nav-hide-mobile" id="profileBtn">
                         <span class="profile-avatar-sm" id="navAvatarInitial"></span>
                         <span>Profile</span>
@@ -3046,7 +3156,9 @@ button.theme-mode-switch:focus-visible {
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module">
     import { supabaseShop, PRODUCT_CATEGORIES, signInWithGoogle, signOutCustomer, getAuthSession, onAuthChange, findOrCreateCustomer, signUpWithEmail, signInWithEmail, resetPassword } from './js/config-shop.js';
 
-    let currentCustomer = null, allProducts = [], purchasedProductIds = [], cart = [], lastCreatedOrderIds = [];
+    let currentCustomer = null, currentAuthUser = null, allProducts = [], purchasedProductIds = [], cart = [], lastCreatedOrderIds = [];
+    let notifications = [], notificationChannel = null, orderRealtimeChannel = null, notificationFeatureAvailable = true, toastTimer = null;
+    const NOTIFICATION_LIMIT = 30;
     const FILE_SVG = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg>`;
 
     window.addEventListener('scroll', () => { const n = document.getElementById('topNav'); if (n) n.classList.toggle('scrolled', window.scrollY > 8); }, { passive: true });
@@ -3142,12 +3254,14 @@ button.theme-mode-switch:focus-visible {
     async function initDashboard(authUser) {
         initInProgress = true;
         try {
+            currentAuthUser = authUser;
             currentCustomer = await findOrCreateCustomer(authUser);
             clearTimeout(loginLoadingTimer);
             if (!currentCustomer || !currentCustomer.is_active) { document.getElementById('loginLoading').style.display = 'none'; showLogin(); document.getElementById('loginError').textContent = 'သင့်အကောင့်ကို ပိတ်ထားပါသည်။ Admin ကို ဆက်သွယ်ပါ။'; document.getElementById('loginError').style.display = 'block'; await signOutCustomer(); return; }
             currentCustomer._avatarUrl = authUser.user_metadata?.avatar_url || currentCustomer.avatar_url || null;
+            currentCustomer._authUserId = authUser.id;
             const ls = document.getElementById('loginSection'); ls.style.transition = 'opacity .4s ease, transform .4s ease'; ls.style.opacity = '0'; ls.style.transform = 'scale(1.02)';
-            setTimeout(() => { ls.style.display = 'none'; const d = document.getElementById('dashboardSection'); d.classList.remove('hidden'); d.classList.add('dashboard-enter'); renderHeader(); loadProducts(); }, 380);
+            setTimeout(() => { ls.style.display = 'none'; const d = document.getElementById('dashboardSection'); d.classList.remove('hidden'); d.classList.add('dashboard-enter'); renderHeader(); loadProducts(); initNotifications(); initRealtimeSubscriptions(); }, 380);
         } catch (err) { initInProgress = false; document.getElementById('loginLoading').style.display = 'none'; showLogin(); document.getElementById('loginError').textContent = 'Error: ' + err.message; document.getElementById('loginError').style.display = 'block'; }
     }
 
@@ -3258,10 +3372,17 @@ button.theme-mode-switch:focus-visible {
                 return;
             }
             lastCreatedOrderIds = (createdOrders || []).map(o => o.id);
+            const reminder = await createCustomerNotification({
+                title: 'Payment Reminder',
+                message: `Please complete your payment for ${lastCreatedOrderIds.length > 1 ? 'your new orders' : 'Order #' + shortId(lastCreatedOrderIds[0])}.`,
+                type: 'PAYMENT_PENDING',
+                related_id: lastCreatedOrderIds[0] || null
+            });
+            if (reminder) addNotification(reminder, true);
             cart = [];
             updateCartUI();
             closeCart();
-            showToast('Order placed! Admin ကအတည်ပြုပြီးပါက ရယူနိုင်ပါမည်။');
+            if (!reminder) showToast('Order placed! Admin ကအတည်ပြုပြီးပါက ရယူနိုင်ပါမည်။');
             await loadProducts();
         } catch (e) {
             alert('Error: ' + e.message);
@@ -3269,7 +3390,331 @@ button.theme-mode-switch:focus-visible {
         ob.disabled = false;
         ob.innerHTML = '<i class="fas fa-paper-plane" style="margin-right:6px;"></i>Order';
     };
-    function showToast(m) { const t = document.getElementById('toast'); document.getElementById('toastMsg').textContent = m; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 4000); }
+    function showToast(m) {
+        const t = document.getElementById('toast');
+        const tm = document.getElementById('toastMsg');
+        t.classList.remove('notification-toast');
+        t.onclick = null;
+        tm.textContent = m;
+        t.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => t.classList.remove('show'), 4000);
+    }
+
+    function showNotificationToast(notification) {
+        const t = document.getElementById('toast');
+        const tm = document.getElementById('toastMsg');
+        t.classList.add('notification-toast');
+        tm.innerHTML = `<span class="toast-title">${escapeHTML(notification.title || 'Notification')}</span><span class="toast-copy">${escapeHTML(notification.message || '')}</span>`;
+        t.onclick = () => {
+            t.classList.remove('show');
+            openNotifications();
+            handleNotificationClick(notification.id);
+        };
+        t.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => t.classList.remove('show'), 5200);
+    }
+
+    function escapeHTML(value = '') {
+        return String(value).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+    }
+
+    function shortId(id) {
+        return id ? String(id).slice(0, 8).toUpperCase() : '';
+    }
+
+    function timeAgo(value) {
+        if (!value) return '';
+        const seconds = Math.max(0, Math.floor((Date.now() - new Date(value).getTime()) / 1000));
+        if (seconds < 45) return 'now';
+        const minutes = Math.floor(seconds / 60);
+        if (minutes < 60) return `${minutes}m`;
+        const hours = Math.floor(minutes / 60);
+        if (hours < 24) return `${hours}h`;
+        const days = Math.floor(hours / 24);
+        if (days < 7) return `${days}d`;
+        return new Date(value).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    }
+
+    function notificationIcon(type) {
+        const icons = {
+            ORDER_APPROVED: 'fa-circle-check',
+            PAYMENT_PENDING: 'fa-wallet',
+            NEW_PRODUCT: 'fa-star',
+            ORDER_STATUS: 'fa-receipt'
+        };
+        return icons[type] || 'fa-bell';
+    }
+
+    function notificationRelatedAction(notification) {
+        if (!notification) return;
+        if (notification.type === 'PAYMENT_PENDING') {
+            openScreenshotUpload();
+            return;
+        }
+        if (notification.type === 'ORDER_APPROVED' || notification.type === 'ORDER_STATUS') {
+            loadProducts();
+            openProfile();
+            return;
+        }
+        if (notification.type === 'NEW_PRODUCT') {
+            document.getElementById('browseSection')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+
+    async function createCustomerNotification(notification) {
+        if (!currentAuthUser?.id || !notificationFeatureAvailable) return null;
+        const payload = { ...notification, user_id: currentAuthUser.id };
+        const { data, error } = await supabaseShop.from('notifications').insert([payload]).select('*').single();
+        if (error) {
+            if (isMissingNotificationTable(error)) {
+                notificationFeatureAvailable = false;
+                console.info('Notifications table is not ready. Run supabase-notifications.sql to enable realtime notifications.');
+            } else {
+                console.warn('Notification create failed:', error.message);
+            }
+            return null;
+        }
+        return data;
+    }
+
+    function isMissingNotificationTable(error) {
+        const msg = (error?.message || '').toLowerCase();
+        return error?.code === '42P01' || msg.includes('notifications') && (msg.includes('does not exist') || msg.includes('schema cache'));
+    }
+
+    async function initNotifications() {
+        if (!currentAuthUser?.id) return;
+        const { data, error } = await supabaseShop
+            .from('notifications')
+            .select('*')
+            .eq('user_id', currentAuthUser.id)
+            .order('created_at', { ascending: false })
+            .limit(NOTIFICATION_LIMIT);
+
+        if (error) {
+            if (isMissingNotificationTable(error)) {
+                notificationFeatureAvailable = false;
+                renderNotifications();
+                console.info('Notifications table is not ready. Run supabase-notifications.sql to enable realtime notifications.');
+            } else {
+                console.warn('Notifications load failed:', error.message);
+            }
+            return;
+        }
+
+        notificationFeatureAvailable = true;
+        notifications = data || [];
+        renderNotifications();
+    }
+
+    function renderNotifications() {
+        const list = document.getElementById('notificationList');
+        const count = document.getElementById('notificationCount');
+        const summary = document.getElementById('notificationSummary');
+        if (!list || !count || !summary) return;
+
+        const unread = notifications.filter(n => !n.is_read).length;
+        if (unread > 0) {
+            count.textContent = unread > 9 ? '9+' : unread;
+            count.classList.remove('hidden-count');
+            summary.textContent = `${unread} unread notification${unread === 1 ? '' : 's'}`;
+        } else {
+            count.classList.add('hidden-count');
+            summary.textContent = notificationFeatureAvailable ? 'No unread notifications' : 'Notifications need setup';
+        }
+
+        if (!notificationFeatureAvailable) {
+            list.innerHTML = `<div class="notification-empty"><i class="fas fa-bell-slash"></i>Notifications are not enabled yet</div>`;
+            return;
+        }
+        if (!notifications.length) {
+            list.innerHTML = `<div class="notification-empty"><i class="fas fa-bell-slash"></i>No notifications yet</div>`;
+            return;
+        }
+
+        list.innerHTML = notifications.map(n => `
+            <button class="notification-item ${n.is_read ? '' : 'unread'}" onclick="handleNotificationClick('${n.id}')">
+                <span class="notification-icon"><i class="fas ${notificationIcon(n.type)}"></i></span>
+                <span class="notification-body">
+                    <span class="notification-title-row">
+                        <span class="notification-title">${escapeHTML(n.title || 'Notification')}</span>
+                        <span class="notification-time">${timeAgo(n.created_at)}</span>
+                    </span>
+                    <span class="notification-message">${escapeHTML(n.message || '')}</span>
+                </span>
+            </button>
+        `).join('');
+    }
+
+    function addNotification(notification, showToastNow = true) {
+        if (!notification || notifications.some(n => n.id === notification.id)) return;
+        const relatedIndex = notifications.findIndex(n => n.related_id && n.related_id === notification.related_id && n.type === notification.type);
+        if (relatedIndex >= 0) {
+            const existing = notifications[relatedIndex];
+            if (String(existing.id).startsWith('local-') && !String(notification.id).startsWith('local-')) {
+                notifications[relatedIndex] = notification;
+                renderNotifications();
+            }
+            return;
+        }
+        notifications = [notification, ...notifications].slice(0, NOTIFICATION_LIMIT);
+        renderNotifications();
+        syncFromNotification(notification);
+        if (showToastNow) showNotificationToast(notification);
+    }
+
+    function syncFromNotification(notification) {
+        if (!currentCustomer || !notification) return;
+        if (notification.type === 'ORDER_APPROVED' || notification.type === 'NEW_PRODUCT') {
+            loadProducts();
+        }
+        if (notification.type === 'ORDER_APPROVED' || notification.type === 'ORDER_STATUS' || notification.type === 'PAYMENT_PENDING') {
+            checkPendingOrders();
+            if (document.getElementById('profileSlidein')?.classList.contains('active')) loadOrderHistory();
+        }
+    }
+
+    async function markNotificationRead(id) {
+        const target = notifications.find(n => n.id === id);
+        if (!target || target.is_read) return;
+        target.is_read = true;
+        renderNotifications();
+        if (String(id).startsWith('local-')) return;
+        const { error } = await supabaseShop.from('notifications').update({ is_read: true }).eq('id', id).eq('user_id', currentAuthUser.id);
+        if (error) console.warn('Mark notification read failed:', error.message);
+    }
+
+    window.handleNotificationClick = async (id) => {
+        const notification = notifications.find(n => n.id === id);
+        if (!notification) return;
+        await markNotificationRead(id);
+        closeNotifications();
+        notificationRelatedAction(notification);
+    };
+
+    window.toggleNotifications = (event) => {
+        if (event) event.stopPropagation();
+        const dd = document.getElementById('notificationDropdown');
+        if (!dd) return;
+        dd.classList.contains('open') ? closeNotifications() : openNotifications();
+    };
+
+    function openNotifications() {
+        const dd = document.getElementById('notificationDropdown');
+        const btn = document.getElementById('notificationBtn');
+        if (!dd) return;
+        dd.classList.add('open');
+        if (btn) btn.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeNotifications() {
+        const dd = document.getElementById('notificationDropdown');
+        const btn = document.getElementById('notificationBtn');
+        if (!dd) return;
+        dd.classList.remove('open');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+    }
+
+    window.markAllNotificationsRead = async (event) => {
+        if (event) event.stopPropagation();
+        if (!currentAuthUser?.id || !notifications.some(n => !n.is_read)) return;
+        notifications = notifications.map(n => ({ ...n, is_read: true }));
+        renderNotifications();
+        if (!notificationFeatureAvailable) return;
+        const { error } = await supabaseShop.from('notifications').update({ is_read: true }).eq('user_id', currentAuthUser.id).eq('is_read', false);
+        if (error) console.warn('Mark all notifications read failed:', error.message);
+    };
+
+    window.clearNotifications = async (event) => {
+        if (event) event.stopPropagation();
+        if (!currentAuthUser?.id || notifications.length === 0) return;
+        const ids = notifications.map(n => n.id).filter(id => !String(id).startsWith('local-'));
+        notifications = [];
+        renderNotifications();
+        if (ids.length === 0) return;
+        const { error } = await supabaseShop.from('notifications').delete().eq('user_id', currentAuthUser.id).in('id', ids);
+        if (error) {
+            console.warn('Clear notifications failed:', error.message);
+            await initNotifications();
+        }
+    };
+
+    document.addEventListener('click', (event) => {
+        const wrap = document.getElementById('notificationWrap');
+        if (wrap && !wrap.contains(event.target)) closeNotifications();
+    });
+
+    function initRealtimeSubscriptions() {
+        if (!currentAuthUser?.id || !currentCustomer?.id) return;
+
+        if (notificationChannel) supabaseShop.removeChannel(notificationChannel);
+        notificationChannel = supabaseShop
+            .channel(`customer-notifications-${currentAuthUser.id}`)
+            .on('postgres_changes', {
+                event: 'INSERT',
+                schema: 'public',
+                table: 'notifications',
+                filter: `user_id=eq.${currentAuthUser.id}`
+            }, payload => addNotification(payload.new, true))
+            .subscribe(status => {
+                if (status === 'CHANNEL_ERROR') console.info('Notification realtime is waiting for Supabase table setup.');
+            });
+
+        if (orderRealtimeChannel) supabaseShop.removeChannel(orderRealtimeChannel);
+        orderRealtimeChannel = supabaseShop
+            .channel(`customer-orders-${currentCustomer.id}`)
+            .on('postgres_changes', {
+                event: 'UPDATE',
+                schema: 'public',
+                table: 'shop_orders',
+                filter: `customer_id=eq.${currentCustomer.id}`
+            }, payload => handleOrderRealtime(payload.new, payload.old))
+            .on('postgres_changes', {
+                event: 'INSERT',
+                schema: 'public',
+                table: 'shop_products',
+                filter: 'is_active=eq.true'
+            }, payload => handleProductRealtime(payload.new))
+            .subscribe();
+    }
+
+    async function handleOrderRealtime(order, previousOrder) {
+        if (!order) return;
+        const statusChanged = previousOrder?.status && previousOrder.status !== order.status;
+        if (order.status === 'confirmed') {
+            const existing = notifications.some(n => n.related_id === order.id && n.type === 'ORDER_APPROVED');
+            if (!existing) {
+                let productName = '';
+                const product = allProducts.find(p => p.id === order.product_id);
+                if (product) productName = product.name;
+                addNotification({
+                    id: `local-${order.id}-${Date.now()}`,
+                    title: 'Order Approved',
+                    message: productName ? `${productName} has been approved and added to your products.` : 'Your product order has been approved.',
+                    type: 'ORDER_APPROVED',
+                    related_id: order.id,
+                    is_read: false,
+                    created_at: new Date().toISOString()
+                }, true);
+            }
+            await loadProducts();
+            checkPendingOrders();
+            if (document.getElementById('profileSlidein')?.classList.contains('active')) loadOrderHistory();
+            return;
+        }
+        if (statusChanged) {
+            checkPendingOrders();
+            if (document.getElementById('profileSlidein')?.classList.contains('active')) loadOrderHistory();
+        }
+    }
+
+    function handleProductRealtime(product) {
+        if (!product?.is_active) return;
+        if (allProducts.some(p => p.id === product.id)) return;
+        loadProducts();
+    }
 
     // ========== PENDING ORDER NOTICE ==========
     async function checkPendingOrders() {
