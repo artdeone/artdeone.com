@@ -17,6 +17,8 @@
 
     // ── Conversation history for AI ──────────────────────────
     let conversationHistory = [];
+    const MAX_HISTORY_MESSAGES = 12;
+    const MAX_MESSAGE_CHARS = 900;
 
     // ── Inline SVG icons (18×18, Lucide-style, stroke-width 1.5) ──
     const ICONS = {
@@ -50,7 +52,7 @@
     var botData = {
 
         start: {
-            msg: "Mingalarpar! 👋 Welcome to ART de ONE.\nI can answer questions about our services, courses, and more.\n\nChoose a topic below or type your question!",
+            msg: "Mingalarpar! Welcome to ART de ONE.\nI can answer questions about our services, courses, and more.\n\nChoose a topic below or type your question!",
             options: [
                 { icon: "palette", text: "Design Services", next: "en_services" },
                 { icon: "bookOpen", text: "Courses", next: "en_courses" },
@@ -61,7 +63,7 @@
         },
 
         ai_mode: {
-            msg: "I'm now in AI mode! 🤖✨\nType any question about ART de ONE and I'll answer.\n\nExamples:\n• \"How much is logo design?\"\n• \"What courses do you offer?\"\n• \"Logo design ဈေးနှုန်းဘယ်လောက်လဲ?\"\n\nYou can type in English or Myanmar!",
+            msg: "AI mode is ready.\nType any question about ART de ONE and I'll answer.\n\nExamples:\n• \"How much is logo design?\"\n• \"What courses do you offer?\"\n• \"Logo design ဈေးနှုန်းဘယ်လောက်လဲ?\"\n\nYou can type in English or Myanmar!",
             options: [
                 { icon: "arrowLeft", text: "Quick Menu", next: "start" }
             ]
@@ -71,7 +73,7 @@
         // re-displaying the full AI mode welcome when user clicks
         // "Ask another question" after an AI reply.
         ai_mode_silent: {
-            msg: "Go ahead, type your question! 🤖",
+            msg: "Go ahead, type your question.",
             options: [
                 { icon: "arrowLeft", text: "Quick Menu", next: "start" }
             ]
@@ -131,7 +133,7 @@
         },
 
         en_courses: {
-            msg: "ART de ONE Courses\n\nWe teach Adobe Illustrator from Basic to Advanced level.\n\nTopics:\n• Vector Drawing & Illustration\n• Logo Design Principles\n• Typography & Layout\n• Color Theory\n\nFormats: 1-on-1 (private) & Batch Class (group)\nStudents from: 🇲🇲 🇹🇭 🇩🇪",
+            msg: "ART de ONE Courses\n\nWe teach Adobe Illustrator from Basic to Advanced level.\n\nTopics:\n• Vector Drawing & Illustration\n• Logo Design Principles\n• Typography & Layout\n• Color Theory\n\nFormats: 1-on-1 (private) & Batch Class (group)\nStudents from: Myanmar, Thailand & Germany",
             options: [
                 { icon: "phone", text: "Inquire About Classes", next: "en_contact_action" },
                 { icon: "arrowLeft", text: "Main Menu", next: "start" }
@@ -139,7 +141,7 @@
         },
 
         en_contact: {
-            msg: "Contact ART de ONE\n\n📞 Phone: 09 953 681 497\n📧 Email: artdeone.educators@gmail.com\n📍 Location: Yangon, Myanmar\n🕐 Hours: Mon–Sat, 9am–6pm\n\nAlso available via Viber / Telegram.",
+            msg: "Contact ART de ONE\n\nPhone: 09 953 681 497\nEmail: artdeone.educators@gmail.com\nLocation: Yangon, Myanmar\nHours: Mon-Sat, 9am-6pm\n\nAlso available via Viber / Telegram.",
             options: [
                 { icon: "phone", text: "Call Now", action: "link", url: "tel:09953681497" },
                 { icon: "mail", text: "Send Email", action: "link", url: "mailto:artdeone.educators@gmail.com" },
@@ -149,7 +151,7 @@
         },
 
         en_contact_action: {
-            msg: "Let's talk details! 🤝\n\n📞 Phone: 09 953 681 497\n🕐 Hours: Mon–Sat, 9am–6pm\n\nFeel free to call or message us anytime.",
+            msg: "Let's talk details.\n\nPhone: 09 953 681 497\nHours: Mon-Sat, 9am-6pm\n\nFeel free to call or message us anytime.",
             options: [
                 { icon: "phone", text: "Call Now", action: "link", url: "tel:09953681497" },
                 { icon: "arrowLeft", text: "Main Menu", next: "start" }
@@ -355,21 +357,25 @@
     }
 
     function handleOptionClick(opt, currentStep) {
-        addMessage(opt.text.replace(/^[^\w\u1000-\u109F]*/, ''), 'user'); // strip leading emoji
+        addMessage(opt.text.replace(/^[^\w\u1000-\u109F]*/, ''), 'user'); // strip leading decorative symbols
         optionsArea.innerHTML = '';
 
         if (opt.action === 'link') {
             var tId = showTyping();
             setTimeout(function () {
                 removeTyping(tId);
-                addMessage("Opening link... 🔗", 'bot');
+                addMessage("Opening link...", 'bot');
                 window.open(opt.url, '_blank');
+                conversationHistory = [];
                 setTimeout(function () { renderStep('start'); }, 900);
             }, 500);
             return;
         }
 
         if (opt.next) {
+            if (opt.next === 'start') {
+                conversationHistory = [];
+            }
             var tId2 = showTyping();
             setTimeout(function () {
                 removeTyping(tId2);
@@ -381,12 +387,31 @@
     // ══════════════════════════════════════════════════════════
     //  AI CHAT (Free-form text input)
     // ══════════════════════════════════════════════════════════
+    function cleanForAI(text) {
+        return String(text || '').replace(/\0/g, '').trim().slice(0, MAX_MESSAGE_CHARS);
+    }
+
+    function trimConversationHistory() {
+        if (conversationHistory.length > MAX_HISTORY_MESSAGES) {
+            conversationHistory = conversationHistory.slice(-MAX_HISTORY_MESSAGES);
+        }
+    }
+
+    function rememberMessage(role, content) {
+        var clean = cleanForAI(content);
+        if (!clean) return;
+        conversationHistory.push({ role: role, content: clean });
+        trimConversationHistory();
+    }
+
     function sendToAI(userText) {
         // Add to conversation history
-        conversationHistory.push({ role: 'user', content: userText });
+        var cleanUserText = cleanForAI(userText);
+        if (!cleanUserText) return;
+        rememberMessage('user', cleanUserText);
 
         // Show user message
-        addMessage(userText, 'user');
+        addMessage(cleanUserText, 'user');
         optionsArea.innerHTML = '';
 
         // Show typing
@@ -404,7 +429,7 @@
             .then(function (data) {
                 removeTyping(tId);
                 if (data.error) {
-                    addMessage("Sorry, I couldn't process that right now. Please try again or use the quick menu. 😅", 'bot');
+                    addMessage("Sorry, I couldn't process that right now. Please try again or use the quick menu.", 'bot');
                     // Show quick-return options after error
                     renderOptions([
                         { icon: "sparkles", text: "Ask another question", next: "ai_mode_silent" },
@@ -414,7 +439,7 @@
                     if (chatInput) chatInput.focus();
                 } else {
                     var reply = data.reply || "I'm not sure how to answer that. Please contact us directly!";
-                    conversationHistory.push({ role: 'assistant', content: reply });
+                    rememberMessage('assistant', reply);
                     // [FIX #2] Typewriter effect; options render after typing completes
                     typeMessage(reply, function () {
                         // [BUG FIX #3] Use ai_mode_silent instead of ai_mode so the
@@ -432,7 +457,7 @@
             .catch(function (err) {
                 removeTyping(tId);
                 console.error('Chatbot AI error:', err);
-                addMessage("Connection error. Please try again later. 😔", 'bot');
+                addMessage("Connection error. Please try again later.", 'bot');
                 renderOptions([
                     { icon: "arrowLeft", text: "Quick Menu", next: "start" }
                 ], 'start');
@@ -453,6 +478,10 @@
         if (!chatInput) return;
         var text = chatInput.value.trim();
         if (!text) return;
+        if (text.length > MAX_MESSAGE_CHARS) {
+            addMessage("Please shorten your question to under " + MAX_MESSAGE_CHARS + " characters.", 'bot');
+            return;
+        }
         chatInput.value = '';
         sendToAI(text);
     }
