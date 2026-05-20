@@ -76,6 +76,47 @@ function injectCSS() {
         .mobile-profile-row .shop-nav-avatar {
             width: 32px; height: 32px; font-size: 0.7rem;
         }
+        @media (max-width: 767px) {
+            .mobile-menu #userInfoMobile .nav-btn-signout {
+                width: 100% !important;
+                min-height: 44px;
+                margin: 0 !important;
+                padding: 10px 0 !important;
+                display: flex !important;
+                align-items: center;
+                justify-content: flex-start !important;
+                gap: 10px;
+                background: transparent !important;
+                border: 0 !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+                color: #ed2939 !important;
+                font-size: 0.9rem !important;
+                font-weight: 500 !important;
+                line-height: 1.2;
+                letter-spacing: 0;
+                text-align: left;
+                overflow: visible !important;
+            }
+            .mobile-menu #userInfoMobile .nav-btn-signout::before {
+                content: '';
+                width: 18px;
+                height: 18px;
+                flex: 0 0 18px;
+                background: center / contain no-repeat url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%23ed2939' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3'/%3E%3Cpath d='M10 17l5-5-5-5'/%3E%3Cpath d='M15 12H4'/%3E%3C/svg%3E");
+            }
+            .mobile-menu #userInfoMobile .nav-btn-signout::after {
+                display: none !important;
+                content: none !important;
+            }
+            .mobile-menu #userInfoMobile .nav-btn-signout:hover {
+                background: transparent !important;
+                border-color: transparent !important;
+                color: #ed2939 !important;
+                transform: none !important;
+                box-shadow: none !important;
+            }
+        }
     `;
     document.head.appendChild(style);
 }

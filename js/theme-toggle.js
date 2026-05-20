@@ -40,9 +40,7 @@
 
     function initToggles() {
         var desktopToggle = document.getElementById('ado-theme-toggle');
-        var mobileToggle = document.getElementById('ado-theme-toggle-mobile');
         if (desktopToggle) desktopToggle.addEventListener('click', cycleMode);
-        if (mobileToggle) mobileToggle.addEventListener('click', cycleMode);
         updateToggleUI();
     }
 

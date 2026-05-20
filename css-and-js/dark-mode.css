@@ -557,12 +557,17 @@ body.dark-mode #mobile-menu.open {
         display: none !important;
     }
 
-    .ado-theme-switcher-mobile {
+    .mobile-menu .ado-theme-switcher-mobile {
         display: flex;
         justify-content: flex-start;
-        gap: 1rem;
-        padding: 0.55rem 0 0;
+        align-items: center;
+        gap: 10px;
+        width: calc(100% + 2rem);
+        margin: 16px -1rem 0;
+        margin-top: 16px !important;
+        padding: 12px 1rem 2px;
         border: 0;
+        border-top: 1px solid rgba(243, 246, 238, 0.14);
         border-radius: 0;
         background: transparent;
         box-shadow: none;
@@ -570,53 +575,104 @@ body.dark-mode #mobile-menu.open {
         -webkit-backdrop-filter: none;
     }
 
-    .ado-theme-switcher-mobile .ado-theme-option {
-        width: auto;
-        height: auto;
-        gap: 0.38rem;
-        padding: 0.15rem 0;
-        border-radius: 0;
+    .mobile-menu .ado-theme-switcher-mobile .ado-theme-option {
+        width: 34px;
+        height: 34px;
+        min-width: 34px;
+        padding: 0;
+        border-radius: 999px;
         background: transparent !important;
         color: #777;
-        font-size: 0.72rem;
-        font-weight: 500;
-        letter-spacing: 0.02em;
-        line-height: 1;
     }
 
-    .ado-theme-switcher-mobile .ado-theme-option svg {
-        width: 0.9rem;
-        height: 0.9rem;
-        stroke-width: 1.75;
+    .mobile-menu .ado-theme-switcher-mobile .ado-theme-option svg {
+        width: 18px;
+        height: 18px;
+        stroke-width: 1.5;
     }
 
-    .ado-theme-switcher-mobile .ado-theme-label {
+    .mobile-menu .ado-theme-switcher-mobile .ado-theme-label {
         display: none;
     }
 
-    .ado-theme-switcher-mobile .ado-theme-option[aria-pressed="true"] {
-        color: #111;
-        background: transparent !important;
+    .mobile-menu .ado-theme-switcher-mobile .ado-theme-divider {
+        width: 1px;
+        height: 18px;
+        background: rgba(243, 246, 238, 0.16);
+        flex: 0 0 auto;
     }
 
-    html[data-theme="dark"] .ado-theme-switcher-mobile,
-    body.dark-mode .ado-theme-switcher-mobile {
+    .mobile-menu .ado-theme-switcher-mobile .ado-theme-option[aria-pressed="true"] {
+        color: var(--ado-brand-green);
+        background: rgba(167, 225, 105, 0.14) !important;
+    }
+
+    html[data-theme="dark"] .mobile-menu .ado-theme-switcher-mobile,
+    body.dark-mode .mobile-menu .ado-theme-switcher-mobile {
         background: transparent;
         box-shadow: none;
     }
 
-    html[data-theme="dark"] .ado-theme-switcher-mobile .ado-theme-option,
-    body.dark-mode .ado-theme-switcher-mobile .ado-theme-option {
+    html[data-theme="dark"] .mobile-menu .ado-theme-switcher-mobile .ado-theme-option,
+    body.dark-mode .mobile-menu .ado-theme-switcher-mobile .ado-theme-option {
         color: var(--ado-dark-muted);
         background: transparent !important;
     }
 
-    html[data-theme="dark"] .ado-theme-switcher-mobile .ado-theme-option[aria-pressed="true"],
-    body.dark-mode .ado-theme-switcher-mobile .ado-theme-option[aria-pressed="true"],
-    html[data-theme="dark"] .ado-theme-switcher-mobile .ado-theme-option[aria-pressed="true"] .ado-theme-label,
-    body.dark-mode .ado-theme-switcher-mobile .ado-theme-option[aria-pressed="true"] .ado-theme-label {
+    html[data-theme="dark"] .mobile-menu .ado-theme-switcher-mobile .ado-theme-option[aria-pressed="true"],
+    body.dark-mode .mobile-menu .ado-theme-switcher-mobile .ado-theme-option[aria-pressed="true"],
+    html[data-theme="dark"] .mobile-menu .ado-theme-switcher-mobile .ado-theme-option[aria-pressed="true"] .ado-theme-label,
+    body.dark-mode .mobile-menu .ado-theme-switcher-mobile .ado-theme-option[aria-pressed="true"] .ado-theme-label {
         color: var(--ado-dark-text);
+        background: rgba(167, 225, 105, 0.14) !important;
+    }
+
+    .mobile-menu #userInfoMobile .nav-btn-signout,
+    html[data-theme="dark"] .mobile-menu #userInfoMobile .nav-btn-signout,
+    body.dark-mode .mobile-menu #userInfoMobile .nav-btn-signout {
+        width: 100% !important;
+        min-height: 44px;
+        margin: 0 !important;
+        padding: 10px 0 !important;
+        display: flex !important;
+        align-items: center;
+        justify-content: flex-start !important;
+        gap: 10px;
         background: transparent !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        color: var(--ado-brand-red) !important;
+        font-size: 0.9rem !important;
+        font-weight: 500 !important;
+        line-height: 1.2;
+        letter-spacing: 0;
+        text-align: left;
+        overflow: visible !important;
+        transform: none !important;
+    }
+
+    .mobile-menu #userInfoMobile .nav-btn-signout::before {
+        content: '';
+        width: 18px;
+        height: 18px;
+        flex: 0 0 18px;
+        background: center / contain no-repeat url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%23ed2939' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3'/%3E%3Cpath d='M10 17l5-5-5-5'/%3E%3Cpath d='M15 12H4'/%3E%3C/svg%3E");
+    }
+
+    .mobile-menu #userInfoMobile .nav-btn-signout::after {
+        display: none !important;
+        content: none !important;
+    }
+
+    .mobile-menu #userInfoMobile .nav-btn-signout:hover,
+    html[data-theme="dark"] .mobile-menu #userInfoMobile .nav-btn-signout:hover,
+    body.dark-mode .mobile-menu #userInfoMobile .nav-btn-signout:hover {
+        background: transparent !important;
+        border-color: transparent !important;
+        color: var(--ado-brand-red) !important;
+        transform: none !important;
+        box-shadow: none !important;
     }
 }
 

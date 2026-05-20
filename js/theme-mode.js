@@ -17,9 +17,9 @@
     }
 
     var icons = {
-        light: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>',
-        dark: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 14.5A7.8 7.8 0 0 1 9.5 3.6 8.8 8.8 0 1 0 20.4 14.5Z"></path></svg>',
-        system: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"></rect><path d="M8 20h8"></path><path d="M12 16v4"></path></svg>'
+        light: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.5v2"></path><path d="M12 19.5v2"></path><path d="M4.6 4.6 6 6"></path><path d="m18 18 1.4 1.4"></path><path d="M2.5 12h2"></path><path d="M19.5 12h2"></path><path d="M4.6 19.4 6 18"></path><path d="m18 6 1.4-1.4"></path></svg>',
+        dark: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.2 14.8A7.2 7.2 0 0 1 9.2 4.8 8 8 0 1 0 19.2 14.8Z"></path></svg>',
+        system: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="11" rx="2"></rect><path d="M8.5 20h7"></path><path d="M12 16v4"></path><path d="M12 8.2v4.6"></path><path d="M9.7 10.5h4.6"></path></svg>'
     };
 
     var labels = {
@@ -66,14 +66,21 @@
         wrap.setAttribute('role', 'group');
         wrap.setAttribute('aria-label', 'Theme mode');
 
-        MODES.forEach(function (mode) {
+        MODES.forEach(function (mode, index) {
+            if (location === 'mobile' && index > 0) {
+                var divider = document.createElement('span');
+                divider.className = 'ado-theme-divider';
+                divider.setAttribute('aria-hidden', 'true');
+                wrap.appendChild(divider);
+            }
+
             var button = document.createElement('button');
             button.type = 'button';
             button.className = 'ado-theme-option';
             button.dataset.themeMode = mode;
             button.setAttribute('aria-label', labels[mode] + ' mode');
             button.setAttribute('title', labels[mode]);
-            button.innerHTML = icons[mode] + '<span class="ado-theme-label">' + labels[mode] + '</span>';
+            button.innerHTML = icons[mode] + (location === 'mobile' ? '' : '<span class="ado-theme-label">' + labels[mode] + '</span>');
             button.addEventListener('click', function () {
                 setMode(mode);
             });
