@@ -169,6 +169,25 @@
             margin-top: 0.5rem;
             margin-bottom: 2rem;
         }
+        #article-body .article-link-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #a7e169;
+            color: #11130f;
+            font-weight: 600;
+            border-radius: 9999px;
+            padding: 0.65rem 1.25rem;
+            margin-top: 0.5rem;
+            margin-bottom: 1.5rem;
+            text-decoration: none;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+        #article-body .article-link-button:hover {
+            background: #ed2939;
+            color: #fff;
+            transform: translateY(-2px);
+        }
 
         /* Tags */
         .article-tags {
@@ -721,6 +740,15 @@
                             '<video controls playsinline preload="metadata" src="' + block.src + '"></video>' +
                         '</div>' +
                         (block.caption ? '<p class="article-video-caption">' + block.caption + '</p>' : '');
+                }
+
+                if (block.type === 'link') {
+                    el = document.createElement('p');
+                    el.innerHTML =
+                        '<a class="article-link-button" href="' + block.href + '" target="_blank" rel="noopener noreferrer">' +
+                            block.label +
+                            '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>' +
+                        '</a>';
                 }
 
                 if (el) body.appendChild(el);

@@ -4,6 +4,61 @@
 
 const newsData = [
   {
+    id: "bytedance-lance-multimodal-model",
+    title: "3B Model နဲ့ Image, Video ကို တစ်ပြိုင်နက် ကိုင်တွယ်နိုင်တဲ့ Lance",
+    subtitle: "ByteDance ရဲ့ open-source Lance model ဟာ 3B active parameters နဲ့ text, image, video တွေကို တစ်စုတစ်စည်းတည်း နားလည်၊ ဖန်တီး၊ ပြင်ဆင်နိုင်တဲ့ multimodal model ဖြစ်ပါတယ်။",
+    category: "AI Model",
+    author: "ART de ONE",
+    date: "2026-05-20",
+    dateDisplay: "၂၀ မေ ၂၀၂၆",
+    thumbnail: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1779243720/image-editing-overview_szsbpf.webp",
+    thumbnailAlt: "ByteDance Lance image editing overview",
+    readTime: "၁ မိနစ်",
+    content: [
+      {
+        type: "paragraph",
+        text: "နည်းပညာလောကမှာ စိတ်ဝင်စားဖို့ကောင်းတဲ့ သတင်းအသစ်တစ်ခု ထပ်မံပေါ်ထွက်လာပါတယ်။ ByteDance က Lance လို့ခေါ်တဲ့ open-source AI model အသစ်တစ်ခုကို ထုတ်ပြန်လိုက်ပြီး၊ ဒီ model ဟာ 3B active parameters ပဲ အသုံးပြုထားပေမယ့် text, image, video တို့ကို တစ်စုတစ်စည်းတည်း နားလည်နိုင်၊ ဖန်တီးနိုင်၊ ပြင်ဆင်နိုင်တဲ့ multimodal model တစ်ခုဖြစ်တယ်လို့ သိရပါတယ်။"
+      },
+      {
+        type: "paragraph",
+        text: "Lance ဟာ image generation, image editing, video generation စတဲ့လုပ်ဆောင်ချက်တွေမှာ အားကောင်းတဲ့ performance ပြသထားပြီး၊ lightweight ဖြစ်တဲ့အပြင် unified framework တစ်ခုတည်းအတွင်းမှာ image နဲ့ video understanding, generation, editing တို့ကို ပေါင်းစည်းထားတာက အထူးစိတ်ဝင်စားစရာဖြစ်ပါတယ်။"
+      },
+      {
+        type: "paragraph",
+        text: "အကျဉ်းချုပ်ပြောရရင် Lance ဟာ parameter အနည်းငယ်နဲ့တောင် image နဲ့ video ဆိုင်ရာ AI လုပ်ငန်းစဉ်အမျိုးမျိုးကို တစ်ခါတည်း ကိုင်တွယ်နိုင်တဲ့ model အသစ်တစ်ခုအဖြစ် နည်းပညာအသိုင်းအဝိုင်းရဲ့ အာရုံစိုက်မှုကို ရရှိနေပါတယ်။"
+      },
+      {
+        type: "heading",
+        text: "Image and Video Showcase"
+      },
+      {
+        type: "image",
+        src: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1779243720/image-editing-overview_szsbpf.webp",
+        alt: "Lance image editing showcase",
+        caption: "Image editing overview"
+      },
+      {
+        type: "image",
+        src: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1779243721/text-to-image-overview_ml22ks.webp",
+        alt: "Lance text-to-image showcase",
+        caption: "Text to Image overview"
+      },
+      {
+        type: "video",
+        src: "https://res.cloudinary.com/ddkd9lxpr/video/upload/v1779243722/video-understanding-vqa-04_rsouau.mp4",
+        caption: "Video Understanding"
+      },
+      {
+        type: "link",
+        href: "https://huggingface.co/bytedance-research/Lance",
+        label: "Download Model"
+      }
+    ],
+    tags: ["ByteDance", "Lance", "Multimodal AI", "Image Generation", "Video Generation", "Open Source"],
+    sourceUrl: "https://huggingface.co/bytedance-research/Lance",
+    sourceName: "Hugging Face"
+  },
+  {
     id: "nvidia-sana-wm-open-source",
     title: "NVIDIA, SANA-WM open-source world model အသစ်ကို မိတ်ဆက်",
     subtitle: "image တစ်ပုံနဲ့ camera trajectory ကိုအသုံးပြုပြီး 720p အရည်အသွေးရှိတဲ့ ၁ မိနစ်စာ controllable video ကို single GPU နဲ့ဖန်တီးနိုင်",

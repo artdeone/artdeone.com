@@ -1583,28 +1583,33 @@
         .logo-marquee-track {
             overflow: hidden;
             width: 100%;
+            --logo-marquee-duration: 35s;
+            --logo-marquee-logo-width: 150px;
+            --logo-marquee-gap: 3rem;
         }
 
         .logo-marquee-inner {
             display: flex;
             align-items: center;
             width: max-content;
-            animation: marqueeScroll 35s linear infinite;
+            flex-wrap: nowrap;
+            animation: marqueeScroll var(--logo-marquee-duration) linear infinite;
             will-change: transform;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
-            transform: translateZ(0);
+            transform: translate3d(0, 0, 0);
         }
 
         .logo-marquee-img {
             height: 4.5rem;
-            max-width: 150px;
+            width: var(--logo-marquee-logo-width);
+            max-width: var(--logo-marquee-logo-width);
             object-fit: contain;
-            flex-shrink: 0;
+            flex: 0 0 var(--logo-marquee-logo-width);
             filter: grayscale(100%);
             opacity: 0.5;
             transition: all 0.4s ease;
-            margin-right: 3rem;
+            margin-right: var(--logo-marquee-gap);
         }
 
         .logo-marquee-img:hover {
@@ -1614,23 +1619,23 @@
 
         @keyframes marqueeScroll {
             0% {
-                transform: translateX(0);
+                transform: translate3d(0, 0, 0);
             }
 
             100% {
-                transform: translateX(-50%);
+                transform: translate3d(-50%, 0, 0);
             }
         }
 
         @media (max-width: 768px) {
-            .logo-marquee-inner {
-                animation-duration: 20s;
+            .logo-marquee-track {
+                --logo-marquee-duration: 20s;
+                --logo-marquee-logo-width: 120px;
+                --logo-marquee-gap: 2rem;
             }
 
             .logo-marquee-img {
                 height: 3.5rem;
-                max-width: 120px;
-                margin-right: 2rem;
             }
         }
 
