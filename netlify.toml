@@ -151,6 +151,31 @@
     Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
+  for = "/js/theme-mode.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/js/theme-toggle.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/css-and-js/theme-toggle.css"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/css-and-js/mobile-smooth-nav.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/css-and-js/mobile-smooth-nav.css"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
   for = "/nav-bar/*"
   [headers.values]
     Cache-Control = "public, max-age=86400"

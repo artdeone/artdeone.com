@@ -4,7 +4,7 @@
 
     var script = document.createElement('script');
     script.id = 'ado-theme-mode-script';
-    script.src = '/js/theme-mode.js';
+    script.src = '/js/theme-mode.js?v=20260521';
     script.defer = true;
     document.head.appendChild(script);
 })();

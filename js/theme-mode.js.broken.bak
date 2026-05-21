@@ -3,6 +3,7 @@
 
     if (window.ADOThemeMode) return;
 
+    var ASSET_VERSION = '20260521';
     var STORAGE_KEY = 'ado-theme-mode';
     var LEGACY_THEME_KEY = 'theme';
     var DASHBOARD_THEME_KEY = 'ado-theme';
@@ -32,15 +33,24 @@
         return MODES.indexOf(value) !== -1;
     }
 
-    function safeGetItem(key) {
-        try { return localStorage.getItem(key); } catch (e) { return null; }
+    function getStoredValue(key) {
+        try {
+            return localStorage.getItem(key);
+        } catch (error) {
+            return null;
+        }
     }
-    function safeSetItem(key, value) {
-        try { localStorage.setItem(key, value); } catch (e) { /* private mode etc. */ }
+
+    function setStoredValue(key, value) {
+        try {
+            localStorage.setItem(key, value);
+        } catch (error) {
+            /* Storage can be blocked in some browser privacy modes. */
+        }
     }
 
     function getInitialMode() {
-        var saved = safeGetItem(STORAGE_KEY);
+        var saved = getStoredValue(STORAGE_KEY);
         if (hasMode(saved)) return saved;
 
         /* No explicit choice in STORAGE_KEY → use time-based default.
@@ -57,14 +67,27 @@
         return mode === 'dark' ? 'dark' : 'light';
     }
 
-    function ensureStylesheet() {
+    function hasVersionedStylesheet(fileName) {
+        return !!document.querySelector('link[href*="' + fileName + '?v=' + ASSET_VERSION + '"]');
+    }
+
+    function appendStylesheet(id, href) {
+        var link = document.createElement('link');
+        link.id = id;
+        link.rel = 'stylesheet';
+        link.href = href;
+        document.head.appendChild(link);
+    }
+
+    function ensureStylesheets() {
         if (document.getElementById('ado-dark-mode-css')) return;
 
-        var link = document.createElement('link');
-        link.id = 'ado-dark-mode-css';
-        link.rel = 'stylesheet';
-        link.href = '/css-and-js/dark-mode.css';
-        document.head.appendChild(link);
+        appendStylesheet('ado-dark-mode-css', '/css-and-js/dark-mode.css?v=' + ASSET_VERSION);
+    }
+
+    function ensureThemeToggleStylesheet() {
+        if (hasVersionedStylesheet('theme-toggle.css')) return;
+        appendStylesheet('ado-theme-toggle-css-versioned', '/css-and-js/theme-toggle.css?v=' + ASSET_VERSION);
     }
 
     function makeSwitcher(location) {
@@ -98,6 +121,8 @@
     }
 
     function installThemeSwitchers() {
+        if (!document.body) return;
+
         var nav = document.querySelector('nav');
 
         if (!document.querySelector('.ado-theme-switcher-desktop')) {
@@ -189,39 +214,41 @@
             document.body.classList.toggle('dark-mode', resolved === 'dark');
         }
 
-        safeSetItem(LEGACY_THEME_KEY, resolved);
-        safeSetItem(DASHBOARD_THEME_KEY, resolved);
+        setStoredValue(LEGACY_THEME_KEY, resolved);
+        setStoredValue(DASHBOARD_THEME_KEY, resolved);
         syncActiveNavContrast(resolved);
         updateSwitcherState();
     }
 
     function setMode(mode) {
         if (!hasMode(mode)) mode = 'system';
-        safeSetItem(STORAGE_KEY, mode);
+        setStoredValue(STORAGE_KEY, mode);
         applyMode(mode);
     }
 
     function init() {
-      try {
-        ensureStylesheet();
+        ensureStylesheets();
+        ensureThemeToggleStylesheet();
         applyMode(getInitialMode());
         installThemeSwitchers();
 
         var observer = new MutationObserver(function () {
-            try {
-                installThemeSwitchers();
-                syncActiveNavContrast(resolveMode(getInitialMode()));
-            } catch (e) { /* swallow */ }
+            ensureThemeToggleStylesheet();
+            installThemeSwitchers();
+            syncActiveNavContrast(resolveMode(getInitialMode()));
         });
         observer.observe(document.body, { childList: true, subtree: true });
-        window.setTimeout(function () { observer.disconnect(); }, 5000);
+        window.setTimeout(function () { observer.disconnect(); }, 30000);
+
+        window.setTimeout(installThemeSwitchers, 250);
+        window.setTimeout(installThemeSwitchers, 1000);
+        window.addEventListener('load', installThemeSwitchers);
+        window.addEventListener('pageshow', installThemeSwitchers);
 
         /* Listen for OS theme changes when in 'system' mode */
         if (darkQuery) {
             var systemListener = function () {
-                try {
-                    if ((currentMode || getInitialMode()) === 'system') applyMode('system');
-                } catch (e) { /* swallow */ }
+                if ((currentMode || getInitialMode()) === 'system') applyMode('system');
             };
             if (darkQuery.addEventListener) {
                 darkQuery.addEventListener('change', systemListener);
@@ -229,7 +256,6 @@
                 darkQuery.addListener(systemListener);
             }
         }
-      } catch (e) { /* outer guard: never let theme init break the page */ }
     }
 
     window.ADOThemeMode = {
