@@ -170,6 +170,14 @@ const blogPosts = [
         excerpt: "50/50 Rule, Salami Technique, Out of Scope, Font Licensing နဲ့ 3-2-1 Backup Rule — Freelancer တစ်ယောက်အနေနဲ့ သိထားသင့်တဲ့ Business Rules (၅)ခုကို မျှဝေပေးပါတယ်။",
         file: "/posts/post-21/post-21.html"
     },
+    {
+        id: 22,
+        title: "ကျောင်းသား၊ ကျောင်းသူများအတွက် Free AI 4 ခု",
+        date: "May 22, 2026",
+        image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1779428178/webcover_i9f5ta.png",
+        excerpt: "Elicit, Consensus, WolframAlpha နဲ့ ResearchRabbit — ကျောင်းသား၊ ကျောင်းသူများရဲ့ Research, Study နဲ့ Math/STEM အလုပ်တွေအတွက် အသုံးပြုလို့ကောင်းတဲ့ Free AI Tools (၄)ခုကို မိတ်ဆက်ပေးပါတယ်။",
+        file: "/posts/post-22/post-22.html"
+    },
     // Add new posts here as you create them
 ];
 
@@ -200,6 +208,7 @@ function getCategory(postId) {
         11: 'AI',
         20: 'AI',
         21: 'FREELANCE',
+        22: 'AI',
         // Add more categories for new posts
     };
     return categories[postId] || 'ARTICLE';
