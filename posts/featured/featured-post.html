@@ -19,7 +19,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css-and-js/mobile-smooth-nav.css?v=20260521">
+    <link rel="stylesheet" href="/css-and-js/mobile-smooth-nav.css?v=20260522">
     <script src="https://unpkg.com/feather-icons"></script>
     
     <link rel="stylesheet" href="/css-and-js/theme.css">
@@ -123,6 +123,18 @@
 
         .text-accent { color: #a7e169; }
         [data-aos] { transition-duration: 1000ms !important; }
+        /* Hamburger icon fix */
+        .hamburger-btn,
+        .mobile-menu-btn,
+        [class*="hamburger"] {
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: none !important;
+            mask-image: none !important;
+            -webkit-mask-image: none !important;
+        }
     </style>
 </head>
 <body class="bg-white text-[#323232]">
@@ -164,7 +176,7 @@
                     <div class="md:hidden flex items-center">
                         <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md hover:bg-gray-100 focus:outline-none" id="mobile-menu-button">
                             <div class="icon-container text-black">
-                                <i data-feather="menu" class="icon-menu"></i>
+                                <svg class="icon-menu" width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="1" x2="20" y2="1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="0" y1="7" x2="20" y2="7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="0" y1="13" x2="20" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                                 <i data-feather="x" class="icon-close"></i>
                             </div>
                         </button>
@@ -511,7 +523,7 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script src="/css-and-js/mobile-smooth-nav.js?v=20260521"></script>
+    <script src="/css-and-js/mobile-smooth-nav.js?v=20260522"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
         feather.replace();
