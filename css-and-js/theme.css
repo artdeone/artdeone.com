@@ -155,6 +155,29 @@ nav {
 }
 .mobile-dropdown-arrow.rotated { transform: rotate(180deg); }
 
+/* Desktop nav: normalize Resources trigger to match other nav-link items.
+   Without this, the inline-flex Resources anchor sits at a slightly different
+   vertical position than baseline-aligned plain anchors. */
+@media (min-width: 769px) {
+    .nav-center .nav-link,
+    .nav-dropdown-wrapper > .nav-link {
+        display: inline-flex;
+        align-items: center;
+        line-height: 1;
+    }
+    .nav-dropdown-wrapper > .nav-link {
+        gap: 4px;
+    }
+    .nav-dropdown-wrapper .nav-dropdown-arrow {
+        display: inline-block;
+        vertical-align: middle;
+        position: relative;
+        top: 0;
+        margin: 0;
+        line-height: 1;
+    }
+}
+
 /* 4. Sections */
 .section-dark { background-color: #ffffff; }
 .section-darker { background-color: #f9f9f9; }

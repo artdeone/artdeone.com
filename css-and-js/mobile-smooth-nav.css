@@ -83,3 +83,49 @@
     opacity: 1;
     transform: rotate(0deg) scale(1); /* Rotates in and grows */
 }
+
+/* ═══ MOBILE HAMBURGER — GLASS EFFECT (shared across all pages) ═══ */
+@media (max-width: 768px) {
+    .hamburger-btn,
+    .mobile-menu-btn,
+    #mobile-menu-btn,
+    #mobile-menu-button,
+    [class*="hamburger"],
+    [class*="menu-toggle"] {
+        width: 48px !important;
+        height: 48px !important;
+        border-radius: 50% !important;
+        background: rgba(255, 255, 255, 0.15) !important;
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.25) !important;
+        box-shadow:
+            0 4px 20px rgba(0, 0, 0, 0.12),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    /* Dark mode: white icon lines */
+    html.dark .hamburger-btn svg,
+    html.dark .hamburger-btn span,
+    html.dark .mobile-menu-btn svg,
+    html.dark .mobile-menu-btn span,
+    html[data-theme="dark"] .hamburger-btn svg,
+    html[data-theme="dark"] .hamburger-btn span,
+    html[data-theme="dark"] .mobile-menu-btn svg,
+    html[data-theme="dark"] .mobile-menu-btn span {
+        stroke: white !important;
+        color: white !important;
+    }
+
+    /* Light mode: dark icon lines */
+    html:not(.dark):not([data-theme="dark"]) .hamburger-btn svg,
+    html:not(.dark):not([data-theme="dark"]) .hamburger-btn span,
+    html:not(.dark):not([data-theme="dark"]) .mobile-menu-btn svg,
+    html:not(.dark):not([data-theme="dark"]) .mobile-menu-btn span {
+        stroke: #333 !important;
+        color: #333 !important;
+    }
+}

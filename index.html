@@ -2,6 +2,16 @@
 <html lang="en">
 
 <head>
+    <!-- ── Dark mode: apply BEFORE first paint to prevent flash of white ── -->
+    <script>
+    (function(){try{var s=localStorage.getItem('ado-theme');var preferDark=s===null?true:s==='dark';if(preferDark){document.documentElement.classList.add('dark');document.documentElement.setAttribute('data-theme','dark');document.documentElement.setAttribute('data-theme-mode','dark');document.documentElement.style.colorScheme='dark';if(s===null){try{localStorage.setItem('ado-theme','dark');}catch(e){}}}else{document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-theme-mode','light');document.documentElement.style.colorScheme='light';}}catch(e){}})();
+    </script>
+    <style>
+    html[data-theme="dark"] body { background-color: #11130f !important; color: #f3f6ee !important; }
+    html[data-theme="dark"] nav { background-color: rgba(17,19,15,0.95) !important; border-bottom-color: #343a2e !important; }
+    html[data-theme="dark"] .nav-link { color: #f3f6ee !important; }
+    html[data-theme="dark"] .mobile-menu { background-color: #11130f !important; }
+    </style>
     <meta name="dmca-site-verification" content="djZqem1CWXUxY3dhNmRQYWZZMnJ4dz090" />
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-CZRQ0NPPJ2"></script>
     <script>
@@ -167,31 +177,6 @@
     <link rel="icon" type="image/png"
         href="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769316272/fav-icon_n00lji.png">
 
-    <!-- ── Dark mode: apply BEFORE first paint to prevent flash of white ── -->
-    <script>
-        (function () { try { var s = localStorage.getItem('ado-theme-mode'); var h = new Date().getHours(); var isTimeDark = h >= 18 || h < 4; if (s === 'dark' || (s === 'system' && window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches) || (!s && isTimeDark)) { document.documentElement.setAttribute('data-theme', 'dark'); document.documentElement.style.colorScheme = 'dark'; } } catch (e) { } })();
-    </script>
-    <style>
-        /* Critical dark-mode fallback — prevents white flash before dark-mode.css loads */
-        html[data-theme="dark"] body {
-            background-color: #11130f !important;
-            color: #f3f6ee !important;
-        }
-
-        html[data-theme="dark"] nav {
-            background-color: rgba(17, 19, 15, 0.95) !important;
-            border-bottom-color: #343a2e !important;
-        }
-
-        html[data-theme="dark"] .nav-link {
-            color: #f3f6ee !important;
-        }
-
-        html[data-theme="dark"] .mobile-menu {
-            background-color: #11130f !important;
-        }
-    </style>
-
     <!-- ── Pre-built Tailwind CSS (replaces JIT CDN — saves ~1.5s TBT) ── -->
     <link rel="stylesheet" href="css-and-js/tailwind.min.css">
 
@@ -278,6 +263,13 @@
         .nav-link:hover {
             color: #000 !important;
             font-weight: 600 !important;
+        }
+
+        /* Vertically align the Resources dropdown trigger with sibling nav links */
+        .nav-dropdown-wrapper > .nav-link {
+            display: inline-flex;
+            align-items: center;
+            vertical-align: middle;
         }
 
         .mobile-menu {
@@ -633,6 +625,18 @@
             background-color: #ed2939;
             border-color: #ed2939;
             color: #fff;
+        }
+
+        /* Mobile: prevent first/last service tab from being clipped in the overflow row */
+        @media (max-width: 768px) {
+            div.flex.justify-center.overflow-x-auto:has(> .service-tab) {
+                justify-content: flex-start !important;
+                padding-left: 1rem;
+                padding-right: 1rem;
+                scroll-padding-left: 1rem;
+                scroll-padding-right: 1rem;
+                
+            }
         }
 
         /* Form */
@@ -2374,6 +2378,28 @@
                     </div>
 
                     <div class="hidden md:flex items-center gap-3" id="desktopAuth">
+                        <!-- Desktop glass Light/Dark toggle (shared styling with hero mobile toggle) -->
+                        <div class="mobile-mode-toggle" id="desktopThemeToggle" role="button" tabindex="0" aria-label="Toggle light/dark mode">
+                            <div class="mmt-track">
+                                <div class="mmt-knob">
+                                    <svg class="mmt-icon mmt-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="4"/>
+                                        <line x1="12" y1="2" x2="12" y2="5"/>
+                                        <line x1="12" y1="19" x2="12" y2="22"/>
+                                        <line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/>
+                                        <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
+                                        <line x1="2" y1="12" x2="5" y2="12"/>
+                                        <line x1="19" y1="12" x2="22" y2="12"/>
+                                        <line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/>
+                                        <line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/>
+                                    </svg>
+                                    <svg class="mmt-icon mmt-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                                    </svg>
+                                </div>
+                                <span class="mmt-label">Light</span>
+                            </div>
+                        </div>
                         <button type="button" id="ado-theme-toggle" class="ado-theme-toggle" title="Switch theme"
                             aria-label="Switch theme">
                             <span class="ado-theme-toggle-icon"></span>
@@ -2528,13 +2554,302 @@
                     font-size: 14vw;
                 }
             }
+
+            /* ═══ HERO OVERRIDES ═══ */
+            /* Static hero image is now used on both mobile and desktop */
+            .hero-slide-mobile { display: block; }
+            .hero-slide-2,
+            .hero-slide-3,
+            .hero-slide-4,
+            .hero-slide-5 { display: none !important; }
+
+            /* Red ADO badge: hidden on all viewports now */
+            .hero-badge-circle { display: none !important; }
+
+            @media (max-width: 768px) {
+                /* Show static mobile hero image; hide the 4-slide cycle */
+                .hero-slide-mobile { display: block; }
+                .hero-slide-2,
+                .hero-slide-3,
+                .hero-slide-4,
+                .hero-slide-5 { display: none !important; }
+
+                /* Hide red circular ADO badge */
+                .hero-badge-circle { display: none !important; }
+
+                /* Center the hero text block + CTA */
+                .hero-text-block {
+                    right: 0 !important;
+                    left: 0 !important;
+                    margin-left: auto !important;
+                    margin-right: auto !important;
+                    align-items: center !important;
+                    text-align: center !important;
+                    max-width: 90% !important;
+                    padding: 0 1rem;
+                }
+                .hero-text-block h2,
+                .hero-text-block p { text-align: center !important; }
+
+                /* ── Glass Light/Dark sliding toggle ── */
+                .mobile-mode-toggle {
+                    display: flex;
+                    justify-content: center;
+                    margin-top: 1.75rem;
+                    margin-bottom: 0.5rem;
+                    cursor: pointer;
+                    -webkit-tap-highlight-color: transparent;
+                }
+                .mobile-mode-toggle .mmt-track {
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    width: 130px;
+                    height: 44px;
+                    border-radius: 999px;
+                    background: rgba(180, 150, 100, 0.35);
+                    backdrop-filter: blur(14px);
+                    -webkit-backdrop-filter: blur(14px);
+                    border: 1px solid rgba(255, 255, 255, 0.22);
+                    box-shadow: 0 4px 16px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.18);
+                    cursor: pointer;
+                    padding: 5px;
+                    box-sizing: border-box;
+                    overflow: hidden;
+                    transition: background 0.4s ease;
+                    user-select: none;
+                }
+                .mobile-mode-toggle.is-dark .mmt-track {
+                    background: rgba(40, 35, 30, 0.60);
+                }
+                .mobile-mode-toggle .mmt-knob {
+                    position: absolute;
+                    left: 5px;
+                    top: 5px;
+                    width: 34px;
+                    height: 34px;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.28);
+                    backdrop-filter: blur(16px);
+                    -webkit-backdrop-filter: blur(16px);
+                    border: 1px solid rgba(255,255,255,0.32);
+                    box-shadow: 0 4px 14px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.35);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    transition: left 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease;
+                    z-index: 2;
+                }
+                .mobile-mode-toggle.is-dark .mmt-knob {
+                    left: calc(130px - 34px - 5px);
+                    background: rgba(50, 45, 40, 0.55);
+                }
+                .mobile-mode-toggle .mmt-icon {
+                    width: 16px;
+                    height: 16px;
+                    color: #fff;
+                    position: absolute;
+                    transition: opacity 0.2s ease, transform 0.25s ease;
+                }
+                .mobile-mode-toggle .mmt-sun  { opacity: 1; transform: scale(1); }
+                .mobile-mode-toggle .mmt-moon { opacity: 0; transform: scale(0.6); }
+                .mobile-mode-toggle.is-dark .mmt-sun  { opacity: 0; transform: scale(0.6); }
+                .mobile-mode-toggle.is-dark .mmt-moon { opacity: 1; transform: scale(1); }
+                .mobile-mode-toggle .mmt-label {
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    text-align: center;
+                    font-size: 0.82rem;
+                    font-weight: 500;
+                    color: rgba(255,255,255,0.92);
+                    letter-spacing: 0.03em;
+                    z-index: 1;
+                    pointer-events: none;
+                    transition: opacity 0.2s ease;
+                }
+                .mobile-mode-toggle.is-dark .mmt-label {
+                    left: 0;
+                    right: 0;
+                    text-align: center;
+                }
+
+                /* ── Glass hamburger button (visible in both themes) ── */
+                .mobile-menu-btn {
+                    width: 48px !important;
+                    height: 48px !important;
+                    padding: 0 !important;
+                    border-radius: 50% !important;
+                    background: rgba(120, 120, 120, 0.20) !important;
+                    backdrop-filter: blur(12px) !important;
+                    -webkit-backdrop-filter: blur(12px) !important;
+                    border: 1px solid rgba(0, 0, 0, 0.12) !important;
+                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255,255,255,0.3) !important;
+                    display: inline-flex !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease !important;
+                }
+                .mobile-menu-btn:hover { background: rgba(120, 120, 120, 0.28) !important; }
+                .mobile-menu-btn:active {
+                    transform: scale(0.95) !important;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+                }
+                .mobile-menu-btn .icon-container,
+                .mobile-menu-btn svg {
+                    color: #222 !important;
+                    stroke: #222 !important;
+                }
+
+                /* Light mode only: remove drop shadow on hamburger */
+                html:not([data-theme="dark"]) .mobile-menu-btn {
+                    box-shadow: none !important;
+                }
+
+                /* Dark mode overrides for hamburger */
+                html[data-theme="dark"] .mobile-menu-btn,
+                body.dark-mode .mobile-menu-btn {
+                    background: rgba(60, 60, 60, 0.45) !important;
+                    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+                }
+                html[data-theme="dark"] .mobile-menu-btn .icon-container,
+                html[data-theme="dark"] .mobile-menu-btn svg,
+                body.dark-mode .mobile-menu-btn .icon-container,
+                body.dark-mode .mobile-menu-btn svg {
+                    color: #fff !important;
+                    stroke: #fff !important;
+                }
+
+                /* Hide the in-drawer theme switcher (mobile control is now in hero) */
+                #mobile-menu .ado-theme-switcher,
+                #mobile-menu .ado-theme-switcher-mobile {
+                    display: none !important;
+                }
+            }
+
+            /* ═══ DESKTOP HERO OVERRIDES ═══ */
+            @media (min-width: 769px) {
+                /* Center hero text wrapper (override Tailwind right-6/md:right-16 + items-end + text-right) */
+                .hero-text-block {
+                    right: 0 !important;
+                    left: 0 !important;
+                    margin-left: auto !important;
+                    margin-right: auto !important;
+                    align-items: center !important;
+                    text-align: center !important;
+                    max-width: 600px !important;
+                }
+                .hero-text-block h2,
+                .hero-text-block p { text-align: center !important; }
+                .hero-text-block a[href="#freelance"] {
+                    margin-left: auto !important;
+                    margin-right: auto !important;
+                }
+
+                /* In-hero glass toggle: hide on desktop (a navbar copy now serves desktop) */
+                .hero-text-block .mobile-mode-toggle { display: none !important; }
+
+                /* Hide the old 3-state sun/moon button on desktop (glass toggle replaces it) */
+                #ado-theme-toggle { display: none !important; }
+
+                /* Desktop navbar glass toggle — full structural CSS (mobile rules live
+                   inside @media (max-width: 768px) so do not apply here). */
+                #desktopAuth .mobile-mode-toggle {
+                    display: flex !important;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 0;
+                    cursor: pointer;
+                    -webkit-tap-highlight-color: transparent;
+                }
+                #desktopAuth .mmt-track {
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    width: 110px;
+                    height: 34px;
+                    border-radius: 999px;
+                    background: rgba(180, 150, 100, 0.35);
+                    backdrop-filter: blur(14px);
+                    -webkit-backdrop-filter: blur(14px);
+                    border: 1px solid rgba(0, 0, 0, 0.10);
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.18);
+                    cursor: pointer;
+                    padding: 4px;
+                    box-sizing: border-box;
+                    overflow: hidden;
+                    transition: background 0.4s ease;
+                    user-select: none;
+                }
+                #desktopAuth .mobile-mode-toggle.is-dark .mmt-track {
+                    background: rgba(40, 35, 30, 0.60);
+                    border-color: rgba(255, 255, 255, 0.15);
+                }
+                #desktopAuth .mmt-knob {
+                    position: absolute;
+                    left: 4px;
+                    top: 4px;
+                    width: 26px;
+                    height: 26px;
+                    box-sizing: border-box;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.55);
+                    backdrop-filter: blur(16px);
+                    -webkit-backdrop-filter: blur(16px);
+                    border: 1px solid rgba(255,255,255,0.45);
+                    box-shadow: 0 3px 10px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.5);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    transition: left 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease;
+                    z-index: 2;
+                }
+                #desktopAuth .mobile-mode-toggle.is-dark .mmt-knob {
+                    left: calc(110px - 26px - 4px);
+                    background: rgba(50, 45, 40, 0.65);
+                }
+                #desktopAuth .mmt-icon {
+                    width: 13px;
+                    height: 13px;
+                    color: #333;
+                    position: absolute;
+                    transition: opacity 0.2s ease, transform 0.25s ease;
+                }
+                #desktopAuth .mobile-mode-toggle.is-dark .mmt-icon { color: #fff; }
+                #desktopAuth .mmt-sun  { opacity: 1; transform: scale(1); }
+                #desktopAuth .mmt-moon { opacity: 0; transform: scale(0.6); }
+                #desktopAuth .mobile-mode-toggle.is-dark .mmt-sun  { opacity: 0; transform: scale(0.6); }
+                #desktopAuth .mobile-mode-toggle.is-dark .mmt-moon { opacity: 1; transform: scale(1); }
+                #desktopAuth .mmt-label {
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    text-align: center;
+                    font-size: 0.75rem;
+                    font-weight: 500;
+                    color: rgba(60, 50, 30, 0.95);
+                    letter-spacing: 0.03em;
+                    z-index: 1;
+                    pointer-events: none;
+                    transition: opacity 0.2s ease;
+                }
+                #desktopAuth .mobile-mode-toggle.is-dark .mmt-label {
+                    color: rgba(255, 255, 255, 0.95);
+                }
+            }
         </style>
         <section id="home" class="relative w-full h-screen flex flex-col bg-white px-3 md:px-6"
             style="min-height: 600px; padding-top: 80px; padding-bottom: 1rem;">
             <div class="relative w-full h-full flex-grow overflow-hidden shadow-sm bg-gray-100 group hero-inner-custom">
 
                 <!-- Background Slider -->
-                <div class="absolute inset-0 w-full h-full bg-black">
+                <div class="absolute inset-0 w-full h-full bg-black hero-slideshow-wrap">
+                    <!-- MOBILE-ONLY static hero image (hidden on desktop via CSS) -->
+                    <div class="absolute inset-0 w-full h-full hero-slide-mobile origin-center">
+                        <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1779352676/s_iktn4d.jpg"
+                            class="w-full h-full object-cover" style="object-position: center 20%; filter: brightness(0.65);"
+                            alt="ART de ONE hero">
+                    </div>
                     <!-- Slide 1 -->
                     <div class="absolute inset-0 w-full h-full hero-slide-2 origin-center">
                         <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1777886851/yjh3_wfbjfs.jpg"
@@ -2564,23 +2879,45 @@
                 </div>
 
                 <!-- Right Side Text & Button -->
-                <div class="absolute right-6 md:right-16 top-1/2 -translate-y-1/2 z-20 flex flex-col items-end text-right"
+                <div class="hero-text-block absolute right-6 md:right-16 top-1/2 -translate-y-1/2 z-20 flex flex-col items-end text-right"
                     style="max-width: 320px;" data-aos="fade-left" data-aos-delay="200">
                     <h2 class="text-white text-xl md:text-3xl font-bold drop-shadow-md mb-2 leading-snug"
-                        style="text-shadow: 0 2px 10px rgba(0,0,0,0.5); font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em;">
+                        style="text-shadow: none !important; font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em;">
                         Learn, create, and grow with confidence.
                     </h2>
                     <p class="text-xs md:text-sm font-medium mb-6 leading-relaxed"
-                        style="color: rgba(255, 255, 255, 0.9); text-shadow: 0 1px 5px rgba(0,0,0,0.5);">
+                        style="color: rgba(255, 255, 255, 0.9); text-shadow: none !important; font-family: 'Poppins', sans-serif;">
                         Artificial Intelligence and Adobe Illustrator Class
                     </p>
-                    <a href="#portfolio"
-                        class="bg-white text-black px-6 md:px-8 py-2.5 md:py-3 rounded-full font-semibold text-sm hover:bg-[#a7e169] transition-colors shadow-lg">View
-                        Portfolio</a>
+                    <a href="#freelance"
+                        class="bg-white text-black px-6 md:px-8 py-2.5 md:py-3 rounded-full font-semibold text-sm hover:bg-[#a7e169] transition-colors shadow-lg">Our Services</a>
+
+                    <!-- MOBILE ONLY: Glass Light/Dark mode toggle -->
+                    <div class="mobile-mode-toggle" id="mobileThemeToggle" role="button" tabindex="0" aria-label="Toggle light/dark mode">
+                        <div class="mmt-track">
+                            <div class="mmt-knob">
+                                <svg class="mmt-icon mmt-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="4"/>
+                                    <line x1="12" y1="2" x2="12" y2="5"/>
+                                    <line x1="12" y1="19" x2="12" y2="22"/>
+                                    <line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/>
+                                    <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
+                                    <line x1="2" y1="12" x2="5" y2="12"/>
+                                    <line x1="19" y1="12" x2="22" y2="12"/>
+                                    <line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/>
+                                    <line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/>
+                                </svg>
+                                <svg class="mmt-icon mmt-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                                </svg>
+                            </div>
+                            <span class="mmt-label">Light</span>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Bottom Left Badge -->
-                <div class="absolute z-20" style="bottom: 2rem; left: 1.5rem;" data-aos="fade-up" data-aos-delay="400">
+                <div class="hero-badge-circle absolute z-20" style="bottom: 2rem; left: 1.5rem;" data-aos="fade-up" data-aos-delay="400">
                     <div class="relative w-28 h-28 md:w-36 md:h-36 rounded-full flex items-center justify-center text-white shadow-xl hover:scale-105 transition-transform duration-300"
                         style="background-color: #ed2939;">
                         <!-- Rotating text SVG -->
@@ -5058,6 +5395,73 @@
 
     <!-- Theme Toggle (Light → Dark → System cycle) -->
     <script src="/js/theme-toggle.js?v=20260521"></script>
+
+    <!-- Glass Light/Dark mode toggle (hero on mobile, navbar on desktop) -->
+    <script>
+    (function () {
+        try {
+            function isDark() {
+                return document.documentElement.getAttribute('data-theme') === 'dark'
+                    || (document.body && document.body.classList.contains('dark-mode'));
+            }
+
+            function syncAll() {
+                var dark = isDark();
+                var toggles = document.querySelectorAll('.mobile-mode-toggle');
+                for (var i = 0; i < toggles.length; i++) {
+                    var t = toggles[i];
+                    t.classList.toggle('is-dark', dark);
+                    var lbl = t.querySelector('.mmt-label');
+                    if (lbl) lbl.textContent = dark ? 'Dark' : 'Light';
+                }
+            }
+
+            function initGlassToggles() {
+                var toggles = document.querySelectorAll('.mobile-mode-toggle');
+                for (var i = 0; i < toggles.length; i++) {
+                    var t = toggles[i];
+                    if (t.dataset.inited === '1') continue;
+                    t.dataset.inited = '1';
+                    (function (toggle) {
+                        function flip() {
+                            var nextMode = isDark() ? 'light' : 'dark';
+                            if (window.ADOThemeMode && window.ADOThemeMode.setMode) {
+                                window.ADOThemeMode.setMode(nextMode);
+                            } else {
+                                document.documentElement.setAttribute('data-theme', nextMode);
+                                document.documentElement.classList.toggle('dark', nextMode === 'dark');
+                                document.body && document.body.classList.toggle('dark-mode', nextMode === 'dark');
+                            }
+                            setTimeout(function () {
+                                try {
+                                    var nowDark = document.documentElement.classList.contains('dark');
+                                    localStorage.setItem('ado-theme', nowDark ? 'dark' : 'light');
+                                } catch (e) {}
+                                syncAll();
+                            }, 30);
+                        }
+                        toggle.addEventListener('click', flip);
+                        toggle.addEventListener('keydown', function (e) {
+                            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); }
+                        });
+                    })(t);
+                }
+                syncAll();
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initGlassToggles);
+            } else {
+                initGlassToggles();
+            }
+
+            /* Re-sync when theme is changed elsewhere (OS 'system' mode, programmatic, etc.) */
+            var mo = new MutationObserver(syncAll);
+            mo.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'class'] });
+            if (document.body) mo.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+        } catch (e) { /* never break the page */ }
+    })();
+    </script>
 
     <!-- ═══════════════════════════════════════════════════════
          ART de ONE — AI CHATBOT ASSISTANT WIDGET

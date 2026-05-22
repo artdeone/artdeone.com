@@ -4,7 +4,7 @@
 <head>
     <!-- ── Dark mode: apply BEFORE first paint to prevent flash of white ── -->
     <script>
-    (function(){try{var s=localStorage.getItem('ado-theme-mode');var h=new Date().getHours();var isTimeDark=h>=18||h<4;if(s==='dark'||(s==='system'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches)||(!s&&isTimeDark)){document.documentElement.setAttribute('data-theme','dark');document.documentElement.style.colorScheme='dark';}}catch(e){}})();
+    (function(){try{var s=localStorage.getItem('ado-theme');var preferDark=s===null?true:s==='dark';if(preferDark){document.documentElement.classList.add('dark');document.documentElement.setAttribute('data-theme','dark');document.documentElement.setAttribute('data-theme-mode','dark');document.documentElement.style.colorScheme='dark';if(s===null){try{localStorage.setItem('ado-theme','dark');}catch(e){}}}else{document.documentElement.setAttribute('data-theme','light');document.documentElement.setAttribute('data-theme-mode','light');document.documentElement.style.colorScheme='light';}}catch(e){}})();
     </script>
     <style>
     html[data-theme="dark"] body { background-color: #11130f !important; color: #f3f6ee !important; }
