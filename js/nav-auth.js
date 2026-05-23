@@ -3,8 +3,10 @@
 // =====================================================
 import { supabaseShop } from './config-shop.js';
 
-// Skip if already set up (shop.html, index.html)
-if (document.getElementById('desktopAuth')) {
+// Skip if already set up (shop.html, index.html, student-gallery.html — these
+// hardcode #btnLoginDesktop in markup and run their own session check inline).
+// Bare #desktopAuth alone is NOT enough: post-N pages have that id but no inner auth UI.
+if (document.getElementById('btnLoginDesktop')) {
     // Already has auth-aware navbar — do nothing
 } else {
     init();
@@ -29,9 +31,10 @@ function injectCSS() {
             font-family: 'Space Grotesk', sans-serif;
             overflow: hidden; border: 2px solid #a7e169;
             flex-shrink: 0; transition: all 0.3s ease;
+            position: relative;
         }
         .shop-nav-avatar:hover { border-color: #ed2939; transform: scale(1.08); }
-        .shop-nav-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .shop-nav-avatar img { width: 30px; height: 30px; object-fit: cover; flex-shrink: 0; display: block; }
 
         .nav-btn-signout {
             background: #ed2939; color: #fff; font-weight: 600;
@@ -123,10 +126,12 @@ function injectCSS() {
 
 // ── Desktop Nav ──
 function setupDesktopNav() {
-    const desktopBlock = document.querySelector('nav .hidden.md\\:block');
-    if (!desktopBlock) return;
-    const signInLink = desktopBlock.querySelector('a.nav-btn[href*="customer-dashboard"]');
+    // Find the sign-in link directly — the affected pages wrap it in
+    // `.hidden.md:flex` (not `.md:block`), so locate the link first then walk up.
+    const signInLink = document.querySelector('nav a.nav-btn[href*="customer-dashboard"]');
     if (!signInLink) return;
+    const desktopBlock = signInLink.parentElement;
+    if (!desktopBlock) return;
 
     desktopBlock.className = 'hidden md:flex items-center gap-3';
     desktopBlock.id = 'desktopAuth';
@@ -190,7 +195,7 @@ function updateAuthUI(session) {
     if (session && session.user) {
         const name = session.user.user_metadata?.full_name
                   || session.user.email.split('@')[0];
-        const avatarUrl = session.user.user_metadata?.avatar_url || null;
+        const avatarUrl = session.user.user_metadata?.avatar_url || session.user.user_metadata?.picture || null;
         const initials = name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
 
         btnLoginDesktop.style.display = 'none';
@@ -199,7 +204,7 @@ function updateAuthUI(session) {
         const avatarDesktop = document.getElementById('avatarDesktop');
         if (avatarDesktop) {
             avatarDesktop.innerHTML = avatarUrl
-                ? '<img src="' + avatarUrl + '" alt="' + name + '">'
+                ? '<img loading="lazy" width="30" height="30" src="' + avatarUrl + '" alt="' + name + '">'
                 : '';
             if (!avatarUrl) avatarDesktop.textContent = initials;
         }
@@ -210,7 +215,7 @@ function updateAuthUI(session) {
         const avatarMobile = document.getElementById('avatarMobile');
         if (avatarMobile) {
             avatarMobile.innerHTML = avatarUrl
-                ? '<img src="' + avatarUrl + '" alt="' + name + '">'
+                ? '<img loading="lazy" width="32" height="32" src="' + avatarUrl + '" alt="' + name + '">'
                 : '';
             if (!avatarUrl) avatarMobile.textContent = initials;
         }

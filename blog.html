@@ -830,8 +830,25 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            loadBlogPosts(1);
-            
+            const savedPage = sessionStorage.getItem('blogPage');
+            const savedScrollY = sessionStorage.getItem('blogScrollY');
+            if (savedPage) {
+                currentPage = parseInt(savedPage, 10) || 1;
+                sessionStorage.removeItem('blogPage');
+            }
+            loadBlogPosts(currentPage);
+            if (savedScrollY) {
+                setTimeout(() => { window.scrollTo(0, parseInt(savedScrollY, 10)); }, 100);
+                sessionStorage.removeItem('blogScrollY');
+            }
+
+            document.getElementById('blog-posts').addEventListener('click', (e) => {
+                if (e.target.closest('a.blog-card')) {
+                    sessionStorage.setItem('blogPage', currentPage);
+                    sessionStorage.setItem('blogScrollY', window.scrollY);
+                }
+            });
+
             document.getElementById('prev-page').addEventListener('click', () => {
                 if (currentPage > 1) {
                     currentPage--;
