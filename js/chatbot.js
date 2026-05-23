@@ -211,6 +211,18 @@
     // ══════════════════════════════════════════════════════════
     //  HELPERS
     // ══════════════════════════════════════════════════════════
+    var BUBBLE_GRADIENTS = [
+        'chat-bubble-grad-1',
+        'chat-bubble-grad-2',
+        'chat-bubble-grad-3',
+        'chat-bubble-grad-4',
+        'chat-bubble-grad-5'
+    ];
+    function assignRandomBubbleGradient(el) {
+        var g = BUBBLE_GRADIENTS[Math.floor(Math.random() * BUBBLE_GRADIENTS.length)];
+        el.classList.add(g);
+    }
+
     function showTyping() {
         var id = 'typing-' + Date.now();
         messagesArea.insertAdjacentHTML('beforeend',
@@ -237,6 +249,7 @@
     function addMessage(text, type) {
         var div = document.createElement('div');
         div.className = type === 'bot' ? 'bot-msg mb-2' : 'user-msg mb-2';
+        if (type === 'bot') assignRandomBubbleGradient(div);
 
         // Step 1: Extract URLs before encoding so they aren't double-encoded
         var urlPlaceholders = [];
@@ -268,6 +281,7 @@
     function addRawBotMessage(html) {
         var div = document.createElement('div');
         div.className = 'bot-msg mb-2';
+        assignRandomBubbleGradient(div);
         div.innerHTML = html;
         messagesArea.appendChild(div);
         scrollToBottom();
@@ -297,6 +311,7 @@
     function typeMessage(text, onDone) {
         var div = document.createElement('div');
         div.className = 'bot-msg mb-2 chat-typing';
+        assignRandomBubbleGradient(div);
         messagesArea.appendChild(div);
         scrollToBottom();
 

@@ -18,7 +18,7 @@
         gtag('config', 'G-CZRQ0NPPJ2');
     </script>
     <script>
-        (function () { try { var s = localStorage.getItem('ado-theme-mode'); var h = new Date().getHours(); var isTimeDark = h >= 18 || h < 4; if (s === 'dark' || (s === 'system' && window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches) || (!s && isTimeDark)) { document.documentElement.setAttribute('data-theme', 'dark'); document.documentElement.style.colorScheme = 'dark'; } } catch (e) { } })();
+        (function () { try { var saved = localStorage.getItem('ado-theme'); var preferDark = (saved === null) ? true : (saved === 'dark'); if (preferDark) { document.documentElement.classList.add('dark'); document.documentElement.setAttribute('data-theme', 'dark'); document.documentElement.style.colorScheme = 'dark'; } else { document.documentElement.classList.remove('dark'); document.documentElement.setAttribute('data-theme', 'light'); document.documentElement.style.colorScheme = 'light'; } } catch (e) { } })();
     </script>
     <style>
         /* =====================================================
@@ -3063,6 +3063,91 @@ button.theme-mode-switch:hover {
     }
 }
 
+        /* ============================================================
+           AUTH BUTTONS — animated rainbow chrome border
+           Mirrors the navbar Sign In button (#btnLoginDesktop).
+           Scoped strictly to:
+             #googleBtn     (Sign in with Google)
+             #emailLoginBtn (email Sign In)
+             #emailRegBtn   (Create Account)
+           Other login buttons (reset link, back, etc.) are untouched.
+           ============================================================ */
+        @property --ado-auth-angle {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
+        }
+
+        #googleBtn.login-google-btn,
+        #emailLoginBtn.login-signin-btn,
+        #emailRegBtn.login-create-btn {
+            background:
+                linear-gradient(#ececec, #ececec) padding-box,
+                conic-gradient(
+                    from var(--ado-auth-angle),
+                    #ff6b6b, #ffd93d, #6bcb77, #4d96ff, #b06bff, #ff6b9d, #ff6b6b
+                ) border-box !important;
+            border: 2px solid transparent !important;
+            color: #111 !important;
+            box-shadow: none !important;
+            animation: ado-auth-spin 4s linear infinite;
+        }
+
+        #googleBtn.login-google-btn:hover,
+        #emailLoginBtn.login-signin-btn:hover,
+        #emailRegBtn.login-create-btn:hover {
+            background:
+                linear-gradient(#f5f5f5, #f5f5f5) padding-box,
+                conic-gradient(
+                    from var(--ado-auth-angle),
+                    #ff6b6b, #ffd93d, #6bcb77, #4d96ff, #b06bff, #ff6b9d, #ff6b6b
+                ) border-box !important;
+            border-color: transparent !important;
+            color: #111 !important;
+            box-shadow: none !important;
+            filter: none !important;
+        }
+
+        @keyframes ado-auth-spin {
+            to { --ado-auth-angle: 360deg; }
+        }
+
+        /* Dark mode */
+        html[data-theme="dark"] #googleBtn.login-google-btn,
+        html[data-theme="dark"] #emailLoginBtn.login-signin-btn,
+        html[data-theme="dark"] #emailRegBtn.login-create-btn {
+            background:
+                linear-gradient(#1c1c1c, #1c1c1c) padding-box,
+                conic-gradient(
+                    from var(--ado-auth-angle),
+                    #ff6b6b, #ffd93d, #6bcb77, #4d96ff, #b06bff, #ff6b9d, #ff6b6b
+                ) border-box !important;
+            color: #f5f5f5 !important;
+            box-shadow: none !important;
+        }
+
+        html[data-theme="dark"] #googleBtn.login-google-btn:hover,
+        html[data-theme="dark"] #emailLoginBtn.login-signin-btn:hover,
+        html[data-theme="dark"] #emailRegBtn.login-create-btn:hover {
+            background:
+                linear-gradient(#1c1c1c, #1c1c1c) padding-box,
+                conic-gradient(
+                    from var(--ado-auth-angle),
+                    #ff6b6b, #ffd93d, #6bcb77, #4d96ff, #b06bff, #ff6b9d, #ff6b6b
+                ) border-box !important;
+            color: #f5f5f5 !important;
+            box-shadow: none !important;
+            filter: none !important;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            #googleBtn.login-google-btn,
+            #emailLoginBtn.login-signin-btn,
+            #emailRegBtn.login-create-btn {
+                animation: none;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -3231,9 +3316,6 @@ button.theme-mode-switch:hover {
                     </a>
                 </div>
                 <div class="nav-actions">
-                    <button type="button" class="theme-mode-switch nav-hide-mobile" onclick="toggleTheme()" aria-label="Cycle theme mode" title="Theme mode">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 14.5A7.8 7.8 0 0 1 9.5 3.6 8.8 8.8 0 1 0 20.4 14.5Z"></path></svg>
-                    </button>
                     <div class="notification-wrap" id="notificationWrap">
                         <button onclick="toggleNotifications(event)" class="btn btn-notification" id="notificationBtn" aria-label="Notifications" aria-expanded="false">
                             <i class="fas fa-bell"></i>
@@ -3285,37 +3367,6 @@ button.theme-mode-switch:hover {
                     <button onclick="refreshDashboard();toggleMobileMenu();" class="mobile-menu-item"><i class="fas fa-rotate-right"></i> Refresh</button>
                     <button onclick="toggleProfile();toggleMobileMenu();" class="mobile-menu-item"><i class="fas fa-user"></i> Profile</button>
                     <button onclick="logout()" class="mobile-menu-item menu-logout"><i class="fas fa-right-from-bracket"></i> Logout</button>
-                    <div class="mobile-theme-selector" role="group" aria-label="Theme mode">
-                        <button type="button" class="mobile-theme-option" data-theme-option="light" onclick="setDashboardTheme('light')" aria-label="Light theme" title="Light">
-                            <svg viewBox="0 0 24 24" aria-hidden="true">
-                                <circle cx="12" cy="12" r="4"></circle>
-                                <path d="M12 2.5v2"></path>
-                                <path d="M12 19.5v2"></path>
-                                <path d="M4.6 4.6 6 6"></path>
-                                <path d="m18 18 1.4 1.4"></path>
-                                <path d="M2.5 12h2"></path>
-                                <path d="M19.5 12h2"></path>
-                                <path d="M4.6 19.4 6 18"></path>
-                                <path d="m18 6 1.4-1.4"></path>
-                            </svg>
-                        </button>
-                        <span class="mobile-theme-divider" aria-hidden="true"></span>
-                        <button type="button" class="mobile-theme-option" data-theme-option="dark" onclick="setDashboardTheme('dark')" aria-label="Dark theme" title="Dark">
-                            <svg viewBox="0 0 24 24" aria-hidden="true">
-                                <path d="M19.2 14.8A7.2 7.2 0 0 1 9.2 4.8 8 8 0 1 0 19.2 14.8Z"></path>
-                            </svg>
-                        </button>
-                        <span class="mobile-theme-divider" aria-hidden="true"></span>
-                        <button type="button" class="mobile-theme-option" data-theme-option="system" onclick="setDashboardTheme('system')" aria-label="System theme" title="System">
-                            <svg viewBox="0 0 24 24" aria-hidden="true">
-                                <rect x="4" y="5" width="16" height="11" rx="2"></rect>
-                                <path d="M8.5 20h7"></path>
-                                <path d="M12 16v4"></path>
-                                <path d="M12 8.2v4.6"></path>
-                                <path d="M9.7 10.5h4.6"></path>
-                            </svg>
-                        </button>
-                    </div>
                 </div>
             </div>
         </nav>
@@ -3603,7 +3654,7 @@ button.theme-mode-switch:hover {
 
             var STORAGE_KEY = 'ado-theme-mode';
             var LEGACY_THEME_KEY = 'theme';
-            var DASHBOARD_THEME_KEY = 'ado-theme';
+            var DASHBOARD_THEME_KEY = 'ado-dashboard-theme';
             var MODES = ['light', 'dark', 'system'];
             var darkQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
             var currentMode = null;
@@ -3623,9 +3674,9 @@ button.theme-mode-switch:hover {
             }
 
             function getInitialMode() {
-                var saved = localStorage.getItem(STORAGE_KEY);
-                if (hasMode(saved)) return saved;
-                return isTimeDark() ? 'dark' : 'light';
+                var saved = localStorage.getItem('ado-theme');
+                if (saved === 'dark' || saved === 'light') return saved;
+                return 'dark';
             }
 
             function resolveMode(mode) {
@@ -3665,14 +3716,11 @@ button.theme-mode-switch:hover {
                     document.body.classList.toggle('dark-mode', resolved === 'dark');
                 }
 
-                localStorage.setItem(LEGACY_THEME_KEY, resolved);
-                localStorage.setItem(DASHBOARD_THEME_KEY, resolved);
                 updateToggleUI();
             }
 
             function setMode(mode) {
                 if (!hasMode(mode)) mode = 'system';
-                localStorage.setItem(STORAGE_KEY, mode);
                 applyMode(mode);
             }
 

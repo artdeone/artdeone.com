@@ -2629,8 +2629,8 @@
                     position: absolute;
                     left: 5px;
                     top: 5px;
-                    width: 34px;
-                    height: 34px;
+                    width: 32px;
+                    height: 32px;
                     border-radius: 50%;
                     background: rgba(255, 255, 255, 0.28);
                     backdrop-filter: blur(16px);
@@ -2644,7 +2644,7 @@
                     z-index: 2;
                 }
                 .mobile-mode-toggle.is-dark .mmt-knob {
-                    left: calc(130px - 34px - 5px);
+                    left: calc(130px - 32px - 8px);
                     background: rgba(50, 45, 40, 0.55);
                 }
                 .mobile-mode-toggle .mmt-icon {
@@ -2792,8 +2792,8 @@
                     position: absolute;
                     left: 4px;
                     top: 4px;
-                    width: 26px;
-                    height: 26px;
+                    width: 24px;
+                    height: 24px;
                     box-sizing: border-box;
                     border-radius: 50%;
                     background: rgba(255, 255, 255, 0.55);
@@ -2808,7 +2808,7 @@
                     z-index: 2;
                 }
                 #desktopAuth .mobile-mode-toggle.is-dark .mmt-knob {
-                    left: calc(110px - 26px - 4px);
+                    left: calc(110px - 24px - 8px);
                     background: rgba(50, 45, 40, 0.65);
                 }
                 #desktopAuth .mmt-icon {
@@ -3977,6 +3977,37 @@
                             box-shadow:
                                 inset 0 0 14px 4px rgba(255, 255, 255, 0.45),
                                 inset 0 0 32px 8px rgba(255, 255, 255, 0.15);
+                        }
+
+                        /* Tools section — force full color on all icons (overrides the grayscale-at-rest design above) */
+                        .tool-img,
+                        .tool-svg,
+                        .tool-item img,
+                        .tool-item svg {
+                            filter: none !important;
+                            -webkit-filter: none !important;
+                            opacity: 1 !important;
+                        }
+
+                        .tool-item:hover .tool-img,
+                        .tool-item:hover .tool-svg,
+                        .tool-item:hover img,
+                        .tool-item:hover svg {
+                            filter: none !important;
+                            -webkit-filter: none !important;
+                        }
+
+                        html[data-theme="dark"] .tool-img,
+                        html[data-theme="dark"] .tool-svg,
+                        html[data-theme="dark"] .tool-item img,
+                        html[data-theme="dark"] .tool-item svg,
+                        .dark .tool-img,
+                        .dark .tool-svg,
+                        .dark .tool-item img,
+                        .dark .tool-item svg {
+                            filter: none !important;
+                            -webkit-filter: none !important;
+                            opacity: 1 !important;
                         }
 
                         /* Grain overlay span */
@@ -5517,7 +5548,7 @@
             </div>
 
             <!-- Text Input Area -->
-            <div class="flex items-center gap-2 px-3 py-2 shrink-0"
+            <div class="chat-input-area flex items-center gap-2 px-3 py-2 shrink-0"
                 style="background: var(--color-bg, #ffffff); border-top: 1px solid var(--color-border, rgba(50,50,50,0.10));">
                 <input id="chat-input" type="text" placeholder="Type your question..."
                     class="chat-input-field"
@@ -5551,7 +5582,7 @@
 
         <button id="chat-toggle-btn" onclick="toggleChat()"
             class="w-14 h-14 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 group relative"
-            style="border-radius: 9999px; overflow: hidden; isolation: isolate; z-index: 99999; background: var(--color-primary, #a7e169); color: var(--color-primary-text, #323232); box-shadow: inset 0 0 12px 3px rgba(255,255,255,0.40), inset 0 0 28px 6px rgba(255,255,255,0.12), 0 0 18px 4px rgba(167,225,105,0.20), 0 8px 24px rgba(0,0,0,0.15);"
+            style="border-radius: 9999px; overflow: hidden; isolation: isolate; z-index: 99999;"
             aria-label="Open chat assistant">
             <!-- Message icon (default) — clean Lucide message-circle -->
             <span id="chat-icon-msg" class="absolute">
@@ -5687,47 +5718,102 @@
             background: var(--color-scrollbar-hover);
         }
 
-        /* ── Toggle Button ── */
+        /* ── Toggle Button — chrome ring + auto-spinning rainbow, no drop shadow ── */
+        @property --ado-chat-angle {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
+        }
+
         #chat-toggle-btn {
-            background: var(--color-primary);
-            color: var(--color-primary-text);
-        }
-
-        /* [FIX #3] Hover → GREEN glow */
-        #chat-toggle-btn:hover {
+            background:
+                linear-gradient(#ececec, #ececec) padding-box,
+                conic-gradient(
+                    from var(--ado-chat-angle),
+                    #ff6b6b, #ffd93d, #6bcb77, #4d96ff, #b06bff, #ff6b9d, #ff6b6b
+                ) border-box;
+            border: 2px solid transparent;
+            color: #111;
             box-shadow:
-                inset 0 0 14px 4px rgba(255, 255, 255, 0.45),
-                inset 0 0 32px 8px rgba(255, 255, 255, 0.15),
-                0 0 25px 6px rgba(167, 225, 105, 0.45),
-                0 8px 28px rgba(0, 0, 0, 0.20) !important;
+                inset 0 0 12px 3px rgba(255, 255, 255, 0.40),
+                inset 0 0 28px 6px rgba(255, 255, 255, 0.10),
+                0 2px 4px rgba(0, 0, 0, 0.08),
+                0 10px 24px rgba(0, 0, 0, 0.18);
+            animation: ado-chat-spin 4s linear infinite;
         }
 
-        /* [FIX #3] Clicked/Active → RED glow */
+        #chat-toggle-btn:hover,
         #chat-toggle-btn:active {
             box-shadow:
-                inset 0 0 14px 4px rgba(255, 255, 255, 0.45),
-                inset 0 0 32px 8px rgba(255, 255, 255, 0.15),
-                0 0 25px 6px rgba(237, 41, 57, 0.55),
-                0 8px 28px rgba(0, 0, 0, 0.20) !important;
+                inset 0 0 14px 4px rgba(255, 255, 255, 0.50),
+                inset 0 0 30px 8px rgba(255, 255, 255, 0.12),
+                0 4px 8px rgba(0, 0, 0, 0.10),
+                0 14px 32px rgba(0, 0, 0, 0.22);
+            animation-duration: 1.2s;
+        }
+
+        #chat-toggle-btn svg {
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        #chat-toggle-btn:hover svg {
+            animation: ado-chat-icon-wiggle 0.6s ease-in-out;
+        }
+
+        @keyframes ado-chat-icon-wiggle {
+            0%   { transform: rotate(0deg)   scale(1); }
+            25%  { transform: rotate(-12deg) scale(1.12); }
+            50%  { transform: rotate(0deg)   scale(1.08); }
+            75%  { transform: rotate(12deg)  scale(1.12); }
+            100% { transform: rotate(0deg)   scale(1); }
         }
 
         #chat-toggle-btn.chat-btn-active {
-            background-color: var(--color-toggle-active-bg) !important;
-            color: var(--color-toggle-active-text) !important;
+            background:
+                linear-gradient(#ececec, #ececec) padding-box,
+                conic-gradient(
+                    from var(--ado-chat-angle),
+                    #ff6b6b, #ffd93d, #6bcb77, #4d96ff, #b06bff, #ff6b9d, #ff6b6b
+                ) border-box !important;
+            color: #111 !important;
         }
 
-        /* Pulse animation on the toggle button */
-        @keyframes chatPulse {
-            0%, 100% {
-                box-shadow: 0 0 0 0 rgba(167, 225, 105, 0.5);
-            }
-            50% {
-                box-shadow: 0 0 0 12px rgba(167, 225, 105, 0);
-            }
+        @keyframes ado-chat-spin {
+            to { --ado-chat-angle: 360deg; }
         }
 
-        #chat-toggle-btn:not(.chat-btn-active) {
-            animation: chatPulse 3s ease-in-out infinite;
+        /* Dark mode */
+        html[data-theme="dark"] #chat-toggle-btn,
+        body.dark-mode #chat-toggle-btn {
+            background:
+                linear-gradient(#1c1c1c, #1c1c1c) padding-box,
+                conic-gradient(
+                    from var(--ado-chat-angle),
+                    #ff6b6b, #ffd93d, #6bcb77, #4d96ff, #b06bff, #ff6b9d, #ff6b6b
+                ) border-box;
+            color: #f5f5f5;
+            box-shadow:
+                inset 0 0 14px 3px rgba(255, 255, 255, 0.08),
+                inset 0 0 24px 6px rgba(0, 0, 0, 0.20),
+                0 2px 6px rgba(0, 0, 0, 0.45),
+                0 12px 28px rgba(0, 0, 0, 0.55);
+        }
+
+        html[data-theme="dark"] #chat-toggle-btn.chat-btn-active,
+        body.dark-mode #chat-toggle-btn.chat-btn-active {
+            background:
+                linear-gradient(#1c1c1c, #1c1c1c) padding-box,
+                conic-gradient(
+                    from var(--ado-chat-angle),
+                    #ff6b6b, #ffd93d, #6bcb77, #4d96ff, #b06bff, #ff6b9d, #ff6b6b
+                ) border-box !important;
+            color: #f5f5f5 !important;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            #chat-toggle-btn {
+                animation: none;
+            }
         }
 
         /* ── Chat visible animation ── */
@@ -6001,6 +6087,287 @@
                 height: 540px !important;
                 max-height: 80vh !important;
             }
+        }
+
+        /* ═══════════════════════════════════════════════════════
+           GLASSMORPHISM — chatbot widget
+           Applies to #artdeone-chatbot-container and its children only.
+           Send button green and logo are intentionally NOT touched.
+           Both light + dark mode.
+           ═══════════════════════════════════════════════════════ */
+
+        /* Outer panel — primary frosted-glass surface (LIGHT MODE DEFAULT) */
+        #chat-window {
+            background: rgba(255, 255, 255, 0.55) !important;
+            backdrop-filter: blur(24px) saturate(140%) !important;
+            -webkit-backdrop-filter: blur(24px) saturate(140%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.6) !important;
+            border-radius: 24px !important;
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+        }
+
+        #chat-header {
+            background: rgba(255, 255, 255, 0.40) !important;
+            backdrop-filter: blur(12px) !important;
+            -webkit-backdrop-filter: blur(12px) !important;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+            border-radius: 24px 24px 0 0 !important;
+        }
+
+        #chat-messages {
+            background: transparent !important;
+        }
+
+        #chat-options {
+            background: rgba(255, 255, 255, 0.30) !important;
+            backdrop-filter: blur(8px) !important;
+            -webkit-backdrop-filter: blur(8px) !important;
+            border-top: 1px solid rgba(0, 0, 0, 0.06) !important;
+        }
+
+        .chat-input-area {
+            background: rgba(255, 255, 255, 0.40) !important;
+            backdrop-filter: blur(12px) !important;
+            -webkit-backdrop-filter: blur(12px) !important;
+            border-top: 1px solid rgba(0, 0, 0, 0.06) !important;
+        }
+
+        /* Bot message — light glass bubble */
+        .bot-msg {
+            background: rgba(255, 255, 255, 0.65) !important;
+            backdrop-filter: blur(10px) !important;
+            -webkit-backdrop-filter: blur(10px) !important;
+            border: 1px solid rgba(0, 0, 0, 0.06) !important;
+            border-radius: 16px 16px 16px 4px !important;
+        }
+
+        /* User message — darker glass tint so it stays differentiated from bot */
+        .user-msg {
+            background: rgba(50, 50, 50, 0.55) !important;
+            backdrop-filter: blur(10px) !important;
+            -webkit-backdrop-filter: blur(10px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.18) !important;
+            border-radius: 16px 16px 4px 16px !important;
+            color: #fff !important;
+        }
+
+        /* Quick-reply pills */
+        .chat-opt-btn {
+            background: rgba(255, 255, 255, 0.55) !important;
+            backdrop-filter: blur(10px) !important;
+            -webkit-backdrop-filter: blur(10px) !important;
+            border: 1px solid rgba(0, 0, 0, 0.08) !important;
+            border-radius: 999px !important;
+            box-shadow: none !important;
+        }
+        .chat-opt-btn:hover {
+            background: rgba(255, 255, 255, 0.78) !important;
+            box-shadow: none !important;
+        }
+
+        /* Input field */
+        .chat-input-field {
+            background: rgba(255, 255, 255, 0.65) !important;
+            backdrop-filter: blur(8px) !important;
+            -webkit-backdrop-filter: blur(8px) !important;
+            border: 1px solid rgba(0, 0, 0, 0.08) !important;
+            border-radius: 999px !important;
+        }
+
+        /* ── DARK MODE ── */
+        html[data-theme="dark"] #chat-window,
+        body.dark-mode #chat-window {
+            background: rgba(20, 20, 22, 0.45) !important;
+            border: 1px solid rgba(255, 255, 255, 0.12) !important;
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.10) !important;
+        }
+
+        html[data-theme="dark"] #chat-header,
+        body.dark-mode #chat-header {
+            background: rgba(255, 255, 255, 0.06) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.10) !important;
+        }
+
+        html[data-theme="dark"] #chat-options,
+        body.dark-mode #chat-options {
+            background: rgba(255, 255, 255, 0.04) !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+        }
+
+        html[data-theme="dark"] .chat-input-area,
+        body.dark-mode .chat-input-area {
+            background: rgba(255, 255, 255, 0.06) !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.10) !important;
+        }
+
+        html[data-theme="dark"] .bot-msg,
+        body.dark-mode .bot-msg {
+            background: rgba(255, 255, 255, 0.08) !important;
+            border: 1px solid rgba(255, 255, 255, 0.12) !important;
+            color: #f3f6ee !important;
+        }
+
+        html[data-theme="dark"] .user-msg,
+        body.dark-mode .user-msg {
+            background: rgba(167, 225, 105, 0.18) !important;
+            border: 1px solid rgba(167, 225, 105, 0.30) !important;
+            color: #f3f6ee !important;
+        }
+
+        html[data-theme="dark"] .chat-opt-btn,
+        body.dark-mode .chat-opt-btn {
+            background: rgba(255, 255, 255, 0.08) !important;
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            color: #f3f6ee !important;
+        }
+        html[data-theme="dark"] .chat-opt-btn:hover,
+        body.dark-mode .chat-opt-btn:hover {
+            background: rgba(255, 255, 255, 0.18) !important;
+        }
+
+        html[data-theme="dark"] .chat-input-field,
+        body.dark-mode .chat-input-field {
+            background: rgba(255, 255, 255, 0.08) !important;
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            color: #f3f6ee !important;
+        }
+
+        /* ─── SOFT RANDOM GRADIENTS — BOT MESSAGE BUBBLES ───
+           Applied via JS (assignRandomBubbleGradient).
+           Must appear AFTER the .bot-msg glass rules so source-order
+           wins on tied specificity. */
+        .chat-bubble-grad-1 {
+            background: linear-gradient(135deg,
+                rgba(167, 225, 105, 0.15),
+                rgba(100, 200, 180, 0.12)) !important;
+        }
+        .chat-bubble-grad-2 {
+            background: linear-gradient(135deg,
+                rgba(100, 160, 255, 0.15),
+                rgba(180, 120, 255, 0.12)) !important;
+        }
+        .chat-bubble-grad-3 {
+            background: linear-gradient(135deg,
+                rgba(255, 180, 100, 0.15),
+                rgba(255, 120, 120, 0.12)) !important;
+        }
+        .chat-bubble-grad-4 {
+            background: linear-gradient(135deg,
+                rgba(120, 220, 200, 0.15),
+                rgba(100, 180, 255, 0.12)) !important;
+        }
+        .chat-bubble-grad-5 {
+            background: linear-gradient(135deg,
+                rgba(200, 150, 255, 0.15),
+                rgba(255, 150, 200, 0.12)) !important;
+        }
+
+        .chat-bubble-grad-1,
+        .chat-bubble-grad-2,
+        .chat-bubble-grad-3,
+        .chat-bubble-grad-4,
+        .chat-bubble-grad-5 {
+            border: 1px solid rgba(0, 0, 0, 0.06) !important;
+            backdrop-filter: blur(10px) !important;
+            -webkit-backdrop-filter: blur(10px) !important;
+        }
+
+        /* Dark mode — gradients unchanged; only border lightens. Selector
+           specificity matches the dark-mode .bot-msg rule; source order
+           later → gradient wins. */
+        html[data-theme="dark"] .chat-bubble-grad-1,
+        body.dark-mode .chat-bubble-grad-1 {
+            background: linear-gradient(135deg,
+                rgba(167, 225, 105, 0.15),
+                rgba(100, 200, 180, 0.12)) !important;
+        }
+        html[data-theme="dark"] .chat-bubble-grad-2,
+        body.dark-mode .chat-bubble-grad-2 {
+            background: linear-gradient(135deg,
+                rgba(100, 160, 255, 0.15),
+                rgba(180, 120, 255, 0.12)) !important;
+        }
+        html[data-theme="dark"] .chat-bubble-grad-3,
+        body.dark-mode .chat-bubble-grad-3 {
+            background: linear-gradient(135deg,
+                rgba(255, 180, 100, 0.15),
+                rgba(255, 120, 120, 0.12)) !important;
+        }
+        html[data-theme="dark"] .chat-bubble-grad-4,
+        body.dark-mode .chat-bubble-grad-4 {
+            background: linear-gradient(135deg,
+                rgba(120, 220, 200, 0.15),
+                rgba(100, 180, 255, 0.12)) !important;
+        }
+        html[data-theme="dark"] .chat-bubble-grad-5,
+        body.dark-mode .chat-bubble-grad-5 {
+            background: linear-gradient(135deg,
+                rgba(200, 150, 255, 0.15),
+                rgba(255, 150, 200, 0.12)) !important;
+        }
+        html[data-theme="dark"] .chat-bubble-grad-1,
+        html[data-theme="dark"] .chat-bubble-grad-2,
+        html[data-theme="dark"] .chat-bubble-grad-3,
+        html[data-theme="dark"] .chat-bubble-grad-4,
+        html[data-theme="dark"] .chat-bubble-grad-5,
+        body.dark-mode .chat-bubble-grad-1,
+        body.dark-mode .chat-bubble-grad-2,
+        body.dark-mode .chat-bubble-grad-3,
+        body.dark-mode .chat-bubble-grad-4,
+        body.dark-mode .chat-bubble-grad-5 {
+            border-color: rgba(255, 255, 255, 0.15) !important;
+        }
+
+        /* ─── INPUT AREA TUNING ─── */
+        /* Smaller input field. Border (and green focus state) intentionally untouched. */
+        .chat-input-field {
+            height: 36px !important;
+            min-height: 36px !important;
+            font-size: 0.875rem !important;
+            padding: 8px 16px !important;
+            border-radius: 999px !important;
+        }
+
+        /* Send button — minimal glass circle (light mode default) */
+        .chat-send-btn {
+            width: 40px !important;
+            height: 40px !important;
+            border-radius: 50% !important;
+            background: rgba(167, 225, 105, 0.25) !important;
+            backdrop-filter: blur(10px) !important;
+            -webkit-backdrop-filter: blur(10px) !important;
+            border: 1px solid rgba(167, 225, 105, 0.45) !important;
+            box-shadow: none !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            transition: background 0.2s ease !important;
+            flex-shrink: 0 !important;
+        }
+        .chat-send-btn:hover {
+            background: rgba(167, 225, 105, 0.40) !important;
+            box-shadow: none !important;
+        }
+        .chat-send-btn svg {
+            width: 16px !important;
+            height: 16px !important;
+            color: #a7e169 !important;
+            stroke: #a7e169 !important;
+        }
+
+        /* Dark mode — more subtle green tint */
+        html[data-theme="dark"] .chat-send-btn,
+        body.dark-mode .chat-send-btn {
+            background: rgba(167, 225, 105, 0.15) !important;
+            border: 1px solid rgba(167, 225, 105, 0.35) !important;
+        }
+        html[data-theme="dark"] .chat-send-btn:hover,
+        body.dark-mode .chat-send-btn:hover {
+            background: rgba(167, 225, 105, 0.28) !important;
         }
     </style>
 
