@@ -178,6 +178,14 @@ const blogPosts = [
         excerpt: "Elicit, Consensus, WolframAlpha နဲ့ ResearchRabbit — ကျောင်းသား၊ ကျောင်းသူများရဲ့ Research, Study နဲ့ Math/STEM အလုပ်တွေအတွက် အသုံးပြုလို့ကောင်းတဲ့ Free AI Tools (၄)ခုကို မိတ်ဆက်ပေးပါတယ်။",
         file: "/posts/post-22/post-22.html"
     },
+    {
+        id: 23,
+        title: "2026 မှာ Gradient Design တွေပြန်လည်အသက်၀င်လာ",
+        date: "May 24, 2026",
+        image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1779635978/websitecover_a0mcxj.jpg",
+        excerpt: "Flat Design ခေတ်ပြီးနောက် 2026 မှာ Brand တွေက Gradient ကို ပြန်သုံးလာကြတယ်။ ဘာကြောင့်ပြန်အသက်ဝင်လာတာလဲ၊ ဘယ်လို Digital, Tech, Beauty, Fashion visual တွေမှာ သုံးကြလဲဆိုတာကို မျှဝေပေးပါတယ်။",
+        file: "/posts/post-23/post-23.html"
+    },
     // Add new posts here as you create them
 ];
 
@@ -209,6 +217,7 @@ function getCategory(postId) {
         20: 'AI',
         21: 'FREELANCE',
         22: 'AI',
+        23: 'DESIGN',
         // Add more categories for new posts
     };
     return categories[postId] || 'ARTICLE';
