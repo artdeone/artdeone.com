@@ -150,3 +150,64 @@
         color: #333 !important;
     }
 }
+
+/* ═══ MOBILE SIGN IN BUTTON — Rainbow gradient border
+   Matches desktop #btnLoginDesktop exactly (same conic gradient + spin) ═══ */
+@media (max-width: 768px) {
+    #btnLoginMobile {
+        background:
+            linear-gradient(#ececec, #ececec) padding-box,
+            conic-gradient(
+                from var(--ado-signin-angle),
+                #ff6b6b, #ffd93d, #6bcb77, #4d96ff, #b06bff, #ff6b9d, #ff6b6b
+            ) border-box !important;
+        border: 2px solid transparent !important;
+        border-radius: 999px !important;
+        color: #111 !important;
+        box-shadow: none !important;
+        position: relative !important;
+        animation: ado-signin-spin 4s linear infinite;
+    }
+
+    html.dark #btnLoginMobile,
+    html[data-theme="dark"] #btnLoginMobile,
+    body.dark-mode #btnLoginMobile {
+        background:
+            linear-gradient(#1c1c1c, #1c1c1c) padding-box,
+            conic-gradient(
+                from var(--ado-signin-angle),
+                #ff6b6b, #ffd93d, #6bcb77, #4d96ff, #b06bff, #ff6b9d, #ff6b6b
+            ) border-box !important;
+        border: 2px solid transparent !important;
+        color: #f5f5f5 !important;
+        box-shadow: none !important;
+    }
+}
+
+@media (max-width: 768px) and (prefers-reduced-motion: reduce) {
+    #btnLoginMobile {
+        animation: none !important;
+    }
+}
+
+/* ═══ MOBILE NAVIGATION DRAWER — Soft glass effect ═══ */
+@media (max-width: 768px) {
+    #mobile-menu,
+    .mobile-menu {
+        background: rgba(18, 18, 18, 0.75) !important;
+        backdrop-filter: blur(24px) !important;
+        -webkit-backdrop-filter: blur(24px) !important;
+        border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+        border-left: 1px solid rgba(255, 255, 255, 0.08) !important;
+    }
+
+    /* Light mode drawer */
+    html:not(.dark):not([data-theme="dark"]) #mobile-menu,
+    html:not(.dark):not([data-theme="dark"]) .mobile-menu {
+        background: rgba(255, 255, 255, 0.72) !important;
+        backdrop-filter: blur(24px) !important;
+        -webkit-backdrop-filter: blur(24px) !important;
+        border-right: 1px solid rgba(0, 0, 0, 0.06) !important;
+        border-left: 1px solid rgba(0, 0, 0, 0.06) !important;
+    }
+}
