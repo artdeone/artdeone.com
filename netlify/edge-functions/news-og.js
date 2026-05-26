@@ -7,8 +7,20 @@ export default async (request, context) => {
   const url = new URL(request.url);
   const articleId = url.searchParams.get("id");
 
-  // Always let the original response flow through first
-  const response = await context.next();
+  // Strip Range / If-Range headers before passing to the origin so we get
+  // a complete 200 OK response, not a 206 Partial Content. Facebook's
+  // scraper sends Range: bytes=0-... which made the origin return 206;
+  // that partial-content status confused FB's share composer.
+  const cleanHeaders = new Headers(request.headers);
+  cleanHeaders.delete("range");
+  cleanHeaders.delete("if-range");
+  const cleanRequest = new Request(request.url, {
+    method: request.method,
+    headers: cleanHeaders,
+    redirect: "manual",
+  });
+
+  const response = await context.next(cleanRequest);
 
   if (!articleId) return response;
 
@@ -83,7 +95,7 @@ export default async (request, context) => {
     )
     .replace(
       /<meta\s+property="og:url"\s+content="[^"]*"\s*\/?>/i,
-      `<meta property="og:url" content="${pageUrl}">`
+      `<meta property="og:url" content="${pageUrl}">\n    <meta property="fb:app_id" content="0">`
     )
     .replace(
       /<meta\s+name="twitter:title"\s+content="[^"]*"\s*\/?>/i,
@@ -98,16 +110,20 @@ export default async (request, context) => {
       `<meta name="twitter:image" content="${image}">`
     );
 
-  // Build new headers, drop any stale length / etag so Netlify recomputes
+  // Build new headers, drop any stale length / etag / range so Netlify
+  // recomputes them. Range-related headers are stripped because we're
+  // returning the full rewritten document, not a partial response.
   const newHeaders = new Headers(response.headers);
   newHeaders.delete("content-length");
   newHeaders.delete("etag");
+  newHeaders.delete("content-range");
+  newHeaders.delete("accept-ranges");
   // Do not let intermediaries cache user-specific or stale variants too long
   newHeaders.set("Cache-Control", "public, max-age=300, must-revalidate");
 
   return new Response(html, {
-    status: response.status,
-    statusText: response.statusText,
+    status: 200,
+    statusText: "OK",
     headers: newHeaders,
   });
 };
