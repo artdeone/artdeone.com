@@ -1,6 +1,7 @@
 [build]
   command = "sed -i \"s/__FIREBASE_API_KEY__/$FIREBASE_API_KEY/g\" js/firebase-config.js && npx tailwindcss -i css-and-js/tailwind-input.css -o css-and-js/tailwind.min.css --minify"
   functions = "netlify/functions"
+  edge_functions = "netlify/edge-functions"
   publish = "."
 
 [[redirects]]
@@ -8,6 +9,15 @@
   to = "/.netlify/functions/:splat"
   status = 200
   force = true
+
+# -----------------------------------------------
+# Edge Functions — inject per-article Open Graph
+# meta tags into /news-article.html so Facebook,
+# Twitter, LinkedIn show the correct thumbnail.
+# -----------------------------------------------
+[[edge_functions]]
+  path = "/news-article.html"
+  function = "news-og"
 
 # -----------------------------------------------
 # Agent Discovery Link Headers (RFC 8288)

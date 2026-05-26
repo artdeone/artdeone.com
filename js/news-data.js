@@ -4,6 +4,49 @@
 
 const newsData = [
   {
+    id: "claude-sonnet-4-8-leak-updates",
+    title: "Claude Sonnet 4.8 နဲ့ပတ်သက်တဲ့ Leak Updates",
+    subtitle: "Claude Code npm update ကနေ leak ထွက်ခဲ့တဲ့ source map ထဲမှာ Sonnet 4.8 reference တွေ တွေ့ရပြီး vision upgrade၊ coding boost နဲ့ token efficiency ပိုကောင်းတဲ့ model တစ်ခု ထွက်လာနိုင်တယ်လို့ ခန့်မှန်းနေကြ။",
+    category: "AI Model",
+    author: "ART de ONE",
+    date: "2026-05-26",
+    dateDisplay: "၂၆ မေ ၂၀၂၆",
+    thumbnail: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1779766469/claude_xfbc2y.jpg",
+    thumbnailAlt: "Claude Sonnet 4.8 leak update preview",
+    readTime: "၁ မိနစ်",
+    content: [
+      {
+        type: "paragraph",
+        text: "2026 မတ်လ 31 ရက်နေ့တုန်းက Claude Code npm update ကနေ Anthropic ဘက်က မတော်တဆ internal debugging source map အကြီးစားတစ်ခု leak ထွက်သွားတယ်လို့ ပြောနေကြတာပါ။"
+      },
+      {
+        type: "paragraph",
+        text: "Leak ထွက်လာတဲ့ source code ထဲမှာ မထွက်သေးတဲ့ keyword filter တွေအတွင်း Sonnet 4.8 ဆိုတဲ့ reference တွေ တွေ့ရလို့ Anthropic က Sonnet 4.7 ကို လုံးဝကျော်ပြီး 4.8 ကို တန်းသွားမလားဆိုပြီး ယူဆနေကြပါတယ်။"
+      },
+      {
+        type: "paragraph",
+        text: "Sonnet 4.8 က Opus 4.7 မှာပါတဲ့ vision upgrade တွေကို ဆက်ယူလာမယ်လို့ ခန့်မှန်းရပြီး UI mockup တွေနဲ့ ရှုပ်တဲ့ architecture diagram တွေကိုတောင် visual accuracy 98% ကျော်အောင် လုပ်နိုင်မယ်လို့ ပြောထားပါတယ်။"
+      },
+      {
+        type: "paragraph",
+        text: "Coding ဘက်မှာလည်း one-pass completion ပိုသန့်လာပြီး instruction follow လုပ်တာ ပိုတိတိကျကျ ဖြစ်လာမယ်လို့ ဆိုထားပါတယ်။"
+      },
+      {
+        type: "paragraph",
+        text: 'ဒါ့အပြင် logic ပိုကောင်းအောင် "X high" ဆိုတဲ့ reasoning effort tier အသစ်တစ်ခုလည်း ပါလာနိုင်ပေမယ့် generation time ကိုတော့ အရမ်းမကြာအောင် ထိန်းထားမယ်လို့ မြင်ရပါတယ်။'
+      },
+      {
+        type: "paragraph",
+        text: "Tokenizer update လုပ်ထားတာကြောင့် prompt တူတူပေးရင် Sonnet အဟောင်းတွေထက် token usage 30% လောက် ပိုသုံးနိုင်တယ်လို့လည်း ဖော်ပြထားပါတယ်။"
+      },
+      {
+        type: "paragraph",
+        text: "လက်ရှိခန့်မှန်းထားတာကတော့ June လယ်ပိုင်းကနေ လကုန်ပိုင်းကြားလောက်မှာ ထွက်လာနိုင်မယ်ဆိုတဲ့ သဘောပါ။"
+      }
+    ],
+    tags: ["Anthropic", "Claude", "Sonnet 4.8", "AI Leak", "Claude Code"]
+  },
+  {
     id: "bytedance-lance-multimodal-model",
     title: "3B Model နဲ့ Image, Video ကို တစ်ပြိုင်နက် ကိုင်တွယ်နိုင်တဲ့ Lance",
     subtitle: "ByteDance ရဲ့ open-source Lance model ဟာ 3B active parameters နဲ့ text, image, video တွေကို တစ်စုတစ်စည်းတည်း နားလည်၊ ဖန်တီး၊ ပြင်ဆင်နိုင်တဲ့ multimodal model ဖြစ်ပါတယ်။",
