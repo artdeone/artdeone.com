@@ -1,5 +1,5 @@
 [build]
-  command = "sed -i \"s/__FIREBASE_API_KEY__/$FIREBASE_API_KEY/g\" js/firebase-config.js && npx tailwindcss -i css-and-js/tailwind-input.css -o css-and-js/tailwind.min.css --minify"
+  command = "sed -i \"s/__FIREBASE_API_KEY__/$FIREBASE_API_KEY/g\" js/firebase-config.js && npx tailwindcss -i css-and-js/tailwind-input.css -o css-and-js/tailwind.min.css --minify && node scripts/generate-news-json.js"
   functions = "netlify/functions"
   edge_functions = "netlify/edge-functions"
   publish = "."

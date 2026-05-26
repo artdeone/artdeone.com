@@ -15,19 +15,18 @@ export default async (request, context) => {
   const contentType = response.headers.get("content-type") || "";
   if (!contentType.includes("text/html")) return response;
 
-  // Fetch the news data file (it's a same-origin static asset)
+  // Fetch the news data file (it's a same-origin static asset).
+  // Uses JSON (not the JS source) because Deno Deploy blocks `new Function()`
+  // and `eval()`. The JSON is generated at build time by
+  // scripts/generate-news-json.js.
   let article;
   try {
-    const dataRes = await fetch(new URL("/js/news-data.js", url.origin), {
-      headers: { Accept: "application/javascript, text/plain, */*" },
+    const dataRes = await fetch(new URL("/js/news-data.json", url.origin), {
+      headers: { Accept: "application/json" },
     });
     if (!dataRes.ok) return response;
 
-    const dataText = await dataRes.text();
-    // The file declares: const newsData = [...]
-    // Execute it in an isolated Function scope and return the array.
-    const getNewsData = new Function(dataText + "\n; return newsData;");
-    const newsData = getNewsData();
+    const newsData = JSON.parse(await dataRes.text());
     article = Array.isArray(newsData)
       ? newsData.find((a) => a && a.id === articleId)
       : null;
