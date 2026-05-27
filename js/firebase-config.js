@@ -11,7 +11,7 @@ import { getAuth, signInWithCustomToken } from 'https://www.gstatic.com/firebase
 const firebaseConfig = {
     apiKey: "__FIREBASE_API_KEY__",
     authDomain: "ado-chat-app.firebaseapp.com",
-    databaseURL: "https://ado-chat-app-default-rtdb.firebaseio.com",
+    databaseURL: "https://ado-chat-app-default-rtdb.asia-southeast1.firebasedatabase.app",
     projectId: "ado-chat-app",
     storageBucket: "ado-chat-app.firebasestorage.app",
     messagingSenderId: "554741177320",

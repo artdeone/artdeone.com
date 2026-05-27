@@ -562,7 +562,7 @@ function showToast(msg, icon = 'fa-check', duration = 2500) {
 }
 
 // ─────────────────────── Join ───────────────────────
-function joinCall() {
+async function joinCall() {
   const name = document.getElementById('display-name').value.trim();
   const room = document.getElementById('room-code').value.trim();
   const startMic = document.getElementById('start-mic').checked;
@@ -571,6 +571,19 @@ function joinCall() {
   if (!name) { document.getElementById('display-name').focus(); showToast('Please enter your name', 'fa-user'); return; }
   if (!room)  { document.getElementById('room-code').focus(); showToast('Please enter a room code', 'fa-door-open'); return; }
 
+  // external_api.js is loaded async — if user clicks Join before it lands,
+  // `new JitsiMeetExternalAPI(...)` throws ReferenceError and the catch
+  // block misleadingly shows a permission error. Wait for the SDK first.
+  document.getElementById('join-btn').disabled = true;
+  document.getElementById('join-btn').innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Connecting…';
+  const ready = await waitForJitsiSDK(8000);
+  if (!ready) {
+    document.getElementById('join-btn').disabled = false;
+    document.getElementById('join-btn').innerHTML = '<i class="fa-solid fa-video"></i> Join Class Now';
+    showToast('Video service is still loading — please try again', 'fa-exclamation');
+    return;
+  }
+
   currentRoom = room;
   currentName = name;
   micMuted = !startMic;
@@ -578,14 +591,26 @@ function joinCall() {
 
   document.getElementById('header-room-name').textContent = room;
   document.getElementById('mini-room-label').textContent = room;
-  document.getElementById('join-btn').disabled = true;
-  document.getElementById('join-btn').innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Connecting…';
 
   document.getElementById('prejoin').style.display = 'none';
   document.getElementById('callscreen').classList.add('active');
 
   initJitsi(room, name, startMic, startCam);
   startDurationTimer();
+}
+
+function waitForJitsiSDK(timeoutMs) {
+  return new Promise(resolve => {
+    if (typeof JitsiMeetExternalAPI !== 'undefined') return resolve(true);
+    const start = Date.now();
+    const id = setInterval(() => {
+      if (typeof JitsiMeetExternalAPI !== 'undefined') {
+        clearInterval(id); resolve(true);
+      } else if (Date.now() - start > timeoutMs) {
+        clearInterval(id); resolve(false);
+      }
+    }, 100);
+  });
 }
 
 // ─────────────────────── Jitsi Init ───────────────────────
@@ -640,6 +665,9 @@ function initJitsi(room, name, startMic, startCam) {
       document.getElementById('join-btn').disabled = false;
       updateMicUI();
       updateCamUI();
+      // Force tile (grid) layout so participants render side-by-side
+      // instead of stage-view stacking with 2-3 people.
+      try { jitsiApi.executeCommand('setTileView', true); } catch(e) {}
     });
 
     jitsiApi.addEventListener('audioMuteStatusChanged', ({ muted }) => {
@@ -809,8 +837,16 @@ function openParticipantsUI() {
 }
 
 function toggleMic() {
-  if (!jitsiApi) return;
-  jitsiApi.executeCommand('toggleAudio');
+  if (!jitsiApi) {
+    showToast('Not connected to the call yet', 'fa-exclamation');
+    return;
+  }
+  try {
+    jitsiApi.executeCommand('toggleAudio');
+  } catch (e) {
+    console.error('toggleAudio failed', e);
+    showToast('Mic toggle failed — check browser permission', 'fa-microphone-slash');
+  }
 }
 
 function toggleCam() {

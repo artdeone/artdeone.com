@@ -3851,7 +3851,20 @@
             const type = studentData?.student_type || 'individual';
             const studentBatchId = studentData?.batch_id;
             const studentLevel = studentData?.level || null;
-            let { data } = await supabase.from('announcements').select('*').eq('is_active', true).order('published_at', { ascending: false });
+            // Server-side narrowing so other batches/groups/individuals
+            // never reach this client. Client-side filter below still runs
+            // for student_id + level refinements.
+            const audienceTargets = ['all', type, 'individual'];
+            let _q1 = supabase
+                .from('announcements')
+                .select('*')
+                .eq('is_active', true)
+                .in('target_audience', audienceTargets)
+                .order('published_at', { ascending: false });
+            _q1 = studentBatchId
+                ? _q1.or(`batch_id.is.null,batch_id.eq.${studentBatchId}`)
+                : _q1.is('batch_id', null);
+            let { data } = await _q1;
             // Client-side filtering for proper targeting
             if (data) data = data.filter(a => {
                 // Target audience filter
@@ -3930,11 +3943,20 @@
             const type = s?.student_type || 'individual';
             const studentBatchId = s?.batch_id;
             const studentLevel = s?.level || null;
-            let { data } = await supabase
+            // Server-side narrowing so other batches/groups/individuals
+            // never reach this client. Client-side filter below still runs
+            // for student_id + level refinements.
+            const audienceTargets = ['all', type, 'individual'];
+            let _q2 = supabase
                 .from('announcements')
                 .select('*')
                 .eq('is_active', true)
+                .in('target_audience', audienceTargets)
                 .order('published_at', { ascending: false });
+            _q2 = studentBatchId
+                ? _q2.or(`batch_id.is.null,batch_id.eq.${studentBatchId}`)
+                : _q2.is('batch_id', null);
+            let { data } = await _q2;
             // Client-side filtering for proper targeting
             if (data) data = data.filter(a => {
                 // Target audience filter
