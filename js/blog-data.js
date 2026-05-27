@@ -186,6 +186,14 @@ const blogPosts = [
         excerpt: "Flat Design ခေတ်ပြီးနောက် 2026 မှာ Brand တွေက Gradient ကို ပြန်သုံးလာကြတယ်။ ဘာကြောင့်ပြန်အသက်ဝင်လာတာလဲ၊ ဘယ်လို Digital, Tech, Beauty, Fashion visual တွေမှာ သုံးကြလဲဆိုတာကို မျှဝေပေးပါတယ်။",
         file: "/posts/post-23/post-23.html"
     },
+    {
+        id: 24,
+        title: "Magnific (or) Freepik အတွက်သိထားရမယ့် Keywords များ (Part-1)",
+        date: "May 26, 2026",
+        image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1779804362/websitecover_otpsrk.png",
+        excerpt: "Magnific (သို့မဟုတ်) Freepik မှာ AI image generate လုပ်ဖို့ သိထားရမယ့် Keywords (၅)မျိုး — Grainy Film Background, Chrome Holographic, Chromatic Distortion, Abstract Wireframe နဲ့ Holographic Foil တို့ကို Related Keywords တွေနဲ့တကွ မိတ်ဆက်ပေးပါတယ်။",
+        file: "/posts/post-24/post-24.html"
+    },
     // Add new posts here as you create them
 ];
 
@@ -218,6 +226,7 @@ function getCategory(postId) {
         21: 'FREELANCE',
         22: 'AI',
         23: 'DESIGN',
+        24: 'AI',
         // Add more categories for new posts
     };
     return categories[postId] || 'ARTICLE';
