@@ -5377,7 +5377,7 @@
 
 <!-- ── LIVE CHAT MODULE ── -->
 <script type="module">
-    import { db, rtdb } from '../js/firebase-config.js';
+    import { db, rtdb, auth } from '../js/firebase-config.js';
     import { supabase } from '../js/supabase-config.js';
     import {
         collection, doc, addDoc, onSnapshot, query, orderBy, limit,
@@ -5386,6 +5386,25 @@
     import {
         ref, set, onDisconnect, onValue, get, off
     } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
+    import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+
+    // Wait for Firebase Auth to be ready (resolves once currentUser is set, or
+    // resolves false after timeoutMs). Prevents the first-login race where
+    // Firestore subscribes before signInToFirebase() finishes and returns
+    // permission-denied. Re-render after reload works because Firebase persists
+    // auth state, so currentUser is already populated on the next visit.
+    function waitForFirebaseAuth(timeoutMs = 8000){
+        return new Promise((resolve) => {
+            if (auth.currentUser) return resolve(true);
+            let done = false;
+            const unsub = onAuthStateChanged(auth, (user) => {
+                if (user && !done) { done = true; try { unsub(); } catch(e){} resolve(true); }
+            });
+            setTimeout(() => {
+                if (!done) { done = true; try { unsub(); } catch(e){} resolve(false); }
+            }, timeoutMs);
+        });
+    }
 
     // ── State ──
     let currentUserId = null;
@@ -5457,6 +5476,7 @@
 
     // ── Init ──
     async function initChat() {
+        await waitForFirebaseAuth(); // gate Firestore subscriptions until auth is ready
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) return;
         currentUserId = user.id;
@@ -7094,6 +7114,172 @@ setTimeout(initFriendsEnhancement, 2200);
     setTimeout(observeChat, 5000);
 })();
 </script>
+
+<!-- ════════ COMMAND-PALETTE SEARCH (additive, scoped #ado-cmdk-*) ════════ -->
+<style>
+  #ado-cmdk-trigger{position:fixed;right:18px;bottom:18px;z-index:60;display:inline-flex;align-items:center;gap:8px;padding:9px 14px 9px 12px;background:#a7e169;color:#0a0a0b;border:0;border-radius:999px;font:500 13px/1 'Inter',system-ui,sans-serif;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18);transition:transform .15s ease,box-shadow .15s ease}
+  #ado-cmdk-trigger:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(0,0,0,.22)}
+  #ado-cmdk-trigger svg{width:14px;height:14px}
+  #ado-cmdk-trigger .ado-kbd{display:inline-flex;align-items:center;font:500 11px/1 ui-monospace,'JetBrains Mono',monospace;padding:3px 6px;background:rgba(0,0,0,.12);border-radius:5px;color:#0a0a0b}
+  @media (max-width:768px){#ado-cmdk-trigger .ado-cmdk-label,#ado-cmdk-trigger .ado-kbd{display:none}#ado-cmdk-trigger{padding:11px;border-radius:50%}}
+  #ado-cmdk-backdrop{position:fixed;inset:0;background:rgba(10,10,11,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:1000;display:none;align-items:flex-start;justify-content:center;padding-top:14vh}
+  #ado-cmdk-backdrop.ado-open{display:flex}
+  #ado-cmdk-panel{width:100%;max-width:540px;background:#fff;border:1px solid #e5e5e5;border-radius:14px;box-shadow:0 24px 60px rgba(0,0,0,.28);overflow:hidden;font-family:'Inter',system-ui,sans-serif}
+  html.dark #ado-cmdk-panel{background:#16161a;border-color:rgba(255,255,255,.08);color:#e5e7eb}
+  #ado-cmdk-input-wrap{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid #eee}
+  html.dark #ado-cmdk-input-wrap{border-bottom-color:rgba(255,255,255,.08)}
+  #ado-cmdk-input-wrap svg{width:16px;height:16px;color:#737373;flex-shrink:0}
+  #ado-cmdk-input{flex:1;border:0;outline:none;background:transparent;color:inherit;font:400 14px/1.4 inherit}
+  #ado-cmdk-esc{font:500 11px/1 ui-monospace,monospace;padding:3px 7px;border:1px solid #e5e5e5;border-radius:5px;color:#737373;background:#fafafa}
+  html.dark #ado-cmdk-esc{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:#9ca3af}
+  #ado-cmdk-list{max-height:50vh;overflow-y:auto;padding:6px}
+  .ado-cmdk-group{font:600 10px/1.4 inherit;text-transform:uppercase;letter-spacing:.08em;color:#737373;padding:10px 12px 6px}
+  .ado-cmdk-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;cursor:pointer;font-size:13px;color:inherit}
+  .ado-cmdk-item .ado-cmdk-icon{width:18px;height:18px;color:#737373;flex-shrink:0}
+  .ado-cmdk-item .ado-cmdk-icon svg{width:18px;height:18px}
+  .ado-cmdk-item.ado-focus{background:#f5f5f5}
+  html.dark .ado-cmdk-item.ado-focus{background:rgba(255,255,255,.06)}
+  .ado-cmdk-item.ado-focus .ado-cmdk-icon{color:#3a6d12}
+  html.dark .ado-cmdk-item.ado-focus .ado-cmdk-icon{color:#a7e169}
+  .ado-cmdk-empty{padding:28px;text-align:center;color:#737373;font-size:13px}
+  .ado-cmdk-secondary{font-size:11px;color:#9ca3af;margin-left:auto}
+</style>
+
+<button id="ado-cmdk-trigger" type="button" title="Search sections (⌘K)">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+  <span class="ado-cmdk-label">Search</span>
+  <span class="ado-kbd">⌘K</span>
+</button>
+
+<div id="ado-cmdk-backdrop" role="dialog" aria-modal="true" aria-labelledby="ado-cmdk-input">
+  <div id="ado-cmdk-panel">
+    <div id="ado-cmdk-input-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="ado-cmdk-input" type="text" placeholder="Jump to a section…" autocomplete="off" spellcheck="false">
+      <span id="ado-cmdk-esc">Esc</span>
+    </div>
+    <div id="ado-cmdk-list" role="listbox"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var trigger = document.getElementById('ado-cmdk-trigger');
+  var backdrop = document.getElementById('ado-cmdk-backdrop');
+  var input = document.getElementById('ado-cmdk-input');
+  var list = document.getElementById('ado-cmdk-list');
+  if(!trigger || !backdrop || !input || !list) return;
+  var items = [];
+  var focus = 0;
+
+  function collect(){
+    var nodes = document.querySelectorAll('.sidebar-link[data-section]');
+    var out = [], seen = {};
+    nodes.forEach(function(n){
+      var id = n.dataset.section;
+      if(!id || seen[id]) return;
+      seen[id] = 1;
+      var label = (n.getAttribute('data-tooltip') || '').trim();
+      var native = (n.querySelector('span')?.textContent || '').trim();
+      var svg = n.querySelector('svg');
+      out.push({
+        id: id,
+        label: label || native || id,
+        native: native,
+        iconHTML: svg ? svg.outerHTML : ''
+      });
+    });
+    return out;
+  }
+
+  function render(q){
+    q = (q || '').toLowerCase().trim();
+    var all = collect();
+    items = q
+      ? all.filter(function(it){
+          return it.label.toLowerCase().indexOf(q) !== -1
+              || it.native.toLowerCase().indexOf(q) !== -1
+              || it.id.toLowerCase().indexOf(q) !== -1;
+        })
+      : all;
+    focus = 0;
+    if(!items.length){
+      list.innerHTML = '<div class="ado-cmdk-empty">No matches.</div>';
+      return;
+    }
+    var html = '<div class="ado-cmdk-group">Sections</div>';
+    items.forEach(function(it, idx){
+      var secondary = (it.native && it.native !== it.label)
+        ? '<span class="ado-cmdk-secondary">' + escapeHTML(it.native) + '</span>'
+        : '';
+      html += '<div class="ado-cmdk-item ' + (idx === 0 ? 'ado-focus' : '') + '" role="option" data-idx="' + idx + '">'
+        + '<span class="ado-cmdk-icon">' + (it.iconHTML || '') + '</span>'
+        + '<span>' + escapeHTML(it.label) + '</span>'
+        + secondary
+        + '</div>';
+    });
+    list.innerHTML = html;
+  }
+
+  function escapeHTML(s){ var d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; }
+
+  function open(){
+    input.value = '';
+    render('');
+    backdrop.classList.add('ado-open');
+    setTimeout(function(){ input.focus(); }, 40);
+  }
+  function close(){ backdrop.classList.remove('ado-open'); }
+
+  function pick(idx){
+    var it = items[idx];
+    if(!it) return;
+    close();
+    if(typeof window.switchSection === 'function'){
+      window.switchSection(it.id);
+    } else {
+      var link = document.querySelector('.sidebar-link[data-section="' + it.id + '"]');
+      if(link) link.click();
+    }
+  }
+
+  function moveFocus(delta){
+    if(!items.length) return;
+    focus = Math.max(0, Math.min(items.length - 1, focus + delta));
+    var nodes = list.querySelectorAll('.ado-cmdk-item');
+    nodes.forEach(function(n){ n.classList.remove('ado-focus'); });
+    var target = nodes[focus];
+    if(target){ target.classList.add('ado-focus'); target.scrollIntoView({ block: 'nearest' }); }
+  }
+
+  trigger.addEventListener('click', open);
+  backdrop.addEventListener('click', function(e){ if(e.target === backdrop) close(); });
+  input.addEventListener('input', function(e){ render(e.target.value); });
+  list.addEventListener('click', function(e){
+    var item = e.target.closest('.ado-cmdk-item');
+    if(item) pick(parseInt(item.dataset.idx, 10));
+  });
+  input.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowDown'){ e.preventDefault(); moveFocus(1); }
+    else if(e.key === 'ArrowUp'){ e.preventDefault(); moveFocus(-1); }
+    else if(e.key === 'Enter'){ e.preventDefault(); pick(focus); }
+    else if(e.key === 'Escape'){ e.preventDefault(); close(); }
+  });
+  document.addEventListener('keydown', function(e){
+    if((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')){
+      e.preventDefault();
+      backdrop.classList.contains('ado-open') ? close() : open();
+      return;
+    }
+    if(e.key === '/' && !backdrop.classList.contains('ado-open')){
+      var t = e.target;
+      var typing = t && (t.matches && t.matches('input,textarea,select,[contenteditable="true"]'));
+      if(!typing){ e.preventDefault(); open(); }
+    }
+  });
+})();
+</script>
+<!-- ════════ /COMMAND-PALETTE SEARCH ════════ -->
 
 </body>
 
