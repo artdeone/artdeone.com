@@ -194,6 +194,14 @@ const blogPosts = [
         excerpt: "Magnific (သို့မဟုတ်) Freepik မှာ AI image generate လုပ်ဖို့ သိထားရမယ့် Keywords (၅)မျိုး — Grainy Film Background, Chrome Holographic, Chromatic Distortion, Abstract Wireframe နဲ့ Holographic Foil တို့ကို Related Keywords တွေနဲ့တကွ မိတ်ဆက်ပေးပါတယ်။",
         file: "/posts/post-24/post-24.html"
     },
+    {
+        id: 25,
+        title: "Freelance Graphic Designer တွေ Pricing သတ်မှတ်တဲ့အခါသိထားရမယ့်အချက်များ",
+        date: "May 29, 2026",
+        image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1780048552/websitecover_lkavfu.png",
+        excerpt: "Freelance Graphic Designer တွေအနေနဲ့ ကိုယ့် experience level၊ pricing structure၊ project scope၊ business expenses နဲ့ minimum acceptable rate တွေကို စနစ်တကျတွက်ချက်ပြီး ဈေးသတ်မှတ်နိုင်ဖို့ သိထားရမယ့်အချက်များကို မျှဝေပေးပါတယ်။",
+        file: "/posts/post-25/post-25.html"
+    },
     // Add new posts here as you create them
 ];
 
@@ -227,6 +235,7 @@ function getCategory(postId) {
         22: 'AI',
         23: 'DESIGN',
         24: 'AI',
+        25: 'FREELANCE',
         // Add more categories for new posts
     };
     return categories[postId] || 'ARTICLE';
