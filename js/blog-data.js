@@ -202,6 +202,14 @@ const blogPosts = [
         excerpt: "Freelance Graphic Designer တွေအနေနဲ့ ကိုယ့် experience level၊ pricing structure၊ project scope၊ business expenses နဲ့ minimum acceptable rate တွေကို စနစ်တကျတွက်ချက်ပြီး ဈေးသတ်မှတ်နိုင်ဖို့ သိထားရမယ့်အချက်များကို မျှဝေပေးပါတယ်။",
         file: "/posts/post-25/post-25.html"
     },
+    {
+        id: 26,
+        title: "တန်ဖိုးထားရမယ့် Green Flag Clients များ",
+        date: "May 31, 2026",
+        image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1780207158/websitecover_ki2t8p.png",
+        excerpt: "Freelance Designer တွေအတွက် စကားအပြောအဆိုယဥ်ကျေးမှု၊ Budget ပွင့်လင်းမှု၊ Feedback ပေးတတ်မှု၊ ကိုယ့် Past Work ကိုနားလည်မှုနဲ့ ရေရှည်လက်တွဲချင်မှုရှိတဲ့ Green Flag Clients များကို မျှဝေပေးပါတယ်။",
+        file: "/posts/post-26/post-26.html"
+    },
     // Add new posts here as you create them
 ];
 
@@ -236,6 +244,7 @@ function getCategory(postId) {
         23: 'DESIGN',
         24: 'AI',
         25: 'FREELANCE',
+        26: 'FREELANCE',
         // Add more categories for new posts
     };
     return categories[postId] || 'ARTICLE';
