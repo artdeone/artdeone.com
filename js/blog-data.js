@@ -210,6 +210,14 @@ const blogPosts = [
         excerpt: "Freelance Designer တွေအတွက် စကားအပြောအဆိုယဥ်ကျေးမှု၊ Budget ပွင့်လင်းမှု၊ Feedback ပေးတတ်မှု၊ ကိုယ့် Past Work ကိုနားလည်မှုနဲ့ ရေရှည်လက်တွဲချင်မှုရှိတဲ့ Green Flag Clients များကို မျှဝေပေးပါတယ်။",
         file: "/posts/post-26/post-26.html"
     },
+    {
+        id: 27,
+        title: "Brand Identity ဆိုတာ",
+        date: "June 1, 2026",
+        image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1780283159/websitecover_q3fkje.png",
+        excerpt: "Brand Identity ဆိုတာ Logo တစ်ခုတည်းမဟုတ်ဘဲ Values, Voice & Tone, Mission နဲ့ Visual ပုံသဏ္ဍာန်တွေ ပေါင်းစပ်ထားတဲ့ Brand ရဲ့ ကိုယ်ရည်ကိုယ်သွေးဖြစ်ကြောင်း မျှဝေပေးပါတယ်။",
+        file: "/posts/post-27/post-27.html"
+    },
     // Add new posts here as you create them
 ];
 
@@ -245,6 +253,7 @@ function getCategory(postId) {
         24: 'AI',
         25: 'FREELANCE',
         26: 'FREELANCE',
+        27: 'BRANDING',
         // Add more categories for new posts
     };
     return categories[postId] || 'ARTICLE';
