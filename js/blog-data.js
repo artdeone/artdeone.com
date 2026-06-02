@@ -218,6 +218,14 @@ const blogPosts = [
         excerpt: "Brand Identity ဆိုတာ Logo တစ်ခုတည်းမဟုတ်ဘဲ Values, Voice & Tone, Mission နဲ့ Visual ပုံသဏ္ဍာန်တွေ ပေါင်းစပ်ထားတဲ့ Brand ရဲ့ ကိုယ်ရည်ကိုယ်သွေးဖြစ်ကြောင်း မျှဝေပေးပါတယ်။",
         file: "/posts/post-27/post-27.html"
     },
+    {
+        id: 28,
+        title: "သိထားရမယ့် Visual Identity လိုရင်းတိုရှင်း",
+        date: "June 2, 2026",
+        image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1780389505/websitecover_w2wtks.png",
+        excerpt: "Visual Identity ဆိုတာ လူတွေ ပထမဆုံး မြင်ရတဲ့ Brand ရဲ့ အပြင်ပန်းဖြစ်ပြီး Logo, Color Palette, Typography နဲ့ Imagery Style တို့နဲ့ Brand ကို မှတ်မိစေတဲ့အကြောင်း မျှဝေပေးပါတယ်။",
+        file: "/posts/post-28/post-28.html"
+    },
     // Add new posts here as you create them
 ];
 
@@ -254,6 +262,7 @@ function getCategory(postId) {
         25: 'FREELANCE',
         26: 'FREELANCE',
         27: 'BRANDING',
+        28: 'BRANDING',
         // Add more categories for new posts
     };
     return categories[postId] || 'ARTICLE';
