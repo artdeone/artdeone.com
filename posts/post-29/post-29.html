@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+    (function(){try{var s=localStorage.getItem('ado-theme-mode');var h=new Date().getHours();var isTimeDark=h>=18||h<4;if(s==='dark'||(s==='system'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches)||(!s&&isTimeDark)){document.documentElement.setAttribute('data-theme','dark');document.documentElement.style.colorScheme='dark';}}catch(e){}})();
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CZRQ0NPPJ2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-CZRQ0NPPJ2');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>သိထားရမယ့် Brand Guideline လိုရင်းတိုရှင်း - ART de ONE</title>
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769316272/fav-icon_n00lji.png">
+
+    <!-- LIBRARIES -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- CUSTOM STYLES -->
+    <link rel="stylesheet" href="/css-and-js/mobile-smooth-nav.css?v=20260522">
+    <link rel="stylesheet" href="/css-and-js/theme.css">
+    <link id="ado-dark-mode-css" rel="preload" as="style" href="/css-and-js/dark-mode.css" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/css-and-js/dark-mode.css"></noscript>
+    <link rel="stylesheet" href="/css-and-js/theme-toggle.css?v=20260521">
+
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #323232;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .post-header {
+            padding-top: 8rem;
+            padding-bottom: 4rem;
+            border-bottom: 1px solid #f3f4f6;
+            transition: border-color 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .post-header-orb {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .post-header-orb-1 {
+            width: 550px; height: 550px;
+            bottom: -250px; left: -50px;
+            background: radial-gradient(circle at center, rgba(167,225,105,0.25) 0%, rgba(167,225,105,0.12) 30%, rgba(167,225,105,0.04) 55%, transparent 75%);
+            filter: blur(60px);
+            animation: orbDrift1 12s ease-in-out infinite;
+        }
+        .post-header-orb-2 {
+            width: 600px; height: 600px;
+            bottom: -300px; left: 50%;
+            transform: translateX(-50%);
+            background: radial-gradient(circle at center, rgba(237,41,57,0.18) 0%, rgba(255,140,50,0.10) 30%, rgba(237,41,57,0.04) 55%, transparent 75%);
+            filter: blur(70px);
+            animation: orbDrift2 15s ease-in-out infinite;
+        }
+        .post-header-orb-3 {
+            width: 450px; height: 450px;
+            bottom: -180px; right: -30px;
+            background: radial-gradient(circle at center, rgba(167,225,105,0.15) 0%, rgba(200,235,180,0.08) 35%, rgba(167,225,105,0.02) 60%, transparent 80%);
+            filter: blur(55px);
+            animation: orbDrift3 18s ease-in-out infinite;
+        }
+        .post-header > .max-w-3xl { position: relative; z-index: 2; }
+
+        .post-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #323232;
+        }
+        .post-content h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #000000;
+            margin-top: 4rem;
+            margin-bottom: 1.5rem;
+        }
+        .post-content h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #000000;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .trend-image-container {
+            width: 100%;
+            background-color: #f3f4f6;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            margin: 2rem 0;
+            border: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .trend-image-container img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        /* URL / Search-bar style title for each keyword */
+        .url-search-title {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 2rem;
+            padding: 0.85rem 1.5rem;
+            margin: 0 0 0.5rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #000;
+            transition: all 0.3s ease;
+        }
+        .url-search-title .search-icon {
+            width: 32px;
+            height: 32px;
+            min-width: 32px;
+            border-radius: 50%;
+            background-color: #a7e169;
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+        }
+        .url-search-title .url-text {
+            color: #000;
+            letter-spacing: 0;
+            overflow-wrap: anywhere;
+            min-width: 0;
+            line-height: 1.6;
+        }
+        @media (max-width: 640px) {
+            .url-search-title { font-size: 1rem; padding: 0.7rem 1rem; }
+            .url-search-title .search-icon { width: 28px; height: 28px; min-width: 28px; font-size: 0.75rem; }
+        }
+
+        /* Keywords highlight box */
+        .keywords-box {
+            background: #f9fef5;
+            border-left: 5px solid #a7e169;
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 1rem 1rem 0;
+            margin: 1.5rem 0 0 0;
+        }
+        .keywords-box .keywords-label {
+            font-weight: 800;
+            color: #000;
+            margin: 0 0 0.75rem 0;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .keywords-box ol {
+            list-style: decimal;
+            padding-left: 1.5rem;
+            margin: 0;
+        }
+        .keywords-box ol li {
+            color: #000;
+            font-weight: 700;
+            margin-bottom: 0.35rem;
+            line-height: 1.6;
+        }
+        .keywords-box ol li:last-child { margin-bottom: 0; }
+
+        .brand-info-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 1.5rem 0 0;
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+            border-radius: 1rem;
+            background-color: #ffffff;
+        }
+        .brand-info-table th,
+        .brand-info-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+            vertical-align: top;
+        }
+        .brand-info-table th {
+            width: 4rem;
+            color: #000;
+            font-weight: 800;
+            background-color: #f9fef5;
+        }
+        .brand-info-table tr:last-child th,
+        .brand-info-table tr:last-child td {
+            border-bottom: 0;
+        }
+        .brand-highlight,
+        .brand-note {
+            padding: 1.25rem 1.5rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 1rem;
+            margin: 1.5rem 0;
+            color: #000;
+        }
+        .brand-highlight {
+            background-color: #f9fef5;
+            font-weight: 700;
+        }
+        .brand-note {
+            background-color: #f9fafb;
+            font-size: 1rem;
+        }
+        .brand-note strong {
+            color: #000;
+        }
+        .final-message {
+            background-color: #f9fef5;
+            border: 1px solid #e5e7eb;
+            border-radius: 1.25rem;
+            padding: 1.5rem;
+        }
+        .post-tagline {
+            color: #555;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            max-width: 42rem;
+            margin: -1rem auto 2rem;
+        }
+        .visual-identity-lead {
+            color: #000;
+            font-size: 3.75rem;
+            line-height: 1.1;
+            font-weight: 900;
+            letter-spacing: 0;
+            margin: 0 0 1rem;
+        }
+        .note-list {
+            display: grid;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+        .note-row {
+            display: grid;
+            grid-template-columns: 6.5rem 1fr;
+            gap: 1rem;
+            align-items: center;
+            padding: 0.85rem 1rem;
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.85rem;
+        }
+        .note-row strong {
+            color: #000;
+        }
+        @media (max-width: 640px) {
+            .visual-identity-lead { font-size: 2.4rem; }
+            .note-row { grid-template-columns: 1fr; gap: 0.25rem; }
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #f9fef5 0%, #fefce8 100%);
+            border-left: 5px solid #a7e169;
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 1rem 1rem 0;
+            margin: 1.5rem 0;
+            font-style: italic;
+            font-weight: 600;
+            color: #000;
+        }
+
+        .visit-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: #a7e169;
+            color: #000;
+            font-weight: 700;
+            padding: 0.65rem 1.4rem;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-size: 0.9rem;
+            border: 1px solid #a7e169;
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+        }
+        .visit-link:hover {
+            background-color: #ed2939;
+            color: #fff;
+            border-color: #ed2939;
+        }
+
+        .share-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e5e7eb;
+            color: #6b7280;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .share-btn:hover {
+            background-color: #ed2939 !important;
+            color: #fff !important;
+            border-color: #ed2939 !important;
+        }
+
+        .nav-btn { border-radius: 2rem; }
+        .text-accent { color: #a7e169; }
+
+        .related-card {
+            background-color: #ffffff;
+            border: 1px solid #e5e5e5;
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        .related-card h3 { color: #000; }
+        .related-card p { color: #9ca3af; }
+
+        /* --- DARK MODE OVERRIDES --- */
+        body.dark-mode {
+            background-color: #121212 !important;
+            color: #e5e5e5 !important;
+        }
+        .dark-mode h1,
+        .dark-mode h2,
+        .dark-mode h3,
+        .dark-mode strong,
+        .dark-mode .text-black {
+            color: #ffffff !important;
+        }
+        .dark-mode .post-content p { color: #e5e5e5 !important; }
+        .dark-mode .post-content { color: #e5e5e5 !important; }
+        .dark-mode .text-gray-500 { color: #9ca3af !important; }
+        .dark-mode .post-header { border-color: #333; }
+        .dark-mode .trend-image-container {
+            background-color: #1e1e1e;
+            border-color: #333;
+        }
+        .dark-mode .bg-gray-50 { background-color: #1a1a1a; }
+        .dark-mode .border-gray-100,
+        .dark-mode .border-gray-200 { border-color: #333 !important; }
+        .dark-mode .share-btn { border-color: #444; color: #bbb; }
+        .dark-mode .w-10.h-10.rounded-full.bg-gray-100 {
+            background-color: #333 !important;
+            color: #fff !important;
+            border-color: #444 !important;
+        }
+        .dark-mode .related-card {
+            background-color: #1e1e1e !important;
+            border-color: #333 !important;
+        }
+        .dark-mode .related-card h3 { color: #ffffff !important; }
+        .dark-mode nav {
+            background-color: rgba(18, 18, 18, 0.95) !important;
+            border-bottom: 1px solid #333;
+        }
+        .dark-mode .nav-link { color: #e5e5e5 !important; }
+        .dark-mode .nav-link:hover { color: #fff !important; }
+        .dark-mode .mobile-menu {
+            background-color: #121212 !important;
+            border-bottom: 1px solid #333;
+        }
+        .dark-mode .mobile-menu .bg-white {
+            background-color: #121212 !important;
+            border-color: #333 !important;
+        }
+        .dark-mode .mobile-nav-link { color: #e5e5e5 !important; }
+        .dark-mode .mobile-menu-btn { color: #fff !important; }
+        .dark-mode .mobile-menu-btn:hover { background-color: #333; }
+        .hamburger-icon { color: #000; }
+        .dark-mode .hamburger-icon { color: #fff !important; }
+        .active-page-link { color: #000 !important; }
+        .dark-mode .active-page-link { color: #fff !important; }
+        .dark-mode footer {
+            background-color: #121212;
+            border-top: 1px solid #333 !important;
+        }
+        .dark-mode footer p, .dark-mode footer a { color: #9ca3af !important; }
+        .dark-mode footer h3, .dark-mode footer span { color: #fff !important; }
+        .dark-mode footer a:hover { color: #fff !important; }
+        .dark-mode .trust-badge { background: #1e1e1e; border-color: #333; }
+        .dark-mode .trust-badge:hover { border-color: #555; box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+        .dark-mode .badge-label { color: #e5e5e5 !important; }
+        .dark-mode .badge-value { color: #9ca3af !important; }
+        .dark-mode .badge-icon:not(.badge-icon-blue):not(.badge-icon-gold):not(.badge-icon-green) { background: #333; }
+        .dark-mode .dmca-official-wrapper img { filter: none !important; }
+        .dark-mode nav img.nav-logo, .dark-mode footer img.nav-logo {
+            filter: brightness(0) saturate(100%) invert(84%) sepia(32%) saturate(673%) hue-rotate(36deg) brightness(94%) contrast(89%);
+        }
+        .dark-mode .signin-cta {
+            background: linear-gradient(135deg, #1a2e1a 0%, #2a2a1a 100%) !important;
+            border-color: #333 !important;
+        }
+        .dark-mode .signin-cta p.text-black { color: #fff !important; }
+        .dark-mode .signin-cta .text-gray-600 { color: #9ca3af !important; }
+        .dark-mode .nav-btn { color: #000 !important; }
+        .dark-mode section.bg-gray-50 .nav-btn { color: #000 !important; }
+        .dark-mode .nav-btn:hover { color: #fff !important; }
+        .dark-mode section.bg-gray-50 .nav-btn:hover { color: #fff !important; }
+        .dark-mode .highlight-box {
+            background: linear-gradient(135deg, #1a2e1a 0%, #2a2a1a 100%) !important;
+            border-color: #a7e169 !important;
+            color: #fff !important;
+        }
+        .dark-mode .visit-link { color: #000 !important; }
+        .dark-mode .visit-link:hover { color: #fff !important; }
+        .dark-mode .url-search-title {
+            background-color: #1e1e1e !important;
+            border-color: #333 !important;
+            color: #fff !important;
+        }
+        .dark-mode .url-search-title .url-text { color: #fff !important; }
+        .dark-mode .keywords-box {
+            background: #1a2e1a !important;
+            border-color: #a7e169 !important;
+        }
+        .dark-mode .keywords-box .keywords-label,
+        .dark-mode .keywords-box ol li { color: #fff !important; }
+        .dark-mode .brand-info-table {
+            background-color: #1e1e1e !important;
+            border-color: #333 !important;
+        }
+        .dark-mode .brand-info-table th,
+        .dark-mode .brand-info-table td {
+            border-color: #333 !important;
+            color: #e5e5e5 !important;
+        }
+        .dark-mode .brand-info-table th {
+            background-color: #1a2e1a !important;
+            color: #fff !important;
+        }
+        .dark-mode .post-tagline { color: #c9c9c9 !important; }
+        .dark-mode .visual-identity-lead { color: #ffffff !important; }
+        .dark-mode .note-row {
+            background-color: #1e1e1e !important;
+            border-color: #333 !important;
+            color: #e5e5e5 !important;
+        }
+        .dark-mode .brand-highlight,
+        .dark-mode .brand-note,
+        .dark-mode .final-message {
+            background-color: #1e1e1e !important;
+            border-color: #333 !important;
+            color: #e5e5e5 !important;
+        }
+
+        .blur-fade {
+            opacity: 0;
+            filter: blur(12px);
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, filter 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .blur-fade.visible {
+            opacity: 1;
+            filter: blur(0);
+            transform: translateY(0);
+        }
+
+        /* ── Glass hamburger button (match index.html) ── */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                width: 48px !important;
+                height: 48px !important;
+                padding: 0 !important;
+                border-radius: 50% !important;
+                background: rgba(120, 120, 120, 0.20) !important;
+                backdrop-filter: blur(12px) !important;
+                -webkit-backdrop-filter: blur(12px) !important;
+                border: 1px solid rgba(0, 0, 0, 0.12) !important;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255,255,255,0.3) !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease !important;
+            }
+            .mobile-menu-btn:hover { background: rgba(120, 120, 120, 0.28) !important; }
+            .mobile-menu-btn:active {
+                transform: scale(0.95) !important;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+            }
+            .mobile-menu-btn .icon-container,
+            .mobile-menu-btn svg {
+                color: #222 !important;
+                stroke: #222 !important;
+            }
+            html:not([data-theme="dark"]) .mobile-menu-btn {
+                box-shadow: none !important;
+            }
+            html[data-theme="dark"] .mobile-menu-btn,
+            body.dark-mode .mobile-menu-btn {
+                background: rgba(60, 60, 60, 0.45) !important;
+                border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            }
+            html[data-theme="dark"] .mobile-menu-btn .icon-container,
+            html[data-theme="dark"] .mobile-menu-btn svg,
+            body.dark-mode .mobile-menu-btn .icon-container,
+            body.dark-mode .mobile-menu-btn svg {
+                color: #fff !important;
+                stroke: #fff !important;
+            }
+        }
+        @media (max-width: 768px) {
+            .mobile-menu-btn .icon-container {
+                width: 24px !important;
+                height: 24px !important;
+                padding: 0 !important;
+                background: none !important;
+                background-color: transparent !important;
+                background-image: none !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+                border: none !important;
+                position: static !important;
+            }
+            .hamburger-btn svg,
+            .hamburger-btn .icon,
+            .mobile-menu-btn svg,
+            .mobile-menu-btn .icon,
+            [class*="hamburger"] svg,
+            [class*="hamburger"] .icon {
+                background: none !important;
+                background-color: transparent !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+                border: none !important;
+            }
+            .hamburger-btn .inner-circle,
+            .hamburger-btn [class*="circle"],
+            .mobile-menu-btn .inner-circle,
+            .mobile-menu-btn [class*="circle"] {
+                display: none !important;
+            }
+        }
+        </style>
+    <script defer src="https://cdn.amplitude.com/libs/analytics-browser-2.42.3-min.js.gz"></script>
+    <script defer src="https://cdn.amplitude.com/libs/plugin-session-replay-browser-1.30.4-min.js.gz"></script>
+    <script defer src="/js/amplitude-analytics.js?v=20260523"></script>
+</head>
+<body class="bg-white text-[#323232]">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 nav-container">
+            <div class="nav-wrapper">
+                <div class="flex justify-between h-16 items-center">
+                    <div class="flex items-center">
+                        <a href="/index.html"><img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png" alt="ART de ONE" class="h-10 w-auto nav-logo"></a>
+                    </div>
+
+                    <div class="hidden md:flex items-center space-x-6 nav-center">
+                        <a href="/index.html#home" class="nav-link">Home</a>
+                        <a href="/shop.html" class="nav-link">Shop</a>
+                        <a href="/portfolio/student-gallery.html" class="nav-link">Student</a>
+                        <a href="/blog.html" class="nav-link font-bold active-page-link">Blog</a>
+                        <a href="/news.html" class="nav-link">News</a>
+                        <a href="https://ai.artdeone.com/" class="nav-link">Ai</a>
+                        <div class="nav-dropdown-wrapper">
+                            <a href="/resources/resources-collection.html" class="nav-link" style="display:inline-flex;align-items:center;gap:4px;">Resources <i class="fas fa-chevron-down nav-dropdown-arrow"></i></a>
+                            <div class="nav-dropdown">
+                                <a href="/resources/resources-collection.html">All Resources</a>
+                                <a href="/prompt.html">AI Prompts</a>
+                            </div>
+                        </div>
+                        <a href="/index.html#contact" class="nav-link">Contact</a>
+                    </div>
+
+                    <div class="hidden md:flex items-center gap-3" id="desktopAuth">
+                        <button type="button" id="ado-theme-toggle" class="ado-theme-toggle" title="Switch theme" aria-label="Switch theme">
+                            <span class="ado-theme-toggle-icon"></span>
+                        </button>
+                        <a href="/customer-dashboard.html" class="nav-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
+                    </div>
+
+                    <div class="md:hidden flex items-center">
+                        <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md hover:bg-gray-100 focus:outline-none" id="mobile-menu-button">
+                            <div class="icon-container text-black">
+                                <i data-feather="menu" class="icon-menu"></i>
+                                <i data-feather="x" class="icon-close"></i>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mobile-menu md:hidden hidden" id="mobile-menu">
+            <div class="py-2 px-4 space-y-1">
+                <a href="/index.html#home" class="block py-2 mobile-nav-link">Home</a>
+                <a href="/shop.html" class="block py-2 mobile-nav-link">Shop</a>
+                <a href="/portfolio/student-gallery.html" class="block py-2 mobile-nav-link">Student</a>
+                <a href="/blog.html" class="block py-2 mobile-nav-link font-bold text-black">Blog</a>
+                <a href="/news.html" class="block py-2 mobile-nav-link">News</a>
+                <a href="https://ai.artdeone.com/" class="block py-2 mobile-nav-link">Ai</a>
+                <div>
+                    <button onclick="toggleMobileResourcesDropdown()" class="block py-2 mobile-nav-link w-full text-left" style="display:flex;align-items:center;gap:6px;">
+                        <span>Resources</span>
+                        <i class="fas fa-chevron-down mobile-dropdown-arrow" id="mobile-res-arrow"></i>
+                    </button>
+                    <div class="mobile-sub-menu" id="mobile-resources-sub">
+                        <a href="/resources/resources-collection.html" class="block py-2 pl-6 text-sm text-gray-500 hover:text-black transition">All Resources</a>
+                        <a href="/prompt.html" class="block py-2 pl-6 text-sm text-gray-500 hover:text-black transition">AI Prompts</a>
+                    </div>
+                </div>
+                <a href="/index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
+                <a href="/customer-dashboard.html" style="display:inline-flex; align-items:center; gap:0.35rem; background:#ed2939; color:#fff; font-weight:600; border-radius:2rem; padding:0.3rem 0.75rem; font-size:0.75rem; border:1px solid #ed2939; text-decoration:none;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Post Header -->
+        <section class="post-header bg-transparent">
+            <div class="post-header-orb post-header-orb-1"></div>
+            <div class="post-header-orb post-header-orb-2"></div>
+            <div class="post-header-orb post-header-orb-3"></div>
+            <div class="max-w-3xl mx-auto px-4 text-center" data-aos="fade-up">
+                <div class="flex items-center justify-center gap-4 text-sm text-gray-500 mb-6">
+                    <span class="uppercase tracking-widest text-accent font-bold">Branding</span>
+                    <span>&bull;</span>
+                    <span>June 3, 2026</span>
+                </div>
+                <h1 class="text-3xl md:text-5xl font-bold text-black mb-8" style="line-height: 1.6;">
+                    သိထားရမယ့် Brand Guideline လိုရင်းတိုရှင်း
+                </h1>
+                <p class="post-tagline">
+                    Brand တစ်ခုကို ဘယ်သူကိုင်တွယ်ကိုင်တွယ် တစ်သားတည်း ဖြစ်နေအောင် သတ်မှတ်ပေးတဲ့ စည်းမျဉ်းတွေကို အတိုချုပ်ရှင်းပြထားတဲ့ post ပါ။
+                </p>
+
+                <!-- Cover Image -->
+                <div class="trend-image-container mt-8">
+                    <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1780455950/websitecover_s10tc1.jpg" alt="သိထားရမယ့် Brand Guideline လိုရင်းတိုရှင်း">
+                </div>
+
+                <!-- Author Box -->
+                <div class="flex items-center justify-center gap-3 mt-8">
+                    <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-black font-bold text-xs border border-gray-200">AD</div>
+                    <div class="text-left">
+                        <p class="text-black text-sm font-semibold">ART de ONE Team</p>
+                        <p class="text-xs text-gray-500">Author</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Section -->
+        <section class="py-16 px-4 bg-transparent">
+            <div class="max-w-3xl mx-auto">
+                <div class="post-content" data-aos="fade-up">
+
+                    <!-- Brand Guideline Overview -->
+                    <div class="mb-16 blur-fade">
+                        <h2 class="visual-identity-lead">Brand Guideline</h2>
+                        <p>ဆိုတာ Brand တစ်ခုရဲ့ <strong>"ဖွဲ့စည်းပုံ အခြေခံ ဥပဒေ"</strong> လို့ ပြောရပါမယ်။</p>
+
+                        <div class="brand-note">
+                            <strong>မှတ်ရန်</strong>
+                            <p class="mt-3">Brand ကို ဘယ်သူ ကိုင်တွယ်ကိုင်တွယ် တစ်သားတည်း ဖြစ်နေဖို့ "ဘာကို လုပ်ရမယ်၊ ဘာကို မလုပ်ရဘူး" ဆိုပြီး သတ်မှတ်ထားတဲ့ စည်းမျဉ်းတွေပါ။</p>
+                        </div>
+
+                        <div class="trend-image-container">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1780455949/1_q4xaw7.jpg" alt="Brand Guideline">
+                        </div>
+                    </div>
+
+                    <!-- Logo Usage Rules -->
+                    <div class="mb-16 blur-fade">
+                        <div class="url-search-title">
+                            <span class="search-icon"><i class="fas fa-certificate"></i></span>
+                            <span class="url-text">Logo Usage Rules</span>
+                        </div>
+
+                        <div class="trend-image-container">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1780455949/2_vytp0n.jpg" alt="Logo Usage Rules">
+                        </div>
+
+                        <p>Logo ကို ဘယ်နေရာမှာ ဘယ်လို သုံးရမယ်၊ ဘာတွေ မလုပ်ရဘူးဆိုတဲ့ စည်းမျဉ်းတွေပါ။</p>
+                        <table class="brand-info-table">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Don't</th>
+                                    <td>Logo ကို ဆွဲဆန့်လို့ မရ၊ စောင်းထားလို့ မရ၊ အရောင်ပြောင်းလို့ မရ။</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Do</th>
+                                    <td>နောက်ခံ အနက်ပေါ်ဆိုရင် Logo အဖြူ Version ကိုပဲ သုံးရမယ်ဆိုပြီး တိတိကျကျ သတ်မှတ်ထားတာမျိုးပါ။</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Example</th>
+                                    <td>Starbucks ရဲ့ Guideline မှာ Logo ကို အစိမ်းရောင်မှအပ တခြားအရောင်နဲ့ မသုံးရလို့ ပါပါတယ်။</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Result</th>
+                                    <td>McDonald's ရဲ့ ရွှေရောင် "M" ကို ကမ္ဘာတစ်ဝှမ်း ဘယ်သူမဆို မှတ်မိတယ်။</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Color Codes -->
+                    <div class="mb-16 blur-fade">
+                        <div class="url-search-title">
+                            <span class="search-icon"><i class="fas fa-palette"></i></span>
+                            <span class="url-text">Color Codes</span>
+                        </div>
+
+                        <div class="trend-image-container">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1780455949/3_jpo7fh.jpg" alt="Color Codes">
+                        </div>
+
+                        <p>Brand ရဲ့ အရောင်တွေကို တိတိကျကျ နံပါတ် (Code) နဲ့ သတ်မှတ်ထားတာပါ။ ခန့်မှန်းပြီး ဆိုလို့ မရပါဘူး။</p>
+                        <div class="brand-highlight">
+                            <p>ဥပမာ</p>
+                            <p class="mt-3">Brand ရဲ့ Primary Color က အနီရောင်။ Guideline မှာ HEX: #E50914, RGB: 229, 9, 20 ဆိုပြီး တိတိကျကျ ပြောထားတာဖြစ်တဲ့အတွက် ကျန်တဲ့ ကာလာ codes တွေ သုံးလို့မရပါဘူး။</p>
+                            <p class="mt-3">Netflix ရဲ့ အနီရောင်က ဒီ Code အတိုင်း ကမ္ဘာတစ်ဝှမ်း တူညီစွာ အသုံးပြုတာ အားလုံးလဲ သိကြပါလိမ့်မယ်။</p>
+                        </div>
+                    </div>
+
+                    <!-- Typography Rules -->
+                    <div class="mb-16 blur-fade">
+                        <div class="url-search-title">
+                            <span class="search-icon"><i class="fas fa-font"></i></span>
+                            <span class="url-text">Typography Rules</span>
+                        </div>
+
+                        <div class="trend-image-container">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1780455949/4_bjnzln.jpg" alt="Typography Rules">
+                        </div>
+
+                        <p>ဘယ် Font ကို သုံးရမယ်၊ ဘယ်နေရာမှာ ဘယ်အရွယ်အစား၊ ဘယ်အထူ သုံးရမယ်ဆိုတဲ့ စည်းမျဉ်းပါ။</p>
+                        <div class="brand-highlight">
+                            <p>ဥပမာ</p>
+                            <p class="mt-3">"ခေါင်းစဉ်ကြီးမှာ Montserrat Bold 32px၊ ကိုယ်ထည်စာမှာ Open Sans Regular 16px သုံးရမယ်" ဆိုပြီး သတ်မှတ်ထားတာမျိုးပါ။</p>
+                            <p class="mt-3">Google ရဲ့ Brand Guideline မှာ "Product Sans" ဆိုတဲ့ သူ့ကိုယ်ပိုင် Font ကိုပဲ သုံးရမယ်လို့ သတ်မှတ်ထားပါတယ်။</p>
+                        </div>
+                    </div>
+
+                    <!-- Tone of Voice Guide -->
+                    <div class="mb-16 blur-fade">
+                        <div class="url-search-title">
+                            <span class="search-icon"><i class="fas fa-comment-dots"></i></span>
+                            <span class="url-text">Tone of Voice Guide</span>
+                        </div>
+
+                        <div class="trend-image-container">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1780455950/5_dfnhtu.jpg" alt="Tone of Voice Guide">
+                        </div>
+
+                        <p>Brand က စာရေးတဲ့အခါ၊ စကားပြောတဲ့အခါ ဘယ်လို လေသံ သုံးရမယ် ဆိုတဲ့ စည်းမျဉ်းပါ။</p>
+                        <div class="brand-highlight">
+                            <p>ဥပမာ</p>
+                            <p class="mt-3">Mailchimp ရဲ့ Guideline မှာ "ပျော်ရွှင်ပါ၊ ဒါပေမယ့် ကလေးဆန်မနေပါနဲ့။ လွတ်လပ်ပေါ့ပါးပါ၊ ဒါပေမယ့် ပရော်ဖက်ရှင်နယ်ဆန်မှု မပျောက်ပါစေနဲ့" လို့ ခွဲပြထားပါတယ်။</p>
+                            <p class="mt-3">ဒါမှ ဘယ်ဝန်ထမ်း ရေးရေး Brand ရဲ့ စကားလေသံ တူနေမှာပါ။</p>
+                        </div>
+                    </div>
+
+                    <!-- Guideline Summary -->
+                    <div class="mb-16 blur-fade">
+                        <div class="url-search-title">
+                            <span class="search-icon"><i class="fas fa-list-check"></i></span>
+                            <span class="url-text">တိုတိုလေးမှတ်ရင်</span>
+                        </div>
+
+                        <p>ဒီအချက် ၄ ချက်ကို ပေါင်းစပ်လိုက်တဲ့အခါ Brand တစ်ခုကို "ဘယ်သူ ကိုင်ကိုင် မပျက်နိုင်တဲ့ စည်းမျဉ်း" ဖြစ်လာပါတယ်။</p>
+                        <div class="brand-note">
+                            <strong>တိုတိုလေးမှတ်ရင်</strong>
+                            <div class="note-list">
+                                <div class="note-row"><strong>Logo</strong><span>သုံးပုံသုံးနည်း စည်းမျဉ်း</span></div>
+                                <div class="note-row"><strong>Color</strong><span>တိကျတဲ့ Code စနစ်</span></div>
+                                <div class="note-row"><strong>Typography</strong><span>Font နှင့် စာသားပုံစံ စည်းမျဉ်း</span></div>
+                                <div class="note-row"><strong>Tone</strong><span>စာရေး/စကားပြော လေသံ</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Final Message -->
+                    <div class="mb-16 blur-fade">
+                        <div class="trend-image-container">
+                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1780455950/website_final_nw7fui.jpg" alt="Visual Guideline next post">
+                        </div>
+
+                        <div class="final-message">
+                            <p class="font-bold text-black">Visual Guideline အပိုင်းကို နောက် Post မှာ အချိန်ကုန်သက်သာအောင် လိုရင်းတိုရှင်း ဆက်ပြောသွားပါမယ်။</p>
+                            <p class="mt-4 font-bold text-black">Thank You!</p>
+                        </div>
+                    </div>
+
+                    <!-- Share Section -->
+                    <div class="border-t border-gray-100 mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center gap-6">
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Share this article</span>
+                        <div class="flex gap-3">
+
+                            <!-- Facebook -->
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-29%2Fpost-29.html"
+                               target="_blank"
+                               class="share-btn"
+                               aria-label="Share on Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+
+                            <!-- X (Twitter) -->
+                            <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-29%2Fpost-29.html&text=Brand%20Guideline%20by%20ART%20de%20ONE"
+                               target="_blank"
+                               class="share-btn"
+                               aria-label="Share on X">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" viewBox="0 0 512 512" fill="currentColor">
+                                    <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/>
+                                </svg>
+                            </a>
+
+                            <!-- LinkedIn -->
+                            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-29%2Fpost-29.html"
+                               target="_blank"
+                               class="share-btn"
+                               aria-label="Share on LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+
+                            <!-- Pinterest -->
+                            <a href="https://pinterest.com/pin/create/button/?url=https%3A%2F%2Fartdeone.com%2Fposts%2Fpost-29%2Fpost-29.html&media=https%3A%2F%2Fres.cloudinary.com%2Fddkd9lxpr%2Fimage%2Fupload%2Fv1780455950%2Fwebsitecover_s10tc1.jpg&description=Brand%20Guideline%20by%20ART%20de%20ONE"
+                               target="_blank"
+                               class="share-btn"
+                               aria-label="Share on Pinterest">
+                                <i class="fab fa-pinterest-p"></i>
+                            </a>
+
+                            <!-- Article Link -->
+                            <a href="https://artdeone.com/posts/post-29/post-29.html"
+                               target="_blank"
+                               class="share-btn"
+                               aria-label="Open article link">
+                                <i class="fas fa-link"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Random Related Articles -->
+        <section class="py-20 bg-gray-50 border-t border-gray-100">
+            <div class="max-w-7xl mx-auto px-4">
+                <h2 class="text-2xl font-bold text-black mb-10 text-center">Related Articles</h2>
+
+                <div id="random-related-posts" class="grid md:grid-cols-3 gap-8">
+                    <!-- JS will populate this -->
+                </div>
+
+                <div class="text-center mt-16">
+                    <a href="../../blog.html" class="nav-btn bg-[#a7e169] text-black px-8 py-3 h-auto inline-flex gap-2 rounded-full font-bold hover:bg-[#ed2939] hover:text-white transition-all">
+                        <i data-feather="arrow-left" class="w-4 h-4"></i> Back to All Posts
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white text-[#323232] py-12 border-t border-gray-200 footer-glow">
+
+    <div class="footer-orb footer-orb-1"></div>
+    <div class="footer-orb footer-orb-2"></div>
+    <div class="footer-orb footer-orb-3"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-5 gap-8">
+                <div>
+                    <span class="text-xl font-bold mb-4 block text-black">ART de ONE</span>
+                    <p class="text-gray-500 text-sm">
+                        Freelance Graphic Designer &amp; Illustrator Portfolio, Blog, Resources and Online Courses
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Quick Links</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/index.html#home" class="text-gray-500 hover:text-black transition duration-300">Home</a></li>
+                        <li><a href="/prompt.html" class="text-gray-500 hover:text-black transition duration-300">Prompts</a></li>
+                        <li><a href="/shop.html" class="text-gray-500 hover:text-black transition duration-300">Shop</a></li>
+                        <li><a href="/blog.html" class="text-gray-500 hover:text-black transition duration-300">Blog</a></li>
+                        <li><a href="/news.html" class="text-gray-500 hover:text-black transition duration-300">News</a></li>
+                        <li><a href="/resources/resources-collection.html" class="text-gray-500 hover:text-black transition duration-300">Resources</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Services</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Logo Design</a></li>
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Social Media</a></li>
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Printing</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Contact</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/index.html#about" class="text-gray-500 hover:text-black transition duration-300">About</a></li>
+                        <li><a href="/index.html#contact" class="text-gray-500 hover:text-black transition duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Legal</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/privacy-policy.html" class="text-gray-500 hover:text-black transition duration-300">Privacy Policy</a></li>
+                        <li><a href="/terms-of-service.html" class="text-gray-500 hover:text-black transition duration-300">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-200 mt-8 pt-8">
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-6">
+
+                    <p class="text-gray-500 text-sm text-center sm:text-left order-2 sm:order-1 sm:w-1/4">
+                        &copy; 2026 ART de ONE. All rights reserved.
+                    </p>
+
+                    <div class="flex flex-wrap items-center justify-center gap-3 order-1 sm:order-2">
+                        <div class="trust-badge group" title="SSL Encrypted Connection">
+                            <div class="badge-icon"><i class="fas fa-lock text-xs"></i></div>
+                            <div class="badge-text">
+                                <span class="badge-label">SSL</span>
+                                <span class="badge-value">Secured</span>
+                            </div>
+                        </div>
+                        <div class="trust-badge group dmca-official-wrapper" title="DMCA.com Protection Status">
+                            <a href="//www.dmca.com/Protection/Status.aspx?ID=04063fb7-27c9-4e80-86e5-bc851bcd5935" title="DMCA.com Protection Status" class="dmca-badge">
+                                <img src="https://images.dmca.com/Badges/dmca-badge-w100-2x1-02.png?ID=04063fb7-27c9-4e80-86e5-bc851bcd5935" alt="DMCA.com Protection Status" style="height: 20px; width: auto; display: block;" />
+                            </a>
+                            <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+                        </div>
+                        <div class="trust-badge group" title="9+ Years Professional Experience">
+                            <div class="badge-icon badge-icon-gold"><i class="fas fa-award text-xs"></i></div>
+                            <div class="badge-text">
+                                <span class="badge-label">Verified</span>
+                                <span class="badge-value">Professional</span>
+                            </div>
+                        </div>
+                        <div class="trust-badge group" title="Google Safe Browsing Verified">
+                            <div class="badge-icon badge-icon-green"><i class="fas fa-check-circle text-xs"></i></div>
+                            <div class="badge-text">
+                                <span class="badge-label">Google</span>
+                                <span class="badge-value">Safe</span>
+                            </div>
+                        </div>
+                        <a href="https://g.page/r/Cb6j-IdtRRWLEAE/review" target="_blank" class="trust-badge group" title="Find us on Google Business">
+                            <div class="badge-icon" style="background-color: #4285F4;">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width:12px;height:12px;fill:white;">
+                                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                                </svg>
+                            </div>
+                            <div class="badge-text">
+                                <span class="badge-label">Google</span>
+                                <span class="badge-value">Business</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="flex justify-center sm:justify-end space-x-6 text-sm order-3 sm:w-1/4">
+                        <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-behance"></i></a>
+                        <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-tiktok"></i></a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="/css-and-js/mobile-smooth-nav.js?v=20260522"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+        feather.replace();
+
+        const allPosts = [
+            { title: "သိထားရမယ့် Visual Identity လိုရင်းတိုရှင်း", date: "June 2, 2026", link: "../post-28/post-28.html", img: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1780389505/websitecover_w2wtks.png" },
+            { title: "Brand Identity ဆိုတာ", date: "June 1, 2026", link: "../post-27/post-27.html", img: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1780283159/websitecover_q3fkje.png" },
+            { title: "တန်ဖိုးထားရမယ့် Green Flag Clients များ", date: "May 31, 2026", link: "../post-26/post-26.html", img: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1780207158/websitecover_ki2t8p.png" },
+            { title: "Freelance Graphic Designer တွေ Pricing သတ်မှတ်တဲ့အခါသိထားရမယ့်အချက်များ", date: "May 29, 2026", link: "../post-25/post-25.html", img: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1780048552/websitecover_lkavfu.png" },
+            { title: "Magnific (or) Freepik အတွက်သိထားရမယ့် Keywords များ (Part-1)", date: "May 26, 2026", link: "../post-24/post-24.html", img: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1779804362/websitecover_otpsrk.png" },
+            { title: "2026 မှာ Gradient Design တွေပြန်လည်အသက်၀င်လာ", date: "May 24, 2026", link: "../post-23/post-23.html", img: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1779635978/websitecover_a0mcxj.jpg" },
+            { title: "ကျောင်းသား၊ ကျောင်းသူများအတွက် Free AI 4 ခု", date: "May 22, 2026", link: "../post-22/post-22.html", img: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1779428178/webcover_i9f5ta.png" },
+            { title: "Freelancer တွေသိထားသင့်တဲ့ Business Rules (၅)ခု", date: "May 18, 2026", link: "../post-21/post-21.html", img: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1779089909/websitecover_u6ssd7.png" },
+            { title: "Prompt Engineering ဆိုတာ ဘာလဲ?", date: "May 15, 2026", link: "../post-20/post-20.html", img: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1778825886/ChatGPT_Image_May_15_2026_11_53_07_AM_imk7q1.jpg" }
+        ];
+
+        // Show the 3 most-latest posts (no shuffle)
+        const selected = allPosts.slice(0, 3);
+
+        const relatedContainer = document.getElementById('random-related-posts');
+        if (relatedContainer) {
+            selected.forEach(post => {
+                relatedContainer.innerHTML += `
+                    <a href="${post.link}" class="related-card group block rounded-2xl overflow-hidden hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-lg">
+                        <div class="h-48 overflow-hidden">
+                            <img src="${post.img}" alt="${post.title}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-black mb-2 group-hover:text-[#a7e169] transition-colors">${post.title}</h3>
+                            <p class="text-xs font-bold text-gray-400 uppercase">${post.date}</p>
+                        </div>
+                    </a>
+                `;
+            });
+        }
+    </script>
+    <script>
+        function toggleMobileResourcesDropdown() {
+            document.getElementById('mobile-resources-sub').classList.toggle('open');
+            document.getElementById('mobile-res-arrow').classList.toggle('rotated');
+        }
+    </script>
+    <script>
+        const blurObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.blur-fade').forEach(el => blurObserver.observe(el));
+    </script>
+    <script src="/js/shop-badge.js"></script>
+    <script type="module" src="/js/nav-auth.js"></script>
+    <script src="/js/theme-mode.js?v=20260521"></script>
+    <script src="/js/theme-toggle.js?v=20260521"></script>
+</body>
+</html>

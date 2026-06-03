@@ -226,6 +226,14 @@ const blogPosts = [
         excerpt: "Visual Identity ဆိုတာ လူတွေ ပထမဆုံး မြင်ရတဲ့ Brand ရဲ့ အပြင်ပန်းဖြစ်ပြီး Logo, Color Palette, Typography နဲ့ Imagery Style တို့နဲ့ Brand ကို မှတ်မိစေတဲ့အကြောင်း မျှဝေပေးပါတယ်။",
         file: "/posts/post-28/post-28.html"
     },
+    {
+        id: 29,
+        title: "သိထားရမယ့် Brand Guideline လိုရင်းတိုရှင်း",
+        date: "June 3, 2026",
+        image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1780455950/websitecover_s10tc1.jpg",
+        excerpt: "Brand Guideline ဆိုတာ Brand တစ်ခုရဲ့ ဖွဲ့စည်းပုံ အခြေခံ ဥပဒေလို စည်းမျဉ်းဖြစ်ပြီး Logo Usage, Color Codes, Typography Rules နဲ့ Tone of Voice Guide တို့ကို တိတိကျကျ သတ်မှတ်ပေးတာဖြစ်ကြောင်း မျှဝေပေးပါတယ်။",
+        file: "/posts/post-29/post-29.html"
+    },
     // Add new posts here as you create them
 ];
 
@@ -263,6 +271,7 @@ function getCategory(postId) {
         26: 'FREELANCE',
         27: 'BRANDING',
         28: 'BRANDING',
+        29: 'BRANDING',
         // Add more categories for new posts
     };
     return categories[postId] || 'ARTICLE';
