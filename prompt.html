@@ -208,18 +208,19 @@
         }
 
         .modal-close {
-            position: absolute;
-            top: 1rem; right: 1rem;
+            position: fixed;
+            top: 16px; right: 16px;
             background: rgba(0, 0, 0, 0.7);
             color: white;
-            width: 40px; height: 40px;
+            width: 44px; height: 44px;
+            min-width: 44px; min-height: 44px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 100;
+            transition: background 0.3s ease, transform 0.3s ease;
+            z-index: 9999;
         }
         .modal-close:hover {
             background: #ed2939;
@@ -318,12 +319,6 @@
             .modal-left {
                 height: 55%;
                 min-height: 240px;
-            }
-            .modal-close {
-                width: 34px;
-                height: 34px;
-                top: 0.5rem;
-                right: 0.5rem;
             }
             .modal-body {
                 padding: 1rem;
@@ -816,10 +811,10 @@
 
     <!-- Modal -->
     <div id="prompt-modal" class="modal">
+        <div class="modal-close" onclick="closeModal()">
+            <i class="fas fa-times"></i>
+        </div>
         <div class="modal-content">
-            <div class="modal-close" onclick="closeModal()">
-                <i class="fas fa-times"></i>
-            </div>
             <div class="modal-left relative bg-gray-100 flex flex-col md:flex-row overflow-hidden">
                 <div class="modal-image-container flex-1 w-full h-full flex items-center justify-center p-4 md:p-8 bg-gray-100 relative min-h-0">
                     <img id="modal-image-main" class="max-w-full max-h-full object-contain shadow-lg rounded-3xl mx-auto" src="" alt="Main Image">
