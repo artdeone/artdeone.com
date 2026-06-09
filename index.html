@@ -909,6 +909,253 @@
             transform: translateY(-2px);
         }
 
+        #logo-panel > .grid {
+            padding: 0.25rem 0.125rem 0.5rem;
+        }
+
+        .logo-policy-card {
+            overflow: hidden;
+        }
+
+        .logo-policy-header {
+            margin-bottom: 1.25rem;
+        }
+
+        .logo-policy-kicker {
+            color: #ed2939;
+            font-size: 0.72rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 0.45rem;
+            text-transform: uppercase;
+        }
+
+        .logo-policy-title {
+            align-items: center;
+            color: #111;
+            display: flex;
+            font-size: 1.15rem;
+            font-weight: 700;
+            gap: 0.7rem;
+            line-height: 1.35;
+            margin-bottom: 0.45rem;
+        }
+
+        .logo-policy-title i {
+            color: #ed2939;
+            flex-shrink: 0;
+        }
+
+        .logo-policy-intro {
+            color: #555;
+            font-size: 0.9rem;
+            line-height: 1.75;
+            max-width: 48rem;
+        }
+
+        .logo-policy-layout {
+            display: grid;
+            gap: 1.25rem;
+        }
+
+        .logo-policy-list {
+            border-top: 1px solid #eeeeee;
+        }
+
+        .logo-policy-item {
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .logo-policy-trigger {
+            align-items: center;
+            background: transparent;
+            border: 0;
+            color: #111;
+            cursor: pointer;
+            display: flex;
+            gap: 0.85rem;
+            padding: 0.95rem 0;
+            text-align: left;
+            transition: color 0.2s ease;
+            width: 100%;
+        }
+
+        .logo-policy-trigger:hover {
+            color: #ed2939;
+        }
+
+        .logo-policy-trigger:focus-visible {
+            border-radius: 0.5rem;
+            outline: 1px solid #a7e169;
+            outline-offset: 3px;
+        }
+
+        .logo-policy-number {
+            align-items: center;
+            border: 1px solid #e5e5e5;
+            border-radius: 9999px;
+            color: #777;
+            display: inline-flex;
+            flex-shrink: 0;
+            font-size: 0.72rem;
+            font-weight: 700;
+            height: 2rem;
+            justify-content: center;
+            transition: border-color 0.2s ease, color 0.2s ease;
+            width: 2rem;
+        }
+
+        .logo-policy-label {
+            min-width: 0;
+        }
+
+        .logo-policy-heading,
+        .logo-policy-summary {
+            display: block;
+        }
+
+        .logo-policy-heading {
+            font-size: 0.94rem;
+            font-weight: 700;
+            line-height: 1.35;
+        }
+
+        .logo-policy-summary {
+            color: #777;
+            font-size: 0.78rem;
+            line-height: 1.45;
+            margin-top: 0.15rem;
+        }
+
+        .logo-policy-chevron {
+            color: #a7e169;
+            flex-shrink: 0;
+            font-size: 0.72rem;
+            margin-left: auto;
+            transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease;
+        }
+
+        .logo-policy-item.is-open .logo-policy-number {
+            border-color: #a7e169;
+            color: #323232;
+        }
+
+        .logo-policy-item.is-open .logo-policy-chevron {
+            transform: rotate(180deg);
+        }
+
+        .logo-policy-body {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.34s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .logo-policy-item.is-open .logo-policy-body {
+            grid-template-rows: 1fr;
+        }
+
+        .logo-policy-body-inner {
+            color: #555;
+            font-size: 0.88rem;
+            line-height: 1.75;
+            overflow: hidden;
+            padding: 0 0.25rem 0 2.85rem;
+            transition: padding-bottom 0.28s ease;
+        }
+
+        .logo-policy-item.is-open .logo-policy-body-inner {
+            padding-bottom: 1rem;
+        }
+
+        .logo-policy-body-inner p + p {
+            margin-top: 0.45rem;
+        }
+
+        .logo-policy-points {
+            display: grid;
+            gap: 0.45rem 0.9rem;
+            margin-top: 0.65rem;
+        }
+
+        .logo-policy-points li {
+            align-items: flex-start;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .logo-policy-points i {
+            color: #a7e169;
+            flex-shrink: 0;
+            margin-top: 0.25rem;
+        }
+
+        .logo-policy-note {
+            color: #323232;
+            font-weight: 600;
+            margin-top: 0.65rem;
+        }
+
+        .logo-policy-inline-note {
+            border: 1px solid #eeeeee;
+            border-radius: 0.5rem;
+            margin-top: 0.9rem;
+            padding: 0.85rem 1rem;
+        }
+
+        .logo-policy-inline-note-title {
+            color: #111;
+            font-size: 0.84rem;
+            font-weight: 700;
+            margin-bottom: 0.35rem;
+        }
+
+        .logo-policy-inline-note p {
+            color: #555;
+            font-size: 0.84rem;
+            line-height: 1.7;
+        }
+
+        .logo-policy-inline-note p + p {
+            margin-top: 0.55rem;
+        }
+
+        @media (min-width: 640px) {
+            .logo-policy-points {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 640px) {
+            .logo-policy-title {
+                align-items: flex-start;
+                font-size: 1.02rem;
+            }
+
+            .logo-policy-trigger {
+                gap: 0.7rem;
+                padding: 0.85rem 0;
+            }
+
+            .logo-policy-number {
+                height: 1.8rem;
+                width: 1.8rem;
+            }
+
+            .logo-policy-body-inner {
+                padding-left: 0;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .logo-policy-body,
+            .logo-policy-body-inner,
+            .logo-policy-chevron,
+            .logo-policy-trigger,
+            .logo-policy-number {
+                transition: none;
+            }
+        }
+
         #freelance .service-panel .bg-gray-50 {
             background: #fafafa;
             border: 1px solid #eaeaea;
@@ -3095,93 +3342,250 @@
                 <div class="service-panels-wrapper">
 
                     <div id="logo-panel" class="service-panel block">
-                        <!-- MAIN LOGO SERVICE CARD -->
-                        <div class="minimalist-card flex flex-col md:flex-row gap-8 items-center panel-child-stagger"
-                            data-aos="fade-up" data-aos-delay="100" style="box-shadow: none;">
-                            <div class="flex-1">
-                                <div class="flex items-center mb-6">
-                                    <div class="icon-circle mr-4"><i class="fas fa-pen-nib"></i></div>
-                                    <h3 class="text-2xl font-bold text-black">Logo Design</h3>
-                                </div>
-                                <p class="text-[#323232] mb-6">လူကြီးမင်း၏ brand identity နှင့် လုပ်ငန်းကိုယ်စားပြုသော
-                                    အမှတ်တံဆိပ်ဒီဇိုင်းများ</p>
-                                <ul class="space-y-3 mb-8 text-[#555]">
-                                    <li class="flex items-start">
-                                        <i class="fas fa-check-circle text-[#a7e169] mr-3 mt-1 pop-in-icon"></i>
-                                        <span>Professional Designer's Concepts <br><span
-                                                class="text-sm text-gray-400 font-light">ပရော်ဖက်ရှင်နယ် ဒီဇိုင်နာ
-                                                ကိုယ်တိုင်ဖန်တီးသော Concept (၂-၃) ခု</span></span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <i class="fas fa-check-circle text-[#a7e169] mr-3 mt-1 pop-in-icon"></i>
-                                        <span>Custom Client Requests (Free) <br><span
-                                                class="text-sm text-gray-400 font-light">Client စိတ်တိုင်းကျ Concept (၂)
-                                                ခု ထပ်မံရေးဆွဲပေးခြင်း</span></span>
-                                    </li>
-                                    <li class="flex items-center">
-                                        <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
-                                        <span>Brand Colors & Usage Guidelines (2 Pages PDF)</span>
-                                    </li>
-                                    <li class="flex items-center">
-                                        <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
-                                        <span>Source Files အစုံအလင် (Ai, EPS, SVG, PNG)</span>
-                                    </li>
-                                    <li class="flex items-center">
-                                        <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
-                                        <span>Free Revision (၃) ခါ</span>
-                                    </li>
-                                    <li class="flex items-center">
-                                        <i class="fas fa-check-circle text-[#a7e169] mr-3 pop-in-icon"></i>
-                                        <span>ကြာချိန် ၃ ရက် မှ ၇ ရက်အတွင်း</span>
-                                    </li>
+                        <!-- LOGO DESIGN PACKAGES -->
+                        <div class="grid md:grid-cols-3 gap-6 panel-child-stagger" data-aos="fade-up" data-aos-delay="100">
+
+                            <!-- Frontier -->
+                            <div class="minimalist-card flex flex-col" style="box-shadow:none;">
+                                <p class="text-2xl font-bold text-[#a7e169] mb-1 leading-tight">Frontier Package</p>
+                                <p class="text-sm text-gray-400 mb-4">Explore New Possibilities</p>
+                                <p class="text-3xl font-bold text-black mb-2">300,000 MMK</p>
+                                <p class="text-sm text-[#555] mb-5">Small Business / Startup များအတွက် သင့်တော်ပါသည်။</p>
+                                <ul class="space-y-2 text-sm text-[#555] mb-8 flex-1">
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Professional Designer's Concepts - ၂ ခု</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Custom Client Request Concepts - ၂ ခု</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Brand Colors & Usage Guidelines - 2 Pages PDF</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Source Files - AI, EPS, SVG, PNG</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Free Revision - ၂ ခါ</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Duration - ၃ ရက် မှ ၇ ရက်</li>
                                 </ul>
+                                <a href="#contact" class="btn-primary w-full block text-center">Choose Frontier</a>
                             </div>
-                            <div class="flex-1 w-full bg-gray-50 p-6 rounded-xl border border-gray-200">
-                                <div class="text-center">
-                                    <p class="text-sm text-gray-500 uppercase tracking-widest mb-2">စတင်သည့်စျေးနှုန်း
-                                    </p>
-                                    <h4 class="text-3xl font-bold text-black mb-6">300,000 MMK</h4>
-                                    <a href="#contact" class="btn-primary w-full block text-center">Contact Us</a>
-                                </div>
+
+                            <!-- Visionary -->
+                            <div class="minimalist-card flex flex-col" style="box-shadow:none;">
+                                <p class="text-2xl font-bold text-[#a7e169] mb-1 leading-tight">Visionary Package</p>
+                                <p class="text-sm text-gray-400 mb-4">Shape the Future</p>
+                                <p class="text-3xl font-bold text-black mb-2">550,000 MMK</p>
+                                <p class="text-sm text-[#555] mb-5">Professional Business များအတွက် Logo + Visual Guideline ပါဝင်ပါသည်။</p>
+                                <ul class="space-y-2 text-sm text-[#555] mb-8 flex-1">
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Professional Designer's Concepts - ၃ ခု</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Custom Client Request Concepts - ၂ ခု</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Visual Guidelines - 5 Pages PDF</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Logo Variations File - AI, PNGs</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Source Files - AI, EPS, SVG, PNG</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Free Revision - ၃ ခါ</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Duration - ၃ ရက် မှ ၇ ရက်</li>
+                                </ul>
+                                <a href="#contact" class="btn-primary w-full block text-center">Choose Visionary</a>
                             </div>
+
+                            <!-- Legacy -->
+                            <div class="minimalist-card flex flex-col" style="box-shadow:none;">
+                                <p class="text-2xl font-bold text-[#a7e169] mb-1 leading-tight">Legacy Package</p>
+                                <p class="text-sm text-gray-400 mb-4">Leave a Lasting Mark</p>
+                                <p class="text-3xl font-bold text-black mb-2">900,000 MMK</p>
+                                <p class="text-sm text-[#555] mb-5">Premium Brand များအတွက် Logo + Brand Identity System အပြည့်အစုံ ပါဝင်ပါသည်။</p>
+                                <ul class="space-y-2 text-sm text-[#555] mb-8 flex-1">
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Brand Discovery & Direction</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Professional Designer's Concepts - ၄ ခု</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Custom Client Request Concepts - ၃ ခု</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Complete Logo System</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Brand Visual Guidelines - 10-12 Pages PDF</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Social Media Starter Kit</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Logo Mockups - ၃ ခု မှ ၅ ခု</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Source Files - AI, EPS, SVG, PNG, PDF</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Free Revision - ၅ ခါ</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Duration - ၇ ရက် မှ ၁၄ ရက်</li>
+                                </ul>
+                                <a href="#contact" class="btn-primary w-full block text-center">Choose Legacy</a>
+                            </div>
+
                         </div>
 
-
-                        <!-- INFO CARD (EXISTING) -->
-                        <div class="mt-8 p-6 bg-white rounded-xl border border-gray-200 shadow-sm panel-child-stagger"
+                        <!-- LOGO PACKAGE POLICIES -->
+                        <div class="logo-policy-card mt-8 p-5 md:p-6 bg-white rounded-xl border border-gray-200 shadow-sm panel-child-stagger"
                             data-aos="fade-up" data-aos-delay="100">
-                            <h4 class="font-semibold text-black mb-3 flex items-center">
-                                <i class="fas fa-info-circle text-[#a7e169] mr-3"></i> Logo Design အတွက် လူကြီးမင်းတို့
-                                သိထားသင့်တဲ့အချက်အလက်များ
-                            </h4>
-                            <ul class="space-y-2 text-[#555] text-sm">
-                                <li class="flex items-start">
-                                    <span class="text-[#a7e169] mr-2">→</span>
-                                    <span>မိမိ၏ brand identity၊ target audience နှင့် design preferences များကို
-                                        ကြိုတင်ဆွေးနွေးခြင်း</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="text-[#a7e169] mr-2">→</span>
-                                    <span>Design concepts ၂-၃ ခု</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="text-[#a7e169] mr-2">→</span>
-                                    <span>ရွေးချယ်ထားသော concept အတွင်းသာ Revisions လုပ်ဆောင်ရပါမည်။</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="text-[#a7e169] mr-2">→</span>
-                                    <span>Revision ဆိုသည်မှာ အသစ်တစ်ခုထပ်မံဖန်တီးခြင်းမဟုတ်ပါ။​</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="text-[#a7e169] mr-2">→</span>
-                                    <span>Final logo အတည်ပြုပြီး၊ source files အားလုံးပေးအပ်ခြင်း</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="text-[#a7e169] mr-2">→</span>
-                                    <span>ကြိုတင်ငွေ ၅၀% ပေးချေခြင်း၊ ကျန် ၅၀% ကို logo finalized လုပ်ပြီး
-                                        ပေးချေခြင်း</span>
-                                </li>
-                            </ul>
+                            <div class="logo-policy-header">
+                                <p class="logo-policy-kicker">Service Policies</p>
+                                <h4 class="logo-policy-title">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>Logo Design Package Policies</span>
+                                </h4>
+                                <p class="logo-policy-intro">Client နှင့် Misunderstanding
+                                    မဖြစ်စေရန် အောက်ပါ Service Policy များကို ကြိုတင်သတ်မှတ်ထားပါသည်။</p>
+                            </div>
+
+                            <div class="logo-policy-layout">
+                                <div class="logo-policy-list" role="list">
+                                    <div class="logo-policy-item is-open" role="listitem">
+                                        <button class="logo-policy-trigger" type="button" id="logo-policy-revision-trigger"
+                                            aria-expanded="true" aria-controls="logo-policy-revision">
+                                            <span class="logo-policy-number">01</span>
+                                            <span class="logo-policy-label">
+                                                <span class="logo-policy-heading">Revision Policy</span>
+                                                <span class="logo-policy-summary">Minor adjustments on the selected logo concept.</span>
+                                            </span>
+                                            <i class="fas fa-chevron-down logo-policy-chevron" aria-hidden="true"></i>
+                                        </button>
+                                        <div id="logo-policy-revision" class="logo-policy-body" role="region"
+                                            aria-labelledby="logo-policy-revision-trigger" aria-hidden="false">
+                                            <div class="logo-policy-body-inner">
+                                                <p>Revision ဆိုသည်မှာ ရွေးချယ်ထားသော Logo Concept အပေါ်တွင်
+                                                    ပြုလုပ်သော Minor Adjustment များကို ဆိုလိုပါသည်။</p>
+                                                <ul class="logo-policy-points">
+                                                    <li><i class="fas fa-check-circle"></i><span>Color Adjustment</span></li>
+                                                    <li><i class="fas fa-check-circle"></i><span>Font Adjustment</span></li>
+                                                    <li><i class="fas fa-check-circle"></i><span>Layout Adjustment</span></li>
+                                                    <li><i class="fas fa-check-circle"></i><span>Spacing Adjustment</span></li>
+                                                    <li><i class="fas fa-check-circle"></i><span>Minor Shape Adjustment</span></li>
+                                                    <li><i class="fas fa-check-circle"></i><span>Alignment Adjustment</span></li>
+                                                </ul>
+                                                <p class="logo-policy-note">Concept အသစ်ပြန်ရေးဆွဲခြင်းကို Revision
+                                                    အဖြစ် မတွက်ပါ။</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="logo-policy-item" role="listitem">
+                                        <button class="logo-policy-trigger" type="button" id="logo-policy-concept-trigger"
+                                            aria-expanded="false" aria-controls="logo-policy-concept">
+                                            <span class="logo-policy-number">02</span>
+                                            <span class="logo-policy-label">
+                                                <span class="logo-policy-heading">Concept Policy</span>
+                                                <span class="logo-policy-summary">Designer concepts and client-requested concepts are handled separately.</span>
+                                            </span>
+                                            <i class="fas fa-chevron-down logo-policy-chevron" aria-hidden="true"></i>
+                                        </button>
+                                        <div id="logo-policy-concept" class="logo-policy-body" role="region"
+                                            aria-labelledby="logo-policy-concept-trigger" aria-hidden="true">
+                                            <div class="logo-policy-body-inner">
+                                                <p>Professional Designer’s Concepts များသည် Designer မှ Brand Direction
+                                                    အပေါ်မူတည်၍ ဖန်တီးသော Concept များဖြစ်ပါသည်။</p>
+                                                <p>Custom Client Request Concepts များသည် Client မှ ပေးထားသော Idea /
+                                                    Reference / Direction အပေါ်မူတည်၍ ဖန်တီးပေးခြင်းဖြစ်ပါသည်။</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="logo-policy-item" role="listitem">
+                                        <button class="logo-policy-trigger" type="button" id="logo-policy-timeline-trigger"
+                                            aria-expanded="false" aria-controls="logo-policy-timeline">
+                                            <span class="logo-policy-number">03</span>
+                                            <span class="logo-policy-label">
+                                                <span class="logo-policy-heading">Timeline Policy</span>
+                                                <span class="logo-policy-summary">Duration starts after complete project information is received.</span>
+                                            </span>
+                                            <i class="fas fa-chevron-down logo-policy-chevron" aria-hidden="true"></i>
+                                        </button>
+                                        <div id="logo-policy-timeline" class="logo-policy-body" role="region"
+                                            aria-labelledby="logo-policy-timeline-trigger" aria-hidden="true">
+                                            <div class="logo-policy-body-inner">
+                                                <p>Project Duration သည် Client မှ လိုအပ်သော Information များ
+                                                    ပြည့်စုံစွာပေးပို့ပြီးနောက်မှ စတင်တွက်ချက်ပါသည်။</p>
+                                                <p class="logo-policy-note">Client Feedback နောက်ကျပါက Project Timeline
+                                                    ပြောင်းလဲနိုင်ပါသည်။</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="logo-policy-item" role="listitem">
+                                        <button class="logo-policy-trigger" type="button" id="logo-policy-files-trigger"
+                                            aria-expanded="false" aria-controls="logo-policy-files">
+                                            <span class="logo-policy-number">04</span>
+                                            <span class="logo-policy-label">
+                                                <span class="logo-policy-heading">Final File Policy</span>
+                                                <span class="logo-policy-summary">Final files are delivered after the approved logo.</span>
+                                            </span>
+                                            <i class="fas fa-chevron-down logo-policy-chevron" aria-hidden="true"></i>
+                                        </button>
+                                        <div id="logo-policy-files" class="logo-policy-body" role="region"
+                                            aria-labelledby="logo-policy-files-trigger" aria-hidden="true">
+                                            <div class="logo-policy-body-inner">
+                                                <p>Final Files များကို Final Logo Approved ဖြစ်ပြီးနောက် ပေးအပ်ပါမည်။</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="logo-policy-item" role="listitem">
+                                        <button class="logo-policy-trigger" type="button" id="logo-policy-payment-trigger"
+                                            aria-expanded="false" aria-controls="logo-policy-payment">
+                                            <span class="logo-policy-number">05</span>
+                                            <span class="logo-policy-label">
+                                                <span class="logo-policy-heading">Payment Policy</span>
+                                                <span class="logo-policy-summary">Advance payment is required before the project starts.</span>
+                                            </span>
+                                            <i class="fas fa-chevron-down logo-policy-chevron" aria-hidden="true"></i>
+                                        </button>
+                                        <div id="logo-policy-payment" class="logo-policy-body" role="region"
+                                            aria-labelledby="logo-policy-payment-trigger" aria-hidden="true">
+                                            <div class="logo-policy-body-inner">
+                                                <p>Project စတင်ရန်အတွက် Advance Payment လိုအပ်ပါသည်။</p>
+                                                <ul class="logo-policy-points">
+                                                    <li><i class="fas fa-check-circle"></i><span>50% Advance Payment</span></li>
+                                                    <li><i class="fas fa-check-circle"></i><span>50% Before Final File Delivery</span></li>
+                                                </ul>
+                                                <p class="logo-policy-note">Final Source Files များကို Payment
+                                                    ပြည့်စုံပြီးနောက် ပေးအပ်ပါမည်။</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="logo-policy-item" role="listitem">
+                                        <button class="logo-policy-trigger" type="button" id="logo-policy-cancellation-trigger"
+                                            aria-expanded="false" aria-controls="logo-policy-cancellation">
+                                            <span class="logo-policy-number">06</span>
+                                            <span class="logo-policy-label">
+                                                <span class="logo-policy-heading">Cancellation Policy</span>
+                                                <span class="logo-policy-summary">Advance payment is non-refundable once work begins.</span>
+                                            </span>
+                                            <i class="fas fa-chevron-down logo-policy-chevron" aria-hidden="true"></i>
+                                        </button>
+                                        <div id="logo-policy-cancellation" class="logo-policy-body" role="region"
+                                            aria-labelledby="logo-policy-cancellation-trigger" aria-hidden="true">
+                                            <div class="logo-policy-body-inner">
+                                                <p>Project စတင်ပြီးနောက် Cancel ပြုလုပ်ပါက Advance Payment ကို Refund
+                                                    ပြန်မပေးပါ။</p>
+                                                <ul class="logo-policy-points">
+                                                    <li><i class="fas fa-check-circle"></i><span>Brand Research ပြုလုပ်ပြီးဖြစ်ခြင်း</span></li>
+                                                    <li><i class="fas fa-check-circle"></i><span>Concept Development စတင်ပြီးဖြစ်ခြင်း</span></li>
+                                                    <li><i class="fas fa-check-circle"></i><span>Designer Working Time အသုံးပြုပြီးဖြစ်ခြင်း</span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="logo-policy-item" role="listitem">
+                                        <button class="logo-policy-trigger" type="button" id="logo-policy-storage-trigger"
+                                            aria-expanded="false" aria-controls="logo-policy-storage">
+                                            <span class="logo-policy-number">07</span>
+                                            <span class="logo-policy-label">
+                                                <span class="logo-policy-heading">File Storage Policy</span>
+                                                <span class="logo-policy-summary">Clients should keep delivered final files safely.</span>
+                                            </span>
+                                            <i class="fas fa-chevron-down logo-policy-chevron" aria-hidden="true"></i>
+                                        </button>
+                                        <div id="logo-policy-storage" class="logo-policy-body" role="region"
+                                            aria-labelledby="logo-policy-storage-trigger" aria-hidden="true">
+                                            <div class="logo-policy-body-inner">
+                                                <p>Final Files များကို Client ထံပေးအပ်ပြီးနောက် Client မှ
+                                                    ကိုယ်တိုင်သိမ်းဆည်းထားရန် လိုအပ်ပါသည်။</p>
+                                                <p>Designer ဘက်မှ Backup File များကို အချိန်အကန့်အသတ်ဖြင့်သာ
+                                                    သိမ်းဆည်းပေးနိုင်ပါသည်။</p>
+                                                <p class="logo-policy-note">အကြံပြု Backup Period — 30 Days</p>
+                                                <div class="logo-policy-inline-note">
+                                                    <p class="logo-policy-inline-note-title">Notes</p>
+                                                    <p>အထက်ပါ Package များသည် Logo Design နှင့် Brand Identity
+                                                        အခြေခံလိုအပ်ချက်များအတွက် စနစ်တကျတည်ဆောက်ထားသော Professional Package
+                                                        Structure ဖြစ်ပါသည်။</p>
+                                                    <p>Brand အရွယ်အစား၊ လိုအပ်သော Deliverables၊ Project Scope နှင့် Timeline
+                                                        အပေါ်မူတည်၍ Custom Quotation များကိုလည်း သီးသန့်ညှိနှိုင်းနိုင်ပါသည်။</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -5154,6 +5558,45 @@
                         child.style.transform = 'none';
                     });
                 }
+            })();
+
+            (function initLogoPolicyAccordion() {
+                const items = document.querySelectorAll('.logo-policy-item');
+                if (!items.length) return;
+
+                const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+                function refreshServiceWrapperHeight() {
+                    const wrapper = document.querySelector('.service-panels-wrapper');
+                    const activePanel = document.querySelector('.service-panel:not(.hidden)');
+                    if (!wrapper || !activePanel || !wrapper.style.height) return;
+                    wrapper.style.height = activePanel.offsetHeight + 'px';
+                }
+
+                function setItemState(item, isOpen) {
+                    const trigger = item.querySelector('.logo-policy-trigger');
+                    const body = item.querySelector('.logo-policy-body');
+                    item.classList.toggle('is-open', isOpen);
+                    if (trigger) trigger.setAttribute('aria-expanded', String(isOpen));
+                    if (body) body.setAttribute('aria-hidden', String(!isOpen));
+                }
+
+                items.forEach(item => {
+                    const trigger = item.querySelector('.logo-policy-trigger');
+                    if (!trigger) return;
+
+                    trigger.addEventListener('click', () => {
+                        const shouldOpen = !item.classList.contains('is-open');
+                        items.forEach(otherItem => {
+                            setItemState(otherItem, otherItem === item && shouldOpen);
+                        });
+
+                        requestAnimationFrame(refreshServiceWrapperHeight);
+                        if (!reduceMotion) {
+                            window.setTimeout(refreshServiceWrapperHeight, 360);
+                        }
+                    });
+                });
             })();
 
             // Scroll indicator

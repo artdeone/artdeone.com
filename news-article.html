@@ -138,6 +138,30 @@
             margin-bottom: 1rem;
             color: #11130f;
         }
+        #article-body .article-list {
+            font-family: 'Noto Sans Myanmar', 'Padauk', 'Myanmar Text', sans-serif;
+            margin: 0 0 1.75rem;
+            padding: 0;
+            list-style: none;
+        }
+        #article-body .article-list li {
+            position: relative;
+            padding-left: 1.4rem;
+            margin-bottom: 0.75rem;
+            color: #323232;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+        #article-body .article-list li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.75rem;
+            width: 0.42rem;
+            height: 0.42rem;
+            border-radius: 9999px;
+            background: #a7e169;
+        }
         #article-body figure img {
             width: 100%;
             height: auto;
@@ -393,6 +417,9 @@
             color: #f3f6ee;
         }
         html[data-theme="dark"] #article-body p {
+            color: #d4d4d4;
+        }
+        html[data-theme="dark"] #article-body .article-list li {
             color: #d4d4d4;
         }
         html[data-theme="dark"] #article-body h2 {
@@ -797,6 +824,16 @@
                 if (block.type === 'heading') {
                     el = document.createElement('h2');
                     el.textContent = block.text;
+                }
+
+                if (block.type === 'list') {
+                    el = document.createElement('ul');
+                    el.className = 'article-list';
+                    block.items.forEach(function(item) {
+                        var li = document.createElement('li');
+                        li.textContent = item;
+                        el.appendChild(li);
+                    });
                 }
 
                 if (block.type === 'image') {
