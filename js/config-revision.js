@@ -10,7 +10,6 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 // Revision System အတွက် Supabase Client
 export const supabaseRevision = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
     auth: {
-        lock: false,
         storageKey: 'sb-artdeone-auth',
         autoRefreshToken: true,        // ✅ Token auto refresh
         persistSession: true,          // ✅ Session ကို localStorage မှာ သိမ်းမယ်
