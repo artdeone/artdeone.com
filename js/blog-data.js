@@ -242,6 +242,14 @@ const blogPosts = [
         excerpt: "Visual Guideline ဆိုတာ Brand ရဲ့ မြင်ရတဲ့ ဒီဇိုင်းပိုင်းကို အာရုံစိုက်ပြီး Logo Spacing, Color Do's & Don'ts, Font Sizes နဲ့ Image Style တို့ကို တိတိကျကျ သတ်မှတ်ပေးတဲ့ လက်တွေ့ဒီဇိုင်းလမ်းပြမြေပုံဖြစ်ကြောင်း မျှဝေပေးပါတယ်။",
         file: "/posts/post-30/post-30.html"
     },
+    {
+        id: 31,
+        title: "Design မှာမမြင်သာပေမယ့် Output မှာအရေးကြီးတဲ့ အချက် (၄)ချက်",
+        date: "June 10, 2026",
+        image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1781101987/websitecover_rfik3m.jpg",
+        excerpt: "Ink Trap, Optical Compensation, Metamerism နဲ့ Rich Black vs Registration Black — design မှာ သိပ်မမြင်သာပေမယ့် final output quality ကို အများကြီးကွာစေတဲ့ အချက် (၄)ချက်ကို မျှဝေပေးပါတယ်။",
+        file: "/posts/post-31/post-31.html"
+    },
     // Add new posts here as you create them
 ];
 
@@ -281,6 +289,7 @@ function getCategory(postId) {
         28: 'BRANDING',
         29: 'BRANDING',
         30: 'BRANDING',
+        31: 'DESIGN',
         // Add more categories for new posts
     };
     return categories[postId] || 'ARTICLE';
