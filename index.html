@@ -909,7 +909,8 @@
             transform: translateY(-2px);
         }
 
-        #logo-panel > .grid {
+        #logo-panel > .grid,
+        #social-panel > .grid {
             padding: 0.25rem 0.125rem 0.5rem;
         }
 
@@ -1160,34 +1161,6 @@
             background: #fafafa;
             border: 1px solid #eaeaea;
             border-radius: 0.5rem;
-        }
-
-        /* Social Media pricing cards */
-        #social-panel .rounded-2xl.border-gray-200 {
-            background: transparent;
-            border: 1px solid #e5e5e5;
-            box-shadow: none;
-            border-radius: 0.75rem;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        #social-panel .rounded-2xl.border-gray-200:hover {
-            border-color: #a7e169;
-            transform: translateY(-2px);
-        }
-
-        /* Add-On Service card */
-        #social-panel .flex.flex-col.sm\:flex-row.items-start.sm\:items-center.gap-5 {
-            background: transparent;
-            border: 1px solid #e5e5e5;
-            box-shadow: none;
-            border-radius: 0.75rem;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        #social-panel .flex.flex-col.sm\:flex-row.items-start.sm\:items-center.gap-5:hover {
-            border-color: #a7e169;
-            transform: translateY(-2px);
         }
 
         /* ═══ PORTFOLIO CARDS — CLEAN & MINIMALIST ═══ */
@@ -3290,9 +3263,8 @@
                         </div>
                         <div>
                             <h3 class="text-xl font-bold text-black mb-3">Our Mission</h3>
-                            <p class="text-gray-500 leading-relaxed font-light text-sm">To help people discover their
-                                passion for digital art and learn professional vector drawing skills. We welcome anyone
-                                who loves to draw or wants to explore their creative side.</p>
+                            <p class="text-gray-500 leading-relaxed font-light text-sm">To become a trusted creative
+                                education platform in Myanmar, connecting design, AI, and lifelong learning.</p>
                         </div>
                     </div>
                     <div class="border border-gray-200 rounded-xl p-8 md:p-10 bg-transparent flex items-start gap-5"
@@ -3302,9 +3274,9 @@
                         </div>
                         <div>
                             <h3 class="text-xl font-bold text-black mb-3">Our Vision</h3>
-                            <p class="text-gray-500 leading-relaxed font-light text-sm">To become Myanmar's leading
-                                creative hub where anyone with a passion for drawing can build a successful career in
-                                digital art and design.</p>
+                            <p class="text-gray-500 leading-relaxed font-light text-sm">To share clear and practical
+                                knowledge in Graphic Design and AI, helping learners grow their creative and digital
+                                skills.</p>
                         </div>
                     </div>
                 </div>
@@ -3610,198 +3582,59 @@
                                 content — keep your brand active and consistent online.</p>
                         </div>
 
-                        <!-- Pricing Cards -->
-                        <div class="grid md:grid-cols-2 gap-5 items-stretch">
+                        <!-- Social Media Packages -->
+                        <div class="grid md:grid-cols-3 gap-6 panel-child-stagger">
 
                             <!-- Standard -->
-                            <div
-                                class="panel-child-stagger flex flex-col bg-white rounded-2xl border border-gray-200 p-8">
-                                <div class="flex items-start justify-between mb-7">
-                                    <div>
-                                        <span
-                                            class="text-[10px] font-semibold uppercase tracking-[0.18em] text-gray-400">Package
-                                            1 · Standard</span>
-                                        <p class="text-sm text-[#555] mt-1.5">8 Designs + 8 Content pieces / month</p>
-                                    </div>
-                                </div>
+                            <div class="minimalist-card flex flex-col" style="box-shadow:none;">
+                                <p class="text-2xl font-bold text-[#a7e169] mb-1 leading-tight">Starter Package</p>
+                                <p class="text-sm text-gray-400 mb-4">Consistent Monthly Presence</p>
+                                <p class="text-3xl font-bold text-black mb-2">336,000 MMK</p>
+                                <p class="text-sm text-[#555] mb-5">Small brands that need regular design and content
+                                    support each month.</p>
+                                <ul class="space-y-2 text-sm text-[#555] mb-8 flex-1">
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Social Media Designs - ၈ ပုံ</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Content Writing - ၈ ခု</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Design Rate - 25,000 MMK / post</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Content Rate - 17,000 MMK / content</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Free Content Calendar</li>
+                                </ul>
+                                <a href="#contact" class="btn-primary w-full block text-center">Choose Starter</a>
+                            </div>
 
-                                <!-- Price -->
-                                <div class="mb-7">
-                                    <span class="text-4xl font-bold text-black tracking-tight">336,000</span>
-                                    <span class="text-sm text-gray-400 ml-1.5">Kyats / month</span>
-                                </div>
-
-                                <!-- Rate Breakdown Table -->
-                                <div class="rounded-xl border border-gray-100 overflow-hidden mb-7">
-                                    <div class="flex justify-between px-4 py-2.5 bg-gray-50 border-b border-gray-100">
-                                        <span
-                                            class="text-[10px] font-semibold uppercase tracking-widest text-gray-400">Service</span>
-                                        <span
-                                            class="text-[10px] font-semibold uppercase tracking-widest text-gray-400">Rate</span>
-                                    </div>
-                                    <div class="flex items-center justify-between px-4 py-3 border-b border-gray-100">
-                                        <div class="flex items-center gap-2.5">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                viewBox="0 0 24 24" fill="none" stroke="#a7e169" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round">
-                                                <rect x="3" y="3" width="18" height="18" rx="2" />
-                                                <circle cx="8.5" cy="8.5" r="1.5" />
-                                                <path d="m21 15-5-5L5 21" />
-                                            </svg>
-                                            <span class="text-sm text-[#323232]">Design × 8</span>
-                                        </div>
-                                        <span class="text-sm text-[#555]">25,000 Ks/post</span>
-                                    </div>
-                                    <div class="flex items-center justify-between px-4 py-3">
-                                        <div class="flex items-center gap-2.5">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                viewBox="0 0 24 24" fill="none" stroke="#a7e169" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round">
-                                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                                                <path d="M14 2v6h6" />
-                                                <line x1="16" y1="13" x2="8" y2="13" />
-                                                <line x1="16" y1="17" x2="8" y2="17" />
-                                            </svg>
-                                            <span class="text-sm text-[#323232]">Content × 8</span>
-                                        </div>
-                                        <span class="text-sm text-[#555]">17,000 Ks/piece</span>
-                                    </div>
-                                </div>
-
-                                <!-- Bonus -->
-                                <div class="flex items-center gap-2.5 py-3.5 border-t border-gray-100 mb-7 mt-auto">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
-                                        fill="none" stroke="#a7e169" stroke-width="2.5" stroke-linecap="round"
-                                        stroke-linejoin="round">
-                                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                                        <polyline points="22 4 12 14.01 9 11.01" />
-                                    </svg>
-                                    <span class="text-sm text-[#555]">Free Content Calendar</span>
-                                </div>
-
-                                <a href="#contact" class="btn-primary w-full block text-center">Get Started</a>
+                            <!-- AI Growth -->
+                            <div class="minimalist-card flex flex-col" style="box-shadow:none;">
+                                <p class="text-2xl font-bold text-[#a7e169] mb-1 leading-tight">AI Growth Package</p>
+                                <p class="text-sm text-gray-400 mb-4">AI-Assisted Design & Content</p>
+                                <p class="text-3xl font-bold text-black mb-2">400,000 MMK</p>
+                                <p class="text-sm text-[#555] mb-5">For brands that want efficient monthly social media
+                                    designs and content created with AI-assisted workflow.</p>
+                                <ul class="space-y-2 text-sm text-[#555] mb-8 flex-1">
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>AI-Assisted Social Media Designs - ၈ ပုံ</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>AI-Assisted Content Writing - ၈ ခု</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Design Rate - 30,000 MMK / post</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Content Rate - 20,000 MMK / content</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Free Design Revisions - ၃ ခါ</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Extra Revisions - 10,000 MMK / revision</li>
+                                </ul>
+                                <a href="#contact" class="btn-primary w-full block text-center">Choose AI Growth</a>
                             </div>
 
                             <!-- Premium -->
-                            <div class="panel-child-stagger flex flex-col bg-white rounded-2xl border border-gray-200 p-8 relative"
-                                style="border-top: 3px solid #a7e169;">
-                                <!-- Recommended Tag -->
-                                <div class="absolute -top-3.5 left-8">
-                                    <span
-                                        class="inline-flex items-center gap-1.5 bg-[#a7e169] text-black text-xs font-semibold px-4 py-1 rounded-full">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <polygon
-                                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                                        </svg>
-                                        Recommended
-                                    </span>
-                                </div>
-
-                                <div class="flex items-start justify-between mb-7 mt-1">
-                                    <div>
-                                        <span
-                                            class="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#6aaf2e]">Package
-                                            2 · Premium</span>
-                                        <p class="text-sm text-[#555] mt-1.5">12 Designs + 12 Content pieces / month</p>
-                                    </div>
-                                </div>
-
-                                <!-- Price -->
-                                <div class="mb-7">
-                                    <span class="text-4xl font-bold text-black tracking-tight">504,000</span>
-                                    <span class="text-sm text-gray-400 ml-1.5">Kyats / month</span>
-                                </div>
-
-                                <!-- Included Table -->
-                                <div class="rounded-xl border border-gray-100 overflow-hidden mb-7">
-                                    <div class="flex justify-between px-4 py-2.5 bg-gray-50 border-b border-gray-100">
-                                        <span
-                                            class="text-[10px] font-semibold uppercase tracking-widest text-gray-400">Included</span>
-                                        <span
-                                            class="text-[10px] font-semibold uppercase tracking-widest text-gray-400">Qty</span>
-                                    </div>
-                                    <div class="flex items-center justify-between px-4 py-3 border-b border-gray-100">
-                                        <div class="flex items-center gap-2.5">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                viewBox="0 0 24 24" fill="none" stroke="#6aaf2e" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round">
-                                                <rect x="3" y="3" width="18" height="18" rx="2" />
-                                                <circle cx="8.5" cy="8.5" r="1.5" />
-                                                <path d="m21 15-5-5L5 21" />
-                                            </svg>
-                                            <span class="text-sm text-[#323232]">Social Media Designs</span>
-                                        </div>
-                                        <span class="text-sm font-semibold text-[#323232]">12</span>
-                                    </div>
-                                    <div class="flex items-center justify-between px-4 py-3">
-                                        <div class="flex items-center gap-2.5">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                viewBox="0 0 24 24" fill="none" stroke="#6aaf2e" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round">
-                                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                                                <path d="M14 2v6h6" />
-                                                <line x1="16" y1="13" x2="8" y2="13" />
-                                                <line x1="16" y1="17" x2="8" y2="17" />
-                                            </svg>
-                                            <span class="text-sm text-[#323232]">Content Pieces</span>
-                                        </div>
-                                        <span class="text-sm font-semibold text-[#323232]">12</span>
-                                    </div>
-                                </div>
-
-                                <!-- Bonuses -->
-                                <div class="space-y-2.5 py-3.5 border-t border-gray-100 mb-7 mt-auto">
-                                    <div class="flex items-center gap-2.5">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                            viewBox="0 0 24 24" fill="none" stroke="#a7e169" stroke-width="2.5"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                                            <polyline points="22 4 12 14.01 9 11.01" />
-                                        </svg>
-                                        <span class="text-sm text-[#555]">Free Boosting Service Charge</span>
-                                    </div>
-                                    <div class="flex items-center gap-2.5">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                            viewBox="0 0 24 24" fill="none" stroke="#a7e169" stroke-width="2.5"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                                            <polyline points="22 4 12 14.01 9 11.01" />
-                                        </svg>
-                                        <span class="text-sm text-[#555]">Free Content Calendar</span>
-                                    </div>
-                                </div>
-
-                                <a href="#contact" class="btn-secondary w-full block text-center">Get Started</a>
-                            </div>
-                        </div>
-
-                        <!-- Add-On Service -->
-                        <div class="mt-6 panel-child-stagger">
-                            <div
-                                class="flex flex-col sm:flex-row items-start sm:items-center gap-5 p-6 bg-white rounded-2xl border border-gray-200">
-                                <div
-                                    class="flex-shrink-0 w-10 h-10 rounded-xl bg-[#323232] flex items-center justify-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                        fill="none" stroke="#a7e169" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round">
-                                        <polygon points="23 7 16 12 23 17 23 7" />
-                                        <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
-                                    </svg>
-                                </div>
-                                <div class="flex-1 min-w-0">
-                                    <p
-                                        class="text-[10px] font-semibold uppercase tracking-[0.18em] text-gray-400 mb-0.5">
-                                        Add-On Service</p>
-                                    <h4 class="font-semibold text-black text-base">Video Editing</h4>
-                                    <p class="text-sm text-gray-400 mt-0.5">Professional video editing for your social
-                                        media content</p>
-                                </div>
-                                <div class="flex items-baseline gap-1.5 flex-shrink-0">
-                                    <span class="text-2xl font-bold text-black">30,000</span>
-                                    <span class="text-xs text-gray-400">Kyats / video</span>
-                                </div>
+                            <div class="minimalist-card flex flex-col" style="box-shadow:none;">
+                                <p class="text-2xl font-bold text-[#a7e169] mb-1 leading-tight">Momentum Package</p>
+                                <p class="text-sm text-gray-400 mb-4">More Posts, More Activity</p>
+                                <p class="text-3xl font-bold text-black mb-2">504,000 MMK</p>
+                                <p class="text-sm text-[#555] mb-5">Growing brands that need more frequent posting and
+                                    consistent monthly communication.</p>
+                                <ul class="space-y-2 text-sm text-[#555] mb-8 flex-1">
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Social Media Designs - ၁၂ ပုံ</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Content Writing - ၁၂ ခု</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Free Boosting Service Charge</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Free Content Calendar</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Monthly Content Direction</li>
+                                </ul>
+                                <a href="#contact" class="btn-primary w-full block text-center">Choose Momentum</a>
                             </div>
                         </div>
                     </div>
