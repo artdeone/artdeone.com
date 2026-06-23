@@ -41,6 +41,8 @@
     Content-Security-Policy = """
       default-src 'self';
       script-src 'self' 'unsafe-inline' 'unsafe-eval'
+        https://cdn.botpress.cloud
+        https://files.bpcontent.cloud
         https://cdn.tailwindcss.com
         https://cdnjs.cloudflare.com
         https://cdn.lordicon.com
@@ -64,6 +66,7 @@
         https://*.firebaseio.com
         https://*.firebasedatabase.app;
       style-src 'self' 'unsafe-inline'
+        https://cdn.botpress.cloud
         https://cdn.tailwindcss.com
         https://cdnjs.cloudflare.com
         https://cdn.lordicon.com
@@ -75,6 +78,8 @@
         https://*.8x8.vc
         https://*.jitsi.net;
       img-src 'self' data: blob:
+        https://*.botpress.cloud
+        https://*.bpcontent.cloud
         https://cdn.lordicon.com
         https://res.cloudinary.com
         https://*.supabase.co
@@ -92,6 +97,7 @@
         https://*.onetcdn.com
         https://*.gravatar.com;
       font-src 'self' data:
+        https://cdn.botpress.cloud
         https://fonts.gstatic.com
         https://cdnjs.cloudflare.com
         https://*.ttwstatic.com
@@ -106,6 +112,9 @@
         https://*.8x8.vc
         https://*.jitsi.net;
       connect-src 'self'
+        https://*.botpress.cloud
+        wss://*.botpress.cloud
+        https://files.bpcontent.cloud
         https://cdn.lordicon.com
         https://*.supabase.co
         wss://*.supabase.co
