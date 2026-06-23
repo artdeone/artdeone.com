@@ -5777,6 +5777,13 @@
          ART de ONE — AI CHATBOT ASSISTANT WIDGET
          Circle button (bottom-right) + Chat window + AI input
          ═══════════════════════════════════════════════════════ -->
+    <!-- ⛔ MANUAL CHATBOT DISABLED — 2026-06-23. Replaced by Botpress webchat
+         (scripts added just before </body>). The whole old widget below is
+         wrapped in <template> so it does NOT render, its <style> does NOT
+         apply, and /js/chatbot.js does NOT load or run. Nothing is deleted.
+         To re-enable the old custom widget: remove this <template ...> tag and
+         its matching </template> below, then remove the two Botpress scripts. -->
+    <template id="ado-manual-chatbot-disabled">
     <div id="artdeone-chatbot-container"
         class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 font-sans flex flex-col items-end gap-4"
         style="font-family: 'Space Grotesk', sans-serif; z-index: 99999;">
@@ -6735,7 +6742,16 @@
         });
     })();
     </script>
+    </template>
     <!-- ART de ONE AI CHATBOT END -->
+
+    <!-- ═══════════════════════════════════════════════════════
+         BOTPRESS WEBCHAT — ART de ONE AI Assistant (added 2026-06-23)
+         Renders the chat bubble + window. Replaces the manual widget above.
+         Manage appearance/content in Botpress → Webchat → Bot Appearance.
+         ═══════════════════════════════════════════════════════ -->
+    <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
+    <script src="https://files.bpcontent.cloud/2026/06/21/06/20260621060744-UCZ348T6.js" defer></script>
 
 </body>
 
