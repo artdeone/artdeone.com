@@ -918,17 +918,65 @@
             overflow: hidden;
         }
 
+        /* Whole-section collapsible trigger */
         .logo-policy-header {
-            margin-bottom: 1.25rem;
+            -webkit-tap-highlight-color: transparent;
+            align-items: flex-start;
+            background: transparent;
+            border: 0;
+            cursor: pointer;
+            display: flex;
+            gap: 1rem;
+            padding: 0;
+            text-align: left;
+            width: 100%;
+        }
+
+        .logo-policy-header-text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .logo-policy-header-chevron {
+            align-items: center;
+            background: #f4faec;
+            border-radius: 9999px;
+            color: #5c8a2c;
+            display: inline-flex;
+            flex-shrink: 0;
+            height: 2.1rem;
+            justify-content: center;
+            margin-top: 0.1rem;
+            transition: background-color 0.2s ease, color 0.2s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            width: 2.1rem;
+        }
+
+        .logo-policy-header-chevron svg {
+            height: 1rem;
+            width: 1rem;
+        }
+
+        .logo-policy-header:hover .logo-policy-header-chevron {
+            background: #ed2939;
+            color: #ffffff;
+        }
+
+        .logo-policy-card.is-expanded .logo-policy-header-chevron {
+            transform: rotate(180deg);
         }
 
         .logo-policy-kicker {
             color: #ed2939;
+            display: block;
             font-size: 0.72rem;
             font-weight: 700;
             line-height: 1;
             margin-bottom: 0.45rem;
             text-transform: uppercase;
+        }
+
+        .logo-policy-intro {
+            display: block;
         }
 
         .logo-policy-title {
@@ -954,206 +1002,103 @@
             max-width: 48rem;
         }
 
-        .logo-policy-layout {
-            display: grid;
-            gap: 1.25rem;
-        }
-
-        .logo-policy-list {
-            border-top: 1px solid #eeeeee;
-        }
-
-        .logo-policy-item {
-            border-bottom: 1px solid #eeeeee;
-        }
-
-        .logo-policy-trigger {
-            align-items: center;
-            background: transparent;
-            border: 0;
-            color: #111;
-            cursor: pointer;
-            display: flex;
-            gap: 0.85rem;
-            padding: 0.95rem 0;
-            text-align: left;
-            transition: color 0.2s ease;
-            width: 100%;
-        }
-
-        .logo-policy-trigger:hover {
-            color: #ed2939;
-        }
-
-        .logo-policy-trigger:focus-visible {
-            border-radius: 0.5rem;
-            outline: 1px solid #a7e169;
-            outline-offset: 3px;
-        }
-
-        .logo-policy-number {
-            align-items: center;
-            border: 1px solid #e5e5e5;
-            border-radius: 9999px;
-            color: #777;
-            display: inline-flex;
-            flex-shrink: 0;
-            font-size: 0.72rem;
-            font-weight: 700;
-            height: 2rem;
-            justify-content: center;
-            transition: border-color 0.2s ease, color 0.2s ease;
-            width: 2rem;
-        }
-
-        .logo-policy-label {
-            min-width: 0;
-        }
-
-        .logo-policy-heading,
-        .logo-policy-summary {
-            display: block;
-        }
-
-        .logo-policy-heading {
-            font-size: 0.94rem;
-            font-weight: 700;
-            line-height: 1.35;
-        }
-
-        .logo-policy-summary {
-            color: #777;
-            font-size: 0.78rem;
-            line-height: 1.45;
-            margin-top: 0.15rem;
-        }
-
-        .logo-policy-chevron {
-            color: #a7e169;
-            flex-shrink: 0;
-            font-size: 0.72rem;
-            margin-left: auto;
-            transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease;
-        }
-
-        .logo-policy-item.is-open .logo-policy-number {
-            border-color: #a7e169;
-            color: #323232;
-        }
-
-        .logo-policy-item.is-open .logo-policy-chevron {
-            transform: rotate(180deg);
-        }
-
-        .logo-policy-body {
+        /* Collapsible body wrapping all policy groups */
+        .logo-policy-collapse {
             display: grid;
             grid-template-rows: 0fr;
-            transition: grid-template-rows 0.34s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .logo-policy-item.is-open .logo-policy-body {
+        .logo-policy-card.is-expanded .logo-policy-collapse {
             grid-template-rows: 1fr;
         }
 
-        .logo-policy-body-inner {
-            color: #555;
-            font-size: 0.88rem;
-            line-height: 1.75;
+        .logo-policy-collapse-inner {
+            min-height: 0;
             overflow: hidden;
-            padding: 0 0.25rem 0 2.85rem;
-            transition: padding-bottom 0.28s ease;
         }
 
-        .logo-policy-item.is-open .logo-policy-body-inner {
-            padding-bottom: 1rem;
+        .logo-policy-card.is-expanded .logo-policy-collapse-inner {
+            padding-top: 1.5rem;
         }
 
-        .logo-policy-body-inner p + p {
-            margin-top: 0.45rem;
+        @media (prefers-reduced-motion: reduce) {
+            .logo-policy-collapse,
+            .logo-policy-header-chevron {
+                transition: none;
+            }
         }
 
-        .logo-policy-points {
-            display: grid;
-            gap: 0.45rem 0.9rem;
-            margin-top: 0.65rem;
+        /* ═══ SERVICE POLICIES — SIMPLE FLAT LIST ═══ */
+        .logo-policy-layout {
+            border-top: 1px solid #e5e5e5;
         }
 
-        .logo-policy-points li {
+        .logo-policy-row {
             align-items: flex-start;
             display: flex;
-            gap: 0.5rem;
+            gap: 0.85rem;
+            padding: 0.9rem 0;
+            border-bottom: 1px solid #e5e5e5;
         }
 
-        .logo-policy-points i {
-            color: #a7e169;
+        .logo-policy-row-icon {
+            align-items: center;
+            color: #9bbf6a;
+            display: inline-flex;
             flex-shrink: 0;
-            margin-top: 0.25rem;
+            height: 1.25rem;
+            justify-content: center;
+            margin-top: 0.05rem;
+            width: 1.25rem;
         }
 
-        .logo-policy-note {
-            color: #323232;
-            font-weight: 600;
-            margin-top: 0.65rem;
+        .logo-policy-row-icon svg {
+            height: 1.1rem;
+            width: 1.1rem;
         }
 
-        .logo-policy-inline-note {
-            border: 1px solid #eeeeee;
-            border-radius: 0.5rem;
-            margin-top: 0.9rem;
-            padding: 0.85rem 1rem;
+        .logo-policy-row-body {
+            min-width: 0;
         }
 
-        .logo-policy-inline-note-title {
-            color: #111;
-            font-size: 0.84rem;
+        .logo-policy-row-name {
+            color: #1a1a1a;
+            font-size: 0.9rem;
             font-weight: 700;
-            margin-bottom: 0.35rem;
+            line-height: 1.3;
         }
 
-        .logo-policy-inline-note p {
-            color: #555;
+        .logo-policy-row-text {
+            color: #6a6a6a;
             font-size: 0.84rem;
-            line-height: 1.7;
+            line-height: 1.55;
+            margin-top: 0.15rem;
         }
 
-        .logo-policy-inline-note p + p {
-            margin-top: 0.55rem;
+        .logo-policy-row-text strong {
+            color: #444;
+            font-weight: 600;
         }
 
-        @media (min-width: 640px) {
-            .logo-policy-points {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
+        .logo-policy-foot {
+            color: #8a8a8a;
+            font-size: 0.8rem;
+            line-height: 1.65;
+            margin-top: 1rem;
+            padding-top: 0.9rem;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .logo-policy-foot strong {
+            color: #5c8a2c;
+            font-weight: 600;
         }
 
         @media (max-width: 640px) {
             .logo-policy-title {
                 align-items: flex-start;
                 font-size: 1.02rem;
-            }
-
-            .logo-policy-trigger {
-                gap: 0.7rem;
-                padding: 0.85rem 0;
-            }
-
-            .logo-policy-number {
-                height: 1.8rem;
-                width: 1.8rem;
-            }
-
-            .logo-policy-body-inner {
-                padding-left: 0;
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .logo-policy-body,
-            .logo-policy-body-inner,
-            .logo-policy-chevron,
-            .logo-policy-trigger,
-            .logo-policy-number {
-                transition: none;
             }
         }
 
@@ -3387,185 +3332,110 @@
                         <!-- LOGO PACKAGE POLICIES -->
                         <div class="logo-policy-card mt-8 p-5 md:p-6 bg-white rounded-xl border border-gray-200 shadow-sm panel-child-stagger"
                             data-aos="fade-up" data-aos-delay="100">
-                            <div class="logo-policy-header">
-                                <p class="logo-policy-kicker">Service Policies</p>
-                                <h4 class="logo-policy-title">
-                                    <i class="fas fa-info-circle"></i>
-                                    <span>Logo Design Package Policies</span>
-                                </h4>
-                                <p class="logo-policy-intro">Client နှင့် Misunderstanding
-                                    မဖြစ်စေရန် အောက်ပါ Service Policy များကို ကြိုတင်သတ်မှတ်ထားပါသည်။</p>
-                            </div>
+                            <button class="logo-policy-header" type="button" id="logo-policy-master-trigger"
+                                aria-expanded="false" aria-controls="logo-policy-master-body">
+                                <span class="logo-policy-header-text">
+                                    <span class="logo-policy-kicker">Service Policies</span>
+                                    <h4 class="logo-policy-title">
+                                        <i class="fas fa-info-circle"></i>
+                                        <span>Logo Design Package Policies</span>
+                                    </h4>
+                                    <span class="logo-policy-intro">Client နှင့် Misunderstanding
+                                        မဖြစ်စေရန် အောက်ပါ Service Policy များကို ကြိုတင်သတ်မှတ်ထားပါသည်။
+                                        <strong style="color:#5c8a2c;font-weight:600;">အသေးစိတ်ကြည့်ရန် နှိပ်ပါ။</strong></span>
+                                </span>
+                                <span class="logo-policy-header-chevron" aria-hidden="true">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                                </span>
+                            </button>
 
+                            <div class="logo-policy-collapse" id="logo-policy-master-body" role="region"
+                                aria-labelledby="logo-policy-master-trigger">
+                            <div class="logo-policy-collapse-inner">
                             <div class="logo-policy-layout">
-                                <div class="logo-policy-list" role="list">
-                                    <div class="logo-policy-item is-open" role="listitem">
-                                        <button class="logo-policy-trigger" type="button" id="logo-policy-revision-trigger"
-                                            aria-expanded="true" aria-controls="logo-policy-revision">
-                                            <span class="logo-policy-number">01</span>
-                                            <span class="logo-policy-label">
-                                                <span class="logo-policy-heading">Revision Policy</span>
-                                                <span class="logo-policy-summary">Minor adjustments on the selected logo concept.</span>
-                                            </span>
-                                            <i class="fas fa-chevron-down logo-policy-chevron" aria-hidden="true"></i>
-                                        </button>
-                                        <div id="logo-policy-revision" class="logo-policy-body" role="region"
-                                            aria-labelledby="logo-policy-revision-trigger" aria-hidden="false">
-                                            <div class="logo-policy-body-inner">
-                                                <p>Revision ဆိုသည်မှာ ရွေးချယ်ထားသော Logo Concept အပေါ်တွင်
-                                                    ပြုလုပ်သော Minor Adjustment များကို ဆိုလိုပါသည်။</p>
-                                                <ul class="logo-policy-points">
-                                                    <li><i class="fas fa-check-circle"></i><span>Color Adjustment</span></li>
-                                                    <li><i class="fas fa-check-circle"></i><span>Font Adjustment</span></li>
-                                                    <li><i class="fas fa-check-circle"></i><span>Layout Adjustment</span></li>
-                                                    <li><i class="fas fa-check-circle"></i><span>Spacing Adjustment</span></li>
-                                                    <li><i class="fas fa-check-circle"></i><span>Minor Shape Adjustment</span></li>
-                                                    <li><i class="fas fa-check-circle"></i><span>Alignment Adjustment</span></li>
-                                                </ul>
-                                                <p class="logo-policy-note">Concept အသစ်ပြန်ရေးဆွဲခြင်းကို Revision
-                                                    အဖြစ် မတွက်ပါ။</p>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <div class="logo-policy-item" role="listitem">
-                                        <button class="logo-policy-trigger" type="button" id="logo-policy-concept-trigger"
-                                            aria-expanded="false" aria-controls="logo-policy-concept">
-                                            <span class="logo-policy-number">02</span>
-                                            <span class="logo-policy-label">
-                                                <span class="logo-policy-heading">Concept Policy</span>
-                                                <span class="logo-policy-summary">Designer concepts and client-requested concepts are handled separately.</span>
-                                            </span>
-                                            <i class="fas fa-chevron-down logo-policy-chevron" aria-hidden="true"></i>
-                                        </button>
-                                        <div id="logo-policy-concept" class="logo-policy-body" role="region"
-                                            aria-labelledby="logo-policy-concept-trigger" aria-hidden="true">
-                                            <div class="logo-policy-body-inner">
-                                                <p>Professional Designer’s Concepts များသည် Designer မှ Brand Direction
-                                                    အပေါ်မူတည်၍ ဖန်တီးသော Concept များဖြစ်ပါသည်။</p>
-                                                <p>Custom Client Request Concepts များသည် Client မှ ပေးထားသော Idea /
-                                                    Reference / Direction အပေါ်မူတည်၍ ဖန်တီးပေးခြင်းဖြစ်ပါသည်။</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="logo-policy-item" role="listitem">
-                                        <button class="logo-policy-trigger" type="button" id="logo-policy-timeline-trigger"
-                                            aria-expanded="false" aria-controls="logo-policy-timeline">
-                                            <span class="logo-policy-number">03</span>
-                                            <span class="logo-policy-label">
-                                                <span class="logo-policy-heading">Timeline Policy</span>
-                                                <span class="logo-policy-summary">Duration starts after complete project information is received.</span>
-                                            </span>
-                                            <i class="fas fa-chevron-down logo-policy-chevron" aria-hidden="true"></i>
-                                        </button>
-                                        <div id="logo-policy-timeline" class="logo-policy-body" role="region"
-                                            aria-labelledby="logo-policy-timeline-trigger" aria-hidden="true">
-                                            <div class="logo-policy-body-inner">
-                                                <p>Project Duration သည် Client မှ လိုအပ်သော Information များ
-                                                    ပြည့်စုံစွာပေးပို့ပြီးနောက်မှ စတင်တွက်ချက်ပါသည်။</p>
-                                                <p class="logo-policy-note">Client Feedback နောက်ကျပါက Project Timeline
-                                                    ပြောင်းလဲနိုင်ပါသည်။</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="logo-policy-item" role="listitem">
-                                        <button class="logo-policy-trigger" type="button" id="logo-policy-files-trigger"
-                                            aria-expanded="false" aria-controls="logo-policy-files">
-                                            <span class="logo-policy-number">04</span>
-                                            <span class="logo-policy-label">
-                                                <span class="logo-policy-heading">Final File Policy</span>
-                                                <span class="logo-policy-summary">Final files are delivered after the approved logo.</span>
-                                            </span>
-                                            <i class="fas fa-chevron-down logo-policy-chevron" aria-hidden="true"></i>
-                                        </button>
-                                        <div id="logo-policy-files" class="logo-policy-body" role="region"
-                                            aria-labelledby="logo-policy-files-trigger" aria-hidden="true">
-                                            <div class="logo-policy-body-inner">
-                                                <p>Final Files များကို Final Logo Approved ဖြစ်ပြီးနောက် ပေးအပ်ပါမည်။</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="logo-policy-item" role="listitem">
-                                        <button class="logo-policy-trigger" type="button" id="logo-policy-payment-trigger"
-                                            aria-expanded="false" aria-controls="logo-policy-payment">
-                                            <span class="logo-policy-number">05</span>
-                                            <span class="logo-policy-label">
-                                                <span class="logo-policy-heading">Payment Policy</span>
-                                                <span class="logo-policy-summary">Advance payment is required before the project starts.</span>
-                                            </span>
-                                            <i class="fas fa-chevron-down logo-policy-chevron" aria-hidden="true"></i>
-                                        </button>
-                                        <div id="logo-policy-payment" class="logo-policy-body" role="region"
-                                            aria-labelledby="logo-policy-payment-trigger" aria-hidden="true">
-                                            <div class="logo-policy-body-inner">
-                                                <p>Project စတင်ရန်အတွက် Advance Payment လိုအပ်ပါသည်။</p>
-                                                <ul class="logo-policy-points">
-                                                    <li><i class="fas fa-check-circle"></i><span>50% Advance Payment</span></li>
-                                                    <li><i class="fas fa-check-circle"></i><span>50% Before Final File Delivery</span></li>
-                                                </ul>
-                                                <p class="logo-policy-note">Final Source Files များကို Payment
-                                                    ပြည့်စုံပြီးနောက် ပေးအပ်ပါမည်။</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="logo-policy-item" role="listitem">
-                                        <button class="logo-policy-trigger" type="button" id="logo-policy-cancellation-trigger"
-                                            aria-expanded="false" aria-controls="logo-policy-cancellation">
-                                            <span class="logo-policy-number">06</span>
-                                            <span class="logo-policy-label">
-                                                <span class="logo-policy-heading">Cancellation Policy</span>
-                                                <span class="logo-policy-summary">Advance payment is non-refundable once work begins.</span>
-                                            </span>
-                                            <i class="fas fa-chevron-down logo-policy-chevron" aria-hidden="true"></i>
-                                        </button>
-                                        <div id="logo-policy-cancellation" class="logo-policy-body" role="region"
-                                            aria-labelledby="logo-policy-cancellation-trigger" aria-hidden="true">
-                                            <div class="logo-policy-body-inner">
-                                                <p>Project စတင်ပြီးနောက် Cancel ပြုလုပ်ပါက Advance Payment ကို Refund
-                                                    ပြန်မပေးပါ။</p>
-                                                <ul class="logo-policy-points">
-                                                    <li><i class="fas fa-check-circle"></i><span>Brand Research ပြုလုပ်ပြီးဖြစ်ခြင်း</span></li>
-                                                    <li><i class="fas fa-check-circle"></i><span>Concept Development စတင်ပြီးဖြစ်ခြင်း</span></li>
-                                                    <li><i class="fas fa-check-circle"></i><span>Designer Working Time အသုံးပြုပြီးဖြစ်ခြင်း</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="logo-policy-item" role="listitem">
-                                        <button class="logo-policy-trigger" type="button" id="logo-policy-storage-trigger"
-                                            aria-expanded="false" aria-controls="logo-policy-storage">
-                                            <span class="logo-policy-number">07</span>
-                                            <span class="logo-policy-label">
-                                                <span class="logo-policy-heading">File Storage Policy</span>
-                                                <span class="logo-policy-summary">Clients should keep delivered final files safely.</span>
-                                            </span>
-                                            <i class="fas fa-chevron-down logo-policy-chevron" aria-hidden="true"></i>
-                                        </button>
-                                        <div id="logo-policy-storage" class="logo-policy-body" role="region"
-                                            aria-labelledby="logo-policy-storage-trigger" aria-hidden="true">
-                                            <div class="logo-policy-body-inner">
-                                                <p>Final Files များကို Client ထံပေးအပ်ပြီးနောက် Client မှ
-                                                    ကိုယ်တိုင်သိမ်းဆည်းထားရန် လိုအပ်ပါသည်။</p>
-                                                <p>Designer ဘက်မှ Backup File များကို အချိန်အကန့်အသတ်ဖြင့်သာ
-                                                    သိမ်းဆည်းပေးနိုင်ပါသည်။</p>
-                                                <p class="logo-policy-note">အကြံပြု Backup Period — 30 Days</p>
-                                                <div class="logo-policy-inline-note">
-                                                    <p class="logo-policy-inline-note-title">Notes</p>
-                                                    <p>အထက်ပါ Package များသည် Logo Design နှင့် Brand Identity
-                                                        အခြေခံလိုအပ်ချက်များအတွက် စနစ်တကျတည်ဆောက်ထားသော Professional Package
-                                                        Structure ဖြစ်ပါသည်။</p>
-                                                    <p>Brand အရွယ်အစား၊ လိုအပ်သော Deliverables၊ Project Scope နှင့် Timeline
-                                                        အပေါ်မူတည်၍ Custom Quotation များကိုလည်း သီးသန့်ညှိနှိုင်းနိုင်ပါသည်။</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                <!-- Payment -->
+                                <div class="logo-policy-row">
+                                    <span class="logo-policy-row-icon" aria-hidden="true">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+                                    </span>
+                                    <div class="logo-policy-row-body">
+                                        <p class="logo-policy-row-name">Payment</p>
+                                        <p class="logo-policy-row-text"><strong>50% Advance</strong> + 50% Before Final File Delivery။</p>
                                     </div>
                                 </div>
+
+                                <!-- Timeline -->
+                                <div class="logo-policy-row">
+                                    <span class="logo-policy-row-icon" aria-hidden="true">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                                    </span>
+                                    <div class="logo-policy-row-body">
+                                        <p class="logo-policy-row-name">Timeline</p>
+                                        <p class="logo-policy-row-text">Information ပြည့်စုံပြီးနောက် Duration စတင်တွက်ချက်ပါသည်။</p>
+                                    </div>
+                                </div>
+
+                                <!-- Revision -->
+                                <div class="logo-policy-row">
+                                    <span class="logo-policy-row-icon" aria-hidden="true">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 2.6-6.4L3 8"/><path d="M3 3v5h5"/></svg>
+                                    </span>
+                                    <div class="logo-policy-row-body">
+                                        <p class="logo-policy-row-name">Revision</p>
+                                        <p class="logo-policy-row-text">Concept အပေါ် Minor Adjustment များသာ — <strong>အသစ်ပြန်ရေးဆွဲခြင်း မပါ။</strong></p>
+                                    </div>
+                                </div>
+
+                                <!-- Concept -->
+                                <div class="logo-policy-row">
+                                    <span class="logo-policy-row-icon" aria-hidden="true">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2z"/><path d="M9 21h6"/></svg>
+                                    </span>
+                                    <div class="logo-policy-row-body">
+                                        <p class="logo-policy-row-name">Concept</p>
+                                        <p class="logo-policy-row-text">Designer-led နှင့် Client Request Concept သီးသန့် ဆောင်ရွက်ပါသည်။</p>
+                                    </div>
+                                </div>
+
+                                <!-- Final Files -->
+                                <div class="logo-policy-row">
+                                    <span class="logo-policy-row-icon" aria-hidden="true">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="m9 15 2 2 4-4"/></svg>
+                                    </span>
+                                    <div class="logo-policy-row-body">
+                                        <p class="logo-policy-row-name">Final Files</p>
+                                        <p class="logo-policy-row-text">Logo Approved ပြီး Payment ပြည့်စုံမှ Source Files ပေးအပ်ပါသည်။</p>
+                                    </div>
+                                </div>
+
+                                <!-- Storage -->
+                                <div class="logo-policy-row">
+                                    <span class="logo-policy-row-icon" aria-hidden="true">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"/></svg>
+                                    </span>
+                                    <div class="logo-policy-row-body">
+                                        <p class="logo-policy-row-name">File Storage</p>
+                                        <p class="logo-policy-row-text">Client ဘက်မှ သိမ်းဆည်းရန် — <strong>Backup 30 Days။</strong></p>
+                                    </div>
+                                </div>
+
+                                <!-- Cancellation -->
+                                <div class="logo-policy-row">
+                                    <span class="logo-policy-row-icon" aria-hidden="true">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6"/><path d="M15 9l-6 6"/></svg>
+                                    </span>
+                                    <div class="logo-policy-row-body">
+                                        <p class="logo-policy-row-name">Cancellation</p>
+                                        <p class="logo-policy-row-text">Project စတင်ပြီးနောက် <strong>Advance Payment Refund ပြန်ပေးမည်မဟုတ်ပါ။</strong></p>
+                                    </div>
+                                </div>
+
+                                <p class="logo-policy-foot">Brand အရွယ်အစား၊ Deliverables နှင့် Scope အပေါ်မူတည်၍
+                                    <strong>Custom Quotation</strong> များကိုလည်း သီးသန့် ညှိနှိုင်းနိုင်ပါသည်။</p>
+
+                            </div>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -3587,64 +3457,104 @@
                                 </div>
                                 <h3 class="text-2xl font-bold text-black">Social Media Design + Content</h3>
                             </div>
-                            <p class="text-sm text-[#555] leading-relaxed">Professional designs paired with engaging
-                                content — keep your brand active and consistent online.</p>
+                            <p class="text-sm text-[#555] leading-relaxed">Professional social media management designed
+                                to grow your brand, not just fill your page — strategic planning, conversion-focused
+                                content, and AI-powered creative production with human quality control.</p>
                         </div>
 
                         <!-- Social Media Packages -->
-                        <div class="grid md:grid-cols-3 gap-6 panel-child-stagger">
+                        <div class="grid md:grid-cols-3 gap-6 panel-child-stagger items-stretch">
 
-                            <!-- Standard -->
+                            <!-- Starter -->
                             <div class="minimalist-card flex flex-col" style="box-shadow:none;">
                                 <p class="text-2xl font-bold text-[#a7e169] mb-1 leading-tight">Starter Package</p>
-                                <p class="text-sm text-gray-400 mb-4">Consistent Monthly Presence</p>
-                                <p class="text-3xl font-bold text-black mb-2">336,000 MMK</p>
-                                <p class="text-sm text-[#555] mb-5">Small brands that need regular design and content
-                                    support each month.</p>
+                                <p class="text-sm text-gray-400 mb-4">Smart Social Media Starter</p>
+                                <p class="text-3xl font-bold text-black mb-2">299,000 MMK<span class="text-sm font-normal text-gray-400"> / month</span></p>
+                                <p class="text-sm text-[#555] mb-5">Startup လုပ်ငန်းငယ်များ၊ ဒေသတွင်း လုပ်ငန်းများနှင့်
+                                    Personal Brand များအတွက် အသင့်တော်ဆုံးဖြစ်ပါသည်။ လစဉ်ကုန်ကျစရိတ် သက်သာစွာဖြင့်
+                                    Social Media Content များကို ပုံမှန် ရရှိစေပါမည်။</p>
                                 <ul class="space-y-2 text-sm text-[#555] mb-8 flex-1">
-                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Social Media Designs - ၈ ပုံ</li>
-                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Content Writing - ၈ ခု</li>
-                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Design Rate - 25,000 MMK / post</li>
-                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Content Rate - 17,000 MMK / content</li>
-                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Free Content Calendar</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>8 Social Media Designs / Month</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>8 Content Captions / Month</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>AI-Assisted Design Workflow</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>AI-Assisted Content Writing</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Content Calendar</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>1 Revision Per Design</li>
                                 </ul>
                                 <a href="#contact" class="btn-primary w-full block text-center">Choose Starter</a>
                             </div>
 
-                            <!-- AI Growth -->
-                            <div class="minimalist-card flex flex-col" style="box-shadow:none;">
-                                <p class="text-2xl font-bold text-[#a7e169] mb-1 leading-tight">AI Growth Package</p>
-                                <p class="text-sm text-gray-400 mb-4">AI-Assisted Design & Content</p>
-                                <p class="text-3xl font-bold text-black mb-2">400,000 MMK</p>
-                                <p class="text-sm text-[#555] mb-5">For brands that want efficient monthly social media
-                                    designs and content created with AI-assisted workflow.</p>
+                            <!-- Growth (Most Popular) -->
+                            <div class="minimalist-card flex flex-col relative border-2 border-[#a7e169]" style="box-shadow:none;">
+                                <span class="absolute -top-3 right-4 inline-flex items-center gap-1.5 bg-[#ed2939] text-white text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+                                    Most Popular
+                                </span>
+                                <p class="text-2xl font-bold text-[#a7e169] mb-1 leading-tight">Growth Package</p>
+                                <p class="text-sm text-gray-400 mb-4">Stronger Brand Consistency</p>
+                                <p class="text-3xl font-bold text-black mb-2">449,000 MMK<span class="text-sm font-normal text-gray-400"> / month</span></p>
+                                <p class="text-sm text-[#555] mb-5">Brand တည်ကြည်မှု ပိုမိုခိုင်မာစေလိုပြီး၊ Audience
+                                    ထံမှ တုံ့ပြန်မှု (Engagement) ပိုမိုမြင့်တက်စေလိုကာ လစဉ် ကြိုတင် Content
+                                    အစီအစဉ်ဖြင့် စနစ်တကျ လုပ်ဆောင်လိုသော လုပ်ငန်းများအတွက် သင့်တော်ပါသည်။</p>
                                 <ul class="space-y-2 text-sm text-[#555] mb-8 flex-1">
-                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>AI-Assisted Social Media Designs - ၈ ပုံ</li>
-                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>AI-Assisted Content Writing - ၈ ခု</li>
-                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Design Rate - 30,000 MMK / post</li>
-                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Content Rate - 20,000 MMK / content</li>
-                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Free Design Revisions - ၃ ခါ</li>
-                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Extra Revisions - 10,000 MMK / revision</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>12 Social Media Designs / Month</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>12 Content Captions / Month</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Content Calendar</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Monthly Content Direction</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Competitor Content Research</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Priority Turnaround</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>2 Revisions Per Design</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-gift text-[#a7e169]"></i>Bonus: Free Monthly Content Planning Session</li>
                                 </ul>
-                                <a href="#contact" class="btn-primary w-full block text-center">Choose AI Growth</a>
+                                <a href="#contact" class="btn-secondary w-full block text-center">Choose Growth</a>
                             </div>
 
-                            <!-- Premium -->
+                            <!-- Momentum -->
                             <div class="minimalist-card flex flex-col" style="box-shadow:none;">
                                 <p class="text-2xl font-bold text-[#a7e169] mb-1 leading-tight">Momentum Package</p>
-                                <p class="text-sm text-gray-400 mb-4">More Posts, More Activity</p>
-                                <p class="text-3xl font-bold text-black mb-2">504,000 MMK</p>
-                                <p class="text-sm text-[#555] mb-5">Growing brands that need more frequent posting and
-                                    consistent monthly communication.</p>
+                                <p class="text-sm text-gray-400 mb-4">Premium Growth Package</p>
+                                <p class="text-3xl font-bold text-black mb-2">599,000 MMK<span class="text-sm font-normal text-gray-400"> / month</span></p>
+                                <p class="text-sm text-[#555] mb-5">Online ပေါ်တွင် ပုံမှန် ပေါ်လွင်ထင်ရှားမှု၊ Audience
+                                    နှင့် ပိုမိုနီးကပ်သော တုံ့ပြန်မှုနှင့် ပြည့်စုံသော လစဉ် Content စနစ်တစ်ခုလုံးကို
+                                    လိုလားသော Brand များအတွက် အထူးသင့်တော်ပါသည်။</p>
                                 <ul class="space-y-2 text-sm text-[#555] mb-8 flex-1">
-                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Social Media Designs - ၁၂ ပုံ</li>
-                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Content Writing - ၁၂ ခု</li>
-                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Free Boosting Service Charge</li>
-                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Free Content Calendar</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>16 Social Media Designs / Month</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>16 Content Captions / Month</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Advanced Content Calendar</li>
                                     <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Monthly Content Direction</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Competitor Monitoring</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Priority Support</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>3 Revisions Per Design</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-[#a7e169]"></i>Basic Boosting Consultation</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-gift text-[#a7e169]"></i>Bonus: Free Monthly Strategy Review</li>
                                 </ul>
                                 <a href="#contact" class="btn-primary w-full block text-center">Choose Momentum</a>
                             </div>
+                        </div>
+
+                        <!-- AI Creative Stack -->
+                        <div class="mt-8 panel-child-stagger bg-gray-50 rounded-xl border border-gray-200 p-6">
+                            <p class="text-sm font-semibold text-black mb-3">AI-Powered Creative Production</p>
+                            <p class="text-sm text-[#555] mb-4">We leverage industry-leading AI creative tools combined
+                                with human creative direction and quality control to produce professional social media
+                                visuals faster and more efficiently.</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-xs font-medium text-[#555] bg-white border border-gray-200 rounded-full px-3 py-1">Midjourney</span>
+                                <span class="text-xs font-medium text-[#555] bg-white border border-gray-200 rounded-full px-3 py-1">GPT Image</span>
+                                <span class="text-xs font-medium text-[#555] bg-white border border-gray-200 rounded-full px-3 py-1">Higgsfield AI</span>
+                                <span class="text-xs font-medium text-[#555] bg-white border border-gray-200 rounded-full px-3 py-1">Kling AI</span>
+                            </div>
+                        </div>
+
+                        <!-- Custom Package CTA -->
+                        <div class="mt-6 panel-child-stagger minimalist-card flex flex-col md:flex-row md:items-center justify-between gap-4" style="box-shadow:none;">
+                            <div>
+                                <p class="text-lg font-bold text-black mb-1">Need Something Different?</p>
+                                <p class="text-sm text-[#555]">Need more posts, more content, or additional marketing
+                                    support? We'll prepare a fully customized package tailored to your business goals
+                                    and monthly budget.</p>
+                            </div>
+                            <a href="#contact" class="btn-primary block text-center whitespace-nowrap flex-shrink-0">Request a Custom Quote</a>
                         </div>
                     </div>
 
@@ -5103,6 +5013,36 @@
                             </div>
                         </a>
 
+                        <a href="https://t.me/phyoemin7" target="_blank" rel="noopener" class="simple-contact-item group">
+                            <div class="flex items-center gap-4">
+                                <div class="icon-circle group-hover:bg-none transition-colors">
+                                    <i class="fab fa-telegram-plane text-lg"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Telegram</p>
+                                    <p class="text-black text-lg font-medium">@phyoemin7</p>
+                                    <p class="text-gray-500 text-sm">အမြန်ဆုံး စာတိုဆက်သွယ်ရန်</p>
+                                </div>
+                                <i
+                                    class="fas fa-arrow-right text-gray-400 group-hover:text-black group-hover:translate-x-1 transition-all"></i>
+                            </div>
+                        </a>
+
+                        <a href="viber://chat?number=%2B959953681497" class="simple-contact-item group">
+                            <div class="flex items-center gap-4">
+                                <div class="icon-circle group-hover:bg-none transition-colors">
+                                    <i class="fab fa-viber text-lg"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Viber</p>
+                                    <p class="text-black text-lg font-medium">09 953 681 497</p>
+                                    <p class="text-gray-500 text-sm">Viber ဖြင့်လည်း ဆက်သွယ်နိုင်ပါသည်</p>
+                                </div>
+                                <i
+                                    class="fas fa-arrow-right text-gray-400 group-hover:text-black group-hover:translate-x-1 transition-all"></i>
+                            </div>
+                        </a>
+
                         <a href="mailto:artdeone.educators@gmail.com" class="simple-contact-item group">
                             <div class="flex items-center gap-4">
                                 <div class="icon-circle group-hover:none transition-colors">
@@ -5402,9 +5342,11 @@
                 }
             })();
 
-            (function initLogoPolicyAccordion() {
-                const items = document.querySelectorAll('.logo-policy-item');
-                if (!items.length) return;
+            (function initLogoPolicyDropdown() {
+                // Whole-section dropdown — collapsed by default, click header to expand/collapse.
+                const card = document.querySelector('.logo-policy-card');
+                const masterTrigger = document.getElementById('logo-policy-master-trigger');
+                if (!card || !masterTrigger) return;
 
                 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -5415,29 +5357,14 @@
                     wrapper.style.height = activePanel.offsetHeight + 'px';
                 }
 
-                function setItemState(item, isOpen) {
-                    const trigger = item.querySelector('.logo-policy-trigger');
-                    const body = item.querySelector('.logo-policy-body');
-                    item.classList.toggle('is-open', isOpen);
-                    if (trigger) trigger.setAttribute('aria-expanded', String(isOpen));
-                    if (body) body.setAttribute('aria-hidden', String(!isOpen));
-                }
+                masterTrigger.addEventListener('click', () => {
+                    const expanded = card.classList.toggle('is-expanded');
+                    masterTrigger.setAttribute('aria-expanded', String(expanded));
 
-                items.forEach(item => {
-                    const trigger = item.querySelector('.logo-policy-trigger');
-                    if (!trigger) return;
-
-                    trigger.addEventListener('click', () => {
-                        const shouldOpen = !item.classList.contains('is-open');
-                        items.forEach(otherItem => {
-                            setItemState(otherItem, otherItem === item && shouldOpen);
-                        });
-
-                        requestAnimationFrame(refreshServiceWrapperHeight);
-                        if (!reduceMotion) {
-                            window.setTimeout(refreshServiceWrapperHeight, 360);
-                        }
-                    });
+                    requestAnimationFrame(refreshServiceWrapperHeight);
+                    if (!reduceMotion) {
+                        window.setTimeout(refreshServiceWrapperHeight, 420);
+                    }
                 });
             })();
 

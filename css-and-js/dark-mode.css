@@ -255,57 +255,61 @@ body.dark-mode .logo-policy-card {
     box-shadow: 0 14px 34px rgba(0, 0, 0, 0.2) !important;
 }
 
-html[data-theme="dark"] .logo-policy-list,
-html[data-theme="dark"] .logo-policy-item,
-html[data-theme="dark"] .logo-policy-inline-note,
-body.dark-mode .logo-policy-list,
-body.dark-mode .logo-policy-item,
-body.dark-mode .logo-policy-inline-note {
-    border-color: var(--ado-dark-border-soft) !important;
+/* Dividers — use the solid border token so strokes are visible on dark */
+html[data-theme="dark"] .logo-policy-layout,
+html[data-theme="dark"] .logo-policy-row,
+html[data-theme="dark"] .logo-policy-foot,
+body.dark-mode .logo-policy-layout,
+body.dark-mode .logo-policy-row,
+body.dark-mode .logo-policy-foot {
+    border-color: var(--ado-dark-border) !important;
 }
 
-html[data-theme="dark"] .logo-policy-number,
-body.dark-mode .logo-policy-number {
-    border-color: var(--ado-dark-border-soft) !important;
-    color: var(--ado-dark-muted) !important;
-}
-
-html[data-theme="dark"] .logo-policy-item.is-open .logo-policy-number,
-body.dark-mode .logo-policy-item.is-open .logo-policy-number {
-    border-color: rgba(167, 225, 105, 0.58) !important;
-    color: var(--ado-dark-text) !important;
-}
-
-html[data-theme="dark"] .logo-policy-trigger,
+/* Header title + kicker + policy names */
 html[data-theme="dark"] .logo-policy-title,
-html[data-theme="dark"] .logo-policy-heading,
-html[data-theme="dark"] .logo-policy-inline-note-title,
-body.dark-mode .logo-policy-trigger,
+html[data-theme="dark"] .logo-policy-row-name,
 body.dark-mode .logo-policy-title,
-body.dark-mode .logo-policy-heading,
-body.dark-mode .logo-policy-inline-note-title {
+body.dark-mode .logo-policy-row-name {
     color: var(--ado-dark-text) !important;
 }
 
+/* Supporting text */
 html[data-theme="dark"] .logo-policy-intro,
-html[data-theme="dark"] .logo-policy-summary,
-html[data-theme="dark"] .logo-policy-body-inner,
-html[data-theme="dark"] .logo-policy-inline-note p,
+html[data-theme="dark"] .logo-policy-row-text,
+html[data-theme="dark"] .logo-policy-foot,
 body.dark-mode .logo-policy-intro,
-body.dark-mode .logo-policy-summary,
-body.dark-mode .logo-policy-body-inner,
-body.dark-mode .logo-policy-inline-note p {
+body.dark-mode .logo-policy-row-text,
+body.dark-mode .logo-policy-foot {
     color: var(--ado-dark-muted) !important;
 }
 
-html[data-theme="dark"] .logo-policy-note,
-body.dark-mode .logo-policy-note {
+html[data-theme="dark"] .logo-policy-row-text strong,
+body.dark-mode .logo-policy-row-text strong {
     color: var(--ado-dark-text) !important;
 }
 
-html[data-theme="dark"] .logo-policy-trigger:hover,
-body.dark-mode .logo-policy-trigger:hover {
-    color: var(--ado-brand-red) !important;
+html[data-theme="dark"] .logo-policy-foot strong,
+body.dark-mode .logo-policy-foot strong {
+    color: var(--ado-brand-green) !important;
+}
+
+/* Row icons */
+html[data-theme="dark"] .logo-policy-row-icon,
+body.dark-mode .logo-policy-row-icon {
+    color: var(--ado-brand-green) !important;
+}
+
+/* Collapsed-section chevron pill */
+html[data-theme="dark"] .logo-policy-header-chevron,
+body.dark-mode .logo-policy-header-chevron {
+    background: var(--ado-dark-surface-2) !important;
+    color: var(--ado-brand-green) !important;
+}
+
+html[data-theme="dark"] .logo-policy-header:hover .logo-policy-header-chevron,
+body.dark-mode .logo-policy-header:hover .logo-policy-header-chevron {
+    background: var(--ado-brand-red) !important;
+    color: #ffffff !important;
 }
 
 html[data-theme="dark"] input,
