@@ -258,6 +258,14 @@ const blogPosts = [
         excerpt: "Pinterest ကို Inspiration အတွက်သုံးတာ မမှားပါဘူး။ Tool ထက် Thinking, Brand fit, Audience fit နဲ့ ကိုယ့် Style ပြန်ဖန်တီးနိုင်တဲ့ Skill က ပိုအရေးကြီးကြောင်း မျှဝေပေးပါတယ်။",
         file: "/posts/post-32/post-32.html"
     },
+    {
+        id: 33,
+        title: "AI ၁ နှစ်စာကို အခမဲ့ (FREE) ပေးထားတဲ့ Atomesus",
+        date: "June 29, 2026",
+        image: "https://res.cloudinary.com/ddkd9lxpr/image/upload/v1782721064/ChatGPT_Image_Jun_29_2026_02_44_07_PM_d8fmtm.jpg",
+        excerpt: "AI Image Generation Tool ဖြစ်တဲ့ Atomesus က AI ၁ နှစ်စာကို အခမဲ့ (FREE) ပေးနေပါတယ်။ Coupon code ATOMESUS နဲ့ register လုပ်နည်း, ဖန်တီးထားတဲ့ AI Images နဲ့ Video ကို မျှဝေပေးပါတယ်။",
+        file: "/posts/post-33/post-33.html"
+    },
     // Add new posts here as you create them
 ];
 
