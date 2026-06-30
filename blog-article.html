@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+    (function(){try{var s=localStorage.getItem('ado-theme-mode');var h=new Date().getHours();var isTimeDark=h>=18||h<4;if(s==='dark'||(s==='system'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches)||(!s&&isTimeDark)){document.documentElement.setAttribute('data-theme','dark');document.documentElement.style.colorScheme='dark';}}catch(e){}})();
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CZRQ0NPPJ2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-CZRQ0NPPJ2');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ART de ONE Blog</title>
+    <meta name="description" content="ART de ONE Blog — design tips, freebies, AI tools and creative resources.">
+    <link rel="canonical" href="https://artdeone.com/blog.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="ART de ONE">
+    <meta property="og:title" content="ART de ONE Blog">
+    <meta property="og:description" content="ART de ONE Blog — design tips, freebies, AI tools and creative resources.">
+    <meta property="og:url" content="https://artdeone.com/blog.html">
+    <meta property="og:image" content="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ART de ONE Blog">
+    <meta name="twitter:description" content="ART de ONE Blog — design tips, freebies, AI tools and creative resources.">
+    <meta name="twitter:image" content="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png">
+
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1769316272/fav-icon_n00lji.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css-and-js/mobile-smooth-nav.css?v=20260522">
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <link rel="stylesheet" href="/css-and-js/theme.css">
+    <link id="ado-dark-mode-css" rel="preload" as="style" href="/css-and-js/dark-mode.css" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/css-and-js/dark-mode.css"></noscript>
+    <link rel="stylesheet" href="/css-and-js/theme-toggle.css?v=20260521">
+
+    <style>
+        /* ── BASE BLOG STYLES (shared chrome + article shell; mirrors posts/post-N) ── */
+        .nav-btn {
+            border-radius: 2rem;
+        }
+        .post-header {
+            padding-top: 8rem;
+            padding-bottom: 4rem;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .post-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #323232;
+        }
+        .post-content h2 {
+            color: #000;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .shorts-container {
+            position: relative;
+            width: min(100%, 360px);
+            aspect-ratio: 9 / 16;
+            margin: 3rem auto;
+            overflow: hidden;
+            border-radius: 1.5rem;
+            background-color: #11130f;
+            box-shadow: 0 18px 40px rgba(17, 19, 15, 0.16);
+        }
+        .shorts-container iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .share-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e5e7eb;
+            color: #6b7280;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .share-btn:hover {
+            background-color: #000;
+            color: #fff;
+            border-color: #000;
+        }
+
+        .related-card {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        .related-card:hover {
+            transform: translateY(-5px);
+            border-color: #a7e169;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+
+        .download-box {
+            background-color: #f9fafb;
+            border: 1px solid #f3f4f6;
+            padding: 2.5rem;
+            border-radius: 1.25rem;
+            text-align: center;
+        }
+
+        .text-accent { color: #a7e169; }
+
+        [data-aos] { transition-duration: 1000ms !important; }
+
+        /* ── Copy-link toast ── */
+        .ado-toast {
+            position: fixed;
+            left: 50%;
+            bottom: 2rem;
+            transform: translateX(-50%) translateY(1rem);
+            background: #11130f;
+            color: #fff;
+            padding: 0.65rem 1.25rem;
+            border-radius: 2rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            z-index: 9999;
+        }
+        .ado-toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ── Glass hamburger button (match index.html) ── */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                width: 48px !important;
+                height: 48px !important;
+                padding: 0 !important;
+                border-radius: 50% !important;
+                background: rgba(120, 120, 120, 0.20) !important;
+                backdrop-filter: blur(12px) !important;
+                -webkit-backdrop-filter: blur(12px) !important;
+                border: 1px solid rgba(0, 0, 0, 0.12) !important;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255,255,255,0.3) !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease !important;
+            }
+            .mobile-menu-btn:hover { background: rgba(120, 120, 120, 0.28) !important; }
+            .mobile-menu-btn:active {
+                transform: scale(0.95) !important;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+            }
+            .mobile-menu-btn .icon-container,
+            .mobile-menu-btn svg {
+                color: #222 !important;
+                stroke: #222 !important;
+            }
+            html:not([data-theme="dark"]) .mobile-menu-btn {
+                box-shadow: none !important;
+            }
+            html[data-theme="dark"] .mobile-menu-btn,
+            body.dark-mode .mobile-menu-btn {
+                background: rgba(60, 60, 60, 0.45) !important;
+                border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            }
+            html[data-theme="dark"] .mobile-menu-btn .icon-container,
+            html[data-theme="dark"] .mobile-menu-btn svg,
+            body.dark-mode .mobile-menu-btn .icon-container,
+            body.dark-mode .mobile-menu-btn svg {
+                color: #fff !important;
+                stroke: #fff !important;
+            }
+        }
+        /* Hamburger icon fix */
+        .hamburger-btn,
+        .mobile-menu-btn,
+        [class*="hamburger"] {
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: none !important;
+            mask-image: none !important;
+            -webkit-mask-image: none !important;
+        }
+        /* DARK MODE OVERRIDES */
+        html[data-theme="dark"] .post-header,
+        body.dark-mode .post-header { border-color: #333; }
+        html[data-theme="dark"] .share-btn,
+        body.dark-mode .share-btn { border-color: #444; color: #bbb; }
+        html[data-theme="dark"] .related-card,
+        body.dark-mode .related-card { background-color: #1e1e1e !important; border-color: #333 !important; }
+        html[data-theme="dark"] .download-box,
+        body.dark-mode .download-box { background-color: #1a1a1a !important; border-color: #333 !important; }
+        html[data-theme="dark"] .post-content,
+        html[data-theme="dark"] .post-content p,
+        body.dark-mode .post-content,
+        body.dark-mode .post-content p { color: rgba(255,255,255,0.85) !important; }
+        html[data-theme="dark"] .related-card h3,
+        body.dark-mode .related-card h3 { color: #fff !important; }
+        html[data-theme="dark"] .related-card p,
+        body.dark-mode .related-card p { color: rgba(255,255,255,0.85) !important; }
+        html[data-theme="dark"] .download-box h3,
+        body.dark-mode .download-box h3 { color: #fff !important; }
+        html[data-theme="dark"] .download-box p,
+        body.dark-mode .download-box p { color: rgba(255,255,255,0.85) !important; }
+    </style>
+    <!-- Per-post styles (injected at runtime from blogContent[id].styles) -->
+    <style id="post-styles"></style>
+
+    <script defer src="https://cdn.amplitude.com/libs/analytics-browser-2.42.3-min.js.gz"></script>
+    <script defer src="https://cdn.amplitude.com/libs/plugin-session-replay-browser-1.30.4-min.js.gz"></script>
+    <script defer src="/js/amplitude-analytics.js?v=20260523"></script>
+</head>
+<body class="bg-white text-[#323232]">
+
+    <nav class="fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 nav-container">
+            <div class="nav-wrapper">
+                <div class="flex justify-between h-16 items-center">
+                    <div class="flex items-center">
+                        <a href="/index.html"><img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1768125759/logo-green_wzaqzh.png" alt="ART de ONE" class="h-10 w-auto"></a>
+                    </div>
+                    
+                    <div class="hidden md:flex items-center space-x-6 nav-center">
+                        <a href="/index.html#home" class="nav-link">Home</a>
+                       <!-- <a href="/courses.html" class="nav-link">Courses</a> -->
+                        <a href="/shop.html" class="nav-link">Shop</a>
+                        <a href="/portfolio/student-gallery.html" class="nav-link">Student</a>
+                        <a href="/blog.html" class="nav-link font-bold text-black" style="color: #000 !important;">Blog</a>
+                        <a href="/news.html" class="nav-link">News</a>
+                        <a href="https://ai.artdeone.com/" class="nav-link">Ai</a>
+                        <div class="nav-dropdown-wrapper">
+                            <a href="/resources/resources-collection.html" class="nav-link" style="display:inline-flex;align-items:center;gap:4px;">Resources <i class="fas fa-chevron-down nav-dropdown-arrow"></i></a>
+                            <div class="nav-dropdown">
+                                <a href="/resources/resources-collection.html">All Resources</a>
+                                <a href="/prompt.html">AI Prompts</a>
+                            </div>
+                        </div>
+                        
+                        <a href="/index.html#contact" class="nav-link">Contact</a>
+                    </div>
+                    
+                    <div class="hidden md:flex items-center gap-3" id="desktopAuth">
+                        <button type="button" id="ado-theme-toggle" class="ado-theme-toggle" title="Switch theme" aria-label="Switch theme">
+                            <span class="ado-theme-toggle-icon"></span>
+                        </button>
+                        <a href="/customer-dashboard.html" class="nav-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
+                    </div>
+                    
+                    <div class="md:hidden flex items-center">
+                        <button type="button" class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md hover:bg-gray-100 focus:outline-none" id="mobile-menu-button">
+                            <div class="icon-container text-black">
+                                <svg class="icon-menu" width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="1" x2="20" y2="1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="0" y1="7" x2="20" y2="7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="0" y1="13" x2="20" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                                <i data-feather="x" class="icon-close"></i>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mobile-menu md:hidden hidden" id="mobile-menu">
+            <div class="py-2 px-4 space-y-1">
+                <a href="/index.html#home" class="block py-2 mobile-nav-link">Home</a>
+                <!-- <a href="/courses.html" class="block py-2 mobile-nav-link">Courses</a> -->
+                <a href="/shop.html" class="block py-2 mobile-nav-link">Shop</a>
+                <a href="/portfolio/student-gallery.html" class="block py-2 mobile-nav-link">Student</a>
+                <a href="/blog.html" class="block py-2 mobile-nav-link font-bold text-black">Blog</a>
+                <a href="/news.html" class="block py-2 mobile-nav-link">News</a>
+                <a href="https://ai.artdeone.com/" class="block py-2 mobile-nav-link">Ai</a>
+                <div>
+                    <button onclick="toggleMobileResourcesDropdown()" class="block py-2 mobile-nav-link w-full text-left" style="display:flex;align-items:center;gap:6px;">
+                        <span>Resources</span>
+                        <i class="fas fa-chevron-down mobile-dropdown-arrow" id="mobile-res-arrow"></i>
+                    </button>
+                    <div class="mobile-sub-menu" id="mobile-resources-sub">
+                        <a href="/resources/resources-collection.html" class="block py-2 pl-6 text-sm text-gray-500 hover:text-black transition">All Resources</a>
+                        <a href="/prompt.html" class="block py-2 pl-6 text-sm text-gray-500 hover:text-black transition">AI Prompts</a>
+                    </div>
+                </div>
+                <a href="/index.html#contact" class="block py-2 mobile-nav-link">Contact</a>
+<a href="/customer-dashboard.html" style="display:inline-flex; align-items:center; gap:0.35rem; background:#ed2939; color:#fff; font-weight:600; border-radius:2rem; padding:0.3rem 0.75rem; font-size:0.75rem; border:1px solid #ed2939; text-decoration:none;"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign in</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="post-header">
+            <div class="max-w-3xl mx-auto px-4 text-center" data-aos="fade-up">
+                <div class="flex items-center justify-center gap-4 text-sm text-gray-500 mb-6">
+                    <span id="post-category" class="uppercase tracking-widest text-accent font-bold"></span>
+                    <span>&bull;</span>
+                    <span id="post-date"></span>
+                </div>
+                <h1 id="post-title" class="text-3xl md:text-5xl font-bold text-black mb-8 leading-tight section-title"></h1>
+                <div class="flex items-center justify-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-black font-bold text-xs border border-gray-200">AD</div>
+                    <div class="text-left">
+                        <p id="post-author" class="text-black text-sm font-semibold">ART de ONE Team</p>
+                        <p class="text-xs text-gray-500">Author</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-12 px-4">
+            <div class="max-w-3xl mx-auto">
+                <div class="rounded-2xl overflow-hidden mb-12 border border-gray-100 shadow-sm" data-aos="fade-up">
+                    <img id="post-thumbnail" src="" alt="" class="w-full h-auto">
+                </div>
+
+                <div class="post-content" id="post-body" data-aos="fade-up"></div>
+
+                <div class="border-t border-gray-100 mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center gap-6">
+                    <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Share this article</span>
+                    <div class="flex gap-3" id="share-buttons">
+                        <button type="button" class="share-btn" data-share="facebook" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></button>
+                        <button type="button" class="share-btn" data-share="twitter" aria-label="Share on X / Twitter"><i class="fab fa-twitter"></i></button>
+                        <button type="button" class="share-btn" data-share="linkedin" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></button>
+                        <button type="button" class="share-btn" data-share="copy" aria-label="Copy link"><i class="fas fa-link"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-gray-50 border-t border-gray-100">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="flex justify-between items-end mb-10">
+                    <h2 class="text-2xl font-bold text-black section-title">Related Articles</h2>
+                    <a href="/blog.html" class="text-sm font-bold text-accent hover:text-black transition-colors uppercase tracking-wider">View all posts &rarr;</a>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8" id="related-posts"></div>
+
+                <div class="text-center mt-16">
+                    <a href="/blog.html" class="nav-btn px-8 py-3 h-auto inline-flex gap-2">
+                        <i data-feather="arrow-left" class="w-4 h-4"></i> Back to All Posts
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white text-[#323232] py-12 border-t border-gray-200 footer-glow">
+    
+    <!-- Sarvam-style circle glow orbs -->
+    <div class="footer-orb footer-orb-1"></div>
+    <div class="footer-orb footer-orb-2"></div>
+    <div class="footer-orb footer-orb-3"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-5 gap-8">
+                <div>
+                    <span class="text-xl font-bold mb-4 block text-black">ART de ONE</span>
+                    <p class="text-gray-500 text-sm">
+                        Freelance Graphic Designer & Illustrator Portfolio, Blog, Resources and Online Courses
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Quick Links</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index.html#home" class="text-gray-500 hover:text-black transition duration-300">Home</a></li>
+                      <!--  <li><a href="courses.html" class="text-gray-500 hover:text-black transition duration-300">Courses</a></li> -->
+                        <li><a href="/prompt.html" class="text-gray-500 hover:text-black transition duration-300">Prompts</a></li>
+                        <li><a href="/shop.html" class="text-gray-500 hover:text-black transition duration-300">Shop</a></li>
+                        <li><a href="/blog.html" class="text-gray-500 hover:text-black transition duration-300">Blog</a></li>
+                        <li><a href="/news.html" class="text-gray-500 hover:text-black transition duration-300">News</a></li>
+                        <li><a href="/resources/resources-collection.html" class="text-gray-500 hover:text-black transition duration-300">Resources</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Services</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Logo Design</a></li>
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Social Media</a></li>
+                        <li><a href="/index.html#freelance" class="text-gray-500 hover:text-black transition duration-300">Printing</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Contact</h3>
+                    <ul class="space-y-2 text-sm">
+                         <li><a href="/index.html#about" class="text-gray-500 hover:text-black transition duration-300">About</a></li>
+                        <li><a href="/index.html#contact" class="text-gray-500 hover:text-black transition duration-300">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Legal</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/privacy-policy.html" class="text-gray-500 hover:text-black transition duration-300">Privacy Policy</a></li>
+                        <li><a href="/terms-of-service.html" class="text-gray-500 hover:text-black transition duration-300">Terms of Service</a></li>
+                    </ul>
+                </div> 
+                <!-- <div>
+                    <h3 class="text-lg font-semibold mb-4 text-black">Classes</h3>
+                    <ul class="space-y-2 text-sm">
+                         <li><a href="courses/basic-illustrator/course-detail-basic.html" class="text-gray-500 hover:text-black transition duration-300">Basic Course</a></li>
+                        <li><a href="courses/intermediate-illustrator/course-detail-intermediate.html" class="text-gray-500 hover:text-black transition duration-300">Intermediate</a></li>
+                        <li><a href="courses/graphic-design/course-detail-graphic-design.html" class="text-gray-500 hover:text-black transition duration-300">Graphic Design</a></li>
+                    </ul>
+                </div> -->
+                
+            </div>
+            <div class="border-t border-gray-200 mt-8 pt-8">
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-6">
+        
+        <!-- Left: Copyright -->
+        <p class="text-gray-500 text-sm text-center sm:text-left order-2 sm:order-1 sm:w-1/4">
+            &copy; 2026 ART de ONE. All rights reserved.
+        </p>
+        
+        <!-- Center: Trust Badges -->
+        <div class="flex flex-wrap items-center justify-center gap-3 order-1 sm:order-2">
+            
+            <!-- Badge 1: SSL Secured -->
+            <div class="trust-badge group" title="SSL Encrypted Connection">
+                <div class="badge-icon">
+                    <i class="fas fa-lock text-xs"></i>
+                </div>
+                <div class="badge-text">
+                    <span class="badge-label">SSL</span>
+                    <span class="badge-value">Secured</span>
+                </div>
+            </div>
+            
+            <!-- Badge 2: DMCA Protected -->
+        <div class="trust-badge group dmca-official-wrapper" title="DMCA.com Protection Status">
+            <a href="//www.dmca.com/Protection/Status.aspx?ID=04063fb7-27c9-4e80-86e5-bc851bcd5935" 
+               title="DMCA.com Protection Status" 
+               class="dmca-badge">
+                <img src="https://images.dmca.com/Badges/dmca-badge-w100-2x1-02.png?ID=04063fb7-27c9-4e80-86e5-bc851bcd5935" 
+                     alt="DMCA.com Protection Status" 
+                     style="height: 20px; width: auto; display: block;" />
+            </a>
+            <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+        </div>
+            
+            <!-- Badge 3: Verified Professional -->
+            <div class="trust-badge group" title="9+ Years Professional Experience">
+                <div class="badge-icon badge-icon-gold">
+                    <i class="fas fa-award text-xs"></i>
+                </div>
+                <div class="badge-text">
+                    <span class="badge-label">Verified</span>
+                    <span class="badge-value">Professional</span>
+                </div>
+            </div>
+            
+            <!-- Badge 4: Safe Browsing -->
+            <div class="trust-badge group" title="Google Safe Browsing Verified">
+                <div class="badge-icon badge-icon-green">
+                    <i class="fas fa-check-circle text-xs"></i>
+                </div>
+                <div class="badge-text">
+                    <span class="badge-label">Google</span>
+                    <span class="badge-value">Safe</span>
+                </div>
+            </div>
+            
+            <!-- Badge 5: Google Business -->
+            <a href="https://g.page/r/Cb6j-IdtRRWLEAE/review" target="_blank" class="trust-badge group" title="Find us on Google Business">
+                <div class="badge-icon" style="background-color: #4285F4;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width:12px;height:12px;fill:white;">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                </div>
+                <div class="badge-text">
+                    <span class="badge-label">Google</span>
+                    <span class="badge-value">Business</span>
+                </div>
+            </a>
+            
+        </div>
+        
+        <!-- Right: Social Icons -->
+        <div class="flex justify-center sm:justify-end space-x-6 text-sm order-3 sm:w-1/4">
+            <a href="https://www.facebook.com/artdeone/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.behance.net/phyomin7" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-behance"></i></a>
+            <a href="https://www.linkedin.com/in/phyo-m-577540186/" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.tiktok.com/@artdeone" target="_blank" class="text-gray-400 hover:text-black transition duration-300"><i class="fab fa-tiktok"></i></a>
+        </div>
+        
+    </div>
+</div>
+
+        </div>
+    </footer>
+
+    <div class="ado-toast" id="ado-toast" role="status" aria-live="polite"></div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="/css-and-js/mobile-smooth-nav.js?v=20260522"></script>
+
+    <!-- Blog data (cards) + blog content (per-post body/styles) -->
+    <script src="/js/blog-data.js"></script>
+    <script src="/js/blog-content.js"></script>
+
+    <!-- ── Article engine: read ?id, look up, render body + share + related ── -->
+    <script>
+    (function () {
+        var REDIRECT = '/blog.html';
+
+        function go(url) { window.location.replace(url); }
+
+        function escapeHtml(s) {
+            return String(s == null ? '' : s)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function absUrl(src) {
+            if (!src) return '';
+            if (/^https?:\/\//i.test(src)) return src;
+            return window.location.origin + (src.charAt(0) === '/' ? src : '/' + src);
+        }
+
+        function upsertMeta(attr, key, content) {
+            var el = document.head.querySelector('meta[' + attr + '="' + key + '"]');
+            if (!el) {
+                el = document.createElement('meta');
+                el.setAttribute(attr, key);
+                document.head.appendChild(el);
+            }
+            el.setAttribute('content', content || '');
+        }
+
+        function upsertCanonical(href) {
+            var el = document.head.querySelector('link[rel="canonical"]');
+            if (!el) {
+                el = document.createElement('link');
+                el.setAttribute('rel', 'canonical');
+                document.head.appendChild(el);
+            }
+            el.setAttribute('href', href);
+        }
+
+        function tagsOf(p) {
+            var c = (typeof blogContent !== 'undefined') ? blogContent[String(p.id)] : null;
+            if (c && c.tags && c.tags.length) return c.tags;
+            if (typeof getCategory === 'function') return [getCategory(p.id)];
+            return ['ARTICLE'];
+        }
+
+        // ---- locate the requested post ----
+        var params = new URLSearchParams(window.location.search);
+        var idParam = params.get('id');
+
+        if (!idParam || typeof blogPosts === 'undefined' || typeof blogContent === 'undefined') {
+            go(REDIRECT);
+            return;
+        }
+
+        var post = blogPosts.find(function (p) { return String(p.id) === String(idParam); });
+        var cdata = blogContent[String(idParam)];
+
+        if (!post || !cdata) {
+            go(REDIRECT);
+            return;
+        }
+
+        // ---- meta / title / OG ----
+        var pageTitle = post.title + ' — ART de ONE';
+        var pageUrl = window.location.href;
+        var heroAbs = absUrl(post.image);
+
+        document.title = pageTitle;
+        upsertMeta('name', 'description', post.excerpt);
+        upsertMeta('property', 'og:type', 'article');
+        upsertMeta('property', 'og:title', pageTitle);
+        upsertMeta('property', 'og:description', post.excerpt);
+        upsertMeta('property', 'og:url', pageUrl);
+        upsertMeta('property', 'og:image', heroAbs);
+        upsertMeta('name', 'twitter:card', 'summary_large_image');
+        upsertMeta('name', 'twitter:title', pageTitle);
+        upsertMeta('name', 'twitter:description', post.excerpt);
+        upsertMeta('name', 'twitter:image', heroAbs);
+        upsertCanonical(pageUrl);
+
+        // ---- per-post styles ----
+        var styleEl = document.getElementById('post-styles');
+        if (styleEl) styleEl.textContent = cdata.styles || '';
+
+        // ---- header ----
+        var tags = (cdata.tags && cdata.tags.length) ? cdata.tags : [cdata.category || 'ARTICLE'];
+        document.getElementById('post-category').textContent = tags[0];
+        document.getElementById('post-date').textContent = post.date;
+        document.getElementById('post-title').textContent = post.title;
+        document.getElementById('post-author').textContent = post.author || 'ART de ONE Team';
+
+        // ---- hero ----
+        var thumb = document.getElementById('post-thumbnail');
+        thumb.src = post.image;
+        thumb.alt = post.title;
+
+        // ---- body (lossless HTML string) ----
+        document.getElementById('post-body').innerHTML = cdata.content || '';
+
+        // ---- share (real URLs, current page) ----
+        var shareTargets = {
+            facebook: function () { return 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(pageUrl); },
+            twitter:  function () { return 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(post.title) + '&url=' + encodeURIComponent(pageUrl); },
+            linkedin: function () { return 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(pageUrl); }
+        };
+
+        var toastEl = document.getElementById('ado-toast');
+        var toastTimer = null;
+        function showToast(msg) {
+            if (!toastEl) return;
+            toastEl.textContent = msg;
+            toastEl.classList.add('show');
+            if (toastTimer) clearTimeout(toastTimer);
+            toastTimer = setTimeout(function () { toastEl.classList.remove('show'); }, 2200);
+        }
+
+        var shareWrap = document.getElementById('share-buttons');
+        if (shareWrap) {
+            shareWrap.addEventListener('click', function (e) {
+                var btn = e.target.closest('[data-share]');
+                if (!btn) return;
+                e.preventDefault();
+                var kind = btn.getAttribute('data-share');
+                if (kind === 'copy') {
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(pageUrl)
+                            .then(function () { showToast('Link copied to clipboard'); })
+                            .catch(function () { showToast('Could not copy link'); });
+                    } else {
+                        showToast('Copy not supported');
+                    }
+                    return;
+                }
+                var target = shareTargets[kind] && shareTargets[kind]();
+                if (target) window.open(target, '_blank', 'noopener,noreferrer');
+            });
+        }
+
+        // ---- related (tag-based, latest-id fallback) ----
+        (function renderRelated() {
+            var container = document.getElementById('related-posts');
+            if (!container) return;
+
+            var tagSet = {};
+            tags.forEach(function (t) { tagSet[String(t).toLowerCase()] = true; });
+
+            var others = blogPosts.filter(function (p) { return String(p.id) !== String(post.id); });
+
+            var pool = others.filter(function (p) {
+                return tagsOf(p).some(function (t) { return tagSet[String(t).toLowerCase()]; });
+            });
+
+            if (pool.length < 3) {
+                var have = {};
+                pool.forEach(function (p) { have[p.id] = true; });
+                var extra = others
+                    .filter(function (p) { return !have[p.id]; })
+                    .sort(function (a, b) { return b.id - a.id; });
+                pool = pool.concat(extra);
+            }
+
+            var picks = pool.slice(0, 3);
+            container.innerHTML = picks.map(function (p) {
+                return '' +
+                    '<a href="blog-article.html?id=' + p.id + '" class="related-card group block">' +
+                        '<div class="h-48 overflow-hidden">' +
+                            '<img src="' + escapeHtml(p.image) + '" alt="' + escapeHtml(p.title) + '" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">' +
+                        '</div>' +
+                        '<div class="p-6">' +
+                            '<h3 class="text-lg font-bold text-black mb-2 group-hover:text-accent transition-colors">' + escapeHtml(p.title) + '</h3>' +
+                            '<p class="text-xs font-bold text-gray-400 uppercase">' + escapeHtml(p.date) + '</p>' +
+                        '</div>' +
+                    '</a>';
+            }).join('');
+        })();
+
+        // ── reveal .blur-fade content ──
+        // Newer posts wrap body sections in `.blur-fade` (opacity:0) and reveal
+        // them with a per-post IntersectionObserver that lived in a trailing
+        // <script> — which the extractor intentionally excluded. This generic
+        // observer replaces all of them (uniform `.blur-fade` → `.visible`).
+        (function revealBlurFade() {
+            var els = document.querySelectorAll('.blur-fade');
+            if (!els.length) return;
+            if (!('IntersectionObserver' in window)) {
+                els.forEach(function (el) { el.classList.add('visible'); });
+                return;
+            }
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, { threshold: 0.15 });
+            els.forEach(function (el) { io.observe(el); });
+        })();
+    })();
+    </script>
+
+    <!-- ── Chrome init (AOS, feather, mobile menu) — runs after body is populated ── -->
+    <script>
+        AOS.init({ duration: 1000, once: true });
+        feather.replace();
+
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+    <script>
+    function toggleMobileResourcesDropdown() {
+        document.getElementById('mobile-resources-sub').classList.toggle('open');
+        document.getElementById('mobile-res-arrow').classList.toggle('rotated');
+    }
+    function toggleMobileProductsDropdown() {
+                document.getElementById('mobile-products-sub').classList.toggle('open');
+                document.getElementById('mobile-prod-arrow').classList.toggle('rotated');
+            }
+    </script>
+    <script src="/js/shop-badge.js"></script>
+    <script type="module" src="/js/nav-auth.js"></script>
+    <script src="/js/theme-mode.js?v=20260521"></script>
+    <script src="/js/theme-toggle.js?v=20260521"></script>
+</body>
+</html>
