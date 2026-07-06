@@ -677,23 +677,157 @@
         }
 
         /* ========================================
-           SIMPLE CONTACT
+           CONTACT — editorial two-column
         ======================================== */
 
-        .simple-contact-item {
-            display: block;
-            padding: 1.5rem 0;
-            border-bottom: 1px solid #e5e5e5;
-            transition: padding-left 0.3s ease;
+        /* ── Layout shell ── */
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        @media (min-width: 900px) {
+            .contact-layout {
+                grid-template-columns: 0.9fr 1.1fr;
+                gap: 4.5rem;
+            }
+        }
+
+        /* ── Left intro column ── */
+        .contact-eyebrow {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #a7e169;
+            margin-bottom: 1rem;
+        }
+
+        .contact-heading {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.05;
+            color: #11130f;
+            margin-bottom: 1.25rem;
+        }
+
+        .contact-lead {
+            font-size: 1rem;
+            font-weight: 300;
+            line-height: 1.9;
+            color: #6b7280;
+            max-width: 30rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-cta {
+            margin-bottom: 2.5rem;
+        }
+
+        .contact-social {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .contact-social-label {
+            font-size: 0.72rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #9ca3af;
+        }
+
+        /* ── Right channel list — clean & complete ── */
+        .contact-channels {
+            border: 1px solid #eceeea;
+            border-radius: 1rem;
+            background-color: #fcfdfb;
+            overflow: hidden;
+        }
+
+        .contact-row {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 1.15rem;
+            padding: 1.25rem 1.4rem;
             text-decoration: none;
+            transition: background-color 0.25s ease;
         }
 
-        .simple-contact-item:hover {
-            padding-left: 0.5rem;
+        .contact-row + .contact-row {
+            border-top: 1px solid #eff1ed;
         }
 
-        .simple-contact-item:last-child {
-            border-bottom: none;
+        a.contact-row:hover {
+            background-color: #ffffff;
+        }
+
+        .contact-row-icon {
+            flex-shrink: 0;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.65rem;
+            background-color: #f2f5ec;
+            color: #4f7a24;
+            font-size: 1rem;
+            transition: background-color 0.25s ease, color 0.25s ease;
+        }
+
+        a.contact-row:hover .contact-row-icon {
+            background-color: #a7e169;
+            color: #11130f;
+        }
+
+        .contact-row-body {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .contact-row-label {
+            font-size: 0.66rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #a8adb2;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-row-value {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #11130f;
+            line-height: 1.3;
+            word-break: break-word;
+        }
+
+        .contact-row-note {
+            font-size: 0.78rem;
+            font-weight: 300;
+            color: #9ca3af;
+            margin-top: 0.25rem;
+            line-height: 1.5;
+        }
+
+        .contact-row-arrow {
+            flex-shrink: 0;
+            margin-left: auto;
+            color: #cbd0d6;
+            font-size: 0.72rem;
+            opacity: 0;
+            transform: translateX(-6px);
+            transition: transform 0.25s ease, opacity 0.25s ease, color 0.25s ease;
+        }
+
+        a.contact-row:hover .contact-row-arrow {
+            opacity: 1;
+            transform: translateX(0);
+            color: #11130f;
         }
 
         .simple-social-link {
@@ -5031,118 +5165,108 @@
 
         <!-- ═══ CONTACT ═══ -->
         <section id="contact" class="py-24 bg-white px-4">
-            <div class="max-w-7xl mx-auto">
-                <div class="text-center mb-16" data-aos="fade-up">
-                    <p class="text-xs font-semibold text-[#a7e169] uppercase tracking-[0.2em] mb-3">Contact Us</p>
-                    <h2 class="text-4xl md:text-5xl font-bold text-black mb-4 tracking-tight">Get In Touch</h2>
-                    <p class="text-gray-500 max-w-lg mx-auto font-light">သိလိုသောအကြောင်းအရာများကို
-                        ဖုန်းဆက်ပြီးမေးမြန်းနိုင်သလို၊ အီးမေးလ်ပို့ခြင်းဖြင့်လည်း ဆက်သွယ်နိုင်ပါသည်။</p>
-                </div>
+            <div class="max-w-6xl mx-auto">
 
-                <div class="max-w-4xl mx-auto">
+                <div class="contact-layout">
 
-                    <div class="space-y-6 mb-0" data-aos="fade-up" data-aos-delay="100">
+                    <!-- Left: intro + CTA + socials -->
+                    <div data-aos="fade-up">
+                        <p class="contact-eyebrow">Contact Us</p>
+                        <h2 class="contact-heading">Let's start<br>a conversation</h2>
+                        <p class="contact-lead">သိလိုသောအကြောင်းအရာများကို
+                            ဖုန်းဆက်ပြီးမေးမြန်းနိုင်သလို၊ အီးမေးလ်ပို့ခြင်းဖြင့်လည်း
+                            ဆက်သွယ်နိုင်ပါသည်။</p>
 
-                        <a href="tel:09953681497" class="simple-contact-item group">
-                            <div class="flex items-center gap-4">
-                                <div class="icon-circle group-hover:bg-none transition-colors">
-                                    <i class="fas fa-phone-alt text-lg"></i>
-                                </div>
-                                <div class="flex-1">
-                                    <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Phone</p>
-                                    <p class="text-black text-lg font-medium">09 953 681 497</p>
-                                    <p class="text-gray-500 text-sm">Mon-Sat, 9am - 6pm</p>
-                                </div>
-                                <i
-                                    class="fas fa-arrow-right text-gray-400 group-hover:text-black group-hover:translate-x-1 transition-all"></i>
-                            </div>
-                        </a>
-
-                        <a href="https://t.me/phyoemin7" target="_blank" rel="noopener" class="simple-contact-item group">
-                            <div class="flex items-center gap-4">
-                                <div class="icon-circle group-hover:bg-none transition-colors">
-                                    <i class="fab fa-telegram-plane text-lg"></i>
-                                </div>
-                                <div class="flex-1">
-                                    <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Telegram</p>
-                                    <p class="text-black text-lg font-medium">@phyoemin7</p>
-                                    <p class="text-gray-500 text-sm">အမြန်ဆုံး စာတိုဆက်သွယ်ရန်</p>
-                                </div>
-                                <i
-                                    class="fas fa-arrow-right text-gray-400 group-hover:text-black group-hover:translate-x-1 transition-all"></i>
-                            </div>
-                        </a>
-
-                        <a href="viber://chat?number=%2B959953681497" class="simple-contact-item group">
-                            <div class="flex items-center gap-4">
-                                <div class="icon-circle group-hover:bg-none transition-colors">
-                                    <i class="fab fa-viber text-lg"></i>
-                                </div>
-                                <div class="flex-1">
-                                    <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Viber</p>
-                                    <p class="text-black text-lg font-medium">09 953 681 497</p>
-                                    <p class="text-gray-500 text-sm">Viber ဖြင့်လည်း ဆက်သွယ်နိုင်ပါသည်</p>
-                                </div>
-                                <i
-                                    class="fas fa-arrow-right text-gray-400 group-hover:text-black group-hover:translate-x-1 transition-all"></i>
-                            </div>
-                        </a>
-
-                        <a href="mailto:artdeone.educators@gmail.com" class="simple-contact-item group">
-                            <div class="flex items-center gap-4">
-                                <div class="icon-circle group-hover:none transition-colors">
-                                    <i class="fas fa-envelope text-lg"></i>
-                                </div>
-                                <div class="flex-1">
-                                    <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Email</p>
-                                    <p class="text-black text-lg font-medium break-all leading-snug">
-                                        artdeone.educators@gmail.com</p>
-                                    <p class="text-gray-500 text-sm -mt-0.5">Response within 24 hours</p>
-                                </div>
-                                <i
-                                    class="fas fa-arrow-right text-gray-400 group-hover:text-black group-hover:translate-x-1 transition-all"></i>
-                            </div>
-                        </a>
-
-                        <div class="simple-contact-item">
-                            <div class="flex items-center gap-4">
-                                <div class="icon-circle">
-                                    <i class="fas fa-map-marker-alt text-lg"></i>
-                                </div>
-                                <div class="flex-1">
-                                    <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Location</p>
-                                    <p class="text-black text-lg font-medium leading-tight">Yangon, Myanmar</p>
-                                    <p class="text-gray-500 text-sm mt-0.5">Studio & Teaching Space</p>
-                                </div>
-                            </div>
+                        <div class="contact-cta">
+                            <a href="https://t.me/phyoemin7" target="_blank" rel="noopener"
+                                class="btn-primary">
+                                <i class="fab fa-telegram-plane mr-2"></i>Message on Telegram
+                            </a>
                         </div>
 
-                    </div>
-
-                    <div class="border-t border-gray-300 my-8" data-aos="fade-up" data-aos-delay="200"></div>
-
-                    <div class="text-center" data-aos="fade-up" data-aos-delay="300">
-                        <p class="text-gray-500 text-sm uppercase tracking-wider mb-6">Connect With Us</p>
-                        <div class="flex justify-center gap-6">
+                        <div class="contact-social">
+                            <span class="contact-social-label">Follow</span>
                             <a href="https://www.facebook.com/artdeone/" target="_blank"
-                                class="simple-social-link group">
-                                <i
-                                    class="fab fa-facebook-f text-2xl text-gray-400 group-hover:text-[#ed2939] transition-colors"></i>
+                                class="simple-social-link group" aria-label="Facebook">
+                                <i class="fab fa-facebook-f text-xl text-gray-400 group-hover:text-[#ed2939] transition-colors"></i>
                             </a>
-                            <a href="https://www.behance.net/phyomin7" target="_blank" class="simple-social-link group">
-                                <i
-                                    class="fab fa-behance text-2xl text-gray-400 group-hover:text-[#ed2939] transition-colors"></i>
+                            <a href="https://www.behance.net/phyomin7" target="_blank"
+                                class="simple-social-link group" aria-label="Behance">
+                                <i class="fab fa-behance text-xl text-gray-400 group-hover:text-[#ed2939] transition-colors"></i>
                             </a>
                             <a href="https://www.linkedin.com/in/phyo-min-8b1a02134/" target="_blank"
-                                class="simple-social-link group">
-                                <i
-                                    class="fab fa-linkedin-in text-2xl text-gray-400 group-hover:text-[#ed2939] transition-colors"></i>
+                                class="simple-social-link group" aria-label="LinkedIn">
+                                <i class="fab fa-linkedin-in text-xl text-gray-400 group-hover:text-[#ed2939] transition-colors"></i>
                             </a>
-                            <a href="https://www.tiktok.com/@artdeone" target="_blank" class="simple-social-link group">
-                                <i
-                                    class="fab fa-tiktok text-2xl text-gray-400 group-hover:text-[#ed2939] transition-colors"></i>
+                            <a href="https://www.tiktok.com/@artdeone" target="_blank"
+                                class="simple-social-link group" aria-label="TikTok">
+                                <i class="fab fa-tiktok text-xl text-gray-400 group-hover:text-[#ed2939] transition-colors"></i>
                             </a>
                         </div>
+                    </div>
+
+                    <!-- Right: channel list -->
+                    <div class="contact-channels" data-aos="fade-up" data-aos-delay="100">
+
+                        <a href="tel:09953681497" class="contact-row group">
+                            <div class="contact-row-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="contact-row-body">
+                                <p class="contact-row-label">Phone</p>
+                                <p class="contact-row-value">09 953 681 497</p>
+                                <p class="contact-row-note">Mon–Sat, 9am – 6pm</p>
+                            </div>
+                            <i class="fas fa-arrow-right contact-row-arrow"></i>
+                        </a>
+
+                        <a href="https://t.me/phyoemin7" target="_blank" rel="noopener" class="contact-row group">
+                            <div class="contact-row-icon">
+                                <i class="fab fa-telegram-plane"></i>
+                            </div>
+                            <div class="contact-row-body">
+                                <p class="contact-row-label">Telegram</p>
+                                <p class="contact-row-value">@phyoemin7</p>
+                                <p class="contact-row-note">အမြန်ဆုံးဆက်သွယ်ရန်</p>
+                            </div>
+                            <i class="fas fa-arrow-right contact-row-arrow"></i>
+                        </a>
+
+                        <a href="viber://chat?number=%2B959953681497" class="contact-row group">
+                            <div class="contact-row-icon">
+                                <i class="fab fa-viber"></i>
+                            </div>
+                            <div class="contact-row-body">
+                                <p class="contact-row-label">Viber</p>
+                                <p class="contact-row-value">09 953 681 497</p>
+                                <p class="contact-row-note">Viber ဖြင့်လည်း ဆက်သွယ်နိုင်ပါသည်</p>
+                            </div>
+                            <i class="fas fa-arrow-right contact-row-arrow"></i>
+                        </a>
+
+                        <a href="mailto:artdeone.educators@gmail.com" class="contact-row group">
+                            <div class="contact-row-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-row-body">
+                                <p class="contact-row-label">Email</p>
+                                <p class="contact-row-value">artdeone.educators@gmail.com</p>
+                                <p class="contact-row-note">Response within 24 hours</p>
+                            </div>
+                            <i class="fas fa-arrow-right contact-row-arrow"></i>
+                        </a>
+
+                        <div class="contact-row">
+                            <div class="contact-row-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-row-body">
+                                <p class="contact-row-label">Location</p>
+                                <p class="contact-row-value">Yangon, Myanmar</p>
+                                <p class="contact-row-note">Studio &amp; Teaching Space</p>
+                            </div>
+                        </div>
+
                     </div>
 
                 </div>

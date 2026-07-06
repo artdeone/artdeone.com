@@ -1546,281 +1546,557 @@
             display: block;
         }
 
-        /* ── Before / After ── */
-        .ba-pair-wrapper {
+        /* ── Before / After — Drag-to-reveal Comparison ── */
+        @property --ba-pos {
+            syntax: '<length-percentage>';
+            inherits: true;
+            initial-value: 50%;
+        }
+
+        .ba-compare-stage {
             display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            align-items: stretch;
-            margin-bottom: 1.25rem;
-            gap: 0;
-        }
-
-        .ba-pair-wrapper:last-child {
-            margin-bottom: 0;
-        }
-
-        .ba-divider {
-            width: 3.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 0.4rem;
-            flex-shrink: 0;
-            position: relative;
-            z-index: 1;
-        }
-
-        .ba-divider::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: rgba(167, 225, 105, 0.55);
-            transform: translateY(-50%);
-            z-index: -1;
-        }
-
-        .ba-divider-icon {
-            width: 2rem;
-            height: 2rem;
-            border-radius: 50%;
-            background: #a7e169;
-            color: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.85rem;
-            font-weight: 700;
-            box-shadow: 0 2px 10px rgba(167, 225, 105, 0.45);
-            flex-shrink: 0;
-        }
-
-        .ba-card {
-            overflow: hidden;
-            background: #fff;
-            border: 1px solid #e8e8e8;
-            border-radius: 14px;
-            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
-            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .ba-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12);
-            border-color: #a7e169;
-        }
-
-        .ba-card .ba-img-wrapper {
-            overflow: hidden;
-            display: block;
-        }
-
-        .ba-card img {
-            width: 100%;
-            aspect-ratio: 16/9;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .ba-card:hover img {
-            transform: scale(1.04);
-        }
-
-        .ba-card-body {
-            padding: 1rem 1.25rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .ba-card-body p {
-            margin: 0;
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: #323232;
-            line-height: 1.4;
-        }
-
-        .ba-label {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            padding: 0.3rem 0.8rem;
-            border-radius: 999px;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-
-        .ba-label.before {
-            background: #f2f2f2;
-            color: #555;
-            border: 1px solid #e0e0e0;
-        }
-
-        .ba-label.after {
-            background: rgba(167, 225, 105, 0.2);
-            color: #3d6b10;
-            border: 1px solid rgba(167, 225, 105, 0.4);
-        }
-
-        /* ── Chat Bubble Testimonials ── */
-        .bubble-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 1.25rem;
+            grid-template-columns: minmax(0, 1.85fr) minmax(0, 1fr);
+            gap: clamp(1rem, 2.5vw, 1.75rem);
             align-items: start;
         }
 
-        .bubble-card {
-            background: #fff;
-            border: 1px solid rgba(50, 50, 50, 0.1);
-            border-radius: 1.25rem 1.25rem 1.25rem 0.25rem;
-            padding: 1.4rem;
-            transition: all 0.3s ease;
+        .ba-side {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(1rem, 2.5vw, 1.75rem);
+            margin-top: clamp(0.75rem, 2.5vw, 1.75rem);
+        }
+
+        .ba-item {
+            min-width: 0;
+        }
+
+        .ba-compare {
+            --ba-pos: 50%;
             position: relative;
-        }
-
-        .bubble-card:nth-child(2n) {
-            border-radius: 1.25rem 1.25rem 0.25rem 1.25rem;
-            margin-top: 1.5rem;
-        }
-
-        .bubble-card:hover {
-            border-color: #a7e169;
-            transform: translateY(-3px);
-        }
-
-        .bubble-card .bubble-emoji {
-            font-size: 1.5rem;
-            margin-bottom: 0.6rem;
-            display: block;
-        }
-
-        .bubble-card .bubble-text {
-            font-size: 0.875rem;
-            line-height: 1.7;
-            color: #444;
-            margin-bottom: 1rem;
-        }
-
-        .bubble-card .bubble-author {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-
-        .bubble-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: rgba(167, 225, 105, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            font-weight: 700;
-            color: #5a8c1e;
-            flex-shrink: 0;
-        }
-
-        .bubble-name {
-            font-size: 0.78rem;
-            font-weight: 700;
-            color: #111;
-        }
-
-        .bubble-role {
-            font-size: 0.68rem;
-            color: #999;
-        }
-
-        /* ── Creative Desk ── */
-        .desk-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2.5rem;
-            align-items: center;
-            max-width: 100%;
-            overflow-x: clip;
-        }
-
-        .desk-img-wrapper {
-            border-radius: 1.25rem;
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            border-radius: 14px;
             overflow: hidden;
-            position: relative;
-            aspect-ratio: 4/3;
-            background: #111;
+            background: #e8e8e8;
+            touch-action: pan-y;
+            isolation: isolate;
         }
 
-        .desk-img-wrapper img {
+        .ba-compare img {
+            position: absolute;
+            inset: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.92;
-            transition: transform 0.5s ease;
+            object-position: center;
+            display: block;
+            pointer-events: none;
+            user-select: none;
+            -webkit-user-drag: none;
         }
 
-        .desk-img-wrapper:hover img {
-            transform: scale(1.04);
+        .ba-compare .ba-after {
+            z-index: 1;
         }
 
-        .desk-items {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            min-width: 0;
-            max-width: 100%;
+        .ba-compare .ba-before {
+            z-index: 2;
+            clip-path: inset(0 calc(100% - var(--ba-pos)) 0 0);
         }
 
-        .desk-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem 1.25rem;
-            border: 1px solid rgba(50, 50, 50, 0.1);
-            border-radius: 0.875rem;
-            background: #fff;
-            transition: all 0.3s ease;
-            min-width: 0;
-            max-width: 100%;
+        .ba-cap {
+            position: absolute;
+            top: 0.7rem;
+            z-index: 3;
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #fff;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.55);
+            pointer-events: none;
         }
 
-        .desk-item:hover {
-            border-color: #a7e169;
-            transform: translateX(4px);
+        .ba-cap.before {
+            left: 0.85rem;
         }
 
-        .desk-item-icon {
-            width: 40px;
-            height: 40px;
-            background: rgba(167, 225, 105, 0.12);
-            border: 1px solid rgba(167, 225, 105, 0.35);
-            border-radius: 10px;
+        .ba-cap.after {
+            right: 0.85rem;
+        }
+
+        .ba-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: var(--ba-pos);
+            width: 2px;
+            margin-left: -1px;
+            background: #a7e169;
+            z-index: 4;
+            pointer-events: none;
+        }
+
+        .ba-handle {
+            position: absolute;
+            top: 50%;
+            left: var(--ba-pos);
+            transform: translate(-50%, -50%);
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 999px;
+            background: #a7e169;
+            color: #11130f;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
-            flex-shrink: 0;
+            z-index: 5;
+            pointer-events: none;
+            transition: transform 0.2s ease;
         }
 
-        .desk-item-name {
-            font-size: 0.875rem;
+        .ba-handle svg {
+            width: 1.15rem;
+            height: 1.15rem;
+            stroke: currentColor;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+        }
+
+        .ba-compare:hover .ba-handle {
+            transform: translate(-50%, -50%) scale(1.09);
+        }
+
+        .ba-range {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            z-index: 6;
+            background: transparent;
+            -webkit-appearance: none;
+            appearance: none;
+            cursor: ew-resize;
+            touch-action: pan-y;
+        }
+
+        .ba-range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 2.5rem;
+            height: 2.5rem;
+            background: transparent;
+            cursor: ew-resize;
+        }
+
+        .ba-range::-moz-range-thumb {
+            width: 2.5rem;
+            height: 2.5rem;
+            border: 0;
+            background: transparent;
+            cursor: ew-resize;
+        }
+
+        .ba-range::-moz-range-track {
+            background: transparent;
+        }
+
+        .ba-range:focus {
+            outline: none;
+        }
+
+        .ba-compare:focus-within {
+            outline: 2px solid #a7e169;
+            outline-offset: 2px;
+        }
+
+        .ba-name {
+            margin-top: 0.7rem;
+            font-size: 0.9rem;
             font-weight: 600;
+            color: #323232;
+        }
+
+        .ba-name span {
+            color: #767d70;
+            font-weight: 500;
+        }
+
+        @keyframes baNudge {
+            0% {
+                --ba-pos: 50%;
+            }
+
+            28% {
+                --ba-pos: 66%;
+            }
+
+            58% {
+                --ba-pos: 38%;
+            }
+
+            100% {
+                --ba-pos: 50%;
+            }
+        }
+
+        .ba-compare.is-nudging {
+            animation: baNudge 1.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .ba-compare.is-nudging {
+                animation: none;
+            }
+        }
+
+        /* ── Things Students Say — Editorial Quote Wall ── */
+        .quotes-wall {
+            display: grid;
+            grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+            gap: clamp(1.75rem, 4vw, 3.5rem);
+            align-items: start;
+        }
+
+        .quotes-featured {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(1.5rem, 3vw, 2.5rem);
+        }
+
+        .quote-lead {
+            position: relative;
+            padding-left: 1.25rem;
+        }
+
+        .quote-lead::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.4rem;
+            bottom: 0.4rem;
+            width: 2px;
+            background: rgba(167, 225, 105, 0.5);
+            transition: background 0.25s ease;
+        }
+
+        .quote-lead:hover::before {
+            background: #a7e169;
+        }
+
+        .quote-mark {
+            width: 1.9rem;
+            height: 1.9rem;
+            color: #a7e169;
+            display: block;
+            margin-bottom: 0.35rem;
+            transition: transform 0.25s ease;
+        }
+
+        .quote-lead:hover .quote-mark {
+            transform: translateY(-2px);
+        }
+
+        .quote-lead-text {
+            color: #1c1f18;
+            font-size: clamp(1.15rem, 1.02rem + 0.95vw, 1.7rem);
+            font-weight: 600;
+            line-height: 1.5;
+            letter-spacing: -0.005em;
+        }
+
+        .quote-attrib {
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.95rem;
+        }
+
+        .quote-initials {
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            color: #5a8c1e;
+            border: 1px solid rgba(167, 225, 105, 0.5);
+            border-radius: 999px;
+            padding: 0.18rem 0.5rem;
+            flex-shrink: 0;
+            align-self: center;
+        }
+
+        .quote-by {
+            font-size: 0.9rem;
+            font-weight: 700;
             color: #111;
         }
 
-        .desk-item-note {
-            font-size: 0.75rem;
-            color: #888;
-            margin-top: 0.1rem;
+        .quote-meta {
+            font-size: 0.72rem;
+            color: #8a8f83;
+        }
+
+        .quotes-support {
+            border-top: 1px solid rgba(50, 50, 50, 0.12);
+        }
+
+        .quote-mini {
+            position: relative;
+            border-bottom: 1px solid rgba(50, 50, 50, 0.12);
+            padding: 1.15rem 0 1.15rem 0.9rem;
+            transition: transform 0.25s ease;
+        }
+
+        .quote-mini::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 1.2rem;
+            width: 2px;
+            height: 1.05rem;
+            background: rgba(167, 225, 105, 0);
+            transition: background 0.25s ease;
+        }
+
+        .quote-mini:hover {
+            transform: translateX(4px);
+        }
+
+        .quote-mini:hover::before {
+            background: #a7e169;
+        }
+
+        .quote-mini-text {
+            color: #3f453b;
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .quote-mini .quote-attrib {
+            margin-top: 0.6rem;
+        }
+
+        /* ── Where the Magic Happens — Desk as the Stage (photo hotspots) ── */
+        .desk-stage {
+            display: grid;
+            grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+            gap: clamp(1.75rem, 4vw, 3.5rem);
+            align-items: center;
+        }
+
+        .desk-frame {
+            position: relative;
+            margin: 0;
+            width: 100%;
+            max-width: 440px;
+            justify-self: center;
+        }
+
+        .desk-frame img {
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            border-radius: 1.25rem;
+        }
+
+        .desk-frame-tag {
+            position: absolute;
+            left: 1rem;
+            bottom: 1rem;
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #fff;
+            background: rgba(17, 19, 15, 0.55);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 999px;
+            padding: 0.42rem 0.85rem;
+            pointer-events: none;
+        }
+
+        /* Hotspots pinned to real objects in the frame */
+        .desk-hotspot {
+            position: absolute;
+            left: var(--x);
+            top: var(--y);
+            width: 0;
+            height: 0;
+        }
+
+        .desk-pin {
+            position: absolute;
+            left: 0;
+            top: 0;
+            transform: translate(-50%, -50%);
+            width: 1.35rem;
+            height: 1.35rem;
+            border-radius: 999px;
+            border: 2px solid #fff;
+            background: #a7e169;
+            padding: 0;
+            cursor: pointer;
+            box-shadow: 0 2px 9px rgba(17, 19, 15, 0.4);
+            transition: transform 0.25s ease, background 0.25s ease;
+        }
+
+        .desk-pin:hover,
+        .desk-pin:focus-visible {
+            transform: translate(-50%, -50%) scale(1.2);
+            background: #ed2939;
+            outline: none;
+        }
+
+        .desk-pin-ring {
+            position: absolute;
+            inset: -5px;
+            border-radius: 999px;
+            border: 2px solid rgba(167, 225, 105, 0.75);
+            opacity: 0;
+        }
+
+        .desk-hotspot.is-inviting .desk-pin-ring {
+            animation: deskPulse 2s ease-out 2;
+        }
+
+        @keyframes deskPulse {
+            0% { transform: scale(0.75); opacity: 0.85; }
+            80% { transform: scale(1.75); opacity: 0; }
+            100% { transform: scale(1.75); opacity: 0; }
+        }
+
+        .desk-tip {
+            position: absolute;
+            left: 0;
+            bottom: 1.35rem;
+            transform: translateX(-50%) translateY(6px);
+            width: max-content;
+            max-width: 220px;
+            background: #ffffff;
+            border: 1px solid rgba(50, 50, 50, 0.12);
+            border-radius: 0.7rem;
+            box-shadow: 0 12px 32px rgba(17, 19, 15, 0.2);
+            padding: 0.7rem 0.85rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+            z-index: 4;
+        }
+
+        .desk-hotspot:hover .desk-tip,
+        .desk-hotspot:focus-within .desk-tip,
+        .desk-hotspot.is-open .desk-tip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Keep edge tips inside the frame */
+        .desk-hotspot--coffee .desk-tip {
+            left: auto;
+            right: 0;
+            transform: translateX(0) translateY(6px);
+        }
+
+        .desk-hotspot--coffee:hover .desk-tip,
+        .desk-hotspot--coffee:focus-within .desk-tip,
+        .desk-hotspot--coffee.is-open .desk-tip {
+            transform: translateX(0) translateY(0);
+        }
+
+        .desk-hotspot--sketch .desk-tip {
+            transform: translateX(-18%) translateY(6px);
+        }
+
+        .desk-hotspot--sketch:hover .desk-tip,
+        .desk-hotspot--sketch:focus-within .desk-tip,
+        .desk-hotspot--sketch.is-open .desk-tip {
+            transform: translateX(-18%) translateY(0);
+        }
+
+        .desk-tip-name {
+            color: #111;
+            font-weight: 700;
+            font-size: 0.9rem;
+            line-height: 1.25;
+        }
+
+        .desk-tip-note {
+            color: #6c7466;
+            font-size: 0.78rem;
+            line-height: 1.6;
+        }
+
+        .desk-intro {
+            color: #4a5142;
+            font-size: 0.98rem;
+            line-height: 1.75;
+            margin-bottom: 1rem;
+            max-width: 44ch;
+        }
+
+        .desk-guide {
+            color: #5a8c1e;
+            font-size: 0.74rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            margin-bottom: 1.75rem;
+            max-width: 40ch;
+        }
+
+        .desk-offframe {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            border-top: 1px solid rgba(50, 50, 50, 0.12);
+        }
+
+        .desk-offframe-item {
+            position: relative;
+            padding: 1rem 0 1rem 1rem;
+        }
+
+        .desk-offframe-item + .desk-offframe-item {
+            border-top: 1px solid rgba(50, 50, 50, 0.12);
+        }
+
+        .desk-offframe-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 1.4rem;
+            width: 4px;
+            height: 4px;
+            border-radius: 999px;
+            background: #a7e169;
+        }
+
+        .desk-offframe-name {
+            display: block;
+            color: #111;
+            font-weight: 700;
+            font-size: 0.95rem;
+            line-height: 1.3;
+        }
+
+        .desk-offframe-note {
+            display: block;
+            color: #6c7466;
+            font-size: 0.8rem;
+            line-height: 1.65;
+            margin-top: 0.25rem;
         }
 
         /* ── Tools I Use ── */
@@ -1832,9 +2108,21 @@
         }
 
         .toolkit-lead {
-            background: #f5f5f5;
-            border-radius: 8px;
+            position: relative;
+            background: #f6f7f4;
+            border: 1px solid rgba(50, 50, 50, 0.06);
+            border-radius: 12px;
             padding: clamp(1.5rem, 4vw, 2.75rem);
+        }
+
+        .toolkit-lead .toolkit-lead-title::after {
+            content: "";
+            display: block;
+            width: 2.25rem;
+            height: 2px;
+            background: #a7e169;
+            margin-top: 1rem;
+            border-radius: 2px;
         }
 
         .toolkit-lead-label,
@@ -1895,33 +2183,47 @@
 
         .tool-stack {
             border-top: 1px solid rgba(50, 50, 50, 0.12);
+            counter-reset: tool-counter;
         }
 
         .tool-row {
             display: grid;
-            grid-template-columns: 2.75rem minmax(0, 1fr) auto;
+            grid-template-columns: 2.4rem minmax(0, 1fr) auto;
             gap: 1rem;
             align-items: center;
             border-bottom: 1px solid rgba(50, 50, 50, 0.12);
-            padding: 1.05rem 0;
-            transition: transform 0.25s ease, border-color 0.25s ease;
+            padding: 1.15rem 0;
+            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.4s ease;
+            counter-increment: tool-counter;
         }
 
         .tool-row:hover {
             border-color: rgba(167, 225, 105, 0.65);
-            transform: translateX(4px);
+            transform: translateX(6px);
         }
 
         .tool-symbol {
-            width: 2.75rem;
-            height: 2.75rem;
-            border: 1px solid rgba(167, 225, 105, 0.55);
-            border-radius: 999px;
-            color: #5a8c1e;
+            width: 2.4rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #bcc7af;
+            font-variant-numeric: tabular-nums;
+            text-align: left;
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
+            transition: color 0.4s ease;
+        }
+
+        .tool-symbol::before {
+            content: counter(tool-counter, decimal-leading-zero);
+        }
+
+        .tool-symbol svg {
+            display: none;
+        }
+
+        .tool-row:hover .tool-symbol {
+            color: #5a8c1e;
         }
 
         .tool-symbol svg,
@@ -1936,13 +2238,24 @@
             font-size: 1rem;
             font-weight: 700;
             line-height: 1.3;
+            display: inline;
+            background-image: linear-gradient(#a7e169, #a7e169);
+            background-repeat: no-repeat;
+            background-position: 0 100%;
+            background-size: 0% 2px;
+            transition: background-size 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            padding-bottom: 2px;
+        }
+
+        .tool-row:hover .tool-name {
+            background-size: 100% 2px;
         }
 
         .tool-note {
             color: #6c7466;
             font-size: 0.78rem;
             line-height: 1.65;
-            margin-top: 0.25rem;
+            margin-top: 0.35rem;
         }
 
         .tool-tag {
@@ -1956,6 +2269,13 @@
             padding: 0.28rem 0.68rem;
             text-transform: uppercase;
             white-space: nowrap;
+            transition: border-color 0.4s ease, color 0.4s ease, background 0.4s ease;
+        }
+
+        .tool-row:hover .tool-tag {
+            border-color: rgba(167, 225, 105, 0.7);
+            background: rgba(167, 225, 105, 0.1);
+            color: #5a8c1e;
         }
 
         /* ── Creative Bookshelf (Accordion Style) ── */
@@ -2199,9 +2519,21 @@
         }
 
         .fuel-note-lead {
-            background: #f5f5f5;
-            border-radius: 8px;
+            position: relative;
+            background: #f6f7f4;
+            border: 1px solid rgba(50, 50, 50, 0.06);
+            border-radius: 12px;
             padding: clamp(1.5rem, 4vw, 2.75rem);
+        }
+
+        .fuel-note-lead .fuel-note-title::after {
+            content: "";
+            display: block;
+            width: 2.25rem;
+            height: 2px;
+            background: #a7e169;
+            margin-top: 1rem;
+            border-radius: 2px;
         }
 
         .fuel-note-stats {
@@ -2263,6 +2595,307 @@
             line-height: 1.7;
             margin-top: 0.3rem;
         }
+
+        /* ── Creative Fuel — day-rhythm timeline ──
+           NOTE: the six .fuel-note* / .fuel-title / .fuel-desc rules above are now
+           unused (the icon+title+desc grid was replaced by the timeline below).
+           Left in place — flagged as dead code, pending removal approval. */
+        .fuel-rhythm {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(2rem, 4vw, 3rem);
+        }
+
+        .fuel-daybar-head {
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.15rem 0.6rem;
+        }
+
+        .fuel-daybar-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #5a8c1e;
+        }
+
+        .fuel-daybar-sub {
+            font-size: 0.78rem;
+            color: #6c7466;
+        }
+
+        /* ── A Day on the Desk — flat editorial phase row ── */
+        .fuel-phases {
+            list-style: none;
+            margin: 1.25rem 0 0;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 0.75rem;
+        }
+
+        .fuel-phase {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+            min-height: 132px;
+            padding: 1.1rem 1.15rem 1.2rem;
+            border-radius: 10px;
+            border: 1px solid transparent;
+            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                        box-shadow 0.4s ease,
+                        border-color 0.4s ease,
+                        opacity 0.6s ease;
+        }
+
+        .fuel-phase:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 24px rgba(50, 50, 50, 0.14);
+        }
+
+        .fuel-phase-icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            stroke-width: 1.6;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .fuel-phase:hover .fuel-phase-icon {
+            transform: translateY(-3px);
+        }
+
+        .fuel-phase-time {
+            margin-top: auto;
+            font-size: 0.66rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .fuel-phase-name {
+            font-size: 0.98rem;
+            font-weight: 700;
+            line-height: 1.25;
+        }
+
+        /* Build phases — flat green, dark ink */
+        .fuel-phase--build {
+            background: #a7e169;
+        }
+
+        .fuel-phase--build .fuel-phase-icon {
+            stroke: #2f3d18;
+        }
+
+        .fuel-phase--build .fuel-phase-time {
+            color: #40521f;
+        }
+
+        .fuel-phase--build .fuel-phase-name {
+            color: #26310f;
+        }
+
+        /* Coffee · steady — natural sand, brand-green accent */
+        .fuel-phase--coffee {
+            background: #e7ddc9;
+        }
+
+        .fuel-phase--coffee .fuel-phase-icon {
+            stroke: #5a8c1e;
+        }
+
+        .fuel-phase--coffee .fuel-phase-time {
+            color: #6a5f47;
+        }
+
+        .fuel-phase--coffee .fuel-phase-name {
+            color: #47402f;
+        }
+
+        /* Night build — natural charcoal, brand-green accent */
+        .fuel-phase--night {
+            background: #252a20;
+        }
+
+        .fuel-phase--night .fuel-phase-icon {
+            stroke: #a7e169;
+        }
+
+        .fuel-phase--night .fuel-phase-time {
+            color: #9aa392;
+        }
+
+        .fuel-phase--night .fuel-phase-name {
+            color: #f3f6ee;
+        }
+
+        /* Peak creative energy — single flat red accent */
+        .fuel-phase--peak {
+            background: #ed2939;
+        }
+
+        .fuel-phase--peak .fuel-phase-icon {
+            stroke: #ffffff;
+        }
+
+        .fuel-phase--peak .fuel-phase-time {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .fuel-phase--peak .fuel-phase-name {
+            color: #ffffff;
+        }
+
+        @media (max-width: 400px) {
+            .fuel-phases {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .fuel-flow {
+            display: grid;
+            grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+            gap: clamp(2rem, 5vw, 4rem);
+            align-items: start;
+        }
+
+        .fuel-stops {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .fuel-stop {
+            position: relative;
+            padding: 1.05rem 0 1.05rem 1.25rem;
+            border-left: 1px solid rgba(50, 50, 50, 0.14);
+            transition: border-color 0.4s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .fuel-stop::before {
+            content: "";
+            position: absolute;
+            left: -4px;
+            top: 1.4rem;
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: #cdd3c6;
+            transition: background-color 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+        }
+
+        .fuel-stop:hover {
+            border-color: rgba(167, 225, 105, 0.7);
+            transform: translateX(6px);
+        }
+
+        .fuel-stop:hover::before {
+            background: #a7e169;
+            transform: scale(1.4);
+            box-shadow: 0 0 0 4px rgba(167, 225, 105, 0.18);
+        }
+
+        .fuel-stop--lead::before {
+            top: 1.5rem;
+            width: 9px;
+            height: 9px;
+            left: -5px;
+            background: #a7e169;
+        }
+
+        .fuel-stop-time {
+            display: block;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #5a8c1e;
+        }
+
+        .fuel-stop-time small {
+            display: block;
+            margin-top: 2px;
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            text-transform: none;
+            color: #9aa392;
+        }
+
+        .fuel-stop--lead .fuel-stop-time {
+            font-size: 0.95rem;
+            letter-spacing: 0.02em;
+        }
+
+        .fuel-stop--lead .fuel-stop-time small {
+            display: inline-block;
+            margin: 0 0 0 0.55rem;
+            font-size: 0.62rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #5a8c1e;
+            vertical-align: middle;
+        }
+
+        .fuel-stop-name {
+            margin-top: 0.4rem;
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1.3;
+            color: #111;
+        }
+
+        .fuel-stop--lead .fuel-stop-name {
+            font-size: 1.3rem;
+        }
+
+        .fuel-stop-desc {
+            margin-top: 0.35rem;
+            font-size: 0.8rem;
+            line-height: 1.7;
+            color: #6c7466;
+        }
+
+        .fuel-stop--lead .fuel-stop-desc {
+            font-size: 0.86rem;
+            max-width: 42ch;
+        }
+
+        .fuel-stop-sub {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 1.5rem;
+            margin-top: 0.4rem;
+        }
+
+        /* Phase row fill-in on scroll — only armed when motion is allowed (see JS) */
+        .fuel-daybar .fuel-phase {
+            transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                        opacity 0.6s ease,
+                        box-shadow 0.4s ease,
+                        border-color 0.4s ease;
+        }
+
+        .fuel-daybar--armed .fuel-phase {
+            transform: translateY(14px);
+            opacity: 0;
+        }
+
+        .fuel-daybar--armed.is-live .fuel-phase {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Sequential reveal — left to right across the day */
+        .fuel-daybar--armed .fuel-phase:nth-child(1) { transition-delay: 0.05s; }
+        .fuel-daybar--armed .fuel-phase:nth-child(2) { transition-delay: 0.17s; }
+        .fuel-daybar--armed .fuel-phase:nth-child(3) { transition-delay: 0.29s; }
+        .fuel-daybar--armed .fuel-phase:nth-child(4) { transition-delay: 0.41s; }
 
         /* ── Fun Challenges ── */
         .challenge-grid {
@@ -2479,29 +3112,114 @@
         }
 
         /* Dark mode overrides for new sections */
-        html[data-theme="dark"] .ba-card,
-        body.dark-mode .ba-card {
+        html[data-theme="dark"] .ba-compare,
+        body.dark-mode .ba-compare {
+            background: #1c2018 !important;
+        }
+
+        /* The global dark-mode.css paints every <input> with an opaque dark
+           surface (!important). Our range slider covers the whole compare box
+           at z-index 6, so that would hide the before/after images. Keep it
+           transparent — it's an invisible drag surface, not a form field. */
+        html[data-theme="dark"] .ba-range,
+        body.dark-mode .ba-range {
+            background: transparent !important;
+            border-color: transparent !important;
+        }
+
+        html[data-theme="dark"] .ba-line,
+        html[data-theme="dark"] .ba-handle,
+        body.dark-mode .ba-line,
+        body.dark-mode .ba-handle {
+            background: #f3f633 !important;
+        }
+
+        html[data-theme="dark"] .ba-handle,
+        body.dark-mode .ba-handle {
+            color: #11130f !important;
+        }
+
+        html[data-theme="dark"] .ba-compare:focus-within,
+        body.dark-mode .ba-compare:focus-within {
+            outline-color: #f3f633 !important;
+        }
+
+        html[data-theme="dark"] .ba-name,
+        body.dark-mode .ba-name {
+            color: #f3f6ee !important;
+        }
+
+        html[data-theme="dark"] .ba-name span,
+        body.dark-mode .ba-name span {
+            color: #9aa392 !important;
+        }
+
+        html[data-theme="dark"] .quote-lead-text,
+        html[data-theme="dark"] .quote-by,
+        body.dark-mode .quote-lead-text,
+        body.dark-mode .quote-by {
+            color: #f3f6ee !important;
+        }
+
+        html[data-theme="dark"] .quote-mini-text,
+        body.dark-mode .quote-mini-text {
+            color: #c2cbb8 !important;
+        }
+
+        html[data-theme="dark"] .quote-meta,
+        body.dark-mode .quote-meta {
+            color: #8a917f !important;
+        }
+
+        html[data-theme="dark"] .quotes-support,
+        body.dark-mode .quotes-support {
+            border-top-color: #343a2e !important;
+        }
+
+        html[data-theme="dark"] .quote-mini,
+        body.dark-mode .quote-mini {
+            border-bottom-color: #343a2e !important;
+        }
+
+        html[data-theme="dark"] .quote-initials,
+        body.dark-mode .quote-initials {
+            color: #a7e169 !important;
+            border-color: rgba(167, 225, 105, 0.5) !important;
+        }
+
+        html[data-theme="dark"] .desk-intro,
+        html[data-theme="dark"] .desk-offframe-note,
+        body.dark-mode .desk-intro,
+        body.dark-mode .desk-offframe-note {
+            color: #b8c0b0 !important;
+        }
+
+        html[data-theme="dark"] .desk-offframe-name,
+        body.dark-mode .desk-offframe-name {
+            color: #f3f6ee !important;
+        }
+
+        html[data-theme="dark"] .desk-offframe,
+        html[data-theme="dark"] .desk-offframe-item + .desk-offframe-item,
+        body.dark-mode .desk-offframe,
+        body.dark-mode .desk-offframe-item + .desk-offframe-item {
+            border-top-color: #343a2e !important;
+        }
+
+        html[data-theme="dark"] .desk-tip,
+        body.dark-mode .desk-tip {
             background: #1c2018 !important;
             border-color: #343a2e !important;
-            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.3) !important;
         }
 
-        html[data-theme="dark"] .ba-card:hover,
-        body.dark-mode .ba-card:hover {
-            border-color: #a7e169 !important;
-            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4) !important;
+        html[data-theme="dark"] .desk-tip-name,
+        body.dark-mode .desk-tip-name {
+            color: #f3f6ee !important;
         }
 
-        html[data-theme="dark"] .ba-label.before,
-        body.dark-mode .ba-label.before {
-            background: rgba(255, 255, 255, 0.06) !important;
-            border-color: rgba(255, 255, 255, 0.1) !important;
-            color: #999 !important;
-        }
-
-        html[data-theme="dark"] .ba-divider::before,
-        body.dark-mode .ba-divider::before {
-            background: rgba(167, 225, 105, 0.35) !important;
+        html[data-theme="dark"] .desk-tip-note,
+        body.dark-mode .desk-tip-note {
+            color: #b8c0b0 !important;
         }
 
         html[data-theme="dark"] .bubble-card,
@@ -2578,12 +3296,98 @@
             border-color: rgba(167, 225, 105, 0.5) !important;
         }
 
+        /* Number index in dark mode — muted, brightens on hover */
+        html[data-theme="dark"] .tool-symbol,
+        body.dark-mode .tool-symbol {
+            color: #5c6650 !important;
+            border-color: transparent !important;
+        }
+
+        html[data-theme="dark"] .tool-row:hover .tool-symbol,
+        body.dark-mode .tool-row:hover .tool-symbol {
+            color: #a7e169 !important;
+        }
+
         html[data-theme="dark"] .tool-tag,
         html[data-theme="dark"] .fuel-note-chip,
         body.dark-mode .tool-tag,
         body.dark-mode .fuel-note-chip {
             border-color: rgba(232, 238, 224, 0.14) !important;
             color: #bbc5b2 !important;
+        }
+
+        /* Creative Fuel timeline — dark mode */
+        html[data-theme="dark"] .fuel-daybar-sub,
+        body.dark-mode .fuel-daybar-sub,
+        html[data-theme="dark"] .fuel-stop-time small,
+        body.dark-mode .fuel-stop-time small {
+            color: #8b9583 !important;
+        }
+
+        html[data-theme="dark"] .fuel-daybar-label,
+        body.dark-mode .fuel-daybar-label,
+        html[data-theme="dark"] .fuel-stop-time,
+        body.dark-mode .fuel-stop-time {
+            color: #a7e169 !important;
+        }
+
+        /* Coffee (sand) — dark mode mutes the bright sand, keeps green accent */
+        html[data-theme="dark"] .fuel-phase--coffee,
+        body.dark-mode .fuel-phase--coffee {
+            background: #2b2f24 !important;
+        }
+
+        html[data-theme="dark"] .fuel-phase--coffee .fuel-phase-name,
+        body.dark-mode .fuel-phase--coffee .fuel-phase-name {
+            color: #e7ddc9 !important;
+        }
+
+        html[data-theme="dark"] .fuel-phase--coffee .fuel-phase-time,
+        body.dark-mode .fuel-phase--coffee .fuel-phase-time {
+            color: #9aa392 !important;
+        }
+
+        html[data-theme="dark"] .fuel-phase--coffee .fuel-phase-icon,
+        body.dark-mode .fuel-phase--coffee .fuel-phase-icon {
+            stroke: #a7e169 !important;
+        }
+
+        /* Night (charcoal) — dark mode adds a hairline so it reads against the page */
+        html[data-theme="dark"] .fuel-phase--night,
+        body.dark-mode .fuel-phase--night {
+            border-color: #343a2e !important;
+        }
+
+        html[data-theme="dark"] .fuel-stop,
+        body.dark-mode .fuel-stop {
+            border-left-color: #343a2e !important;
+        }
+
+        html[data-theme="dark"] .fuel-stop::before,
+        body.dark-mode .fuel-stop::before {
+            background: #3b4433 !important;
+        }
+
+        html[data-theme="dark"] .fuel-stop:hover::before,
+        body.dark-mode .fuel-stop:hover::before,
+        html[data-theme="dark"] .fuel-stop--lead::before,
+        body.dark-mode .fuel-stop--lead::before {
+            background: #a7e169 !important;
+        }
+
+        html[data-theme="dark"] .fuel-stop-name,
+        body.dark-mode .fuel-stop-name {
+            color: #f3f6ee !important;
+        }
+
+        html[data-theme="dark"] .fuel-stop-desc,
+        body.dark-mode .fuel-stop-desc {
+            color: #b8c0b0 !important;
+        }
+
+        html[data-theme="dark"] .fuel-stop--lead .fuel-stop-time small,
+        body.dark-mode .fuel-stop--lead .fuel-stop-time small {
+            color: #a7e169 !important;
         }
 
         html[data-theme="dark"] .toolkit-meta-item,
@@ -2611,17 +3415,6 @@
                 grid-template-columns: 1fr;
                 margin-top: 0;
                 padding: 1.25rem 0 2.25rem;
-            }
-
-            .ba-pair-wrapper {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-
-            .ba-divider {
-                width: 100%;
-                height: 2.25rem;
-                flex-direction: row;
             }
 
             .hero-media-caption {
@@ -2673,56 +3466,31 @@
                 scroll-snap-align: center;
             }
 
-            .ba-pair-wrapper {
+            .ba-compare-stage {
                 grid-template-columns: 1fr;
-                gap: 1rem;
+                gap: 1.25rem;
             }
 
-            .ba-divider {
-                width: 100%;
-                height: 2.25rem;
-                flex-direction: row;
-            }
-
-            .ba-divider-icon {
-                width: 1.6rem;
-                height: 1.6rem;
-                font-size: 0.7rem;
-            }
-
-            .ba-card img {
-                aspect-ratio: 4/3;
-            }
-
-            .ba-card-body {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.3rem;
-                padding: 0.65rem 0.9rem;
-            }
-
-            .bubble-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .bubble-card:nth-child(2n) {
+            .ba-side {
                 margin-top: 0;
             }
 
-            .desk-grid {
+            .quotes-wall {
                 grid-template-columns: 1fr;
+                gap: 2rem;
             }
 
-            .desk-item[data-aos] {
-                transform: none !important;
+            .desk-stage {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
             }
 
-            .desk-item:hover {
-                transform: none;
+            .desk-tip {
+                max-width: min(220px, 68vw);
             }
 
             .toolkit-board,
-            .fuel-notes {
+            .fuel-flow {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
             }
@@ -2732,7 +3500,7 @@
             }
 
             .tool-row {
-                grid-template-columns: 2.5rem minmax(0, 1fr);
+                grid-template-columns: 1.9rem minmax(0, 1fr);
                 gap: 0.8rem;
                 padding: 0.95rem 0;
             }
@@ -2742,7 +3510,11 @@
                 transform: none;
             }
 
-            .tool-symbol,
+            .tool-symbol {
+                width: 1.9rem;
+                font-size: 1.05rem;
+            }
+
             .fuel-note-icon {
                 width: 2.5rem;
                 height: 2.5rem;
@@ -2787,9 +3559,31 @@
                 align-items: center;
             }
 
-            .fuel-note {
-                grid-template-columns: 2.5rem minmax(0, 1fr);
-                gap: 0.8rem;
+            .fuel-stop-sub {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .fuel-stop:hover {
+                transform: none;
+            }
+
+            .fuel-phases {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 0.6rem;
+            }
+
+            .fuel-phase {
+                min-height: 116px;
+                padding: 0.95rem 1rem 1rem;
+            }
+
+            .fuel-phase:hover {
+                transform: none;
+            }
+
+            .fuel-stop--lead .fuel-stop-name {
+                font-size: 1.15rem;
             }
 
             .challenge-grid {
@@ -2809,7 +3603,7 @@
 
         @media (min-width: 768px) and (max-width: 1023px) {
             .toolkit-board,
-            .fuel-notes {
+            .fuel-flow {
                 grid-template-columns: 1fr;
                 gap: 2rem;
             }
@@ -2818,8 +3612,8 @@
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
 
-            .bubble-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
+            .quotes-wall {
+                gap: 2rem;
             }
         }
 
@@ -3111,77 +3905,67 @@
                         ကျောင်းသားတွေ ဘယ်လောက်ပြောင်းလဲ သွားသလဲဆိုတာ ကိုယ်တိုင်ကြည့်ပါ။</p>
                 </div>
 
-                <!-- Pair 1 — Whitney -->
-                <div class="ba-pair-wrapper">
-                    <div class="ba-card">
-                        <span class="ba-img-trigger" onclick="openBaLb(this)" data-caption="Whitney — Before">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1778400569/Whitney_Before_ahqaa3.jpg"
-                                alt="Whitney — before class artwork">
-                        </span>
-                        <div class="ba-card-body">
-                            <span class="ba-label before">⬤ Before</span>
-                            <p>Whitney</p>
+                <div class="ba-compare-stage">
+                    <!-- Featured — Whitney -->
+                    <div class="ba-item is-featured" data-aos="fade-up">
+                        <div class="ba-compare">
+                            <img class="ba-after"
+                                src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1778400569/Whitney_After_je7ry7.jpg"
+                                alt="Whitney — after class artwork" loading="lazy">
+                            <img class="ba-before"
+                                src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1778400569/Whitney_Before_ahqaa3.jpg"
+                                alt="Whitney — before class artwork" loading="lazy">
+                            <span class="ba-cap before">Before</span>
+                            <span class="ba-cap after">After</span>
+                            <span class="ba-line" aria-hidden="true"></span>
+                            <span class="ba-handle" aria-hidden="true">
+                                <svg viewBox="0 0 24 24"><path d="M9 7l-4 5 4 5"/><path d="M15 7l4 5-4 5"/></svg>
+                            </span>
+                            <input class="ba-range" type="range" min="0" max="100" value="50"
+                                aria-label="Drag to compare Whitney's before and after artwork">
                         </div>
+                        <div class="ba-name">Whitney <span>· Before → After</span></div>
                     </div>
-                    <div class="ba-divider"><span class="ba-divider-icon">→</span></div>
-                    <div class="ba-card">
-                        <span class="ba-img-trigger" onclick="openBaLb(this)" data-caption="Whitney — After">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1778400569/Whitney_After_je7ry7.jpg"
-                                alt="Whitney — after class artwork">
-                        </span>
-                        <div class="ba-card-body">
-                            <span class="ba-label after">✦ After</span>
-                            <p>Whitney</p>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Pair 2 — Polly Lin -->
-                <div class="ba-pair-wrapper">
-                    <div class="ba-card">
-                        <span class="ba-img-trigger" onclick="openBaLb(this)" data-caption="Polly Lin — Before">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1778400564/Polly_Lin_Before_jvrai3.jpg"
-                                alt="Polly Lin — before class artwork">
-                        </span>
-                        <div class="ba-card-body">
-                            <span class="ba-label before">⬤ Before</span>
-                            <p>Polly Lin</p>
+                    <!-- Smaller &amp; offset — Polly Lin + Meow -->
+                    <div class="ba-side">
+                        <div class="ba-item" data-aos="fade-up" data-aos-delay="80">
+                            <div class="ba-compare">
+                                <img class="ba-after"
+                                    src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1778400564/Polly_Lin_After_zl1lfa.jpg"
+                                    alt="Polly Lin — after class artwork" loading="lazy">
+                                <img class="ba-before"
+                                    src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1778400564/Polly_Lin_Before_jvrai3.jpg"
+                                    alt="Polly Lin — before class artwork" loading="lazy">
+                                <span class="ba-cap before">Before</span>
+                                <span class="ba-cap after">After</span>
+                                <span class="ba-line" aria-hidden="true"></span>
+                                <span class="ba-handle" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24"><path d="M9 7l-4 5 4 5"/><path d="M15 7l4 5-4 5"/></svg>
+                                </span>
+                                <input class="ba-range" type="range" min="0" max="100" value="50"
+                                    aria-label="Drag to compare Polly Lin's before and after artwork">
+                            </div>
+                            <div class="ba-name">Polly Lin <span>· Before → After</span></div>
                         </div>
-                    </div>
-                    <div class="ba-divider"><span class="ba-divider-icon">→</span></div>
-                    <div class="ba-card">
-                        <span class="ba-img-trigger" onclick="openBaLb(this)" data-caption="Polly Lin — After">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1778400564/Polly_Lin_After_zl1lfa.jpg"
-                                alt="Polly Lin — after class artwork">
-                        </span>
-                        <div class="ba-card-body">
-                            <span class="ba-label after">✦ After</span>
-                            <p>Polly Lin</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Pair 3 — Meow -->
-                <div class="ba-pair-wrapper">
-                    <div class="ba-card">
-                        <span class="ba-img-trigger" onclick="openBaLb(this)" data-caption="Meow — Before">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1778400560/Meow_Before_dxvfkc.jpg"
-                                alt="Meow — before class artwork">
-                        </span>
-                        <div class="ba-card-body">
-                            <span class="ba-label before">⬤ Before</span>
-                            <p>Meow</p>
-                        </div>
-                    </div>
-                    <div class="ba-divider"><span class="ba-divider-icon">→</span></div>
-                    <div class="ba-card">
-                        <span class="ba-img-trigger" onclick="openBaLb(this)" data-caption="Meow — After">
-                            <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1778400558/Mewo_After_awtq3y.jpg"
-                                alt="Meow — after class artwork">
-                        </span>
-                        <div class="ba-card-body">
-                            <span class="ba-label after">✦ After</span>
-                            <p>Meow</p>
+                        <div class="ba-item" data-aos="fade-up" data-aos-delay="160">
+                            <div class="ba-compare">
+                                <img class="ba-after"
+                                    src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1778400558/Mewo_After_awtq3y.jpg"
+                                    alt="Meow — after class artwork" loading="lazy">
+                                <img class="ba-before"
+                                    src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1778400560/Meow_Before_dxvfkc.jpg"
+                                    alt="Meow — before class artwork" loading="lazy">
+                                <span class="ba-cap before">Before</span>
+                                <span class="ba-cap after">After</span>
+                                <span class="ba-line" aria-hidden="true"></span>
+                                <span class="ba-handle" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24"><path d="M9 7l-4 5 4 5"/><path d="M15 7l4 5-4 5"/></svg>
+                                </span>
+                                <input class="ba-range" type="range" min="0" max="100" value="50"
+                                    aria-label="Drag to compare Meow's before and after artwork">
+                            </div>
+                            <div class="ba-name">Meow <span>· Before → After</span></div>
                         </div>
                     </div>
                 </div>
@@ -3191,144 +3975,146 @@
             <section class="mb-16 md:mb-24" data-aos="fade-up">
                 <div class="creator-section-header">
                     <span class="section-kicker">Real Humans, Real Reactions</span>
-                    <h2 class="section-heading text-3xl md:text-4xl">Things students actually say 💬</h2>
+                    <h2 class="section-heading text-3xl md:text-4xl">Things students actually say</h2>
                 </div>
 
-                <div class="bubble-grid">
-                    <div class="bubble-card" data-aos="fade-up" data-aos-delay="0">
-                        <span class="bubble-emoji">😭</span>
-                        <p class="bubble-text">"Pen Tool စသင်တဲ့နေ့ကအရမ်းခက်တယ် ဒါပေမဲ့ တစ်ဖြည်းဖြည်းနဲ့
-                            တော်တော်လေးဆင်ပြေလာတယ်.."</p>
-                        <div class="bubble-author">
-                            <div class="bubble-avatar">ZM</div>
-                            <div>
-                                <div class="bubble-name">Zin Mar</div>
-                                <div class="bubble-role">Batch 6 Student · Yangon</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bubble-card" data-aos="fade-up" data-aos-delay="100">
-                        <span class="bubble-emoji">🔥</span>
-                        <p class="bubble-text">"ဆရာ Phyo ရှင်းပြတဲ့ Shadow နဲ့ Highlight theory က
+                <div class="quotes-wall">
+                    <div class="quotes-featured">
+                        <figure class="quote-lead" data-aos="fade-up">
+                            <svg class="quote-mark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                <path d="M7.5 6C5.6 6 4 7.6 4 9.5S5.6 13 7.5 13c.17 0 .34-.02.5-.05-.36 1.7-1.66 3-3.34 3.4-.32.08-.53.4-.45.72.08.32.4.53.72.45C8.2 16.83 11 13.9 11 10v-.5C11 7.6 9.4 6 7.5 6zm11 0C16.6 6 15 7.6 15 9.5s1.6 3.5 3.5 3.5c.17 0 .34-.02.5-.05-.36 1.7-1.66 3-3.34 3.4-.32.08-.53.4-.45.72.08.32.4.53.72.45C19.2 16.83 22 13.9 22 10v-.5C22 7.6 20.4 6 18.5 6z"/>
+                            </svg>
+                            <blockquote class="quote-lead-text">"Pen Tool စသင်တဲ့နေ့ကအရမ်းခက်တယ် ဒါပေမဲ့ တစ်ဖြည်းဖြည်းနဲ့
+                            တော်တော်လေးဆင်ပြေလာတယ်.."</blockquote>
+                            <figcaption class="quote-attrib">
+                                <span class="quote-initials">ZM</span>
+                                <span class="quote-by">Zin Mar</span>
+                                <span class="quote-meta">Batch 6 Student · Yangon</span>
+                            </figcaption>
+                        </figure>
+
+                        <figure class="quote-lead" data-aos="fade-up" data-aos-delay="80">
+                            <svg class="quote-mark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                <path d="M7.5 6C5.6 6 4 7.6 4 9.5S5.6 13 7.5 13c.17 0 .34-.02.5-.05-.36 1.7-1.66 3-3.34 3.4-.32.08-.53.4-.45.72.08.32.4.53.72.45C8.2 16.83 11 13.9 11 10v-.5C11 7.6 9.4 6 7.5 6zm11 0C16.6 6 15 7.6 15 9.5s1.6 3.5 3.5 3.5c.17 0 .34-.02.5-.05-.36 1.7-1.66 3-3.34 3.4-.32.08-.53.4-.45.72.08.32.4.53.72.45C19.2 16.83 22 13.9 22 10v-.5C22 7.6 20.4 6 18.5 6z"/>
+                            </svg>
+                            <blockquote class="quote-lead-text">"ဆရာ Phyo ရှင်းပြတဲ့ Shadow နဲ့ Highlight theory က
                             ကျောင်းတော်တော်များများမှာ
-                            မသင်ပေးတဲ့ဟာတွေ..."</p>
-                        <div class="bubble-author">
-                            <div class="bubble-avatar">AK</div>
-                            <div>
-                                <div class="bubble-name">Aung Ko</div>
-                                <div class="bubble-role">Freelance Illustrator · Mandalay</div>
-                            </div>
-                        </div>
+                            မသင်ပေးတဲ့ဟာတွေ..."</blockquote>
+                            <figcaption class="quote-attrib">
+                                <span class="quote-initials">AK</span>
+                                <span class="quote-by">Aung Ko</span>
+                                <span class="quote-meta">Freelance Illustrator · Mandalay</span>
+                            </figcaption>
+                        </figure>
                     </div>
-                    <div class="bubble-card" data-aos="fade-up" data-aos-delay="200">
-                        <span class="bubble-emoji">😂</span>
-                        <p class="bubble-text">"အခုမှပဲ RGB နဲ့ CMYK Color Wheel ကိုနားလည်သွားတယ်။ ကာလာကို
+
+                    <div class="quotes-support">
+                        <figure class="quote-mini" data-aos="fade-up">
+                            <blockquote class="quote-mini-text">"အခုမှပဲ RGB နဲ့ CMYK Color Wheel ကိုနားလည်သွားတယ်။ ကာလာကို
                             သုံးသာသုံးနေရတာ
-                            အဲဒီကာလာတွေ ဘယ်လိုဖြစ်လာတယ်ဆိုတာတကယ်မသိခဲ့ဘူး။ အခုတော့ရှင်းသွားပြီ"</p>
-                        <div class="bubble-author">
-                            <div class="bubble-avatar">TN</div>
-                            <div>
-                                <div class="bubble-name">Thu Nandar</div>
-                                <div class="bubble-role">Brand Designer · Remote</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bubble-card" data-aos="fade-up" data-aos-delay="50">
-                        <span class="bubble-emoji">✨</span>
-                        <p class="bubble-text">"စိတ်ပင်ပန်းနေတဲ့အချိန် Vector ဆွဲပြီးအပန်းဖြေလို့ရတယ် ဟဲဟဲ"</p>
-                        <div class="bubble-author">
-                            <div class="bubble-avatar">KH</div>
-                            <div>
-                                <div class="bubble-name">Kaung Htet</div>
-                                <div class="bubble-role">Student · Yangon</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bubble-card" data-aos="fade-up" data-aos-delay="150">
-                        <span class="bubble-emoji">😤</span>
-                        <p class="bubble-text">"Freelance လုပ်ချင်တာအတွေ့အကြုံမရှိပေမယ့် ဆရာ့ဆီကနေ Project တွေပေးတော့
-                            အတွေ့အကြုံတွေရပါတယ်"</p>
-                        <div class="bubble-author">
-                            <div class="bubble-avatar">YY</div>
-                            <div>
-                                <div class="bubble-name">Yin Yin</div>
-                                <div class="bubble-role">Student · Remote</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bubble-card" data-aos="fade-up" data-aos-delay="250">
-                        <span class="bubble-emoji">🎨</span>
-                        <p class="bubble-text">"ဆရာ့ နဲ့နောက်ထပ် သင်ချင်ပါသေးတယ်"</p>
-                        <div class="bubble-author">
-                            <div class="bubble-avatar">PK</div>
-                            <div>
-                                <div class="bubble-name">Phyu Khin</div>
-                                <div class="bubble-role">Student · YJH</div>
-                            </div>
-                        </div>
+                            အဲဒီကာလာတွေ ဘယ်လိုဖြစ်လာတယ်ဆိုတာတကယ်မသိခဲ့ဘူး။ အခုတော့ရှင်းသွားပြီ"</blockquote>
+                            <figcaption class="quote-attrib">
+                                <span class="quote-initials">TN</span>
+                                <span class="quote-by">Thu Nandar</span>
+                                <span class="quote-meta">Brand Designer · Remote</span>
+                            </figcaption>
+                        </figure>
+                        <figure class="quote-mini" data-aos="fade-up" data-aos-delay="60">
+                            <blockquote class="quote-mini-text">"စိတ်ပင်ပန်းနေတဲ့အချိန် Vector ဆွဲပြီးအပန်းဖြေလို့ရတယ် ဟဲဟဲ"</blockquote>
+                            <figcaption class="quote-attrib">
+                                <span class="quote-initials">KH</span>
+                                <span class="quote-by">Kaung Htet</span>
+                                <span class="quote-meta">Student · Yangon</span>
+                            </figcaption>
+                        </figure>
+                        <figure class="quote-mini" data-aos="fade-up" data-aos-delay="120">
+                            <blockquote class="quote-mini-text">"Freelance လုပ်ချင်တာအတွေ့အကြုံမရှိပေမယ့် ဆရာ့ဆီကနေ Project တွေပေးတော့
+                            အတွေ့အကြုံတွေရပါတယ်"</blockquote>
+                            <figcaption class="quote-attrib">
+                                <span class="quote-initials">YY</span>
+                                <span class="quote-by">Yin Yin</span>
+                                <span class="quote-meta">Student · Remote</span>
+                            </figcaption>
+                        </figure>
+                        <figure class="quote-mini" data-aos="fade-up" data-aos-delay="180">
+                            <blockquote class="quote-mini-text">"ဆရာ့ နဲ့နောက်ထပ် သင်ချင်ပါသေးတယ်"</blockquote>
+                            <figcaption class="quote-attrib">
+                                <span class="quote-initials">PK</span>
+                                <span class="quote-by">Phyu Khin</span>
+                                <span class="quote-meta">Student · YJH</span>
+                            </figcaption>
+                        </figure>
                     </div>
                 </div>
+
             </section>
 
             <!-- ═══ SECTION 5: My Creative Desk ═══ -->
             <section class="mb-16 md:mb-24" data-aos="fade-up">
                 <div class="creator-section-header">
                     <span class="section-kicker">The Studio</span>
-                    <h2 class="section-heading text-3xl md:text-4xl">Where the magic happens 🌙</h2>
+                    <h2 class="section-heading text-3xl md:text-4xl">Where the magic happens</h2>
                 </div>
 
-                <div class="desk-grid">
-                    <div class="desk-img-wrapper">
+                <div class="desk-stage">
+                    <figure class="desk-frame" data-aos="fade-up">
                         <img src="https://res.cloudinary.com/ddkd9lxpr/image/upload/v1778403207/mydesk_c4bjkl.jpg"
-                            alt="Ko Phyo creative desk setup — Wacom tablet, warm lamp, coffee, sketchbooks at night"
+                            alt="Ko Phyo creative desk setup — laptop, pen-display tablet, coffee, sketchbooks"
                             loading="lazy">
-                    </div>
-                    <div class="desk-items">
-                        <p class="section-copy text-sm mb-2">Late-night creativity is where the real work happens. ဒီ
+                        <figcaption class="desk-frame-tag">The desk · 11pm–2am</figcaption>
+
+                        <div class="desk-hotspot desk-hotspot--wacom" style="--x:44%; --y:58.5%;">
+                            <button class="desk-pin" type="button" aria-expanded="false" aria-controls="desk-tip-wacom">
+                                <span class="desk-pin-ring" aria-hidden="true"></span>
+                                <span class="sr-only">Show detail: Wacom Cintiq</span>
+                            </button>
+                            <span class="desk-tip" id="desk-tip-wacom" role="tooltip">
+                                <span class="desk-tip-name">Wacom Cintiq</span>
+                                <span class="desk-tip-note">Logo နဲ့ Illustration Project များအတွက်မရှိမဖြစ်</span>
+                            </span>
+                        </div>
+
+                        <div class="desk-hotspot desk-hotspot--coffee" style="--x:71%; --y:40.5%;">
+                            <button class="desk-pin" type="button" aria-expanded="false" aria-controls="desk-tip-coffee">
+                                <span class="desk-pin-ring" aria-hidden="true"></span>
+                                <span class="sr-only">Show detail: Coffee</span>
+                            </button>
+                            <span class="desk-tip" id="desk-tip-coffee" role="tooltip">
+                                <span class="desk-tip-name">Coffee — mandatory</span>
+                                <span class="desk-tip-note">Black coffee, 2 to 3 cups minimum per session. Non-negotiable.</span>
+                            </span>
+                        </div>
+
+                        <div class="desk-hotspot desk-hotspot--sketch" style="--x:16%; --y:82%;">
+                            <button class="desk-pin" type="button" aria-expanded="false" aria-controls="desk-tip-sketch">
+                                <span class="desk-pin-ring" aria-hidden="true"></span>
+                                <span class="sr-only">Show detail: Sketchbooks</span>
+                            </button>
+                            <span class="desk-tip" id="desk-tip-sketch" role="tooltip">
+                                <span class="desk-tip-name">Sketchbooks</span>
+                                <span class="desk-tip-note">Idea ထွက်တိုင်း pencil ကိုင်ပြီး sketch ဆွဲ — screen မကြည့်ဘဲ</span>
+                            </span>
+                        </div>
+                    </figure>
+
+                    <div class="desk-copy" data-aos="fade-up" data-aos-delay="80">
+                        <p class="desk-intro">Late-night creativity is where the real work happens. ဒီ
                             setup လေးနဲ့ client project တွေ၊ class material တွေ၊ personal illustration တွေကို နေ့တိုင်း
                             build လုပ်တယ်။</p>
-                        <div class="desk-item" data-aos="fade-left" data-aos-delay="0">
-                            <div class="desk-item-icon">🖊️</div>
-                            <div>
-                                <div class="desk-item-name">Wacom Cintiq</div>
-                                <div class="desk-item-note">Logo နဲ့ Illustration Project များအတွက်မရှိမဖြစ်</div>
-                            </div>
-                        </div>
-                        <div class="desk-item" data-aos="fade-left" data-aos-delay="80">
-                            <div class="desk-item-icon">📓</div>
-                            <div>
-                                <div class="desk-item-name">Sketchbooks </div>
-                                <div class="desk-item-note">Idea ထွက်တိုင်း pencil ကိုင်ပြီး sketch ဆွဲ — screen
-                                    မကြည့်ဘဲ</div>
-                            </div>
-                        </div>
-                        <div class="desk-item" data-aos="fade-left" data-aos-delay="160">
-                            <div class="desk-item-icon">☕</div>
-                            <div>
-                                <div class="desk-item-name">Coffee — mandatory</div>
-                                <div class="desk-item-note">Black coffee, 2 to 3 cups minimum per session.
-                                    Non-negotiable.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="desk-item" data-aos="fade-left" data-aos-delay="240">
-                            <div class="desk-item-icon">⌨️</div>
-                            <div>
-                                <div class="desk-item-name">Huion RTS 300 Tablet</div>
-                                <div class="desk-item-note">ကော်ဖီဆိုင်မှာအလုပ်လုပ်ရင် ပေါ့ပေါ့ပါးပါးသယ်သွားလို့ရ
-                                </div>
-                            </div>
-                        </div>
-                        <div class="desk-item" data-aos="fade-left" data-aos-delay="320">
-                            <div class="desk-item-icon">🌙</div>
-                            <div>
-                                <div class="desk-item-name">Late-night sessions</div>
-                                <div class="desk-item-note">11pm–2am — ဒါကတော့ ပိုကောင်းတဲ့ ideas တွေထွက်တဲ့အချိန်
-                                </div>
-                            </div>
-                        </div>
+                        <p class="desk-guide">Tap the markers on the photo to see what each part of the desk is for.</p>
+                        <ul class="desk-offframe">
+                            <li class="desk-offframe-item">
+                                <span class="desk-offframe-name">Huion RTS 300 Tablet</span>
+                                <span class="desk-offframe-note">ကော်ဖီဆိုင်မှာအလုပ်လုပ်ရင် ပေါ့ပေါ့ပါးပါးသယ်သွားလို့ရ</span>
+                            </li>
+                            <li class="desk-offframe-item">
+                                <span class="desk-offframe-name">Late-night sessions</span>
+                                <span class="desk-offframe-note">11pm–2am — ဒါကတော့ ပိုကောင်းတဲ့ ideas တွေထွက်တဲ့အချိန်</span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
+
             </section>
 
             <!-- ═══ SECTION 6: Tools I Use ═══ -->
@@ -3564,7 +4350,38 @@
                     <h2 class="section-heading text-3xl md:text-4xl">Creative fuel</h2>
                 </div>
 
-                <div class="fuel-notes">
+                <div class="fuel-rhythm">
+                    <!-- Day-bar — the real work + ideas windows across one day -->
+                    <div class="fuel-daybar" data-aos="fade-up">
+                        <div class="fuel-daybar-head">
+                            <span class="fuel-daybar-label">A day on the desk</span>
+                            <span class="fuel-daybar-sub">Where the work and the ideas actually land</span>
+                        </div>
+                        <ol class="fuel-phases">
+                            <li class="fuel-phase fuel-phase--build">
+                                <svg class="fuel-phase-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+                                <span class="fuel-phase-time">7–9am</span>
+                                <span class="fuel-phase-name">Morning Build</span>
+                            </li>
+                            <li class="fuel-phase fuel-phase--coffee">
+                                <svg class="fuel-phase-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><path d="M6 2v2M10 2v2M14 2v2"/></svg>
+                                <span class="fuel-phase-time">7am–10pm</span>
+                                <span class="fuel-phase-name">Coffee · Steady</span>
+                            </li>
+                            <li class="fuel-phase fuel-phase--night">
+                                <svg class="fuel-phase-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                                <span class="fuel-phase-time">9–10pm</span>
+                                <span class="fuel-phase-name">Night Build</span>
+                            </li>
+                            <li class="fuel-phase fuel-phase--peak">
+                                <svg class="fuel-phase-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9L12 3Z"/></svg>
+                                <span class="fuel-phase-time">11pm–2am</span>
+                                <span class="fuel-phase-name">Late Ideas</span>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <div class="fuel-flow">
                     <div class="fuel-note-lead" data-aos="fade-up" data-aos-delay="0">
                         <span class="fuel-note-label">Working rhythm</span>
                         <div class="fuel-note-title">The routine is quiet, but it keeps the work moving.</div>
@@ -3577,61 +4394,42 @@
                         </div>
                     </div>
 
-                    <div class="fuel-note-list">
-                        <div class="fuel-note" data-aos="fade-up" data-aos-delay="0">
-                            <span class="fuel-note-icon" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="none"><path d="M5 4h11a3 3 0 013 3v13H8a3 3 0 01-3-3z"/><path d="M8 4v16"/><path d="M11 8h5"/></svg>
-                            </span>
-                            <div>
-                                <div class="fuel-title">Design Books</div>
-                                <div class="fuel-desc">YouTube tutorial ထက် Book က အသေးစိတ်ပိုကျတယ်။ ၃ ရက်တစ်ခါ တစ်ပတ်တစ်ခါ ဖတ်ပြီး highlight လုပ်ထားရင် ဘယ်တော့မှမမေ့တော့ဘူး</div>
-                            </div>
+                    <!-- Habits anchored to when they happen, not a uniform card grid -->
+                    <div class="fuel-stops">
+                        <article class="fuel-stop fuel-stop--lead" data-aos="fade-up" data-aos-delay="0">
+                            <span class="fuel-stop-time">7am – 10pm<small>Daily</small></span>
+                            <div class="fuel-stop-name">Strong Coffee</div>
+                            <div class="fuel-stop-desc">Black coffee, no sugar. မနက် ၇ နာရီကနေ ည ၁၀ နာရီအထိ ကော်ဖီပူပူလေးဘေးနားမှာရှိမှ အလုပ်လုပ်ရတာ စိတ်ဖျောင့်တယ်</div>
+                        </article>
+                        <article class="fuel-stop fuel-stop--lead" data-aos="fade-up" data-aos-delay="80">
+                            <span class="fuel-stop-time">7–9am · 9–10pm<small>Build windows</small></span>
+                            <div class="fuel-stop-name">Late-Night Mode</div>
+                            <div class="fuel-stop-desc">7am ကနေ 9am ကြားနဲ့ 9pm ကနေ 10pm ကြားမှာ ဒီ website၊ class material၊ illustration projects တွေ အများဆုံးပြီးတယ်</div>
+                        </article>
+
+                        <div class="fuel-stop-sub">
+                            <article class="fuel-stop" data-aos="fade-up" data-aos-delay="0">
+                                <span class="fuel-stop-time">Reset · weekly</span>
+                                <div class="fuel-stop-name">Design Books</div>
+                                <div class="fuel-stop-desc">YouTube tutorial ထက် Book က အသေးစိတ်ပိုကျတယ်။ ၃ ရက်တစ်ခါ တစ်ပတ်တစ်ခါ ဖတ်ပြီး highlight လုပ်ထားရင် ဘယ်တော့မှမမေ့တော့ဘူး</div>
+                            </article>
+                            <article class="fuel-stop" data-aos="fade-up" data-aos-delay="60">
+                                <span class="fuel-stop-time">During focus</span>
+                                <div class="fuel-stop-name">Lo-Fi &amp; Ambient</div>
+                                <div class="fuel-stop-desc">Lo-fi နဲ့ relaxing music — တစ်ခါတစ်လေ အာရုံစိုက်မရတော့ရင် နောက်က music နားထောင်ရုံနဲ့ ပြန်အာရုံစိုက်နိုင်တယ်</div>
+                            </article>
+                            <article class="fuel-stop" data-aos="fade-up" data-aos-delay="120">
+                                <span class="fuel-stop-time">When stuck</span>
+                                <div class="fuel-stop-name">AI Experiments</div>
+                                <div class="fuel-stop-desc">တစ်ခါတစ်လေ ဦးနှောက်က burn out ဖြစ်နိုင်တယ်။ ဒီအချိန်မှာ AI က အကြံပေးတာတွေက အသုံးဝင်တယ်၊ ဒါပေမဲ့ final decision က designer ဆီမှာပဲရှိတယ်</div>
+                            </article>
+                            <article class="fuel-stop" data-aos="fade-up" data-aos-delay="180">
+                                <span class="fuel-stop-time">Always on</span>
+                                <div class="fuel-stop-name">Workspace Mood</div>
+                                <div class="fuel-stop-desc">Warm desk lamp, organized tools, Wacom on the right, sketchbook on the left — ကိုယ့်အနားမှာလိုအပ်တာတွေရှိနေရင် creativity ပွင့်တယ်</div>
+                            </article>
                         </div>
-                        <div class="fuel-note" data-aos="fade-up" data-aos-delay="50">
-                            <span class="fuel-note-icon" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="none"><path d="M5 9h12v6a4 4 0 01-4 4H9a4 4 0 01-4-4z"/><path d="M17 10h1a3 3 0 010 6h-1"/><path d="M8 4v2"/><path d="M12 4v2"/></svg>
-                            </span>
-                            <div>
-                                <div class="fuel-title">Strong Coffee</div>
-                                <div class="fuel-desc">Black coffee, no sugar. မနက် ၇ နာရီကနေ ည ၁၀ နာရီအထိ ကော်ဖီပူပူလေးဘေးနားမှာရှိမှ အလုပ်လုပ်ရတာ စိတ်ဖျောင့်တယ်</div>
-                            </div>
-                        </div>
-                        <div class="fuel-note" data-aos="fade-up" data-aos-delay="100">
-                            <span class="fuel-note-icon" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="none"><path d="M9 18V5l10-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg>
-                            </span>
-                            <div>
-                                <div class="fuel-title">Lo-Fi & Ambient</div>
-                                <div class="fuel-desc">Lo-fi နဲ့ relaxing music — တစ်ခါတစ်လေ အာရုံစိုက်မရတော့ရင် နောက်က music နားထောင်ရုံနဲ့ ပြန်အာရုံစိုက်နိုင်တယ်</div>
-                            </div>
-                        </div>
-                        <div class="fuel-note" data-aos="fade-up" data-aos-delay="0">
-                            <span class="fuel-note-icon" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="none"><path d="M12 4v16"/><path d="M4 12h16"/><path d="M7 7l10 10"/><path d="M17 7L7 17"/></svg>
-                            </span>
-                            <div>
-                                <div class="fuel-title">AI Experiments</div>
-                                <div class="fuel-desc">တစ်ခါတစ်လေ ဦးနှောက်က burn out ဖြစ်နိုင်တယ်။ ဒီအချိန်မှာ AI က အကြံပေးတာတွေက အသုံးဝင်တယ်၊ ဒါပေမဲ့ final decision က designer ဆီမှာပဲရှိတယ်</div>
-                            </div>
-                        </div>
-                        <div class="fuel-note" data-aos="fade-up" data-aos-delay="50">
-                            <span class="fuel-note-icon" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="none"><path d="M20 12.5A8 8 0 1111.5 4 6 6 0 0020 12.5z"/></svg>
-                            </span>
-                            <div>
-                                <div class="fuel-title">Late-Night Mode</div>
-                                <div class="fuel-desc">7am ကနေ 9am ကြားနဲ့ 9pm ကနေ 10pm ကြားမှာ ဒီ website၊ class material၊ illustration projects တွေ အများဆုံးပြီးတယ်</div>
-                            </div>
-                        </div>
-                        <div class="fuel-note" data-aos="fade-up" data-aos-delay="100">
-                            <span class="fuel-note-icon" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="11" rx="2"/><path d="M8 20h8"/><path d="M12 16v4"/><path d="M8 9h8"/></svg>
-                            </span>
-                            <div>
-                                <div class="fuel-title">Workspace Mood</div>
-                                <div class="fuel-desc">Warm desk lamp, organized tools, Wacom on the right, sketchbook on the left — ကိုယ့်အနားမှာလိုအပ်တာတွေရှိနေရင် creativity ပွင့်တယ်</div>
-                            </div>
-                        </div>
+                    </div>
                     </div>
                 </div>
             </section>
@@ -4085,6 +4883,108 @@
             // Activate clicked card
             el.classList.add('active');
         }
+
+        /* ── Before / After drag-to-reveal sliders ── */
+        (function () {
+            var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            document.querySelectorAll('.ba-compare').forEach(function (el) {
+                var range = el.querySelector('.ba-range');
+                if (!range) return;
+                function setPos(v) {
+                    el.style.setProperty('--ba-pos', v + '%');
+                    range.setAttribute('aria-valuenow', v);
+                }
+                setPos(parseFloat(range.value) || 50);
+                range.addEventListener('input', function () {
+                    // Any interaction cancels the invitation nudge so it can't fight the user
+                    el.classList.remove('is-nudging');
+                    setPos(parseFloat(range.value));
+                });
+                // One-time gentle nudge inviting the drag, on scroll into view
+                if (!reduce && 'IntersectionObserver' in window) {
+                    var io = new IntersectionObserver(function (entries) {
+                        entries.forEach(function (e) {
+                            if (!e.isIntersecting) return;
+                            el.classList.add('is-nudging');
+                            setTimeout(function () { el.classList.remove('is-nudging'); }, 1800);
+                            io.unobserve(e.target);
+                        });
+                    }, { threshold: 0.45 });
+                    io.observe(el);
+                }
+            });
+        })();
+
+        /* ââ Desk photo hotspots ââ */
+        (function () {
+            var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var hotspots = Array.prototype.slice.call(document.querySelectorAll('.desk-hotspot'));
+            if (!hotspots.length) return;
+
+            function closeAll(except) {
+                hotspots.forEach(function (h) {
+                    if (h === except) return;
+                    h.classList.remove('is-open');
+                    var b = h.querySelector('.desk-pin');
+                    if (b) b.setAttribute('aria-expanded', 'false');
+                });
+            }
+
+            hotspots.forEach(function (h) {
+                var btn = h.querySelector('.desk-pin');
+                if (!btn) return;
+                btn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    var open = h.classList.toggle('is-open');
+                    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    if (open) { closeAll(h); } else { btn.blur(); }
+                });
+                btn.addEventListener('focus', function () { btn.setAttribute('aria-expanded', 'true'); });
+                btn.addEventListener('blur', function () {
+                    if (!h.classList.contains('is-open')) btn.setAttribute('aria-expanded', 'false');
+                });
+            });
+
+            document.addEventListener('click', function () { closeAll(null); });
+            document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAll(null); });
+
+            // One-time invite pulse when the desk scrolls into view
+            if (!reduce && 'IntersectionObserver' in window) {
+                var frame = document.querySelector('.desk-frame');
+                if (frame) {
+                    var io = new IntersectionObserver(function (entries) {
+                        entries.forEach(function (en) {
+                            if (!en.isIntersecting) return;
+                            hotspots.forEach(function (h) { h.classList.add('is-inviting'); });
+                            setTimeout(function () {
+                                hotspots.forEach(function (h) { h.classList.remove('is-inviting'); });
+                            }, 4200);
+                            io.unobserve(en.target);
+                        });
+                    }, { threshold: 0.4 });
+                    io.observe(frame);
+                }
+            }
+        })();
+
+        /* ── Creative Fuel day-bar fill-in on scroll ── */
+        (function () {
+            var bar = document.querySelector('.fuel-daybar');
+            if (!bar) return;
+            var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            // Only "arm" the collapsed start-state when motion is allowed; otherwise
+            // the windows render at full width immediately (no animation).
+            if (reduce || !('IntersectionObserver' in window)) { bar.classList.add('is-live'); return; }
+            bar.classList.add('fuel-daybar--armed');
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) {
+                    if (!e.isIntersecting) return;
+                    bar.classList.add('is-live');
+                    io.unobserve(e.target);
+                });
+            }, { threshold: 0.4 });
+            io.observe(bar);
+        })();
     </script>
 </body>
 
